@@ -208,15 +208,15 @@ runs:
           exit 1
         fi
     - name: Download Pytorch wheel
-        uses: actions/download-artifact@v4
-        with:
-          name: manywheel-py3_10-xpu
-          github-token: ${{ github.token }}
-          repository: pytorch/pytorch
-          run-id: 23175816273
-          path: ${{ github.workspace }}/wheels
+      uses: actions/download-artifact@v4
+      with:
+        name: manywheel-py3_10-xpu
+        github-token: ${{ github.token }}
+        repository: pytorch/pytorch
+        run-id: 23175816273
+        path: ${{ github.workspace }}/wheels
     - name: Install test target
-        shell: bash -xe {0}
-        run: |
-          pip uninstall -y torch
-          pip install --no-deps ${{ github.workspace }}/wheels/torch-*.whl
+      shell: bash -xe {0}
+      run: |
+        pip uninstall -y torch
+        pip install --no-deps ${{ github.workspace }}/wheels/torch-*.whl
