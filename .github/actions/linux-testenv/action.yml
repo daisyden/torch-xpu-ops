@@ -219,5 +219,5 @@ runs:
       shell: bash -xe {0}
       run: |
         pip uninstall -y triton triton-xpu pytorch-triton-xpu
-        pip install --no-deps ${{ github.workspace }}/wheels/triton-*.whl
+        pip install --no-deps ${{ github.workspace }}/wheels/triton*.whl
         pip list |grep -E 'intel|torch|triton'
