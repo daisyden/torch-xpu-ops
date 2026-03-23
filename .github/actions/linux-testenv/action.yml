@@ -107,6 +107,7 @@ runs:
           cd third_party/torch-xpu-ops
           git checkout ${TORCH_XPU_OPS_COMMIT}
         fi
+        git apply ${{ github.workspace }}/torch-xpu-ops/.github/scripts/skip_detect.patch
         git status && git diff && git show -s
     - name: Install E2E Requirements
       shell: bash -xe {0}

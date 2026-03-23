@@ -1,0 +1,12 @@
+diff --git a/benchmarks/dynamo/torchbench.py b/benchmarks/dynamo/torchbench.py
+index 8b79aef6596..5a859ccf4ee 100755
+--- a/benchmarks/dynamo/torchbench.py
++++ b/benchmarks/dynamo/torchbench.py
+@@ -406,6 +406,7 @@ class TorchBenchmarkRunner(BenchmarkRunner):
+                 or re.search("|".join(args.exclude), model_name, re.IGNORECASE)
+                 or model_name in args.exclude_exact
+                 or model_name in self.skip_models
++                or "detectron2" in model_name
+             ):
+                 continue
+ 
