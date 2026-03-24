@@ -35,6 +35,7 @@ runs:
       run: |
         cp ./.github/scripts/inductor_xpu_test.sh ./pytorch
         cd ./pytorch
+        sed -i 's+choices=range(1, 16),+choices=range(1, 17),+g' benchmarks/dynamo/common.py
         if [ "${{ github.event_name }}" != "pull_request" ];then
           # set models list for nightly tests
           # huggingface all and remove CamemBert
