@@ -39,6 +39,30 @@ inline size_t get_local_linear_range(sycl::nd_item<DIM>& item) {
   return n;
 }
 
+// Default subgroup shuffle: delegates to sycl::shift_group_left for scalar
+// types that are natively supported by the hardware.
+template <typename T, typename SG>
+inline T subgroup_shift_left(SG sg, T val, unsigned int offset) {
+  return sycl::shift_group_left(sg, val, offset);
+}
+
+// Per-field shuffle for SumVarData. The default sycl::shift_group_left on the
+// whole struct (24-32 bytes, mixed float/int64_t fields) can silently corrupt
+// data on some SYCL runtimes. Decomposing into individual field shuffles
+// ensures each field is shuffled correctly as a native scalar type.
+template <typename scalar_t, typename index_t, typename SG>
+inline SumVarData<scalar_t, index_t> subgroup_shift_left(
+    SG sg,
+    SumVarData<scalar_t, index_t> val,
+    unsigned int offset) {
+  return SumVarData<scalar_t, index_t>(
+      sycl::shift_group_left(sg, val.first_elem, offset),
+      sycl::shift_group_left(sg, val.sum, offset),
+      sycl::shift_group_left(sg, val.sum_of_squares, offset),
+      sycl::shift_group_left(sg, val.n, offset),
+      sycl::shift_group_left(sg, val.nf, offset));
+}
+
 template <typename T, int SIMD, int DIM>
 inline T& SubgroupReduceSumWithoutBroadcast(sycl::nd_item<DIM>& item, T& val) {
   auto sg = item.get_sub_group();
@@ -132,7 +156,7 @@ inline T& SubgroupReduceWithoutBroadcast(
   auto sg_tid = sg.get_local_linear_id();
 #pragma unroll
   for (int offset = 1; offset < SIMD; offset <<= 1) {
-    T temp = sycl::shift_group_left(sg, val, offset);
+    T temp = subgroup_shift_left(sg, val, offset);
     if (sg_tid < SIMD - offset) {
       val = op.combine(val, temp);
     }
