@@ -345,58 +345,44 @@ void launch_layer_norm_forward_kernel(
   sycl_kernel_submit(global_range, local_range, queue, kfn);
 }
 
-struct WelfordDataLN {
-  float mean;
-  float sigma2;
-  float count;
-  WelfordDataLN() : mean(0.f), sigma2(0.f), count(0.f) {}
-  WelfordDataLN(float mean, float sigma2, float count)
-      : mean(mean), sigma2(sigma2), count(count) {}
+struct SumVarDataLN {
+  float first_elem;
+  float sum;
+  float sum_of_squares;
+  SumVarDataLN() : first_elem(0.f), sum(0.f), sum_of_squares(0.f) {}
+  SumVarDataLN(float first_elem, float sum, float sum_of_squares)
+      : first_elem(first_elem), sum(sum), sum_of_squares(sum_of_squares) {}
 };
 
 template <typename U, bool rms_norm>
-WelfordDataLN WelfordOnlineSum(const U val, const WelfordDataLN& curr_sum) {
+SumVarDataLN SumVarOnlineSum(const U val, const SumVarDataLN& acc) {
   if constexpr (!rms_norm) {
-    U delta = val - curr_sum.mean;
-    U new_count = curr_sum.count + 1.f;
-    // proper division is slow, this is less accurate but noticeably faster
-    U new_mean = curr_sum.mean + delta * sycl::native::recip(new_count);
+    U dif = val - static_cast<U>(acc.first_elem);
     return {
-        static_cast<float>(new_mean),
-        static_cast<float>(curr_sum.sigma2 + delta * (val - new_mean)),
-        static_cast<float>(new_count)};
+        acc.first_elem,
+        static_cast<float>(acc.sum + dif),
+        static_cast<float>(acc.sum_of_squares + dif * dif)};
   } else {
-    return {0.f, static_cast<float>(curr_sum.sigma2 + val * val), 0.f};
+    return {0.f, 0.f, static_cast<float>(acc.sum_of_squares + val * val)};
   }
 }
 
 template <bool rms_norm>
-WelfordDataLN WelfordCombine(
-    const WelfordDataLN dataB,
-    const WelfordDataLN dataA) {
+SumVarDataLN SumVarCombineLN(
+    const SumVarDataLN dataB,
+    const SumVarDataLN dataA) {
   if constexpr (!rms_norm) {
-    using U = decltype(dataB.count);
-    U delta = dataB.mean - dataA.mean;
-    U count = dataA.count + dataB.count;
-    U mean, sigma2;
-    if (count > decltype(dataB.count){0}) {
-      auto coef = sycl::native::recip(count);
-      auto nA = dataA.count * coef;
-      auto nB = dataB.count * coef;
-      mean = nA * dataA.mean + nB * dataB.mean;
-      sigma2 = dataA.sigma2 + dataB.sigma2 + delta * delta * dataA.count * nB;
-    } else {
-      mean = U(0);
-      sigma2 = U(0);
-    }
-    return {mean, sigma2, count};
+    return {
+        dataA.first_elem,
+        dataA.sum + dataB.sum,
+        dataA.sum_of_squares + dataB.sum_of_squares};
   } else {
-    return {0.f, dataB.sigma2 + dataA.sigma2, 0.f};
+    return {0.f, 0.f, dataB.sum_of_squares + dataA.sum_of_squares};
   }
 }
 
 template <typename T, typename T_ACC, bool rms_norm>
-WelfordDataLN compute_stats(
+SumVarDataLN compute_stats(
     const T* RESTRICT X,
     const int N,
     sycl_local_acc_t<T_ACC> buf,
@@ -408,24 +394,25 @@ WelfordDataLN compute_stats(
   const int numx = item_id.get_local_range(1) * item_id.get_local_range(0);
   const int thrx = item_id.get_local_linear_id();
   const int n_vec_to_read = N / vec_size;
-  WelfordDataLN wd(0.f, 0.f, 0.f);
+  const acc_t first = static_cast<acc_t>(X[0]);
+  SumVarDataLN sd(rms_norm ? 0.f : static_cast<float>(first), 0.f, 0.f);
   // no tail, we check that N is multiple of vec_size
   for (int i = thrx; i < n_vec_to_read; i += numx) {
     vec_t data = X_vec[i];
 #pragma unroll
     for (int ii = 0; ii < vec_size; ii++) {
-      wd = WelfordOnlineSum<acc_t, rms_norm>(
-          static_cast<acc_t>(data.val[ii]), wd);
+      sd = SumVarOnlineSum<acc_t, rms_norm>(
+          static_cast<acc_t>(data.val[ii]), sd);
     }
   }
   // intra-warp reduction
   auto sg = item_id.get_sub_group();
   for (int offset = (SIMD >> 1); offset > 0; offset >>= 1) {
-    WelfordDataLN wdB{
-        sycl::shift_group_left(sg, wd.mean, offset),
-        sycl::shift_group_left(sg, wd.sigma2, offset),
-        sycl::shift_group_left(sg, wd.count, offset)};
-    wd = WelfordCombine<rms_norm>(wd, wdB);
+    SumVarDataLN sdB{
+        rms_norm ? 0.f : sycl::shift_group_left(sg, sd.first_elem, offset),
+        rms_norm ? 0.f : sycl::shift_group_left(sg, sd.sum, offset),
+        sycl::shift_group_left(sg, sd.sum_of_squares, offset)};
+    sd = SumVarCombineLN<rms_norm>(sd, sdB);
   }
 
   // threadIdx.x == 0 has correct values for each warp
@@ -437,36 +424,49 @@ WelfordDataLN compute_stats(
       if (item_id.get_local_id(1) == 0 && item_id.get_local_id(0) >= offset &&
           item_id.get_local_id(0) < 2 * offset) {
         const int wrt_y = item_id.get_local_id(0) - offset;
-        buf[2 * wrt_y] = wd.mean;
-        buf[2 * wrt_y + 1] = wd.sigma2;
-        buf[wrt_y + addr_offset] = wd.count;
+        buf[2 * wrt_y] = sd.sum;
+        buf[2 * wrt_y + 1] = sd.sum_of_squares;
       }
       sycl::group_barrier(item_id.get_group());
 
       // lower half merges
       if (item_id.get_local_id(1) == 0 && item_id.get_local_id(0) < offset) {
         const int rd_y = item_id.get_local_id(0);
-        WelfordDataLN wdB{
+        SumVarDataLN sdB{
+            sd.first_elem,
             static_cast<float>(buf[2 * rd_y]),
-            static_cast<float>(buf[2 * rd_y + 1]),
-            static_cast<float>(buf[rd_y + addr_offset])};
-        wd = WelfordCombine<rms_norm>(wd, wdB);
+            static_cast<float>(buf[2 * rd_y + 1])};
+        sd = SumVarCombineLN<rms_norm>(sd, sdB);
       }
       sycl::group_barrier(item_id.get_group());
     }
 
     if (item_id.get_local_id(1) == 0 && item_id.get_local_id(0) == 0) {
-      buf[0] = wd.mean;
-      buf[1] = wd.sigma2 / float(N);
+      if constexpr (!rms_norm) {
+        float shifted_mean = sd.sum / float(N);
+        buf[0] = shifted_mean + sd.first_elem;
+        float var = sd.sum_of_squares / float(N) - shifted_mean * shifted_mean;
+        buf[1] = var < 0.f ? 0.f : var;
+      } else {
+        buf[0] = 0.f;
+        buf[1] = sd.sum_of_squares / float(N);
+      }
     }
     sycl::group_barrier(item_id.get_group());
-    return WelfordDataLN{
-        static_cast<float>(buf[0]), static_cast<float>(buf[1]), 0.f};
+    return SumVarDataLN{
+        0.f, static_cast<float>(buf[0]), static_cast<float>(buf[1])};
   } else {
-    return WelfordDataLN{
-        sycl::select_from_group(sg, wd.mean, 0),
-        sycl::select_from_group(sg, wd.sigma2, 0) / float(N),
-        0.f};
+    float total_sum = sycl::select_from_group(sg, sd.sum, 0);
+    float total_ssq = sycl::select_from_group(sg, sd.sum_of_squares, 0);
+    float fe = sycl::select_from_group(sg, sd.first_elem, 0);
+    if constexpr (!rms_norm) {
+      float shifted_mean = total_sum / float(N);
+      float mean = shifted_mean + fe;
+      float var = total_ssq / float(N) - shifted_mean * shifted_mean;
+      return SumVarDataLN{0.f, mean, var < 0.f ? 0.f : var};
+    } else {
+      return SumVarDataLN{0.f, 0.f, total_ssq / float(N)};
+    }
   }
 }
 
@@ -477,7 +477,7 @@ struct VectorizedLayerNormKernelFunctor
   void operator()(sycl::nd_item<2> item_id) const {
     auto i1 = item_id.get_group(1);
     const T* block_row = X_ + i1 * N_;
-    WelfordDataLN wd =
+    SumVarDataLN sd =
         compute_stats<T, T_ACC, rms_norm>(block_row, N_, buf_, item_id);
 
     using vec_t = aligned_vector<T, vec_size>;
@@ -492,7 +492,7 @@ struct VectorizedLayerNormKernelFunctor
     const int thrx = item_id.get_local_linear_id();
     const int n_vec_to_read = N_ / vec_size;
 
-    T_ACC rstd_val = c10::xpu::compat::rsqrt(wd.sigma2 + eps_);
+    T_ACC rstd_val = c10::xpu::compat::rsqrt(sd.sum_of_squares + eps_);
 
     // No tail, N is guaranteed to be multiple of vec size
     for (int i = thrx; i < n_vec_to_read; i += numx) {
@@ -506,7 +506,7 @@ struct VectorizedLayerNormKernelFunctor
         for (int ii = 0; ii < vec_size; ii++) {
           if constexpr (!rms_norm) {
             out.val[ii] = static_cast<T_ACC>(gamma_vec[i].val[ii]) *
-                    (rstd_val * (static_cast<T_ACC>(data.val[ii]) - wd.mean)) +
+                    (rstd_val * (static_cast<T_ACC>(data.val[ii]) - sd.sum)) +
                 static_cast<T_ACC>(beta_vec[i].val[ii]);
           } else {
             out.val[ii] = static_cast<T_ACC>(gamma_vec[i].val[ii]) *
@@ -518,7 +518,7 @@ struct VectorizedLayerNormKernelFunctor
         for (int ii = 0; ii < vec_size; ii++) {
           if constexpr (!rms_norm) {
             out.val[ii] = static_cast<T_ACC>(gamma_vec[i].val[ii]) *
-                (rstd_val * (static_cast<T_ACC>(data.val[ii]) - wd.mean));
+                (rstd_val * (static_cast<T_ACC>(data.val[ii]) - sd.sum));
           } else {
             out.val[ii] = static_cast<T_ACC>(gamma_vec[i].val[ii]) *
                 (rstd_val * static_cast<T_ACC>(data.val[ii]));
@@ -528,7 +528,7 @@ struct VectorizedLayerNormKernelFunctor
 #pragma unroll
         for (int ii = 0; ii < vec_size; ii++) {
           out.val[ii] =
-              (rstd_val * (static_cast<T_ACC>(data.val[ii]) - wd.mean)) +
+              (rstd_val * (static_cast<T_ACC>(data.val[ii]) - sd.sum)) +
               static_cast<T_ACC>(beta_vec[i].val[ii]);
         }
       } else {
@@ -536,7 +536,7 @@ struct VectorizedLayerNormKernelFunctor
         for (int ii = 0; ii < vec_size; ii++) {
           if constexpr (!rms_norm) {
             out.val[ii] =
-                rstd_val * (static_cast<T_ACC>(data.val[ii]) - wd.mean);
+                rstd_val * (static_cast<T_ACC>(data.val[ii]) - sd.sum);
           } else {
             out.val[ii] = rstd_val * static_cast<T_ACC>(data.val[ii]);
           }
@@ -546,7 +546,7 @@ struct VectorizedLayerNormKernelFunctor
     }
     if (thrx == 0) {
       if constexpr (!rms_norm) {
-        mean_[i1] = wd.mean;
+        mean_[i1] = sd.sum;
       }
       rstd_[i1] = rstd_val;
     }
