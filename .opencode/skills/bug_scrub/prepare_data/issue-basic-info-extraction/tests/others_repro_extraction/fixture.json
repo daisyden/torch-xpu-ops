@@ -1,0 +1,16 @@
+{
+  "_doc": "Smaller Others-sheet fixture (issue #3021). Picked because its reproducer is short (~200 chars) so the full schema-JSON response fits inside the model's per-turn output budget in opencode run. Verifies the same MANDATORY rule 1 (verbatim multi-line reproducer with URLs and shell commands preserved) as the original #2200 fixture, just without the response-truncation problem.",
+  "issue_id": 3021,
+  "title": "[XPU][XCCL] torch.distributed.all_to_all_single produces corrupted output on 4x B60",
+  "body": "## \ud83d\udc1b Describe the bug\n\n`torch.distributed.all_to_all_single` produces corrupted data on 4x Intel Arc Pro B60 (XCCL). The functional-collectives equivalent (`torch.distributed._functional_collectives.all_to_all_single`) works correctly on the same setup.\n\n### Reproduction\n\n```bash\n# Run on XPU (4 GPUs)\nexport ZE_AFFINITY_MASK=0,1,2,3\ntorchrun --nproc_per_node=4 test_alltoall_single.py\n\n# Test different dtypes\ntorchrun --nproc_per_node=4 test_alltoall_single.py --dtype bfloat16\n```\n\nTest 1 (simple small tensor) FAILs on 4 GPUs. Affects Ulysses attention in sglang-diffusion.\n\n### Environment\n- PyTorch 2.9.0+xpu, oneCCL 2021.16.1\n- Intel Arc Pro B60 x4\n- Container: intel/llm-scaler-omni:0.1.0-b6\n\n### Walkaround\nOverride `all_to_all_4D` in `XpuCommunicator` to use `ft_c`.",
+  "labels": ["module: distributed", "module: xpu"],
+  "expected": {
+    "kind": "other",
+    "test_cases_empty": true,
+    "reproducer_must_contain": [
+      "export ZE_AFFINITY_MASK=0,1,2,3",
+      "torchrun --nproc_per_node=4 test_alltoall_single.py",
+      "--dtype bfloat16"
+    ]
+  }
+}
