@@ -1,0 +1,15 @@
+ProviderModelNotFoundError: ProviderModelNotFoundError
+ data: {
+  providerID: "anthropic",
+  modelID: "claude-opus-4-7",
+  suggestions: [],
+},
+
+      at <anonymous> (/$bunfs/root/chunk-1224dpsa.js:565:72153)
+      at ~effect/Effect/successCont (/$bunfs/root/chunk-y3yhj99w.js:25:7738)
+      at runLoop (/$bunfs/root/chunk-y3yhj99w.js:25:2045)
+      at evaluate (/$bunfs/root/chunk-y3yhj99w.js:25:1435)
+      at runTasks (/$bunfs/root/chunk-y3yhj99w.js:11:12688)
+      at afterScheduled (/$bunfs/root/chunk-y3yhj99w.js:11:12575)
+
+[91m[1mError: [0mModel not found: anthropic/claude-opus-4-7.

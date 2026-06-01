@@ -1,0 +1,21 @@
+{
+  "_doc": "Canonical fixture from data/llm_extracted.json (issue #1171). The extraction skill at prepare_data/issue-basic-info-extraction must parse this issue body and emit exactly one test_case with the expected file/class/method.",
+  "issue_id": 1171,
+  "title": "[XPU][LNL][Windows] test_MaxUnpool_index_errors_case2_xpu fails on LNL Windows due to generic AssertHandler::printMessage",
+  "body": "## \ud83d\udc1b Describe the bug\n\nOn LNL Windows, the device-side assertion message used by MaxUnpool is replaced by a generic `AssertHandler::printMessage`, which breaks the pooling unittest.\n\nTo execute this test, run the following from the base repo dir:\n    python test\\nn\\test_pooling.py TestPoolingNNDeviceTypeXPU.test_MaxUnpool_index_errors_case2_xpu\n\nThis message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0\n\nError:\n```\nAssertionError: 'Assertion `maxind >= 0 && maxind < outputImageSize` failed' not found in '\\nAssertHandler::printMessage\\n' : The expected error was not found\n```\n\nTraceback:\n```\nTraceback (most recent call last):\n  File \"c:\\Users\\dcai01\\pytorch\\third_party\\torch-xpu-ops\\test\\xpu\\nn\\test_pooling_xpu.py\", line 313, in _test_MaxUnpool_index_errors\n    self.assertIn(error_msg, output, \"The expected error was not found\")\n  File \"C:\\Users\\dcai01\\.conda\\envs\\daisy\\lib\\unittest\\case.py\", line 1112, in assertIn\n    self.fail(self._formatMessage(msg, standardMsg))\n  File \"C:\\Users\\dcai01\\.conda\\envs\\daisy\\lib\\unittest\\case.py\", line 675, in fail\n    raise self.failureException(msg)\nAssertionError: 'Assertion `maxind >= 0 && maxind < outputImageSize` failed' not found in '\\nAssertHandler::printMessage\\n' : The expected error was not found\n```",
+  "labels": ["module: ut"],
+  "expected": {
+    "kind": "unittest",
+    "test_cases": [
+      {
+        "test_file_contains": "test_pooling",
+        "test_class": "TestPoolingNNDeviceTypeXPU",
+        "test_method": "test_MaxUnpool_index_errors_case2_xpu"
+      }
+    ],
+    "reproducer_must_contain": [
+      "test_pooling",
+      "TestPoolingNNDeviceTypeXPU.test_MaxUnpool_index_errors_case2_xpu"
+    ]
+  }
+}
