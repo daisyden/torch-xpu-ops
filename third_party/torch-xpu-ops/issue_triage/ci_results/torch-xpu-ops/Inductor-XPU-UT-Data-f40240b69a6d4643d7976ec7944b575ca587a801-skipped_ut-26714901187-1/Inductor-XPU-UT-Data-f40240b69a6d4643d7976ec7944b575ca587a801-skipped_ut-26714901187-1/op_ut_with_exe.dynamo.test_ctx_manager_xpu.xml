@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="35.060" timestamp="2026-05-31T14:58:52.352134" hostname="ef1f3112d585"><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_ctx_manager_xpu.CtxManagerTests" name="test_cuda_amp_autocast" time="0.251"><failure message="AssertionError: Object comparison failed: torch.float32 != torch.float64&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/dynamo/test_ctx_manager_xpu.py CtxManagerTests.test_cuda_amp_autocast&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/dynamo/test_ctx_manager_xpu.py", line 666, in test_cuda_amp_autocast
+    self.assertEqual(exported.dtype, torch.float64)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/test_case.py", line 128, in assertEqual
+    return super().assertEqual(x, y, *args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 4568, in assertEqual
+    raise error_metas.pop()[0].to_error(  # type: ignore[index]
+AssertionError: Object comparison failed: torch.float32 != torch.float64
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/dynamo/test_ctx_manager_xpu.py CtxManagerTests.test_cuda_amp_autocast
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_ctx_manager_xpu.CtxManagerTests" name="test_autocast_float64" time="0.252"><failure message="AssertionError: Object comparison failed: torch.float32 != torch.float64&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/dynamo/test_ctx_manager_xpu.py CtxManagerTests.test_autocast_float64&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/dynamo/test_ctx_manager_xpu.py", line 941, in test_autocast_float64
+    self.assertEqual(exported.dtype, torch.float64)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/test_case.py", line 128, in assertEqual
+    return super().assertEqual(x, y, *args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 4568, in assertEqual
+    raise error_metas.pop()[0].to_error(  # type: ignore[index]
+AssertionError: Object comparison failed: torch.float32 != torch.float64
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/dynamo/test_ctx_manager_xpu.py CtxManagerTests.test_autocast_float64
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase></testsuite></testsuites>

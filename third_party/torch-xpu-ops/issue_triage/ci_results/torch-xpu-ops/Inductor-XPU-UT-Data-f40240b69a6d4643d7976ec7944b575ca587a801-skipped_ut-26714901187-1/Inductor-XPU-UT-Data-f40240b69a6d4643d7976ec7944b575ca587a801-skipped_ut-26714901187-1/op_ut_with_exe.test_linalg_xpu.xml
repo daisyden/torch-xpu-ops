@@ -1,0 +1,803 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="56" skipped="3" tests="59" time="15.995" timestamp="2026-05-31T14:56:21.094295" hostname="ef1f3112d585"><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_rowwise_scaled_gemm_numerics_tunableop_xpu_float8_e4m3fn" time="0.001"><skipped type="pytest.skip" message="XPU/oneDNN does not support Float8_e4m3fnuz (CUDA primary is ROCm-only)">/__w/torch-xpu-ops/torch-xpu-ops/pytorch/test/test_linalg.py:6440: XPU/oneDNN does not support Float8_e4m3fnuz (CUDA primary is ROCm-only)</skipped></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_mm_submatrix_offline_tunableop_xpu_float32" time="0.005"><failure message="AssertionError: Torch not compiled with CUDA enabled&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_mm_submatrix_offline_tunableop_xpu_float32&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 6165, in test_mm_submatrix_offline_tunableop
+    ordinal = torch.cuda.current_device()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/cuda/__init__.py", line 1201, in current_device
+    _lazy_init()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/cuda/__init__.py", line 518, in _lazy_init
+    raise AssertionError("Torch not compiled with CUDA enabled")
+AssertionError: Torch not compiled with CUDA enabled
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_mm_submatrix_offline_tunableop_xpu_float32
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_bmm_tunableop_rocm_xpu_float32" time="0.005"><failure message="AttributeError: module 'torch.xpu' has no attribute 'tunable'&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_bmm_tunableop_rocm_xpu_float32&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 5532, in test_bmm_tunableop_rocm
+    with self._tunableop_ctx():
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 476, in __tunableop_ctx
+    torch.xpu.tunable.enable(True)
+AttributeError: module 'torch.xpu' has no attribute 'tunable'
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_bmm_tunableop_rocm_xpu_float32
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_matmul_check_entries_tunableop_xpu_float16" time="0.005"><failure message="AttributeError: module 'torch.xpu' has no attribute 'tunable'&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_matmul_check_entries_tunableop_xpu_float16&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 5668, in test_matmul_check_entries_tunableop
+    with self._tunableop_ctx():
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 476, in __tunableop_ctx
+    torch.xpu.tunable.enable(True)
+AttributeError: module 'torch.xpu' has no attribute 'tunable'
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_matmul_check_entries_tunableop_xpu_float16
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_matmul_empty_existing_file_tunableop_xpu_float32" time="0.001"><failure message="AttributeError: module 'torch.xpu' has no attribute 'tunable'&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_matmul_empty_existing_file_tunableop_xpu_float32&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 6417, in test_matmul_empty_existing_file_tunableop
+    with self._tunableop_ctx():
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 476, in __tunableop_ctx
+    torch.xpu.tunable.enable(True)
+AttributeError: module 'torch.xpu' has no attribute 'tunable'
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_matmul_empty_existing_file_tunableop_xpu_float32
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_numeric_check_leak_tunableop_rocm_xpu_bfloat16" time="0.001"><failure message="AssertionError: Torch not compiled with CUDA enabled&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_numeric_check_leak_tunableop_rocm_xpu_bfloat16&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 5589, in test_numeric_check_leak_tunableop_rocm
+    i1 = torch.randn((B, N, M), device=device, dtype=dtype)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/cuda/__init__.py", line 518, in _lazy_init
+    raise AssertionError("Torch not compiled with CUDA enabled")
+AssertionError: Torch not compiled with CUDA enabled
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_numeric_check_leak_tunableop_rocm_xpu_bfloat16
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_call_count_tunableop_xpu_float32" time="0.002"><failure message="AttributeError: module 'torch.xpu' has no attribute 'tunable'&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_call_count_tunableop_xpu_float32&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 6477, in test_call_count_tunableop
+    with self._tunableop_ctx():
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 476, in __tunableop_ctx
+    torch.xpu.tunable.enable(True)
+AttributeError: module 'torch.xpu' has no attribute 'tunable'
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_call_count_tunableop_xpu_float32
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_scaled_gemm_offline_tunableop_xpu_float8_e4m3fn" time="0.004"><failure message="AttributeError: module 'torch.xpu' has no attribute 'tunable'&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_scaled_gemm_offline_tunableop_xpu_float8_e4m3fn&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 5357, in test_scaled_gemm_offline_tunableop
+    with self._tunableop_ctx():
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 476, in __tunableop_ctx
+    torch.xpu.tunable.enable(True)
+AttributeError: module 'torch.xpu' has no attribute 'tunable'
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_scaled_gemm_offline_tunableop_xpu_float8_e4m3fn
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_matmul_offline_mgpu_tunableop_xpu_float32" time="0.001"><skipped type="pytest.skip" message="Requires at least 2 GPUs">/__w/torch-xpu-ops/torch-xpu-ops/pytorch/test/test_linalg.py:5441: Requires at least 2 GPUs</skipped></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_numerical_check_accuracy_tunableop_xpu_float16" time="0.002"><failure message="AssertionError: Torch not compiled with CUDA enabled&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_numerical_check_accuracy_tunableop_xpu_float16&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 6546, in test_numerical_check_accuracy_tunableop
+    a = torch.randn(m, k, device='cuda')
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/cuda/__init__.py", line 518, in _lazy_init
+    raise AssertionError("Torch not compiled with CUDA enabled")
+AssertionError: Torch not compiled with CUDA enabled
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_numerical_check_accuracy_tunableop_xpu_float16
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_scaled_gemm_offline_tunableop_xpu_float8_e5m2" time="0.002"><failure message="AttributeError: module 'torch.xpu' has no attribute 'tunable'&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_scaled_gemm_offline_tunableop_xpu_float8_e5m2&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 5357, in test_scaled_gemm_offline_tunableop
+    with self._tunableop_ctx():
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 476, in __tunableop_ctx
+    torch.xpu.tunable.enable(True)
+AttributeError: module 'torch.xpu' has no attribute 'tunable'
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_scaled_gemm_offline_tunableop_xpu_float8_e5m2
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_matmul_offline_tunableop_xpu_float16" time="0.001"><failure message="AttributeError: module 'torch.xpu' has no attribute 'tunable'&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_matmul_offline_tunableop_xpu_float16&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 5252, in test_matmul_offline_tunableop
+    with self._tunableop_ctx():
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 476, in __tunableop_ctx
+    torch.xpu.tunable.enable(True)
+AttributeError: module 'torch.xpu' has no attribute 'tunable'
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_matmul_offline_tunableop_xpu_float16
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_numerical_check_accuracy_tunableop_xpu_float32" time="0.001"><failure message="AssertionError: Torch not compiled with CUDA enabled&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_numerical_check_accuracy_tunableop_xpu_float32&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 6546, in test_numerical_check_accuracy_tunableop
+    a = torch.randn(m, k, device='cuda')
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/cuda/__init__.py", line 518, in _lazy_init
+    raise AssertionError("Torch not compiled with CUDA enabled")
+AssertionError: Torch not compiled with CUDA enabled
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_numerical_check_accuracy_tunableop_xpu_float32
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_scaled_gemm_tunableop_xpu_float8_e4m3fn" time="0.001"><failure message="AttributeError: module 'torch.xpu' has no attribute 'tunable'&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_scaled_gemm_tunableop_xpu_float8_e4m3fn&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 5882, in test_scaled_gemm_tunableop
+    with self._tunableop_ctx():
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 476, in __tunableop_ctx
+    torch.xpu.tunable.enable(True)
+AttributeError: module 'torch.xpu' has no attribute 'tunable'
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_scaled_gemm_tunableop_xpu_float8_e4m3fn
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_matmul_small_brute_force_tunableop_xpu_float16" time="0.001"><failure message="AttributeError: module 'torch.xpu' has no attribute 'tunable'&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_matmul_small_brute_force_tunableop_xpu_float16&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 5192, in test_matmul_small_brute_force_tunableop
+    with self._tunableop_ctx():
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 476, in __tunableop_ctx
+    torch.xpu.tunable.enable(True)
+AttributeError: module 'torch.xpu' has no attribute 'tunable'
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_matmul_small_brute_force_tunableop_xpu_float16
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_scaled_gemm_tunableop_xpu_float8_e5m2" time="0.001"><failure message="AttributeError: module 'torch.xpu' has no attribute 'tunable'&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_scaled_gemm_tunableop_xpu_float8_e5m2&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 5882, in test_scaled_gemm_tunableop
+    with self._tunableop_ctx():
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 476, in __tunableop_ctx
+    torch.xpu.tunable.enable(True)
+AttributeError: module 'torch.xpu' has no attribute 'tunable'
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_scaled_gemm_tunableop_xpu_float8_e5m2
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_numerical_check_python_binding_tunableop_xpu_float16" time="0.001"><failure message="AttributeError: module 'torch.xpu' has no attribute 'tunable'&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_numerical_check_python_binding_tunableop_xpu_float16&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 6520, in test_numerical_check_python_binding_tunableop
+    with self._tunableop_ctx():
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 476, in __tunableop_ctx
+    torch.xpu.tunable.enable(True)
+AttributeError: module 'torch.xpu' has no attribute 'tunable'
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_numerical_check_python_binding_tunableop_xpu_float16
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_matmul_small_brute_force_tunableop_xpu_float32" time="0.001"><failure message="AttributeError: module 'torch.xpu' has no attribute 'tunable'&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_matmul_small_brute_force_tunableop_xpu_float32&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 5192, in test_matmul_small_brute_force_tunableop
+    with self._tunableop_ctx():
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 476, in __tunableop_ctx
+    torch.xpu.tunable.enable(True)
+AttributeError: module 'torch.xpu' has no attribute 'tunable'
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_matmul_small_brute_force_tunableop_xpu_float32
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_tf32_offline_tunableop_xpu_float32" time="0.001"><failure message="AttributeError: module 'torch.xpu' has no attribute 'tunable'&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_tf32_offline_tunableop_xpu_float32&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 6009, in test_tf32_offline_tunableop
+    with self._tunableop_ctx():
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 476, in __tunableop_ctx
+    torch.xpu.tunable.enable(True)
+AttributeError: module 'torch.xpu' has no attribute 'tunable'
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_tf32_offline_tunableop_xpu_float32
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_offline_tuning_append_to_existing_file_tunableop_xpu_float32" time="0.001"><failure message="AttributeError: module 'torch.xpu' has no attribute 'tunable'&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_offline_tuning_append_to_existing_file_tunableop_xpu_float32&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 6369, in test_offline_tuning_append_to_existing_file_tunableop
+    with self._tunableop_ctx():
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 476, in __tunableop_ctx
+    torch.xpu.tunable.enable(True)
+AttributeError: module 'torch.xpu' has no attribute 'tunable'
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_offline_tuning_append_to_existing_file_tunableop_xpu_float32
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_matmul_small_brute_force_tunableop_xpu_float64" time="0.001"><failure message="AttributeError: module 'torch.xpu' has no attribute 'tunable'&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_matmul_small_brute_force_tunableop_xpu_float64&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 5192, in test_matmul_small_brute_force_tunableop
+    with self._tunableop_ctx():
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 476, in __tunableop_ctx
+    torch.xpu.tunable.enable(True)
+AttributeError: module 'torch.xpu' has no attribute 'tunable'
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_matmul_small_brute_force_tunableop_xpu_float64
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_ops_append_to_existing_file_tunableop_xpu_float32" time="0.001"><failure message="AttributeError: module 'torch.xpu' has no attribute 'tunable'&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_ops_append_to_existing_file_tunableop_xpu_float32&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 6314, in test_ops_append_to_existing_file_tunableop
+    with self._tunableop_ctx():
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 476, in __tunableop_ctx
+    torch.xpu.tunable.enable(True)
+AttributeError: module 'torch.xpu' has no attribute 'tunable'
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_ops_append_to_existing_file_tunableop_xpu_float32
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_tf32_tunableop_xpu_float32" time="0.002"><failure message="AttributeError: module 'torch.xpu' has no attribute 'tunable'&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_tf32_tunableop_xpu_float32&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 5946, in test_tf32_tunableop
+    with self._tunableop_ctx():
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 476, in __tunableop_ctx
+    torch.xpu.tunable.enable(True)
+AttributeError: module 'torch.xpu' has no attribute 'tunable'
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_tf32_tunableop_xpu_float32
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_minimum_tuning_iteration_tunableop_xpu_float16" time="0.001"><failure message="AttributeError: module 'torch.xpu' has no attribute 'tunable'&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_minimum_tuning_iteration_tunableop_xpu_float16&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 5644, in test_minimum_tuning_iteration_tunableop
+    with self._tunableop_ctx():
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 476, in __tunableop_ctx
+    torch.xpu.tunable.enable(True)
+AttributeError: module 'torch.xpu' has no attribute 'tunable'
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_minimum_tuning_iteration_tunableop_xpu_float16
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_rotating_buffer_tunableop_xpu_float32" time="0.001"><skipped type="pytest.skip" message="xpu does not support TunableOp rotating buffer API">/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py:453: xpu does not support TunableOp rotating buffer API</skipped></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_validator_tunableop_rocm_xpu_float32" time="0.001"><failure message="AttributeError: module 'torch.xpu' has no attribute 'tunable'&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_validator_tunableop_rocm_xpu_float32&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 5620, in test_validator_tunableop_rocm
+    with self._tunableop_ctx():
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 476, in __tunableop_ctx
+    torch.xpu.tunable.enable(True)
+AttributeError: module 'torch.xpu' has no attribute 'tunable'
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_validator_tunableop_rocm_xpu_float32
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_addmm_relu_tunableop_rocm_xpu_float32" time="0.001"><failure message="AttributeError: module 'torch.xpu' has no attribute 'tunable'&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_addmm_relu_tunableop_rocm_xpu_float32&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 447, in addmm_relu_tunableop_rocm
+    with self._tunableop_ctx():
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 476, in __tunableop_ctx
+    torch.xpu.tunable.enable(True)
+AttributeError: module 'torch.xpu' has no attribute 'tunable'
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_addmm_relu_tunableop_rocm_xpu_float32
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_addmm_relu_tunableop_rocm_xpu_float64" time="0.001"><failure message="AttributeError: module 'torch.xpu' has no attribute 'tunable'&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_addmm_relu_tunableop_rocm_xpu_float64&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 447, in addmm_relu_tunableop_rocm
+    with self._tunableop_ctx():
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 476, in __tunableop_ctx
+    torch.xpu.tunable.enable(True)
+AttributeError: module 'torch.xpu' has no attribute 'tunable'
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_addmm_relu_tunableop_rocm_xpu_float64
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_blaslog_tunableop_xpu_float16" time="0.001"><failure message="AttributeError: module 'torch.xpu' has no attribute 'tunable'&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_blaslog_tunableop_xpu_float16&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 6093, in test_blaslog_tunableop
+    with self._tunableop_ctx():
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 476, in __tunableop_ctx
+    torch.xpu.tunable.enable(True)
+AttributeError: module 'torch.xpu' has no attribute 'tunable'
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_blaslog_tunableop_xpu_float16
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_dump_results_on_exit_tunableop_xpu_float32" time="0.002"><failure message="AttributeError: module 'torch.xpu' has no attribute 'tunable'&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_dump_results_on_exit_tunableop_xpu_float32&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 5754, in test_dump_results_on_exit_tunableop
+    with self._tunableop_ctx():
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 476, in __tunableop_ctx
+    torch.xpu.tunable.enable(True)
+AttributeError: module 'torch.xpu' has no attribute 'tunable'
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_dump_results_on_exit_tunableop_xpu_float32
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_gemm_bias_offline_tunableop_xpu_bfloat16" time="0.001"><failure message="AssertionError: Torch not compiled with CUDA enabled&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_gemm_bias_offline_tunableop_xpu_bfloat16&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 5811, in test_gemm_bias_offline_tunableop
+    ordinal = torch.cuda.current_device()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/cuda/__init__.py", line 1201, in current_device
+    _lazy_init()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/cuda/__init__.py", line 518, in _lazy_init
+    raise AssertionError("Torch not compiled with CUDA enabled")
+AssertionError: Torch not compiled with CUDA enabled
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_gemm_bias_offline_tunableop_xpu_bfloat16
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test__dyn_quant_matmul_4bit_m_1_k_128_n_11008_xpu" time="0.544"><failure message="NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_matmul_4bit_m_1_k_128_n_11008_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8277, in test__dyn_quant_matmul_4bit
+    b_int4pack, b_scales_and_zeros = dyn_quant_pack_4bit_weight(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8260, in dyn_quant_pack_4bit_weight
+    b_int4pack = torch._dyn_quant_pack_4bit_weight(
+NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_matmul_4bit_m_1_k_128_n_11008_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test__dyn_quant_matmul_4bit_m_32_k_64_n_4096_xpu" time="0.546"><failure message="NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_matmul_4bit_m_32_k_64_n_4096_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8277, in test__dyn_quant_matmul_4bit
+    b_int4pack, b_scales_and_zeros = dyn_quant_pack_4bit_weight(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8260, in dyn_quant_pack_4bit_weight
+    b_int4pack = torch._dyn_quant_pack_4bit_weight(
+NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_matmul_4bit_m_32_k_64_n_4096_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test__dyn_quant_matmul_4bit_m_1_k_128_n_4096_xpu" time="0.003"><failure message="NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_matmul_4bit_m_1_k_128_n_4096_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8277, in test__dyn_quant_matmul_4bit
+    b_int4pack, b_scales_and_zeros = dyn_quant_pack_4bit_weight(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8260, in dyn_quant_pack_4bit_weight
+    b_int4pack = torch._dyn_quant_pack_4bit_weight(
+NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_matmul_4bit_m_1_k_128_n_4096_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_gemm_bias_tunableop_xpu_bfloat16" time="0.001"><failure message="AttributeError: module 'torch.xpu' has no attribute 'tunable'&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_gemm_bias_tunableop_xpu_bfloat16&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 5775, in test_gemm_bias_tunableop
+    with self._tunableop_ctx():
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 476, in __tunableop_ctx
+    torch.xpu.tunable.enable(True)
+AttributeError: module 'torch.xpu' has no attribute 'tunable'
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_gemm_bias_tunableop_xpu_bfloat16
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test__dyn_quant_matmul_4bit_m_1_k_64_n_11008_xpu" time="0.003"><failure message="NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_matmul_4bit_m_1_k_64_n_11008_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8277, in test__dyn_quant_matmul_4bit
+    b_int4pack, b_scales_and_zeros = dyn_quant_pack_4bit_weight(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8260, in dyn_quant_pack_4bit_weight
+    b_int4pack = torch._dyn_quant_pack_4bit_weight(
+NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_matmul_4bit_m_1_k_64_n_11008_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test__dyn_quant_pack_4bit_weight_k_64_n_48_xpu" time="0.613"><failure message="NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_pack_4bit_weight_k_64_n_48_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8225, in test__dyn_quant_pack_4bit_weight
+    b_int4pack = torch._dyn_quant_pack_4bit_weight(
+NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_pack_4bit_weight_k_64_n_48_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test__dyn_quant_pack_4bit_weight_k_256_n_128_xpu" time="0.066"><failure message="NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_pack_4bit_weight_k_256_n_128_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8225, in test__dyn_quant_pack_4bit_weight
+    b_int4pack = torch._dyn_quant_pack_4bit_weight(
+NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_pack_4bit_weight_k_256_n_128_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test__dyn_quant_pack_4bit_weight_k_64_n_64_xpu" time="0.003"><failure message="NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_pack_4bit_weight_k_64_n_64_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8225, in test__dyn_quant_pack_4bit_weight
+    b_int4pack = torch._dyn_quant_pack_4bit_weight(
+NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_pack_4bit_weight_k_64_n_64_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test__dyn_quant_pack_4bit_weight_k_256_n_32_xpu" time="0.003"><failure message="NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_pack_4bit_weight_k_256_n_32_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8225, in test__dyn_quant_pack_4bit_weight
+    b_int4pack = torch._dyn_quant_pack_4bit_weight(
+NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_pack_4bit_weight_k_256_n_32_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test__dyn_quant_matmul_4bit_m_1_k_64_n_4096_xpu" time="0.003"><failure message="NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_matmul_4bit_m_1_k_64_n_4096_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8277, in test__dyn_quant_matmul_4bit
+    b_int4pack, b_scales_and_zeros = dyn_quant_pack_4bit_weight(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8260, in dyn_quant_pack_4bit_weight
+    b_int4pack = torch._dyn_quant_pack_4bit_weight(
+NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_matmul_4bit_m_1_k_64_n_4096_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test__dyn_quant_pack_4bit_weight_k_256_n_48_xpu" time="0.002"><failure message="NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_pack_4bit_weight_k_256_n_48_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8225, in test__dyn_quant_pack_4bit_weight
+    b_int4pack = torch._dyn_quant_pack_4bit_weight(
+NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_pack_4bit_weight_k_256_n_48_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_addmm_relu_tunableop_rocm_xpu_bfloat16" time="0.001"><failure message="AttributeError: module 'torch.xpu' has no attribute 'tunable'&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_addmm_relu_tunableop_rocm_xpu_bfloat16&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 447, in addmm_relu_tunableop_rocm
+    with self._tunableop_ctx():
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 476, in __tunableop_ctx
+    torch.xpu.tunable.enable(True)
+AttributeError: module 'torch.xpu' has no attribute 'tunable'
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_addmm_relu_tunableop_rocm_xpu_bfloat16
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_addmm_relu_tunableop_rocm_xpu_float16" time="0.001"><failure message="AttributeError: module 'torch.xpu' has no attribute 'tunable'&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_addmm_relu_tunableop_rocm_xpu_float16&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 447, in addmm_relu_tunableop_rocm
+    with self._tunableop_ctx():
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 476, in __tunableop_ctx
+    torch.xpu.tunable.enable(True)
+AttributeError: module 'torch.xpu' has no attribute 'tunable'
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_addmm_relu_tunableop_rocm_xpu_float16
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test__dyn_quant_matmul_4bit_m_32_k_64_n_11008_xpu" time="0.002"><failure message="NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_matmul_4bit_m_32_k_64_n_11008_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8277, in test__dyn_quant_matmul_4bit
+    b_int4pack, b_scales_and_zeros = dyn_quant_pack_4bit_weight(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8260, in dyn_quant_pack_4bit_weight
+    b_int4pack = torch._dyn_quant_pack_4bit_weight(
+NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_matmul_4bit_m_32_k_64_n_11008_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test__dyn_quant_matmul_4bit_m_32_k_128_n_11008_xpu" time="0.540"><failure message="NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_matmul_4bit_m_32_k_128_n_11008_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8277, in test__dyn_quant_matmul_4bit
+    b_int4pack, b_scales_and_zeros = dyn_quant_pack_4bit_weight(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8260, in dyn_quant_pack_4bit_weight
+    b_int4pack = torch._dyn_quant_pack_4bit_weight(
+NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_matmul_4bit_m_32_k_128_n_11008_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test__dyn_quant_matmul_4bit_m_32_k_128_n_4096_xpu" time="0.003"><failure message="NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_matmul_4bit_m_32_k_128_n_4096_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8277, in test__dyn_quant_matmul_4bit
+    b_int4pack, b_scales_and_zeros = dyn_quant_pack_4bit_weight(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8260, in dyn_quant_pack_4bit_weight
+    b_int4pack = torch._dyn_quant_pack_4bit_weight(
+NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_matmul_4bit_m_32_k_128_n_4096_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test__dyn_quant_pack_4bit_weight_k_256_n_64_xpu" time="0.598"><failure message="NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_pack_4bit_weight_k_256_n_64_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8225, in test__dyn_quant_pack_4bit_weight
+    b_int4pack = torch._dyn_quant_pack_4bit_weight(
+NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_pack_4bit_weight_k_256_n_64_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test__dyn_quant_pack_4bit_weight_k_64_n_128_xpu" time="0.003"><failure message="NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_pack_4bit_weight_k_64_n_128_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8225, in test__dyn_quant_pack_4bit_weight
+    b_int4pack = torch._dyn_quant_pack_4bit_weight(
+NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_pack_4bit_weight_k_64_n_128_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_compile_dyn_quant_matmul_4bit_m_32_k_128_n_4096_xpu" time="8.517"><failure message="NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_compile_dyn_quant_matmul_4bit_m_32_k_128_n_4096_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8347, in test_compile_dyn_quant_matmul_4bit
+    res = dyn_quant_matmul_4bit(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1166, in compile_wrapper
+    result = fn(*args, **kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8332, in dyn_quant_matmul_4bit
+    @torch.compile
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/aot_autograd.py", line 1277, in forward
+    return compiled_fn(full_args)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 1142, in runtime_wrapper
+    result = _codegen_runtime_wrapper(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:codegen(runtime_wrapper_orchestration)", line 8, in _runtime_wrapper
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 2549, in __call__
+    return self.compiled_fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_inductor/output_code.py", line 763, in __call__
+    return self.current_callable(inputs)
+  File "/tmp/torchinductor_ubuntu/ru/cruve63ojmhwhuq36hzctnldkthiuup2nd4efhqt4f6h77fxrmf7.py", line 57, in call
+    buf0 = torch.ops.aten._dyn_quant_pack_4bit_weight.default(arg0_1, arg1_1, None, 32, 128, 4096)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 871, in __call__
+    return self._op(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_compile.py", line 54, in inner
+    return disable_fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 433, in __torch_dispatch__
+    res = func(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 871, in __call__
+    return self._op(*args, **kwargs)
+NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_compile_dyn_quant_matmul_4bit_m_32_k_128_n_4096_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_compile_dyn_quant_matmul_4bit_m_1_k_64_n_11008_xpu" time="7.904"><failure message="NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_compile_dyn_quant_matmul_4bit_m_1_k_64_n_11008_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8347, in test_compile_dyn_quant_matmul_4bit
+    res = dyn_quant_matmul_4bit(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1166, in compile_wrapper
+    result = fn(*args, **kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8332, in dyn_quant_matmul_4bit
+    @torch.compile
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/aot_autograd.py", line 1277, in forward
+    return compiled_fn(full_args)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 1142, in runtime_wrapper
+    result = _codegen_runtime_wrapper(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:codegen(runtime_wrapper_orchestration)", line 8, in _runtime_wrapper
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 2549, in __call__
+    return self.compiled_fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_inductor/output_code.py", line 763, in __call__
+    return self.current_callable(inputs)
+  File "/tmp/torchinductor_ubuntu/cl/cclj2qmfm5cnvvdb5nkrimwikyrzgjbpmnveipd2aax5otdq2g2k.py", line 57, in call
+    buf0 = torch.ops.aten._dyn_quant_pack_4bit_weight.default(arg0_1, arg1_1, None, 32, 64, 11008)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 871, in __call__
+    return self._op(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_compile.py", line 54, in inner
+    return disable_fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 433, in __torch_dispatch__
+    res = func(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 871, in __call__
+    return self._op(*args, **kwargs)
+NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_compile_dyn_quant_matmul_4bit_m_1_k_64_n_11008_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_compile_dyn_quant_matmul_4bit_m_32_k_64_n_4096_xpu" time="7.989"><failure message="NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_compile_dyn_quant_matmul_4bit_m_32_k_64_n_4096_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8347, in test_compile_dyn_quant_matmul_4bit
+    res = dyn_quant_matmul_4bit(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1166, in compile_wrapper
+    result = fn(*args, **kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8332, in dyn_quant_matmul_4bit
+    @torch.compile
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/aot_autograd.py", line 1277, in forward
+    return compiled_fn(full_args)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 1142, in runtime_wrapper
+    result = _codegen_runtime_wrapper(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:codegen(runtime_wrapper_orchestration)", line 8, in _runtime_wrapper
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 2549, in __call__
+    return self.compiled_fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_inductor/output_code.py", line 763, in __call__
+    return self.current_callable(inputs)
+  File "/tmp/torchinductor_ubuntu/cb/ccbskscezrpivfobd5lklwp7vgtss6nxe3ttphlshxj4anfejiuq.py", line 57, in call
+    buf0 = torch.ops.aten._dyn_quant_pack_4bit_weight.default(arg0_1, arg1_1, None, 32, 64, 4096)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 871, in __call__
+    return self._op(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_compile.py", line 54, in inner
+    return disable_fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 433, in __torch_dispatch__
+    res = func(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 871, in __call__
+    return self._op(*args, **kwargs)
+NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_compile_dyn_quant_matmul_4bit_m_32_k_64_n_4096_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_compile_dyn_quant_matmul_4bit_m_1_k_128_n_11008_xpu" time="8.564"><failure message="NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_compile_dyn_quant_matmul_4bit_m_1_k_128_n_11008_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8347, in test_compile_dyn_quant_matmul_4bit
+    res = dyn_quant_matmul_4bit(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1166, in compile_wrapper
+    result = fn(*args, **kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8332, in dyn_quant_matmul_4bit
+    @torch.compile
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/aot_autograd.py", line 1277, in forward
+    return compiled_fn(full_args)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 1142, in runtime_wrapper
+    result = _codegen_runtime_wrapper(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:codegen(runtime_wrapper_orchestration)", line 8, in _runtime_wrapper
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 2549, in __call__
+    return self.compiled_fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_inductor/output_code.py", line 763, in __call__
+    return self.current_callable(inputs)
+  File "/tmp/torchinductor_ubuntu/2r/c2rtyd72swqge4mw7nwpibom35tthnty7hh3btpl3jalyjysqbzt.py", line 57, in call
+    buf0 = torch.ops.aten._dyn_quant_pack_4bit_weight.default(arg0_1, arg1_1, None, 32, 128, 11008)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 871, in __call__
+    return self._op(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_compile.py", line 54, in inner
+    return disable_fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 433, in __torch_dispatch__
+    res = func(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 871, in __call__
+    return self._op(*args, **kwargs)
+NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_compile_dyn_quant_matmul_4bit_m_1_k_128_n_11008_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_disable_tuning_tunableop_xpu_float32" time="0.002"><failure message="AttributeError: module 'torch.xpu' has no attribute 'tunable'&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_disable_tuning_tunableop_xpu_float32&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 5703, in test_disable_tuning_tunableop
+    with self._tunableop_ctx():
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_linalg_xpu.py", line 476, in __tunableop_ctx
+    torch.xpu.tunable.enable(True)
+AttributeError: module 'torch.xpu' has no attribute 'tunable'
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_disable_tuning_tunableop_xpu_float32
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_compile_dyn_quant_matmul_4bit_m_32_k_64_n_11008_xpu" time="0.142"><failure message="NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_compile_dyn_quant_matmul_4bit_m_32_k_64_n_11008_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8347, in test_compile_dyn_quant_matmul_4bit
+    res = dyn_quant_matmul_4bit(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1166, in compile_wrapper
+    result = fn(*args, **kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8332, in dyn_quant_matmul_4bit
+    @torch.compile
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/aot_autograd.py", line 1277, in forward
+    return compiled_fn(full_args)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 1142, in runtime_wrapper
+    result = _codegen_runtime_wrapper(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:codegen(runtime_wrapper_orchestration)", line 8, in _runtime_wrapper
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 2549, in __call__
+    return self.compiled_fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_inductor/output_code.py", line 763, in __call__
+    return self.current_callable(inputs)
+  File "/tmp/torchinductor_ubuntu/rg/crgzuhtxokvkk672tmowzsykfw3qo6iwinookri4sl6y3mgj6os3.py", line 62, in call
+    buf0 = torch.ops.aten._dyn_quant_pack_4bit_weight.default(arg1_1, arg3_1, None, 32, 64, 11008)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 871, in __call__
+    return self._op(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_compile.py", line 54, in inner
+    return disable_fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 433, in __torch_dispatch__
+    res = func(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 871, in __call__
+    return self._op(*args, **kwargs)
+NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_compile_dyn_quant_matmul_4bit_m_32_k_64_n_11008_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test__dyn_quant_pack_4bit_weight_k_64_n_32_xpu" time="0.059"><failure message="NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_pack_4bit_weight_k_64_n_32_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8225, in test__dyn_quant_pack_4bit_weight
+    b_int4pack = torch._dyn_quant_pack_4bit_weight(
+NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test__dyn_quant_pack_4bit_weight_k_64_n_32_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_compile_dyn_quant_matmul_4bit_m_1_k_128_n_4096_xpu" time="0.155"><failure message="NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_compile_dyn_quant_matmul_4bit_m_1_k_128_n_4096_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8347, in test_compile_dyn_quant_matmul_4bit
+    res = dyn_quant_matmul_4bit(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1166, in compile_wrapper
+    result = fn(*args, **kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8332, in dyn_quant_matmul_4bit
+    @torch.compile
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/aot_autograd.py", line 1277, in forward
+    return compiled_fn(full_args)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 1142, in runtime_wrapper
+    result = _codegen_runtime_wrapper(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:codegen(runtime_wrapper_orchestration)", line 8, in _runtime_wrapper
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 2549, in __call__
+    return self.compiled_fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_inductor/output_code.py", line 763, in __call__
+    return self.current_callable(inputs)
+  File "/tmp/torchinductor_ubuntu/64/c645jd6owu53wztypylvlzgid7lggtdj6okdsh5gbki4uilpwqgf.py", line 60, in call
+    buf0 = torch.ops.aten._dyn_quant_pack_4bit_weight.default(arg1_1, arg3_1, None, 32, 128, 4096)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 871, in __call__
+    return self._op(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_compile.py", line 54, in inner
+    return disable_fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 433, in __torch_dispatch__
+    res = func(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 871, in __call__
+    return self._op(*args, **kwargs)
+NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_compile_dyn_quant_matmul_4bit_m_1_k_128_n_4096_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_compile_dyn_quant_matmul_4bit_m_1_k_64_n_4096_xpu" time="8.434"><failure message="NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_compile_dyn_quant_matmul_4bit_m_1_k_64_n_4096_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8347, in test_compile_dyn_quant_matmul_4bit
+    res = dyn_quant_matmul_4bit(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1166, in compile_wrapper
+    result = fn(*args, **kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8332, in dyn_quant_matmul_4bit
+    @torch.compile
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/aot_autograd.py", line 1277, in forward
+    return compiled_fn(full_args)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 1142, in runtime_wrapper
+    result = _codegen_runtime_wrapper(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:codegen(runtime_wrapper_orchestration)", line 8, in _runtime_wrapper
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 2549, in __call__
+    return self.compiled_fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_inductor/output_code.py", line 763, in __call__
+    return self.current_callable(inputs)
+  File "/tmp/torchinductor_ubuntu/qy/cqy6ojksgyhgjr6io2ffjiwg2neqjgicqrbsktt3yiou2qhp67b4.py", line 57, in call
+    buf0 = torch.ops.aten._dyn_quant_pack_4bit_weight.default(arg0_1, arg1_1, None, 32, 64, 4096)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 871, in __call__
+    return self._op(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_compile.py", line 54, in inner
+    return disable_fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 433, in __torch_dispatch__
+    res = func(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 871, in __call__
+    return self._op(*args, **kwargs)
+NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_compile_dyn_quant_matmul_4bit_m_1_k_64_n_4096_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_linalg_xpu.TestLinalgXPU" name="test_compile_dyn_quant_matmul_4bit_m_32_k_128_n_11008_xpu" time="0.187"><failure message="NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_compile_dyn_quant_matmul_4bit_m_32_k_128_n_11008_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8347, in test_compile_dyn_quant_matmul_4bit
+    res = dyn_quant_matmul_4bit(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1166, in compile_wrapper
+    result = fn(*args, **kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_linalg.py", line 8332, in dyn_quant_matmul_4bit
+    @torch.compile
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/aot_autograd.py", line 1277, in forward
+    return compiled_fn(full_args)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 1142, in runtime_wrapper
+    result = _codegen_runtime_wrapper(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:codegen(runtime_wrapper_orchestration)", line 8, in _runtime_wrapper
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 2549, in __call__
+    return self.compiled_fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_inductor/output_code.py", line 763, in __call__
+    return self.current_callable(inputs)
+  File "/tmp/torchinductor_ubuntu/ld/clddfhso7lznnfpf77ro3zofluxrhkzb6a7nszn32auayijw5xok.py", line 63, in call
+    buf0 = torch.ops.aten._dyn_quant_pack_4bit_weight.default(arg1_1, arg3_1, None, 32, 128, 11008)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 871, in __call__
+    return self._op(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_compile.py", line 54, in inner
+    return disable_fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 433, in __torch_dispatch__
+    res = func(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 871, in __call__
+    return self._op(*args, **kwargs)
+NotImplementedError: The operator 'aten::_dyn_quant_pack_4bit_weight' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/test_linalg.py TestLinalgXPU.test_compile_dyn_quant_matmul_4bit_m_32_k_128_n_11008_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase></testsuite></testsuites>

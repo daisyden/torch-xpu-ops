@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="3.610" timestamp="2026-05-31T15:12:12.557820" hostname="gm03pappvc006"><testcase classname="test.distributed._tools.test_memory_tracker.TestMemoryTracker" name="test_local_model" time="0.738" /></testsuite></testsuites>

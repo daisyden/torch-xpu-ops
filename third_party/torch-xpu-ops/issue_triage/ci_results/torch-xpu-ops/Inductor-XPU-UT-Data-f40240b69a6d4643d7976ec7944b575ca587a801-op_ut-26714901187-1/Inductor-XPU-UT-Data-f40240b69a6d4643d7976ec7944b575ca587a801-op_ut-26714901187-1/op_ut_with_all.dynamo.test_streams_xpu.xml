@@ -1,0 +1,755 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="12" skipped="6" tests="31" time="34.731" timestamp="2026-05-31T17:04:14.875825" hostname="06945b282243"><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_get_current_stream_return_different_device" time="0.001"><skipped type="pytest.skip" message="requires multiple GPU devices">/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/dynamo/test_streams_xpu.py:166: requires multiple GPU devices</skipped></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_stream_enter_exit_graph_break" time="0.001"><skipped type="pytest.skip" message="Needs graph break support with annotation context">/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/dynamo/test_streams_xpu.py:246: Needs graph break support with annotation context</skipped></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_nested_stream_enter_exit_graph_break" time="0.001"><skipped type="pytest.skip" message="Needs graph break support with annotation context">/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/dynamo/test_streams_xpu.py:250: Needs graph break support with annotation context</skipped></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_get_current_stream_return_no_index" time="0.001"><skipped type="pytest.skip" message="requires multiple GPU devices">/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/dynamo/test_streams_xpu.py:183: requires multiple GPU devices</skipped></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_new_event_api" time="0.001"><skipped type="pytest.skip" message="requires multiple GPU devices">/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/dynamo/test_streams_xpu.py:338: requires multiple GPU devices</skipped></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_current_stream_api" time="0.153" /><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_new_stream_api" time="0.177" /><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_local_stream_enter_exit" time="0.292"><failure message="AssertionError: 'clas[126 chars]m\': 1}\n        add: &quot;f32[2, 2]&quot; = torch.ops.[403 chars],)\n' != 'clas[126 chars]m\': 2}\n        add: &quot;f32[2, 2]&quot; = torch.ops.[403 chars],)\n'&#10;  class &lt;lambda&gt;(torch.nn.Module):&#10;      def forward(self, arg0_1: &quot;f32[2, 2]&quot;, arg1_1: &quot;f32[2, 2]&quot;):&#10;-         # Annotation: {'stream': 1}&#10;?                                  ^&#10;+         # Annotation: {'stream': 2}&#10;?                                  ^&#10;          add: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(arg0_1, arg1_1)&#10;  &#10;-         # Annotation: {'stream': 0}&#10;?                                  ^&#10;+         # Annotation: {'stream': 1}&#10;?                                  ^&#10;          add_1: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(arg0_1, arg1_1);  arg0_1 = arg1_1 = None&#10;  &#10;-         # Annotation: {'stream': 0}&#10;?                                  ^&#10;+         # Annotation: {'stream': 1}&#10;?                                  ^&#10;          add_2: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(add_1, 2);  add_1 = None&#10;          add_3: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(add_2, add);  add_2 = add = None&#10;          return (add_3,)&#10; : To accept the new output, re-run test with envvar EXPECTTEST_ACCEPT=1 (we recommend staging/committing your changes before doing this)&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/dynamo/test_streams_xpu.py TestStreams.test_local_stream_enter_exit&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/dynamo/test_streams_xpu.py", line 277, in test_local_stream_enter_exit
+    self.assertExpectedInline(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/test_case.py", line 133, in assertExpectedInline
+    return super().assertExpectedInline(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3493, in assertExpectedInline
+    return super().assertExpectedInline(actual if isinstance(actual, str) else str(actual), expect, skip + 1)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 413, in assertExpectedInline
+    assert_expected_inline(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 378, in assert_expected_inline
+    assert_eq(expect, actual, msg=help_text)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 450, in assertMultiLineEqualMaybeCppStack
+    self.assertMultiLineEqual(expect, actual, *args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/unittest/case.py", line 1226, in assertMultiLineEqual
+    self.fail(self._formatMessage(msg, standardMsg))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/unittest/case.py", line 675, in fail
+    raise self.failureException(msg)
+AssertionError: 'clas[126 chars]m\': 1}\n        add: "f32[2, 2]" = torch.ops.[403 chars],)\n' != 'clas[126 chars]m\': 2}\n        add: "f32[2, 2]" = torch.ops.[403 chars],)\n'
+  class &lt;lambda&gt;(torch.nn.Module):
+      def forward(self, arg0_1: "f32[2, 2]", arg1_1: "f32[2, 2]"):
+-         # Annotation: {'stream': 1}
+?                                  ^
++         # Annotation: {'stream': 2}
+?                                  ^
+          add: "f32[2, 2]" = torch.ops.aten.add.Tensor(arg0_1, arg1_1)
+  
+-         # Annotation: {'stream': 0}
+?                                  ^
++         # Annotation: {'stream': 1}
+?                                  ^
+          add_1: "f32[2, 2]" = torch.ops.aten.add.Tensor(arg0_1, arg1_1);  arg0_1 = arg1_1 = None
+  
+-         # Annotation: {'stream': 0}
+?                                  ^
++         # Annotation: {'stream': 1}
+?                                  ^
+          add_2: "f32[2, 2]" = torch.ops.aten.add.Tensor(add_1, 2);  add_1 = None
+          add_3: "f32[2, 2]" = torch.ops.aten.add.Tensor(add_2, add);  add_2 = add = None
+          return (add_3,)
+ : To accept the new output, re-run test with envvar EXPECTTEST_ACCEPT=1 (we recommend staging/committing your changes before doing this)
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/dynamo/test_streams_xpu.py TestStreams.test_local_stream_enter_exit
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_local_stream_nested_enter_exit" time="0.047"><failure message="AssertionError: 'clas[126 chars]m\': 0}\n        add: &quot;f32[2, 2]&quot; = torch.ops.[316 chars]2)\n' != 'clas[126 chars]m\': 1}\n        add: &quot;f32[2, 2]&quot; = torch.ops.[316 chars]2)\n'&#10;  class &lt;lambda&gt;(torch.nn.Module):&#10;      def forward(self, arg0_1: &quot;f32[2, 2]&quot;, arg1_1: &quot;f32[2, 2]&quot;):&#10;-         # Annotation: {'stream': 0}&#10;?                                  ^&#10;+         # Annotation: {'stream': 1}&#10;?                                  ^&#10;          add: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(arg0_1, arg1_1)&#10;  &#10;-         # Annotation: {'stream': 2}&#10;?                                  ^&#10;+         # Annotation: {'stream': 3}&#10;?                                  ^&#10;          add_1: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(arg0_1, arg1_1);  arg0_1 = arg1_1 = None&#10;  &#10;-         # Annotation: {'stream': 0}&#10;?                                  ^&#10;+         # Annotation: {'stream': 1}&#10;?                                  ^&#10;          add_2: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(add, 2);  add = None&#10;          return (add_1, add_2)&#10; : To accept the new output, re-run test with envvar EXPECTTEST_ACCEPT=1 (we recommend staging/committing your changes before doing this)&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/dynamo/test_streams_xpu.py TestStreams.test_local_stream_nested_enter_exit&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/dynamo/test_streams_xpu.py", line 321, in test_local_stream_nested_enter_exit
+    self.assertExpectedInline(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/test_case.py", line 133, in assertExpectedInline
+    return super().assertExpectedInline(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3493, in assertExpectedInline
+    return super().assertExpectedInline(actual if isinstance(actual, str) else str(actual), expect, skip + 1)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 413, in assertExpectedInline
+    assert_expected_inline(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 378, in assert_expected_inline
+    assert_eq(expect, actual, msg=help_text)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 450, in assertMultiLineEqualMaybeCppStack
+    self.assertMultiLineEqual(expect, actual, *args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/unittest/case.py", line 1226, in assertMultiLineEqual
+    self.fail(self._formatMessage(msg, standardMsg))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/unittest/case.py", line 675, in fail
+    raise self.failureException(msg)
+AssertionError: 'clas[126 chars]m\': 0}\n        add: "f32[2, 2]" = torch.ops.[316 chars]2)\n' != 'clas[126 chars]m\': 1}\n        add: "f32[2, 2]" = torch.ops.[316 chars]2)\n'
+  class &lt;lambda&gt;(torch.nn.Module):
+      def forward(self, arg0_1: "f32[2, 2]", arg1_1: "f32[2, 2]"):
+-         # Annotation: {'stream': 0}
+?                                  ^
++         # Annotation: {'stream': 1}
+?                                  ^
+          add: "f32[2, 2]" = torch.ops.aten.add.Tensor(arg0_1, arg1_1)
+  
+-         # Annotation: {'stream': 2}
+?                                  ^
++         # Annotation: {'stream': 3}
+?                                  ^
+          add_1: "f32[2, 2]" = torch.ops.aten.add.Tensor(arg0_1, arg1_1);  arg0_1 = arg1_1 = None
+  
+-         # Annotation: {'stream': 0}
+?                                  ^
++         # Annotation: {'stream': 1}
+?                                  ^
+          add_2: "f32[2, 2]" = torch.ops.aten.add.Tensor(add, 2);  add = None
+          return (add_1, add_2)
+ : To accept the new output, re-run test with envvar EXPECTTEST_ACCEPT=1 (we recommend staging/committing your changes before doing this)
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/dynamo/test_streams_xpu.py TestStreams.test_local_stream_nested_enter_exit
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_stream_backward_simple" time="0.366"><failure message="AssertionError: 'clas[135 chars]m\': 1}\n        mul: &quot;f32[2, 2]&quot; = torch.ops.[283 chars]1)\n' != 'clas[135 chars]m\': 2}\n        mul: &quot;f32[2, 2]&quot; = torch.ops.[289 chars]1)\n'&#10;  class GraphModule(torch.nn.Module):&#10;      def forward(self, primals_1: &quot;f32[2, 2]&quot;, primals_2: &quot;f32[2, 2]&quot;):&#10;-         # Annotation: {'stream': 1}&#10;?                                  ^&#10;+         # Annotation: {'stream': 2}&#10;?                                  ^&#10;          mul: &quot;f32[2, 2]&quot; = torch.ops.aten.mul.Tensor(primals_1, 2);  primals_1 = None&#10;          add: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(mul, primals_2)&#10;  &#10;-         # Annotation: {'stream': 0}&#10;?                                  ^&#10;+         # Annotation: {'stream': 1}&#10;?                                  ^&#10;-         add_1: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(mul, primals_2);  mul = primals_2 = None&#10;?                                                                          ------&#10;+         add_1: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(mul, primals_2);  primals_2 = None&#10;-         return (add, add_1)&#10;+         return (add, add_1, mul, add_1)&#10;?                     ++++++++++++&#10; : To accept the new output, re-run test with envvar EXPECTTEST_ACCEPT=1 (we recommend staging/committing your changes before doing this)&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/dynamo/test_streams_xpu.py TestStreams.test_stream_backward_simple&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/dynamo/test_streams_xpu.py", line 497, in test_stream_backward_simple
+    self.assertExpectedInline(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/test_case.py", line 133, in assertExpectedInline
+    return super().assertExpectedInline(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3493, in assertExpectedInline
+    return super().assertExpectedInline(actual if isinstance(actual, str) else str(actual), expect, skip + 1)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 413, in assertExpectedInline
+    assert_expected_inline(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 378, in assert_expected_inline
+    assert_eq(expect, actual, msg=help_text)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 450, in assertMultiLineEqualMaybeCppStack
+    self.assertMultiLineEqual(expect, actual, *args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/unittest/case.py", line 1226, in assertMultiLineEqual
+    self.fail(self._formatMessage(msg, standardMsg))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/unittest/case.py", line 675, in fail
+    raise self.failureException(msg)
+AssertionError: 'clas[135 chars]m\': 1}\n        mul: "f32[2, 2]" = torch.ops.[283 chars]1)\n' != 'clas[135 chars]m\': 2}\n        mul: "f32[2, 2]" = torch.ops.[289 chars]1)\n'
+  class GraphModule(torch.nn.Module):
+      def forward(self, primals_1: "f32[2, 2]", primals_2: "f32[2, 2]"):
+-         # Annotation: {'stream': 1}
+?                                  ^
++         # Annotation: {'stream': 2}
+?                                  ^
+          mul: "f32[2, 2]" = torch.ops.aten.mul.Tensor(primals_1, 2);  primals_1 = None
+          add: "f32[2, 2]" = torch.ops.aten.add.Tensor(mul, primals_2)
+  
+-         # Annotation: {'stream': 0}
+?                                  ^
++         # Annotation: {'stream': 1}
+?                                  ^
+-         add_1: "f32[2, 2]" = torch.ops.aten.add.Tensor(mul, primals_2);  mul = primals_2 = None
+?                                                                          ------
++         add_1: "f32[2, 2]" = torch.ops.aten.add.Tensor(mul, primals_2);  primals_2 = None
+-         return (add, add_1)
++         return (add, add_1, mul, add_1)
+?                     ++++++++++++
+ : To accept the new output, re-run test with envvar EXPECTTEST_ACCEPT=1 (we recommend staging/committing your changes before doing this)
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/dynamo/test_streams_xpu.py TestStreams.test_stream_backward_simple
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_epilogue_copy_stream_tracking" time="0.305"><failure message="AssertionError: 'clas[135 chars]m\': 1}\n        mul: &quot;f32[2, 2]&quot; = torch.ops.[154 chars]l)\n' != 'clas[135 chars]m\': 2}\n        mul: &quot;f32[2, 2]&quot; = torch.ops.[154 chars]l)\n'&#10;  class GraphModule(torch.nn.Module):&#10;      def forward(self, primals_1: &quot;f32[2, 2]&quot;, primals_2: &quot;f32[2, 2]&quot;):&#10;-         # Annotation: {'stream': 1}&#10;?                                  ^&#10;+         # Annotation: {'stream': 2}&#10;?                                  ^&#10;          mul: &quot;f32[2, 2]&quot; = torch.ops.aten.mul.Tensor(primals_1, 2)&#10;          add: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(mul, primals_2);  primals_2 = None&#10;          return (add, primals_1, mul)&#10; : To accept the new output, re-run test with envvar EXPECTTEST_ACCEPT=1 (we recommend staging/committing your changes before doing this)&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/dynamo/test_streams_xpu.py TestStreams.test_epilogue_copy_stream_tracking&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/dynamo/test_streams_xpu.py", line 973, in test_epilogue_copy_stream_tracking
+    self.assertExpectedInline(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/test_case.py", line 133, in assertExpectedInline
+    return super().assertExpectedInline(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3493, in assertExpectedInline
+    return super().assertExpectedInline(actual if isinstance(actual, str) else str(actual), expect, skip + 1)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 413, in assertExpectedInline
+    assert_expected_inline(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 378, in assert_expected_inline
+    assert_eq(expect, actual, msg=help_text)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 450, in assertMultiLineEqualMaybeCppStack
+    self.assertMultiLineEqual(expect, actual, *args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/unittest/case.py", line 1226, in assertMultiLineEqual
+    self.fail(self._formatMessage(msg, standardMsg))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/unittest/case.py", line 675, in fail
+    raise self.failureException(msg)
+AssertionError: 'clas[135 chars]m\': 1}\n        mul: "f32[2, 2]" = torch.ops.[154 chars]l)\n' != 'clas[135 chars]m\': 2}\n        mul: "f32[2, 2]" = torch.ops.[154 chars]l)\n'
+  class GraphModule(torch.nn.Module):
+      def forward(self, primals_1: "f32[2, 2]", primals_2: "f32[2, 2]"):
+-         # Annotation: {'stream': 1}
+?                                  ^
++         # Annotation: {'stream': 2}
+?                                  ^
+          mul: "f32[2, 2]" = torch.ops.aten.mul.Tensor(primals_1, 2)
+          add: "f32[2, 2]" = torch.ops.aten.add.Tensor(mul, primals_2);  primals_2 = None
+          return (add, primals_1, mul)
+ : To accept the new output, re-run test with envvar EXPECTTEST_ACCEPT=1 (we recommend staging/committing your changes before doing this)
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/dynamo/test_streams_xpu.py TestStreams.test_epilogue_copy_stream_tracking
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_epilogue_copy_streams_external" time="0.084" /><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_epilogue_copy_streams_inference" time="0.565"><failure message="AssertionError: 'clas[105 chars]m\': 0}\n        add: &quot;f32[2, 2]&quot; = torch.ops.[143 chars],)\n' != 'clas[105 chars]m\': 1}\n        add: &quot;f32[2, 2]&quot; = torch.ops.[143 chars],)\n'&#10;  class &lt;lambda&gt;(torch.nn.Module):&#10;      def forward(self, arg0_1: &quot;f32[2, 2]&quot;):&#10;-         # Annotation: {'stream': 0}&#10;?                                  ^&#10;+         # Annotation: {'stream': 1}&#10;?                                  ^&#10;          add: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(arg0_1, 2)&#10;          copy_: &quot;f32[2, 2]&quot; = torch.ops.aten.copy_.default(arg0_1, add);  arg0_1 = add = None&#10;          return (copy_,)&#10; : To accept the new output, re-run test with envvar EXPECTTEST_ACCEPT=1 (we recommend staging/committing your changes before doing this)&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/dynamo/test_streams_xpu.py TestStreams.test_epilogue_copy_streams_inference&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/dynamo/test_streams_xpu.py", line 898, in test_epilogue_copy_streams_inference
+    self.assertExpectedInline(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/test_case.py", line 133, in assertExpectedInline
+    return super().assertExpectedInline(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3493, in assertExpectedInline
+    return super().assertExpectedInline(actual if isinstance(actual, str) else str(actual), expect, skip + 1)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 413, in assertExpectedInline
+    assert_expected_inline(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 378, in assert_expected_inline
+    assert_eq(expect, actual, msg=help_text)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 450, in assertMultiLineEqualMaybeCppStack
+    self.assertMultiLineEqual(expect, actual, *args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/unittest/case.py", line 1226, in assertMultiLineEqual
+    self.fail(self._formatMessage(msg, standardMsg))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/unittest/case.py", line 675, in fail
+    raise self.failureException(msg)
+AssertionError: 'clas[105 chars]m\': 0}\n        add: "f32[2, 2]" = torch.ops.[143 chars],)\n' != 'clas[105 chars]m\': 1}\n        add: "f32[2, 2]" = torch.ops.[143 chars],)\n'
+  class &lt;lambda&gt;(torch.nn.Module):
+      def forward(self, arg0_1: "f32[2, 2]"):
+-         # Annotation: {'stream': 0}
+?                                  ^
++         # Annotation: {'stream': 1}
+?                                  ^
+          add: "f32[2, 2]" = torch.ops.aten.add.Tensor(arg0_1, 2)
+          copy_: "f32[2, 2]" = torch.ops.aten.copy_.default(arg0_1, add);  arg0_1 = add = None
+          return (copy_,)
+ : To accept the new output, re-run test with envvar EXPECTTEST_ACCEPT=1 (we recommend staging/committing your changes before doing this)
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/dynamo/test_streams_xpu.py TestStreams.test_epilogue_copy_streams_inference
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_run_opcheck_wait_record" time="0.047" /><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_event_tracing" time="0.047"><failure message="AssertionError: 'clas[143 chars]ault(0, 1);  record_event = None\n\n        #\[181 chars],)\n' != 'clas[143 chars]ault(1, 0);  record_event = None\n\n        #\[181 chars],)\n'&#10;  class &lt;lambda&gt;(torch.nn.Module):&#10;      def forward(self, arg0_1: &quot;f32[2, 2]&quot;):&#10;          #&#10;-         record_event = torch.ops.streams.record_event.default(0, 1);  record_event = None&#10;?                                                                ---&#10;+         record_event = torch.ops.streams.record_event.default(1, 0);  record_event = None&#10;?                                                               +++&#10;  &#10;          #&#10;          add: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(arg0_1, 1)&#10;          copy_: &quot;f32[2, 2]&quot; = torch.ops.aten.copy_.default(arg0_1, add);  arg0_1 = add = None&#10;          return (copy_,)&#10; : To accept the new output, re-run test with envvar EXPECTTEST_ACCEPT=1 (we recommend staging/committing your changes before doing this)&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/dynamo/test_streams_xpu.py TestStreams.test_event_tracing&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/dynamo/test_streams_xpu.py", line 622, in test_event_tracing
+    self.assertExpectedInline(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/test_case.py", line 133, in assertExpectedInline
+    return super().assertExpectedInline(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3493, in assertExpectedInline
+    return super().assertExpectedInline(actual if isinstance(actual, str) else str(actual), expect, skip + 1)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 413, in assertExpectedInline
+    assert_expected_inline(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 378, in assert_expected_inline
+    assert_eq(expect, actual, msg=help_text)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 450, in assertMultiLineEqualMaybeCppStack
+    self.assertMultiLineEqual(expect, actual, *args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/unittest/case.py", line 1226, in assertMultiLineEqual
+    self.fail(self._formatMessage(msg, standardMsg))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/unittest/case.py", line 675, in fail
+    raise self.failureException(msg)
+AssertionError: 'clas[143 chars]ault(0, 1);  record_event = None\n\n        #\[181 chars],)\n' != 'clas[143 chars]ault(1, 0);  record_event = None\n\n        #\[181 chars],)\n'
+  class &lt;lambda&gt;(torch.nn.Module):
+      def forward(self, arg0_1: "f32[2, 2]"):
+          #
+-         record_event = torch.ops.streams.record_event.default(0, 1);  record_event = None
+?                                                                ---
++         record_event = torch.ops.streams.record_event.default(1, 0);  record_event = None
+?                                                               +++
+  
+          #
+          add: "f32[2, 2]" = torch.ops.aten.add.Tensor(arg0_1, 1)
+          copy_: "f32[2, 2]" = torch.ops.aten.copy_.default(arg0_1, add);  arg0_1 = add = None
+          return (copy_,)
+ : To accept the new output, re-run test with envvar EXPECTTEST_ACCEPT=1 (we recommend staging/committing your changes before doing this)
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/dynamo/test_streams_xpu.py TestStreams.test_event_tracing
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_run_opcheck_wait_record_stream" time="0.022" /><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_record_stream_problem_basic" time="0.442"><failure message="AssertionError: 'clas[50 chars]elf, tangents_1: &quot;f32[2, 2]&quot;, tangents_2: &quot;f32[1216 chars],)\n' != 'clas[50 chars]elf, getitem: &quot;f32[2, 2]&quot;, mul: &quot;f32[2, 2]&quot;, m[2913 chars]0)\n'&#10;  class GraphModule(torch.nn.Module):&#10;-     def forward(self, tangents_1: &quot;f32[2, 2]&quot;, tangents_2: &quot;f32[2, 2]&quot;):&#10;+     def forward(self, getitem: &quot;f32[2, 2]&quot;, mul: &quot;f32[2, 2]&quot;, mul_1: &quot;f32[2, 2]&quot;, mul_2: &quot;f32[2, 2]&quot;, tangents_1: &quot;f32[2, 2]&quot;, tangents_2: &quot;f32[2, 2]&quot;):&#10;-         # Annotation: {'stream': 1}&#10;?                                  ^&#10;+         # Annotation: {'stream': 3}&#10;?                                  ^&#10;-         ones: &quot;f32[2, 2]&quot; = torch.ops.aten.ones.default([2, 2], device = device(type='xpu', index=0), pin_memory = False)&#10;+         mul_3: &quot;f32[2, 2]&quot; = torch.ops.aten.mul.Tensor(tangents_1, mul_1);  tangents_1 = None&#10;  &#10;          # Annotation: {'stream': 2}&#10;-         mul_1: &quot;f32[2, 2]&quot; = torch.ops.aten.mul.Tensor(ones, 2)&#10;-         mul_3: &quot;f32[2, 2]&quot; = torch.ops.aten.mul.Tensor(tangents_1, mul_1);  tangents_1 = mul_1 = None&#10;- &#10;-         # Annotation: {'stream': 1}&#10;-         mul_4: &quot;f32[2, 2]&quot; = torch.ops.aten.mul.Tensor(tangents_2, ones);  tangents_2 = ones = None&#10;?                                                                    ^^ ^                 ^^ ^&#10;+         mul_4: &quot;f32[2, 2]&quot; = torch.ops.aten.mul.Tensor(tangents_2, getitem);  tangents_2 = getitem = None&#10;?                                                                    ^ ^^^^^                 ^ ^^^^^&#10;  &#10;          # No stacktrace found for following nodes&#10;-         record_event_default = torch.ops.streams.record_event.default(3, 1);  record_event_default = None&#10;-         wait_event_default = torch.ops.streams.wait_event.default(3, 2);  wait_event_default = None&#10;+         subgraph_record_event_default = self.subgraph_record_event_default&#10;+         control_deps_2 = torch.ops.higher_order.control_deps((mul, mul_4), subgraph_record_event_default, mul, mul_4);  mul = mul_4 = subgraph_record_event_default = None&#10;  &#10;          # Annotation: {'stream': 2}&#10;-         add: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(mul_3, mul_4);  mul_3 = None&#10;+         getitem_2: &quot;f32[2, 2]&quot; = control_deps_2[2]&#10;  &#10;          # No stacktrace found for following nodes&#10;-         record_event_default_1 = torch.ops.streams.record_event.default(4, 2);  record_event_default_1 = None&#10;+         subgraph_wait_event_default = self.subgraph_wait_event_default&#10;+         control_deps_3 = torch.ops.higher_order.control_deps((control_deps_2, mul_1, mul_2, mul_3), subgraph_wait_event_default, mul_2, mul_3);  control_deps_2 = mul_1 = mul_2 = mul_3 = subgraph_wait_event_default = None&#10;+ &#10;+         # Annotation: {'stream': 3}&#10;+         getitem_4: &quot;f32[2, 2]&quot; = control_deps_3[2];  control_deps_3 = None&#10;+ &#10;+         # Annotation: {'stream': 3}&#10;+         add: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(getitem_4, getitem_2);  getitem_4 = None&#10;+ &#10;+         # No stacktrace found for following nodes&#10;+         subgraph_record_event_default_1 = self.subgraph_record_event_default_1&#10;+         control_deps_4 = torch.ops.higher_order.control_deps((add,), subgraph_record_event_default_1, add);  add = subgraph_record_event_default_1 = None&#10;+ &#10;+         # Annotation: {'stream': 3}&#10;+         getitem_5: &quot;f32[2, 2]&quot; = control_deps_4[1];  control_deps_4 = None&#10;+ &#10;+         # No stacktrace found for following nodes&#10;-         sync_dealloc_default = torch.ops.streams.sync_dealloc.default(4, 1, mul_4);  mul_4 = sync_dealloc_default = None&#10;?                                                                       ^  ^   -- ^     -- ^&#10;+         sync_dealloc_default = torch.ops.streams.sync_dealloc.default(5, 2, getitem_2);  getitem_2 = sync_dealloc_default = None&#10;?                                                                       ^  ^  ++++++  ^    ++++++  ^&#10;-         return (add,)&#10;?                 ^^^&#10;+         return (getitem_5,)&#10;?                 ^^^^^^^^^&#10;+ &#10;+     class subgraph_record_event_default(torch.nn.Module):&#10;+         def forward(self, dep_0: &quot;f32[2, 2]&quot;, dep_1: &quot;f32[2, 2]&quot;):&#10;+             # No stacktrace found for following nodes&#10;+             record_event_default = torch.ops.streams.record_event.default(4, 2)&#10;+             return (record_event_default, dep_0, dep_1)&#10;+ &#10;+     class subgraph_wait_event_default(torch.nn.Module):&#10;+         def forward(self, dep_0: &quot;f32[2, 2]&quot;, dep_1: &quot;f32[2, 2]&quot;):&#10;+             # No stacktrace found for following nodes&#10;+             wait_event_default = torch.ops.streams.wait_event.default(4, 3)&#10;+             return (wait_event_default, dep_0, dep_1)&#10;+ &#10;+     class subgraph_record_event_default_1(torch.nn.Module):&#10;+         def forward(self, dep_0: &quot;f32[2, 2]&quot;):&#10;+             # No stacktrace found for following nodes&#10;+             record_event_default = torch.ops.streams.record_event.default(5, 3)&#10;+             return (record_event_default, dep_0)&#10; : To accept the new output, re-run test with envvar EXPECTTEST_ACCEPT=1 (we recommend staging/committing your changes before doing this)&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/dynamo/test_streams_xpu.py TestStreams.test_record_stream_problem_basic&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/dynamo/test_streams_xpu.py", line 732, in test_record_stream_problem_basic
+    self.assertExpectedInline(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/test_case.py", line 133, in assertExpectedInline
+    return super().assertExpectedInline(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3493, in assertExpectedInline
+    return super().assertExpectedInline(actual if isinstance(actual, str) else str(actual), expect, skip + 1)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 413, in assertExpectedInline
+    assert_expected_inline(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 378, in assert_expected_inline
+    assert_eq(expect, actual, msg=help_text)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 450, in assertMultiLineEqualMaybeCppStack
+    self.assertMultiLineEqual(expect, actual, *args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/unittest/case.py", line 1226, in assertMultiLineEqual
+    self.fail(self._formatMessage(msg, standardMsg))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/unittest/case.py", line 675, in fail
+    raise self.failureException(msg)
+AssertionError: 'clas[50 chars]elf, tangents_1: "f32[2, 2]", tangents_2: "f32[1216 chars],)\n' != 'clas[50 chars]elf, getitem: "f32[2, 2]", mul: "f32[2, 2]", m[2913 chars]0)\n'
+  class GraphModule(torch.nn.Module):
+-     def forward(self, tangents_1: "f32[2, 2]", tangents_2: "f32[2, 2]"):
++     def forward(self, getitem: "f32[2, 2]", mul: "f32[2, 2]", mul_1: "f32[2, 2]", mul_2: "f32[2, 2]", tangents_1: "f32[2, 2]", tangents_2: "f32[2, 2]"):
+-         # Annotation: {'stream': 1}
+?                                  ^
++         # Annotation: {'stream': 3}
+?                                  ^
+-         ones: "f32[2, 2]" = torch.ops.aten.ones.default([2, 2], device = device(type='xpu', index=0), pin_memory = False)
++         mul_3: "f32[2, 2]" = torch.ops.aten.mul.Tensor(tangents_1, mul_1);  tangents_1 = None
+  
+          # Annotation: {'stream': 2}
+-         mul_1: "f32[2, 2]" = torch.ops.aten.mul.Tensor(ones, 2)
+-         mul_3: "f32[2, 2]" = torch.ops.aten.mul.Tensor(tangents_1, mul_1);  tangents_1 = mul_1 = None
+- 
+-         # Annotation: {'stream': 1}
+-         mul_4: "f32[2, 2]" = torch.ops.aten.mul.Tensor(tangents_2, ones);  tangents_2 = ones = None
+?                                                                    ^^ ^                 ^^ ^
++         mul_4: "f32[2, 2]" = torch.ops.aten.mul.Tensor(tangents_2, getitem);  tangents_2 = getitem = None
+?                                                                    ^ ^^^^^                 ^ ^^^^^
+  
+          # No stacktrace found for following nodes
+-         record_event_default = torch.ops.streams.record_event.default(3, 1);  record_event_default = None
+-         wait_event_default = torch.ops.streams.wait_event.default(3, 2);  wait_event_default = None
++         subgraph_record_event_default = self.subgraph_record_event_default
++         control_deps_2 = torch.ops.higher_order.control_deps((mul, mul_4), subgraph_record_event_default, mul, mul_4);  mul = mul_4 = subgraph_record_event_default = None
+  
+          # Annotation: {'stream': 2}
+-         add: "f32[2, 2]" = torch.ops.aten.add.Tensor(mul_3, mul_4);  mul_3 = None
++         getitem_2: "f32[2, 2]" = control_deps_2[2]
+  
+          # No stacktrace found for following nodes
+-         record_event_default_1 = torch.ops.streams.record_event.default(4, 2);  record_event_default_1 = None
++         subgraph_wait_event_default = self.subgraph_wait_event_default
++         control_deps_3 = torch.ops.higher_order.control_deps((control_deps_2, mul_1, mul_2, mul_3), subgraph_wait_event_default, mul_2, mul_3);  control_deps_2 = mul_1 = mul_2 = mul_3 = subgraph_wait_event_default = None
++ 
++         # Annotation: {'stream': 3}
++         getitem_4: "f32[2, 2]" = control_deps_3[2];  control_deps_3 = None
++ 
++         # Annotation: {'stream': 3}
++         add: "f32[2, 2]" = torch.ops.aten.add.Tensor(getitem_4, getitem_2);  getitem_4 = None
++ 
++         # No stacktrace found for following nodes
++         subgraph_record_event_default_1 = self.subgraph_record_event_default_1
++         control_deps_4 = torch.ops.higher_order.control_deps((add,), subgraph_record_event_default_1, add);  add = subgraph_record_event_default_1 = None
++ 
++         # Annotation: {'stream': 3}
++         getitem_5: "f32[2, 2]" = control_deps_4[1];  control_deps_4 = None
++ 
++         # No stacktrace found for following nodes
+-         sync_dealloc_default = torch.ops.streams.sync_dealloc.default(4, 1, mul_4);  mul_4 = sync_dealloc_default = None
+?                                                                       ^  ^   -- ^     -- ^
++         sync_dealloc_default = torch.ops.streams.sync_dealloc.default(5, 2, getitem_2);  getitem_2 = sync_dealloc_default = None
+?                                                                       ^  ^  ++++++  ^    ++++++  ^
+-         return (add,)
+?                 ^^^
++         return (getitem_5,)
+?                 ^^^^^^^^^
++ 
++     class subgraph_record_event_default(torch.nn.Module):
++         def forward(self, dep_0: "f32[2, 2]", dep_1: "f32[2, 2]"):
++             # No stacktrace found for following nodes
++             record_event_default = torch.ops.streams.record_event.default(4, 2)
++             return (record_event_default, dep_0, dep_1)
++ 
++     class subgraph_wait_event_default(torch.nn.Module):
++         def forward(self, dep_0: "f32[2, 2]", dep_1: "f32[2, 2]"):
++             # No stacktrace found for following nodes
++             wait_event_default = torch.ops.streams.wait_event.default(4, 3)
++             return (wait_event_default, dep_0, dep_1)
++ 
++     class subgraph_record_event_default_1(torch.nn.Module):
++         def forward(self, dep_0: "f32[2, 2]"):
++             # No stacktrace found for following nodes
++             record_event_default = torch.ops.streams.record_event.default(5, 3)
++             return (record_event_default, dep_0)
+ : To accept the new output, re-run test with envvar EXPECTTEST_ACCEPT=1 (we recommend staging/committing your changes before doing this)
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/dynamo/test_streams_xpu.py TestStreams.test_record_stream_problem_basic
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_stream_enter_exit" time="0.059"><failure message="AssertionError: 'clas[126 chars]m\': 0}\n        add: &quot;f32[2, 2]&quot; = torch.ops.[403 chars],)\n' != 'clas[126 chars]m\': 1}\n        add: &quot;f32[2, 2]&quot; = torch.ops.[403 chars],)\n'&#10;  class &lt;lambda&gt;(torch.nn.Module):&#10;      def forward(self, arg0_1: &quot;f32[2, 2]&quot;, arg1_1: &quot;f32[2, 2]&quot;):&#10;-         # Annotation: {'stream': 0}&#10;?                                  ^&#10;+         # Annotation: {'stream': 1}&#10;?                                  ^&#10;          add: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(arg0_1, arg1_1)&#10;  &#10;-         # Annotation: {'stream': 1}&#10;?                                  ^&#10;+         # Annotation: {'stream': 2}&#10;?                                  ^&#10;          add_1: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(arg0_1, arg1_1);  arg0_1 = arg1_1 = None&#10;  &#10;-         # Annotation: {'stream': 1}&#10;?                                  ^&#10;+         # Annotation: {'stream': 2}&#10;?                                  ^&#10;          add_2: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(add_1, 2);  add_1 = None&#10;          add_3: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(add_2, add);  add_2 = add = None&#10;          return (add_3,)&#10; : To accept the new output, re-run test with envvar EXPECTTEST_ACCEPT=1 (we recommend staging/committing your changes before doing this)&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/dynamo/test_streams_xpu.py TestStreams.test_stream_enter_exit&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/dynamo/test_streams_xpu.py", line 73, in test_stream_enter_exit
+    self.assertExpectedInline(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/test_case.py", line 133, in assertExpectedInline
+    return super().assertExpectedInline(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3493, in assertExpectedInline
+    return super().assertExpectedInline(actual if isinstance(actual, str) else str(actual), expect, skip + 1)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 413, in assertExpectedInline
+    assert_expected_inline(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 378, in assert_expected_inline
+    assert_eq(expect, actual, msg=help_text)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 450, in assertMultiLineEqualMaybeCppStack
+    self.assertMultiLineEqual(expect, actual, *args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/unittest/case.py", line 1226, in assertMultiLineEqual
+    self.fail(self._formatMessage(msg, standardMsg))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/unittest/case.py", line 675, in fail
+    raise self.failureException(msg)
+AssertionError: 'clas[126 chars]m\': 0}\n        add: "f32[2, 2]" = torch.ops.[403 chars],)\n' != 'clas[126 chars]m\': 1}\n        add: "f32[2, 2]" = torch.ops.[403 chars],)\n'
+  class &lt;lambda&gt;(torch.nn.Module):
+      def forward(self, arg0_1: "f32[2, 2]", arg1_1: "f32[2, 2]"):
+-         # Annotation: {'stream': 0}
+?                                  ^
++         # Annotation: {'stream': 1}
+?                                  ^
+          add: "f32[2, 2]" = torch.ops.aten.add.Tensor(arg0_1, arg1_1)
+  
+-         # Annotation: {'stream': 1}
+?                                  ^
++         # Annotation: {'stream': 2}
+?                                  ^
+          add_1: "f32[2, 2]" = torch.ops.aten.add.Tensor(arg0_1, arg1_1);  arg0_1 = arg1_1 = None
+  
+-         # Annotation: {'stream': 1}
+?                                  ^
++         # Annotation: {'stream': 2}
+?                                  ^
+          add_2: "f32[2, 2]" = torch.ops.aten.add.Tensor(add_1, 2);  add_1 = None
+          add_3: "f32[2, 2]" = torch.ops.aten.add.Tensor(add_2, add);  add_2 = add = None
+          return (add_3,)
+ : To accept the new output, re-run test with envvar EXPECTTEST_ACCEPT=1 (we recommend staging/committing your changes before doing this)
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/dynamo/test_streams_xpu.py TestStreams.test_stream_enter_exit
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_event_weakref" time="0.002" /><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_record_stream_problem_interleaved" time="0.748"><failure message="AssertionError: 'clas[50 chars]elf, primals_1: &quot;f32[2, 2]&quot;, mul: &quot;f32[2, 2]&quot;,[3986 chars],)\n' != 'clas[50 chars]elf, getitem: &quot;f32[2, 2]&quot;, getitem_3: &quot;f32[2, [9118 chars]0)\n'&#10;  class GraphModule(torch.nn.Module):&#10;-     def forward(self, primals_1: &quot;f32[2, 2]&quot;, mul: &quot;f32[2, 2]&quot;, tangents_1: &quot;f32[2, 2]&quot;, tangents_2: &quot;f32[2, 2]&quot;, tangents_3: &quot;f32[2, 2]&quot;):&#10;+     def forward(self, getitem: &quot;f32[2, 2]&quot;, getitem_3: &quot;f32[2, 2]&quot;, getitem_2: &quot;f32[2, 2]&quot;, getitem_4: &quot;f32[2, 2]&quot;, getitem_6: &quot;f32[2, 2]&quot;, tangents_1: &quot;f32[2, 2]&quot;, tangents_2: &quot;f32[2, 2]&quot;, tangents_3: &quot;f32[2, 2]&quot;):&#10;-         # Annotation: {'stream': 1}&#10;?                                  ^&#10;+         # Annotation: {'stream': 5}&#10;?                                  ^&#10;-         ones: &quot;f32[2, 2]&quot; = torch.ops.aten.ones.default([2, 2], device = device(type='xpu', index=0), pin_memory = False)&#10;+         mul_7: &quot;f32[2, 2]&quot; = torch.ops.aten.mul.Tensor(tangents_3, getitem_6);  tangents_3 = getitem_6 = None&#10;+ &#10;+         # No stacktrace found for following nodes&#10;+         subgraph_record_event_default = self.subgraph_record_event_default&#10;+         control_deps_8 = torch.ops.higher_order.control_deps((mul_7,), subgraph_record_event_default, mul_7);  mul_7 = subgraph_record_event_default = None&#10;+ &#10;+         # Annotation: {'stream': 5}&#10;+         getitem_8: &quot;f32[2, 2]&quot; = control_deps_8[1]&#10;+ &#10;+         # No stacktrace found for following nodes&#10;+         subgraph_wait_event_default = self.subgraph_wait_event_default&#10;+         control_deps_9 = torch.ops.higher_order.control_deps((control_deps_8,), subgraph_wait_event_default);  control_deps_8 = subgraph_wait_event_default = control_deps_9 = None&#10;  &#10;          # Annotation: {'stream': 4}&#10;-         mul_5: &quot;f32[2, 2]&quot; = torch.ops.aten.mul.Tensor(ones, 4)&#10;-         mul_7: &quot;f32[2, 2]&quot; = torch.ops.aten.mul.Tensor(tangents_3, mul_5);  tangents_3 = mul_5 = None&#10;?         ^^^^^                               ^^^                 ^   -- ^             ^  --------&#10;+         add: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(tangents_2, getitem_8);  tangents_2 = None&#10;?         ^^^                               ^^^                 ^  ++++++  ^             ^&#10;  &#10;          # No stacktrace found for following nodes&#10;-         record_event_default = torch.ops.streams.record_event.default(6, 4);  record_event_default = None&#10;-         wait_event_default = torch.ops.streams.wait_event.default(6, 3);  wait_event_default = None&#10;+         subgraph_record_event_default_4 = self.subgraph_record_event_default_4&#10;+         control_deps_10 = torch.ops.higher_order.control_deps((add,), subgraph_record_event_default_4, add);  add = subgraph_record_event_default_4 = None&#10;+ &#10;+         # Annotation: {'stream': 4}&#10;+         getitem_9: &quot;f32[2, 2]&quot; = control_deps_10[1];  control_deps_10 = None&#10;+ &#10;+         # No stacktrace found for following nodes&#10;+         sync_dealloc_default = torch.ops.streams.sync_dealloc.default(10, 5, getitem_8);  getitem_8 = sync_dealloc_default = None&#10;+ &#10;+         # Annotation: {'stream': 4}&#10;+         mul_8: &quot;f32[2, 2]&quot; = torch.ops.aten.mul.Tensor(getitem_9, getitem_4);  getitem_4 = None&#10;+ &#10;+         # No stacktrace found for following nodes&#10;+         subgraph_record_event_default_1 = self.subgraph_record_event_default_1&#10;+         control_deps_11 = torch.ops.higher_order.control_deps((mul_8,), subgraph_record_event_default_1, mul_8);  mul_8 = subgraph_record_event_default_1 = None&#10;+ &#10;+         # Annotation: {'stream': 4}&#10;+         getitem_10: &quot;f32[2, 2]&quot; = control_deps_11[1]&#10;+         mul_9: &quot;f32[2, 2]&quot; = torch.ops.aten.mul.Tensor(getitem_9, getitem_3);  getitem_9 = getitem_3 = None&#10;+         mul_10: &quot;f32[2, 2]&quot; = torch.ops.aten.mul.Tensor(mul_9, getitem)&#10;+ &#10;+         # No stacktrace found for following nodes&#10;+         subgraph_wait_event_default_1 = self.subgraph_wait_event_default_1&#10;+         control_deps_12 = torch.ops.higher_order.control_deps((control_deps_11,), subgraph_wait_event_default_1);  control_deps_11 = subgraph_wait_event_default_1 = control_deps_12 = None&#10;  &#10;          # Annotation: {'stream': 3}&#10;-         add: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(tangents_2, mul_7);  tangents_2 = None&#10;+         mul_11: &quot;f32[2, 2]&quot; = torch.ops.aten.mul.Tensor(getitem_10, getitem_2);  getitem_2 = None&#10;  &#10;          # No stacktrace found for following nodes&#10;-         record_event_default_4 = torch.ops.streams.record_event.default(10, 3);  record_event_default_4 = None&#10;-         sync_dealloc_default = torch.ops.streams.sync_dealloc.default(10, 4, mul_7);  mul_7 = sync_dealloc_default = None&#10;+         subgraph_record_event_default_5 = self.subgraph_record_event_default_5&#10;+         control_deps_13 = torch.ops.higher_order.control_deps((mul_11,), subgraph_record_event_default_5, mul_11);  mul_11 = subgraph_record_event_default_5 = None&#10;  &#10;          # Annotation: {'stream': 3}&#10;+         getitem_11: &quot;f32[2, 2]&quot; = control_deps_13[1];  control_deps_13 = None&#10;-         mul_3: &quot;f32[2, 2]&quot; = torch.ops.aten.mul.Tensor(ones, primals_1);  primals_1 = None&#10;-         mul_8: &quot;f32[2, 2]&quot; = torch.ops.aten.mul.Tensor(add, mul_3);  mul_3 = None&#10;  &#10;          # No stacktrace found for following nodes&#10;+         sync_dealloc_default_1 = torch.ops.streams.sync_dealloc.default(11, 4, getitem_10);  getitem_10 = sync_dealloc_default_1 = None&#10;-         record_event_default_1 = torch.ops.streams.record_event.default(7, 3);  record_event_default_1 = None&#10;?                              ^                                          ^                            ^&#10;+         record_event_default_2 = torch.ops.streams.record_event.default(8, 3);  record_event_default_2 = None&#10;?                              ^                                          ^                            ^&#10;+         wait_event_default_2 = torch.ops.streams.wait_event.default(8, 2);  wait_event_default_2 = None&#10;  &#10;          # Annotation: {'stream': 2}&#10;+         add_1: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(tangents_1, getitem_11);  tangents_1 = None&#10;-         mul_1: &quot;f32[2, 2]&quot; = torch.ops.aten.mul.Tensor(ones, 2)&#10;-         mul_2: &quot;f32[2, 2]&quot; = torch.ops.aten.mul.Tensor(mul_1, mul);  mul = None&#10;- &#10;-         # Annotation: {'stream': 3}&#10;-         mul_9: &quot;f32[2, 2]&quot; = torch.ops.aten.mul.Tensor(add, mul_2);  add = mul_2 = None&#10;-         mul_10: &quot;f32[2, 2]&quot; = torch.ops.aten.mul.Tensor(mul_9, ones);  mul_9 = None&#10;  &#10;          # No stacktrace found for following nodes&#10;-         wait_event_default_1 = torch.ops.streams.wait_event.default(7, 2);  wait_event_default_1 = None&#10;+         subgraph_record_event_default_6 = self.subgraph_record_event_default_6&#10;+         control_deps_14 = torch.ops.higher_order.control_deps((add_1,), subgraph_record_event_default_6, add_1);  add_1 = subgraph_record_event_default_6 = None&#10;  &#10;          # Annotation: {'stream': 2}&#10;-         mul_11: &quot;f32[2, 2]&quot; = torch.ops.aten.mul.Tensor(mul_8, mul_1);  mul_1 = None&#10;+         getitem_12: &quot;f32[2, 2]&quot; = control_deps_14[1];  control_deps_14 = None&#10;  &#10;          # No stacktrace found for following nodes&#10;-         record_event_default_5 = torch.ops.streams.record_event.default(11, 2);  record_event_default_5 = None&#10;-         sync_dealloc_default_1 = torch.ops.streams.sync_dealloc.default(11, 3, mul_8);  mul_8 = sync_dealloc_default_1 = None&#10;?                              ^                                           ^      -- ^     -- ^                        ^&#10;+         sync_dealloc_default_2 = torch.ops.streams.sync_dealloc.default(12, 3, getitem_11);  getitem_11 = sync_dealloc_default_2 = None&#10;?                              ^                                           ^     ++++++  ^^    ++++++  ^^                        ^&#10;-         record_event_default_2 = torch.ops.streams.record_event.default(8, 2);  record_event_default_2 = None&#10;-         wait_event_default_2 = torch.ops.streams.wait_event.default(8, 1);  wait_event_default_2 = None&#10;  &#10;-         # Annotation: {'stream': 1}&#10;?                                  ^&#10;+         # Annotation: {'stream': 2}&#10;?                                  ^&#10;-         add_1: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(tangents_1, mul_11);  tangents_1 = None&#10;+         mul_12: &quot;f32[2, 2]&quot; = torch.ops.aten.mul.Tensor(getitem_12, getitem);  getitem_12 = getitem = None&#10;  &#10;          # No stacktrace found for following nodes&#10;-         record_event_default_6 = torch.ops.streams.record_event.default(12, 1);  record_event_default_6 = None&#10;-         sync_dealloc_default_2 = torch.ops.streams.sync_dealloc.default(12, 2, mul_11);  mul_11 = sync_dealloc_default_2 = None&#10;+         subgraph_record_event_default_3 = self.subgraph_record_event_default_3&#10;+         control_deps_15 = torch.ops.higher_order.control_deps((mul_12,), subgraph_record_event_default_3, mul_12);  mul_12 = subgraph_record_event_default_3 = None&#10;  &#10;-         # Annotation: {'stream': 1}&#10;?                                  ^&#10;+         # Annotation: {'stream': 2}&#10;?                                  ^&#10;-         mul_12: &quot;f32[2, 2]&quot; = torch.ops.aten.mul.Tensor(add_1, ones);  add_1 = ones = None&#10;+         getitem_13: &quot;f32[2, 2]&quot; = control_deps_15[1]&#10;  &#10;          # No stacktrace found for following nodes&#10;-         record_event_default_3 = torch.ops.streams.record_event.default(9, 1);  record_event_default_3 = None&#10;-         wait_event_default_3 = torch.ops.streams.wait_event.default(9, 3);  wait_event_default_3 = None&#10;+         subgraph_wait_event_default_3 = self.subgraph_wait_event_default_3&#10;+         control_deps_16 = torch.ops.higher_order.control_deps((control_deps_15, mul_9, mul_10), subgraph_wait_event_default_3, mul_10);  control_deps_15 = mul_9 = mul_10 = subgraph_wait_event_default_3 = None&#10;  &#10;-         # Annotation: {'stream': 3}&#10;?                                  ^&#10;+         # Annotation: {'stream': 4}&#10;?                                  ^&#10;+         getitem_14: &quot;f32[2, 2]&quot; = control_deps_16[1];  control_deps_16 = None&#10;+ &#10;+         # Annotation: {'stream': 4}&#10;-         add_2: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(mul_10, mul_12);  mul_10 = None&#10;?                                                         --  ^   --  ^     --  ^&#10;+         add_2: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(getitem_14, getitem_13);  getitem_14 = None&#10;?                                                        ++++++   ^  ++++++   ^    ++++++   ^&#10;  &#10;          # No stacktrace found for following nodes&#10;-         record_event_default_7 = torch.ops.streams.record_event.default(13, 3);  record_event_default_7 = None&#10;+         subgraph_record_event_default_7 = self.subgraph_record_event_default_7&#10;+         control_deps_17 = torch.ops.higher_order.control_deps((add_2,), subgraph_record_event_default_7, add_2);  add_2 = subgraph_record_event_default_7 = None&#10;+ &#10;+         # Annotation: {'stream': 4}&#10;+         getitem_15: &quot;f32[2, 2]&quot; = control_deps_17[1];  control_deps_17 = None&#10;+ &#10;+         # No stacktrace found for following nodes&#10;-         sync_dealloc_default_3 = torch.ops.streams.sync_dealloc.default(13, 1, mul_12);  mul_12 = sync_dealloc_default_3 = None&#10;?                                                                             ^   --  ^     --  ^&#10;+         sync_dealloc_default_3 = torch.ops.streams.sync_dealloc.default(13, 2, getitem_13);  getitem_13 = sync_dealloc_default_3 = None&#10;?                                                                             ^  ++++++   ^    ++++++   ^&#10;-         return (add_2,)&#10;?                 ^^^ ^&#10;+         return (getitem_15,)&#10;?                 ^^^^^^^ ^^&#10;+ &#10;+     class subgraph_record_event_default(torch.nn.Module):&#10;+         def forward(self, dep_0: &quot;f32[2, 2]&quot;):&#10;+             # No stacktrace found for following nodes&#10;+             record_event_default = torch.ops.streams.record_event.default(6, 5)&#10;+             return (record_event_default, dep_0)&#10;+ &#10;+     class subgraph_wait_event_default(torch.nn.Module):&#10;+         def forward(self):&#10;+             # No stacktrace found for following nodes&#10;+             wait_event_default = torch.ops.streams.wait_event.default(6, 4)&#10;+             return wait_event_default&#10;+ &#10;+     class subgraph_record_event_default_4(torch.nn.Module):&#10;+         def forward(self, dep_0: &quot;f32[2, 2]&quot;):&#10;+             # No stacktrace found for following nodes&#10;+             record_event_default = torch.ops.streams.record_event.default(10, 4)&#10;+             return (record_event_default, dep_0)&#10;+ &#10;+     class subgraph_record_event_default_1(torch.nn.Module):&#10;+         def forward(self, dep_0: &quot;f32[2, 2]&quot;):&#10;+             # No stacktrace found for following nodes&#10;+             record_event_default = torch.ops.streams.record_event.default(7, 4)&#10;+             return (record_event_default, dep_0)&#10;+ &#10;+     class subgraph_wait_event_default_1(torch.nn.Module):&#10;+         def forward(self):&#10;+             # No stacktrace found for following nodes&#10;+             wait_event_default = torch.ops.streams.wait_event.default(7, 3)&#10;+             return wait_event_default&#10;+ &#10;+     class subgraph_record_event_default_5(torch.nn.Module):&#10;+         def forward(self, dep_0: &quot;f32[2, 2]&quot;):&#10;+             # No stacktrace found for following nodes&#10;+             record_event_default = torch.ops.streams.record_event.default(11, 3)&#10;+             return (record_event_default, dep_0)&#10;+ &#10;+     class subgraph_record_event_default_6(torch.nn.Module):&#10;+         def forward(self, dep_0: &quot;f32[2, 2]&quot;):&#10;+             # No stacktrace found for following nodes&#10;+             record_event_default = torch.ops.streams.record_event.default(12, 2)&#10;+             return (record_event_default, dep_0)&#10;+ &#10;+     class subgraph_record_event_default_3(torch.nn.Module):&#10;+         def forward(self, dep_0: &quot;f32[2, 2]&quot;):&#10;+             # No stacktrace found for following nodes&#10;+             record_event_default = torch.ops.streams.record_event.default(9, 2)&#10;+             return (record_event_default, dep_0)&#10;+ &#10;+     class subgraph_wait_event_default_3(torch.nn.Module):&#10;+         def forward(self, dep_0: &quot;f32[2, 2]&quot;):&#10;+             # No stacktrace found for following nodes&#10;+             wait_event_default = torch.ops.streams.wait_event.default(9, 4)&#10;+             return (wait_event_default, dep_0)&#10;+ &#10;+     class subgraph_record_event_default_7(torch.nn.Module):&#10;+         def forward(self, dep_0: &quot;f32[2, 2]&quot;):&#10;+             # No stacktrace found for following nodes&#10;+             record_event_default = torch.ops.streams.record_event.default(13, 4)&#10;+             return (record_event_default, dep_0)&#10; : To accept the new output, re-run test with envvar EXPECTTEST_ACCEPT=1 (we recommend staging/committing your changes before doing this)&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/dynamo/test_streams_xpu.py TestStreams.test_record_stream_problem_interleaved&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/dynamo/test_streams_xpu.py", line 803, in test_record_stream_problem_interleaved
+    self.assertExpectedInline(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/test_case.py", line 133, in assertExpectedInline
+    return super().assertExpectedInline(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3493, in assertExpectedInline
+    return super().assertExpectedInline(actual if isinstance(actual, str) else str(actual), expect, skip + 1)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 413, in assertExpectedInline
+    assert_expected_inline(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 378, in assert_expected_inline
+    assert_eq(expect, actual, msg=help_text)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 450, in assertMultiLineEqualMaybeCppStack
+    self.assertMultiLineEqual(expect, actual, *args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/unittest/case.py", line 1226, in assertMultiLineEqual
+    self.fail(self._formatMessage(msg, standardMsg))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/unittest/case.py", line 675, in fail
+    raise self.failureException(msg)
+AssertionError: 'clas[50 chars]elf, primals_1: "f32[2, 2]", mul: "f32[2, 2]",[3986 chars],)\n' != 'clas[50 chars]elf, getitem: "f32[2, 2]", getitem_3: "f32[2, [9118 chars]0)\n'
+  class GraphModule(torch.nn.Module):
+-     def forward(self, primals_1: "f32[2, 2]", mul: "f32[2, 2]", tangents_1: "f32[2, 2]", tangents_2: "f32[2, 2]", tangents_3: "f32[2, 2]"):
++     def forward(self, getitem: "f32[2, 2]", getitem_3: "f32[2, 2]", getitem_2: "f32[2, 2]", getitem_4: "f32[2, 2]", getitem_6: "f32[2, 2]", tangents_1: "f32[2, 2]", tangents_2: "f32[2, 2]", tangents_3: "f32[2, 2]"):
+-         # Annotation: {'stream': 1}
+?                                  ^
++         # Annotation: {'stream': 5}
+?                                  ^
+-         ones: "f32[2, 2]" = torch.ops.aten.ones.default([2, 2], device = device(type='xpu', index=0), pin_memory = False)
++         mul_7: "f32[2, 2]" = torch.ops.aten.mul.Tensor(tangents_3, getitem_6);  tangents_3 = getitem_6 = None
++ 
++         # No stacktrace found for following nodes
++         subgraph_record_event_default = self.subgraph_record_event_default
++         control_deps_8 = torch.ops.higher_order.control_deps((mul_7,), subgraph_record_event_default, mul_7);  mul_7 = subgraph_record_event_default = None
++ 
++         # Annotation: {'stream': 5}
++         getitem_8: "f32[2, 2]" = control_deps_8[1]
++ 
++         # No stacktrace found for following nodes
++         subgraph_wait_event_default = self.subgraph_wait_event_default
++         control_deps_9 = torch.ops.higher_order.control_deps((control_deps_8,), subgraph_wait_event_default);  control_deps_8 = subgraph_wait_event_default = control_deps_9 = None
+  
+          # Annotation: {'stream': 4}
+-         mul_5: "f32[2, 2]" = torch.ops.aten.mul.Tensor(ones, 4)
+-         mul_7: "f32[2, 2]" = torch.ops.aten.mul.Tensor(tangents_3, mul_5);  tangents_3 = mul_5 = None
+?         ^^^^^                               ^^^                 ^   -- ^             ^  --------
++         add: "f32[2, 2]" = torch.ops.aten.add.Tensor(tangents_2, getitem_8);  tangents_2 = None
+?         ^^^                               ^^^                 ^  ++++++  ^             ^
+  
+          # No stacktrace found for following nodes
+-         record_event_default = torch.ops.streams.record_event.default(6, 4);  record_event_default = None
+-         wait_event_default = torch.ops.streams.wait_event.default(6, 3);  wait_event_default = None
++         subgraph_record_event_default_4 = self.subgraph_record_event_default_4
++         control_deps_10 = torch.ops.higher_order.control_deps((add,), subgraph_record_event_default_4, add);  add = subgraph_record_event_default_4 = None
++ 
++         # Annotation: {'stream': 4}
++         getitem_9: "f32[2, 2]" = control_deps_10[1];  control_deps_10 = None
++ 
++         # No stacktrace found for following nodes
++         sync_dealloc_default = torch.ops.streams.sync_dealloc.default(10, 5, getitem_8);  getitem_8 = sync_dealloc_default = None
++ 
++         # Annotation: {'stream': 4}
++         mul_8: "f32[2, 2]" = torch.ops.aten.mul.Tensor(getitem_9, getitem_4);  getitem_4 = None
++ 
++         # No stacktrace found for following nodes
++         subgraph_record_event_default_1 = self.subgraph_record_event_default_1
++         control_deps_11 = torch.ops.higher_order.control_deps((mul_8,), subgraph_record_event_default_1, mul_8);  mul_8 = subgraph_record_event_default_1 = None
++ 
++         # Annotation: {'stream': 4}
++         getitem_10: "f32[2, 2]" = control_deps_11[1]
++         mul_9: "f32[2, 2]" = torch.ops.aten.mul.Tensor(getitem_9, getitem_3);  getitem_9 = getitem_3 = None
++         mul_10: "f32[2, 2]" = torch.ops.aten.mul.Tensor(mul_9, getitem)
++ 
++         # No stacktrace found for following nodes
++         subgraph_wait_event_default_1 = self.subgraph_wait_event_default_1
++         control_deps_12 = torch.ops.higher_order.control_deps((control_deps_11,), subgraph_wait_event_default_1);  control_deps_11 = subgraph_wait_event_default_1 = control_deps_12 = None
+  
+          # Annotation: {'stream': 3}
+-         add: "f32[2, 2]" = torch.ops.aten.add.Tensor(tangents_2, mul_7);  tangents_2 = None
++         mul_11: "f32[2, 2]" = torch.ops.aten.mul.Tensor(getitem_10, getitem_2);  getitem_2 = None
+  
+          # No stacktrace found for following nodes
+-         record_event_default_4 = torch.ops.streams.record_event.default(10, 3);  record_event_default_4 = None
+-         sync_dealloc_default = torch.ops.streams.sync_dealloc.default(10, 4, mul_7);  mul_7 = sync_dealloc_default = None
++         subgraph_record_event_default_5 = self.subgraph_record_event_default_5
++         control_deps_13 = torch.ops.higher_order.control_deps((mul_11,), subgraph_record_event_default_5, mul_11);  mul_11 = subgraph_record_event_default_5 = None
+  
+          # Annotation: {'stream': 3}
++         getitem_11: "f32[2, 2]" = control_deps_13[1];  control_deps_13 = None
+-         mul_3: "f32[2, 2]" = torch.ops.aten.mul.Tensor(ones, primals_1);  primals_1 = None
+-         mul_8: "f32[2, 2]" = torch.ops.aten.mul.Tensor(add, mul_3);  mul_3 = None
+  
+          # No stacktrace found for following nodes
++         sync_dealloc_default_1 = torch.ops.streams.sync_dealloc.default(11, 4, getitem_10);  getitem_10 = sync_dealloc_default_1 = None
+-         record_event_default_1 = torch.ops.streams.record_event.default(7, 3);  record_event_default_1 = None
+?                              ^                                          ^                            ^
++         record_event_default_2 = torch.ops.streams.record_event.default(8, 3);  record_event_default_2 = None
+?                              ^                                          ^                            ^
++         wait_event_default_2 = torch.ops.streams.wait_event.default(8, 2);  wait_event_default_2 = None
+  
+          # Annotation: {'stream': 2}
++         add_1: "f32[2, 2]" = torch.ops.aten.add.Tensor(tangents_1, getitem_11);  tangents_1 = None
+-         mul_1: "f32[2, 2]" = torch.ops.aten.mul.Tensor(ones, 2)
+-         mul_2: "f32[2, 2]" = torch.ops.aten.mul.Tensor(mul_1, mul);  mul = None
+- 
+-         # Annotation: {'stream': 3}
+-         mul_9: "f32[2, 2]" = torch.ops.aten.mul.Tensor(add, mul_2);  add = mul_2 = None
+-         mul_10: "f32[2, 2]" = torch.ops.aten.mul.Tensor(mul_9, ones);  mul_9 = None
+  
+          # No stacktrace found for following nodes
+-         wait_event_default_1 = torch.ops.streams.wait_event.default(7, 2);  wait_event_default_1 = None
++         subgraph_record_event_default_6 = self.subgraph_record_event_default_6
++         control_deps_14 = torch.ops.higher_order.control_deps((add_1,), subgraph_record_event_default_6, add_1);  add_1 = subgraph_record_event_default_6 = None
+  
+          # Annotation: {'stream': 2}
+-         mul_11: "f32[2, 2]" = torch.ops.aten.mul.Tensor(mul_8, mul_1);  mul_1 = None
++         getitem_12: "f32[2, 2]" = control_deps_14[1];  control_deps_14 = None
+  
+          # No stacktrace found for following nodes
+-         record_event_default_5 = torch.ops.streams.record_event.default(11, 2);  record_event_default_5 = None
+-         sync_dealloc_default_1 = torch.ops.streams.sync_dealloc.default(11, 3, mul_8);  mul_8 = sync_dealloc_default_1 = None
+?                              ^                                           ^      -- ^     -- ^                        ^
++         sync_dealloc_default_2 = torch.ops.streams.sync_dealloc.default(12, 3, getitem_11);  getitem_11 = sync_dealloc_default_2 = None
+?                              ^                                           ^     ++++++  ^^    ++++++  ^^                        ^
+-         record_event_default_2 = torch.ops.streams.record_event.default(8, 2);  record_event_default_2 = None
+-         wait_event_default_2 = torch.ops.streams.wait_event.default(8, 1);  wait_event_default_2 = None
+  
+-         # Annotation: {'stream': 1}
+?                                  ^
++         # Annotation: {'stream': 2}
+?                                  ^
+-         add_1: "f32[2, 2]" = torch.ops.aten.add.Tensor(tangents_1, mul_11);  tangents_1 = None
++         mul_12: "f32[2, 2]" = torch.ops.aten.mul.Tensor(getitem_12, getitem);  getitem_12 = getitem = None
+  
+          # No stacktrace found for following nodes
+-         record_event_default_6 = torch.ops.streams.record_event.default(12, 1);  record_event_default_6 = None
+-         sync_dealloc_default_2 = torch.ops.streams.sync_dealloc.default(12, 2, mul_11);  mul_11 = sync_dealloc_default_2 = None
++         subgraph_record_event_default_3 = self.subgraph_record_event_default_3
++         control_deps_15 = torch.ops.higher_order.control_deps((mul_12,), subgraph_record_event_default_3, mul_12);  mul_12 = subgraph_record_event_default_3 = None
+  
+-         # Annotation: {'stream': 1}
+?                                  ^
++         # Annotation: {'stream': 2}
+?                                  ^
+-         mul_12: "f32[2, 2]" = torch.ops.aten.mul.Tensor(add_1, ones);  add_1 = ones = None
++         getitem_13: "f32[2, 2]" = control_deps_15[1]
+  
+          # No stacktrace found for following nodes
+-         record_event_default_3 = torch.ops.streams.record_event.default(9, 1);  record_event_default_3 = None
+-         wait_event_default_3 = torch.ops.streams.wait_event.default(9, 3);  wait_event_default_3 = None
++         subgraph_wait_event_default_3 = self.subgraph_wait_event_default_3
++         control_deps_16 = torch.ops.higher_order.control_deps((control_deps_15, mul_9, mul_10), subgraph_wait_event_default_3, mul_10);  control_deps_15 = mul_9 = mul_10 = subgraph_wait_event_default_3 = None
+  
+-         # Annotation: {'stream': 3}
+?                                  ^
++         # Annotation: {'stream': 4}
+?                                  ^
++         getitem_14: "f32[2, 2]" = control_deps_16[1];  control_deps_16 = None
++ 
++         # Annotation: {'stream': 4}
+-         add_2: "f32[2, 2]" = torch.ops.aten.add.Tensor(mul_10, mul_12);  mul_10 = None
+?                                                         --  ^   --  ^     --  ^
++         add_2: "f32[2, 2]" = torch.ops.aten.add.Tensor(getitem_14, getitem_13);  getitem_14 = None
+?                                                        ++++++   ^  ++++++   ^    ++++++   ^
+  
+          # No stacktrace found for following nodes
+-         record_event_default_7 = torch.ops.streams.record_event.default(13, 3);  record_event_default_7 = None
++         subgraph_record_event_default_7 = self.subgraph_record_event_default_7
++         control_deps_17 = torch.ops.higher_order.control_deps((add_2,), subgraph_record_event_default_7, add_2);  add_2 = subgraph_record_event_default_7 = None
++ 
++         # Annotation: {'stream': 4}
++         getitem_15: "f32[2, 2]" = control_deps_17[1];  control_deps_17 = None
++ 
++         # No stacktrace found for following nodes
+-         sync_dealloc_default_3 = torch.ops.streams.sync_dealloc.default(13, 1, mul_12);  mul_12 = sync_dealloc_default_3 = None
+?                                                                             ^   --  ^     --  ^
++         sync_dealloc_default_3 = torch.ops.streams.sync_dealloc.default(13, 2, getitem_13);  getitem_13 = sync_dealloc_default_3 = None
+?                                                                             ^  ++++++   ^    ++++++   ^
+-         return (add_2,)
+?                 ^^^ ^
++         return (getitem_15,)
+?                 ^^^^^^^ ^^
++ 
++     class subgraph_record_event_default(torch.nn.Module):
++         def forward(self, dep_0: "f32[2, 2]"):
++             # No stacktrace found for following nodes
++             record_event_default = torch.ops.streams.record_event.default(6, 5)
++             return (record_event_default, dep_0)
++ 
++     class subgraph_wait_event_default(torch.nn.Module):
++         def forward(self):
++             # No stacktrace found for following nodes
++             wait_event_default = torch.ops.streams.wait_event.default(6, 4)
++             return wait_event_default
++ 
++     class subgraph_record_event_default_4(torch.nn.Module):
++         def forward(self, dep_0: "f32[2, 2]"):
++             # No stacktrace found for following nodes
++             record_event_default = torch.ops.streams.record_event.default(10, 4)
++             return (record_event_default, dep_0)
++ 
++     class subgraph_record_event_default_1(torch.nn.Module):
++         def forward(self, dep_0: "f32[2, 2]"):
++             # No stacktrace found for following nodes
++             record_event_default = torch.ops.streams.record_event.default(7, 4)
++             return (record_event_default, dep_0)
++ 
++     class subgraph_wait_event_default_1(torch.nn.Module):
++         def forward(self):
++             # No stacktrace found for following nodes
++             wait_event_default = torch.ops.streams.wait_event.default(7, 3)
++             return wait_event_default
++ 
++     class subgraph_record_event_default_5(torch.nn.Module):
++         def forward(self, dep_0: "f32[2, 2]"):
++             # No stacktrace found for following nodes
++             record_event_default = torch.ops.streams.record_event.default(11, 3)
++             return (record_event_default, dep_0)
++ 
++     class subgraph_record_event_default_6(torch.nn.Module):
++         def forward(self, dep_0: "f32[2, 2]"):
++             # No stacktrace found for following nodes
++             record_event_default = torch.ops.streams.record_event.default(12, 2)
++             return (record_event_default, dep_0)
++ 
++     class subgraph_record_event_default_3(torch.nn.Module):
++         def forward(self, dep_0: "f32[2, 2]"):
++             # No stacktrace found for following nodes
++             record_event_default = torch.ops.streams.record_event.default(9, 2)
++             return (record_event_default, dep_0)
++ 
++     class subgraph_wait_event_default_3(torch.nn.Module):
++         def forward(self, dep_0: "f32[2, 2]"):
++             # No stacktrace found for following nodes
++             wait_event_default = torch.ops.streams.wait_event.default(9, 4)
++             return (wait_event_default, dep_0)
++ 
++     class subgraph_record_event_default_7(torch.nn.Module):
++         def forward(self, dep_0: "f32[2, 2]"):
++             # No stacktrace found for following nodes
++             record_event_default = torch.ops.streams.record_event.default(13, 4)
++             return (record_event_default, dep_0)
+ : To accept the new output, re-run test with envvar EXPECTTEST_ACCEPT=1 (we recommend staging/committing your changes before doing this)
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/dynamo/test_streams_xpu.py TestStreams.test_record_stream_problem_interleaved
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_run_opcheck_fork_join" time="0.048" /><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_stream_backward_sync" time="0.527"><failure message="AssertionError: 'clas[135 chars]m\': 1}\n        mul: &quot;f32[2, 2]&quot; = torch.ops.[283 chars]1)\n' != 'clas[135 chars]m\': 2}\n        mul: &quot;f32[2, 2]&quot; = torch.ops.[294 chars]1)\n'&#10;  class GraphModule(torch.nn.Module):&#10;      def forward(self, primals_1: &quot;f32[2, 2]&quot;, primals_2: &quot;f32[2, 2]&quot;):&#10;-         # Annotation: {'stream': 1}&#10;?                                  ^&#10;+         # Annotation: {'stream': 2}&#10;?                                  ^&#10;          mul: &quot;f32[2, 2]&quot; = torch.ops.aten.mul.Tensor(primals_1, 2);  primals_1 = None&#10;          add: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(mul, primals_2)&#10;  &#10;-         # Annotation: {'stream': 0}&#10;?                                  ^&#10;+         # Annotation: {'stream': 1}&#10;?                                  ^&#10;-         add_1: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(mul, primals_2);  mul = primals_2 = None&#10;?                                                                          ------&#10;+         add_1: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(mul, primals_2);  primals_2 = None&#10;-         return (add, add_1)&#10;+         return (add, add_1, mul, add, add_1)&#10;?                     +++++++++++++++++&#10; : To accept the new output, re-run test with envvar EXPECTTEST_ACCEPT=1 (we recommend staging/committing your changes before doing this)&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/dynamo/test_streams_xpu.py TestStreams.test_stream_backward_sync&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/dynamo/test_streams_xpu.py", line 562, in test_stream_backward_sync
+    self.assertExpectedInline(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/test_case.py", line 133, in assertExpectedInline
+    return super().assertExpectedInline(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3493, in assertExpectedInline
+    return super().assertExpectedInline(actual if isinstance(actual, str) else str(actual), expect, skip + 1)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 413, in assertExpectedInline
+    assert_expected_inline(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 378, in assert_expected_inline
+    assert_eq(expect, actual, msg=help_text)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 450, in assertMultiLineEqualMaybeCppStack
+    self.assertMultiLineEqual(expect, actual, *args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/unittest/case.py", line 1226, in assertMultiLineEqual
+    self.fail(self._formatMessage(msg, standardMsg))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/unittest/case.py", line 675, in fail
+    raise self.failureException(msg)
+AssertionError: 'clas[135 chars]m\': 1}\n        mul: "f32[2, 2]" = torch.ops.[283 chars]1)\n' != 'clas[135 chars]m\': 2}\n        mul: "f32[2, 2]" = torch.ops.[294 chars]1)\n'
+  class GraphModule(torch.nn.Module):
+      def forward(self, primals_1: "f32[2, 2]", primals_2: "f32[2, 2]"):
+-         # Annotation: {'stream': 1}
+?                                  ^
++         # Annotation: {'stream': 2}
+?                                  ^
+          mul: "f32[2, 2]" = torch.ops.aten.mul.Tensor(primals_1, 2);  primals_1 = None
+          add: "f32[2, 2]" = torch.ops.aten.add.Tensor(mul, primals_2)
+  
+-         # Annotation: {'stream': 0}
+?                                  ^
++         # Annotation: {'stream': 1}
+?                                  ^
+-         add_1: "f32[2, 2]" = torch.ops.aten.add.Tensor(mul, primals_2);  mul = primals_2 = None
+?                                                                          ------
++         add_1: "f32[2, 2]" = torch.ops.aten.add.Tensor(mul, primals_2);  primals_2 = None
+-         return (add, add_1)
++         return (add, add_1, mul, add, add_1)
+?                     +++++++++++++++++
+ : To accept the new output, re-run test with envvar EXPECTTEST_ACCEPT=1 (we recommend staging/committing your changes before doing this)
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/dynamo/test_streams_xpu.py TestStreams.test_stream_backward_sync
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_stream_context_graph_break" time="0.001"><skipped type="pytest.skip" message="Needs graph break support with annotation context">/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/dynamo/test_streams_xpu.py:91: Needs graph break support with annotation context</skipped></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_get_current_stream_return" time="0.329" /><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_stream_with_mutation" time="0.053"><failure message="AssertionError: 'clas[126 chars]m\': 0}\n        add: &quot;f32[2, 2]&quot; = torch.ops.[566 chars]3)\n' != 'clas[126 chars]m\': 1}\n        add: &quot;f32[2, 2]&quot; = torch.ops.[566 chars]3)\n'&#10;  class &lt;lambda&gt;(torch.nn.Module):&#10;      def forward(self, arg0_1: &quot;f32[2, 2]&quot;, arg1_1: &quot;f32[2, 2]&quot;):&#10;-         # Annotation: {'stream': 0}&#10;?                                  ^&#10;+         # Annotation: {'stream': 1}&#10;?                                  ^&#10;          add: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(arg0_1, arg1_1)&#10;  &#10;-         # Annotation: {'stream': 2}&#10;?                                  ^&#10;+         # Annotation: {'stream': 3}&#10;?                                  ^&#10;          add_1: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(arg1_1, arg1_1)&#10;  &#10;-         # Annotation: {'stream': 2}&#10;?                                  ^&#10;+         # Annotation: {'stream': 3}&#10;?                                  ^&#10;          add_2: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(add_1, arg1_1);  arg1_1 = None&#10;  &#10;-         # Annotation: {'stream': 0}&#10;?                                  ^&#10;+         # Annotation: {'stream': 1}&#10;?                                  ^&#10;          add_3: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(add_1, 2);  add_1 = None&#10;  &#10;-         # Annotation: {'stream': 0}&#10;?                                  ^&#10;+         # Annotation: {'stream': 1}&#10;?                                  ^&#10;          copy_: &quot;f32[2, 2]&quot; = torch.ops.aten.copy_.default(arg0_1, add);  arg0_1 = add = copy_ = None&#10;          return (add_2, add_3)&#10; : To accept the new output, re-run test with envvar EXPECTTEST_ACCEPT=1 (we recommend staging/committing your changes before doing this)&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/dynamo/test_streams_xpu.py TestStreams.test_stream_with_mutation&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/dynamo/test_streams_xpu.py", line 449, in test_stream_with_mutation
+    self.assertExpectedInline(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/test_case.py", line 133, in assertExpectedInline
+    return super().assertExpectedInline(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3493, in assertExpectedInline
+    return super().assertExpectedInline(actual if isinstance(actual, str) else str(actual), expect, skip + 1)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 413, in assertExpectedInline
+    assert_expected_inline(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 378, in assert_expected_inline
+    assert_eq(expect, actual, msg=help_text)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 450, in assertMultiLineEqualMaybeCppStack
+    self.assertMultiLineEqual(expect, actual, *args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/unittest/case.py", line 1226, in assertMultiLineEqual
+    self.fail(self._formatMessage(msg, standardMsg))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/unittest/case.py", line 675, in fail
+    raise self.failureException(msg)
+AssertionError: 'clas[126 chars]m\': 0}\n        add: "f32[2, 2]" = torch.ops.[566 chars]3)\n' != 'clas[126 chars]m\': 1}\n        add: "f32[2, 2]" = torch.ops.[566 chars]3)\n'
+  class &lt;lambda&gt;(torch.nn.Module):
+      def forward(self, arg0_1: "f32[2, 2]", arg1_1: "f32[2, 2]"):
+-         # Annotation: {'stream': 0}
+?                                  ^
++         # Annotation: {'stream': 1}
+?                                  ^
+          add: "f32[2, 2]" = torch.ops.aten.add.Tensor(arg0_1, arg1_1)
+  
+-         # Annotation: {'stream': 2}
+?                                  ^
++         # Annotation: {'stream': 3}
+?                                  ^
+          add_1: "f32[2, 2]" = torch.ops.aten.add.Tensor(arg1_1, arg1_1)
+  
+-         # Annotation: {'stream': 2}
+?                                  ^
++         # Annotation: {'stream': 3}
+?                                  ^
+          add_2: "f32[2, 2]" = torch.ops.aten.add.Tensor(add_1, arg1_1);  arg1_1 = None
+  
+-         # Annotation: {'stream': 0}
+?                                  ^
++         # Annotation: {'stream': 1}
+?                                  ^
+          add_3: "f32[2, 2]" = torch.ops.aten.add.Tensor(add_1, 2);  add_1 = None
+  
+-         # Annotation: {'stream': 0}
+?                                  ^
++         # Annotation: {'stream': 1}
+?                                  ^
+          copy_: "f32[2, 2]" = torch.ops.aten.copy_.default(arg0_1, add);  arg0_1 = add = copy_ = None
+          return (add_2, add_3)
+ : To accept the new output, re-run test with envvar EXPECTTEST_ACCEPT=1 (we recommend staging/committing your changes before doing this)
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/dynamo/test_streams_xpu.py TestStreams.test_stream_with_mutation
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_inductor_lowering" time="1.857" /><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_is_marked_side_effectful" time="0.001" /><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_local_stream_return" time="1.916" /><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_stream_input" time="2.238" /><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_stream_weakref" time="0.001" /><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_streams_xpu.TestStreams" name="test_nested_stream_enter_exit" time="0.046"><failure message="AssertionError: 'clas[126 chars]m\': 1}\n        add: &quot;f32[2, 2]&quot; = torch.ops.[316 chars]2)\n' != 'clas[126 chars]m\': 2}\n        add: &quot;f32[2, 2]&quot; = torch.ops.[316 chars]2)\n'&#10;  class &lt;lambda&gt;(torch.nn.Module):&#10;      def forward(self, arg0_1: &quot;f32[2, 2]&quot;, arg1_1: &quot;f32[2, 2]&quot;):&#10;-         # Annotation: {'stream': 1}&#10;?                                  ^&#10;+         # Annotation: {'stream': 2}&#10;?                                  ^&#10;          add: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(arg0_1, arg1_1)&#10;  &#10;-         # Annotation: {'stream': 2}&#10;?                                  ^&#10;+         # Annotation: {'stream': 3}&#10;?                                  ^&#10;          add_1: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(arg0_1, arg1_1);  arg0_1 = arg1_1 = None&#10;  &#10;-         # Annotation: {'stream': 1}&#10;?                                  ^&#10;+         # Annotation: {'stream': 2}&#10;?                                  ^&#10;          add_2: &quot;f32[2, 2]&quot; = torch.ops.aten.add.Tensor(add, 2);  add = None&#10;          return (add_1, add_2)&#10; : To accept the new output, re-run test with envvar EXPECTTEST_ACCEPT=1 (we recommend staging/committing your changes before doing this)&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/dynamo/test_streams_xpu.py TestStreams.test_nested_stream_enter_exit&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/dynamo/test_streams_xpu.py", line 229, in test_nested_stream_enter_exit
+    self.assertExpectedInline(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/test_case.py", line 133, in assertExpectedInline
+    return super().assertExpectedInline(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3493, in assertExpectedInline
+    return super().assertExpectedInline(actual if isinstance(actual, str) else str(actual), expect, skip + 1)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 413, in assertExpectedInline
+    assert_expected_inline(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 378, in assert_expected_inline
+    assert_eq(expect, actual, msg=help_text)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/expecttest/__init__.py", line 450, in assertMultiLineEqualMaybeCppStack
+    self.assertMultiLineEqual(expect, actual, *args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/unittest/case.py", line 1226, in assertMultiLineEqual
+    self.fail(self._formatMessage(msg, standardMsg))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/unittest/case.py", line 675, in fail
+    raise self.failureException(msg)
+AssertionError: 'clas[126 chars]m\': 1}\n        add: "f32[2, 2]" = torch.ops.[316 chars]2)\n' != 'clas[126 chars]m\': 2}\n        add: "f32[2, 2]" = torch.ops.[316 chars]2)\n'
+  class &lt;lambda&gt;(torch.nn.Module):
+      def forward(self, arg0_1: "f32[2, 2]", arg1_1: "f32[2, 2]"):
+-         # Annotation: {'stream': 1}
+?                                  ^
++         # Annotation: {'stream': 2}
+?                                  ^
+          add: "f32[2, 2]" = torch.ops.aten.add.Tensor(arg0_1, arg1_1)
+  
+-         # Annotation: {'stream': 2}
+?                                  ^
++         # Annotation: {'stream': 3}
+?                                  ^
+          add_1: "f32[2, 2]" = torch.ops.aten.add.Tensor(arg0_1, arg1_1);  arg0_1 = arg1_1 = None
+  
+-         # Annotation: {'stream': 1}
+?                                  ^
++         # Annotation: {'stream': 2}
+?                                  ^
+          add_2: "f32[2, 2]" = torch.ops.aten.add.Tensor(add, 2);  add = None
+          return (add_1, add_2)
+ : To accept the new output, re-run test with envvar EXPECTTEST_ACCEPT=1 (we recommend staging/committing your changes before doing this)
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/dynamo/test_streams_xpu.py TestStreams.test_nested_stream_enter_exit
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase></testsuite></testsuites>

@@ -1,0 +1,1 @@
+test_ops_xpu.py::TestFakeTensorXPU::test_fake_crossref_backward_no_amp_nn_functional_bilinear_xpu_float32
