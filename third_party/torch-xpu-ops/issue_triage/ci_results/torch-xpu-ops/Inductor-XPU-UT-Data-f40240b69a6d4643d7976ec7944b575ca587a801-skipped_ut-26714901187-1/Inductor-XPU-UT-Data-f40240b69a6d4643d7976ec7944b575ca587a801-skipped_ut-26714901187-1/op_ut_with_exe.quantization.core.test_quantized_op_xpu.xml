@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="5" skipped="0" tests="5" time="9.295" timestamp="2026-05-31T14:54:57.258379" hostname="ef1f3112d585"><testcase classname="third_party.torch-xpu-ops.test.xpu.quantization.core.test_quantized_op_xpu.TestQuantizedOpsXPU" name="test_qgelu_xpu" time="0.007"><failure message="AssertionError: Torch not compiled with CUDA enabled&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/quantization/core/test_quantized_op.py TestQuantizedOpsXPU.test_qgelu_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/quantization/core/test_quantized_op.py", line 725, in test_qgelu
+    X = X.to(device=device)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/cuda/__init__.py", line 518, in _lazy_init
+    raise AssertionError("Torch not compiled with CUDA enabled")
+AssertionError: Torch not compiled with CUDA enabled
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/quantization/core/test_quantized_op.py TestQuantizedOpsXPU.test_qgelu_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.quantization.core.test_quantized_op_xpu.TestQuantizedOpsXPU" name="test_max_pool2d_cudnn_xpu" time="0.299"><failure message="AssertionError: Torch not compiled with CUDA enabled&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/quantization/core/test_quantized_op.py TestQuantizedOpsXPU.test_max_pool2d_cudnn_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0&#10;Falsifying example: test_max_pool2d_cudnn(&#10;    X=(array([[[0.]]], dtype=float32), (1.0, 0, torch.qint8)),&#10;    kernel=3,&#10;    stride=None,&#10;    dilation=1,&#10;    padding=0,&#10;    ceil_mode=True,&#10;    self=&lt;test_quantized_op.TestQuantizedOpsXPU testMethod=test_max_pool2d_cudnn_xpu&gt;,&#10;)&#10;&#10;You can reproduce this example by temporarily adding @reproduce_failure('6.56.4', b'AXicY2RgBEJUgM5nYAQAAKUABg==') as a decorator on your test case">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/quantization/core/test_quantized_op.py", line 1618, in test_max_pool2d_cudnn
+    min_side=1, max_side=10),
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/hypothesis/core.py", line 1267, in wrapped_test
+    raise the_error_hypothesis_found
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/quantization/core/test_quantized_op.py", line 1640, in test_max_pool2d_cudnn
+    a = torch.from_numpy(X).to(device="cuda")
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/cuda/__init__.py", line 518, in _lazy_init
+    raise AssertionError("Torch not compiled with CUDA enabled")
+AssertionError: Torch not compiled with CUDA enabled
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/quantization/core/test_quantized_op.py TestQuantizedOpsXPU.test_max_pool2d_cudnn_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0
+Falsifying example: test_max_pool2d_cudnn(
+    X=(array([[[0.]]], dtype=float32), (1.0, 0, torch.qint8)),
+    kernel=3,
+    stride=None,
+    dilation=1,
+    padding=0,
+    ceil_mode=True,
+    self=&lt;test_quantized_op.TestQuantizedOpsXPU testMethod=test_max_pool2d_cudnn_xpu&gt;,
+)
+
+You can reproduce this example by temporarily adding @reproduce_failure('6.56.4', b'AXicY2RgBEJUgM5nYAQAAKUABg==') as a decorator on your test case</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.quantization.core.test_quantized_op_xpu.TestQuantizedOpsXPU" name="test_qrelu_xpu" time="0.337"><failure message="AssertionError: Torch not compiled with CUDA enabled&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/quantization/core/test_quantized_op.py TestQuantizedOpsXPU.test_qrelu_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_quantized.py", line 182, in test_fn
+    qfunction(*args, **kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/quantization/core/test_quantized_op.py", line 502, in test_qrelu
+    X = torch.randn(*shape, device=device)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/cuda/__init__.py", line 518, in _lazy_init
+    raise AssertionError("Torch not compiled with CUDA enabled")
+AssertionError: Torch not compiled with CUDA enabled
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/quantization/core/test_quantized_op.py TestQuantizedOpsXPU.test_qrelu_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.quantization.core.test_quantized_op_xpu.TestQuantizedOpsXPU" name="test_add_scalar_relu_xpu" time="2.297"><failure message="exceptiongroup.ExceptionGroup: Hypothesis found 2 distinct failures.&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/quantization/core/test_quantized_op.py TestQuantizedOpsXPU.test_add_scalar_relu_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0 (2 sub-exceptions)">+ Exception Group Traceback (most recent call last):
+  |   File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/quantization/core/test_quantized_op.py", line 1075, in test_add_scalar_relu
+  |     @given(A=hu.tensor(shapes=hu.array_shapes(1, 4, 1, 5),
+  |   File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/hypothesis/core.py", line 1267, in wrapped_test
+  |     raise the_error_hypothesis_found
+  | exceptiongroup.ExceptionGroup: Hypothesis found 2 distinct failures.
+  | 
+  | To execute this test, run the following from the base repo dir:
+  |     PYTORCH_TEST_WITH_SLOW=1 python ../../test/quantization/core/test_quantized_op.py TestQuantizedOpsXPU.test_add_scalar_relu_xpu
+  | 
+  | This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0 (2 sub-exceptions)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/quantization/core/test_quantized_op.py", line 1080, in test_add_scalar_relu
+    |     self._test_binary_op_scalar_relu(A, b, "add", operator.add, torch.ops.quantized.add, torch.ops.quantized.add_relu)
+    |   File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/quantization/core/test_quantized_op.py", line 1067, in _test_binary_op_scalar_relu
+    |     self.assertEqual(C_ref.dequantize(), C_hat.dequantize(),
+    |   File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 4568, in assertEqual
+    |     raise error_metas.pop()[0].to_error(  # type: ignore[index]
+    | AssertionError: Tensor-likes are not close!
+    | 
+    | Mismatched elements: 1 / 2 (50.0%)
+    | Greatest absolute difference: 512.0 at index (0,) (up to 1e-05 allowed)
+    | Greatest relative difference: 2.0 at index (0,) (up to 1.3e-06 allowed)
+    | add_scalar results don't match: tensor([-256., -256.]) vs tensor([ 256., -256.])
+    | Falsifying example: test_add_scalar_relu(
+    |     A=(array([-7.6293945e-06,  0.0000000e+00], dtype=float32),
+    |      (1.1920928955078125e-07, 0, torch.qint32)),
+    |     b=256.0,
+    |     self=&lt;test_quantized_op.TestQuantizedOpsXPU testMethod=test_add_scalar_relu_xpu&gt;,
+    | )
+    | 
+    | You can reproduce this example by temporarily adding @reproduce_failure('6.56.4', b'AXicY2RkYGKAA0ZGEHGQAQ9gZAAAGMIAyg==') as a decorator on your test case
+    +---------------- 2 ----------------
+    | Traceback (most recent call last):
+    |   File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/quantization/core/test_quantized_op.py", line 1080, in test_add_scalar_relu
+    |     self._test_binary_op_scalar_relu(A, b, "add", operator.add, torch.ops.quantized.add, torch.ops.quantized.add_relu)
+    |   File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/quantization/core/test_quantized_op.py", line 1061, in _test_binary_op_scalar_relu
+    |     C_hat = op_scalar(qA, b)
+    |   File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1275, in __call__
+    |     return self._op(*args, **kwargs)
+    | RuntimeError: value cannot be converted to type int without overflow
+    | Falsifying example: test_add_scalar_relu(
+    |     A=(array([1.5258789e-05, 0.0000000e+00], dtype=float32),
+    |      (1.1920928955078125e-07, 0, torch.qint32)),
+    |     b=257.0,
+    |     self=&lt;test_quantized_op.TestQuantizedOpsXPU testMethod=test_add_scalar_relu_xpu&gt;,
+    | )
+    | 
+    | You can reproduce this example by temporarily adding @reproduce_failure('6.56.4', b'AXicY2RkYGKAA0ZGEHngAwNuwMgIADSkAbk=') as a decorator on your test case
+    +------------------------------------</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.quantization.core.test_quantized_op_xpu.TestQuantizedOpsXPU" name="test_cat_nhwc_xpu" time="3.443"><failure message="AssertionError: Tensor-likes are not close!&#10;&#10;Mismatched elements: 1673 / 3780 (44.3%)&#10;Greatest absolute difference: 0.11001062393188477 at index (0, 63, 0, 1) (up to 1e-05 allowed)&#10;Greatest relative difference: 0.03703700378537178 at index (0, 63, 0, 1) (up to 1.3e-06 allowed)&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/quantization/core/test_quantized_op.py TestQuantizedOpsXPU.test_cat_nhwc_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0&#10;Falsifying example: test_cat_nhwc(&#10;    X=(array([[[[-25.       ,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344],&#10;              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344],&#10;              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344],&#10;              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344],&#10;              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344],&#10;              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344]],&#10;     &#10;             [[  3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344],&#10;              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344],&#10;              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344],&#10;              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344],&#10;              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344],&#10;              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344]],&#10;     &#10;             [[  3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344],&#10;              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344],&#10;              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344],&#10;              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344],&#10;              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344],&#10;              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344]],&#10;     &#10;             [[  3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344],&#10;              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344],&#10;              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344],&#10;              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344],&#10;              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344],&#10;              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344]],&#10;     &#10;             [[  3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344],&#10;              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344],&#10;              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344],&#10;              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344],&#10;              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344],&#10;              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344,   3.0527344,   3.0527344,   3.0527344,&#10;                 3.0527344]]]], dtype=float32),&#10;     (0.11001072303921569, 227, torch.quint8)),&#10;    relu=False,&#10;    self=&lt;test_quantized_op.TestQuantizedOpsXPU testMethod=test_cat_nhwc_xpu&gt;,&#10;)&#10;&#10;You can reproduce this example by temporarily adding @reproduce_failure('6.56.4', b'AXicY2Bh5WBABoyMYBLKkwQRDVJgoQ0MAAtiAXk=') as a decorator on your test case">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/quantization/core/test_quantized_op.py", line 2537, in test_cat_nhwc
+    min_side=1, max_side=10),
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/hypothesis/core.py", line 1267, in wrapped_test
+    raise the_error_hypothesis_found
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/quantization/core/test_quantized_op.py", line 2569, in test_cat_nhwc
+    torch.testing.assert_close(out.dequantize(), ref.dequantize())
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_comparison.py", line 1631, in assert_close
+    raise error_metas[0].to_error(msg)
+AssertionError: Tensor-likes are not close!
+
+Mismatched elements: 1673 / 3780 (44.3%)
+Greatest absolute difference: 0.11001062393188477 at index (0, 63, 0, 1) (up to 1e-05 allowed)
+Greatest relative difference: 0.03703700378537178 at index (0, 63, 0, 1) (up to 1.3e-06 allowed)
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/quantization/core/test_quantized_op.py TestQuantizedOpsXPU.test_cat_nhwc_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0
+Falsifying example: test_cat_nhwc(
+    X=(array([[[[-25.       ,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344],
+              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344],
+              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344],
+              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344],
+              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344],
+              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344]],
+     
+             [[  3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344],
+              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344],
+              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344],
+              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344],
+              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344],
+              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344]],
+     
+             [[  3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344],
+              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344],
+              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344],
+              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344],
+              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344],
+              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344]],
+     
+             [[  3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344],
+              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344],
+              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344],
+              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344],
+              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344],
+              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344]],
+     
+             [[  3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344],
+              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344],
+              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344],
+              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344],
+              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344],
+              [  3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344,   3.0527344,   3.0527344,   3.0527344,
+                 3.0527344]]]], dtype=float32),
+     (0.11001072303921569, 227, torch.quint8)),
+    relu=False,
+    self=&lt;test_quantized_op.TestQuantizedOpsXPU testMethod=test_cat_nhwc_xpu&gt;,
+)
+
+You can reproduce this example by temporarily adding @reproduce_failure('6.56.4', b'AXicY2Bh5WBABoyMYBLKkwQRDVJgoQ0MAAtiAXk=') as a decorator on your test case</failure></testcase></testsuite></testsuites>

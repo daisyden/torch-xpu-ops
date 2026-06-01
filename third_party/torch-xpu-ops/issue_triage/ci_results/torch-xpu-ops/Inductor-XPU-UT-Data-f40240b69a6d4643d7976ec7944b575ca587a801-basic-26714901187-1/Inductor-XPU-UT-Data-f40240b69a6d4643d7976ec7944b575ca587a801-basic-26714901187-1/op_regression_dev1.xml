@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="3.331" timestamp="2026-05-31T14:17:20.719288" hostname="e645437518d5"><testcase classname="third_party.torch-xpu-ops.test.regressions.test_operation_on_device_1.TestOperationOnDevice1" name="test_sum_on_device1" time="0.810" /></testsuite></testsuites>

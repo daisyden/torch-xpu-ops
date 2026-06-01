@@ -1,0 +1,1405 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="78" skipped="0" tests="120" time="35.282" timestamp="2026-05-31T16:56:22.599390" hostname="06945b282243"><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_type_reflection_method" time="0.004"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_class_method" time="0.004"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_positional_argument_with_default_value" time="0.004"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_dynamic_shape_slicing" time="0.004"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_unsupported_operator" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_dynamic_shape_view" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_cond_branch_class_method" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_non_float_weight" time="0.049" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_pytree_namedtuple" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_1D_tensor_slicing" time="0.051" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_nonfinite_inputs" time="0.017" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_2D_tensor_slicing" time="0.023" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_user_input_mutation" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_fn_with_kwargs" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_cond_branch_nested_function" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_serialize_float8" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_forward_compatibility" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_cond_branch_nonlocal_variables" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_list_contains" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_shape" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_cond_closed_over_variable" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_list_unpack" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_get_attr" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_sym_bool" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSaveLoad" name="test_save_buffer" time="0.204" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_sym_bool_dynamic_shapes" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_get_attr_list" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_model_attr_mutation" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_cond_operands" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_canonicalize" time="0.148" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_predispatch_export_with_autograd_op" time="0.159" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_complex_constant" time="0.024" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_hoo_symint_input" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_sym_bool_torch_check_equal" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_nested_function" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_cond_predicate" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSaveLoad" name="test_save_constants" time="0.072" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_preserve_aliasing" time="0.060" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_sym_float" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_null_context_manager" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_constrain_as_size_example" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_list_of_optional_tensors" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_empty_constant" time="0.025" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSaveLoad" name="test_save_extra" time="0.052" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_sym_int_torch_check_equal" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_optional_input" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_map" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_empty_state_dict" time="0.019" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_constrain_as_value_example" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSaveLoad" name="test_save_file" time="0.051" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_rational_ranges" time="0.079" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_module" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_sym_ite" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_pytree_flatten" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_decorator" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSaveLoad" name="test_save_load_with_multiple_empty_tensors" time="0.026" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_dictionary" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_scalar_output" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_tensor_tensor_list" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_module_meta" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_export_example_inputs_preserved" time="0.072" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_dynamic_shape_assert" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSaveLoad" name="test_save_path" time="0.055" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_specialized_attribute" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_multi_return" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_unbacked_bindings_serialize" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_export_with_extension_op_serialization" time="0.049" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_dynamic_shape_constructor" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_multiple_getitem" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_static_for_loop" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_int_list" time="0.052" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_dynamic_shape_if_guard" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_none_input" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_static_if" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_serialize_constant_outputs" time="0.192" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_dynamic_shape_map" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_tensor_setattr" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_optional_tuple" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_custom_obj_list_out" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_serialize_sym_float" time="0.002" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSchemaVersioning" name="test_error" time="0.157" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSaveLoad" name="test_deserialize_torch_artifact_dict" time="0.002" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_custom_obj_tuple_out" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSaveLoad" name="test_version_error" time="0.228" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerializeCustomClass" name="test_backed_size_oblivious_serdes" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 2270, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_storage_offset" time="0.068" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_device" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_symint_list" time="0.024" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerializeCustomClass" name="test_custom_class" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 2270, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_dynamic" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerializeCustomClass" name="test_custom_class_containing_fake_tensor" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 2270, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_export_no_inputs" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerializeCustomClass" name="test_custom_class_input_to_function" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 2270, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_assume_constant_result" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_serialize_infinite_sym_int" time="0.308" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_kwargs_default" time="0.336" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerializeCustomClass" name="test_custom_tag_metadata_serialization" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 2270, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_exportdb_supported_case_autograd_function" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerializeCustomClass" name="test_unbacked_range_serdes" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 2270, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_constraints" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_arg_from" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_metadata_parsing_with_layer_split" time="0.098" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_custom_obj" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_auto_functionalize" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_serialize_list_returns" time="0.206" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSaveLoad" name="test_from_node_metadata_serialization" time="0.414" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_basic" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_metadata_run_decomp_serder" time="0.151" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_serialize_param_mutation" time="0.201" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestDeserialize" name="test_cond" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 1153, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_nested_layer_split" time="0.147" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_serialize_multiple_returns_from_node" time="0.211" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_serialize_sym_int" time="0.663" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerializeCustomClass" name="test_custom_tag_metadata_copy" time="0.002"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 2270, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_multi_return_some_unused" time="0.431" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerializeCustomClass" name="test_custom_tag_metadata_decomp" time="0.001"><failure message="OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so">Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1509, in load_library
+    ctypes.CDLL(path)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/ctypes/__init__.py", line 374, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/export/test_serialize_xpu.py", line 2270, in setUp
+    init_torchbind_implementations()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 19, in init_torchbind_implementations
+    load_torchbind_test_lib()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/torchbind_impls.py", line 182, in load_torchbind_test_lib
+    torch.ops.load_library(str(lib_file_path))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1511, in load_library
+    raise OSError(f"Could not load this library: {path}") from e
+OSError: Could not load this library: /tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/build/lib/libtorchbind_test.so</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_triton_hop" time="3.508" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_weight_sharing_gpu" time="0.056" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_triton_constexpr_matching" time="3.402" /><testcase classname="third_party.torch-xpu-ops.test.xpu.export.test_serialize_xpu.TestSerialize" name="test_multi_return_list_tensor_unused" time="0.157" /></testsuite></testsuites>

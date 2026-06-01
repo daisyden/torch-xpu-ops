@@ -1,0 +1,65 @@
+Operation Name,Section 1 Calls,Section 2 Calls,Section 3 Calls,Section 4 Calls,Section 5 Calls,Total Calls
+zeKernelSetArgumentValue,9753,9753,9753,9753,9753,48765
+zeMemGetAllocProperties,2418,2408,2408,2408,2408,12050
+urEnqueueKernelLaunchWithArgsExp,1396,1396,1396,1396,1396,6980
+zeKernelSetGroupSize,1396,1396,1396,1396,1396,6980
+zeCommandListAppendLaunchKernel,1396,1396,1396,1396,1396,6980
+zeEventHostReset,406,1404,1403,1404,1404,6021
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...,260,260,260,260,260,1300
+"at::native::xpu::VectorizedElementwiseKernel<8, at::...",257,257,257,257,257,1285
+gemm_kernel,226,226,226,226,226,1130
+"at::native::xpu::VectorizedElementwiseKernel<4, at::...",210,210,210,210,210,1050
+zeEventCreate,999,0,1,0,0,1000
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...,138,138,138,138,138,690
+at::native::xpu::CatArrayBatchedCopy<at::native::xpu...,129,129,129,129,129,645
+zeKernelGetProperties,155,82,82,82,82,483
+zeDeviceGetRootDevice,384,0,0,0,0,384
+"at::native::xpu::ReduceKernel<1, at::native::xpu::Re...",73,73,73,73,73,365
+detach_,66,66,66,66,66,330
+micro_sdpa,32,32,32,32,32,160
+zeDeviceGetSubDevices,138,0,0,0,0,138
+zeKernelCreate,82,0,0,0,0,82
+zeKernelSetIndirectAccess,82,0,0,0,0,82
+"at::native::xpu::VectorizedElementwiseKernel<16, at:...",15,15,15,15,15,75
+"at::native::xpu::VectorizedElementwiseKernel<2, at::...",14,14,14,14,14,70
+zeModuleCreate,46,0,0,0,0,46
+at::native::xpu::SegmentedRadixSortPairsDownsweepFun...,8,8,8,8,8,40
+at::native::xpu::SegmentedRadixSortPairsUpsweepFunct...,8,8,8,8,8,40
+at::native::xpu::SegmentedRadixSortPairsScanFunctor<...,8,8,8,8,8,40
+urEnqueueUSMMemcpy,8,8,8,8,8,40
+zeCommandListAppendMemoryCopy,8,8,8,8,8,40
+zeEventHostSynchronize,8,8,8,8,8,40
+zeContextMakeMemoryResident,40,0,0,0,0,40
+zeDeviceGetProperties,34,0,0,0,0,34
+zeModuleGetProperties,33,0,0,0,0,33
+Memcpy D2M (DEVICE -> MEMORY(Unknown)),6,6,6,6,6,30
+zeKernelGetName,26,0,0,0,0,26
+zeDeviceGetMemoryProperties,16,0,0,0,0,16
+zeDeviceGetCacheProperties,16,0,0,0,0,16
+zeDeviceGetModuleProperties,16,0,0,0,0,16
+at::native::xpu::CatArrayBatchedCopy_contig<at::nati...,3,3,3,3,3,15
+at::native::xpu::SegmentScanKernel<at::native::xpu::...,3,3,3,3,3,15
+at::native::xpu::impl::SoftmaxForwardKernelFunctor<4...,2,2,2,2,2,10
+at::native::xpu::AssertAsyncKernelFunctor1<bool>,2,2,2,2,2,10
+Memcpy M2D (MEMORY(Unknown) -> DEVICE),2,2,2,2,2,10
+zeDeviceGetComputeProperties,8,0,0,0,0,8
+zeKernelDestroy,8,0,0,0,0,8
+zeModuleDestroy,8,0,0,0,0,8
+zeEventQueryStatus,2,2,2,1,1,8
+zeDeviceGetMemoryAccessProperties,7,0,0,0,0,7
+at::native::xpu::SegmentedGroupRadixSelectPairsFunct...,1,1,1,1,1,5
+at::native::xpu::SegmentedGroupRadixSortPairsFunctor...,1,1,1,1,1,5
+at::native::xpu::ScatterGatherElementwiseKernelFunct...,1,1,1,1,1,5
+"at::native::xpu::ReduceKernel<2, at::native::xpu::Re...",1,1,1,1,1,5
+at::native::xpu::IndexKernel<at::native::xpu::IndexK...,1,1,1,1,1,5
+at::native::xpu::DistributionElementwiseKernelFuncto...,1,1,1,1,1,5
+at::native::xpu::AccumulateCarrierKernelFunctor<at::...,1,1,1,1,1,5
+at::native::xpu::ElementwiseKernelWithIndexFunctor<i...,1,1,1,1,1,5
+detach,1,1,1,1,1,5
+urUSMDeviceAlloc,5,0,0,0,0,5
+zeMemAllocDevice,5,0,0,0,0,5
+zeEventPoolCreate,3,0,0,0,0,3
+Memset (0 -> DEVICE),1,0,0,0,0,1
+zeCommandListCreateImmediate,1,0,0,0,0,1
+urEnqueueUSMFill,1,0,0,0,0,1
+zeCommandListAppendMemoryFill,1,0,0,0,0,1

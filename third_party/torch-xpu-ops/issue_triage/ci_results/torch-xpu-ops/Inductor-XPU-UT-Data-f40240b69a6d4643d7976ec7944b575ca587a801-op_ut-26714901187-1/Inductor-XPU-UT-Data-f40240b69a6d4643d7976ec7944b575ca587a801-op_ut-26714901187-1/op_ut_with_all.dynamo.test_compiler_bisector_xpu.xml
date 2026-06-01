@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="10" time="43.595" timestamp="2026-05-31T17:00:19.584549" hostname="06945b282243"><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_compiler_bisector_xpu.TestCompilerBisector" name="test_eager_backend" time="0.006" /><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_compiler_bisector_xpu.TestCompilerBisector" name="test_crossref" time="0.318" /><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_compiler_bisector_xpu.TestCompilerBisector" name="test_bad_decomp" time="0.816" /><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_compiler_bisector_xpu.TestCompilerBisector" name="test_cudagraph_bisect_max" time="7.161" /><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_compiler_bisector_xpu.TestCompilerBisector" name="test_pre_grad" time="7.747"><failure message="AssertionError: Scalars are not equal!&#10;&#10;Expected 0 but got 3.&#10;Absolute difference: 3&#10;Relative difference: inf&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/dynamo/test_compiler_bisector_xpu.py TestCompilerBisector.test_pre_grad&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/dynamo/test_compiler_bisector_xpu.py", line 128, in test_pre_grad
+    self.assertEqual(out.bisect_number, 0)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/test_case.py", line 128, in assertEqual
+    return super().assertEqual(x, y, *args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 4568, in assertEqual
+    raise error_metas.pop()[0].to_error(  # type: ignore[index]
+AssertionError: Scalars are not equal!
+
+Expected 0 but got 3.
+Absolute difference: 3
+Relative difference: inf
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/dynamo/test_compiler_bisector_xpu.py TestCompilerBisector.test_pre_grad
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_compiler_bisector_xpu.TestCompilerBisector" name="test_bisect_pre_grad_graph" time="8.442" /><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_compiler_bisector_xpu.TestCompilerBisector" name="test_bad_lowering" time="8.946" /><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_compiler_bisector_xpu.TestCompilerBisector" name="test_rng" time="1.640" /><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_compiler_bisector_xpu.TestCompilerBisector" name="test_emulate_precision_casts" time="9.559" /><testcase classname="third_party.torch-xpu-ops.test.xpu.dynamo.test_compiler_bisector_xpu.TestCompilerBisector" name="test_joint_graph" time="1.040" /></testsuite></testsuites>
