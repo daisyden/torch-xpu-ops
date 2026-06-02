@@ -10,7 +10,7 @@
 #
 # Pass criteria (per fixture):
 #   1. The agent emits a final block that contains the exact line
-#        XPU_CASE_EXIST: <True|False>
+#        XPU_CASE_EXIST: <True|False|True-but-SKIPPED>
 #      matching fixtures.json -> expected_exist.
 #   2. The agent's explanation contains the required `must_contain_token`
 #      (case-insensitive) AND at least one of the `must_contain_any` tokens.
@@ -99,7 +99,7 @@ Classify this single Test Cases row:
 
 When you are done, end your reply with exactly these two lines (no markdown, no code fence), each on its own line:
 
-XPU_CASE_EXIST: <True|False>
+XPU_CASE_EXIST: <True|False|True-but-SKIPPED>
 EXPLANATION: <one-line explanation citing concrete source paths, decorators, or skip lists>
 
 Do not print anything after EXPLANATION.""")
@@ -130,9 +130,9 @@ PY
   fi
 
   got=$(echo "$verdict_line" | sed -E 's/^XPU_CASE_EXIST:[[:space:]]*//; s/[[:space:]]+$//')
-  # Normalize expected/got to "True"/"False"
-  case "$got" in true|True|TRUE) got_norm=True ;; false|False|FALSE) got_norm=False ;; *) got_norm="$got" ;; esac
-  case "$expected" in True) exp_norm=True ;; False) exp_norm=False ;; *) exp_norm="$expected" ;; esac
+  # Normalize expected/got to "True"/"False"/"True-but-SKIPPED"
+  case "$got" in true|True|TRUE) got_norm=True ;; false|False|FALSE) got_norm=False ;; true-but-skipped|True-but-SKIPPED|TRUE-BUT-SKIPPED) got_norm=True-but-SKIPPED ;; *) got_norm="$got" ;; esac
+  case "$expected" in True) exp_norm=True ;; False) exp_norm=False ;; True-but-SKIPPED) exp_norm=True-but-SKIPPED ;; *) exp_norm="$expected" ;; esac
 
   ok=1
   if [[ "$got_norm" != "$exp_norm" ]]; then

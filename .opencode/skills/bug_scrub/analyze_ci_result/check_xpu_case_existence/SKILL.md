@@ -246,6 +246,42 @@ These files do NOT use `XPUPatchForImport` — they are standalone XPU-native te
    `Distributed file missing from skip_list_dict_local.py`. Do not use generic `No XPU wrapper`.
    Explanation should state which dictionary files were read and what sibling files are enabled.
 
+#### 1.3b Common (non-distributed) skip harness - `run_test_with_skip.py` + `skip_list_common.py` (CRITICAL)
+
+Non-distributed XPU tests run through a SEPARATE harness from the distributed one above, but it
+uses the IDENTICAL `None`/tuple skip-dict semantics. Apply the same reasoning here.
+
+- Runner: `third_party/torch-xpu-ops/test/xpu/run_test_with_skip.py`
+  (`from skip_list_common import skip_dict`, `from xpu_test_utils import launch_test`).
+- Main skip dict: `third_party/torch-xpu-ops/test/xpu/skip_list_common.py` (`skip_dict`, keyed by
+  `<test>_xpu.py`).
+- Extended-suite skip dict: `third_party/torch-xpu-ops/test/xpu/extended/skip_list_common.py`
+  (`skip_dict`, used by the `extended/` runner).
+
+`launch_test(test_case, skip_list=None, ...)` in `xpu_test_utils.py` builds the pytest filter as:
+
+```python
+if skip_list is not None and len(skip_list) > 0:
+    skip_options = ' -k "not ' + skip_list[0]
+    for skip_case in skip_list[1:]:
+        skip_options += ' and not ' + skip_case
+    ...
+# else: no -k filter is added -> every collected case runs
+```
+
+Therefore, for the file that generates the workbook case:
+
+- Key present, value `None` (or empty) -> NO `-k` filter -> all cases run -> `xpu_case_existence = True`.
+- Key present, value tuple/list -> `-k "not A and not B ..."`; match the exact generated `_xpu`
+  case name against the patterns as pytest `-k` substrings:
+  - name MATCHES a skip pattern -> `xpu_case_existence = True-but-SKIPPED`
+    (the variant IS generated and collected, just filtered out at runtime).
+  - name does NOT match any pattern -> `xpu_case_existence = True`.
+- File key ABSENT from the active `skip_dict` -> the file is not launched via this harness; confirm
+  no wrapper/other runner generates it (e.g. `--collect-only`) before concluding `False`.
+
+Do NOT read a `None` value as "the whole file is skipped" - `None` means the OPPOSITE (run all).
+
 #### 1.4 Check other torch-xpu-ops subfolders
 
 For tests that might be in extended/nn/functorch/quantization subfolders:
@@ -640,15 +676,27 @@ The generated test name dtype is determined by `dtypesIfXPU` (if set) NOT the ba
 ## Output Format
 
 > **Workbook write target (CRITICAL).** When persisting results into
-> `result/torch_xpu_ops_issues.xlsx` `Test Cases` sheet, write the
-> `True`/`False` value to col 17 (`XPU Case Exist`) and col 18
-> (`case_existence_comments`) — NEVER to col 12 (`XPU Status`) or col 13
-> (`Stock Status`). Cols 12/13 are reserved for CI status enums
-> (`passed`/`failed`/`skipped`/`not found`/blank) written by
-> `pass1_ci_matcher.py`. Writing the literal string `xpu_case_existence=True`
-> into cols 12/13 corrupts the data; in 2026-05 this happened to 108 rows
-> and required manual cleanup. The output forms below are **report text only**
-> — do not paste them verbatim into spreadsheet cells.
+> `result/torch_xpu_ops_issues.xlsx` `Test Cases` sheet, ALWAYS resolve the
+> target columns BY HEADER NAME, never by a hardcoded index - the column order
+> varies between workbook versions. Write the case-existence verdict to the
+> `XPU Case Exist` column and the note to `case_existence_comments`. NEVER write
+> to `XPU Status` or `Stock Status`: those are reserved for CI status enums
+> (`passed`/`failed`/`skipped`/`not found`/blank) written by `pass1_ci_matcher.py`.
+> In the current layout these resolve to col 13 (`XPU Case Exist`), col 14
+> (`case_existence_comments`), col 10 (`XPU Status`), col 11 (`Stock Status`),
+> but DO NOT rely on those numbers - look up the header row each time. Writing
+> the literal string `xpu_case_existence=True` into the CI-status columns
+> corrupts the data; in 2026-05 this happened to 108 rows and required manual
+> cleanup. The output forms below are **report text only** - do not paste them
+> verbatim into spreadsheet cells.
+
+> **`XPU Case Exist` value vocabulary (CRITICAL).** The column accepts exactly three literal
+> values: `True`, `False`, and `True-but-SKIPPED`. Use `True-but-SKIPPED` when the `_xpu` variant
+> IS generated/collected but is filtered out at runtime - a common-suite `-k` skip in
+> `skip_list_common.py`/`extended/skip_list_common.py`, a distributed tuple skip in
+> `skip_list_dist.py`, or a `@skipIfXpu` runtime skip. Never invent other values (e.g.
+> `Not applicable`): CUDA-only status is recorded as a prefix note in `case_existence_comments`,
+> not as an `XPU Case Exist` value.
 
 When analyzing a specific test case, provide two output options:
 
@@ -712,7 +760,7 @@ START: Identify origin_file type
 │        │     └─ Not found → classify by removed/renamed evidence, not by skip-list alone
 │        ├─ File path found in active dict, value tuple/list
 │        │  ├─ test_method NOT in skipped list → xpu_case_existence=True
-│        │  └─ test_method IN skipped list → xpu_case_existence=True but intentionally skipped
+│        │  └─ test_method IN skipped list → xpu_case_existence=True-but-SKIPPED
 │        │     DetailReason: "Skipped in <dict file>: <specific test>"
 │        └─ File path NOT in any active dict
 │           └─ STEP C: Check distributed/ subfolder for XPU-native standalone file
@@ -742,6 +790,15 @@ CHECK: Base test function/class exists in local pytorch/test?
 CHECK: If both CUDA and XPU variants exist after parametrization
 ├─ YES → NOT Community Changes; classify by XPU status/skip/failure/enablement gap
 └─ NO → For non-distributed tests, classify from local source only; release/2.12 is distributed-only
+
+CHECK: Common skip harness (skip_list_common.py / extended/skip_list_common.py skip_dict)
+├─ File key present, value None → no -k filter → all cases run → xpu_case_existence=True
+├─ File key present, value tuple/list → build -k "not <patterns>"; match generated _xpu name
+│  ├─ name MATCHES a skip pattern → xpu_case_existence=True-but-SKIPPED
+│  │  DetailReason: "Runtime -k skip in <skip_list file>: <matched pattern>"
+│  └─ name does NOT match any pattern → xpu_case_existence=True
+└─ File key ABSENT → not launched via run_test_with_skip.py; confirm via wrapper/--collect-only
+   before concluding (do NOT auto-False), then continue to the OpInfo/decorator checks below
 
 CHECK: CUDA graph / cudagraph case
 ├─ YES → XPU graph support exists; classify missing/failing coverage as To be enabled

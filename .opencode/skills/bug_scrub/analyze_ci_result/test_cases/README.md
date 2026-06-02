@@ -23,7 +23,7 @@ python3 run_processor_steps.py --steps 1 3 5 --incremental
 |------|---------|
 | `run_processor_steps.py` | Canonical CLI runner for Test Cases Phase 2 steps |
 | `pass1_ci_matcher.py` | Phase 2.1: collect stock/XPU CI XML and match Test Cases rows; extract test_class/test_case from pytest paths; route issues without test cases to Others sheet |
-| `pass5_duplicate_detection.py` | Phase 2.5 duplicate detection implementation |
+| `pass5_duplicate_detection.py` | Phase 2.3: cross-issue duplicate detection implementation |
 
 ## Runner Steps
 
@@ -31,25 +31,27 @@ python3 run_processor_steps.py --steps 1 3 5 --incremental
    - **[NEW]** Attempt to extract test_class and test_case from test_file path if blank
    - **[NEW]** Route non-UT issues without test cases to Others sheet with reason "No unittest test case found"
 2. `PASS 3`: print the worklist for `check_xpu_case_existence/SKILL.md`; no automated LLM endpoint is called and no classification is performed. Each listed row must be completed through the skill's explore-agent assisted deep analysis workflow.
-3. `PASS 5`: cross-issue duplicate detection.
+3. `PASS 5`: cross-issue duplicate detection (Phase 2.3).
 
 ## Columns Processed
 
-| Column | Header |
-|--------|--------|
-| 2 | Test Reproducer |
-| 4 | Test File |
-| 6 | Test Class |
-| 7 | Test Case |
-| 8 | Error Message |
-| 9 | Traceback |
-| 10 | XPU Status |
-| 11 | Stock Status |
-| 12 | No Match Reason |
-| 13 | XPU Case Exist |
-| 14 | case_existence_comments |
-| 15 | duplicated_issue |
-| 16 | Local Status |
+| Column | Header | Phase | Notes |
+|--------|--------|-------|-------|
+| 1 | Issue ID | 1.1 | From phase 1.1 |
+| 2 | Test Reproducer | 1.1 | From phase 1.1 |
+| 3 | Test Type | 1.1 | From phase 1.1 |
+| 4 | Test File | 1.1 | From phase 1.1 |
+| 5 | Origin Test File | 1.1 | From phase 1.1 |
+| 6 | Test Class | 1.1 | From phase 1.1 |
+| 7 | Test Case | 1.1 | From phase 1.1 |
+| 8 | Error Message | 2.1 | Matched from CI artifacts |
+| 9 | Traceback | 2.1 | Matched from CI artifacts |
+| 10 | XPU Status | 2.1 | Matched from CI artifacts |
+| 11 | Stock Status | 2.2 | Matched from CI artifacts |
+| 12 | No Match Reason | 2.1 | Populated if no CI match found |
+| 13 | duplicated_issue | 2.3 | Duplicate group ID (Phase 2.3) |
+| 14 | XPU Case Exist | 2.4 | Manual skill (check_xpu_case_existence) |
+| 15 | case_existence_comments | 2.4 | Manual skill (check_xpu_case_existence) |
 
 ## New Features (v2.0)
 
@@ -68,7 +70,7 @@ Issues without extractable test cases are automatically moved to the Others shee
 ### Incremental Mode
 Use `--incremental` flag to skip rows with already-filled result columns:
 - Useful for re-running Phase 2 after partial failures
-- Skips rows with non-blank `duplicate_group_id` or `xpu_case_existence` (Phase 2.5+)
+- Skips rows with non-blank `duplicated_issue` (Phase 2.3+)
 - Speeds up re-runs by avoiding redundant processing
 
 ## Examples
