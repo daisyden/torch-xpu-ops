@@ -351,24 +351,24 @@ HUGGINGFACE_MODELS = [
     'BlenderbotSmallForCausalLM', 'BlenderbotSmallForConditionalGeneration', 'CamemBert',
     'DebertaV2ForMaskedLM', 'DebertaV2ForQuestionAnswering', 'DistilBertForMaskedLM',
     'DistilBertForQuestionAnswering', 'DistillGPT2', 'ElectraForCausalLM',
-    'ElectraForQuestionAnswering', 'GoogleFnet', 'google/gemma', 'GPT2ForSequenceClassification',
-    'GPTJForCausalLM', 'GPTJForQuestionAnswering', 'GPTNeoForCausalLM',
+    'ElectraForQuestionAnswering', 'GoogleFnet', 'google/gemma-2-2b', 'google/gemma-3-4b-it',
+    'GPT2ForSequenceClassification', 'GPTJForCausalLM', 'GPTJForQuestionAnswering', 'GPTNeoForCausalLM',
     'GPTNeoForSequenceClassification', 'LayoutLMForMaskedLM', 'LayoutLMForSequenceClassification',
     'M2M100ForConditionalGeneration', 'MBartForCausalLM', 'MBartForConditionalGeneration',
-    'MegatronBertForCausalLM', 'MegatronBertForQuestionAnswering', 'meta-llama', 'mistralai',
-    'MobileBertForMaskedLM', 'MobileBertForQuestionAnswering', 'MT5ForConditionalGeneration',
-    'openai/gpt', 'openai/whisper', 'OPTForCausalLM', 'PegasusForCausalLM',
-    'PegasusForConditionalGeneration', 'PLBartForCausalLM', 'PLBartForConditionalGeneration',
-    'Qwen', 'RobertaForCausalLM', 'RobertaForQuestionAnswering', 'T5ForConditionalGeneration',
-    'T5Small', 'TrOCRForCausalLM', 'XGLMForCausalLM', 'XLNetLMHeadModel', 'YituTechConvBert',
-    'hf_Albert', 'hf_Bert', 'hf_Bert_large', 'hf_DistilBert', 'hf_Roberta_base'
+    'MegatronBertForCausalLM', 'MegatronBertForQuestionAnswering', 'meta-llama/Llama-3.2-1B',
+    'mistralai/Mistral-7B-Instruct-v0.3', 'MobileBertForMaskedLM', 'MobileBertForQuestionAnswering',
+    'MT5ForConditionalGeneration', 'openai/gpt-oss-20b', 'openai/whisper-tiny', 'OPTForCausalLM',
+    'PegasusForCausalLM', 'PegasusForConditionalGeneration', 'PLBartForCausalLM',
+    'PLBartForConditionalGeneration', 'Qwen/Qwen3-0.6B', 'RobertaForCausalLM', 'RobertaForQuestionAnswering',
+    'T5ForConditionalGeneration', 'T5Small', 'TrOCRForCausalLM', 'XGLMForCausalLM',
+    'XLNetLMHeadModel', 'YituTechConvBert'
 ]
 
 TIMM_MODELS = [
     'adv_inception_v3', 'beit_base_patch16_224', 'botnet26t_256', 'cait_m36_384',
     'coat_lite_mini', 'convit_base', 'convmixer_768_32', 'convnext_base',
-    'convnextv2_nano', 'crossvit_9_240', 'cspdarknet53', 'deit_base_distilled_patch16_224',
-    'deit_tiny_patch16_224', 'dla102', 'dm_nfnet_f0', 'dpn107', 'eca_botnext26ts_256',
+    'convnextv2_nano.fcmae_ft_in22k_in1k', 'crossvit_9_240', 'cspdarknet53', 'deit_base_distilled_patch16_224',
+    'deit_tiny_patch16_224.fb_in1k', 'dla102', 'dm_nfnet_f0', 'dpn107', 'eca_botnext26ts_256',
     'eca_halonext26ts', 'ese_vovnet19b_dw', 'fbnetc_100', 'fbnetv3_b', 'gernet_l',
     'ghostnet_100', 'gluon_inception_v3', 'gmixer_24_224', 'gmlp_s16_224', 'hrnet_w18',
     'inception_v3', 'jx_nest_base', 'lcnet_050', 'levit_128', 'mixer_b16_224',
@@ -378,31 +378,70 @@ TIMM_MODELS = [
     'resnest101e', 'rexnet_100', 'sebotnet33ts_256', 'selecsls42b', 'spnasnet_100',
     'swin_base_patch4_window7_224', 'swsl_resnext101_32x16d', 'tf_efficientnet_b0',
     'tf_mixnet_l', 'tinynet_a', 'tnt_s_patch16_224', 'twins_pcpvt_base', 'visformer_small',
-    'vit_base_patch14_dinov2', 'vit_base_patch16_224', 'vit_base_patch16_siglip_256',
-    'volo_d1_224', 'xcit_large_24_p8_224', 'timm_vision_transformer', 'timm_vision_transformer_large'
+    'vit_base_patch14_dinov2.lvd142m', 'vit_base_patch16_224', 'vit_base_patch16_siglip_256',
+    'volo_d1_224', 'xcit_large_24_p8_224'
 ]
 
 TORCHBENCH_MODELS = [
-    'BERT_pytorch', 'Background_Matting', 'LearningToPaint', 'alexnet', 'dcgan',
-    'densenet121', 'mnasnet1_0', 'mobilenet_v2', 'mobilenet_v3_large',
-    'nvidia_deeprecommender', 'pytorch_unet', 'resnet18', 'resnet50',
-    'resnext50_32x4d', 'shufflenet_v2_x1_0', 'squeezenet1_1', 'vgg16'
+    'alexnet', 'Background_Matting', 'basic_gnn_edgecnn', 'basic_gnn_gcn', 'basic_gnn_gin',
+    'basic_gnn_sage', 'BERT_pytorch', 'cm3leon_generate', 'dcgan', 'demucs', 'densenet121',
+    'detectron2_fasterrcnn_r_101_c4', 'detectron2_fasterrcnn_r_101_dc5', 'detectron2_fasterrcnn_r_101_fpn',
+    'detectron2_fasterrcnn_r_50_c4', 'detectron2_fasterrcnn_r_50_dc5', 'detectron2_fasterrcnn_r_50_fpn',
+    'detectron2_fcos_r_50_fpn', 'detectron2_maskrcnn', 'detectron2_maskrcnn_r_101_c4', 'detectron2_maskrcnn_r_101_fpn',
+    'detectron2_maskrcnn_r_50_c4', 'detectron2_maskrcnn_r_50_fpn', 'dlrm', 'doctr_det_predictor',
+    'doctr_reco_predictor', 'drq', 'fastNLP_Bert', 'functorch_dp_cifar10', 'functorch_maml_omniglot',
+    'hf_Albert', 'hf_Bart', 'hf_Bert', 'hf_Bert_large', 'hf_BigBird', 'hf_clip', 'hf_DistilBert',
+    'hf_distil_whisper', 'hf_GPT2', 'hf_GPT2_large', 'hf_Longformer', 'hf_Reformer', 'hf_Roberta_base',
+    'hf_T5', 'hf_T5_base', 'hf_T5_generate', 'hf_T5_large', 'hf_Whisper',
+    'LearningToPaint', 'lennard_jones', 'llama', 'llama_v2_7b_16h', 'llava', 'maml', 'maml_omniglot',
+    'microbench_unbacked_tolist_sum', 'mnasnet1_0', 'mobilenet_v2', 'mobilenet_v2_quantized_qat',
+    'mobilenet_v3_large', 'moco', 'modded_nanogpt', 'moondream', 'nanogpt', 'nvidia_deeprecommender',
+    'opacus_cifar10', 'phlippe_densenet', 'phlippe_resnet', 'pyhpc_equation_of_state',
+    'pyhpc_isoneutral_mixing', 'pyhpc_turbulent_kinetic_energy', 'pytorch_CycleGAN_and_pix2pix',
+    'pytorch_stargan', 'pytorch_unet', 'resnet152', 'resnet18', 'resnet50', 'resnet50_quantized_qat',
+    'resnext50_32x4d', 'sam', 'sam_fast', 'shufflenet_v2_x1_0', 'simple_gpt', 'simple_gpt_tp_manual',
+    'soft_actor_critic', 'speech_transformer', 'squeezenet1_1', 'stable_diffusion_text_encoder',
+    'stable_diffusion_unet', 'Super_SloMo', 'tacotron2', 'timm_efficientdet', 'timm_efficientnet',
+    'timm_nfnet', 'timm_regnet', 'timm_resnest', 'timm_vision_transformer', 'timm_vision_transformer_large',
+    'timm_vovnet', 'torch_multimodal_clip', 'tts_angular', 'vgg16', 'vision_maskrcnn', 'yolov3',
+    'codellama', 'DALLE2_pytorch', 'diffuser_instruct_pix2pix', 'fambench_dlrm', 'fambench_xlmr',
+    'gat', 'gcn', 'hf_GPT2_generate', 'hf_mixtral', 'hf_MPT_7b_instruct', 'hf_Yi', 'lit_llama',
+    'lit_llama_generate', 'lit_llama_lora', 'llama_v2_13b', 'llama_v2_70b', 'llama_v31_8b',
+    'mistral_7b_instruct', 'orca_2', 'phi_1_5', 'phi_2', 'sage', 'stable_diffusion_xl', 'torchrec_dlrm'
 ]
 
 def identify_benchmark(model_name):
-    """Identify benchmark from model name"""
+    """Identify benchmark from model name using exact matching"""
     model_lower = model_name.lower()
     
+    # Check for prefixed models (hf_*, timm_*) first - these are exact
+    if model_lower.startswith('hf_'):
+        return 'huggingface'
+    elif model_lower.startswith('timm_'):
+        return 'timm'
+    
+    # Check huggingface models (unprefixed variants)
     for m in HUGGINGFACE_MODELS:
-        if m.lower() in model_lower or model_lower in m.lower():
+        m_lower = m.lower()
+        # Only match if it's a prefixed model OR exact match, not substring
+        if m_lower.startswith('hf_'):
+            # Skip prefixed variants here - handled above
+            continue
+        if m_lower == model_lower or m_lower.replace('_', '') == model_lower.replace('_', ''):
             return 'huggingface'
     
+    # Check timm models
     for m in TIMM_MODELS:
-        if m.lower() in model_lower or model_lower in m.lower():
+        m_lower = m.lower()
+        if m_lower.startswith('timm_'):
+            continue
+        if m_lower == model_lower or m_lower.replace('_', '') == model_lower.replace('_', ''):
             return 'timm'
     
+    # Check torchbench models
     for m in TORCHBENCH_MODELS:
-        if m.lower() in model_lower or model_lower in m.lower():
+        m_lower = m.lower()
+        if m_lower == model_lower or m_lower.replace('_', '') == model_lower.replace('_', ''):
             return 'torchbench'
     
     return 'unknown'
