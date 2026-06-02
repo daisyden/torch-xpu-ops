@@ -12,7 +12,7 @@ Usage:
 Steps:
     1. PASS 1: Create test_cases_all.xlsx with stock and torch-xpu-ops sheets, match CI results
     3. PASS 3: Prepare check_xpu_case_existence worklist (no automated LLM endpoint)
-    5. PASS 5: Duplicate detection (cross-issue)
+    5. PASS 5: Duplicate detection (cross-issue) — Phase 2.3
 
 Example:
     # Run full processor

@@ -1,5 +1,5 @@
 {
-  "_doc": "Canonical fixtures cherry-picked from Phase 2.4 batches 10/11. Each fixture is one Test Cases sheet row that was deeply analyzed via explore agent and committed to torch_xpu_ops_issues.xlsx cols 17/18. The regression test re-asks the skill to classify the same row and verifies the verdict + that the explanation contains key tokens that prove the deep-analysis path executed.",
+  "_doc": "Canonical fixtures cherry-picked from Phase 2.4 batches 10/11. Each fixture is one Test Cases sheet row that was deeply analyzed via explore agent and committed to torch_xpu_ops_issues.xlsx (resolve the XPU Case Exist / case_existence_comments columns by header name, not by index). The regression test re-asks the skill to classify the same row and verifies the verdict + that the explanation contains key tokens that prove the deep-analysis path executed.",
   "fixtures": [
     {
       "name": "true_dtypesIfCUDA_intercept",
@@ -33,6 +33,23 @@
       ],
       "must_contain_token": "test_tp_examples",
       "rationale": "False because test_tp_examples.py is not keyed in third_party/torch-xpu-ops/test/xpu/skip_list_dist.py skip_dict, so run_distributed.py never invokes it on XPU. Verdict must cite that distributed-harness routing."
+    },
+    {
+      "name": "true_but_skipped_common_harness",
+      "row": 1112,
+      "issue_id": 2472,
+      "test_file": "test/test_fake_tensor.py",
+      "origin_file": "test/test_fake_tensor.py",
+      "test_class": "FakeTensorTest",
+      "test_case": "test_cudnn_rnn_without_fallback",
+      "expected_exist": "True-but-SKIPPED",
+      "must_contain_any": [
+        "skip_list_common",
+        "test_fake_tensor_xpu",
+        "-k"
+      ],
+      "must_contain_token": "test_cudnn_rnn",
+      "rationale": "True-but-SKIPPED because the common (non-distributed) harness keys test_fake_tensor_xpu.py in third_party/torch-xpu-ops/test/xpu/skip_list_common.py skip_dict with value ('test_cudnn_rnn',); launch_test builds -k \"not test_cudnn_rnn\", so the generated test_cudnn_rnn_without_fallback variant IS collected but filtered out at runtime. A classifier that reads None/tuple skip semantics as whole-file-skipped, or that ignores skip_list_common.py for non-distributed tests, is a regression."
     }
   ]
 }

@@ -1,4 +1,4 @@
-# PASS 5: Case Duplicate Detection
+# Phase 2.3: Case Duplicate Detection
 
 ## Base Path Reference
 
@@ -17,7 +17,7 @@ Detect duplicate test cases across issues using Test Class + Test Case name matc
    a. **Test Class + Test Case match**: Same test class and method name
    b. **Traceback similarity**: Normalized traceback string matching
 3. Group duplicates and assign duplicate group IDs
-4. Populate 'duplicate_group_id' column
+4. Populate 'duplicated_issue' column
 
 ## Usage
 ```bash
@@ -34,7 +34,7 @@ python3 run_processor_steps.py --steps 5
 - Traceback information from error messages
 
 ## Output
-- Column "duplicate_group_id" populated with group identifiers
+- Column "duplicated_issue" populated with group identifiers
 - Related Issues column populated (if applicable)
 
 ## Related Files
