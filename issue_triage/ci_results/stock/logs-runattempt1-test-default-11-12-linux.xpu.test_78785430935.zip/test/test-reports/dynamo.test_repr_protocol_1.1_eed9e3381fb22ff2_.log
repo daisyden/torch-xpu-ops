@@ -1,0 +1,51 @@
+Test results will be stored in test-reports/python-pytest/dynamo.test_repr_protocol/dynamo.test_repr_protocol-bf423347cd4adc22.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 36 items
+stepcurrent: Cannot find last run test, not skipping
+Running 36 items in this shard: test/dynamo/test_repr_protocol.py::TpReprTests::test_counter_repr, test/dynamo/test_repr_protocol.py::TpReprTests::test_defaultdict_repr, test/dynamo/test_repr_protocol.py::TpReprTests::test_defaultdict_repr_uses_factory_repr, test/dynamo/test_repr_protocol.py::TpReprTests::test_defaultdict_repr_with_nested_function_factory_unsupported, test/dynamo/test_repr_protocol.py::TpReprTests::test_dict_repr_with_tensor_graph_breaks, test/dynamo/test_repr_protocol.py::TpReprTests::test_dict_view_repr, test/dynamo/test_repr_protocol.py::TpReprTests::test_dict_view_repr_with_tensor, test/dynamo/test_repr_protocol.py::TpReprTests::test_dunder_repr_returning_non_string_raises, test/dynamo/test_repr_protocol.py::TpReprTests::test_enum_member_repr, test/dynamo/test_repr_protocol.py::TpReprTests::test_exception_repr, test/dynamo/test_repr_protocol.py::TpReprTests::test_int_dunder_repr, test/dynamo/test_repr_protocol.py::TpReprTests::test_int_repr, test/dynamo/test_repr_protocol.py::TpReprTests::test_list_dunder_repr, test/dynamo/test_repr_protocol.py::TpReprTests::test_list_repr, test/dynamo/test_repr_protocol.py::TpReprTests::test_list_repr_tracks_user_defined_object_mutations, test/dynamo/test_repr_protocol.py::TpReprTests::test_list_repr_with_tensor_graph_breaks, test/dynamo/test_repr_protocol.py::TpReprTests::test_metaclass_repr, test/dynamo/test_repr_protocol.py::TpReprTests::test_mutual_ref_repr, test/dynamo/test_repr_protocol.py::TpReprTests::test_nested_function_repr_with_tensor_closure_unsupported, test/dynamo/test_repr_protocol.py::TpReprTests::test_nn_module_repr, test/dynamo/test_repr_protocol.py::TpReprTests::test_object_dunder_repr_on_plain_instance, test/dynamo/test_repr_protocol.py::TpReprTests::test_ordereddict_and_namedtuple_repr_track_nested_repr, test/dynamo/test_repr_protocol.py::TpReprTests::test_repr_returning_non_string_raises, test/dynamo/test_repr_protocol.py::TpReprTests::test_self_ref_dict_repr, test/dynamo/test_repr_protocol.py::TpReprTests::test_self_ref_list_repr, test/dynamo/test_repr_protocol.py::TpReprTests::test_set_repr, test/dynamo/test_repr_protocol.py::TpReprTests::test_structseq_repr_with_tensor_graph_breaks, test/dynamo/test_repr_protocol.py::TpReprTests::test_tensor_dunder_repr_graph_breaks, test/dynamo/test_repr_protocol.py::TpReprTests::test_tensor_repr_graph_breaks, test/dynamo/test_repr_protocol.py::TpReprTests::test_type_dunder_repr_on_class, test/dynamo/test_repr_protocol.py::TpReprTests::test_user_defined_default_object_repr, test/dynamo/test_repr_protocol.py::TpReprTests::test_user_defined_dict_subclass_repr, test/dynamo/test_repr_protocol.py::TpReprTests::test_user_defined_dunder_repr, test/dynamo/test_repr_protocol.py::TpReprTests::test_user_defined_opaque_repr_descriptor_raises_type_error, test/dynamo/test_repr_protocol.py::TpReprTests::test_user_defined_repr, test/dynamo/test_repr_protocol.py::TpReprTests::test_user_function_repr
+
+dynamo/test_repr_protocol.py::TpReprTests::test_counter_repr PASSED [0.4106s] [  2%]
+dynamo/test_repr_protocol.py::TpReprTests::test_defaultdict_repr PASSED [0.0343s] [  5%]
+dynamo/test_repr_protocol.py::TpReprTests::test_defaultdict_repr_uses_factory_repr PASSED [0.0329s] [  8%]
+dynamo/test_repr_protocol.py::TpReprTests::test_defaultdict_repr_with_nested_function_factory_unsupported PASSED [0.0150s] [ 11%]
+dynamo/test_repr_protocol.py::TpReprTests::test_dict_repr_with_tensor_graph_breaks PASSED [0.0425s] [ 13%]
+dynamo/test_repr_protocol.py::TpReprTests::test_dict_view_repr PASSED [0.0272s] [ 16%]
+dynamo/test_repr_protocol.py::TpReprTests::test_dict_view_repr_with_tensor PASSED [0.0274s] [ 19%]
+dynamo/test_repr_protocol.py::TpReprTests::test_dunder_repr_returning_non_string_raises PASSED [0.0280s] [ 22%]
+dynamo/test_repr_protocol.py::TpReprTests::test_enum_member_repr PASSED [0.0308s] [ 25%]
+dynamo/test_repr_protocol.py::TpReprTests::test_exception_repr PASSED [0.0268s] [ 27%]
+dynamo/test_repr_protocol.py::TpReprTests::test_int_dunder_repr PASSED [0.0276s] [ 30%]
+dynamo/test_repr_protocol.py::TpReprTests::test_int_repr PASSED [0.0279s] [ 33%]
+dynamo/test_repr_protocol.py::TpReprTests::test_list_dunder_repr PASSED [0.0282s] [ 36%]
+dynamo/test_repr_protocol.py::TpReprTests::test_list_repr PASSED [0.0281s] [ 38%]
+dynamo/test_repr_protocol.py::TpReprTests::test_list_repr_tracks_user_defined_object_mutations PASSED [0.0390s] [ 41%]
+dynamo/test_repr_protocol.py::TpReprTests::test_list_repr_with_tensor_graph_breaks PASSED [0.0409s] [ 44%]
+dynamo/test_repr_protocol.py::TpReprTests::test_metaclass_repr PASSED [0.0291s] [ 47%]
+dynamo/test_repr_protocol.py::TpReprTests::test_mutual_ref_repr PASSED [0.0103s] [ 50%]
+dynamo/test_repr_protocol.py::TpReprTests::test_nested_function_repr_with_tensor_closure_unsupported PASSED [0.0124s] [ 52%]
+dynamo/test_repr_protocol.py::TpReprTests::test_nn_module_repr PASSED [0.0670s] [ 55%]
+dynamo/test_repr_protocol.py::TpReprTests::test_object_dunder_repr_on_plain_instance PASSED [0.0401s] [ 58%]
+dynamo/test_repr_protocol.py::TpReprTests::test_ordereddict_and_namedtuple_repr_track_nested_repr PASSED [0.0673s] [ 61%]
+dynamo/test_repr_protocol.py::TpReprTests::test_repr_returning_non_string_raises PASSED [0.0366s] [ 63%]
+dynamo/test_repr_protocol.py::TpReprTests::test_self_ref_dict_repr PASSED [0.0069s] [ 66%]
+dynamo/test_repr_protocol.py::TpReprTests::test_self_ref_list_repr PASSED [0.0066s] [ 69%]
+dynamo/test_repr_protocol.py::TpReprTests::test_set_repr PASSED [0.0327s] [ 72%]
+dynamo/test_repr_protocol.py::TpReprTests::test_structseq_repr_with_tensor_graph_breaks PASSED [0.0797s] [ 75%]
+dynamo/test_repr_protocol.py::TpReprTests::test_tensor_dunder_repr_graph_breaks PASSED [0.0454s] [ 77%]
+dynamo/test_repr_protocol.py::TpReprTests::test_tensor_repr_graph_breaks PASSED [0.0420s] [ 80%]
+dynamo/test_repr_protocol.py::TpReprTests::test_type_dunder_repr_on_class PASSED [0.0283s] [ 83%]
+dynamo/test_repr_protocol.py::TpReprTests::test_user_defined_default_object_repr PASSED [0.0279s] [ 86%]
+dynamo/test_repr_protocol.py::TpReprTests::test_user_defined_dict_subclass_repr PASSED [0.0302s] [ 88%]
+dynamo/test_repr_protocol.py::TpReprTests::test_user_defined_dunder_repr PASSED [0.0308s] [ 91%]
+dynamo/test_repr_protocol.py::TpReprTests::test_user_defined_opaque_repr_descriptor_raises_type_error PASSED [0.0300s] [ 94%]
+dynamo/test_repr_protocol.py::TpReprTests::test_user_defined_repr PASSED [0.0296s] [ 97%]
+dynamo/test_repr_protocol.py::TpReprTests::test_user_function_repr PASSED [0.0283s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/dynamo.test_repr_protocol/dynamo.test_repr_protocol-bf423347cd4adc22.xml -
+============================== 36 passed in 1.62s ==============================

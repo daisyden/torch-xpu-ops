@@ -1,0 +1,35 @@
+Test results will be stored in test-reports/python-pytest/export.test_swap/export.test_swap-6b40057c7f7b75ad.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 20 items
+stepcurrent: Cannot find last run test, not skipping
+Running 20 items in this shard: test/export/test_swap.py::TestSwap_nonstrict::test_custom_input_args, test/export/test_swap.py::TestSwap_nonstrict::test_custom_input_kwargs, test/export/test_swap.py::TestSwap_nonstrict::test_custom_input_kwargs_use_private, test/export/test_swap.py::TestSwap_nonstrict::test_custom_output, test/export/test_swap.py::TestSwap_nonstrict::test_dedup_sym_size, test/export/test_swap.py::TestSwap_nonstrict::test_nested_leaf, test/export/test_swap.py::TestSwap_nonstrict::test_remove_duplicate_pytree_different_order, test/export/test_swap.py::TestSwap_nonstrict::test_remove_duplicate_pytree_simple, test/export/test_swap.py::TestSwap_nonstrict::test_unflatten_preserve_signature, test/export/test_swap.py::TestSwap_nonstrict::test_unflatten_preserve_with_unused_input, test/export/test_swap.py::TestSwap_strict::test_custom_input_args, test/export/test_swap.py::TestSwap_strict::test_custom_input_kwargs, test/export/test_swap.py::TestSwap_strict::test_custom_input_kwargs_use_private, test/export/test_swap.py::TestSwap_strict::test_custom_output, test/export/test_swap.py::TestSwap_strict::test_dedup_sym_size, test/export/test_swap.py::TestSwap_strict::test_nested_leaf, test/export/test_swap.py::TestSwap_strict::test_remove_duplicate_pytree_different_order, test/export/test_swap.py::TestSwap_strict::test_remove_duplicate_pytree_simple, test/export/test_swap.py::TestSwap_strict::test_unflatten_preserve_signature, test/export/test_swap.py::TestSwap_strict::test_unflatten_preserve_with_unused_input
+
+export/test_swap.py::TestSwap_nonstrict::test_custom_input_args PASSED [0.4807s] [  5%]
+export/test_swap.py::TestSwap_nonstrict::test_custom_input_kwargs PASSED [0.0345s] [ 10%]
+export/test_swap.py::TestSwap_nonstrict::test_custom_input_kwargs_use_private PASSED [0.0141s] [ 15%]
+export/test_swap.py::TestSwap_nonstrict::test_custom_output PASSED [0.2013s] [ 20%]
+export/test_swap.py::TestSwap_nonstrict::test_dedup_sym_size PASSED [0.1557s] [ 25%]
+export/test_swap.py::TestSwap_nonstrict::test_nested_leaf PASSED [0.0268s] [ 30%]
+export/test_swap.py::TestSwap_nonstrict::test_remove_duplicate_pytree_different_order XFAIL [0.0393s] [ 35%]
+export/test_swap.py::TestSwap_nonstrict::test_remove_duplicate_pytree_simple PASSED [0.0476s] [ 40%]
+export/test_swap.py::TestSwap_nonstrict::test_unflatten_preserve_signature PASSED [0.0422s] [ 45%]
+export/test_swap.py::TestSwap_nonstrict::test_unflatten_preserve_with_unused_input PASSED [0.0304s] [ 50%]
+export/test_swap.py::TestSwap_strict::test_custom_input_args PASSED [0.0837s] [ 55%]
+export/test_swap.py::TestSwap_strict::test_custom_input_kwargs PASSED [0.1183s] [ 60%]
+export/test_swap.py::TestSwap_strict::test_custom_input_kwargs_use_private PASSED [0.0750s] [ 65%]
+export/test_swap.py::TestSwap_strict::test_custom_output PASSED [0.1002s] [ 70%]
+export/test_swap.py::TestSwap_strict::test_dedup_sym_size PASSED [0.2641s] [ 75%]
+export/test_swap.py::TestSwap_strict::test_nested_leaf PASSED [0.1432s]  [ 80%]
+export/test_swap.py::TestSwap_strict::test_remove_duplicate_pytree_different_order XFAIL [0.4666s] [ 85%]
+export/test_swap.py::TestSwap_strict::test_remove_duplicate_pytree_simple PASSED [0.2425s] [ 90%]
+export/test_swap.py::TestSwap_strict::test_unflatten_preserve_signature PASSED [0.2544s] [ 95%]
+export/test_swap.py::TestSwap_strict::test_unflatten_preserve_with_unused_input PASSED [0.1562s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/export.test_swap/export.test_swap-6b40057c7f7b75ad.xml -
+======================== 18 passed, 2 xfailed in 3.02s =========================

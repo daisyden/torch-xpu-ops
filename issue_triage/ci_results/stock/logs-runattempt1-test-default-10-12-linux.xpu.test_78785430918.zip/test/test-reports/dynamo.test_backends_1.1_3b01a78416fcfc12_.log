@@ -1,0 +1,27 @@
+Test results will be stored in test-reports/python-pytest/dynamo.test_backends/dynamo.test_backends-dc0ac77eff5397a0.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 12 items
+stepcurrent: Cannot find last run test, not skipping
+Running 12 items in this shard: test/dynamo/test_backends.py::NormalizeIRTests::test_inplace_normalize, test/dynamo/test_backends.py::MPSSupportedTest::test_mps_supported, test/dynamo/test_backends.py::TestExplainWithBackend::test_explain_with_backend, test/dynamo/test_backends.py::TestCustomBackendAPI::test_aot_autograd_api, test/dynamo/test_backends.py::TestCustomBackendAPI::test_backend_graph_freeze, test/dynamo/test_backends.py::TestCustomBackendAPI::test_backend_recompilation, test/dynamo/test_backends.py::TestCustomBackendAPI::test_cudagraphs_backend_accepts_extra_kwargs, test/dynamo/test_backends.py::TestCustomBackendAPI::test_lookup_backend, test/dynamo/test_backends.py::TestCustomBackendAPI::test_lookup_custom_backend, test/dynamo/test_backends.py::TestCustomBackendAPI::test_register_backend_api, test/dynamo/test_backends.py::TestDefaultBackend::test_set_default_backend, test/dynamo/test_backends.py::TestDefaultBackend::test_set_default_backend_explicit_override
+
+dynamo/test_backends.py::NormalizeIRTests::test_inplace_normalize PASSED [0.2271s] [  8%]
+dynamo/test_backends.py::MPSSupportedTest::test_mps_supported SKIPPED [0.0003s] (requires mps) [ 16%]
+dynamo/test_backends.py::TestExplainWithBackend::test_explain_with_backend PASSED [19.5658s] [ 25%]
+dynamo/test_backends.py::TestCustomBackendAPI::test_aot_autograd_api PASSED [0.0528s] [ 33%]
+dynamo/test_backends.py::TestCustomBackendAPI::test_backend_graph_freeze PASSED [0.0869s] [ 41%]
+dynamo/test_backends.py::TestCustomBackendAPI::test_backend_recompilation PASSED [0.8030s] [ 50%]
+dynamo/test_backends.py::TestCustomBackendAPI::test_cudagraphs_backend_accepts_extra_kwargs PASSED [0.0025s] [ 58%]
+dynamo/test_backends.py::TestCustomBackendAPI::test_lookup_backend PASSED [0.7542s] [ 66%]
+dynamo/test_backends.py::TestCustomBackendAPI::test_lookup_custom_backend PASSED [0.0027s] [ 75%]
+dynamo/test_backends.py::TestCustomBackendAPI::test_register_backend_api PASSED [0.0416s] [ 83%]
+dynamo/test_backends.py::TestDefaultBackend::test_set_default_backend PASSED [0.0372s] [ 91%]
+dynamo/test_backends.py::TestDefaultBackend::test_set_default_backend_explicit_override PASSED [0.0365s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/dynamo.test_backends/dynamo.test_backends-dc0ac77eff5397a0.xml -
+======================== 11 passed, 1 skipped in 21.65s ========================

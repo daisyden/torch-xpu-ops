@@ -1,0 +1,101 @@
+Test results will be stored in test-reports/python-pytest/export.test_converter/export.test_converter-d98604f83afa1a2f.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 48 items
+stepcurrent: Cannot find last run test, not skipping
+Running 48 items in this shard: test/export/test_converter.py::TestConverter::test_aten___getitem___dict, test/export/test_converter.py::TestConverter::test_aten___getitem___list, test/export/test_converter.py::TestConverter::test_aten___is__, test/export/test_converter.py::TestConverter::test_aten___isnot__, test/export/test_converter.py::TestConverter::test_aten___not__, test/export/test_converter.py::TestConverter::test_aten_add_t, test/export/test_converter.py::TestConverter::test_aten_append_t, test/export/test_converter.py::TestConverter::test_aten_dim, test/export/test_converter.py::TestConverter::test_aten_floordiv, test/export/test_converter.py::TestConverter::test_aten_len, test/export/test_converter.py::TestConverter::test_aten_tensor_dtype_int, test/export/test_converter.py::TestConverter::test_aten_tensor_dynamic, test/export/test_converter.py::TestConverter::test_aten_tensor_prim_dtype, test/export/test_converter.py::TestConverter::test_aten_to_dtype_with_mutating_storage, test/export/test_converter.py::TestConverter::test_context_manager, test/export/test_converter.py::TestConverter::test_convert_func_without_param, test/export/test_converter.py::TestConverter::test_convert_if_basic, test/export/test_converter.py::TestConverter::test_convert_if_duplicate_attr_names, test/export/test_converter.py::TestConverter::test_convert_if_multiple_out, test/export/test_converter.py::TestConverter::test_convert_if_tuple_out, test/export/test_converter.py::TestConverter::test_convert_nn_module_with_nested_buffer, test/export/test_converter.py::TestConverter::test_convert_nn_module_with_nested_if_and_buffer, test/export/test_converter.py::TestConverter::test_convert_nn_module_with_nested_if_and_param, test/export/test_converter.py::TestConverter::test_convert_nn_module_with_nested_param, test/export/test_converter.py::TestConverter::test_convert_retrace_nested_scripted_modules, test/export/test_converter.py::TestConverter::test_convert_script_object, test/export/test_converter.py::TestConverter::test_get_tensor_constants, test/export/test_converter.py::TestConverter::test_hidden_input_name, test/export/test_converter.py::TestConverter::test_implicit_constant_to_tensor_handling, test/export/test_converter.py::TestConverter::test_prim_SetAttr, test/export/test_converter.py::TestConverter::test_prim_device, test/export/test_converter.py::TestConverter::test_prim_device_cuda, test/export/test_converter.py::TestConverter::test_prim_dtype, test/export/test_converter.py::TestConverter::test_prim_max, test/export/test_converter.py::TestConverter::test_prim_min, test/export/test_converter.py::TestConverter::test_prim_tolist, test/export/test_converter.py::TestConverter::test_profiler__record_function, test/export/test_converter.py::TestConverter::test_raise_exception, test/export/test_converter.py::TestConverter::test_ts2ep_convert_quantized_model1, test/export/test_converter.py::TestConverter::test_ts2ep_convert_quantized_model_with_opcontext, test/export/test_converter.py::TestConverter::test_ts2ep_convert_quantized_model_with_opcontext_and_constant, test/export/test_converter.py::TestConverter::test_ts2ep_converter_basic, test/export/test_converter.py::TestConverter::test_ts2ep_converter_container_output, test/export/test_converter.py::TestConverter::test_ts2ep_converter_contains, test/export/test_converter.py::TestConverter::test_ts2ep_converter_custom_op, test/export/test_converter.py::TestConverter::test_ts2ep_converter_unpack, test/export/test_converter.py::TestConverter::test_ts2ep_multi_outputs_on_call_ops, test/export/test_converter.py::TestConverter::test_ts2ep_with_loop
+
+export/test_converter.py::TestConverter::test_aten___getitem___dict PASSED [0.6318s] [  2%]
+export/test_converter.py::TestConverter::test_aten___getitem___list PASSED [0.1142s] [  4%]
+export/test_converter.py::TestConverter::test_aten___is__ PASSED [0.0641s] [  6%]
+export/test_converter.py::TestConverter::test_aten___isnot__ PASSED [0.0487s] [  8%]
+export/test_converter.py::TestConverter::test_aten___not__ PASSED [0.0497s] [ 10%]
+export/test_converter.py::TestConverter::test_aten_add_t PASSED [0.1027s] [ 12%]
+export/test_converter.py::TestConverter::test_aten_append_t PASSED [0.0863s] [ 14%]
+export/test_converter.py::TestConverter::test_aten_dim W0601 04:44:02.668000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['x'].shape[0] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+W0601 04:44:02.704000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['x_1'].shape[0] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+PASSED [0.0721s]  [ 16%]
+export/test_converter.py::TestConverter::test_aten_floordiv PASSED [0.2709s] [ 18%]
+export/test_converter.py::TestConverter::test_aten_len PASSED [0.1940s]  [ 20%]
+export/test_converter.py::TestConverter::test_aten_tensor_dtype_int PASSED [0.0560s] [ 22%]
+export/test_converter.py::TestConverter::test_aten_tensor_dynamic PASSED [0.1541s] [ 25%]
+export/test_converter.py::TestConverter::test_aten_tensor_prim_dtype PASSED [0.0617s] [ 27%]
+export/test_converter.py::TestConverter::test_aten_to_dtype_with_mutating_storage PASSED [0.1335s] [ 29%]
+export/test_converter.py::TestConverter::test_context_manager PASSED [0.1278s] [ 31%]
+export/test_converter.py::TestConverter::test_convert_func_without_param PASSED [0.2772s] [ 33%]
+export/test_converter.py::TestConverter::test_convert_if_basic PASSED [0.3589s] [ 35%]
+export/test_converter.py::TestConverter::test_convert_if_duplicate_attr_names PASSED [0.0576s] [ 37%]
+export/test_converter.py::TestConverter::test_convert_if_multiple_out PASSED [0.1927s] [ 39%]
+export/test_converter.py::TestConverter::test_convert_if_tuple_out PASSED [0.2018s] [ 41%]
+export/test_converter.py::TestConverter::test_convert_nn_module_with_nested_buffer W0601 04:44:04.854000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['x'].shape[0] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+W0601 04:44:04.886000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['x_1'].shape[0] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+W0601 04:44:04.929000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['x'].shape[0] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+W0601 04:44:04.964000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['x_1'].shape[0] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+PASSED [0.1520s] [ 43%]
+export/test_converter.py::TestConverter::test_convert_nn_module_with_nested_if_and_buffer W0601 04:44:05.032000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['x'].shape[0] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+W0601 04:44:05.386000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['x_1'].shape[0] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+PASSED [0.4528s] [ 45%]
+export/test_converter.py::TestConverter::test_convert_nn_module_with_nested_if_and_param PASSED [3.6054s] [ 47%]
+export/test_converter.py::TestConverter::test_convert_nn_module_with_nested_param PASSED [0.2528s] [ 50%]
+export/test_converter.py::TestConverter::test_convert_retrace_nested_scripted_modules PASSED [2.4734s] [ 52%]
+export/test_converter.py::TestConverter::test_convert_script_object W0601 04:44:11.783000 78862 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._TensorQueue> doesn't implement method top.
+W0601 04:44:11.783000 78862 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._TensorQueue> doesn't implement method clone_queue.
+W0601 04:44:11.783000 78862 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._TensorQueue> doesn't implement method get_raw_queue.
+PASSED [0.0457s] [ 54%]
+export/test_converter.py::TestConverter::test_get_tensor_constants PASSED [0.1040s] [ 56%]
+export/test_converter.py::TestConverter::test_hidden_input_name W0601 04:44:11.942000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['input_0'].shape[0] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+W0601 04:44:11.943000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['input_0'].shape[1] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+W0601 04:44:11.970000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['x_1'].shape[0] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+W0601 04:44:11.971000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['x_1'].shape[1] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+W0601 04:44:12.139000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['input_0'].shape[0] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 0.
+W0601 04:44:12.141000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['input_3'].shape[1] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+PASSED [0.2313s] [ 58%]
+export/test_converter.py::TestConverter::test_implicit_constant_to_tensor_handling PASSED [0.9848s] [ 60%]
+export/test_converter.py::TestConverter::test_prim_SetAttr W0601 04:44:13.409000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['x_1'].shape[0] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+W0601 04:44:13.438000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['x'].shape[0] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+PASSED [0.3352s] [ 62%]
+export/test_converter.py::TestConverter::test_prim_device PASSED [0.0728s] [ 64%]
+export/test_converter.py::TestConverter::test_prim_device_cuda SKIPPED [0.0004s] (requires cuda) [ 66%]
+export/test_converter.py::TestConverter::test_prim_dtype PASSED [0.3506s] [ 68%]
+export/test_converter.py::TestConverter::test_prim_max PASSED [0.1092s]  [ 70%]
+export/test_converter.py::TestConverter::test_prim_min PASSED [0.0999s]  [ 72%]
+export/test_converter.py::TestConverter::test_prim_tolist PASSED [0.1561s] [ 75%]
+export/test_converter.py::TestConverter::test_profiler__record_function PASSED [0.0930s] [ 77%]
+export/test_converter.py::TestConverter::test_raise_exception PASSED [0.2003s] [ 79%]
+export/test_converter.py::TestConverter::test_ts2ep_convert_quantized_model1 W0601 04:44:15.360000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['x_1'].shape[1] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+PASSED [0.8487s] [ 81%]
+export/test_converter.py::TestConverter::test_ts2ep_convert_quantized_model_with_opcontext W0601 04:44:15.453000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['x_1'].shape[0] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+PASSED [0.0423s] [ 83%]
+export/test_converter.py::TestConverter::test_ts2ep_convert_quantized_model_with_opcontext_and_constant W0601 04:44:15.495000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['x_1'].shape[0] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+PASSED [0.0414s] [ 85%]
+export/test_converter.py::TestConverter::test_ts2ep_converter_basic W0601 04:44:15.541000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['x'].shape[0] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+W0601 04:44:15.542000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['y'].shape[0] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+W0601 04:44:15.586000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['x_1'].shape[0] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+W0601 04:44:15.587000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['y_1'].shape[0] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+W0601 04:44:15.647000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['x'].shape[0] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+W0601 04:44:15.648000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['y'].shape[0] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+W0601 04:44:15.723000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['x_1'].shape[0] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+W0601 04:44:15.724000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['y_1'].shape[0] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+PASSED [0.2400s] [ 87%]
+export/test_converter.py::TestConverter::test_ts2ep_converter_container_output PASSED [0.1442s] [ 89%]
+export/test_converter.py::TestConverter::test_ts2ep_converter_contains PASSED [0.0878s] [ 91%]
+export/test_converter.py::TestConverter::test_ts2ep_converter_custom_op PASSED [0.0743s] [ 93%]
+export/test_converter.py::TestConverter::test_ts2ep_converter_unpack W0601 04:44:16.207000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['x_tuple'][0].shape[0] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+W0601 04:44:16.208000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['x_tuple'][1].shape[0] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+W0601 04:44:16.258000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['x_tuple_1'][0].shape[0] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+W0601 04:44:16.258000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['x_tuple_1'][1].shape[0] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+PASSED [0.2086s] [ 95%]
+export/test_converter.py::TestConverter::test_ts2ep_multi_outputs_on_call_ops W0601 04:44:16.408000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['y'].shape[0] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+W0601 04:44:16.408000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['y'].shape[1] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+W0601 04:44:16.525000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['y_1'].shape[0] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+W0601 04:44:16.525000 78862 site-packages/torch/_export/non_strict_utils.py:656] dimension inputs['y_1'].shape[1] 0/1 specialized; Dim.AUTO was specified along with a sample input with hint = 1.
+PASSED [0.2955s] [ 97%]
+export/test_converter.py::TestConverter::test_ts2ep_with_loop PASSED [0.3582s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/export.test_converter/export.test_converter-d98604f83afa1a2f.xml -
+======================== 47 passed, 1 skipped in 15.41s ========================

@@ -1,0 +1,1 @@
+<testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="15.954" timestamp="2026-06-01T04:38:55.638374" hostname="69e11a0ddc78"><testcase classname="TestKernelOptimization" name="test_einsum_to_pointwise" time="15.932" file="inductor/test_kernel_optimization.py" /></testsuite></testsuites>

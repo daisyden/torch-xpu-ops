@@ -1,0 +1,43 @@
+++ python benchmarks/dynamo/timm_models.py --performance --float16 -d xpu -n10 --training --total-partitions 9 --partition-id 6 --backend=inductor --cold-start-latency --timeout=10800 --disable-cudagraphs --output=/__w/torch-xpu-ops/torch-xpu-ops/pytorch/inductor_log/timm_models/float16/inductor_timm_models_float16_training_xpu_performance.csv
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:19, ?it/s]
+xpu  train repvgg_a2                          
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:02,  3.79it/s]running benchmark:  20%|██        | 2/10 [00:00<00:01,  5.13it/s]running benchmark:  30%|███       | 3/10 [00:00<00:01,  5.79it/s]running benchmark:  40%|████      | 4/10 [00:00<00:00,  6.16it/s]running benchmark:  50%|█████     | 5/10 [00:00<00:00,  6.38it/s]running benchmark:  60%|██████    | 6/10 [00:00<00:00,  6.52it/s]running benchmark:  70%|███████   | 7/10 [00:01<00:00,  6.62it/s]running benchmark:  80%|████████  | 8/10 [00:01<00:00,  6.69it/s]running benchmark:  90%|█████████ | 9/10 [00:01<00:00,  6.73it/s]running benchmark: 100%|██████████| 10/10 [00:01<00:00,  6.75it/s]running benchmark: 100%|██████████| 10/10 [00:01<00:00,  6.32it/s]
+1.563x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:15, ?it/s]
+xpu  train res2net101_26w_4s                  
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:06,  1.37it/s]running benchmark:  20%|██        | 2/10 [00:01<00:04,  1.83it/s]running benchmark:  30%|███       | 3/10 [00:01<00:03,  2.06it/s]running benchmark:  40%|████      | 4/10 [00:01<00:02,  2.18it/s]running benchmark:  50%|█████     | 5/10 [00:02<00:02,  2.26it/s]running benchmark:  60%|██████    | 6/10 [00:02<00:01,  2.31it/s]running benchmark:  70%|███████   | 7/10 [00:03<00:01,  2.34it/s]running benchmark:  80%|████████  | 8/10 [00:03<00:00,  2.37it/s]running benchmark:  90%|█████████ | 9/10 [00:04<00:00,  2.39it/s]running benchmark: 100%|██████████| 10/10 [00:04<00:00,  2.39it/s]running benchmark: 100%|██████████| 10/10 [00:04<00:00,  2.24it/s]
+1.424x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:12, ?it/s]
+xpu  train res2net50_14w_8s                   
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:03,  2.32it/s]running benchmark:  20%|██        | 2/10 [00:00<00:02,  2.84it/s]running benchmark:  30%|███       | 3/10 [00:01<00:02,  3.04it/s]running benchmark:  40%|████      | 4/10 [00:01<00:01,  3.16it/s]running benchmark:  50%|█████     | 5/10 [00:01<00:01,  3.23it/s]running benchmark:  60%|██████    | 6/10 [00:01<00:01,  3.26it/s]running benchmark:  70%|███████   | 7/10 [00:02<00:00,  3.29it/s]running benchmark:  80%|████████  | 8/10 [00:02<00:00,  3.31it/s]running benchmark:  90%|█████████ | 9/10 [00:02<00:00,  3.33it/s]running benchmark: 100%|██████████| 10/10 [00:03<00:00,  3.34it/s]running benchmark: 100%|██████████| 10/10 [00:03<00:00,  3.21it/s]
+1.653x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:10, ?it/s]
+xpu  train res2next50                         
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:05,  1.77it/s]running benchmark:  20%|██        | 2/10 [00:00<00:03,  2.47it/s]running benchmark:  30%|███       | 3/10 [00:01<00:02,  2.82it/s]running benchmark:  40%|████      | 4/10 [00:01<00:01,  3.02it/s]running benchmark:  50%|█████     | 5/10 [00:01<00:01,  3.15it/s]running benchmark:  60%|██████    | 6/10 [00:02<00:01,  3.23it/s]running benchmark:  70%|███████   | 7/10 [00:02<00:00,  3.29it/s]running benchmark:  80%|████████  | 8/10 [00:02<00:00,  3.32it/s]running benchmark:  90%|█████████ | 9/10 [00:02<00:00,  3.34it/s]running benchmark: 100%|██████████| 10/10 [00:03<00:00,  3.36it/s]running benchmark: 100%|██████████| 10/10 [00:03<00:00,  3.11it/s]
+1.514x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:03, ?it/s]
+xpu  train resmlp_12_224                      
+W0531 14:27:50.744000 35156 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:01,  5.18it/s]running benchmark:  30%|███       | 3/10 [00:00<00:00,  8.51it/s]running benchmark:  50%|█████     | 5/10 [00:00<00:00,  9.62it/s]running benchmark:  70%|███████   | 7/10 [00:00<00:00, 10.14it/s]running benchmark:  90%|█████████ | 9/10 [00:00<00:00, 10.39it/s]running benchmark: 100%|██████████| 10/10 [00:01<00:00,  9.83it/s]
+1.323x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:16, ?it/s]
+xpu  train resnest101e                        
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:03,  2.34it/s]running benchmark:  20%|██        | 2/10 [00:00<00:02,  2.95it/s]running benchmark:  30%|███       | 3/10 [00:00<00:02,  3.21it/s]running benchmark:  40%|████      | 4/10 [00:01<00:01,  3.35it/s]running benchmark:  50%|█████     | 5/10 [00:01<00:01,  3.42it/s]running benchmark:  60%|██████    | 6/10 [00:01<00:01,  3.46it/s]running benchmark:  70%|███████   | 7/10 [00:02<00:00,  3.49it/s]running benchmark:  80%|████████  | 8/10 [00:02<00:00,  3.52it/s]running benchmark:  90%|█████████ | 9/10 [00:02<00:00,  3.57it/s]running benchmark: 100%|██████████| 10/10 [00:02<00:00,  3.57it/s]running benchmark: 100%|██████████| 10/10 [00:02<00:00,  3.40it/s]
+1.388x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:15, ?it/s]
+xpu  train rexnet_100                         
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:06,  1.39it/s]running benchmark:  20%|██        | 2/10 [00:01<00:03,  2.03it/s]running benchmark:  30%|███       | 3/10 [00:01<00:02,  2.39it/s]running benchmark:  40%|████      | 4/10 [00:01<00:02,  2.61it/s]running benchmark:  50%|█████     | 5/10 [00:02<00:01,  2.74it/s]running benchmark:  60%|██████    | 6/10 [00:02<00:01,  2.83it/s]running benchmark:  70%|███████   | 7/10 [00:02<00:01,  2.89it/s]running benchmark:  80%|████████  | 8/10 [00:03<00:00,  2.93it/s]running benchmark:  90%|█████████ | 9/10 [00:03<00:00,  2.96it/s]running benchmark: 100%|██████████| 10/10 [00:03<00:00,  2.98it/s]running benchmark: 100%|██████████| 10/10 [00:03<00:00,  2.70it/s]
+1.427x
+speedup             gmean=0.00x mean=1.542x
+abs_latency         gmean=0.00x mean=121.711x
+compilation_latency mean=91.976 seconds
+compression_ratio   mean=0.000x
+eager_peak_mem      gmean=0.00x mean=0.000x
+dynamo_peak_mem     gmean=0.00x mean=0.000x
+calls_captured      gmean=0.00x mean=479.000x
+unique_graphs       gmean=0.00x mean=1.108x
+graph_breaks        gmean=0.00x mean=5.923x
+unique_graph_breaks gmean=0.00x mean=4.923x
+autograd_captures   gmean=0.00x mean=0.000x
+autograd_compiles   gmean=0.00x mean=0.000x
+cudagraph_skips     gmean=0.00x mean=0.000x

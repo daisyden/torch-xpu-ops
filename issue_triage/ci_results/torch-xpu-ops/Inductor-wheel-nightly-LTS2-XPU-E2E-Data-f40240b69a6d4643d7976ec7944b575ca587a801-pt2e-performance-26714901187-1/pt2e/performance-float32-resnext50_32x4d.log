@@ -1,0 +1,10 @@
+W0531 14:50:50.094000 80254 site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+/__w/torch-xpu-ops/torch-xpu-ops/pt2e-performance/torchbenchmark/util/backends/torchdynamo.py:41: FutureWarning: `config.shallow_copy_dict()` has been deprecated. It no longer changes the underlying config. use `config.get_config_copy()` instead if you just want a copy of the config, or config.load_config if you need mutable access
+  return torch._inductor.config.shallow_copy_dict()
+Running TorchBenchModelConfig(name='resnext50_32x4d', test='eval', device='xpu', batch_size=None, extra_args=['--channels-last', '--torchdynamo', 'inductor'], extra_env=None, output_dir=None) ...Downloading: "https://download.pytorch.org/models/resnext50_32x4d-7cdf4587.pth" to /github/home/.cache/torch/hub/checkpoints/resnext50_32x4d-7cdf4587.pth
+  0%|          | 0.00/95.8M [00:00<?, ?B/s]  9%|▉         | 8.62M/95.8M [00:00<00:01, 89.8MB/s] 21%|██        | 19.9M/95.8M [00:00<00:00, 106MB/s]  32%|███▏      | 31.1M/95.8M [00:00<00:00, 111MB/s] 44%|████▎     | 41.8M/95.8M [00:00<00:00, 105MB/s] 55%|█████▌    | 53.0M/95.8M [00:00<00:00, 109MB/s] 67%|██████▋   | 64.1M/95.8M [00:00<00:00, 112MB/s] 79%|███████▊  | 75.4M/95.8M [00:00<00:00, 113MB/s] 90%|█████████ | 86.6M/95.8M [00:00<00:00, 114MB/s]100%|██████████| 95.8M/95.8M [00:00<00:00, 111MB/s]
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/pgo.py:605: UserWarning: dynamo_pgo force disabled by torch.compiler.config.force_disable_caches
+  warn_once(
+ [Done]
+
+Running benchmark: /tmp/xpu-tool/Python/3.10.20/x64/bin/python /__w/torch-xpu-ops/torch-xpu-ops/pt2e-performance/userbenchmark/xpu/run_config.py -m resnext50_32x4d -d xpu -t eval --channels-last --torchdynamo inductor --metrics throughputs --nwarmup 20 --niter 50 -o /__w/torch-xpu-ops/torch-xpu-ops/pt2e-performance/.userbenchmark/xpu/xpu-20260531145047

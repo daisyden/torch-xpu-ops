@@ -1,0 +1,30 @@
+++ python benchmarks/dynamo/huggingface.py --performance --bfloat16 -d xpu -n10 --inference --total-partitions 9 --partition-id 3 --backend=inductor --cold-start-latency --timeout=10800 --disable-cudagraphs --output=/__w/torch-xpu-ops/torch-xpu-ops/pytorch/inductor_log/huggingface/bfloat16/inductor_huggingface_bfloat16_inference_xpu_performance.csv
+W0531 15:08:22.745000 17691 site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0531 15:08:22.780000 17691 site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0531 15:08:28.284000 17947 site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0531 15:08:28.319000 17947 site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:01, ?it/s]
+xpu  eval  ElectraForQuestionAnswering        
+W0531 15:08:36.919000 17947 site-packages/torch/_inductor/utils.py:3128] [0/0] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:01,  5.01it/s]running benchmark:  30%|███       | 3/10 [00:00<00:00, 10.46it/s]running benchmark:  50%|█████     | 5/10 [00:00<00:00, 13.03it/s]running benchmark:  70%|███████   | 7/10 [00:00<00:00, 14.49it/s]running benchmark:  90%|█████████ | 9/10 [00:00<00:00, 15.37it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 13.73it/s]
+0.634x
+W0531 15:08:52.384000 18901 site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0531 15:08:52.419000 18901 site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:02, ?it/s]
+xpu  eval  GPT2ForSequenceClassification      
+W0531 15:09:00.986000 18901 site-packages/torch/_inductor/utils.py:3128] [0/0] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  40%|████      | 4/10 [00:00<00:00, 35.90it/s]running benchmark:  90%|█████████ | 9/10 [00:00<00:00, 40.65it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 40.32it/s]
+1.277x
+speedup             gmean=1.16x mean=1.267x
+abs_latency         gmean=25.91x mean=31.058x
+compilation_latency mean=14.743 seconds
+compression_ratio   mean=0.000x
+eager_peak_mem      gmean=0.00x mean=0.000x
+dynamo_peak_mem     gmean=0.00x mean=0.000x
+calls_captured      gmean=476.32x mean=574.167x
+unique_graphs       gmean=1.06x mean=1.083x
+graph_breaks        gmean=0.00x mean=0.000x
+unique_graph_breaks gmean=0.00x mean=0.000x
+autograd_captures   gmean=0.00x mean=0.000x
+autograd_compiles   gmean=0.00x mean=0.000x
+cudagraph_skips     gmean=0.00x mean=0.000x

@@ -1,0 +1,24 @@
+Test results will be stored in test-reports/python-pytest/dynamo.test_metrics_context/dynamo.test_metrics_context-b21596b1e8775829.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 9 items
+stepcurrent: Cannot find last run test, not skipping
+Running 9 items in this shard: test/dynamo/test_metrics_context.py::TestMetricsContext::test_add_to_set, test/dynamo/test_metrics_context.py::TestMetricsContext::test_context_exists, test/dynamo/test_metrics_context.py::TestMetricsContext::test_nested_context, test/dynamo/test_metrics_context.py::TestMetricsContext::test_set, test/dynamo/test_metrics_context.py::TestMetricsContext::test_set_disallow_overwrite, test/dynamo/test_metrics_context.py::TestMetricsContext::test_set_key_value, test/dynamo/test_metrics_context.py::TestMetricsContext::test_top_n, test/dynamo/test_metrics_context.py::TestMetricsContext::test_update_allow_overwrite, test/dynamo/test_metrics_context.py::TestMetricsContext::test_update_disallow_overwrite
+
+dynamo/test_metrics_context.py::TestMetricsContext::test_add_to_set PASSED [0.1341s] [ 11%]
+dynamo/test_metrics_context.py::TestMetricsContext::test_context_exists PASSED [0.0014s] [ 22%]
+dynamo/test_metrics_context.py::TestMetricsContext::test_nested_context PASSED [0.0014s] [ 33%]
+dynamo/test_metrics_context.py::TestMetricsContext::test_set PASSED [0.0013s] [ 44%]
+dynamo/test_metrics_context.py::TestMetricsContext::test_set_disallow_overwrite PASSED [0.0015s] [ 55%]
+dynamo/test_metrics_context.py::TestMetricsContext::test_set_key_value PASSED [0.0013s] [ 66%]
+dynamo/test_metrics_context.py::TestMetricsContext::test_top_n PASSED [0.0016s] [ 77%]
+dynamo/test_metrics_context.py::TestMetricsContext::test_update_allow_overwrite PASSED [0.0013s] [ 88%]
+dynamo/test_metrics_context.py::TestMetricsContext::test_update_disallow_overwrite PASSED [0.0013s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/dynamo.test_metrics_context/dynamo.test_metrics_context-b21596b1e8775829.xml -
+============================== 9 passed in 0.17s ===============================

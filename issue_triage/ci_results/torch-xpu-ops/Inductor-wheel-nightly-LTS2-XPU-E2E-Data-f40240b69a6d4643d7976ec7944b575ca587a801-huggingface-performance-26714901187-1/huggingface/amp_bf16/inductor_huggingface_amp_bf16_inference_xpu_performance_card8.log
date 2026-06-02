@@ -1,0 +1,91 @@
+++ python benchmarks/dynamo/huggingface.py --performance --amp -d xpu -n10 --amp-dtype bfloat16 --inference --total-partitions 9 --partition-id 8 --backend=inductor --cold-start-latency --timeout=10800 --disable-cudagraphs --output=/__w/torch-xpu-ops/torch-xpu-ops/pytorch/inductor_log/huggingface/amp_bf16/inductor_huggingface_amp_bf16_inference_xpu_performance.csv
+W0531 16:31:11.962000 46989 site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0531 16:31:11.998000 46989 site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0531 16:31:17.439000 47290 site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0531 16:31:17.476000 47290 site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:04, ?it/s]
+xpu  eval  XLNetLMHeadModel                   
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:02,  3.47it/s]running benchmark:  20%|██        | 2/10 [00:00<00:01,  4.64it/s]running benchmark:  30%|███       | 3/10 [00:00<00:01,  5.21it/s]running benchmark:  40%|████      | 4/10 [00:00<00:01,  5.53it/s]running benchmark:  50%|█████     | 5/10 [00:00<00:00,  5.73it/s]running benchmark:  60%|██████    | 6/10 [00:01<00:00,  5.84it/s]running benchmark:  70%|███████   | 7/10 [00:01<00:00,  5.92it/s]running benchmark:  80%|████████  | 8/10 [00:01<00:00,  5.97it/s]running benchmark:  90%|█████████ | 9/10 [00:01<00:00,  5.99it/s]running benchmark: 100%|██████████| 10/10 [00:01<00:00,  6.01it/s]running benchmark: 100%|██████████| 10/10 [00:01<00:00,  5.65it/s]
+2.501x
+W0531 16:32:05.244000 49015 site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0531 16:32:05.280000 49015 site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:02, ?it/s]
+xpu  eval  YituTechConvBert                   
+W0531 16:32:15.309000 49015 site-packages/torch/_inductor/utils.py:3128] [0/0] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:01,  7.85it/s]running benchmark:  30%|███       | 3/10 [00:00<00:00, 10.44it/s]running benchmark:  50%|█████     | 5/10 [00:00<00:00, 11.04it/s]running benchmark:  70%|███████   | 7/10 [00:00<00:00, 11.30it/s]running benchmark:  90%|█████████ | 9/10 [00:00<00:00, 11.44it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 11.16it/s]
+2.283x
+W0531 16:32:37.926000 50137 site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0531 16:32:37.960000 50137 site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+loading model: 0it [00:00, ?it/s]
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s][A
+Loading weights:   4%|▍         | 11/288 [00:00<00:02, 108.38it/s][A
+Loading weights:  11%|█         | 31/288 [00:00<00:01, 156.27it/s][A
+Loading weights:  17%|█▋        | 49/288 [00:00<00:01, 161.98it/s][A
+Loading weights:  24%|██▍       | 69/288 [00:00<00:01, 172.23it/s][A
+Loading weights:  32%|███▏      | 91/288 [00:00<00:01, 179.11it/s][A
+Loading weights:  38%|███▊      | 110/288 [00:00<00:00, 181.63it/s][A
+Loading weights:  45%|████▌     | 130/288 [00:00<00:00, 184.55it/s][A
+Loading weights:  52%|█████▏    | 149/288 [00:00<00:00, 185.76it/s][A
+Loading weights:  58%|█████▊    | 168/288 [00:00<00:00, 182.52it/s][A
+Loading weights:  66%|██████▌   | 190/288 [00:01<00:00, 177.08it/s][A
+Loading weights:  73%|███████▎  | 211/288 [00:01<00:00, 176.34it/s][A
+Loading weights:  81%|████████▏ | 234/288 [00:01<00:00, 186.36it/s][A
+Loading weights:  88%|████████▊ | 253/288 [00:01<00:00, 183.55it/s][A
+Loading weights:  94%|█████████▍| 272/288 [00:01<00:00, 178.66it/s][ALoading weights: 100%|██████████| 288/288 [00:01<00:00, 177.53it/s]
+loading model: 0it [00:05, ?it/s]
+xpu  eval  google/gemma-2-2b                  
+[transformers] The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+WARNING:transformers.generation.configuration_utils:The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+[transformers] The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+WARNING:transformers.generation.utils:The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [01:55<17:20, 115.62s/it]running benchmark:  20%|██        | 2/10 [03:51<15:25, 115.74s/it]running benchmark:  30%|███       | 3/10 [05:47<13:30, 115.74s/it]running benchmark:  40%|████      | 4/10 [07:42<11:34, 115.70s/it]running benchmark:  50%|█████     | 5/10 [09:38<09:38, 115.72s/it]running benchmark:  60%|██████    | 6/10 [11:34<07:42, 115.67s/it]running benchmark:  70%|███████   | 7/10 [13:29<05:46, 115.66s/it]running benchmark:  80%|████████  | 8/10 [15:25<03:51, 115.58s/it]running benchmark:  90%|█████████ | 9/10 [17:20<01:55, 115.55s/it]running benchmark: 100%|██████████| 10/10 [19:16<00:00, 115.50s/it]running benchmark: 100%|██████████| 10/10 [19:16<00:00, 115.61s/it]
+1.619x
+W0531 16:57:11.527000 53346 site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0531 16:57:11.561000 53346 site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+loading model: 0it [00:00, ?it/s]
+Loading weights:   0%|          | 0/146 [00:00<?, ?it/s][A
+Loading weights:  21%|██        | 30/146 [00:00<00:00, 284.04it/s][A
+Loading weights:  40%|████      | 59/146 [00:00<00:00, 260.03it/s][A
+Loading weights:  64%|██████▎   | 93/146 [00:00<00:00, 270.02it/s][A
+Loading weights:  84%|████████▎ | 122/146 [00:00<00:00, 273.25it/s][ALoading weights: 100%|██████████| 146/146 [00:00<00:00, 276.16it/s]
+loading model: 0it [00:03, ?it/s]
+xpu  eval  meta-llama/Llama-3.2-1B            
+[transformers] The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+WARNING:transformers.generation.configuration_utils:The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+[transformers] The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+WARNING:transformers.generation.utils:The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:49<07:22, 49.15s/it]running benchmark:  20%|██        | 2/10 [01:38<06:32, 49.10s/it]running benchmark:  30%|███       | 3/10 [02:27<05:43, 49.10s/it]running benchmark:  40%|████      | 4/10 [03:16<04:54, 49.07s/it]running benchmark:  50%|█████     | 5/10 [04:05<04:05, 49.07s/it]running benchmark:  60%|██████    | 6/10 [04:54<03:16, 49.09s/it]running benchmark:  70%|███████   | 7/10 [05:43<02:27, 49.09s/it]running benchmark:  80%|████████  | 8/10 [06:32<01:38, 49.09s/it]running benchmark:  90%|█████████ | 9/10 [07:21<00:49, 49.09s/it]running benchmark: 100%|██████████| 10/10 [08:10<00:00, 49.08s/it]running benchmark: 100%|██████████| 10/10 [08:10<00:00, 49.09s/it]
+2.208x
+W0531 17:07:37.458000 53641 site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0531 17:07:37.491000 53641 site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+loading model: 0it [00:00, ?it/s]
+Loading weights:   0%|          | 0/167 [00:00<?, ?it/s][ALoading weights: 100%|██████████| 167/167 [00:00<00:00, 8170.40it/s]
+loading model: 0it [00:02, ?it/s]
+xpu  eval  openai/whisper-tiny                
+[transformers] The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+WARNING:transformers.generation.configuration_utils:The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+[transformers] Using custom `forced_decoder_ids` from the (generation) config. This is deprecated in favor of the `task` and `language` flags/config options.
+WARNING:transformers.models.whisper.generation_whisper:Using custom `forced_decoder_ids` from the (generation) config. This is deprecated in favor of the `task` and `language` flags/config options.
+[transformers] Transcription using a multilingual Whisper will default to language detection followed by transcription instead of translation to English. This might be a breaking change for your use case. If you want to instead always translate your audio to English, make sure to pass `language='en'`. See https://github.com/huggingface/transformers/pull/28687 for more details.
+WARNING:transformers.models.whisper.generation_whisper:Transcription using a multilingual Whisper will default to language detection followed by transcription instead of translation to English. This might be a breaking change for your use case. If you want to instead always translate your audio to English, make sure to pass `language='en'`. See https://github.com/huggingface/transformers/pull/28687 for more details.
+[transformers] The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+WARNING:transformers.generation.utils:The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+[transformers] A custom logits processor of type <class 'transformers.generation.logits_process.SuppressTokensLogitsProcessor'> has been passed to `.generate()`, but it was also created in `.generate()`, given its parameterization. The custom <class 'transformers.generation.logits_process.SuppressTokensLogitsProcessor'> will take precedence. Please check the docstring of <class 'transformers.generation.logits_process.SuppressTokensLogitsProcessor'> to see related `.generate()` flags.
+WARNING:transformers.generation.utils:A custom logits processor of type <class 'transformers.generation.logits_process.SuppressTokensLogitsProcessor'> has been passed to `.generate()`, but it was also created in `.generate()`, given its parameterization. The custom <class 'transformers.generation.logits_process.SuppressTokensLogitsProcessor'> will take precedence. Please check the docstring of <class 'transformers.generation.logits_process.SuppressTokensLogitsProcessor'> to see related `.generate()` flags.
+[transformers] A custom logits processor of type <class 'transformers.generation.logits_process.SuppressTokensAtBeginLogitsProcessor'> has been passed to `.generate()`, but it was also created in `.generate()`, given its parameterization. The custom <class 'transformers.generation.logits_process.SuppressTokensAtBeginLogitsProcessor'> will take precedence. Please check the docstring of <class 'transformers.generation.logits_process.SuppressTokensAtBeginLogitsProcessor'> to see related `.generate()` flags.
+WARNING:transformers.generation.utils:A custom logits processor of type <class 'transformers.generation.logits_process.SuppressTokensAtBeginLogitsProcessor'> has been passed to `.generate()`, but it was also created in `.generate()`, given its parameterization. The custom <class 'transformers.generation.logits_process.SuppressTokensAtBeginLogitsProcessor'> will take precedence. Please check the docstring of <class 'transformers.generation.logits_process.SuppressTokensAtBeginLogitsProcessor'> to see related `.generate()` flags.
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  20%|██        | 2/10 [00:00<00:00, 14.00it/s]running benchmark:  40%|████      | 4/10 [00:00<00:00, 14.05it/s]running benchmark:  60%|██████    | 6/10 [00:00<00:00, 14.08it/s]running benchmark:  80%|████████  | 8/10 [00:00<00:00, 14.10it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 14.11it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 14.09it/s]
+1.001x
+speedup             gmean=1.77x mean=1.951x
+abs_latency         gmean=37.86x mean=1323.562x
+compilation_latency mean=22.977 seconds
+compression_ratio   mean=0.000x
+eager_peak_mem      gmean=0.00x mean=0.000x
+dynamo_peak_mem     gmean=0.00x mean=0.000x
+calls_captured      gmean=0.00x mean=699.413x
+unique_graphs       gmean=0.00x mean=1.196x
+graph_breaks        gmean=0.00x mean=0.152x
+unique_graph_breaks gmean=0.00x mean=0.043x
+autograd_captures   gmean=0.00x mean=0.000x
+autograd_compiles   gmean=0.00x mean=0.000x
+cudagraph_skips     gmean=0.00x mean=0.065x

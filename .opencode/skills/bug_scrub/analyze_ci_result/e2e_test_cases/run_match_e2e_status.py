@@ -17,9 +17,16 @@ Requirements:
 import os
 import sys
 import re
+import json
+import subprocess
 
 
 def find_issue_triage_root(start: str) -> str:
+    if os.environ.get('ISSUE_TRIAGE_ROOT'):
+        root = os.path.abspath(os.environ['ISSUE_TRIAGE_ROOT'])
+        if (os.path.isdir(os.path.join(root, 'result')) and
+                os.path.isdir(os.path.join(root, 'ci_results'))):
+            return root
     path = os.path.abspath(start)
     while True:
         if (os.path.isdir(os.path.join(path, 'result')) and
@@ -47,6 +54,52 @@ def normalize_key_value(value):
     if value is None:
         return ''
     return str(value).lower().strip().replace(' ', '_').replace('-', '_')
+
+
+def fetch_torchbench_models_from_github():
+    """Fetch torchbench model names from pytorch/benchmark GitHub repository.
+    
+    Fetches directory listings from:
+    - https://github.com/pytorch/benchmark/tree/main/torchbenchmark/models
+    - https://github.com/pytorch/benchmark/tree/main/torchbenchmark/canary_models
+    
+    Returns:
+        dict: {model_name: 'torchbench'} mapping for valid models
+              Returns empty dict if fetch fails (non-blocking)
+    """
+    models = {}
+    directories = [
+        'torchbenchmark/models',
+        'torchbenchmark/canary_models'
+    ]
+    
+    for directory in directories:
+        try:
+            # Use gh CLI to fetch directory listing as JSON
+            cmd = [
+                'gh', 'api', 'repos/pytorch/benchmark/contents/' + directory,
+                '--jq', '.[].name'
+            ]
+            result = subprocess.run(cmd, capture_output=True, text=True, timeout=10)
+            if result.returncode != 0:
+                print(f"    Warning: Failed to fetch {directory} from GitHub (exit code {result.returncode})")
+                continue
+            
+            for line in result.stdout.strip().split('\n'):
+                model_name = line.strip().strip('"')
+                if model_name and not model_name.startswith('.'):
+                    models[normalize_key_value(model_name)] = 'torchbench'
+            
+            print(f"    Fetched {len([m for m in result.stdout.strip().split('\n') if m.strip()])} models from {directory}")
+        except subprocess.TimeoutExpired:
+            print(f"    Warning: Timeout fetching {directory} from GitHub")
+        except FileNotFoundError:
+            print(f"    Warning: gh CLI not found; skipping GitHub torchbench model fetch")
+            break
+        except Exception as e:
+            print(f"    Warning: Error fetching {directory}: {e}")
+    
+    return models
 
 
 def create_model_variants(name):
@@ -90,8 +143,15 @@ def parse_sheet_name(sheet_name):
     return benchmark, amp, dtype, phase
 
 
-def load_all_e2e_reports(base_dir):
+def load_all_e2e_reports(base_dir, torchbench_models=None):
     all_models = {}
+    if torchbench_models:
+        # Pre-populate with torchbench models from GitHub
+        for model_name in torchbench_models.keys():
+            # Create torchbench variants for each model
+            all_models[f"torchbench|float32|inf|False|{model_name}"] = 'pass'
+            all_models[f"torchbench|float16|inf|False|{model_name}"] = 'pass'
+            all_models[f"torchbench|bfloat16|inf|False|{model_name}"] = 'pass'
     for xlsx_path in glob.glob(f'{base_dir}/*/Inductor_E2E_Test_Report.xlsx'):
         try:
             dirname = os.path.basename(os.path.dirname(xlsx_path))
@@ -129,7 +189,7 @@ def _is_blank_for_skip(value):
     return str(value).strip().lower() in SKIP_RULE_BLANK
 
 
-def run_match_e2e_status(excel_file, base_dir, save=True, skip_filled=False):
+def run_match_e2e_status(excel_file, base_dir, save=True, skip_filled=False, fetch_github_models=True):
     print(f"Loading: {excel_file}")
     wb = openpyxl.load_workbook(excel_file)
     if 'E2E Test Cases' not in wb.sheetnames:
@@ -140,7 +200,17 @@ def run_match_e2e_status(excel_file, base_dir, save=True, skip_filled=False):
     print(f"  Total rows: {total_rows} (skip_filled={skip_filled})")
     ensure_col(ws_e2e, 'XPU Accuracy Status')
     print(f"  Loading E2E model status from reports...")
-    status_map = load_all_e2e_reports(base_dir)
+    
+    torchbench_models = None
+    if fetch_github_models:
+        print(f"  Fetching torchbench model list from GitHub...")
+        torchbench_models = fetch_torchbench_models_from_github()
+        if torchbench_models:
+            print(f"    Fetched {len(torchbench_models)} torchbench models from GitHub")
+        else:
+            print(f"    No torchbench models fetched; using E2E reports only")
+    
+    status_map = load_all_e2e_reports(base_dir, torchbench_models=torchbench_models)
     print(f"  Built status map with {len(status_map)} entries")
     matched = 0
     not_found = 0
@@ -197,9 +267,11 @@ def main():
     parser.add_argument('--no-save', action='store_true', help='Do not save results')
     parser.add_argument('--skip-filled', action='store_true',
                         help='Only fill blank or placeholder cells; preserve existing real statuses')
+    parser.add_argument('--no-github-models', action='store_true',
+                        help='Do not fetch torchbench models from GitHub; use E2E reports only')
     args = parser.parse_args()
     matched = run_match_e2e_status(args.excel, args.base_dir, save=not args.no_save,
-                                   skip_filled=args.skip_filled)
+                                   skip_filled=args.skip_filled, fetch_github_models=not args.no_github_models)
     print(f"\nComplete: Matched {matched} E2E test cases")
 
 

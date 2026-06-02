@@ -1,0 +1,130 @@
+<testsuites><testsuite name="pytest" errors="0" failures="0" skipped="1" tests="11" time="206.893" timestamp="2026-06-01T04:41:50.951197" hostname="4f112793be87"><testcase classname="TestCompilerBisector" name="test_bad_decomp" time="0.685" file="dynamo/test_compiler_bisector.py"><system-out>No bisection status found.
+Starting bisection process with system: eager
+Moving to the next system: aot_eager
+Moving to the next system: aot_eager_decomp_partition
+The issue is in the aot_eager_decomp_partition system. Moving to the first subsystem: ConfigChange(name='aot_eager_decomp_partition_cse', config_name='aot_eager_decomp_partition', config_field='cse', config_value=False)
+Disabling aot_eager_decomp_partition_cse did not fix the issue.
+Moving to the next subsystem: aot_eager_decomp_partition - decomposition
+Disabling decomposition fixed the issue.
+Starting bisect by getting upper bound.
+Upper bound of 2 found for aot_eager_decomp_partition.
+Bisecting aot_eager_decomp_partition - decomposition (Range: [0, 2], Midpoint: 1)
+Bisecting aot_eager_decomp_partition - decomposition (Range: [0, 1], Midpoint: 0)
+Binary search completed for aot_eager_decomp_partition - decomposition. The bisect number is 1. Debug info: &lt;OpOverload(op='aten.exponential', overload='default')&gt;
+Bisection status deleted.
+</system-out></testcase><testcase classname="TestCompilerBisector" name="test_bad_lowering" time="15.695" file="dynamo/test_compiler_bisector.py"><system-out>No bisection status found.
+Starting bisection process with system: eager
+Moving to the next system: aot_eager
+Moving to the next system: aot_eager_decomp_partition
+Moving to the next system: aot_eager_decomp_partition_crossref
+Moving to the next system: inductor
+The issue is in the inductor system. Moving to the first subsystem: BisectSubsystem(name='pre_grad_passes')
+Disabling pre_grad_passes did not fix the issue.
+Moving to the next subsystem: inductor - joint_graph_passes
+Disabling joint_graph_passes did not fix the issue.
+Moving to the next subsystem: inductor - post_grad_passes
+Disabling post_grad_passes did not fix the issue.
+Moving to the next subsystem: inductor - inductor_fallback_random
+Disabling inductor_fallback_random did not fix the issue.
+Moving to the next subsystem: inductor - inductor_emulate_precision_casts
+Disabling inductor_emulate_precision_casts did not fix the issue.
+Moving to the next subsystem: inductor - inductor_layout_optimization
+Disabling inductor_layout_optimization did not fix the issue.
+Moving to the next subsystem: inductor - inductor_comprehensive_padding
+Disabling inductor_comprehensive_padding did not fix the issue.
+Moving to the next subsystem: inductor - cudagraphs
+Disabling cudagraphs did not fix the issue.
+Moving to the next subsystem: inductor - lowerings
+Disabling lowerings fixed the issue.
+Starting bisect by getting upper bound.
+Upper bound of 2 found for inductor.
+Bisecting inductor - lowerings (Range: [0, 2], Midpoint: 1)
+Binary search completed for inductor - lowerings. The bisect number is 2. Debug info: relu
+Bisection status deleted.
+</system-out></testcase><testcase classname="TestCompilerBisector" name="test_bisect_pre_grad_graph" time="9.694" file="dynamo/test_compiler_bisector.py"><system-out>No bisection status found.
+Starting bisection process with system: eager
+Moving to the next system: aot_eager
+Moving to the next system: aot_eager_decomp_partition
+Moving to the next system: aot_eager_decomp_partition_crossref
+Moving to the next system: inductor
+The issue is in the inductor system. Moving to the first subsystem: BisectSubsystem(name='pre_grad_graph')
+Disabling pre_grad_graph fixed the issue.
+Starting bisect by getting upper bound.
+Upper bound of 1 found for inductor.
+Bisecting inductor - pre_grad_graph (Range: [0, 1], Midpoint: 0)
+Binary search completed for inductor - pre_grad_graph. The bisect number is 1. Debug info: not found
+Bisection status deleted.
+</system-out></testcase><testcase classname="TestCompilerBisector" name="test_bisect_run_debuginfo" time="149.946" file="dynamo/test_compiler_bisector.py" /><testcase classname="TestCompilerBisector" name="test_crossref" time="0.225" file="dynamo/test_compiler_bisector.py"><system-out>No bisection status found.
+Starting bisection process with system: eager
+Moving to the next system: aot_eager
+Moving to the next system: aot_eager_decomp_partition
+Moving to the next system: aot_eager_decomp_partition_crossref
+The issue is in the aot_eager_decomp_partition_crossref system.
+Bisection status deleted.
+</system-out></testcase><testcase classname="TestCompilerBisector" name="test_cudagraph_bisect_max" time="0.001" file="dynamo/test_compiler_bisector.py"><skipped type="pytest.skip" message="Requires CUDA">/var/lib/jenkins/pytorch/test/dynamo/test_compiler_bisector.py:342: Requires CUDA</skipped></testcase><testcase classname="TestCompilerBisector" name="test_eager_backend" time="0.003" file="dynamo/test_compiler_bisector.py"><system-out>No bisection status found.
+Starting bisection process with system: eager
+The issue is in the eager system.
+Bisection status deleted.
+</system-out></testcase><testcase classname="TestCompilerBisector" name="test_emulate_precision_casts" time="10.435" file="dynamo/test_compiler_bisector.py"><system-out>No bisection status found.
+Starting bisection process with system: eager
+Moving to the next system: aot_eager
+Moving to the next system: aot_eager_decomp_partition
+Moving to the next system: aot_eager_decomp_partition_crossref
+Moving to the next system: inductor
+The issue is in the inductor system. Moving to the first subsystem: BisectSubsystem(name='pre_grad_passes')
+Disabling pre_grad_passes did not fix the issue.
+Moving to the next subsystem: inductor - joint_graph_passes
+Disabling joint_graph_passes did not fix the issue.
+Moving to the next subsystem: inductor - post_grad_passes
+Disabling post_grad_passes did not fix the issue.
+Moving to the next subsystem: inductor - inductor_fallback_random
+Disabling inductor_fallback_random did not fix the issue.
+Moving to the next subsystem: inductor - inductor_emulate_precision_casts
+Setting config inductor field emulate_precision_casts to True fixed the issue
+Bisection status deleted.
+</system-out></testcase><testcase classname="TestCompilerBisector" name="test_joint_graph" time="9.140" file="dynamo/test_compiler_bisector.py"><system-out>No bisection status found.
+Starting bisection process with system: eager
+Moving to the next system: aot_eager
+Moving to the next system: aot_eager_decomp_partition
+Moving to the next system: aot_eager_decomp_partition_crossref
+Moving to the next system: inductor
+The issue is in the inductor system. Moving to the first subsystem: BisectSubsystem(name='pre_grad_passes')
+Disabling pre_grad_passes did not fix the issue.
+Moving to the next subsystem: inductor - joint_graph_passes
+Disabling joint_graph_passes fixed the issue.
+Starting bisect by getting upper bound.
+Upper bound of 4 found for inductor.
+Bisecting inductor - joint_graph_passes (Range: [0, 4], Midpoint: 2)
+Bisecting inductor - joint_graph_passes (Range: [3, 4], Midpoint: 3)
+Binary search completed for inductor - joint_graph_passes. The bisect number is 4. Debug info: joint_custom_post_pass
+Bisection status deleted.
+</system-out></testcase><testcase classname="TestCompilerBisector" name="test_pre_grad" time="2.070" file="dynamo/test_compiler_bisector.py"><system-out>No bisection status found.
+Starting bisection process with system: eager
+Moving to the next system: aot_eager
+Moving to the next system: aot_eager_decomp_partition
+Moving to the next system: aot_eager_decomp_partition_crossref
+Moving to the next system: inductor
+The issue is in the inductor system. Moving to the first subsystem: BisectSubsystem(name='pre_grad_passes')
+Disabling pre_grad_passes fixed the issue.
+Starting bisect by getting upper bound.
+Upper bound of 3 found for inductor.
+Bisecting inductor - pre_grad_passes (Range: [0, 3], Midpoint: 1)
+Bisecting inductor - pre_grad_passes (Range: [2, 3], Midpoint: 2)
+Binary search completed for inductor - pre_grad_passes. The bisect number is 3. Debug info: pre_grad_custom_pass
+Bisection status deleted.
+</system-out></testcase><testcase classname="TestCompilerBisector" name="test_rng" time="8.967" file="dynamo/test_compiler_bisector.py"><system-out>No bisection status found.
+Starting bisection process with system: eager
+Moving to the next system: aot_eager
+Moving to the next system: aot_eager_decomp_partition
+Moving to the next system: aot_eager_decomp_partition_crossref
+Moving to the next system: inductor
+The issue is in the inductor system. Moving to the first subsystem: BisectSubsystem(name='pre_grad_passes')
+Disabling pre_grad_passes did not fix the issue.
+Moving to the next subsystem: inductor - joint_graph_passes
+Disabling joint_graph_passes did not fix the issue.
+Moving to the next subsystem: inductor - post_grad_passes
+Disabling post_grad_passes did not fix the issue.
+Moving to the next subsystem: inductor - inductor_fallback_random
+Setting config inductor field fallback_random to True fixed the issue
+Bisection status deleted.
+</system-out></testcase></testsuite></testsuites>

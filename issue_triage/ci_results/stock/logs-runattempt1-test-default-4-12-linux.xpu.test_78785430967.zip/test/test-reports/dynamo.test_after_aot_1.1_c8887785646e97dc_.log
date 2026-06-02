@@ -1,0 +1,36 @@
+Test results will be stored in test-reports/python-pytest/dynamo.test_after_aot/dynamo.test_after_aot-82a2807174a560ed.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 20 items
+stepcurrent: Cannot find last run test, not skipping
+Running 20 items in this shard: test/dynamo/test_after_aot.py::TestAfterAot::test_dump_generator, test/dynamo/test_after_aot.py::TestAfterAot::test_dump_opaque, test/dynamo/test_after_aot.py::TestAfterAot::test_dump_tensor, test/dynamo/test_after_aot.py::TestAfterAot::test_extract_distributed_info_skips_non_string_group_name, test/dynamo/test_after_aot.py::TestAfterAot::test_get_compile_args_e2e_real_no_fake_mode_mismatch, test/dynamo/test_after_aot.py::TestAfterAot::test_get_compile_args_e2e_symbolic_compile, test/dynamo/test_after_aot.py::TestAfterAot::test_get_compile_args_empty_graph, test/dynamo/test_after_aot.py::TestAfterAot::test_get_compile_args_preserves_shapes, test/dynamo/test_after_aot.py::TestAfterAot::test_get_compile_args_real_tracing_returns_concrete, test/dynamo/test_after_aot.py::TestAfterAot::test_get_compile_args_symbolic_tracing, test/dynamo/test_after_aot.py::TestAfterAot::test_graphsafe_rng_repro, test/dynamo/test_after_aot.py::TestAfterAot::test_repro_minify_disables_repro_after, test/dynamo/test_after_aot.py::TestAfterAot::test_save_args_custom_sympy_expr, test/dynamo/test_after_aot.py::TestAfterAot::test_save_args_dynamic_shapes, test/dynamo/test_after_aot.py::TestAfterAot::test_save_graph_repro, test/dynamo/test_after_aot.py::TestAfterAot::test_symint_expr_e2e_repro, test/dynamo/test_after_aot.py::TestAfterAot::test_symint_expr_serialized, test/dynamo/test_after_aot.py::TestWrapCompilerDebugSyncXPU::test_inductor_fails_syncs_on_accelerator_tensor_xpu, test/dynamo/test_after_aot.py::TestWrapCompilerDebugSyncXPU::test_repro_run_syncs_on_accelerator_tensor_xpu, test/dynamo/test_after_aot.py::TestWrapCompilerDebugSyncXPU::test_synchronize_called_for_accelerator_tensor_xpu
+
+dynamo/test_after_aot.py::TestAfterAot::test_dump_generator SKIPPED [0.0003s] (requires CUDA) [  5%]
+dynamo/test_after_aot.py::TestAfterAot::test_dump_opaque PASSED [0.0146s] [ 10%]
+dynamo/test_after_aot.py::TestAfterAot::test_dump_tensor PASSED [0.0077s] [ 15%]
+dynamo/test_after_aot.py::TestAfterAot::test_extract_distributed_info_skips_non_string_group_name PASSED [0.0021s] [ 20%]
+dynamo/test_after_aot.py::TestAfterAot::test_get_compile_args_e2e_real_no_fake_mode_mismatch PASSED [32.8720s] [ 25%]
+dynamo/test_after_aot.py::TestAfterAot::test_get_compile_args_e2e_symbolic_compile PASSED [1.6402s] [ 30%]
+dynamo/test_after_aot.py::TestAfterAot::test_get_compile_args_empty_graph PASSED [0.0021s] [ 35%]
+dynamo/test_after_aot.py::TestAfterAot::test_get_compile_args_preserves_shapes PASSED [0.0183s] [ 40%]
+dynamo/test_after_aot.py::TestAfterAot::test_get_compile_args_real_tracing_returns_concrete PASSED [0.0054s] [ 45%]
+dynamo/test_after_aot.py::TestAfterAot::test_get_compile_args_symbolic_tracing PASSED [0.0237s] [ 50%]
+dynamo/test_after_aot.py::TestAfterAot::test_graphsafe_rng_repro SKIPPED [0.0002s] (requires CUDA) [ 55%]
+dynamo/test_after_aot.py::TestAfterAot::test_repro_minify_disables_repro_after PASSED [0.0037s] [ 60%]
+dynamo/test_after_aot.py::TestAfterAot::test_save_args_custom_sympy_expr PASSED [0.0087s] [ 65%]
+dynamo/test_after_aot.py::TestAfterAot::test_save_args_dynamic_shapes PASSED [1.6418s] [ 70%]
+dynamo/test_after_aot.py::TestAfterAot::test_save_graph_repro PASSED [1.1680s] [ 75%]
+dynamo/test_after_aot.py::TestAfterAot::test_symint_expr_e2e_repro PASSED [24.4044s] [ 80%]
+dynamo/test_after_aot.py::TestAfterAot::test_symint_expr_serialized W0601 04:42:24.471000 46683 site-packages/torch/_dynamo/debug_utils.py:623] no save_dir specified, will generate random data
+PASSED [0.0086s] [ 85%]
+dynamo/test_after_aot.py::TestWrapCompilerDebugSyncXPU::test_inductor_fails_syncs_on_accelerator_tensor_xpu PASSED [0.0075s] [ 90%]
+dynamo/test_after_aot.py::TestWrapCompilerDebugSyncXPU::test_repro_run_syncs_on_accelerator_tensor_xpu PASSED [0.0045s] [ 95%]
+dynamo/test_after_aot.py::TestWrapCompilerDebugSyncXPU::test_synchronize_called_for_accelerator_tensor_xpu PASSED [0.0436s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/dynamo.test_after_aot/dynamo.test_after_aot-82a2807174a560ed.xml -
+=================== 18 passed, 2 skipped in 61.92s (0:01:01) ===================

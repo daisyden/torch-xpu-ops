@@ -1,0 +1,44 @@
+Test results will be stored in test-reports/python-pytest/dynamo.test_nb_float/dynamo.test_nb_float-15f5fd04c29cd077.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 29 items
+stepcurrent: Cannot find last run test, not skipping
+Running 29 items in this shard: test/dynamo/test_nb_float.py::NbFloatTests::test_bool_dunder_float, test/dynamo/test_nb_float.py::NbFloatTests::test_bool_float, test/dynamo/test_nb_float.py::NbFloatTests::test_complex_float_raises, test/dynamo/test_nb_float.py::NbFloatTests::test_dict_float_raises, test/dynamo/test_nb_float.py::NbFloatTests::test_float_dunder_float, test/dynamo/test_nb_float.py::NbFloatTests::test_float_float, test/dynamo/test_nb_float.py::NbFloatTests::test_float_raising_exception_propagates, test/dynamo/test_nb_float.py::NbFloatTests::test_float_returning_non_float_raises, test/dynamo/test_nb_float.py::NbFloatTests::test_index_fallback_for_float, test/dynamo/test_nb_float.py::NbFloatTests::test_index_fallback_no_float_no_index_raises, test/dynamo/test_nb_float.py::NbFloatTests::test_int_dunder_float, test/dynamo/test_nb_float.py::NbFloatTests::test_int_float, test/dynamo/test_nb_float.py::NbFloatTests::test_list_float_raises, test/dynamo/test_nb_float.py::NbFloatTests::test_none_float_raises, test/dynamo/test_nb_float.py::NbFloatTests::test_set_float_raises, test/dynamo/test_nb_float.py::NbFloatTests::test_str_float_int, test/dynamo/test_nb_float.py::NbFloatTests::test_str_float_parsing, test/dynamo/test_nb_float.py::NbFloatTests::test_symnode_float, test/dynamo/test_nb_float.py::NbFloatTests::test_tensor_complex_raises, test/dynamo/test_nb_float.py::NbFloatTests::test_tensor_dunder_float, test/dynamo/test_nb_float.py::NbFloatTests::test_tensor_float_dtype, test/dynamo/test_nb_float.py::NbFloatTests::test_tensor_int_dtype, test/dynamo/test_nb_float.py::NbFloatTests::test_tuple_float_raises, test/dynamo/test_nb_float.py::NbFloatTests::test_user_defined_classmethod_float, test/dynamo/test_nb_float.py::NbFloatTests::test_user_defined_dunder_float, test/dynamo/test_nb_float.py::NbFloatTests::test_user_defined_float, test/dynamo/test_nb_float.py::NbFloatTests::test_user_defined_float_none_raises, test/dynamo/test_nb_float.py::NbFloatTests::test_user_defined_no_float_raises, test/dynamo/test_nb_float.py::NbFloatTests::test_user_defined_staticmethod_float
+
+dynamo/test_nb_float.py::NbFloatTests::test_bool_dunder_float PASSED [0.4962s] [  3%]
+dynamo/test_nb_float.py::NbFloatTests::test_bool_float PASSED [0.1232s]  [  6%]
+dynamo/test_nb_float.py::NbFloatTests::test_complex_float_raises PASSED [0.0414s] [ 10%]
+dynamo/test_nb_float.py::NbFloatTests::test_dict_float_raises PASSED [0.0336s] [ 13%]
+dynamo/test_nb_float.py::NbFloatTests::test_float_dunder_float PASSED [0.1033s] [ 17%]
+dynamo/test_nb_float.py::NbFloatTests::test_float_float PASSED [0.0967s] [ 20%]
+dynamo/test_nb_float.py::NbFloatTests::test_float_raising_exception_propagates PASSED [0.0417s] [ 24%]
+dynamo/test_nb_float.py::NbFloatTests::test_float_returning_non_float_raises PASSED [0.0411s] [ 27%]
+dynamo/test_nb_float.py::NbFloatTests::test_index_fallback_for_float PASSED [0.0596s] [ 31%]
+dynamo/test_nb_float.py::NbFloatTests::test_index_fallback_no_float_no_index_raises PASSED [0.0365s] [ 34%]
+dynamo/test_nb_float.py::NbFloatTests::test_int_dunder_float PASSED [0.1070s] [ 37%]
+dynamo/test_nb_float.py::NbFloatTests::test_int_float PASSED [0.0935s]   [ 41%]
+dynamo/test_nb_float.py::NbFloatTests::test_list_float_raises PASSED [0.0319s] [ 44%]
+dynamo/test_nb_float.py::NbFloatTests::test_none_float_raises PASSED [0.0317s] [ 48%]
+dynamo/test_nb_float.py::NbFloatTests::test_set_float_raises PASSED [0.0314s] [ 51%]
+dynamo/test_nb_float.py::NbFloatTests::test_str_float_int PASSED [0.0895s] [ 55%]
+dynamo/test_nb_float.py::NbFloatTests::test_str_float_parsing PASSED [0.0880s] [ 58%]
+dynamo/test_nb_float.py::NbFloatTests::test_symnode_float PASSED [0.0292s] [ 62%]
+dynamo/test_nb_float.py::NbFloatTests::test_tensor_complex_raises PASSED [0.0290s] [ 65%]
+dynamo/test_nb_float.py::NbFloatTests::test_tensor_dunder_float PASSED [0.0460s] [ 68%]
+dynamo/test_nb_float.py::NbFloatTests::test_tensor_float_dtype PASSED [0.0348s] [ 72%]
+dynamo/test_nb_float.py::NbFloatTests::test_tensor_int_dtype PASSED [0.0326s] [ 75%]
+dynamo/test_nb_float.py::NbFloatTests::test_tuple_float_raises PASSED [0.0281s] [ 79%]
+dynamo/test_nb_float.py::NbFloatTests::test_user_defined_classmethod_float PASSED [0.0279s] [ 82%]
+dynamo/test_nb_float.py::NbFloatTests::test_user_defined_dunder_float PASSED [0.0270s] [ 86%]
+dynamo/test_nb_float.py::NbFloatTests::test_user_defined_float PASSED [0.0291s] [ 89%]
+dynamo/test_nb_float.py::NbFloatTests::test_user_defined_float_none_raises PASSED [0.0293s] [ 93%]
+dynamo/test_nb_float.py::NbFloatTests::test_user_defined_no_float_raises PASSED [0.0282s] [ 96%]
+dynamo/test_nb_float.py::NbFloatTests::test_user_defined_staticmethod_float PASSED [0.0281s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/dynamo.test_nb_float/dynamo.test_nb_float-15f5fd04c29cd077.xml -
+============================== 29 passed in 1.97s ==============================

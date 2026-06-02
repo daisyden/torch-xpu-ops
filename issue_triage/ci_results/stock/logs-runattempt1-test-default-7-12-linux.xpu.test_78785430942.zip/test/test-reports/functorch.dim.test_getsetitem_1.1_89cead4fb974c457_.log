@@ -1,0 +1,34 @@
+Test results will be stored in test-reports/python-pytest/functorch.dim.test_getsetitem/functorch.dim.test_getsetitem-78479bdacc4fe35d.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 19 items
+stepcurrent: Cannot find last run test, not skipping
+Running 19 items in this shard: test/functorch/dim/test_getsetitem.py::TestGetSetItem::test_basic_dim_indexing, test/functorch/dim/test_getsetitem.py::TestGetSetItem::test_boolean_indexing, test/functorch/dim/test_getsetitem.py::TestGetSetItem::test_complex_mixed_indexing, test/functorch/dim/test_getsetitem.py::TestGetSetItem::test_device_handling_cpu, test/functorch/dim/test_getsetitem.py::TestGetSetItem::test_dim_pack_indexing, test/functorch/dim/test_getsetitem.py::TestGetSetItem::test_dimlist_indexing, test/functorch/dim/test_getsetitem.py::TestGetSetItem::test_edge_cases, test/functorch/dim/test_getsetitem.py::TestGetSetItem::test_ellipsis_indexing, test/functorch/dim/test_getsetitem.py::TestGetSetItem::test_error_conditions, test/functorch/dim/test_getsetitem.py::TestGetSetItem::test_inferred_dimension_binding, test/functorch/dim/test_getsetitem.py::TestGetSetItem::test_mixed_indexing, test/functorch/dim/test_getsetitem.py::TestGetSetItem::test_multiple_dim_indexing, test/functorch/dim/test_getsetitem.py::TestGetSetItem::test_none_indexing, test/functorch/dim/test_getsetitem.py::TestGetSetItem::test_repeated_dim_usage, test/functorch/dim/test_getsetitem.py::TestGetSetItem::test_slice_indexing, test/functorch/dim/test_getsetitem.py::TestGetSetItem::test_stride_calculation, test/functorch/dim/test_getsetitem.py::TestGetSetItem::test_tensor_indexing, test/functorch/dim/test_getsetitem.py::TestGetSetItem::test_unbound_dim_binding, test/functorch/dim/test_getsetitem.py::TestGetSetItem::test_unbound_dimlist_indexing
+
+functorch/dim/test_getsetitem.py::TestGetSetItem::test_basic_dim_indexing PASSED [1.1456s] [  5%]
+functorch/dim/test_getsetitem.py::TestGetSetItem::test_boolean_indexing PASSED [0.0025s] [ 10%]
+functorch/dim/test_getsetitem.py::TestGetSetItem::test_complex_mixed_indexing PASSED [0.0024s] [ 15%]
+functorch/dim/test_getsetitem.py::TestGetSetItem::test_device_handling_cpu PASSED [0.0025s] [ 21%]
+functorch/dim/test_getsetitem.py::TestGetSetItem::test_dim_pack_indexing PASSED [0.0019s] [ 26%]
+functorch/dim/test_getsetitem.py::TestGetSetItem::test_dimlist_indexing PASSED [0.0019s] [ 31%]
+functorch/dim/test_getsetitem.py::TestGetSetItem::test_edge_cases PASSED [0.0019s] [ 36%]
+functorch/dim/test_getsetitem.py::TestGetSetItem::test_ellipsis_indexing PASSED [0.0014s] [ 42%]
+functorch/dim/test_getsetitem.py::TestGetSetItem::test_error_conditions PASSED [0.0028s] [ 47%]
+functorch/dim/test_getsetitem.py::TestGetSetItem::test_inferred_dimension_binding PASSED [0.0012s] [ 52%]
+functorch/dim/test_getsetitem.py::TestGetSetItem::test_mixed_indexing PASSED [0.0014s] [ 57%]
+functorch/dim/test_getsetitem.py::TestGetSetItem::test_multiple_dim_indexing PASSED [0.0012s] [ 63%]
+functorch/dim/test_getsetitem.py::TestGetSetItem::test_none_indexing PASSED [0.0012s] [ 68%]
+functorch/dim/test_getsetitem.py::TestGetSetItem::test_repeated_dim_usage PASSED [0.0013s] [ 73%]
+functorch/dim/test_getsetitem.py::TestGetSetItem::test_slice_indexing PASSED [0.0014s] [ 78%]
+functorch/dim/test_getsetitem.py::TestGetSetItem::test_stride_calculation PASSED [0.0013s] [ 84%]
+functorch/dim/test_getsetitem.py::TestGetSetItem::test_tensor_indexing PASSED [0.0013s] [ 89%]
+functorch/dim/test_getsetitem.py::TestGetSetItem::test_unbound_dim_binding PASSED [0.0013s] [ 94%]
+functorch/dim/test_getsetitem.py::TestGetSetItem::test_unbound_dimlist_indexing PASSED [0.0012s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/functorch.dim.test_getsetitem/functorch.dim.test_getsetitem-78479bdacc4fe35d.xml -
+============================== 19 passed in 1.22s ==============================

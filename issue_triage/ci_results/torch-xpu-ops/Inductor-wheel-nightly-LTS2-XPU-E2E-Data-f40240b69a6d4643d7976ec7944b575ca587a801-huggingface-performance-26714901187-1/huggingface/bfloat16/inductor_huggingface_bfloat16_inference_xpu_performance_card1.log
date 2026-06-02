@@ -1,0 +1,43 @@
+++ python benchmarks/dynamo/huggingface.py --performance --bfloat16 -d xpu -n10 --inference --total-partitions 9 --partition-id 1 --backend=inductor --cold-start-latency --timeout=10800 --disable-cudagraphs --output=/__w/torch-xpu-ops/torch-xpu-ops/pytorch/inductor_log/huggingface/bfloat16/inductor_huggingface_bfloat16_inference_xpu_performance.csv
+W0531 15:08:22.742000 17680 site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0531 15:08:22.778000 17680 site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0531 15:08:28.281000 17949 site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0531 15:08:28.315000 17949 site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:01, ?it/s]
+xpu  eval  BertForQuestionAnswering           
+W0531 15:08:37.047000 17949 site-packages/torch/_inductor/utils.py:3128] [0/0] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:01,  5.19it/s]running benchmark:  30%|███       | 3/10 [00:00<00:00, 10.65it/s]running benchmark:  50%|█████     | 5/10 [00:00<00:00, 13.20it/s]running benchmark:  70%|███████   | 7/10 [00:00<00:00, 14.60it/s]running benchmark:  90%|█████████ | 9/10 [00:00<00:00, 15.41it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 13.83it/s]
+0.690x
+W0531 15:08:52.493000 18913 site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0531 15:08:52.528000 18913 site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:24, ?it/s]
+xpu  eval  BlenderbotForCausalLM              
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  20%|██        | 2/10 [00:00<00:00, 18.13it/s]running benchmark:  50%|█████     | 5/10 [00:00<00:00, 23.28it/s]running benchmark:  80%|████████  | 8/10 [00:00<00:00, 24.87it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 24.47it/s]
+0.998x
+W0531 15:09:42.835000 20587 site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0531 15:09:42.870000 20587 site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:02, ?it/s]
+xpu  eval  BlenderbotSmallForCausalLM         
+W0531 15:09:50.704000 20587 site-packages/torch/_inductor/utils.py:3128] [0/0] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:01,  5.10it/s]running benchmark:  30%|███       | 3/10 [00:00<00:00,  9.83it/s]running benchmark:  50%|█████     | 5/10 [00:00<00:00, 11.45it/s]running benchmark:  70%|███████   | 7/10 [00:00<00:00, 12.33it/s]running benchmark:  90%|█████████ | 9/10 [00:00<00:00, 12.84it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 11.85it/s]
+1.062x
+W0531 15:10:02.403000 21059 site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0531 15:10:02.439000 21059 site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:03, ?it/s]
+xpu  eval  BlenderbotSmallForConditionalGeneration 
+W0531 15:10:14.284000 21059 site-packages/torch/_inductor/utils.py:3128] [0/0] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:01,  5.42it/s]running benchmark:  30%|███       | 3/10 [00:00<00:00,  9.90it/s]running benchmark:  50%|█████     | 5/10 [00:00<00:00, 11.34it/s]running benchmark:  70%|███████   | 7/10 [00:00<00:00, 12.07it/s]running benchmark:  90%|█████████ | 9/10 [00:00<00:00, 12.47it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 11.64it/s]
+1.141x
+speedup             gmean=1.29x mean=1.463x
+abs_latency         gmean=25.43x mean=30.698x
+compilation_latency mean=16.034 seconds
+compression_ratio   mean=0.000x
+eager_peak_mem      gmean=0.00x mean=0.000x
+dynamo_peak_mem     gmean=0.00x mean=0.000x
+calls_captured      gmean=516.78x mean=618.969x
+unique_graphs       gmean=1.09x mean=1.156x
+graph_breaks        gmean=0.00x mean=0.125x
+unique_graph_breaks gmean=0.00x mean=0.031x
+autograd_captures   gmean=0.00x mean=0.000x
+autograd_compiles   gmean=0.00x mean=0.000x
+cudagraph_skips     gmean=0.00x mean=0.000x

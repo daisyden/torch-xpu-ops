@@ -1,0 +1,96 @@
+* Getting build dependencies for wheel...
+running egg_info
+writing python_agnostic.egg-info/PKG-INFO
+writing dependency_links to python_agnostic.egg-info/dependency_links.txt
+writing top-level names to python_agnostic.egg-info/top_level.txt
+reading manifest file 'python_agnostic.egg-info/SOURCES.txt'
+writing manifest file 'python_agnostic.egg-info/SOURCES.txt'
+* Building wheel...
+running bdist_wheel
+running build
+running build_ext
+building 'python_agnostic._C' extension
+ninja: no work to do.
+g++ -pthread -B /opt/conda/envs/py_3.10/compiler_compat -Wno-unused-result -Wsign-compare -DNDEBUG -fwrapv -O2 -Wall -fPIC -O2 -isystem /opt/conda/envs/py_3.10/include -fPIC -O2 -isystem /opt/conda/envs/py_3.10/include -pthread -B /opt/conda/envs/py_3.10/compiler_compat -shared /var/lib/jenkins/pytorch/test/cpp_extensions/python_agnostic_extension/build/temp.linux-x86_64-cpython-310/var/lib/jenkins/pytorch/test/cpp_extensions/python_agnostic_extension/python_agnostic/csrc/ultra_norm.o /var/lib/jenkins/pytorch/test/cpp_extensions/python_agnostic_extension/build/temp.linux-x86_64-cpython-310/var/lib/jenkins/pytorch/test/cpp_extensions/python_agnostic_extension/python_agnostic/csrc/sycl_dlink.o -L/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/lib -lc10 -lc10_xpu -ltorch -ltorch_cpu -lsycl -ltorch_xpu -o build/lib.linux-x86_64-cpython-310/python_agnostic/_C.so
+/opt/conda/envs/py_3.10/compiler_compat/ld: /var/lib/jenkins/pytorch/test/cpp_extensions/python_agnostic_extension/build/temp.linux-x86_64-cpython-310/var/lib/jenkins/pytorch/test/cpp_extensions/python_agnostic_extension/python_agnostic/csrc/sycl_dlink.o: warning: relocation in read-only section `.rodata'
+/opt/conda/envs/py_3.10/compiler_compat/ld: warning: creating DT_TEXTREL in a shared object
+installing to build/bdist.linux-x86_64/wheel
+running install
+running install_lib
+creating build/bdist.linux-x86_64/wheel
+creating build/bdist.linux-x86_64/wheel/python_agnostic
+copying build/lib.linux-x86_64-cpython-310/python_agnostic/_C.so -> build/bdist.linux-x86_64/wheel/./python_agnostic
+running install_egg_info
+running egg_info
+writing python_agnostic.egg-info/PKG-INFO
+writing dependency_links to python_agnostic.egg-info/dependency_links.txt
+writing top-level names to python_agnostic.egg-info/top_level.txt
+reading manifest file 'python_agnostic.egg-info/SOURCES.txt'
+writing manifest file 'python_agnostic.egg-info/SOURCES.txt'
+Copying python_agnostic.egg-info to build/bdist.linux-x86_64/wheel/./python_agnostic-0.0-py3.10.egg-info
+running install_scripts
+creating build/bdist.linux-x86_64/wheel/python_agnostic-0.0.dist-info/WHEEL
+creating '/var/lib/jenkins/pytorch/test/cpp_extensions/python_agnostic_extension/dist/.tmp-4y1qf4ny/python_agnostic-0.0-cp39-abi3-linux_x86_64.whl' and adding 'build/bdist.linux-x86_64/wheel' to it
+adding 'python_agnostic/_C.so'
+adding 'python_agnostic-0.0.dist-info/METADATA'
+adding 'python_agnostic-0.0.dist-info/WHEEL'
+adding 'python_agnostic-0.0.dist-info/top_level.txt'
+adding 'python_agnostic-0.0.dist-info/RECORD'
+removing build/bdist.linux-x86_64/wheel
+Successfully built python_agnostic-0.0-cp39-abi3-linux_x86_64.whl
+Test results will be stored in test-reports/python-pytest/cpp_extensions.python_agnostic_extension.test.test_python_agnostic/cpp_extensions.python_agnostic_extension.test.test_python_agnostic-aaad471a84bae900.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 1 item
+stepcurrent: Cannot find last run test, not skipping
+Running 1 items in this shard: test/cpp_extensions/python_agnostic_extension/test/test_python_agnostic.py::TestPythonAgnosticXPU::test_extension_is_python_agnostic_xpu
+
+cpp_extensions/python_agnostic_extension/test/test_python_agnostic.py::TestPythonAgnosticXPU::test_extension_is_python_agnostic_xpu * Getting build dependencies for wheel...
+running egg_info
+writing python_agnostic.egg-info/PKG-INFO
+writing dependency_links to python_agnostic.egg-info/dependency_links.txt
+writing top-level names to python_agnostic.egg-info/top_level.txt
+reading manifest file 'python_agnostic.egg-info/SOURCES.txt'
+writing manifest file 'python_agnostic.egg-info/SOURCES.txt'
+* Building wheel...
+running bdist_wheel
+running build
+running build_ext
+building 'python_agnostic._C' extension
+ninja: no work to do.
+g++ -pthread -B /opt/conda/envs/py_3.10/compiler_compat -Wno-unused-result -Wsign-compare -DNDEBUG -fwrapv -O2 -Wall -fPIC -O2 -isystem /opt/conda/envs/py_3.10/include -fPIC -O2 -isystem /opt/conda/envs/py_3.10/include -pthread -B /opt/conda/envs/py_3.10/compiler_compat -shared /var/lib/jenkins/pytorch/test/cpp_extensions/python_agnostic_extension/build/temp.linux-x86_64-cpython-310/var/lib/jenkins/pytorch/test/cpp_extensions/python_agnostic_extension/python_agnostic/csrc/ultra_norm.o /var/lib/jenkins/pytorch/test/cpp_extensions/python_agnostic_extension/build/temp.linux-x86_64-cpython-310/var/lib/jenkins/pytorch/test/cpp_extensions/python_agnostic_extension/python_agnostic/csrc/sycl_dlink.o -L/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/lib -lc10 -lc10_xpu -ltorch -ltorch_cpu -lsycl -ltorch_xpu -o build/lib.linux-x86_64-cpython-310/python_agnostic/_C.so
+/opt/conda/envs/py_3.10/compiler_compat/ld: /var/lib/jenkins/pytorch/test/cpp_extensions/python_agnostic_extension/build/temp.linux-x86_64-cpython-310/var/lib/jenkins/pytorch/test/cpp_extensions/python_agnostic_extension/python_agnostic/csrc/sycl_dlink.o: warning: relocation in read-only section `.rodata'
+/opt/conda/envs/py_3.10/compiler_compat/ld: warning: creating DT_TEXTREL in a shared object
+installing to build/bdist.linux-x86_64/wheel
+running install
+running install_lib
+creating build/bdist.linux-x86_64/wheel
+creating build/bdist.linux-x86_64/wheel/python_agnostic
+copying build/lib.linux-x86_64-cpython-310/python_agnostic/_C.so -> build/bdist.linux-x86_64/wheel/./python_agnostic
+running install_egg_info
+running egg_info
+writing python_agnostic.egg-info/PKG-INFO
+writing dependency_links to python_agnostic.egg-info/dependency_links.txt
+writing top-level names to python_agnostic.egg-info/top_level.txt
+reading manifest file 'python_agnostic.egg-info/SOURCES.txt'
+writing manifest file 'python_agnostic.egg-info/SOURCES.txt'
+Copying python_agnostic.egg-info to build/bdist.linux-x86_64/wheel/./python_agnostic-0.0-py3.10.egg-info
+running install_scripts
+creating build/bdist.linux-x86_64/wheel/python_agnostic-0.0.dist-info/WHEEL
+creating '/var/lib/jenkins/pytorch/test/cpp_extensions/python_agnostic_extension/dist/.tmp-cu11m8tc/python_agnostic-0.0-cp39-abi3-linux_x86_64.whl' and adding 'build/bdist.linux-x86_64/wheel' to it
+adding 'python_agnostic/_C.so'
+adding 'python_agnostic-0.0.dist-info/METADATA'
+adding 'python_agnostic-0.0.dist-info/WHEEL'
+adding 'python_agnostic-0.0.dist-info/top_level.txt'
+adding 'python_agnostic-0.0.dist-info/RECORD'
+removing build/bdist.linux-x86_64/wheel
+Successfully built python_agnostic-0.0-cp39-abi3-linux_x86_64.whl
+PASSED [0.0163s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/cpp_extensions.python_agnostic_extension.test.test_python_agnostic/cpp_extensions.python_agnostic_extension.test.test_python_agnostic-aaad471a84bae900.xml -
+============================== 1 passed in 5.16s ===============================

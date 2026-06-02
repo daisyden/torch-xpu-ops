@@ -1,0 +1,36 @@
+++ python benchmarks/dynamo/timm_models.py --accuracy --float16 -d xpu -n10 --training --total-partitions 8 --partition-id 6 --backend=inductor --cold-start-latency --timeout=10800 --disable-cudagraphs --output=/__w/torch-xpu-ops/torch-xpu-ops/pytorch/inductor_log/timm_models/float16/inductor_timm_models_float16_training_xpu_accuracy.csv
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:07, ?it/s]
+xpu  train rexnet_100                         
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:05, ?it/s]
+xpu  train sebotnet33ts_256                   
+W0531 14:18:10.408000 11518 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:05, ?it/s]
+xpu  train selecsls42b                        
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:05, ?it/s]
+xpu  train spnasnet_100                       
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:05, ?it/s]
+xpu  train swin_base_patch4_window7_224       
+W0531 14:22:08.192000 22268 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:08, ?it/s]
+xpu  train swsl_resnext101_32x16d             
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:05, ?it/s]
+xpu  train tf_efficientnet_b0                 
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:09, ?it/s]
+xpu  train tf_mixnet_l                        
+pass
+accuracy            pass_rate=95.24%
+calls_captured      gmean=401.73x mean=473.111x
+unique_graphs       gmean=1.09x mean=1.127x
+graph_breaks        gmean=5.01x mean=5.016x
+unique_graph_breaks gmean=4.00x mean=4.000x
+autograd_captures   gmean=0.00x mean=0.000x
+autograd_compiles   gmean=0.00x mean=0.000x
+cudagraph_skips     gmean=0.00x mean=0.000x
+compilation_latency mean=45.076 seconds

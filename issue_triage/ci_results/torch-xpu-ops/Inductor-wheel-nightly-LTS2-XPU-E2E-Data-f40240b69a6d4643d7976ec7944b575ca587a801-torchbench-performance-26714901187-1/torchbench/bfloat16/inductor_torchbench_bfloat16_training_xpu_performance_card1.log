@@ -1,0 +1,70 @@
+++ python benchmarks/dynamo/torchbench.py --performance --bfloat16 -d xpu -n10 --training --total-partitions 9 --partition-id 1 --backend=inductor --cold-start-latency --timeout=10800 --disable-cudagraphs --output=/__w/torch-xpu-ops/torch-xpu-ops/pytorch/inductor_log/torchbench/bfloat16/inductor_torchbench_bfloat16_training_xpu_performance.csv
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:01, ?it/s]
+xpu  train dcgan                              
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 202.24it/s]
+0.825x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:02, ?it/s]
+xpu  train demucs                             
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 2057, in validate_model
+    self.model_iter_fn(model, example_inputs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/torchbench.py", line 486, in forward_and_backward_pass
+    pred = mod(*cloned_inputs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/benchmark/torchbenchmark/models/demucs/__init__.py", line 32, in forward
+    return sources, self.model(mix)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/benchmark/torchbenchmark/models/demucs/demucs/model.py", line 215, in forward
+    x = encode(x)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 385, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 380, in _conv_forward
+    return F.conv1d(
+RuntimeError: Input type (float) and bias type (c10::BFloat16) should be the same
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 4749, in run
+    ) = runner.load_model(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/torchbench.py", line 384, in load_model
+    self.validate_model(benchmark.name, model, example_inputs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 2059, in validate_model
+    raise RuntimeError("Eager run failed") from e
+RuntimeError: Eager run failed
+
+eager_fail_to_run
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:14, ?it/s]
+xpu  train densenet121                        
+W0531 16:13:15.658000 86657 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:00,  9.44it/s]running benchmark:  20%|██        | 2/10 [00:00<00:00,  9.30it/s]running benchmark:  30%|███       | 3/10 [00:00<00:00,  9.22it/s]running benchmark:  40%|████      | 4/10 [00:00<00:00,  9.17it/s]running benchmark:  50%|█████     | 5/10 [00:00<00:00,  9.16it/s]running benchmark:  60%|██████    | 6/10 [00:00<00:00,  9.09it/s]running benchmark:  70%|███████   | 7/10 [00:00<00:00,  9.08it/s]running benchmark:  80%|████████  | 8/10 [00:00<00:00,  9.09it/s]running benchmark:  90%|█████████ | 9/10 [00:00<00:00,  9.05it/s]running benchmark: 100%|██████████| 10/10 [00:01<00:00,  9.07it/s]running benchmark: 100%|██████████| 10/10 [00:01<00:00,  9.12it/s]
+0.982x
+speedup             gmean=0.00x mean=0.883x
+abs_latency         gmean=0.00x mean=28.602x
+compilation_latency mean=32.195 seconds
+compression_ratio   mean=0.000x
+eager_peak_mem      gmean=0.00x mean=0.000x
+dynamo_peak_mem     gmean=0.00x mean=0.000x
+calls_captured      gmean=0.00x mean=191.639x
+unique_graphs       gmean=0.00x mean=1.083x
+graph_breaks        gmean=0.00x mean=4.639x
+unique_graph_breaks gmean=0.00x mean=3.861x
+autograd_captures   gmean=0.00x mean=0.000x
+autograd_compiles   gmean=0.00x mean=0.000x
+cudagraph_skips     gmean=0.00x mean=0.000x

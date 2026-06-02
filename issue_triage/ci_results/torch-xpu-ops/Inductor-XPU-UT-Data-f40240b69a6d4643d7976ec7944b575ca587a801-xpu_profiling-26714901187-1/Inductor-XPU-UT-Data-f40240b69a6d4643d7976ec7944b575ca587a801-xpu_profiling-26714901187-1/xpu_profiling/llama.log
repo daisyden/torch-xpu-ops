@@ -1,0 +1,905 @@
+datatype: torch.float16 ; i: 0
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg      Self XPU    Self XPU %     XPU total  XPU time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                           aten::matmul         0.02%     631.446us         2.99%      76.011ms     336.330us       0.000us         0.00%      31.378ms     138.842us           226  
+                                           aten::linear         0.01%     266.147us         1.69%      42.914ms     190.729us       0.000us         0.00%      31.367ms     139.410us           225  
+                                               aten::mm         1.09%      27.552ms         1.60%      40.585ms     180.376us      31.367ms        75.29%      31.367ms     139.410us           225  
+                                            gemm_kernel         0.00%       0.000us         0.00%       0.000us       0.000us      31.364ms        75.28%      31.364ms     138.779us           226  
+                                            aten::copy_         2.56%      65.052ms         3.56%      90.438ms     428.618us       2.205ms         5.29%       2.205ms      10.449us           211  
+                                               aten::to         0.01%     168.398us         1.70%      43.153ms     156.919us       0.000us         0.00%       2.146ms       7.805us           275  
+                                         aten::_to_copy         0.02%     462.538us         1.69%      42.984ms     213.852us       0.000us         0.00%       2.146ms      10.679us           201  
+                                              aten::cat         0.82%      20.842ms         1.36%      34.642ms     262.442us       1.810ms         4.34%       1.810ms      13.710us           132  
+at::native::xpu::CatArrayBatchedCopy<at::native::xpu...         0.00%       0.000us         0.00%       0.000us       0.000us       1.777ms         4.26%       1.777ms      13.883us           128  
+                                              aten::mul         4.50%     114.123ms         5.65%     143.337ms     487.540us       1.503ms         3.61%       1.503ms       5.111us           294  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us       1.077ms         2.58%       1.077ms      16.315us            66  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us       1.052ms         2.53%       1.052ms      15.704us            67  
+                                              aten::add         0.10%       2.586ms         0.28%       7.026ms      35.847us       1.013ms         2.43%       1.013ms       5.171us           196  
+                                             aten::mean         2.22%      56.295ms         2.63%      66.759ms       1.027ms     901.120us         2.16%     901.120us      13.863us            65  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us     901.120us         2.16%     901.120us      13.863us            65  
+                                             aten::topk         2.66%      67.469ms         3.14%      79.654ms      79.654ms     751.040us         1.80%     751.040us     751.040us             1  
+at::native::xpu::SegmentedGroupRadixSelectPairsFunct...         0.00%       0.000us         0.00%       0.000us       0.000us     719.200us         1.73%     719.200us     719.200us             1  
+at::native::xpu::VectorizedElementwiseKernel<8, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     513.920us         1.23%     513.920us       3.984us           129  
+at::native::xpu::VectorizedElementwiseKernel<8, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     482.720us         1.16%     482.720us       7.542us            64  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us     379.840us         0.91%     379.840us       5.844us            65  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us     346.720us         0.83%     346.720us       5.417us            64  
+                     aten::scaled_dot_product_attention         0.01%     246.294us        23.15%     587.600ms      18.362ms       0.000us         0.00%     328.320us      10.260us            32  
+aten::_scaled_dot_product_fused_attention_overrideab...        23.07%     585.602ms        23.14%     587.353ms      18.355ms     328.320us         0.79%     328.320us      10.260us            32  
+                                             micro_sdpa         0.00%       0.000us         0.00%       0.000us       0.000us     328.320us         0.79%     328.320us      10.260us            32  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us     297.120us         0.71%     297.120us       4.642us            64  
+                                              aten::pow         3.27%      83.051ms         4.07%     103.313ms       1.589ms     264.320us         0.63%     264.320us       4.066us            65  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     264.320us         0.63%     264.320us       4.066us            65  
+                                             aten::silu         0.58%      14.701ms         0.68%      17.318ms     541.188us     258.240us         0.62%     258.240us       8.070us            32  
+at::native::xpu::VectorizedElementwiseKernel<8, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     258.240us         0.62%     258.240us       8.070us            32  
+                                              aten::neg         2.95%      74.797ms         3.58%      90.929ms       1.421ms     258.080us         0.62%     258.080us       4.033us            64  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us     258.080us         0.62%     258.080us       4.033us            64  
+at::native::xpu::VectorizedElementwiseKernel<8, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     238.560us         0.57%     238.560us       7.455us            32  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     218.080us         0.52%     218.080us       3.355us            65  
+                                            aten::rsqrt         1.33%      33.744ms         1.69%      42.915ms     660.231us     213.440us         0.51%     213.440us       3.284us            65  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     213.440us         0.51%     213.440us       3.284us            65  
+                                             aten::sort         0.25%       6.430ms         0.40%      10.260ms      10.260ms     184.160us         0.44%     187.040us     187.040us             1  
+                                      aten::multinomial         0.01%     219.035us        11.59%     294.314ms     294.314ms       0.000us         0.00%     169.600us     169.600us             1  
+                                          aten::softmax         0.00%      25.053us         1.46%      37.144ms      18.572ms       0.000us         0.00%     113.920us      56.960us             2  
+                                         aten::_softmax         1.17%      29.782ms         1.46%      37.119ms      18.560ms     113.920us         0.27%     113.920us      56.960us             2  
+at::native::xpu::impl::SoftmaxForwardKernelFunctor<4...         0.00%       0.000us         0.00%       0.000us       0.000us     113.920us         0.27%     113.920us      56.960us             2  
+at::native::xpu::SegmentedRadixSortPairsDownsweepFun...         0.00%       0.000us         0.00%       0.000us       0.000us      81.440us         0.20%      81.440us      10.180us             8  
+                                             aten::isin         0.01%     208.427us        10.14%     257.423ms     128.712ms       0.000us         0.00%      70.080us      35.040us             2  
+at::native::xpu::SegmentedRadixSortPairsUpsweepFunct...         0.00%       0.000us         0.00%       0.000us       0.000us      69.280us         0.17%      69.280us       8.660us             8  
+                                              aten::any         2.70%      68.627ms         3.26%      82.795ms      13.799ms      45.920us         0.11%      58.080us       9.680us             6  
+                                           aten::argmax         1.65%      41.873ms         2.02%      51.279ms      51.279ms      47.200us         0.11%      47.200us      47.200us             1  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      47.200us         0.11%      47.200us      47.200us             1  
+                                            aten::fill_         0.31%       7.996ms         0.57%      14.565ms       1.821ms      41.440us         0.10%      41.440us       5.180us             8  
+                                           aten::cumsum         0.29%       7.313ms         0.44%      11.226ms       5.613ms      37.920us         0.09%      37.920us      18.960us             2  
+at::native::xpu::SegmentedRadixSortPairsScanFunctor<...         0.00%       0.000us         0.00%       0.000us       0.000us      33.440us         0.08%      33.440us       4.180us             8  
+                                      aten::masked_fill         0.00%      70.201us        13.21%     335.247ms     111.749ms       0.000us         0.00%      33.280us      11.093us             3  
+at::native::xpu::VectorizedElementwiseKernel<16, at:...         0.00%       0.000us         0.00%       0.000us       0.000us      32.960us         0.08%      32.960us       5.493us             6  
+at::native::xpu::VectorizedElementwiseKernel<16, at:...         0.00%       0.000us         0.00%       0.000us       0.000us      32.000us         0.08%      32.000us       8.000us             4  
+at::native::xpu::SegmentedGroupRadixSortPairsFunctor...         0.00%       0.000us         0.00%       0.000us       0.000us      31.840us         0.08%      31.840us      31.840us             1  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      30.400us         0.07%      30.400us      10.133us             3  
+                                               aten::eq         3.40%      86.213ms         4.49%     113.932ms      22.786ms      29.920us         0.07%      29.920us       5.984us             5  
+                                          aten::aminmax         1.11%      28.059ms         1.32%      33.600ms      33.600ms      27.360us         0.07%      27.360us      27.360us             1  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      27.360us         0.07%      27.360us      27.360us             1  
+                                              aten::sum         3.31%      84.044ms         3.92%      99.544ms      99.544ms      26.080us         0.06%      26.080us      26.080us             1  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      26.080us         0.06%      26.080us      26.080us             1  
+                                      aten::bitwise_and         3.49%      88.697ms         4.49%     113.928ms      56.964ms      25.760us         0.06%      25.760us      12.880us             2  
+                                          aten::scatter         0.56%      14.253ms         0.85%      21.592ms      21.592ms      15.840us         0.04%      24.160us      24.160us             1  
+                                               aten::lt         0.01%     243.453us         0.04%     917.438us     305.813us      21.440us         0.05%      21.440us       7.147us             3  
+                                            aten::clone         0.00%      33.825us         0.02%     609.677us     152.419us       0.000us         0.00%      19.840us       4.960us             4  
+at::native::xpu::CatArrayBatchedCopy_contig<at::nati...         0.00%       0.000us         0.00%       0.000us       0.000us      18.560us         0.04%      18.560us       6.187us             3  
+                                     aten::masked_fill_         8.58%     217.907ms        13.18%     334.650ms     111.550ms      17.920us         0.04%      17.920us       5.973us             3  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us      16.960us         0.04%      16.960us       5.653us             3  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us      16.640us         0.04%      16.640us       8.320us             2  
+at::native::xpu::ScatterGatherElementwiseKernelFunct...         0.00%       0.000us         0.00%       0.000us       0.000us      15.840us         0.04%      15.840us      15.840us             1  
+at::native::xpu::SegmentScanKernel<at::native::xpu::...         0.00%       0.000us         0.00%       0.000us       0.000us      15.680us         0.04%      15.680us      15.680us             1  
+at::native::xpu::ReduceKernel<2, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      15.520us         0.04%      15.520us      15.520us             1  
+at::native::xpu::CatArrayBatchedCopy<at::native::xpu...         0.00%       0.000us         0.00%       0.000us       0.000us      14.240us         0.03%      14.240us      14.240us             1  
+                                   Memset (0 -> DEVICE)         0.00%       0.000us         0.00%       0.000us       0.000us      14.080us         0.03%      14.080us      14.080us             1  
+                                              aten::div         0.67%      17.006ms         0.76%      19.177ms       9.589ms      13.760us         0.03%      13.760us       6.880us             2  
+                                      aten::bitwise_not         0.00%      81.391us         0.01%     203.828us     101.914us      13.440us         0.03%      13.440us       6.720us             2  
+at::native::xpu::VectorizedElementwiseKernel<16, at:...         0.00%       0.000us         0.00%       0.000us       0.000us      13.440us         0.03%      13.440us       6.720us             2  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us      13.280us         0.03%      13.280us       6.640us             2  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us      13.280us         0.03%      13.280us       6.640us             2  
+                                           aten::__or__         0.00%      10.344us         0.01%     189.449us      94.725us       0.000us         0.00%      13.280us       6.640us             2  
+                                       aten::bitwise_or         0.00%      87.237us         0.01%     179.105us      89.552us      13.280us         0.03%      13.280us       6.640us             2  
+at::native::xpu::VectorizedElementwiseKernel<16, at:...         0.00%       0.000us         0.00%       0.000us       0.000us      13.280us         0.03%      13.280us       6.640us             2  
+                                          aten::__and__         0.00%       8.935us         2.46%      62.516ms      62.516ms       0.000us         0.00%      13.120us      13.120us             1  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us      13.120us         0.03%      13.120us      13.120us             1  
+at::native::xpu::VectorizedElementwiseKernel<16, at:...         0.00%       0.000us         0.00%       0.000us       0.000us      12.640us         0.03%      12.640us      12.640us             1  
+                                              aten::max         3.39%      86.134ms         3.97%     100.663ms     100.663ms      12.640us         0.03%      12.640us      12.640us             1  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      12.640us         0.03%      12.640us      12.640us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us      12.000us         0.03%      12.000us       4.000us             3  
+                                              aten::sub         1.95%      49.453ms         2.64%      67.116ms      33.558ms      11.840us         0.03%      11.840us       5.920us             2  
+                                    aten::_assert_async         1.59%      40.330ms         2.21%      56.120ms      28.060ms      11.360us         0.03%      11.360us       5.680us             2  
+       at::native::xpu::AssertAsyncKernelFunctor1<bool>         0.00%       0.000us         0.00%       0.000us       0.000us      11.360us         0.03%      11.360us       5.680us             2  
+                                              aten::sin         0.35%       8.885ms         0.39%       9.970ms       9.970ms      11.360us         0.03%      11.360us      11.360us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us      11.360us         0.03%      11.360us      11.360us             1  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us      11.040us         0.03%      11.040us       5.520us             2  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us      11.040us         0.03%      11.040us       5.520us             2  
+                                              aten::bmm         1.27%      32.150ms         1.35%      34.290ms      34.290ms      10.880us         0.03%      10.880us      10.880us             1  
+                                             aten::full         0.00%       9.767us         0.00%      85.729us      42.865us       0.000us         0.00%      10.720us       5.360us             2  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us      10.720us         0.03%      10.720us       5.360us             2  
+                                              aten::all         0.01%     187.364us         0.01%     253.196us     253.196us      10.240us         0.02%      10.240us      10.240us             1  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      10.240us         0.02%      10.240us      10.240us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us      10.240us         0.02%      10.240us       5.120us             2  
+at::native::xpu::SegmentScanKernel<at::native::xpu::...         0.00%       0.000us         0.00%       0.000us       0.000us      10.080us         0.02%      10.080us      10.080us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       9.600us         0.02%       9.600us       4.800us             2  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us       9.600us         0.02%       9.600us       9.600us             1  
+                                             aten::item         0.00%      22.415us         0.04%       1.006ms     167.619us       0.000us         0.00%       9.040us       1.507us             6  
+                              aten::_local_scalar_dense         0.02%     562.834us         0.04%     983.302us     163.884us       9.040us         0.02%       9.040us       1.507us             6  
+                 Memcpy D2M (DEVICE -> MEMORY(Unknown))         0.00%       0.000us         0.00%       0.000us       0.000us       9.040us         0.02%       9.040us       1.507us             6  
+                                              aten::cos         0.23%       5.913ms         0.27%       6.935ms       6.935ms       8.960us         0.02%       8.960us       8.960us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       8.960us         0.02%       8.960us       8.960us             1  
+                                        aten::embedding         0.00%      32.942us         0.01%     243.843us     243.843us       0.000us         0.00%       8.640us       8.640us             1  
+                                     aten::index_select         0.01%     130.456us         0.01%     202.935us     202.935us       8.640us         0.02%       8.640us       8.640us             1  
+at::native::xpu::IndexKernel<at::native::xpu::IndexK...         0.00%       0.000us         0.00%       0.000us       0.000us       8.640us         0.02%       8.640us       8.640us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       8.640us         0.02%       8.640us       8.640us             1  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       8.480us         0.02%       8.480us       4.240us             2  
+                                     aten::exponential_         0.04%       1.083ms         0.06%       1.454ms       1.454ms       8.480us         0.02%       8.480us       8.480us             1  
+at::native::xpu::DistributionElementwiseKernelFuncto...         0.00%       0.000us         0.00%       0.000us       0.000us       8.480us         0.02%       8.480us       8.480us             1  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       8.320us         0.02%       8.320us       8.320us             1  
+                                       aten::is_nonzero         0.00%      18.383us         0.04%     963.222us     192.644us       0.000us         0.00%       6.960us       1.392us             5  
+at::native::xpu::SegmentScanKernel<at::native::xpu::...         0.00%       0.000us         0.00%       0.000us       0.000us       6.240us         0.01%       6.240us       6.240us             1  
+at::native::xpu::AccumulateCarrierKernelFunctor<at::...         0.00%       0.000us         0.00%       0.000us       0.000us       5.920us         0.01%       5.920us       5.920us             1  
+                                               aten::ge         0.00%      44.602us         0.00%      79.530us      79.530us       5.920us         0.01%       5.920us       5.920us             1  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       5.920us         0.01%       5.920us       5.920us             1  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us       5.760us         0.01%       5.760us       5.760us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       5.600us         0.01%       5.600us       5.600us             1  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       5.440us         0.01%       5.440us       5.440us             1  
+                                           aten::arange         0.16%       4.183ms         0.43%      11.027ms       5.513ms       2.720us         0.01%       5.440us       2.720us             2  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       5.120us         0.01%       5.120us       5.120us             1  
+                                    aten::scalar_tensor         0.00%       7.225us         0.00%      66.486us      66.486us       0.000us         0.00%       4.800us       4.800us             1  
+                                               aten::le         0.00%      81.535us         0.01%     140.263us     140.263us       4.640us         0.01%       4.640us       4.640us             1  
+                                             aten::rsub         0.00%      15.569us         0.00%     123.360us     123.360us       0.000us         0.00%       4.640us       4.640us             1  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       4.640us         0.01%       4.640us       4.640us             1  
+                                         aten::new_ones         0.00%      14.717us         0.00%      78.219us      78.219us       0.000us         0.00%       4.320us       4.320us             1  
+                                             aten::ones         0.00%      20.017us         0.01%     274.558us     274.558us       0.000us         0.00%       4.160us       4.160us             1  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us       3.520us         0.01%       3.520us       3.520us             1  
+at::native::xpu::ElementwiseKernelWithIndexFunctor<i...         0.00%       0.000us         0.00%       0.000us       0.000us       2.720us         0.01%       2.720us       2.720us             1  
+                 Memcpy M2D (MEMORY(Unknown) -> DEVICE)         0.00%       0.000us         0.00%       0.000us       0.000us       0.800us         0.00%       0.800us       0.400us             2  
+                                            aten::empty         0.02%     507.045us         0.02%     507.045us       1.370us       0.000us         0.00%       0.000us       0.000us           370  
+                                    aten::empty_strided         0.01%     288.481us         0.01%     288.481us       1.233us       0.000us         0.00%       0.000us       0.000us           234  
+                                     urEnqueueUSMMemcpy         0.03%     739.163us         0.03%     873.044us     109.131us       0.000us         0.00%       0.000us       0.000us             8  
+                                zeMemGetAllocProperties         0.02%     397.540us         0.02%     397.540us       0.164us       0.000us         0.00%       0.000us       0.000us          2418  
+                                       zeEventHostReset         0.00%      75.630us         0.00%      75.630us       0.186us       0.000us         0.00%       0.000us       0.000us           406  
+                          zeCommandListAppendMemoryCopy         0.00%     117.393us         0.00%     117.393us      14.674us       0.000us         0.00%       0.000us       0.000us             8  
+                                 zeEventHostSynchronize         0.01%     140.102us         0.01%     140.102us      17.513us       0.000us         0.00%       0.000us       0.000us             8  
+                                       aten::lift_fresh         0.00%       9.101us         0.00%       9.101us       0.138us       0.000us         0.00%       0.000us       0.000us            66  
+                                          aten::detach_         0.00%      45.497us         0.00%      83.507us       1.265us       0.000us         0.00%       0.000us       0.000us            66  
+                                                detach_         0.00%      38.010us         0.00%      38.010us       0.576us       0.000us         0.00%       0.000us       0.000us            66  
+                                           aten::select         0.00%      46.753us         0.00%      62.620us      15.655us       0.000us         0.00%       0.000us       0.000us             4  
+                                       aten::as_strided         0.02%     560.172us         0.02%     560.172us       0.873us       0.000us         0.00%       0.000us       0.000us           642  
+                                           aten::detach         0.00%       1.412us         0.00%       6.733us       6.733us       0.000us         0.00%       0.000us       0.000us             1  
+                                                 detach         0.00%       5.321us         0.00%       5.321us       5.321us       0.000us         0.00%       0.000us       0.000us             1  
+                           zeDeviceGetComputeProperties         0.00%       1.644us         0.00%       1.644us       0.206us       0.000us         0.00%       0.000us       0.000us             8  
+                            zeDeviceGetMemoryProperties         0.05%       1.304ms         0.05%       1.304ms      81.476us       0.000us         0.00%       0.000us       0.000us            16  
+                             zeDeviceGetCacheProperties         0.00%       1.658us         0.00%       1.658us       0.104us       0.000us         0.00%       0.000us       0.000us            16  
+                                         zeModuleCreate        15.93%     404.286ms        15.93%     404.286ms       8.789ms       0.000us         0.00%       0.000us       0.000us            46  
+                                  zeModuleGetProperties         0.00%       6.991us         0.00%       6.991us       0.212us       0.000us         0.00%       0.000us       0.000us            33  
+                                         zeKernelCreate         0.09%       2.217ms         0.09%       2.217ms      27.042us       0.000us         0.00%       0.000us       0.000us            82  
+                                  zeDeviceGetSubDevices         0.00%      12.848us         0.00%      12.848us       0.093us       0.000us         0.00%       0.000us       0.000us           138  
+                              zeKernelSetIndirectAccess         0.00%      12.723us         0.00%      12.723us       0.155us       0.000us         0.00%       0.000us       0.000us            82  
+                       urEnqueueKernelLaunchWithArgsExp         1.26%      32.010ms         1.65%      41.962ms      30.059us       0.000us         0.00%       0.000us       0.000us          1396  
+                                  zeKernelGetProperties         0.00%      48.948us         0.00%      48.948us       0.316us       0.000us         0.00%       0.000us       0.000us           155  
+                               zeKernelSetArgumentValue         0.06%       1.460ms         0.06%       1.460ms       0.150us       0.000us         0.00%       0.000us       0.000us          9753  
+                                   zeKernelSetGroupSize         0.00%      80.200us         0.00%      80.200us       0.057us       0.000us         0.00%       0.000us       0.000us          1396  
+                           zeCommandListCreateImmediate         0.01%     210.396us         0.01%     210.396us     210.396us       0.000us         0.00%       0.000us       0.000us             1  
+                        zeCommandListAppendLaunchKernel         0.30%       7.566ms         0.30%       7.566ms       5.420us       0.000us         0.00%       0.000us       0.000us          1396  
+                                        aten::unsqueeze         0.01%     186.076us         0.01%     231.835us       1.717us       0.000us         0.00%       0.000us       0.000us           135  
+                                             aten::view         0.02%     428.088us         0.02%     428.088us       1.005us       0.000us         0.00%       0.000us       0.000us           426  
+                                          zeEventCreate         0.02%     441.296us         0.02%     441.296us       0.442us       0.000us         0.00%       0.000us       0.000us           999  
+                                       aten::empty_like         0.00%      55.646us         0.00%     121.820us       3.292us       0.000us         0.00%       0.000us       0.000us            37  
+                                            aten::slice         0.01%     323.939us         0.02%     391.420us       2.943us       0.000us         0.00%       0.000us       0.000us           133  
+                                          aten::reshape         0.01%     156.045us         0.02%     395.795us       1.522us       0.000us         0.00%       0.000us       0.000us           260  
+                                          aten::resize_         0.00%      91.727us         0.00%      91.727us       0.397us       0.000us         0.00%       0.000us       0.000us           231  
+                                            aten::alias         0.00%      11.141us         0.00%      11.141us      11.141us       0.000us         0.00%       0.000us       0.000us             1  
+                                           aten::expand         0.00%      18.070us         0.00%      19.547us       4.887us       0.000us         0.00%       0.000us       0.000us             4  
+                                  zeDeviceGetRootDevice         0.00%      23.832us         0.00%      23.832us       0.062us       0.000us         0.00%       0.000us       0.000us           384  
+                                  zeDeviceGetProperties         0.00%      42.098us         0.00%      42.098us       1.238us       0.000us         0.00%       0.000us       0.000us            34  
+                            zeDeviceGetModuleProperties         0.00%      11.808us         0.00%      11.808us       0.738us       0.000us         0.00%       0.000us       0.000us            16  
+                                        zeKernelGetName         0.00%       3.203us         0.00%       3.203us       0.123us       0.000us         0.00%       0.000us       0.000us            26  
+                                        zeKernelDestroy         0.00%       5.003us         0.00%       5.003us       0.625us       0.000us         0.00%       0.000us       0.000us             8  
+                                        zeModuleDestroy         0.00%      16.096us         0.00%      16.096us       2.012us       0.000us         0.00%       0.000us       0.000us             8  
+                      zeDeviceGetMemoryAccessProperties         0.00%       4.083us         0.00%       4.083us       0.583us       0.000us         0.00%       0.000us       0.000us             7  
+                                     aten::_unsafe_view         0.01%     191.768us         0.01%     191.768us       0.849us       0.000us         0.00%       0.000us       0.000us           226  
+                                        aten::transpose         0.01%     368.546us         0.03%     771.375us       2.179us       0.000us         0.00%       0.000us       0.000us           354  
+                                      aten::result_type         0.00%      31.238us         0.00%      31.238us       0.481us       0.000us         0.00%       0.000us       0.000us            65  
+                                                aten::t         0.02%     508.495us         0.04%     992.873us       4.413us       0.000us         0.00%       0.000us       0.000us           225  
+                                       urUSMDeviceAlloc         0.01%     198.785us         0.27%       6.878ms       1.376ms       0.000us         0.00%       0.000us       0.000us             5  
+                                       zeMemAllocDevice         0.01%     165.580us         0.01%     165.580us      33.116us       0.000us         0.00%       0.000us       0.000us             5  
+                            zeContextMakeMemoryResident         0.26%       6.514ms         0.26%       6.514ms     162.844us       0.000us         0.00%       0.000us       0.000us            40  
+                                       urEnqueueUSMFill         0.00%      39.884us         0.01%     251.693us     251.693us       0.000us         0.00%       0.000us       0.000us             1  
+                          zeCommandListAppendMemoryFill         0.01%     209.268us         0.01%     209.268us     209.268us       0.000us         0.00%       0.000us       0.000us             1  
+                                      zeEventPoolCreate         0.00%      97.100us         0.00%      97.100us      32.367us       0.000us         0.00%       0.000us       0.000us             3  
+                                     zeEventQueryStatus         0.00%       7.552us         0.00%       7.552us       3.776us       0.000us         0.00%       0.000us       0.000us             2  
+                                        aten::new_empty         0.00%       1.811us         0.00%       4.182us       4.182us       0.000us         0.00%       0.000us       0.000us             1  
+                                          aten::view_as         0.00%       3.121us         0.00%       8.405us       8.405us       0.000us         0.00%       0.000us       0.000us             1  
+                                          aten::squeeze         0.00%      17.957us         0.00%      22.054us      22.054us       0.000us         0.00%       0.000us       0.000us             1  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 2.538s
+Self XPU time total: 41.664ms
+
+datatype: torch.float16 ; i: 1
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg      Self XPU    Self XPU %     XPU total  XPU time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                           aten::matmul         0.76%     542.766us        29.87%      21.433ms      94.835us       0.000us         0.00%      31.437ms     139.103us           226  
+                                            gemm_kernel         0.00%       0.000us         0.00%       0.000us       0.000us      31.437ms        75.75%      31.437ms     139.103us           226  
+                                           aten::linear         0.33%     236.536us        30.84%      22.127ms      98.342us       0.000us         0.00%      31.429ms     139.684us           225  
+                                               aten::mm        14.49%      10.395ms        28.21%      20.235ms      89.933us      31.429ms        75.73%      31.429ms     139.684us           225  
+                                            aten::copy_         1.98%       1.418ms         8.39%       6.019ms      28.528us       2.148ms         5.17%       2.148ms      10.178us           211  
+                                               aten::to         0.21%     153.440us         8.94%       6.414ms      23.322us       0.000us         0.00%       2.099ms       7.634us           275  
+                                         aten::_to_copy         0.54%     387.526us         8.73%       6.260ms      31.145us       0.000us         0.00%       2.099ms      10.444us           201  
+                                              aten::cat         1.64%       1.179ms         5.78%       4.150ms      31.438us       1.802ms         4.34%       1.802ms      13.655us           132  
+at::native::xpu::CatArrayBatchedCopy<at::native::xpu...         0.00%       0.000us         0.00%       0.000us       0.000us       1.774ms         4.27%       1.774ms      13.860us           128  
+                                              aten::mul         3.64%       2.614ms        13.72%       9.841ms      33.474us       1.494ms         3.60%       1.494ms       5.081us           294  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us       1.044ms         2.52%       1.044ms      15.823us            66  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us       1.039ms         2.50%       1.039ms      15.513us            67  
+                                              aten::add         2.86%       2.049ms         9.53%       6.840ms      34.900us     938.240us         2.26%     938.240us       4.787us           196  
+                                             aten::mean         3.88%       2.781ms         6.39%       4.582ms      70.490us     902.720us         2.18%     902.720us      13.888us            65  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us     902.720us         2.18%     902.720us      13.888us            65  
+                                             aten::topk         0.05%      34.574us         0.15%     107.695us     107.695us     744.320us         1.79%     744.320us     744.320us             1  
+at::native::xpu::SegmentedGroupRadixSelectPairsFunct...         0.00%       0.000us         0.00%       0.000us       0.000us     715.520us         1.72%     715.520us     715.520us             1  
+at::native::xpu::VectorizedElementwiseKernel<8, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     506.720us         1.22%     506.720us       3.928us           129  
+at::native::xpu::VectorizedElementwiseKernel<8, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     402.880us         0.97%     402.880us       6.295us            64  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us     363.520us         0.88%     363.520us       5.593us            65  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us     338.240us         0.81%     338.240us       5.285us            64  
+                     aten::scaled_dot_product_attention         0.26%     187.095us         4.59%       3.291ms     102.833us       0.000us         0.00%     330.240us      10.320us            32  
+aten::_scaled_dot_product_fused_attention_overrideab...         2.37%       1.701ms         4.33%       3.104ms      96.986us     330.240us         0.80%     330.240us      10.320us            32  
+                                             micro_sdpa         0.00%       0.000us         0.00%       0.000us       0.000us     330.240us         0.80%     330.240us      10.320us            32  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us     304.640us         0.73%     304.640us       4.760us            64  
+at::native::xpu::VectorizedElementwiseKernel<8, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     269.280us         0.65%     269.280us       8.415us            32  
+                                             aten::silu         0.50%     357.612us         1.47%       1.054ms      32.939us     268.960us         0.65%     268.960us       8.405us            32  
+at::native::xpu::VectorizedElementwiseKernel<8, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     268.960us         0.65%     268.960us       8.405us            32  
+                                              aten::neg         0.82%     588.281us         2.71%       1.942ms      30.348us     260.640us         0.63%     260.640us       4.072us            64  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us     260.640us         0.63%     260.640us       4.072us            64  
+                                              aten::pow         1.04%     748.293us         3.41%       2.447ms      37.641us     254.880us         0.61%     254.880us       3.921us            65  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     254.880us         0.61%     254.880us       3.921us            65  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     217.920us         0.53%     217.920us       3.353us            65  
+                                            aten::rsqrt         0.76%     545.603us         3.14%       2.252ms      34.653us     207.040us         0.50%     207.040us       3.185us            65  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     207.040us         0.50%     207.040us       3.185us            65  
+                                             aten::sort         0.19%     139.308us         1.83%       1.310ms       1.310ms     152.160us         0.37%     155.360us     155.360us             1  
+                                      aten::multinomial         0.05%      34.003us         0.79%     570.232us     570.232us       0.000us         0.00%     149.280us     149.280us             1  
+                                          aten::softmax         0.01%       4.912us         0.30%     214.319us     107.159us       0.000us         0.00%     110.240us      55.120us             2  
+                                         aten::_softmax         0.17%     122.626us         0.29%     209.407us     104.704us     110.240us         0.27%     110.240us      55.120us             2  
+at::native::xpu::impl::SoftmaxForwardKernelFunctor<4...         0.00%       0.000us         0.00%       0.000us       0.000us     110.240us         0.27%     110.240us      55.120us             2  
+at::native::xpu::SegmentedRadixSortPairsDownsweepFun...         0.00%       0.000us         0.00%       0.000us       0.000us      81.760us         0.20%      81.760us      10.220us             8  
+                                             aten::isin         0.05%      37.715us         0.87%     620.830us     310.415us       0.000us         0.00%      70.880us      35.440us             2  
+                                              aten::any         0.31%     219.906us         0.57%     407.862us      67.977us      55.680us         0.13%      63.680us      10.613us             6  
+                                           aten::argmax         0.05%      32.342us         0.08%      57.281us      57.281us      47.520us         0.11%      47.520us      47.520us             1  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      47.520us         0.11%      47.520us      47.520us             1  
+at::native::xpu::SegmentedRadixSortPairsUpsweepFunct...         0.00%       0.000us         0.00%       0.000us       0.000us      40.800us         0.10%      40.800us       5.100us             8  
+                                            aten::fill_         0.17%     121.610us         0.56%     401.662us      50.208us      38.560us         0.09%      38.560us       4.820us             8  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      36.640us         0.09%      36.640us      12.213us             3  
+                                           aten::cumsum         0.20%     140.645us         0.50%     356.543us     178.272us      34.080us         0.08%      34.080us      17.040us             2  
+at::native::xpu::VectorizedElementwiseKernel<16, at:...         0.00%       0.000us         0.00%       0.000us       0.000us      31.200us         0.08%      31.200us       5.200us             6  
+at::native::xpu::SegmentedRadixSortPairsScanFunctor<...         0.00%       0.000us         0.00%       0.000us       0.000us      29.600us         0.07%      29.600us       3.700us             8  
+at::native::xpu::SegmentedGroupRadixSortPairsFunctor...         0.00%       0.000us         0.00%       0.000us       0.000us      28.800us         0.07%      28.800us      28.800us             1  
+                                          aten::aminmax         0.06%      40.210us         0.10%      69.200us      69.200us      27.200us         0.07%      27.200us      27.200us             1  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      27.200us         0.07%      27.200us      27.200us             1  
+                                      aten::masked_fill         0.02%      15.037us         0.39%     279.143us      93.048us       0.000us         0.00%      26.720us       8.907us             3  
+                                              aten::sum         0.06%      41.703us         0.10%      68.771us      68.771us      25.440us         0.06%      25.440us      25.440us             1  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      25.440us         0.06%      25.440us      25.440us             1  
+                                               aten::eq         0.13%      90.744us         0.30%     216.327us      43.265us      25.120us         0.06%      25.120us       5.024us             5  
+at::native::xpu::VectorizedElementwiseKernel<16, at:...         0.00%       0.000us         0.00%       0.000us       0.000us      24.800us         0.06%      24.800us       6.200us             4  
+at::native::xpu::ReduceKernel<2, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      19.040us         0.05%      19.040us      19.040us             1  
+                                          aten::scatter         0.08%      55.637us         0.15%     110.139us     110.139us      11.200us         0.03%      18.720us      18.720us             1  
+                                               aten::lt         0.07%      49.297us         0.19%     133.470us      44.490us      18.560us         0.04%      18.560us       6.187us             3  
+                                      aten::bitwise_and         0.04%      28.994us         0.11%      77.194us      38.597us      18.560us         0.04%      18.560us       9.280us             2  
+at::native::xpu::CatArrayBatchedCopy_contig<at::nati...         0.00%       0.000us         0.00%       0.000us       0.000us      17.760us         0.04%      17.760us       5.920us             3  
+                                            aten::clone         0.02%      12.683us         0.26%     185.921us      46.480us       0.000us         0.00%      16.320us       4.080us             4  
+                                           aten::__or__         0.00%       3.221us         0.10%      69.453us      34.726us       0.000us         0.00%      15.680us       7.840us             2  
+                                       aten::bitwise_or         0.04%      25.386us         0.09%      66.232us      33.116us      15.680us         0.04%      15.680us       7.840us             2  
+at::native::xpu::VectorizedElementwiseKernel<16, at:...         0.00%       0.000us         0.00%       0.000us       0.000us      15.680us         0.04%      15.680us       7.840us             2  
+at::native::xpu::SegmentScanKernel<at::native::xpu::...         0.00%       0.000us         0.00%       0.000us       0.000us      14.720us         0.04%      14.720us      14.720us             1  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us      14.400us         0.03%      14.400us       7.200us             2  
+                                              aten::max         0.07%      48.062us         0.11%      76.771us      76.771us      14.240us         0.03%      14.240us      14.240us             1  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      14.240us         0.03%      14.240us      14.240us             1  
+                                     aten::masked_fill_         0.06%      41.339us         0.17%     124.500us      41.500us      13.760us         0.03%      13.760us       4.587us             3  
+                                              aten::all         0.10%      71.778us         0.15%     109.687us     109.687us      12.160us         0.03%      12.160us      12.160us             1  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      12.160us         0.03%      12.160us      12.160us             1  
+                                      aten::bitwise_not         0.03%      22.995us         0.09%      64.170us      32.085us      11.520us         0.03%      11.520us       5.760us             2  
+at::native::xpu::VectorizedElementwiseKernel<16, at:...         0.00%       0.000us         0.00%       0.000us       0.000us      11.520us         0.03%      11.520us       5.760us             2  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us      11.200us         0.03%      11.200us       5.600us             2  
+at::native::xpu::ScatterGatherElementwiseKernelFunct...         0.00%       0.000us         0.00%       0.000us       0.000us      11.200us         0.03%      11.200us      11.200us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us      11.200us         0.03%      11.200us       3.733us             3  
+                                              aten::div         0.05%      34.688us         0.13%      90.635us      45.317us      10.880us         0.03%      10.880us       5.440us             2  
+                                          aten::__and__         0.00%       1.693us         0.06%      40.284us      40.284us       0.000us         0.00%      10.880us      10.880us             1  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us      10.880us         0.03%      10.880us      10.880us             1  
+at::native::xpu::CatArrayBatchedCopy<at::native::xpu...         0.00%       0.000us         0.00%       0.000us       0.000us      10.560us         0.03%      10.560us      10.560us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       9.920us         0.02%       9.920us       3.307us             3  
+                                              aten::cos         0.03%      23.224us         0.08%      57.274us      57.274us       9.920us         0.02%       9.920us       9.920us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       9.920us         0.02%       9.920us       9.920us             1  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       9.600us         0.02%       9.600us       4.800us             2  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us       9.600us         0.02%       9.600us       9.600us             1  
+                                              aten::sin         0.03%      18.686us         0.07%      52.709us      52.709us       9.280us         0.02%       9.280us       9.280us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       9.280us         0.02%       9.280us       9.280us             1  
+                                              aten::sub         0.05%      37.429us         0.13%      90.916us      45.458us       8.800us         0.02%       8.800us       4.400us             2  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       8.640us         0.02%       8.640us       4.320us             2  
+                                     aten::exponential_         0.02%      14.976us         0.05%      38.887us      38.887us       8.640us         0.02%       8.640us       8.640us             1  
+at::native::xpu::DistributionElementwiseKernelFuncto...         0.00%       0.000us         0.00%       0.000us       0.000us       8.640us         0.02%       8.640us       8.640us             1  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       8.640us         0.02%       8.640us       4.320us             2  
+                                             aten::item         0.01%       8.277us         0.66%     471.101us      78.517us       0.000us         0.00%       8.560us       1.427us             6  
+                              aten::_local_scalar_dense         0.30%     218.039us         0.65%     462.824us      77.137us       8.560us         0.02%       8.560us       1.427us             6  
+                 Memcpy D2M (DEVICE -> MEMORY(Unknown))         0.00%       0.000us         0.00%       0.000us       0.000us       8.560us         0.02%       8.560us       1.427us             6  
+                                              aten::bmm         0.22%     158.960us         0.28%     199.891us     199.891us       8.480us         0.02%       8.480us       8.480us             1  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       8.480us         0.02%       8.480us       4.240us             2  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       8.320us         0.02%       8.320us       4.160us             2  
+                                        aten::embedding         0.02%      12.719us         0.12%      85.674us      85.674us       0.000us         0.00%       8.160us       8.160us             1  
+                                     aten::index_select         0.04%      28.641us         0.10%      68.968us      68.968us       8.160us         0.02%       8.160us       8.160us             1  
+at::native::xpu::IndexKernel<at::native::xpu::IndexK...         0.00%       0.000us         0.00%       0.000us       0.000us       8.160us         0.02%       8.160us       8.160us             1  
+                                             aten::full         0.01%       4.184us         0.08%      59.374us      29.687us       0.000us         0.00%       8.160us       4.080us             2  
+at::native::xpu::SegmentScanKernel<at::native::xpu::...         0.00%       0.000us         0.00%       0.000us       0.000us       8.000us         0.02%       8.000us       8.000us             1  
+                                           aten::arange         0.03%      20.966us         0.19%     134.757us      67.379us       4.000us         0.01%       8.000us       4.000us             2  
+at::native::xpu::VectorizedElementwiseKernel<16, at:...         0.00%       0.000us         0.00%       0.000us       0.000us       7.680us         0.02%       7.680us       7.680us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       7.520us         0.02%       7.520us       3.760us             2  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       7.360us         0.02%       7.360us       3.680us             2  
+                                    aten::_assert_async         0.02%      15.652us         0.08%      54.431us      27.216us       6.720us         0.02%       6.720us       3.360us             2  
+       at::native::xpu::AssertAsyncKernelFunctor1<bool>         0.00%       0.000us         0.00%       0.000us       0.000us       6.720us         0.02%       6.720us       3.360us             2  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       6.400us         0.02%       6.400us       6.400us             1  
+                                       aten::is_nonzero         0.01%       6.473us         0.61%     434.478us      86.896us       0.000us         0.00%       6.320us       1.264us             5  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       6.080us         0.01%       6.080us       6.080us             1  
+at::native::xpu::SegmentScanKernel<at::native::xpu::...         0.00%       0.000us         0.00%       0.000us       0.000us       5.920us         0.01%       5.920us       5.920us             1  
+at::native::xpu::AccumulateCarrierKernelFunctor<at::...         0.00%       0.000us         0.00%       0.000us       0.000us       5.440us         0.01%       5.440us       5.440us             1  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       5.120us         0.01%       5.120us       5.120us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       4.800us         0.01%       4.800us       4.800us             1  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us       4.800us         0.01%       4.800us       4.800us             1  
+                                               aten::le         0.03%      21.099us         0.08%      59.357us      59.357us       4.640us         0.01%       4.640us       4.640us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       4.320us         0.01%       4.320us       4.320us             1  
+                                             aten::rsub         0.01%       4.687us         0.06%      43.427us      43.427us       0.000us         0.00%       4.160us       4.160us             1  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       4.160us         0.01%       4.160us       4.160us             1  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       4.160us         0.01%       4.160us       4.160us             1  
+                                         aten::new_ones         0.01%       5.106us         0.07%      53.029us      53.029us       0.000us         0.00%       4.000us       4.000us             1  
+at::native::xpu::ElementwiseKernelWithIndexFunctor<i...         0.00%       0.000us         0.00%       0.000us       0.000us       4.000us         0.01%       4.000us       4.000us             1  
+                                    aten::scalar_tensor         0.00%       3.577us         0.06%      41.101us      41.101us       0.000us         0.00%       4.000us       4.000us             1  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us       4.000us         0.01%       4.000us       4.000us             1  
+                                             aten::ones         0.01%       5.959us         0.09%      62.928us      62.928us       0.000us         0.00%       3.360us       3.360us             1  
+                                               aten::ge         0.02%      12.438us         0.04%      31.953us      31.953us       2.720us         0.01%       2.720us       2.720us             1  
+                 Memcpy M2D (MEMORY(Unknown) -> DEVICE)         0.00%       0.000us         0.00%       0.000us       0.000us       1.200us         0.00%       1.200us       0.600us             2  
+                                            aten::empty         0.53%     383.017us         0.53%     383.017us       1.035us       0.000us         0.00%       0.000us       0.000us           370  
+                                    aten::empty_strided         0.38%     272.158us         0.38%     272.158us       1.163us       0.000us         0.00%       0.000us       0.000us           234  
+                                     urEnqueueUSMMemcpy         0.98%     705.700us         1.14%     815.426us     101.928us       0.000us         0.00%       0.000us       0.000us             8  
+                                zeMemGetAllocProperties         0.37%     263.053us         0.37%     263.053us       0.109us       0.000us         0.00%       0.000us       0.000us          2408  
+                                       zeEventHostReset         0.47%     338.772us         0.47%     338.772us       0.241us       0.000us         0.00%       0.000us       0.000us          1404  
+                          zeCommandListAppendMemoryCopy         0.14%      98.307us         0.14%      98.307us      12.288us       0.000us         0.00%       0.000us       0.000us             8  
+                                 zeEventHostSynchronize         0.13%      96.145us         0.13%      96.145us      12.018us       0.000us         0.00%       0.000us       0.000us             8  
+                                       aten::lift_fresh         0.01%       8.850us         0.01%       8.850us       0.134us       0.000us         0.00%       0.000us       0.000us            66  
+                                          aten::detach_         0.06%      42.070us         0.11%      78.697us       1.192us       0.000us         0.00%       0.000us       0.000us            66  
+                                                detach_         0.05%      36.627us         0.05%      36.627us       0.555us       0.000us         0.00%       0.000us       0.000us            66  
+                                           aten::select         0.04%      27.250us         0.05%      32.404us       8.101us       0.000us         0.00%       0.000us       0.000us             4  
+                                       aten::as_strided         0.48%     345.560us         0.48%     345.560us       0.538us       0.000us         0.00%       0.000us       0.000us           642  
+                                           aten::detach         0.00%       1.426us         0.01%       6.475us       6.475us       0.000us         0.00%       0.000us       0.000us             1  
+                                                 detach         0.01%       5.049us         0.01%       5.049us       5.049us       0.000us         0.00%       0.000us       0.000us             1  
+                       urEnqueueKernelLaunchWithArgsExp        46.96%      33.691ms        55.03%      39.482ms      28.283us       0.000us         0.00%       0.000us       0.000us          1396  
+                               zeKernelSetArgumentValue         1.77%       1.273ms         1.77%       1.273ms       0.131us       0.000us         0.00%       0.000us       0.000us          9753  
+                                   zeKernelSetGroupSize         0.09%      63.787us         0.09%      63.787us       0.046us       0.000us         0.00%       0.000us       0.000us          1396  
+                        zeCommandListAppendLaunchKernel         5.74%       4.119ms         5.74%       4.119ms       2.951us       0.000us         0.00%       0.000us       0.000us          1396  
+                                        aten::unsqueeze         0.21%     150.553us         0.27%     190.381us       1.410us       0.000us         0.00%       0.000us       0.000us           135  
+                                             aten::view         0.53%     380.160us         0.53%     380.160us       0.892us       0.000us         0.00%       0.000us       0.000us           426  
+                                  zeKernelGetProperties         0.04%      28.833us         0.04%      28.833us       0.352us       0.000us         0.00%       0.000us       0.000us            82  
+                                       aten::empty_like         0.06%      40.510us         0.12%      82.741us       2.236us       0.000us         0.00%       0.000us       0.000us            37  
+                                            aten::slice         0.37%     262.073us         0.45%     321.167us       2.415us       0.000us         0.00%       0.000us       0.000us           133  
+                                          aten::reshape         0.20%     144.924us         0.50%     360.423us       1.386us       0.000us         0.00%       0.000us       0.000us           260  
+                                          aten::resize_         0.09%      63.527us         0.09%      63.527us       0.275us       0.000us         0.00%       0.000us       0.000us           231  
+                                            aten::alias         0.01%       5.768us         0.01%       5.768us       5.768us       0.000us         0.00%       0.000us       0.000us             1  
+                                           aten::expand         0.02%      11.676us         0.02%      12.651us       3.163us       0.000us         0.00%       0.000us       0.000us             4  
+                                     aten::_unsafe_view         0.23%     164.629us         0.23%     164.629us       0.728us       0.000us         0.00%       0.000us       0.000us           226  
+                                        aten::transpose         0.46%     332.504us         0.79%     568.338us       1.605us       0.000us         0.00%       0.000us       0.000us           354  
+                                      aten::result_type         0.04%      29.224us         0.04%      29.224us       0.450us       0.000us         0.00%       0.000us       0.000us            65  
+                                                aten::t         0.51%     368.251us         0.95%     682.254us       3.032us       0.000us         0.00%       0.000us       0.000us           225  
+                                     zeEventQueryStatus         0.01%       3.703us         0.01%       3.703us       1.851us       0.000us         0.00%       0.000us       0.000us             2  
+                                        aten::new_empty         0.00%       1.650us         0.00%       2.681us       2.681us       0.000us         0.00%       0.000us       0.000us             1  
+                                          aten::view_as         0.00%       1.325us         0.00%       2.194us       2.194us       0.000us         0.00%       0.000us       0.000us             1  
+                                          aten::squeeze         0.01%       6.130us         0.01%       6.530us       6.530us       0.000us         0.00%       0.000us       0.000us             1  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 71.742ms
+Self XPU time total: 41.502ms
+
+datatype: torch.float16 ; i: 2
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg      Self XPU    Self XPU %     XPU total  XPU time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                           aten::matmul         0.73%     536.696us        30.24%      22.214ms      98.293us       0.000us         0.00%      31.597ms     139.810us           226  
+                                            gemm_kernel         0.00%       0.000us         0.00%       0.000us       0.000us      31.597ms        75.80%      31.597ms     139.810us           226  
+                                           aten::linear         0.32%     234.810us        31.13%      22.866ms     101.629us       0.000us         0.00%      31.589ms     140.395us           225  
+                                               aten::mm        14.46%      10.622ms        28.54%      20.963ms      93.169us      31.589ms        75.78%      31.589ms     140.395us           225  
+                                            aten::copy_         2.07%       1.520ms         7.98%       5.865ms      27.796us       2.150ms         5.16%       2.150ms      10.190us           211  
+                                               aten::to         0.20%     145.878us         8.48%       6.229ms      22.650us       0.000us         0.00%       2.104ms       7.651us           275  
+                                         aten::_to_copy         0.53%     387.115us         8.28%       6.083ms      30.263us       0.000us         0.00%       2.104ms      10.468us           201  
+                                              aten::cat         1.63%       1.196ms         5.76%       4.233ms      32.067us       1.804ms         4.33%       1.804ms      13.665us           132  
+at::native::xpu::CatArrayBatchedCopy<at::native::xpu...         0.00%       0.000us         0.00%       0.000us       0.000us       1.775ms         4.26%       1.775ms      13.870us           128  
+                                              aten::mul         3.64%       2.671ms        13.11%       9.631ms      32.759us       1.463ms         3.51%       1.463ms       4.976us           294  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us       1.059ms         2.54%       1.059ms      16.051us            66  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us       1.030ms         2.47%       1.030ms      15.367us            67  
+                                              aten::add         2.85%       2.091ms        10.24%       7.521ms      38.371us       1.004ms         2.41%       1.004ms       5.121us           196  
+                                             aten::mean         3.84%       2.822ms         6.37%       4.679ms      71.978us     898.720us         2.16%     898.720us      13.826us            65  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us     898.720us         2.16%     898.720us      13.826us            65  
+                                             aten::topk         0.05%      38.813us         0.16%     116.615us     116.615us     767.840us         1.84%     767.840us     767.840us             1  
+at::native::xpu::SegmentedGroupRadixSelectPairsFunct...         0.00%       0.000us         0.00%       0.000us       0.000us     738.240us         1.77%     738.240us     738.240us             1  
+at::native::xpu::VectorizedElementwiseKernel<8, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     505.280us         1.21%     505.280us       3.917us           129  
+at::native::xpu::VectorizedElementwiseKernel<8, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     448.320us         1.08%     448.320us       7.005us            64  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us     365.280us         0.88%     365.280us       5.620us            65  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us     336.000us         0.81%     336.000us       5.250us            64  
+                     aten::scaled_dot_product_attention         0.27%     195.105us         4.53%       3.327ms     103.972us       0.000us         0.00%     326.560us      10.205us            32  
+aten::_scaled_dot_product_fused_attention_overrideab...         2.33%       1.714ms         4.26%       3.132ms      97.875us     326.560us         0.78%     326.560us      10.205us            32  
+                                             micro_sdpa         0.00%       0.000us         0.00%       0.000us       0.000us     326.560us         0.78%     326.560us      10.205us            32  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us     324.000us         0.78%     324.000us       5.063us            64  
+                                             aten::silu         0.50%     364.870us         1.45%       1.069ms      33.399us     267.200us         0.64%     267.200us       8.350us            32  
+at::native::xpu::VectorizedElementwiseKernel<8, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     267.200us         0.64%     267.200us       8.350us            32  
+                                              aten::neg         0.80%     585.811us         2.68%       1.972ms      30.812us     257.120us         0.62%     257.120us       4.018us            64  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us     257.120us         0.62%     257.120us       4.018us            64  
+                                              aten::pow         1.04%     763.124us         3.27%       2.404ms      36.980us     253.920us         0.61%     253.920us       3.906us            65  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     253.920us         0.61%     253.920us       3.906us            65  
+at::native::xpu::VectorizedElementwiseKernel<8, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     239.840us         0.58%     239.840us       7.495us            32  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     217.280us         0.52%     217.280us       3.343us            65  
+                                            aten::rsqrt         0.76%     556.558us         3.06%       2.248ms      34.588us     198.080us         0.48%     198.080us       3.047us            65  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     198.080us         0.48%     198.080us       3.047us            65  
+                                             aten::sort         0.19%     137.117us         1.76%       1.291ms       1.291ms     151.200us         0.36%     154.080us     154.080us             1  
+                                      aten::multinomial         0.07%      50.563us         0.87%     642.334us     642.334us       0.000us         0.00%     148.800us     148.800us             1  
+                                          aten::softmax         0.01%       6.437us         0.35%     257.476us     128.738us       0.000us         0.00%     109.600us      54.800us             2  
+                                         aten::_softmax         0.21%     156.376us         0.34%     251.039us     125.520us     109.600us         0.26%     109.600us      54.800us             2  
+at::native::xpu::impl::SoftmaxForwardKernelFunctor<4...         0.00%       0.000us         0.00%       0.000us       0.000us     109.600us         0.26%     109.600us      54.800us             2  
+at::native::xpu::SegmentedRadixSortPairsDownsweepFun...         0.00%       0.000us         0.00%       0.000us       0.000us      80.960us         0.19%      80.960us      10.120us             8  
+                                             aten::isin         0.07%      49.128us         1.09%     801.739us     400.869us       0.000us         0.00%      65.920us      32.960us             2  
+                                              aten::any         0.36%     261.177us         0.64%     470.139us      78.357us      47.680us         0.11%      56.000us       9.333us             6  
+                                           aten::argmax         0.06%      41.326us         0.09%      67.516us      67.516us      46.880us         0.11%      46.880us      46.880us             1  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      46.880us         0.11%      46.880us      46.880us             1  
+at::native::xpu::SegmentedRadixSortPairsUpsweepFunct...         0.00%       0.000us         0.00%       0.000us       0.000us      40.800us         0.10%      40.800us       5.100us             8  
+                                            aten::fill_         0.20%     148.821us         0.63%     460.534us      57.567us      37.600us         0.09%      37.600us       4.700us             8  
+                                           aten::cumsum         0.22%     165.176us         0.50%     367.917us     183.958us      34.080us         0.08%      34.080us      17.040us             2  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      31.200us         0.07%      31.200us      10.400us             3  
+at::native::xpu::VectorizedElementwiseKernel<16, at:...         0.00%       0.000us         0.00%       0.000us       0.000us      30.240us         0.07%      30.240us       5.040us             6  
+at::native::xpu::SegmentedGroupRadixSortPairsFunctor...         0.00%       0.000us         0.00%       0.000us       0.000us      29.600us         0.07%      29.600us      29.600us             1  
+at::native::xpu::SegmentedRadixSortPairsScanFunctor<...         0.00%       0.000us         0.00%       0.000us       0.000us      29.440us         0.07%      29.440us       3.680us             8  
+                                          aten::aminmax         0.07%      47.977us         0.10%      75.629us      75.629us      28.640us         0.07%      28.640us      28.640us             1  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      28.640us         0.07%      28.640us      28.640us             1  
+                                      aten::masked_fill         0.02%      17.886us         0.45%     332.192us     110.731us       0.000us         0.00%      24.640us       8.213us             3  
+                                               aten::eq         0.14%     106.105us         0.36%     265.862us      53.172us      24.480us         0.06%      24.480us       4.896us             5  
+at::native::xpu::VectorizedElementwiseKernel<16, at:...         0.00%       0.000us         0.00%       0.000us       0.000us      24.000us         0.06%      24.000us       6.000us             4  
+                                              aten::sum         0.08%      56.944us         0.11%      83.542us      83.542us      23.680us         0.06%      23.680us      23.680us             1  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      23.680us         0.06%      23.680us      23.680us             1  
+                                          aten::scatter         0.10%      74.682us         0.18%     132.722us     132.722us      10.880us         0.03%      19.200us      19.200us             1  
+                                      aten::bitwise_and         0.04%      32.927us         0.11%      82.475us      41.237us      18.560us         0.04%      18.560us       9.280us             2  
+at::native::xpu::CatArrayBatchedCopy_contig<at::nati...         0.00%       0.000us         0.00%       0.000us       0.000us      18.080us         0.04%      18.080us       6.027us             3  
+                                               aten::lt         0.08%      57.825us         0.21%     155.212us      51.737us      17.600us         0.04%      17.600us       5.867us             3  
+at::native::xpu::ReduceKernel<2, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      16.480us         0.04%      16.480us      16.480us             1  
+                                            aten::clone         0.02%      14.522us         0.27%     198.282us      49.570us       0.000us         0.00%      15.200us       3.800us             4  
+                                           aten::__or__         0.01%       5.057us         0.11%      78.211us      39.105us       0.000us         0.00%      15.040us       7.520us             2  
+                                       aten::bitwise_or         0.04%      30.781us         0.10%      73.154us      36.577us      15.040us         0.04%      15.040us       7.520us             2  
+at::native::xpu::VectorizedElementwiseKernel<16, at:...         0.00%       0.000us         0.00%       0.000us       0.000us      15.040us         0.04%      15.040us       7.520us             2  
+                                              aten::max         0.07%      54.693us         0.11%      82.635us      82.635us      14.720us         0.04%      14.720us      14.720us             1  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      14.720us         0.04%      14.720us      14.720us             1  
+at::native::xpu::SegmentScanKernel<at::native::xpu::...         0.00%       0.000us         0.00%       0.000us       0.000us      14.400us         0.03%      14.400us      14.400us             1  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us      14.080us         0.03%      14.080us       7.040us             2  
+                                              aten::all         0.11%      77.637us         0.17%     123.508us     123.508us      12.640us         0.03%      12.640us      12.640us             1  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      12.640us         0.03%      12.640us      12.640us             1  
+                                     aten::masked_fill_         0.07%      52.313us         0.22%     159.135us      53.045us      12.640us         0.03%      12.640us       4.213us             3  
+                                      aten::bitwise_not         0.03%      24.494us         0.10%      74.336us      37.168us      11.840us         0.03%      11.840us       5.920us             2  
+at::native::xpu::VectorizedElementwiseKernel<16, at:...         0.00%       0.000us         0.00%       0.000us       0.000us      11.840us         0.03%      11.840us       5.920us             2  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us      11.040us         0.03%      11.040us       5.520us             2  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us      11.040us         0.03%      11.040us       3.680us             3  
+                                          aten::__and__         0.00%       1.783us         0.06%      42.630us      42.630us       0.000us         0.00%      10.880us      10.880us             1  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us      10.880us         0.03%      10.880us      10.880us             1  
+at::native::xpu::ScatterGatherElementwiseKernelFunct...         0.00%       0.000us         0.00%       0.000us       0.000us      10.880us         0.03%      10.880us      10.880us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us      10.720us         0.03%      10.720us       3.573us             3  
+                                              aten::div         0.05%      38.867us         0.13%      97.041us      48.520us      10.720us         0.03%      10.720us       5.360us             2  
+at::native::xpu::CatArrayBatchedCopy<at::native::xpu...         0.00%       0.000us         0.00%       0.000us       0.000us      10.400us         0.02%      10.400us      10.400us             1  
+                                              aten::cos         0.04%      28.594us         0.10%      73.171us      73.171us      10.080us         0.02%      10.080us      10.080us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us      10.080us         0.02%      10.080us      10.080us             1  
+                                              aten::sin         0.03%      22.478us         0.09%      64.195us      64.195us       9.280us         0.02%       9.280us       9.280us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       9.280us         0.02%       9.280us       9.280us             1  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       9.120us         0.02%       9.120us       4.560us             2  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       9.120us         0.02%       9.120us       4.560us             2  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us       8.800us         0.02%       8.800us       8.800us             1  
+                                        aten::embedding         0.02%      13.522us         0.13%      96.775us      96.775us       0.000us         0.00%       8.640us       8.640us             1  
+                                     aten::index_select         0.05%      33.871us         0.11%      79.230us      79.230us       8.640us         0.02%       8.640us       8.640us             1  
+at::native::xpu::IndexKernel<at::native::xpu::IndexK...         0.00%       0.000us         0.00%       0.000us       0.000us       8.640us         0.02%       8.640us       8.640us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       8.640us         0.02%       8.640us       4.320us             2  
+                                     aten::exponential_         0.03%      19.622us         0.06%      43.048us      43.048us       8.480us         0.02%       8.480us       8.480us             1  
+at::native::xpu::DistributionElementwiseKernelFuncto...         0.00%       0.000us         0.00%       0.000us       0.000us       8.480us         0.02%       8.480us       8.480us             1  
+                                             aten::item         0.01%      10.496us         0.51%     377.991us      62.999us       0.000us         0.00%       8.400us       1.400us             6  
+                              aten::_local_scalar_dense         0.17%     122.698us         0.50%     367.495us      61.249us       8.400us         0.02%       8.400us       1.400us             6  
+                 Memcpy D2M (DEVICE -> MEMORY(Unknown))         0.00%       0.000us         0.00%       0.000us       0.000us       8.400us         0.02%       8.400us       1.400us             6  
+at::native::xpu::SegmentScanKernel<at::native::xpu::...         0.00%       0.000us         0.00%       0.000us       0.000us       8.320us         0.02%       8.320us       8.320us             1  
+                                              aten::bmm         0.25%     182.571us         0.32%     232.633us     232.633us       8.160us         0.02%       8.160us       8.160us             1  
+at::native::xpu::VectorizedElementwiseKernel<16, at:...         0.00%       0.000us         0.00%       0.000us       0.000us       7.680us         0.02%       7.680us       7.680us             1  
+                                             aten::full         0.01%       4.268us         0.08%      60.964us      30.482us       0.000us         0.00%       7.680us       3.840us             2  
+                                              aten::sub         0.07%      50.924us         0.18%     130.866us      65.433us       7.520us         0.02%       7.520us       3.760us             2  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       7.520us         0.02%       7.520us       3.760us             2  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       7.360us         0.02%       7.360us       3.680us             2  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       7.360us         0.02%       7.360us       3.680us             2  
+                                           aten::arange         0.03%      25.377us         0.18%     134.510us      67.255us       3.680us         0.01%       7.360us       3.680us             2  
+                                    aten::_assert_async         0.02%      17.258us         0.08%      55.370us      27.685us       7.040us         0.02%       7.040us       3.520us             2  
+       at::native::xpu::AssertAsyncKernelFunctor1<bool>         0.00%       0.000us         0.00%       0.000us       0.000us       7.040us         0.02%       7.040us       3.520us             2  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       7.040us         0.02%       7.040us       3.520us             2  
+                                       aten::is_nonzero         0.01%       6.003us         0.46%     336.315us      67.263us       0.000us         0.00%       6.240us       1.248us             5  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       6.080us         0.01%       6.080us       6.080us             1  
+at::native::xpu::AccumulateCarrierKernelFunctor<at::...         0.00%       0.000us         0.00%       0.000us       0.000us       5.760us         0.01%       5.760us       5.760us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       5.760us         0.01%       5.760us       5.760us             1  
+at::native::xpu::SegmentScanKernel<at::native::xpu::...         0.00%       0.000us         0.00%       0.000us       0.000us       5.600us         0.01%       5.600us       5.600us             1  
+                                               aten::le         0.03%      21.843us         0.08%      58.358us      58.358us       5.440us         0.01%       5.440us       5.440us             1  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us       5.280us         0.01%       5.280us       5.280us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       4.960us         0.01%       4.960us       4.960us             1  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       4.960us         0.01%       4.960us       4.960us             1  
+                                    aten::scalar_tensor         0.00%       3.619us         0.05%      35.322us      35.322us       0.000us         0.00%       4.640us       4.640us             1  
+                                         aten::new_ones         0.01%       6.462us         0.06%      46.122us      46.122us       0.000us         0.00%       4.320us       4.320us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       4.320us         0.01%       4.320us       4.320us             1  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       4.000us         0.01%       4.000us       4.000us             1  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us       3.840us         0.01%       3.840us       3.840us             1  
+                                             aten::rsub         0.01%       4.621us         0.07%      54.975us      54.975us       0.000us         0.00%       3.840us       3.840us             1  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       3.840us         0.01%       3.840us       3.840us             1  
+at::native::xpu::ElementwiseKernelWithIndexFunctor<i...         0.00%       0.000us         0.00%       0.000us       0.000us       3.680us         0.01%       3.680us       3.680us             1  
+                                             aten::ones         0.01%       5.870us         0.10%      71.732us      71.732us       0.000us         0.00%       3.040us       3.040us             1  
+                                               aten::ge         0.02%      12.251us         0.04%      32.772us      32.772us       2.560us         0.01%       2.560us       2.560us             1  
+                 Memcpy M2D (MEMORY(Unknown) -> DEVICE)         0.00%       0.000us         0.00%       0.000us       0.000us       1.040us         0.00%       1.040us       0.520us             2  
+                                            aten::empty         0.53%     389.434us         0.53%     389.434us       1.053us       0.000us         0.00%       0.000us       0.000us           370  
+                                    aten::empty_strided         0.39%     284.699us         0.39%     284.699us       1.217us       0.000us         0.00%       0.000us       0.000us           234  
+                                     urEnqueueUSMMemcpy         0.43%     315.873us         0.59%     433.381us      54.173us       0.000us         0.00%       0.000us       0.000us             8  
+                                zeMemGetAllocProperties         0.55%     405.111us         0.55%     405.111us       0.168us       0.000us         0.00%       0.000us       0.000us          2408  
+                                       zeEventHostReset         0.49%     362.419us         0.49%     362.419us       0.258us       0.000us         0.00%       0.000us       0.000us          1403  
+                          zeCommandListAppendMemoryCopy         0.13%      95.665us         0.13%      95.665us      11.958us       0.000us         0.00%       0.000us       0.000us             8  
+                                 zeEventHostSynchronize         0.14%      99.522us         0.14%      99.522us      12.440us       0.000us         0.00%       0.000us       0.000us             8  
+                                       aten::lift_fresh         0.01%       8.929us         0.01%       8.929us       0.135us       0.000us         0.00%       0.000us       0.000us            66  
+                                          aten::detach_         0.06%      42.534us         0.11%      79.750us       1.208us       0.000us         0.00%       0.000us       0.000us            66  
+                                                detach_         0.05%      37.216us         0.05%      37.216us       0.564us       0.000us         0.00%       0.000us       0.000us            66  
+                                           aten::select         0.04%      30.905us         0.05%      36.592us       9.148us       0.000us         0.00%       0.000us       0.000us             4  
+                                       aten::as_strided         0.42%     306.589us         0.42%     306.589us       0.478us       0.000us         0.00%       0.000us       0.000us           642  
+                                           aten::detach         0.00%       1.249us         0.01%       6.808us       6.808us       0.000us         0.00%       0.000us       0.000us             1  
+                                                 detach         0.01%       5.559us         0.01%       5.559us       5.559us       0.000us         0.00%       0.000us       0.000us             1  
+                       urEnqueueKernelLaunchWithArgsExp        46.32%      34.029ms        55.29%      40.614ms      29.093us       0.000us         0.00%       0.000us       0.000us          1396  
+                               zeKernelSetArgumentValue         2.13%       1.565ms         2.13%       1.565ms       0.160us       0.000us         0.00%       0.000us       0.000us          9753  
+                                   zeKernelSetGroupSize         0.09%      66.076us         0.09%      66.076us       0.047us       0.000us         0.00%       0.000us       0.000us          1396  
+                        zeCommandListAppendLaunchKernel         6.25%       4.594ms         6.25%       4.594ms       3.291us       0.000us         0.00%       0.000us       0.000us          1396  
+                                        aten::unsqueeze         0.20%     149.331us         0.26%     190.254us       1.409us       0.000us         0.00%       0.000us       0.000us           135  
+                                             aten::view         0.53%     387.542us         0.53%     387.542us       0.910us       0.000us         0.00%       0.000us       0.000us           426  
+                                  zeKernelGetProperties         0.06%      40.944us         0.06%      40.944us       0.499us       0.000us         0.00%       0.000us       0.000us            82  
+                                       aten::empty_like         0.05%      40.303us         0.11%      82.732us       2.236us       0.000us         0.00%       0.000us       0.000us            37  
+                                            aten::slice         0.35%     258.970us         0.43%     317.265us       2.385us       0.000us         0.00%       0.000us       0.000us           133  
+                                          aten::reshape         0.22%     163.462us         0.52%     385.478us       1.483us       0.000us         0.00%       0.000us       0.000us           260  
+                                          aten::resize_         0.09%      65.250us         0.09%      65.250us       0.282us       0.000us         0.00%       0.000us       0.000us           231  
+                                            aten::alias         0.01%       5.809us         0.01%       5.809us       5.809us       0.000us         0.00%       0.000us       0.000us             1  
+                                           aten::expand         0.02%      11.911us         0.02%      12.951us       3.238us       0.000us         0.00%       0.000us       0.000us             4  
+                                     aten::_unsafe_view         0.23%     166.416us         0.23%     166.416us       0.736us       0.000us         0.00%       0.000us       0.000us           226  
+                                        aten::transpose         0.45%     329.594us         0.72%     525.451us       1.484us       0.000us         0.00%       0.000us       0.000us           354  
+                                      aten::result_type         0.04%      28.883us         0.04%      28.883us       0.444us       0.000us         0.00%       0.000us       0.000us            65  
+                                                aten::t         0.55%     404.368us         0.92%     676.118us       3.005us       0.000us         0.00%       0.000us       0.000us           225  
+                                     zeEventQueryStatus         0.00%       3.498us         0.00%       3.498us       1.749us       0.000us         0.00%       0.000us       0.000us             2  
+                                          zeEventCreate         0.01%       4.329us         0.01%       4.329us       4.329us       0.000us         0.00%       0.000us       0.000us             1  
+                                        aten::new_empty         0.00%       1.559us         0.00%       2.641us       2.641us       0.000us         0.00%       0.000us       0.000us             1  
+                                          aten::view_as         0.00%       1.763us         0.00%       2.667us       2.667us       0.000us         0.00%       0.000us       0.000us             1  
+                                          aten::squeeze         0.01%       6.640us         0.01%       7.121us       7.121us       0.000us         0.00%       0.000us       0.000us             1  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 73.456ms
+Self XPU time total: 41.687ms
+
+datatype: torch.float16 ; i: 3
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg      Self XPU    Self XPU %     XPU total  XPU time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                           aten::matmul         0.72%     518.236us        30.13%      21.650ms      95.796us       0.000us         0.00%      31.560ms     139.645us           226  
+                                            gemm_kernel         0.00%       0.000us         0.00%       0.000us       0.000us      31.560ms        75.59%      31.560ms     139.645us           226  
+                                           aten::linear         0.31%     226.099us        31.07%      22.321ms      99.205us       0.000us         0.00%      31.552ms     140.229us           225  
+                                               aten::mm        14.52%      10.435ms        28.53%      20.494ms      91.084us      31.552ms        75.57%      31.552ms     140.229us           225  
+                                            aten::copy_         1.99%       1.426ms         8.40%       6.033ms      28.590us       2.164ms         5.18%       2.164ms      10.257us           211  
+                                               aten::to         0.20%     142.978us         8.94%       6.420ms      23.344us       0.000us         0.00%       2.115ms       7.689us           275  
+                                         aten::_to_copy         0.52%     375.969us         8.74%       6.277ms      31.227us       0.000us         0.00%       2.115ms      10.520us           201  
+                                              aten::cat         1.66%       1.194ms         5.88%       4.221ms      31.977us       1.824ms         4.37%       1.824ms      13.817us           132  
+at::native::xpu::CatArrayBatchedCopy<at::native::xpu...         0.00%       0.000us         0.00%       0.000us       0.000us       1.796ms         4.30%       1.796ms      14.029us           128  
+                                              aten::mul         3.67%       2.639ms        13.44%       9.656ms      32.842us       1.496ms         3.58%       1.496ms       5.087us           294  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us       1.051ms         2.52%       1.051ms      15.682us            67  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us       1.048ms         2.51%       1.048ms      15.884us            66  
+                                              aten::add         2.85%       2.049ms         9.68%       6.953ms      35.473us     981.760us         2.35%     981.760us       5.009us           196  
+                                             aten::mean         3.87%       2.781ms         6.39%       4.594ms      70.674us     914.240us         2.19%     914.240us      14.065us            65  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us     914.240us         2.19%     914.240us      14.065us            65  
+                                             aten::topk         0.05%      35.984us         0.17%     122.359us     122.359us     739.520us         1.77%     739.520us     739.520us             1  
+at::native::xpu::SegmentedGroupRadixSelectPairsFunct...         0.00%       0.000us         0.00%       0.000us       0.000us     710.880us         1.70%     710.880us     710.880us             1  
+at::native::xpu::VectorizedElementwiseKernel<8, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     531.360us         1.27%     531.360us       4.119us           129  
+at::native::xpu::VectorizedElementwiseKernel<8, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     448.800us         1.08%     448.800us       7.012us            64  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us     356.000us         0.85%     356.000us       5.477us            65  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us     337.280us         0.81%     337.280us       5.270us            64  
+                     aten::scaled_dot_product_attention         0.26%     186.356us         4.57%       3.284ms     102.621us       0.000us         0.00%     329.600us      10.300us            32  
+aten::_scaled_dot_product_fused_attention_overrideab...         2.39%       1.721ms         4.31%       3.098ms      96.798us     329.600us         0.79%     329.600us      10.300us            32  
+                                             micro_sdpa         0.00%       0.000us         0.00%       0.000us       0.000us     329.600us         0.79%     329.600us      10.300us            32  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us     301.760us         0.72%     301.760us       4.715us            64  
+                                             aten::silu         0.50%     360.974us         1.49%       1.070ms      33.430us     269.600us         0.65%     269.600us       8.425us            32  
+at::native::xpu::VectorizedElementwiseKernel<8, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     269.600us         0.65%     269.600us       8.425us            32  
+                                              aten::neg         0.82%     589.450us         2.73%       1.958ms      30.593us     258.720us         0.62%     258.720us       4.042us            64  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us     258.720us         0.62%     258.720us       4.042us            64  
+                                              aten::pow         1.04%     747.195us         3.34%       2.399ms      36.911us     256.640us         0.61%     256.640us       3.948us            65  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     256.640us         0.61%     256.640us       3.948us            65  
+at::native::xpu::VectorizedElementwiseKernel<8, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     254.720us         0.61%     254.720us       7.960us            32  
+                                            aten::rsqrt         0.76%     549.199us         3.10%       2.226ms      34.246us     225.600us         0.54%     225.600us       3.471us            65  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     225.600us         0.54%     225.600us       3.471us            65  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     218.240us         0.52%     218.240us       3.358us            65  
+                                      aten::multinomial         0.05%      33.730us         0.90%     647.161us     647.161us       0.000us         0.00%     152.000us     152.000us             1  
+                                             aten::sort         0.19%     134.978us         1.81%       1.302ms       1.302ms     149.600us         0.36%     151.520us     151.520us             1  
+                                          aten::softmax         0.01%       4.990us         0.32%     229.048us     114.524us       0.000us         0.00%     109.440us      54.720us             2  
+                                         aten::_softmax         0.18%     129.599us         0.31%     224.058us     112.029us     109.440us         0.26%     109.440us      54.720us             2  
+at::native::xpu::impl::SoftmaxForwardKernelFunctor<4...         0.00%       0.000us         0.00%       0.000us       0.000us     109.440us         0.26%     109.440us      54.720us             2  
+at::native::xpu::SegmentedRadixSortPairsDownsweepFun...         0.00%       0.000us         0.00%       0.000us       0.000us      81.120us         0.19%      81.120us      10.140us             8  
+                                             aten::isin         0.05%      37.416us         0.86%     616.216us     308.108us       0.000us         0.00%      72.160us      36.080us             2  
+                                              aten::any         0.30%     218.258us         0.56%     403.857us      67.310us      55.840us         0.13%      64.000us      10.667us             6  
+                                           aten::argmax         0.05%      38.907us         0.10%      74.691us      74.691us      49.280us         0.12%      49.280us      49.280us             1  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      49.280us         0.12%      49.280us      49.280us             1  
+                                      aten::bitwise_and         0.04%      31.683us         0.14%     100.522us      50.261us      41.760us         0.10%      41.760us      20.880us             2  
+at::native::xpu::SegmentedRadixSortPairsUpsweepFunct...         0.00%       0.000us         0.00%       0.000us       0.000us      40.800us         0.10%      40.800us       5.100us             8  
+                                            aten::fill_         0.17%     118.719us         0.55%     395.971us      49.496us      38.560us         0.09%      38.560us       4.820us             8  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      36.480us         0.09%      36.480us      12.160us             3  
+                                           aten::cumsum         0.18%     131.121us         0.45%     324.952us     162.476us      33.440us         0.08%      33.440us      16.720us             2  
+                                          aten::__and__         0.00%       1.502us         0.07%      50.465us      50.465us       0.000us         0.00%      33.280us      33.280us             1  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us      33.280us         0.08%      33.280us      33.280us             1  
+at::native::xpu::VectorizedElementwiseKernel<16, at:...         0.00%       0.000us         0.00%       0.000us       0.000us      30.880us         0.07%      30.880us       5.147us             6  
+at::native::xpu::SegmentedGroupRadixSortPairsFunctor...         0.00%       0.000us         0.00%       0.000us       0.000us      28.640us         0.07%      28.640us      28.640us             1  
+at::native::xpu::SegmentedRadixSortPairsScanFunctor<...         0.00%       0.000us         0.00%       0.000us       0.000us      27.680us         0.07%      27.680us       3.460us             8  
+                                          aten::aminmax         0.06%      41.885us         0.11%      79.156us      79.156us      27.520us         0.07%      27.520us      27.520us             1  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      27.520us         0.07%      27.520us      27.520us             1  
+at::native::xpu::VectorizedElementwiseKernel<16, at:...         0.00%       0.000us         0.00%       0.000us       0.000us      27.360us         0.07%      27.360us       6.840us             4  
+                                              aten::sum         0.06%      44.133us         0.11%      81.409us      81.409us      25.920us         0.06%      25.920us      25.920us             1  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      25.920us         0.06%      25.920us      25.920us             1  
+                                               aten::eq         0.12%      89.685us         0.30%     213.637us      42.727us      25.920us         0.06%      25.920us       5.184us             5  
+                                      aten::masked_fill         0.02%      14.759us         0.37%     267.195us      89.065us       0.000us         0.00%      25.760us       8.587us             3  
+at::native::xpu::ReduceKernel<2, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      19.360us         0.05%      19.360us      19.360us             1  
+                                               aten::lt         0.07%      50.028us         0.18%     131.702us      43.901us      18.400us         0.04%      18.400us       6.133us             3  
+                                          aten::scatter         0.07%      53.360us         0.16%     114.248us     114.248us       9.600us         0.02%      18.080us      18.080us             1  
+at::native::xpu::CatArrayBatchedCopy_contig<at::nati...         0.00%       0.000us         0.00%       0.000us       0.000us      17.440us         0.04%      17.440us       5.813us             3  
+                                            aten::clone         0.02%      12.056us         0.24%     171.949us      42.987us       0.000us         0.00%      16.160us       4.040us             4  
+at::native::xpu::SegmentScanKernel<at::native::xpu::...         0.00%       0.000us         0.00%       0.000us       0.000us      14.560us         0.03%      14.560us      14.560us             1  
+                                           aten::__or__         0.00%       2.914us         0.10%      73.084us      36.542us       0.000us         0.00%      14.560us       7.280us             2  
+                                       aten::bitwise_or         0.04%      25.378us         0.10%      70.170us      35.085us      14.560us         0.03%      14.560us       7.280us             2  
+at::native::xpu::VectorizedElementwiseKernel<16, at:...         0.00%       0.000us         0.00%       0.000us       0.000us      14.560us         0.03%      14.560us       7.280us             2  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us      14.240us         0.03%      14.240us       7.120us             2  
+                                              aten::max         0.06%      45.058us         0.11%      82.542us      82.542us      14.240us         0.03%      14.240us      14.240us             1  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      14.240us         0.03%      14.240us      14.240us             1  
+                                     aten::masked_fill_         0.06%      41.255us         0.17%     123.206us      41.069us      12.800us         0.03%      12.800us       4.267us             3  
+                                              aten::all         0.09%      61.146us         0.13%      92.403us      92.403us      12.320us         0.03%      12.320us      12.320us             1  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      12.320us         0.03%      12.320us      12.320us             1  
+                                      aten::bitwise_not         0.03%      22.024us         0.09%      67.582us      33.791us      11.840us         0.03%      11.840us       5.920us             2  
+at::native::xpu::VectorizedElementwiseKernel<16, at:...         0.00%       0.000us         0.00%       0.000us       0.000us      11.840us         0.03%      11.840us       5.920us             2  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us      11.360us         0.03%      11.360us       5.680us             2  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us      10.720us         0.03%      10.720us       3.573us             3  
+at::native::xpu::CatArrayBatchedCopy<at::native::xpu...         0.00%       0.000us         0.00%       0.000us       0.000us      10.720us         0.03%      10.720us      10.720us             1  
+                                              aten::div         0.05%      38.217us         0.15%     104.599us      52.300us      10.400us         0.02%      10.400us       5.200us             2  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us      10.080us         0.02%      10.080us       5.040us             2  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us       9.600us         0.02%       9.600us       9.600us             1  
+                                              aten::cos         0.03%      19.600us         0.06%      43.259us      43.259us       9.600us         0.02%       9.600us       9.600us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       9.600us         0.02%       9.600us       9.600us             1  
+at::native::xpu::ScatterGatherElementwiseKernelFunct...         0.00%       0.000us         0.00%       0.000us       0.000us       9.600us         0.02%       9.600us       9.600us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       9.280us         0.02%       9.280us       3.093us             3  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       9.120us         0.02%       9.120us       4.560us             2  
+                                              aten::sin         0.02%      17.773us         0.06%      41.930us      41.930us       8.800us         0.02%       8.800us       8.800us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       8.800us         0.02%       8.800us       8.800us             1  
+                                             aten::item         0.01%       8.217us         0.58%     419.835us      69.972us       0.000us         0.00%       8.800us       1.467us             6  
+                              aten::_local_scalar_dense         0.24%     169.840us         0.57%     411.618us      68.603us       8.800us         0.02%       8.800us       1.467us             6  
+                 Memcpy D2M (DEVICE -> MEMORY(Unknown))         0.00%       0.000us         0.00%       0.000us       0.000us       8.800us         0.02%       8.800us       1.467us             6  
+                                     aten::exponential_         0.02%      16.856us         0.06%      44.868us      44.868us       8.640us         0.02%       8.640us       8.640us             1  
+at::native::xpu::DistributionElementwiseKernelFuncto...         0.00%       0.000us         0.00%       0.000us       0.000us       8.640us         0.02%       8.640us       8.640us             1  
+at::native::xpu::VectorizedElementwiseKernel<16, at:...         0.00%       0.000us         0.00%       0.000us       0.000us       8.480us         0.02%       8.480us       8.480us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       8.480us         0.02%       8.480us       4.240us             2  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       8.320us         0.02%       8.320us       4.160us             2  
+                                              aten::bmm         0.22%     156.097us         0.27%     194.753us     194.753us       8.160us         0.02%       8.160us       8.160us             1  
+                                              aten::sub         0.05%      38.207us         0.13%      93.048us      46.524us       8.000us         0.02%       8.000us       4.000us             2  
+at::native::xpu::SegmentScanKernel<at::native::xpu::...         0.00%       0.000us         0.00%       0.000us       0.000us       7.840us         0.02%       7.840us       7.840us             1  
+                                             aten::full         0.01%       4.165us         0.08%      60.886us      30.443us       0.000us         0.00%       7.840us       3.920us             2  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       7.680us         0.02%       7.680us       3.840us             2  
+                                        aten::embedding         0.01%       9.663us         0.11%      75.949us      75.949us       0.000us         0.00%       7.520us       7.520us             1  
+                                     aten::index_select         0.04%      25.628us         0.09%      62.193us      62.193us       7.520us         0.02%       7.520us       7.520us             1  
+at::native::xpu::IndexKernel<at::native::xpu::IndexK...         0.00%       0.000us         0.00%       0.000us       0.000us       7.520us         0.02%       7.520us       7.520us             1  
+                                           aten::arange         0.03%      20.165us         0.20%     142.280us      71.140us       3.680us         0.01%       7.360us       3.680us             2  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       7.360us         0.02%       7.360us       3.680us             2  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       7.200us         0.02%       7.200us       3.600us             2  
+                                       aten::is_nonzero         0.01%       5.863us         0.53%     383.001us      76.600us       0.000us         0.00%       6.640us       1.328us             5  
+                                    aten::_assert_async         0.02%      16.401us         0.09%      62.369us      31.185us       6.400us         0.02%       6.400us       3.200us             2  
+       at::native::xpu::AssertAsyncKernelFunctor1<bool>         0.00%       0.000us         0.00%       0.000us       0.000us       6.400us         0.02%       6.400us       3.200us             2  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       6.240us         0.01%       6.240us       6.240us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       5.760us         0.01%       5.760us       5.760us             1  
+at::native::xpu::SegmentScanKernel<at::native::xpu::...         0.00%       0.000us         0.00%       0.000us       0.000us       5.760us         0.01%       5.760us       5.760us             1  
+at::native::xpu::AccumulateCarrierKernelFunctor<at::...         0.00%       0.000us         0.00%       0.000us       0.000us       5.280us         0.01%       5.280us       5.280us             1  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us       4.800us         0.01%       4.800us       4.800us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       4.640us         0.01%       4.640us       4.640us             1  
+                                    aten::scalar_tensor         0.01%       3.594us         0.06%      44.927us      44.927us       0.000us         0.00%       4.480us       4.480us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       4.480us         0.01%       4.480us       4.480us             1  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       4.320us         0.01%       4.320us       4.320us             1  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       4.320us         0.01%       4.320us       4.320us             1  
+                                               aten::le         0.03%      20.715us         0.08%      55.963us      55.963us       4.320us         0.01%       4.320us       4.320us             1  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us       4.160us         0.01%       4.160us       4.160us             1  
+                                             aten::ones         0.01%       5.091us         0.09%      61.715us      61.715us       0.000us         0.00%       4.000us       4.000us             1  
+at::native::xpu::ElementwiseKernelWithIndexFunctor<i...         0.00%       0.000us         0.00%       0.000us       0.000us       3.680us         0.01%       3.680us       3.680us             1  
+                                         aten::new_ones         0.01%       5.041us         0.06%      44.501us      44.501us       0.000us         0.00%       3.680us       3.680us             1  
+                                             aten::rsub         0.01%       4.841us         0.06%      44.984us      44.984us       0.000us         0.00%       3.520us       3.520us             1  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       3.520us         0.01%       3.520us       3.520us             1  
+                                               aten::ge         0.02%      12.284us         0.04%      31.703us      31.703us       2.400us         0.01%       2.400us       2.400us             1  
+                 Memcpy M2D (MEMORY(Unknown) -> DEVICE)         0.00%       0.000us         0.00%       0.000us       0.000us       1.280us         0.00%       1.280us       0.640us             2  
+                                            aten::empty         0.52%     375.636us         0.52%     375.636us       1.015us       0.000us         0.00%       0.000us       0.000us           370  
+                                    aten::empty_strided         0.37%     267.067us         0.37%     267.067us       1.141us       0.000us         0.00%       0.000us       0.000us           234  
+                                     urEnqueueUSMMemcpy         0.98%     705.170us         1.12%     807.249us     100.906us       0.000us         0.00%       0.000us       0.000us             8  
+                                zeMemGetAllocProperties         0.37%     266.939us         0.37%     266.939us       0.111us       0.000us         0.00%       0.000us       0.000us          2408  
+                                       zeEventHostReset         0.52%     375.338us         0.52%     375.338us       0.267us       0.000us         0.00%       0.000us       0.000us          1404  
+                          zeCommandListAppendMemoryCopy         0.13%      90.558us         0.13%      90.558us      11.320us       0.000us         0.00%       0.000us       0.000us             8  
+                                 zeEventHostSynchronize         0.13%      94.853us         0.13%      94.853us      11.857us       0.000us         0.00%       0.000us       0.000us             8  
+                                       aten::lift_fresh         0.01%       8.661us         0.01%       8.661us       0.131us       0.000us         0.00%       0.000us       0.000us            66  
+                                          aten::detach_         0.06%      42.328us         0.11%      78.664us       1.192us       0.000us         0.00%       0.000us       0.000us            66  
+                                                detach_         0.05%      36.336us         0.05%      36.336us       0.551us       0.000us         0.00%       0.000us       0.000us            66  
+                                           aten::select         0.04%      26.673us         0.04%      31.672us       7.918us       0.000us         0.00%       0.000us       0.000us             4  
+                                       aten::as_strided         0.49%     351.491us         0.49%     351.491us       0.547us       0.000us         0.00%       0.000us       0.000us           642  
+                                           aten::detach         0.00%       1.186us         0.01%       6.342us       6.342us       0.000us         0.00%       0.000us       0.000us             1  
+                                                 detach         0.01%       5.156us         0.01%       5.156us       5.156us       0.000us         0.00%       0.000us       0.000us             1  
+                       urEnqueueKernelLaunchWithArgsExp        46.93%      33.716ms        55.19%      39.651ms      28.403us       0.000us         0.00%       0.000us       0.000us          1396  
+                               zeKernelSetArgumentValue         1.81%       1.299ms         1.81%       1.299ms       0.133us       0.000us         0.00%       0.000us       0.000us          9753  
+                                   zeKernelSetGroupSize         0.09%      64.263us         0.09%      64.263us       0.046us       0.000us         0.00%       0.000us       0.000us          1396  
+                        zeCommandListAppendLaunchKernel         5.85%       4.201ms         5.85%       4.201ms       3.009us       0.000us         0.00%       0.000us       0.000us          1396  
+                                        aten::unsqueeze         0.21%     149.433us         0.26%     186.706us       1.383us       0.000us         0.00%       0.000us       0.000us           135  
+                                             aten::view         0.52%     374.019us         0.52%     374.019us       0.878us       0.000us         0.00%       0.000us       0.000us           426  
+                                  zeKernelGetProperties         0.05%      36.868us         0.05%      36.868us       0.450us       0.000us         0.00%       0.000us       0.000us            82  
+                                       aten::empty_like         0.06%      40.288us         0.11%      81.429us       2.201us       0.000us         0.00%       0.000us       0.000us            37  
+                                            aten::slice         0.36%     259.448us         0.44%     316.761us       2.382us       0.000us         0.00%       0.000us       0.000us           133  
+                                          aten::reshape         0.19%     135.939us         0.49%     348.661us       1.341us       0.000us         0.00%       0.000us       0.000us           260  
+                                          aten::resize_         0.10%      70.595us         0.10%      70.595us       0.306us       0.000us         0.00%       0.000us       0.000us           231  
+                                            aten::alias         0.01%       5.351us         0.01%       5.351us       5.351us       0.000us         0.00%       0.000us       0.000us             1  
+                                           aten::expand         0.02%      11.517us         0.02%      12.522us       3.130us       0.000us         0.00%       0.000us       0.000us             4  
+                                     aten::_unsafe_view         0.23%     162.090us         0.23%     162.090us       0.717us       0.000us         0.00%       0.000us       0.000us           226  
+                                        aten::transpose         0.45%     325.327us         0.79%     566.144us       1.599us       0.000us         0.00%       0.000us       0.000us           354  
+                                      aten::result_type         0.04%      28.593us         0.04%      28.593us       0.440us       0.000us         0.00%       0.000us       0.000us            65  
+                                                aten::t         0.48%     345.611us         0.92%     662.199us       2.943us       0.000us         0.00%       0.000us       0.000us           225  
+                                     zeEventQueryStatus         0.00%       1.793us         0.00%       1.793us       1.793us       0.000us         0.00%       0.000us       0.000us             1  
+                                        aten::new_empty         0.00%       1.414us         0.00%       2.482us       2.482us       0.000us         0.00%       0.000us       0.000us             1  
+                                          aten::view_as         0.00%       1.378us         0.00%       2.244us       2.244us       0.000us         0.00%       0.000us       0.000us             1  
+                                          aten::squeeze         0.01%       6.632us         0.02%      12.535us      12.535us       0.000us         0.00%       0.000us       0.000us             1  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 71.844ms
+Self XPU time total: 41.749ms
+
+datatype: torch.float16 ; i: 4
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg      Self XPU    Self XPU %     XPU total  XPU time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                           aten::matmul         0.72%     519.784us        29.84%      21.557ms      95.385us       0.000us         0.00%      31.409ms     138.976us           226  
+                                            gemm_kernel         0.00%       0.000us         0.00%       0.000us       0.000us      31.409ms        75.67%      31.409ms     138.976us           226  
+                                           aten::linear         0.32%     229.822us        30.79%      22.247ms      98.876us       0.000us         0.00%      31.401ms     139.558us           225  
+                                               aten::mm        14.55%      10.514ms        28.22%      20.387ms      90.610us      31.401ms        75.65%      31.401ms     139.558us           225  
+                                            aten::copy_         1.96%       1.415ms         8.56%       6.186ms      29.318us       2.144ms         5.16%       2.144ms      10.160us           211  
+                                               aten::to         0.21%     154.078us         9.10%       6.572ms      23.897us       0.000us         0.00%       2.095ms       7.619us           275  
+                                         aten::_to_copy         0.53%     379.400us         8.88%       6.418ms      31.929us       0.000us         0.00%       2.095ms      10.423us           201  
+                                              aten::cat         1.64%       1.188ms         5.83%       4.212ms      31.908us       1.823ms         4.39%       1.823ms      13.812us           132  
+at::native::xpu::CatArrayBatchedCopy<at::native::xpu...         0.00%       0.000us         0.00%       0.000us       0.000us       1.795ms         4.33%       1.795ms      14.025us           128  
+                                              aten::mul         3.65%       2.639ms        13.33%       9.628ms      32.747us       1.479ms         3.56%       1.479ms       5.030us           294  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us       1.043ms         2.51%       1.043ms      15.808us            66  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us       1.037ms         2.50%       1.037ms      15.479us            67  
+                                              aten::add         2.85%       2.056ms         9.58%       6.921ms      35.310us     995.680us         2.40%     995.680us       5.080us           196  
+                                             aten::mean         3.85%       2.778ms         6.81%       4.918ms      75.667us     896.320us         2.16%     896.320us      13.790us            65  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us     896.320us         2.16%     896.320us      13.790us            65  
+                                             aten::topk         0.05%      37.105us         0.15%     111.238us     111.238us     743.520us         1.79%     743.520us     743.520us             1  
+at::native::xpu::SegmentedGroupRadixSelectPairsFunct...         0.00%       0.000us         0.00%       0.000us       0.000us     715.200us         1.72%     715.200us     715.200us             1  
+at::native::xpu::VectorizedElementwiseKernel<8, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     508.160us         1.22%     508.160us       3.939us           129  
+at::native::xpu::VectorizedElementwiseKernel<8, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     465.280us         1.12%     465.280us       7.270us            64  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us     364.480us         0.88%     364.480us       5.607us            65  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us     335.520us         0.81%     335.520us       5.242us            64  
+                     aten::scaled_dot_product_attention         0.26%     188.803us         4.61%       3.328ms     103.989us       0.000us         0.00%     327.200us      10.225us            32  
+aten::_scaled_dot_product_fused_attention_overrideab...         2.37%       1.714ms         4.34%       3.139ms      98.089us     327.200us         0.79%     327.200us      10.225us            32  
+                                             micro_sdpa         0.00%       0.000us         0.00%       0.000us       0.000us     327.200us         0.79%     327.200us      10.225us            32  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us     301.760us         0.73%     301.760us       4.715us            64  
+                                             aten::silu         0.50%     363.173us         1.47%       1.061ms      33.145us     266.560us         0.64%     266.560us       8.330us            32  
+at::native::xpu::VectorizedElementwiseKernel<8, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     266.560us         0.64%     266.560us       8.330us            32  
+                                              aten::pow         1.03%     747.424us         3.32%       2.397ms      36.870us     255.360us         0.62%     255.360us       3.929us            65  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     255.360us         0.62%     255.360us       3.929us            65  
+at::native::xpu::VectorizedElementwiseKernel<8, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     253.920us         0.61%     253.920us       7.935us            32  
+                                              aten::neg         0.81%     581.976us         2.69%       1.947ms      30.414us     253.440us         0.61%     253.440us       3.960us            64  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us     253.440us         0.61%     253.440us       3.960us            64  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     215.360us         0.52%     215.360us       3.313us            65  
+                                            aten::rsqrt         0.77%     554.918us         3.14%       2.268ms      34.897us     207.680us         0.50%     207.680us       3.195us            65  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us     207.680us         0.50%     207.680us       3.195us            65  
+                                             aten::sort         0.19%     136.669us         1.81%       1.310ms       1.310ms     150.720us         0.36%     153.760us     153.760us             1  
+                                      aten::multinomial         0.05%      34.307us         0.80%     579.692us     579.692us       0.000us         0.00%     149.600us     149.600us             1  
+                                          aten::softmax         0.01%       5.200us         0.29%     212.606us     106.303us       0.000us         0.00%     109.760us      54.880us             2  
+                                         aten::_softmax         0.17%     122.141us         0.29%     207.406us     103.703us     109.760us         0.26%     109.760us      54.880us             2  
+at::native::xpu::impl::SoftmaxForwardKernelFunctor<4...         0.00%       0.000us         0.00%       0.000us       0.000us     109.760us         0.26%     109.760us      54.880us             2  
+at::native::xpu::SegmentedRadixSortPairsDownsweepFun...         0.00%       0.000us         0.00%       0.000us       0.000us      80.960us         0.20%      80.960us      10.120us             8  
+                                             aten::isin         0.06%      43.407us         0.87%     625.017us     312.508us       0.000us         0.00%      73.440us      36.720us             2  
+                                              aten::any         0.30%     216.128us         0.54%     393.319us      65.553us      55.040us         0.13%      62.400us      10.400us             6  
+                                           aten::argmax         0.04%      32.463us         0.08%      58.207us      58.207us      47.040us         0.11%      47.040us      47.040us             1  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      47.040us         0.11%      47.040us      47.040us             1  
+at::native::xpu::SegmentedRadixSortPairsUpsweepFunct...         0.00%       0.000us         0.00%       0.000us       0.000us      41.760us         0.10%      41.760us       5.220us             8  
+                                            aten::fill_         0.17%     120.139us         0.55%     396.112us      49.514us      38.240us         0.09%      38.240us       4.780us             8  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      36.000us         0.09%      36.000us      12.000us             3  
+                                           aten::cumsum         0.18%     132.875us         0.47%     339.617us     169.808us      33.600us         0.08%      33.600us      16.800us             2  
+at::native::xpu::VectorizedElementwiseKernel<16, at:...         0.00%       0.000us         0.00%       0.000us       0.000us      30.880us         0.07%      30.880us       5.147us             6  
+at::native::xpu::SegmentedGroupRadixSortPairsFunctor...         0.00%       0.000us         0.00%       0.000us       0.000us      28.320us         0.07%      28.320us      28.320us             1  
+at::native::xpu::SegmentedRadixSortPairsScanFunctor<...         0.00%       0.000us         0.00%       0.000us       0.000us      28.000us         0.07%      28.000us       3.500us             8  
+                                          aten::aminmax         0.06%      41.837us         0.10%      69.486us      69.486us      27.040us         0.07%      27.040us      27.040us             1  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      27.040us         0.07%      27.040us      27.040us             1  
+                                      aten::masked_fill         0.02%      14.697us         0.38%     275.129us      91.710us       0.000us         0.00%      26.880us       8.960us             3  
+                                              aten::sum         0.06%      41.684us         0.09%      68.108us      68.108us      25.440us         0.06%      25.440us      25.440us             1  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      25.440us         0.06%      25.440us      25.440us             1  
+at::native::xpu::VectorizedElementwiseKernel<16, at:...         0.00%       0.000us         0.00%       0.000us       0.000us      25.120us         0.06%      25.120us       6.280us             4  
+                                               aten::eq         0.13%      90.830us         0.30%     216.594us      43.319us      25.120us         0.06%      25.120us       5.024us             5  
+at::native::xpu::ReduceKernel<2, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      19.040us         0.05%      19.040us      19.040us             1  
+                                      aten::bitwise_and         0.04%      29.878us         0.11%      79.193us      39.597us      19.040us         0.05%      19.040us       9.520us             2  
+                                               aten::lt         0.07%      48.863us         0.18%     130.172us      43.391us      18.080us         0.04%      18.080us       6.027us             3  
+at::native::xpu::CatArrayBatchedCopy_contig<at::nati...         0.00%       0.000us         0.00%       0.000us       0.000us      17.920us         0.04%      17.920us       5.973us             3  
+                                          aten::scatter         0.07%      53.377us         0.15%     107.889us     107.889us      10.400us         0.03%      17.600us      17.600us             1  
+                                            aten::clone         0.02%      12.605us         0.25%     179.640us      44.910us       0.000us         0.00%      16.480us       4.120us             4  
+at::native::xpu::SegmentScanKernel<at::native::xpu::...         0.00%       0.000us         0.00%       0.000us       0.000us      14.560us         0.04%      14.560us      14.560us             1  
+                                           aten::__or__         0.00%       2.922us         0.10%      73.166us      36.583us       0.000us         0.00%      14.560us       7.280us             2  
+                                       aten::bitwise_or         0.04%      27.710us         0.10%      70.244us      35.122us      14.560us         0.04%      14.560us       7.280us             2  
+at::native::xpu::VectorizedElementwiseKernel<16, at:...         0.00%       0.000us         0.00%       0.000us       0.000us      14.560us         0.04%      14.560us       7.280us             2  
+                                              aten::max         0.06%      41.691us         0.10%      70.473us      70.473us      14.080us         0.03%      14.080us      14.080us             1  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      14.080us         0.03%      14.080us      14.080us             1  
+                                     aten::masked_fill_         0.06%      41.266us         0.17%     122.376us      40.792us      13.760us         0.03%      13.760us       4.587us             3  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us      13.600us         0.03%      13.600us       6.800us             2  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us      11.840us         0.03%      11.840us       5.920us             2  
+                                              aten::all         0.08%      61.077us         0.13%      93.953us      93.953us      11.680us         0.03%      11.680us      11.680us             1  
+at::native::xpu::ReduceKernel<1, at::native::xpu::Re...         0.00%       0.000us         0.00%       0.000us       0.000us      11.680us         0.03%      11.680us      11.680us             1  
+                                      aten::bitwise_not         0.03%      22.605us         0.09%      64.164us      32.082us      11.360us         0.03%      11.360us       5.680us             2  
+at::native::xpu::VectorizedElementwiseKernel<16, at:...         0.00%       0.000us         0.00%       0.000us       0.000us      11.360us         0.03%      11.360us       5.680us             2  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us      11.360us         0.03%      11.360us       3.787us             3  
+                                          aten::__and__         0.00%       1.603us         0.06%      40.973us      40.973us       0.000us         0.00%      11.040us      11.040us             1  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us      11.040us         0.03%      11.040us      11.040us             1  
+                                              aten::div         0.05%      35.470us         0.13%      93.482us      46.741us      10.880us         0.03%      10.880us       5.440us             2  
+at::native::xpu::ScatterGatherElementwiseKernelFunct...         0.00%       0.000us         0.00%       0.000us       0.000us      10.400us         0.03%      10.400us      10.400us             1  
+at::native::xpu::CatArrayBatchedCopy<at::native::xpu...         0.00%       0.000us         0.00%       0.000us       0.000us      10.080us         0.02%      10.080us      10.080us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       9.760us         0.02%       9.760us       3.253us             3  
+                                              aten::cos         0.03%      21.557us         0.06%      45.813us      45.813us       9.280us         0.02%       9.280us       9.280us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       9.280us         0.02%       9.280us       9.280us             1  
+                                     aten::exponential_         0.02%      16.562us         0.06%      40.666us      40.666us       9.280us         0.02%       9.280us       9.280us             1  
+at::native::xpu::DistributionElementwiseKernelFuncto...         0.00%       0.000us         0.00%       0.000us       0.000us       9.280us         0.02%       9.280us       9.280us             1  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       9.280us         0.02%       9.280us       4.640us             2  
+at::native::xpu::ElementwiseGlobalRangeKernel<at::na...         0.00%       0.000us         0.00%       0.000us       0.000us       8.960us         0.02%       8.960us       8.960us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       8.960us         0.02%       8.960us       4.480us             2  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       8.800us         0.02%       8.800us       4.400us             2  
+                                              aten::sin         0.02%      16.059us         0.06%      39.901us      39.901us       8.640us         0.02%       8.640us       8.640us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       8.640us         0.02%       8.640us       8.640us             1  
+                                             aten::item         0.01%       9.227us         0.70%     505.978us      84.330us       0.000us         0.00%       8.560us       1.427us             6  
+                              aten::_local_scalar_dense         0.35%     249.978us         0.69%     496.751us      82.792us       8.560us         0.02%       8.560us       1.427us             6  
+                 Memcpy D2M (DEVICE -> MEMORY(Unknown))         0.00%       0.000us         0.00%       0.000us       0.000us       8.560us         0.02%       8.560us       1.427us             6  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       8.480us         0.02%       8.480us       4.240us             2  
+                                        aten::embedding         0.01%       9.337us         0.10%      73.713us      73.713us       0.000us         0.00%       8.320us       8.320us             1  
+                                     aten::index_select         0.03%      24.350us         0.08%      60.626us      60.626us       8.320us         0.02%       8.320us       8.320us             1  
+at::native::xpu::IndexKernel<at::native::xpu::IndexK...         0.00%       0.000us         0.00%       0.000us       0.000us       8.320us         0.02%       8.320us       8.320us             1  
+                                              aten::sub         0.06%      40.966us         0.14%      97.747us      48.873us       8.320us         0.02%       8.320us       4.160us             2  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       8.160us         0.02%       8.160us       4.080us             2  
+                                              aten::bmm         0.21%     154.983us         0.27%     192.594us     192.594us       8.000us         0.02%       8.000us       8.000us             1  
+at::native::xpu::VectorizedElementwiseKernel<16, at:...         0.00%       0.000us         0.00%       0.000us       0.000us       8.000us         0.02%       8.000us       8.000us             1  
+at::native::xpu::SegmentScanKernel<at::native::xpu::...         0.00%       0.000us         0.00%       0.000us       0.000us       7.840us         0.02%       7.840us       7.840us             1  
+                                             aten::full         0.01%       3.948us         0.09%      64.698us      32.349us       0.000us         0.00%       7.840us       3.920us             2  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       7.520us         0.02%       7.520us       3.760us             2  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       7.360us         0.02%       7.360us       3.680us             2  
+                                           aten::arange         0.03%      21.034us         0.18%     127.559us      63.779us       3.680us         0.01%       7.360us       3.680us             2  
+                                       aten::is_nonzero         0.01%       6.352us         0.65%     466.958us      93.392us       0.000us         0.00%       6.480us       1.296us             5  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       6.400us         0.02%       6.400us       6.400us             1  
+                                    aten::_assert_async         0.02%      15.443us         0.08%      54.806us      27.403us       6.400us         0.02%       6.400us       3.200us             2  
+       at::native::xpu::AssertAsyncKernelFunctor1<bool>         0.00%       0.000us         0.00%       0.000us       0.000us       6.400us         0.02%       6.400us       3.200us             2  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       6.240us         0.02%       6.240us       6.240us             1  
+at::native::xpu::SegmentScanKernel<at::native::xpu::...         0.00%       0.000us         0.00%       0.000us       0.000us       5.920us         0.01%       5.920us       5.920us             1  
+at::native::xpu::AccumulateCarrierKernelFunctor<at::...         0.00%       0.000us         0.00%       0.000us       0.000us       5.280us         0.01%       5.280us       5.280us             1  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us       4.960us         0.01%       4.960us       4.960us             1  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       4.800us         0.01%       4.800us       4.800us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       4.640us         0.01%       4.640us       4.640us             1  
+                                               aten::le         0.03%      21.788us         0.08%      58.973us      58.973us       4.480us         0.01%       4.480us       4.480us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       4.480us         0.01%       4.480us       4.480us             1  
+                                    aten::scalar_tensor         0.01%       3.783us         0.06%      41.703us      41.703us       0.000us         0.00%       4.160us       4.160us             1  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       4.160us         0.01%       4.160us       4.160us             1  
+at::native::xpu::UnrolledElementwiseKernel<at::nativ...         0.00%       0.000us         0.00%       0.000us       0.000us       4.000us         0.01%       4.000us       4.000us             1  
+                                             aten::rsub         0.01%       4.622us         0.06%      45.773us      45.773us       0.000us         0.00%       4.000us       4.000us             1  
+at::native::xpu::VectorizedElementwiseKernel<2, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       4.000us         0.01%       4.000us       4.000us             1  
+                                         aten::new_ones         0.01%       5.139us         0.06%      43.518us      43.518us       0.000us         0.00%       3.840us       3.840us             1  
+at::native::xpu::ElementwiseKernelWithIndexFunctor<i...         0.00%       0.000us         0.00%       0.000us       0.000us       3.680us         0.01%       3.680us       3.680us             1  
+                                             aten::ones         0.01%       5.590us         0.08%      55.960us      55.960us       0.000us         0.00%       3.520us       3.520us             1  
+                                               aten::ge         0.02%      12.820us         0.05%      33.364us      33.364us       2.560us         0.01%       2.560us       2.560us             1  
+                 Memcpy M2D (MEMORY(Unknown) -> DEVICE)         0.00%       0.000us         0.00%       0.000us       0.000us       1.040us         0.00%       1.040us       0.520us             2  
+                                            aten::empty         0.52%     373.117us         0.52%     373.117us       1.008us       0.000us         0.00%       0.000us       0.000us           370  
+                                    aten::empty_strided         0.38%     272.060us         0.38%     272.060us       1.163us       0.000us         0.00%       0.000us       0.000us           234  
+                                     urEnqueueUSMMemcpy         1.00%     722.831us         1.16%     836.672us     104.584us       0.000us         0.00%       0.000us       0.000us             8  
+                                zeMemGetAllocProperties         0.36%     262.419us         0.36%     262.419us       0.109us       0.000us         0.00%       0.000us       0.000us          2408  
+                                       zeEventHostReset         0.48%     344.580us         0.48%     344.580us       0.245us       0.000us         0.00%       0.000us       0.000us          1404  
+                          zeCommandListAppendMemoryCopy         0.14%     101.362us         0.14%     101.362us      12.670us       0.000us         0.00%       0.000us       0.000us             8  
+                                 zeEventHostSynchronize         0.13%      94.756us         0.13%      94.756us      11.845us       0.000us         0.00%       0.000us       0.000us             8  
+                                       aten::lift_fresh         0.01%       8.660us         0.01%       8.660us       0.131us       0.000us         0.00%       0.000us       0.000us            66  
+                                          aten::detach_         0.06%      42.649us         0.11%      79.708us       1.208us       0.000us         0.00%       0.000us       0.000us            66  
+                                                detach_         0.05%      37.059us         0.05%      37.059us       0.562us       0.000us         0.00%       0.000us       0.000us            66  
+                                           aten::select         0.04%      29.284us         0.05%      34.899us       8.725us       0.000us         0.00%       0.000us       0.000us             4  
+                                       aten::as_strided         0.47%     339.032us         0.47%     339.032us       0.528us       0.000us         0.00%       0.000us       0.000us           642  
+                                           aten::detach         0.00%       1.236us         0.01%       7.109us       7.109us       0.000us         0.00%       0.000us       0.000us             1  
+                                                 detach         0.01%       5.873us         0.01%       5.873us       5.873us       0.000us         0.00%       0.000us       0.000us             1  
+                       urEnqueueKernelLaunchWithArgsExp        47.28%      34.154ms        55.16%      39.848ms      28.545us       0.000us         0.00%       0.000us       0.000us          1396  
+                               zeKernelSetArgumentValue         1.73%       1.248ms         1.73%       1.248ms       0.128us       0.000us         0.00%       0.000us       0.000us          9753  
+                                   zeKernelSetGroupSize         0.09%      65.224us         0.09%      65.224us       0.047us       0.000us         0.00%       0.000us       0.000us          1396  
+                        zeCommandListAppendLaunchKernel         5.60%       4.043ms         5.60%       4.043ms       2.896us       0.000us         0.00%       0.000us       0.000us          1396  
+                                        aten::unsqueeze         0.21%     154.272us         0.27%     194.981us       1.444us       0.000us         0.00%       0.000us       0.000us           135  
+                                             aten::view         0.52%     375.756us         0.52%     375.756us       0.882us       0.000us         0.00%       0.000us       0.000us           426  
+                                  zeKernelGetProperties         0.03%      25.168us         0.03%      25.168us       0.307us       0.000us         0.00%       0.000us       0.000us            82  
+                                       aten::empty_like         0.05%      38.072us         0.11%      79.857us       2.158us       0.000us         0.00%       0.000us       0.000us            37  
+                                            aten::slice         0.36%     259.628us         0.44%     317.390us       2.386us       0.000us         0.00%       0.000us       0.000us           133  
+                                          aten::reshape         0.20%     147.054us         0.50%     362.652us       1.395us       0.000us         0.00%       0.000us       0.000us           260  
+                                          aten::resize_         0.09%      63.228us         0.09%      63.228us       0.274us       0.000us         0.00%       0.000us       0.000us           231  
+                                            aten::alias         0.01%       5.475us         0.01%       5.475us       5.475us       0.000us         0.00%       0.000us       0.000us             1  
+                                           aten::expand         0.02%      12.250us         0.02%      13.362us       3.341us       0.000us         0.00%       0.000us       0.000us             4  
+                                     aten::_unsafe_view         0.23%     163.632us         0.23%     163.632us       0.724us       0.000us         0.00%       0.000us       0.000us           226  
+                                        aten::transpose         0.45%     328.595us         0.77%     557.485us       1.575us       0.000us         0.00%       0.000us       0.000us           354  
+                                      aten::result_type         0.04%      28.598us         0.04%      28.598us       0.440us       0.000us         0.00%       0.000us       0.000us            65  
+                                                aten::t         0.51%     370.002us         0.93%     674.794us       2.999us       0.000us         0.00%       0.000us       0.000us           225  
+                                     zeEventQueryStatus         0.00%       1.633us         0.00%       1.633us       1.633us       0.000us         0.00%       0.000us       0.000us             1  
+                                        aten::new_empty         0.00%       1.315us         0.00%       2.297us       2.297us       0.000us         0.00%       0.000us       0.000us             1  
+                                          aten::view_as         0.00%       1.511us         0.00%       2.521us       2.521us       0.000us         0.00%       0.000us       0.000us             1  
+                                          aten::squeeze         0.01%       6.232us         0.01%       6.818us       6.818us       0.000us         0.00%       0.000us       0.000us             1  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 72.243ms
+Self XPU time total: 41.506ms
+

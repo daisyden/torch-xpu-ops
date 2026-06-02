@@ -1,0 +1,35 @@
+Test results will be stored in test-reports/python-pytest/inductor.test_augmented_graph_helper/inductor.test_augmented_graph_helper-7c2ac04cf341f7b1.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 20 items
+stepcurrent: Cannot find last run test, not skipping
+Running 20 items in this shard: test/inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_cycle_through_merge, test/inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_cycle_with_extra_deps, test/inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_extra_deps_with_merge, test/inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_has_path_direct, test/inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_has_path_through_merge, test/inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_has_path_transitive, test/inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_has_path_with_extra_deps, test/inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_initial_state, test/inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_merged_deps_collection, test/inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_multiple_merge_unmerge, test/inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_no_cycle_in_dag, test/inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_simple_cycle_detection, test/inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_simple_merge, test/inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_transfer_multiple_merge_sets_with_chain, test/inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_transfer_preserves_external_deps, test/inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_transfer_with_cross_deps, test/inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_transfer_with_merge_sets, test/inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_transitive_merge, test/inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_unmerge_from_singleton, test/inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_unmerge_node
+
+inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_cycle_through_merge PASSED [0.1353s] [  5%]
+inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_cycle_with_extra_deps PASSED [0.0014s] [ 10%]
+inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_extra_deps_with_merge PASSED [0.0013s] [ 15%]
+inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_has_path_direct PASSED [0.0012s] [ 20%]
+inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_has_path_through_merge PASSED [0.0012s] [ 25%]
+inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_has_path_transitive PASSED [0.0012s] [ 30%]
+inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_has_path_with_extra_deps PASSED [0.0014s] [ 35%]
+inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_initial_state PASSED [0.0021s] [ 40%]
+inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_merged_deps_collection PASSED [0.0011s] [ 45%]
+inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_multiple_merge_unmerge PASSED [0.0015s] [ 50%]
+inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_no_cycle_in_dag PASSED [0.0011s] [ 55%]
+inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_simple_cycle_detection PASSED [0.0013s] [ 60%]
+inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_simple_merge PASSED [0.0020s] [ 65%]
+inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_transfer_multiple_merge_sets_with_chain PASSED [0.0032s] [ 70%]
+inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_transfer_preserves_external_deps PASSED [0.0019s] [ 75%]
+inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_transfer_with_cross_deps PASSED [0.0021s] [ 80%]
+inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_transfer_with_merge_sets PASSED [0.0020s] [ 85%]
+inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_transitive_merge PASSED [0.0023s] [ 90%]
+inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_unmerge_from_singleton PASSED [0.0019s] [ 95%]
+inductor/test_augmented_graph_helper.py::TestAugmentedGraphHelper::test_unmerge_node PASSED [0.0022s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/inductor.test_augmented_graph_helper/inductor.test_augmented_graph_helper-7c2ac04cf341f7b1.xml -
+============================== 20 passed in 0.21s ==============================

@@ -1,0 +1,1 @@
+<testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="15.505" timestamp="2026-06-01T04:41:37.225731" hostname="69e11a0ddc78"><testcase classname="TestOperatorReorderForPeakMemory" name="test_fusion_acc_large_reads" time="15.484" file="inductor/test_memory.py" /></testsuite></testsuites>

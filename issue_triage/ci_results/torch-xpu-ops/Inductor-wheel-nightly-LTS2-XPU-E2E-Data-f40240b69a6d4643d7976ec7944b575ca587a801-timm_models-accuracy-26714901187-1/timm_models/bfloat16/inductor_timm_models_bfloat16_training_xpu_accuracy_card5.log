@@ -1,0 +1,35 @@
+++ python benchmarks/dynamo/timm_models.py --accuracy --bfloat16 -d xpu -n10 --training --total-partitions 8 --partition-id 5 --backend=inductor --cold-start-latency --timeout=10800 --disable-cudagraphs --output=/__w/torch-xpu-ops/torch-xpu-ops/pytorch/inductor_log/timm_models/bfloat16/inductor_timm_models_bfloat16_training_xpu_accuracy.csv
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:02, ?it/s]
+xpu  train poolformer_m36                     
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:04, ?it/s]
+xpu  train regnety_002                        
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:03, ?it/s]
+xpu  train repvgg_a2                          
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:03, ?it/s]
+xpu  train res2net101_26w_4s                  
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:03, ?it/s]
+xpu  train res2net50_14w_8s                   
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:03, ?it/s]
+xpu  train res2next50                         
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:01, ?it/s]
+xpu  train resmlp_12_224                      
+W0531 14:43:05.855000 73943 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:03, ?it/s]
+xpu  train resnest101e                        
+pass
+accuracy            pass_rate=95.31%
+calls_captured      gmean=407.65x mean=481.719x
+unique_graphs       gmean=1.09x mean=1.125x
+graph_breaks        gmean=5.01x mean=5.016x
+unique_graph_breaks gmean=4.00x mean=4.000x
+autograd_captures   gmean=0.00x mean=0.000x
+autograd_compiles   gmean=0.00x mean=0.000x
+cudagraph_skips     gmean=0.00x mean=0.000x
+compilation_latency mean=44.161 seconds

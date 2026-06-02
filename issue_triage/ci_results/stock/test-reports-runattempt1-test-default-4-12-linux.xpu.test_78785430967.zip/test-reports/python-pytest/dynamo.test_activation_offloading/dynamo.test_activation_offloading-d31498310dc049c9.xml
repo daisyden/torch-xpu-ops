@@ -1,0 +1,1 @@
+<testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="0.621" timestamp="2026-06-01T04:29:04.174635" hostname="4f112793be87"><testcase classname="ActivationOffloadingTests" name="test_partitioner_offload_sep_stream_reorder_accuracy" time="0.599" file="dynamo/test_activation_offloading.py" /></testsuite></testsuites>

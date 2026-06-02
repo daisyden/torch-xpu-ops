@@ -1,0 +1,56 @@
+Test results will be stored in test-reports/python-pytest/inductor.test_async_compile/inductor.test_async_compile-cc3bf17c9d36db97.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 41 items
+stepcurrent: Cannot find last run test, not skipping
+Running 41 items in this shard: test/inductor/test_async_compile.py::TestAsyncCompile::test_autotune_lookup_table_method_fork, test/inductor/test_async_compile.py::TestAsyncCompile::test_autotune_lookup_table_method_spawn, test/inductor/test_async_compile.py::TestAsyncCompile::test_autotune_lookup_table_method_subprocess, test/inductor/test_async_compile.py::TestAsyncCompile::test_bad_kernel, test/inductor/test_async_compile.py::TestAsyncCompile::test_daemon_process_allows_subprocess_compile_process_pool, test/inductor/test_async_compile.py::TestAsyncCompile::test_daemon_process_disables_direct_compile_process_pool_method_fork, test/inductor/test_async_compile.py::TestAsyncCompile::test_daemon_process_disables_direct_compile_process_pool_method_spawn, test/inductor/test_async_compile.py::TestAsyncCompile::test_forked_daemon_process_clears_inherited_ready_future, test/inductor/test_async_compile.py::TestAsyncCompile::test_pool_method_fork, test/inductor/test_async_compile.py::TestAsyncCompile::test_pool_method_spawn, test/inductor/test_async_compile.py::TestAsyncCompile::test_pool_method_subprocess, test/inductor/test_async_compile.py::TestAsyncCompile::test_wait_futures_timeout, test/inductor/test_async_compile.py::TestAsyncCompile::test_wait_pool_ready, test/inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_cache_key_changes_with_config, test/inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_cache_key_changes_with_source_content, test/inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_concurrent_disk_cache_set_atomic, test/inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_corrupt_cache_falls_back_cleanly, test/inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_corrupt_cache_recompile_end_to_end, test/inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_cutedsl_bad_source_subprocess, test/inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_cutedsl_disk_cache_hot_load, test/inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_cutedsl_missing_entry_point_subprocess, test/inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_cutedsl_precompile_metadata_in_generated_code, test/inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_cutedsl_subprocess_e2e, test/inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_cutedsl_subprocess_pool_handoff, test/inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_cutedsl_subprocess_precompile_invoked, test/inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_cutedsl_subprocess_precompile_no_cuda_init, test/inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_cutedsl_synchronous_e2e, test/inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_cutedsl_worker_precompile_cache_roundtrip, test/inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_cutedsl_worker_skips_precompile_without_metadata, test/inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_cutedsl_worker_warns_missing_precompile_with_metadata, test/inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_disk_cache_key_includes_arch_and_version, test/inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_disk_cache_key_varies_by_device_arch, test/inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_fix_elf_dup_text_noop_non_elf, test/inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_fix_elf_dup_text_noop_single_text, test/inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_fix_elf_dup_text_old_artifacts_patched_on_load, test/inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_fix_elf_dup_text_patches_duplicate_sections, test/inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_mem_cache_keys_include_device_index, test/inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_nv_universal_gemm_disk_cache_hot_load, test/inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_symbolic_shapes_skip_precompile_metadata, test/inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_symbolic_shapes_worker_skips_precompile, test/inductor/test_async_compile.py::TestCuteDSLSubprocessGroupedGemm::test_grouped_gemm_subprocess_e2e
+
+inductor/test_async_compile.py::TestAsyncCompile::test_autotune_lookup_table_method_fork PASSED [13.5565s] [  2%]
+inductor/test_async_compile.py::TestAsyncCompile::test_autotune_lookup_table_method_spawn PASSED [39.4624s] [  4%]
+inductor/test_async_compile.py::TestAsyncCompile::test_autotune_lookup_table_method_subprocess PASSED [12.2752s] [  7%]
+inductor/test_async_compile.py::TestAsyncCompile::test_bad_kernel PASSED [4.7048s] [  9%]
+inductor/test_async_compile.py::TestAsyncCompile::test_daemon_process_allows_subprocess_compile_process_pool PASSED [51.1167s] [ 12%]
+inductor/test_async_compile.py::TestAsyncCompile::test_daemon_process_disables_direct_compile_process_pool_method_fork PASSED [48.0641s] [ 14%]
+inductor/test_async_compile.py::TestAsyncCompile::test_daemon_process_disables_direct_compile_process_pool_method_spawn PASSED [47.3273s] [ 17%]
+inductor/test_async_compile.py::TestAsyncCompile::test_forked_daemon_process_clears_inherited_ready_future PASSED [1.0189s] [ 19%]
+inductor/test_async_compile.py::TestAsyncCompile::test_pool_method_fork PASSED [0.9774s] [ 21%]
+inductor/test_async_compile.py::TestAsyncCompile::test_pool_method_spawn PASSED [40.1855s] [ 24%]
+inductor/test_async_compile.py::TestAsyncCompile::test_pool_method_subprocess PASSED [12.5927s] [ 26%]
+inductor/test_async_compile.py::TestAsyncCompile::test_wait_futures_timeout PASSED [1.0039s] [ 29%]
+inductor/test_async_compile.py::TestAsyncCompile::test_wait_pool_ready PASSED [4.6445s] [ 31%]
+inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_cache_key_changes_with_config SKIPPED [0.0005s] (CuTeDSL not available) [ 34%]
+inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_cache_key_changes_with_source_content SKIPPED [0.0002s] (CuTeDSL not available) [ 36%]
+inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_concurrent_disk_cache_set_atomic SKIPPED [0.0002s] (CuTeDSL not available) [ 39%]
+inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_corrupt_cache_falls_back_cleanly SKIPPED [0.0002s] (CuTeDSL not available) [ 41%]
+inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_corrupt_cache_recompile_end_to_end SKIPPED [0.0002s] (CuTeDSL not available) [ 43%]
+inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_cutedsl_bad_source_subprocess SKIPPED [0.0002s] (CuTeDSL not available) [ 46%]
+inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_cutedsl_disk_cache_hot_load SKIPPED [0.0002s] (CuTeDSL not available) [ 48%]
+inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_cutedsl_missing_entry_point_subprocess SKIPPED [0.0002s] (CuTeDSL not available) [ 51%]
+inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_cutedsl_precompile_metadata_in_generated_code SKIPPED [0.0004s] (CuTeDSL not available) [ 53%]
+inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_cutedsl_subprocess_e2e SKIPPED [0.0002s] (CuTeDSL not available) [ 56%]
+inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_cutedsl_subprocess_pool_handoff SKIPPED [0.0002s] (CuTeDSL not available) [ 58%]
+inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_cutedsl_subprocess_precompile_invoked SKIPPED [0.0002s] (CuTeDSL not available) [ 60%]
+inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_cutedsl_subprocess_precompile_no_cuda_init SKIPPED [0.0002s] (CuTeDSL not available) [ 63%]
+inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_cutedsl_synchronous_e2e SKIPPED [0.0004s] (CuTeDSL not available) [ 65%]
+inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_cutedsl_worker_precompile_cache_roundtrip SKIPPED [0.0002s] (CuTeDSL not available) [ 68%]
+inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_cutedsl_worker_skips_precompile_without_metadata SKIPPED [0.0002s] (CuTeDSL not available) [ 70%]
+inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_cutedsl_worker_warns_missing_precompile_with_metadata SKIPPED [0.0002s] (CuTeDSL not available) [ 73%]
+inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_disk_cache_key_includes_arch_and_version SKIPPED [0.0002s] (CuTeDSL not available) [ 75%]
+inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_disk_cache_key_varies_by_device_arch SKIPPED [0.0002s] (CuTeDSL not available) [ 78%]
+inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_fix_elf_dup_text_noop_non_elf SKIPPED [0.0002s] (CuTeDSL not available) [ 80%]
+inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_fix_elf_dup_text_noop_single_text SKIPPED [0.0002s] (CuTeDSL not available) [ 82%]
+inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_fix_elf_dup_text_old_artifacts_patched_on_load SKIPPED [0.0002s] (CuTeDSL not available) [ 85%]
+inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_fix_elf_dup_text_patches_duplicate_sections SKIPPED [0.0002s] (CuTeDSL not available) [ 87%]
+inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_mem_cache_keys_include_device_index SKIPPED [0.0002s] (CuTeDSL not available) [ 90%]
+inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_nv_universal_gemm_disk_cache_hot_load SKIPPED [0.0002s] (CuTeDSL not available) [ 92%]
+inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_symbolic_shapes_skip_precompile_metadata SKIPPED [0.0002s] (CuTeDSL not available) [ 95%]
+inductor/test_async_compile.py::TestCuteDSLSubprocessCompile::test_symbolic_shapes_worker_skips_precompile SKIPPED [0.0002s] (CuTeDSL not available) [ 97%]
+inductor/test_async_compile.py::TestCuteDSLSubprocessGroupedGemm::test_grouped_gemm_subprocess_e2e SKIPPED [0.0003s] (CuTeDSL library or Blackwell device not available) [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/inductor.test_async_compile/inductor.test_async_compile-cc3bf17c9d36db97.xml -
+================== 13 passed, 28 skipped in 277.00s (0:04:37) ==================

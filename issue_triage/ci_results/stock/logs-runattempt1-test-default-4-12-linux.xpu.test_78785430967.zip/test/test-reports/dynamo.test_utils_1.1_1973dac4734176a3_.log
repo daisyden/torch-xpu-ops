@@ -1,0 +1,59 @@
+Test results will be stored in test-reports/python-pytest/dynamo.test_utils/dynamo.test_utils-70f6b23712467e30.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... /var/lib/jenkins/pytorch/test/dynamo/test_utils.py:321: PytestCollectionWarning: cannot collect test class 'TestModel' because it has a __init__ constructor (from: test/dynamo/test_utils.py)
+  class TestModel(torch.nn.Module):
+collected 26 items
+stepcurrent: Cannot find last run test, not skipping
+Running 26 items in this shard: test/dynamo/test_utils.py::TestUtils::test_add_record_function_data, test/dynamo/test_utils.py::TestUtils::test_get_dynamo_config_for_logging_ignores_logging_functions, test/dynamo/test_utils.py::TestUtils::test_graph_break_counting, test/dynamo/test_utils.py::TestUtils::test_larger_multiplier_for_even_smaller_tensor, test/dynamo/test_utils.py::TestUtils::test_larger_multiplier_for_smaller_tensor, test/dynamo/test_utils.py::TestUtils::test_nan, test/dynamo/test_utils.py::TestUtils::test_reinplace_counters_use_trigger_name_not_enum_value, test/dynamo/test_utils.py::TestUtils::test_traced_code_query, test/dynamo/test_utils.py::TestDynamoTimed::test_compiler_config, test/dynamo/test_utils.py::TestDynamoTimed::test_dynamic_shape_feature_use, test/dynamo/test_utils.py::TestDynamoTimed::test_dynamo_timed, test/dynamo/test_utils.py::TestDynamoTimed::test_exception_stack_trace, test/dynamo/test_utils.py::TestDynamoTimed::test_graph_node_shapes, test/dynamo/test_utils.py::TestDynamoTimed::test_inductor_provenance, test/dynamo/test_utils.py::TestDynamoTimed::test_ir_count, test/dynamo/test_utils.py::TestDynamoTimed::test_log_dynamo_start, test/dynamo/test_utils.py::TestDynamoTimed::test_num_params, test/dynamo/test_utils.py::TestDynamoTimed::test_stack_trace, test/dynamo/test_utils.py::TestTimedSyncXPU::test_timed_syncs_on_accelerator_xpu, test/dynamo/test_utils.py::TestInductorConfigParsingForLogging::test_inductor_config_jsonify, test/dynamo/test_utils.py::TestInductorConfigParsingForLogging::test_inductor_config_parsing_non_conforming_items, test/dynamo/test_utils.py::TestFunctorchConfigParsingForLogging::test_functorch_config_blocklist, test/dynamo/test_utils.py::TestFunctorchConfigParsingForLogging::test_functorch_config_jk_disabled, test/dynamo/test_utils.py::TestFunctorchConfigParsingForLogging::test_functorch_config_jsonify, test/dynamo/test_utils.py::TestFunctorchConfigParsingForLogging::test_functorch_config_none, test/dynamo/test_utils.py::TestFunctorchConfigParsingForLogging::test_functorch_config_runtime_error
+
+dynamo/test_utils.py::TestUtils::test_add_record_function_data PASSED [0.0034s] [  3%]
+dynamo/test_utils.py::TestUtils::test_get_dynamo_config_for_logging_ignores_logging_functions PASSED [0.0018s] [  7%]
+dynamo/test_utils.py::TestUtils::test_graph_break_counting W0601 04:43:36.797000 62600 site-packages/torch/_dynamo/variables/tensor.py:1757] [3/0] Graph break from `Tensor.item()`, consider setting:
+W0601 04:43:36.797000 62600 site-packages/torch/_dynamo/variables/tensor.py:1757] [3/0]     torch._dynamo.config.capture_scalar_outputs = True
+W0601 04:43:36.797000 62600 site-packages/torch/_dynamo/variables/tensor.py:1757] [3/0] or:
+W0601 04:43:36.797000 62600 site-packages/torch/_dynamo/variables/tensor.py:1757] [3/0]     env TORCHDYNAMO_CAPTURE_SCALAR_OUTPUTS=1
+W0601 04:43:36.797000 62600 site-packages/torch/_dynamo/variables/tensor.py:1757] [3/0] to include these operations in the captured graph.
+W0601 04:43:36.797000 62600 site-packages/torch/_dynamo/variables/tensor.py:1757] [3/0] 
+W0601 04:43:36.797000 62600 site-packages/torch/_dynamo/variables/tensor.py:1757] [3/0] Graph break: from user code at:
+W0601 04:43:36.797000 62600 site-packages/torch/_dynamo/variables/tensor.py:1757] [3/0]   File "/var/lib/jenkins/pytorch/test/dynamo/test_utils.py", line 123, in torch_dynamo_resume_in_break_it_at_122
+W0601 04:43:36.797000 62600 site-packages/torch/_dynamo/variables/tensor.py:1757] [3/0]     return x + y.item()
+W0601 04:43:36.797000 62600 site-packages/torch/_dynamo/variables/tensor.py:1757] [3/0] 
+W0601 04:43:36.797000 62600 site-packages/torch/_dynamo/variables/tensor.py:1757] [3/0] 
+PASSED [44.4586s] [ 11%]
+dynamo/test_utils.py::TestUtils::test_larger_multiplier_for_even_smaller_tensor E0601 04:43:38.980000 62600 site-packages/torch/_dynamo/utils.py:3682] RMSE (res-fp64): 7.00000, (ref-fp64): 1.00000 and shape=torch.Size([1]). res.dtype: torch.float32, multiplier: 3.000000, tol: 0.040000, use_larger_multiplier_for_smaller_tensor: 0
+E0601 04:43:38.980000 62600 site-packages/torch/_dynamo/utils.py:3682] RMSE (res-fp64): 20.00000, (ref-fp64): 1.00000 and shape=torch.Size([1]). res.dtype: torch.float32, multiplier: 10.000000, tol: 0.040000, use_larger_multiplier_for_smaller_tensor: 1
+PASSED [0.0030s] [ 15%]
+dynamo/test_utils.py::TestUtils::test_larger_multiplier_for_smaller_tensor E0601 04:43:38.983000 62600 site-packages/torch/_dynamo/utils.py:3682] RMSE (res-fp64): 4.00000, (ref-fp64): 1.00000 and shape=torch.Size([100]). res.dtype: torch.float32, multiplier: 3.000000, tol: 0.040000, use_larger_multiplier_for_smaller_tensor: 0
+E0601 04:43:38.983000 62600 site-packages/torch/_dynamo/utils.py:3682] RMSE (res-fp64): 9.00000, (ref-fp64): 1.00000 and shape=torch.Size([100]). res.dtype: torch.float32, multiplier: 8.000000, tol: 0.040000, use_larger_multiplier_for_smaller_tensor: 1
+PASSED [0.0020s] [ 19%]
+dynamo/test_utils.py::TestUtils::test_nan PASSED [0.0014s]               [ 23%]
+dynamo/test_utils.py::TestUtils::test_reinplace_counters_use_trigger_name_not_enum_value PASSED [0.0016s] [ 26%]
+dynamo/test_utils.py::TestUtils::test_traced_code_query PASSED [0.1481s] [ 30%]
+dynamo/test_utils.py::TestDynamoTimed::test_compiler_config PASSED [0.7077s] [ 34%]
+dynamo/test_utils.py::TestDynamoTimed::test_dynamic_shape_feature_use PASSED [2.8132s] [ 38%]
+dynamo/test_utils.py::TestDynamoTimed::test_dynamo_timed SKIPPED [0.0005s] (https://github.com/pytorch/pytorch/issues/148093) [ 42%]
+dynamo/test_utils.py::TestDynamoTimed::test_exception_stack_trace PASSED [0.0118s] [ 46%]
+dynamo/test_utils.py::TestDynamoTimed::test_graph_node_shapes PASSED [2.1542s] [ 50%]
+dynamo/test_utils.py::TestDynamoTimed::test_inductor_provenance W0601 04:43:44.964000 62600 site-packages/torch/_inductor/debug.py:545] [0/0] model__13_forward_19 debug trace: /var/lib/jenkins/pytorch/test/torch_compile_debug/run_2026_06_01_04_43_44_928593-pid_62600/torchinductor/model__13_forward_19.0
+PASSED [0.1638s] [ 53%]
+dynamo/test_utils.py::TestDynamoTimed::test_ir_count PASSED [1.4409s]    [ 57%]
+dynamo/test_utils.py::TestDynamoTimed::test_log_dynamo_start PASSED [2.1129s] [ 61%]
+dynamo/test_utils.py::TestDynamoTimed::test_num_params PASSED [3.1610s]  [ 65%]
+dynamo/test_utils.py::TestDynamoTimed::test_stack_trace PASSED [2.1250s] [ 69%]
+dynamo/test_utils.py::TestTimedSyncXPU::test_timed_syncs_on_accelerator_xpu PASSED [0.2314s] [ 73%]
+dynamo/test_utils.py::TestInductorConfigParsingForLogging::test_inductor_config_jsonify PASSED [0.0043s] [ 76%]
+dynamo/test_utils.py::TestInductorConfigParsingForLogging::test_inductor_config_parsing_non_conforming_items PASSED [0.0042s] [ 80%]
+dynamo/test_utils.py::TestFunctorchConfigParsingForLogging::test_functorch_config_blocklist PASSED [0.0023s] [ 84%]
+dynamo/test_utils.py::TestFunctorchConfigParsingForLogging::test_functorch_config_jk_disabled PASSED [0.0024s] [ 88%]
+dynamo/test_utils.py::TestFunctorchConfigParsingForLogging::test_functorch_config_jsonify PASSED [0.0028s] [ 92%]
+dynamo/test_utils.py::TestFunctorchConfigParsingForLogging::test_functorch_config_none PASSED [0.0018s] [ 96%]
+dynamo/test_utils.py::TestFunctorchConfigParsingForLogging::test_functorch_config_runtime_error PASSED [0.0019s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/dynamo.test_utils/dynamo.test_utils-70f6b23712467e30.xml -
+======================== 25 passed, 1 skipped in 59.63s ========================

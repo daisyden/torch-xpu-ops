@@ -1,0 +1,61 @@
+Test results will be stored in test-reports/python-pytest/dynamo.test_id/dynamo.test_id-44f59c41961ed8f8.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 46 items
+stepcurrent: Cannot find last run test, not skipping
+Running 46 items in this shard: test/dynamo/test_id.py::IdTests::test_id_builtin_len, test/dynamo/test_id.py::IdTests::test_id_builtin_type_int, test/dynamo/test_id.py::IdTests::test_id_builtin_type_list, test/dynamo/test_id.py::IdTests::test_id_class_guard_uses_class_match, test/dynamo/test_id.py::IdTests::test_id_dict_key_only_no_guard, test/dynamo/test_id.py::IdTests::test_id_false, test/dynamo/test_id.py::IdTests::test_id_function_as_dict_key, test/dynamo/test_id.py::IdTests::test_id_functools_partial, test/dynamo/test_id.py::IdTests::test_id_functools_partial_as_dict_key, test/dynamo/test_id.py::IdTests::test_id_guarded_object, test/dynamo/test_id.py::IdTests::test_id_guards_constant_op, test/dynamo/test_id.py::IdTests::test_id_guards_graph_input, test/dynamo/test_id.py::IdTests::test_id_guards_on_branch, test/dynamo/test_id.py::IdTests::test_id_guards_on_comparison, test/dynamo/test_id.py::IdTests::test_id_guards_return, test/dynamo/test_id.py::IdTests::test_id_guards_side_effect, test/dynamo/test_id.py::IdTests::test_id_lambda, test/dynamo/test_id.py::IdTests::test_id_module_import, test/dynamo/test_id.py::IdTests::test_id_nn_module, test/dynamo/test_id.py::IdTests::test_id_nn_module_guard, test/dynamo/test_id.py::IdTests::test_id_none, test/dynamo/test_id.py::IdTests::test_id_of_nn_module_op_count, test/dynamo/test_id.py::IdTests::test_id_sourceful_dict, test/dynamo/test_id.py::IdTests::test_id_sourceful_dict_as_key, test/dynamo/test_id.py::IdTests::test_id_sourceful_int, test/dynamo/test_id.py::IdTests::test_id_sourceful_list, test/dynamo/test_id.py::IdTests::test_id_sourceful_list_as_key, test/dynamo/test_id.py::IdTests::test_id_sourceful_string, test/dynamo/test_id.py::IdTests::test_id_sourceful_tuple, test/dynamo/test_id.py::IdTests::test_id_sourceless_branch_graph_breaks, test/dynamo/test_id.py::IdTests::test_id_sourceless_comparison, test/dynamo/test_id.py::IdTests::test_id_sourceless_dict_as_key, test/dynamo/test_id.py::IdTests::test_id_sourceless_int_as_key, test/dynamo/test_id.py::IdTests::test_id_sourceless_list_as_key, test/dynamo/test_id.py::IdTests::test_id_sourceless_partial_as_key, test/dynamo/test_id.py::IdTests::test_id_sourceless_return_graph_breaks, test/dynamo/test_id.py::IdTests::test_id_sourceless_side_effect_graph_breaks, test/dynamo/test_id.py::IdTests::test_id_sourceless_string_as_key, test/dynamo/test_id.py::IdTests::test_id_sourceless_tensor_op_graph_breaks, test/dynamo/test_id.py::IdTests::test_id_tensor, test/dynamo/test_id.py::IdTests::test_id_tensor_guard, test/dynamo/test_id.py::IdTests::test_id_true, test/dynamo/test_id.py::IdTests::test_id_user_defined_class, test/dynamo/test_id.py::IdTests::test_id_user_function, test/dynamo/test_id.py::IdTests::test_id_user_object, test/dynamo/test_id.py::IdTests::test_id_wrong_arg_count
+
+dynamo/test_id.py::IdTests::test_id_builtin_len PASSED [0.4211s]         [  2%]
+dynamo/test_id.py::IdTests::test_id_builtin_type_int PASSED [0.0303s]    [  4%]
+dynamo/test_id.py::IdTests::test_id_builtin_type_list PASSED [0.0298s]   [  6%]
+dynamo/test_id.py::IdTests::test_id_class_guard_uses_class_match PASSED [0.0792s] [  8%]
+dynamo/test_id.py::IdTests::test_id_dict_key_only_no_guard XFAIL [0.0927s] [ 10%]
+dynamo/test_id.py::IdTests::test_id_false PASSED [0.0303s]               [ 13%]
+dynamo/test_id.py::IdTests::test_id_function_as_dict_key PASSED [0.0371s] [ 15%]
+dynamo/test_id.py::IdTests::test_id_functools_partial PASSED [0.0316s]   [ 17%]
+dynamo/test_id.py::IdTests::test_id_functools_partial_as_dict_key PASSED [0.0398s] [ 19%]
+dynamo/test_id.py::IdTests::test_id_guarded_object PASSED [0.0827s]      [ 21%]
+dynamo/test_id.py::IdTests::test_id_guards_constant_op PASSED [0.0703s]  [ 23%]
+dynamo/test_id.py::IdTests::test_id_guards_graph_input PASSED [0.0683s]  [ 26%]
+dynamo/test_id.py::IdTests::test_id_guards_on_branch PASSED [0.0760s]    [ 28%]
+dynamo/test_id.py::IdTests::test_id_guards_on_comparison PASSED [0.0891s] [ 30%]
+dynamo/test_id.py::IdTests::test_id_guards_return PASSED [0.0675s]       [ 32%]
+dynamo/test_id.py::IdTests::test_id_guards_side_effect PASSED [0.0697s]  [ 34%]
+dynamo/test_id.py::IdTests::test_id_lambda PASSED [0.0296s]              [ 36%]
+dynamo/test_id.py::IdTests::test_id_module_import PASSED [0.0286s]       [ 39%]
+dynamo/test_id.py::IdTests::test_id_nn_module PASSED [0.0302s]           [ 41%]
+dynamo/test_id.py::IdTests::test_id_nn_module_guard PASSED [0.0746s]     [ 43%]
+dynamo/test_id.py::IdTests::test_id_none PASSED [0.0294s]                [ 45%]
+dynamo/test_id.py::IdTests::test_id_of_nn_module_op_count PASSED [0.0722s] [ 47%]
+dynamo/test_id.py::IdTests::test_id_sourceful_dict PASSED [0.0305s]      [ 50%]
+dynamo/test_id.py::IdTests::test_id_sourceful_dict_as_key PASSED [0.0357s] [ 52%]
+dynamo/test_id.py::IdTests::test_id_sourceful_int PASSED [0.0300s]       [ 54%]
+dynamo/test_id.py::IdTests::test_id_sourceful_list PASSED [0.0301s]      [ 56%]
+dynamo/test_id.py::IdTests::test_id_sourceful_list_as_key PASSED [0.0341s] [ 58%]
+dynamo/test_id.py::IdTests::test_id_sourceful_string PASSED [0.0297s]    [ 60%]
+dynamo/test_id.py::IdTests::test_id_sourceful_tuple PASSED [0.0297s]     [ 63%]
+dynamo/test_id.py::IdTests::test_id_sourceless_branch_graph_breaks PASSED [0.0091s] [ 65%]
+dynamo/test_id.py::IdTests::test_id_sourceless_comparison PASSED [0.0346s] [ 67%]
+dynamo/test_id.py::IdTests::test_id_sourceless_dict_as_key PASSED [0.0353s] [ 69%]
+dynamo/test_id.py::IdTests::test_id_sourceless_int_as_key PASSED [0.0354s] [ 71%]
+dynamo/test_id.py::IdTests::test_id_sourceless_list_as_key PASSED [0.0344s] [ 73%]
+dynamo/test_id.py::IdTests::test_id_sourceless_partial_as_key PASSED [0.0358s] [ 76%]
+dynamo/test_id.py::IdTests::test_id_sourceless_return_graph_breaks PASSED [0.0105s] [ 78%]
+dynamo/test_id.py::IdTests::test_id_sourceless_side_effect_graph_breaks PASSED [0.0101s] [ 80%]
+dynamo/test_id.py::IdTests::test_id_sourceless_string_as_key PASSED [0.0337s] [ 82%]
+dynamo/test_id.py::IdTests::test_id_sourceless_tensor_op_graph_breaks PASSED [0.0090s] [ 84%]
+dynamo/test_id.py::IdTests::test_id_tensor PASSED [0.0312s]              [ 86%]
+dynamo/test_id.py::IdTests::test_id_tensor_guard PASSED [0.0774s]        [ 89%]
+dynamo/test_id.py::IdTests::test_id_true PASSED [0.0300s]                [ 91%]
+dynamo/test_id.py::IdTests::test_id_user_defined_class PASSED [0.0303s]  [ 93%]
+dynamo/test_id.py::IdTests::test_id_user_function PASSED [0.0307s]       [ 95%]
+dynamo/test_id.py::IdTests::test_id_user_object PASSED [0.0301s]         [ 97%]
+dynamo/test_id.py::IdTests::test_id_wrong_arg_count PASSED [0.0688s]     [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/dynamo.test_id/dynamo.test_id-44f59c41961ed8f8.xml -
+======================== 45 passed, 1 xfailed in 2.43s =========================

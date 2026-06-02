@@ -1,0 +1,86 @@
+Test results will be stored in test-reports/python-pytest/dynamo.test_recompile_ux/dynamo.test_recompile_ux-0686653d5391a221.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 47 items
+stepcurrent: Cannot find last run test, not skipping
+Running 47 items in this shard: test/dynamo/test_recompile_ux.py::RecompileUxTests::test_drop_cache_on_skip, test/dynamo/test_recompile_ux.py::RecompileUxTests::test_dynamic_input, test/dynamo/test_recompile_ux.py::RecompileUxTests::test_fail_on_recompile_limit_hit, test/dynamo/test_recompile_ux.py::RecompileUxTests::test_loop_torture, test/dynamo/test_recompile_ux.py::RecompileUxTests::test_mismatched_type, test/dynamo/test_recompile_ux.py::RecompileUxTests::test_multiple_guard_fails, test/dynamo/test_recompile_ux.py::RecompileUxTests::test_multiple_guard_fails_report_all, test/dynamo/test_recompile_ux.py::RecompileUxTests::test_nvfuser_guards, test/dynamo/test_recompile_ux.py::RecompileUxTests::test_recompile_child_run_only, test/dynamo/test_recompile_ux.py::RecompileUxTests::test_verbose_tensor_check, test/dynamo/test_recompile_ux.py::RecompileLimitKwargTests::test_recompile_limit_basic, test/dynamo/test_recompile_ux.py::RecompileLimitKwargTests::test_recompile_limit_fullgraph_raises, test/dynamo/test_recompile_ux.py::RecompileLimitKwargTests::test_recompile_limit_none_uses_global, test/dynamo/test_recompile_ux.py::RecompileLimitKwargTests::test_recompile_limit_resume_function_auto_dynamic, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_debug_get_cache_entry_list_deterministic_order, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_different_backends_independent_with_isolate, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_different_backends_shared_cache_without_isolate, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_accumulated_limit, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_accumulated_limit_hard_fail, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_auto_dynamic_shared_pgo, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_basic, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_factory_pattern, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_fullgraph_raises, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_gc_wrapper, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_ignores_default_run_only, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_inherits_default_skip, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_insertion_order_per_region, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_limit_does_not_skip_other_regions, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_lru_move_to_front, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_mark_dynamic_vs_static, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_reasons_include_default_bucket, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_region_run_only_persists, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_reset, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_resume_function, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_same_backend_different_dynamic_independent_limits, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_same_backend_different_regions, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_same_function_different_regions, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_static_and_dynamic, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_string_backends_backend_aot_eager, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_string_backends_backend_eager, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_string_backends_backend_inductor, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_no_isolate_recompiles_shared_cache, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_non_isolated_compiles_share_cache, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_non_isolated_entries_visible_to_isolated, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_non_isolated_reasons_unchanged, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_reasons_include_all_default_entries, test/dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_reset_clears_region_strategy
+
+dynamo/test_recompile_ux.py::RecompileUxTests::test_drop_cache_on_skip W0601 04:39:51.642000 56230 site-packages/torch/_dynamo/convert_frame.py:1986] [0/1] torch._dynamo hit config.recompile_limit (1)
+W0601 04:39:51.642000 56230 site-packages/torch/_dynamo/convert_frame.py:1986] [0/1]    function: 'model' (/var/lib/jenkins/pytorch/test/dynamo/test_recompile_ux.py:41)
+W0601 04:39:51.642000 56230 site-packages/torch/_dynamo/convert_frame.py:1986] [0/1]    last reason: 0/0: i == 0                                                   # return x + i  # ar/lib/jenkins/pytorch/test/dynamo/test_recompile_ux.py:42 in model
+W0601 04:39:51.642000 56230 site-packages/torch/_dynamo/convert_frame.py:1986] [0/1] User stack trace:
+W0601 04:39:51.642000 56230 site-packages/torch/_dynamo/convert_frame.py:1986] [0/1]   File "/var/lib/jenkins/pytorch/test/dynamo/test_recompile_ux.py", line 42, in model
+W0601 04:39:51.642000 56230 site-packages/torch/_dynamo/convert_frame.py:1986] [0/1]     return x + i
+W0601 04:39:51.642000 56230 site-packages/torch/_dynamo/convert_frame.py:1986] [0/1] To log all recompilation reasons, use TORCH_LOGS="recompiles".
+W0601 04:39:51.642000 56230 site-packages/torch/_dynamo/convert_frame.py:1986] [0/1] To diagnose recompilation issues, see https://docs.pytorch.org/docs/main/user_guide/torch_compiler/compile/programming_model.recompilation.html
+PASSED [0.3332s] [  2%]
+dynamo/test_recompile_ux.py::RecompileUxTests::test_dynamic_input PASSED [0.0744s] [  4%]
+dynamo/test_recompile_ux.py::RecompileUxTests::test_fail_on_recompile_limit_hit W0601 04:39:51.773000 56230 site-packages/torch/_dynamo/convert_frame.py:1986] [0/1] torch._dynamo hit config.recompile_limit (1)
+W0601 04:39:51.773000 56230 site-packages/torch/_dynamo/convert_frame.py:1986] [0/1]    function: 'func' (/var/lib/jenkins/pytorch/test/dynamo/test_recompile_ux.py:225)
+W0601 04:39:51.773000 56230 site-packages/torch/_dynamo/convert_frame.py:1986] [0/1]    last reason: 0/0: a == True                                                # if a:  # ar/lib/jenkins/pytorch/test/dynamo/test_recompile_ux.py:227 in func
+W0601 04:39:51.773000 56230 site-packages/torch/_dynamo/convert_frame.py:1986] [0/1] User stack trace:
+W0601 04:39:51.773000 56230 site-packages/torch/_dynamo/convert_frame.py:1986] [0/1]   File "/var/lib/jenkins/pytorch/test/dynamo/test_recompile_ux.py", line 227, in func
+W0601 04:39:51.773000 56230 site-packages/torch/_dynamo/convert_frame.py:1986] [0/1]     if a:
+W0601 04:39:51.773000 56230 site-packages/torch/_dynamo/convert_frame.py:1986] [0/1] To log all recompilation reasons, use TORCH_LOGS="recompiles".
+W0601 04:39:51.773000 56230 site-packages/torch/_dynamo/convert_frame.py:1986] [0/1] To diagnose recompilation issues, see https://docs.pytorch.org/docs/main/user_guide/torch_compiler/compile/programming_model.recompilation.html
+PASSED [0.0483s] [  6%]
+dynamo/test_recompile_ux.py::RecompileUxTests::test_loop_torture W0601 04:39:52.217000 56230 site-packages/torch/_dynamo/convert_frame.py:1986] [1/1] torch._dynamo hit config.recompile_limit (1)
+W0601 04:39:52.217000 56230 site-packages/torch/_dynamo/convert_frame.py:1986] [1/1]    function: 'torch_dynamo_resume_in_loop_torture_at_73' (/var/lib/jenkins/pytorch/test/dynamo/test_recompile_ux.py:73)
+W0601 04:39:52.217000 56230 site-packages/torch/_dynamo/convert_frame.py:1986] [1/1]    last reason: 1/0: ___stack0.stop == 575                                    # for _ in range(iters):  # ar/lib/jenkins/pytorch/test/dynamo/test_recompile_ux.py:73 in torch_dynamo_resume_in_loop_torture_at_73
+W0601 04:39:52.217000 56230 site-packages/torch/_dynamo/convert_frame.py:1986] [1/1] User stack trace:
+W0601 04:39:52.217000 56230 site-packages/torch/_dynamo/convert_frame.py:1986] [1/1]   File "/var/lib/jenkins/pytorch/test/dynamo/test_recompile_ux.py", line 73, in torch_dynamo_resume_in_loop_torture_at_73
+W0601 04:39:52.217000 56230 site-packages/torch/_dynamo/convert_frame.py:1986] [1/1]     for _ in range(iters):
+W0601 04:39:52.217000 56230 site-packages/torch/_dynamo/convert_frame.py:1986] [1/1] To log all recompilation reasons, use TORCH_LOGS="recompiles".
+W0601 04:39:52.217000 56230 site-packages/torch/_dynamo/convert_frame.py:1986] [1/1] To diagnose recompilation issues, see https://docs.pytorch.org/docs/main/user_guide/torch_compiler/compile/programming_model.recompilation.html
+PASSED [0.4478s] [  8%]
+dynamo/test_recompile_ux.py::RecompileUxTests::test_mismatched_type PASSED [0.0381s] [ 10%]
+dynamo/test_recompile_ux.py::RecompileUxTests::test_multiple_guard_fails PASSED [0.1598s] [ 12%]
+dynamo/test_recompile_ux.py::RecompileUxTests::test_multiple_guard_fails_report_all PASSED [0.1002s] [ 14%]
+dynamo/test_recompile_ux.py::RecompileUxTests::test_nvfuser_guards PASSED [0.1681s] [ 17%]
+dynamo/test_recompile_ux.py::RecompileUxTests::test_recompile_child_run_only PASSED [0.0723s] [ 19%]
+dynamo/test_recompile_ux.py::RecompileUxTests::test_verbose_tensor_check PASSED [0.2076s] [ 21%]
+dynamo/test_recompile_ux.py::RecompileLimitKwargTests::test_recompile_limit_basic PASSED [0.0682s] [ 23%]
+dynamo/test_recompile_ux.py::RecompileLimitKwargTests::test_recompile_limit_fullgraph_raises PASSED [0.0334s] [ 25%]
+dynamo/test_recompile_ux.py::RecompileLimitKwargTests::test_recompile_limit_none_uses_global PASSED [0.2449s] [ 27%]
+dynamo/test_recompile_ux.py::RecompileLimitKwargTests::test_recompile_limit_resume_function_auto_dynamic PASSED [0.1146s] [ 29%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_debug_get_cache_entry_list_deterministic_order PASSED [0.1747s] [ 31%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_different_backends_independent_with_isolate PASSED [0.1205s] [ 34%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_different_backends_shared_cache_without_isolate PASSED [0.0653s] [ 36%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_accumulated_limit PASSED [0.1986s] [ 38%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_accumulated_limit_hard_fail PASSED [0.1362s] [ 40%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_auto_dynamic_shared_pgo PASSED [0.1124s] [ 42%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_basic PASSED [0.0355s] [ 44%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_factory_pattern PASSED [22.6282s] [ 46%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_fullgraph_raises PASSED [0.0329s] [ 48%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_gc_wrapper PASSED [0.2434s] [ 51%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_ignores_default_run_only PASSED [0.0687s] [ 53%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_inherits_default_skip PASSED [0.0026s] [ 55%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_insertion_order_per_region PASSED [0.1285s] [ 57%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_limit_does_not_skip_other_regions PASSED [0.0961s] [ 59%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_lru_move_to_front PASSED [0.1425s] [ 61%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_mark_dynamic_vs_static PASSED [0.0996s] [ 63%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_reasons_include_default_bucket PASSED [0.0890s] [ 65%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_region_run_only_persists PASSED [0.0640s] [ 68%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_reset PASSED [0.1342s] [ 70%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_resume_function PASSED [0.1397s] [ 72%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_same_backend_different_dynamic_independent_limits PASSED [0.0999s] [ 74%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_same_backend_different_regions PASSED [0.0616s] [ 76%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_same_function_different_regions PASSED [0.0612s] [ 78%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_static_and_dynamic PASSED [0.0984s] [ 80%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_string_backends_backend_aot_eager PASSED [0.0906s] [ 82%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_string_backends_backend_eager PASSED [0.0656s] [ 85%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_isolate_recompiles_string_backends_backend_inductor PASSED [0.7333s] [ 87%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_no_isolate_recompiles_shared_cache PASSED [0.0650s] [ 89%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_non_isolated_compiles_share_cache PASSED [0.0676s] [ 91%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_non_isolated_entries_visible_to_isolated PASSED [0.0342s] [ 93%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_non_isolated_reasons_unchanged PASSED [0.0648s] [ 95%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_reasons_include_all_default_entries PASSED [0.1235s] [ 97%]
+dynamo/test_recompile_ux.py::IsolateRecompilesTests::test_reset_clears_region_strategy PASSED [0.0664s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/dynamo.test_recompile_ux/dynamo.test_recompile_ux-0686653d5391a221.xml -
+============================= 47 passed in 28.54s ==============================

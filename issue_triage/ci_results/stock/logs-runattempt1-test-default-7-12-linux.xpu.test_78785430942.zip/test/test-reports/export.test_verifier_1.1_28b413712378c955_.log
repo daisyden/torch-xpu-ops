@@ -1,0 +1,25 @@
+Test results will be stored in test-reports/python-pytest/export.test_verifier/export.test_verifier-c940164507f1b064.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 10 items
+stepcurrent: Cannot find last run test, not skipping
+Running 10 items in this shard: test/export/test_verifier.py::TestVerifier::test_ep_verifier_basic, test/export/test_verifier.py::TestVerifier::test_ep_verifier_buffer_mutate, test/export/test_verifier.py::TestVerifier::test_ep_verifier_invalid_buffer, test/export/test_verifier.py::TestVerifier::test_ep_verifier_invalid_output, test/export/test_verifier.py::TestVerifier::test_ep_verifier_invalid_param, test/export/test_verifier.py::TestVerifier::test_verifier_basic, test/export/test_verifier.py::TestVerifier::test_verifier_call_module, test/export/test_verifier.py::TestVerifier::test_verifier_higher_order, test/export/test_verifier.py::TestVerifier::test_verifier_nested_invalid_module, test/export/test_verifier.py::TestVerifier::test_verifier_no_functional
+
+export/test_verifier.py::TestVerifier::test_ep_verifier_basic PASSED [0.6933s] [ 10%]
+export/test_verifier.py::TestVerifier::test_ep_verifier_buffer_mutate PASSED [0.0798s] [ 20%]
+export/test_verifier.py::TestVerifier::test_ep_verifier_invalid_buffer PASSED [0.0653s] [ 30%]
+export/test_verifier.py::TestVerifier::test_ep_verifier_invalid_output PASSED [0.0702s] [ 40%]
+export/test_verifier.py::TestVerifier::test_ep_verifier_invalid_param PASSED [0.0614s] [ 50%]
+export/test_verifier.py::TestVerifier::test_verifier_basic PASSED [0.0556s] [ 60%]
+export/test_verifier.py::TestVerifier::test_verifier_call_module PASSED [0.0031s] [ 70%]
+export/test_verifier.py::TestVerifier::test_verifier_higher_order PASSED [0.1325s] [ 80%]
+export/test_verifier.py::TestVerifier::test_verifier_nested_invalid_module PASSED [0.3481s] [ 90%]
+export/test_verifier.py::TestVerifier::test_verifier_no_functional PASSED [0.4141s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/export.test_verifier/export.test_verifier-c940164507f1b064.xml -
+============================== 10 passed in 1.96s ==============================

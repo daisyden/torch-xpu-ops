@@ -1,0 +1,1467 @@
+<testsuites><testsuite name="pytest" errors="0" failures="0" skipped="4" tests="124" time="20.860" timestamp="2026-06-01T04:53:10.940166" hostname="9d48c37feb18"><testcase classname="TestSerialize" name="test_1D_tensor_slicing" time="0.063" file="export/test_serialize.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/export/pt2_archive/_package.py:415: UserWarning: No complete tensor found in the group! Returning the first one. This may cause issues when your weights are not on CPU.
+  complete_tensor = get_complete_tensor(group, weights_dict)
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/export/pt2_archive/_package.py:806: UserWarning: The given buffer is not writable, and PyTorch does not support non-writable tensors. This means you can write to the underlying (supposedly non-writable) buffer using the tensor. You may want to copy the buffer to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /var/lib/jenkins/workspace/torch/csrc/utils/tensor_new.cpp:1576.)
+  tensor = torch.frombuffer(
+</system-err></testcase><testcase classname="TestSerialize" name="test_2D_tensor_slicing" time="0.029" file="export/test_serialize.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/export/pt2_archive/_package.py:415: UserWarning: No complete tensor found in the group! Returning the first one. This may cause issues when your weights are not on CPU.
+  complete_tensor = get_complete_tensor(group, weights_dict)
+</system-err></testcase><testcase classname="TestSerialize" name="test_canonicalize" time="0.351" file="export/test_serialize.py" /><testcase classname="TestSerialize" name="test_complex_constant" time="0.030" file="export/test_serialize.py" /><testcase classname="TestSerialize" name="test_empty_constant" time="0.034" file="export/test_serialize.py" /><testcase classname="TestSerialize" name="test_empty_state_dict" time="0.025" file="export/test_serialize.py" /><testcase classname="TestSerialize" name="test_export_example_inputs_preserved" time="0.088" file="export/test_serialize.py" /><testcase classname="TestSerialize" name="test_export_with_extension_op_serialization" time="0.064" file="export/test_serialize.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TestSerialize" name="test_int_list" time="0.072" file="export/test_serialize.py" /><testcase classname="TestSerialize" name="test_kwargs_default" time="0.251" file="export/test_serialize.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TestSerialize" name="test_metadata_parsing_with_layer_split" time="0.119" file="export/test_serialize.py" /><testcase classname="TestSerialize" name="test_metadata_run_decomp_serder" time="0.185" file="export/test_serialize.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TestSerialize" name="test_multi_return_list_tensor_unused" time="0.074" file="export/test_serialize.py" /><testcase classname="TestSerialize" name="test_multi_return_some_unused" time="0.260" file="export/test_serialize.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TestSerialize" name="test_nested_layer_split" time="0.383" file="export/test_serialize.py" /><testcase classname="TestSerialize" name="test_non_float_weight" time="0.025" file="export/test_serialize.py" /><testcase classname="TestSerialize" name="test_nonfinite_inputs" time="0.019" file="export/test_serialize.py" /><testcase classname="TestSerialize" name="test_predispatch_export_with_autograd_op" time="0.081" file="export/test_serialize.py" /><testcase classname="TestSerialize" name="test_preserve_aliasing" time="0.072" file="export/test_serialize.py" /><testcase classname="TestSerialize" name="test_rational_ranges" time="0.100" file="export/test_serialize.py" /><testcase classname="TestSerialize" name="test_serialize_constant_outputs" time="0.078" file="export/test_serialize.py" /><testcase classname="TestSerialize" name="test_serialize_infinite_sym_int" time="0.374" file="export/test_serialize.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TestSerialize" name="test_serialize_list_returns" time="0.300" file="export/test_serialize.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TestSerialize" name="test_serialize_multiple_returns_from_node" time="0.358" file="export/test_serialize.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TestSerialize" name="test_serialize_param_mutation" time="0.470" file="export/test_serialize.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TestSerialize" name="test_serialize_sym_float" time="0.001" file="export/test_serialize.py" /><testcase classname="TestSerialize" name="test_serialize_sym_int" time="0.392" file="export/test_serialize.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TestSerialize" name="test_storage_offset" time="0.035" file="export/test_serialize.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/export/pt2_archive/_package.py:415: UserWarning: No complete tensor found in the group! Returning the first one. This may cause issues when your weights are not on CPU.
+  complete_tensor = get_complete_tensor(group, weights_dict)
+</system-err></testcase><testcase classname="TestSerialize" name="test_symint_list" time="0.002" file="export/test_serialize.py" /><testcase classname="TestSerialize" name="test_triton_constexpr_matching" time="0.001" file="export/test_serialize.py"><skipped type="pytest.skip" message="requires cuda and triton">/var/lib/jenkins/pytorch/test/export/test_serialize.py:835: requires cuda and triton</skipped></testcase><testcase classname="TestSerialize" name="test_triton_hop" time="0.000" file="export/test_serialize.py"><skipped type="pytest.skip" message="requires cuda and triton">/var/lib/jenkins/pytorch/test/export/test_serialize.py:680: requires cuda and triton</skipped></testcase><testcase classname="TestSerialize" name="test_weight_sharing_gpu" time="0.280" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_arg_from" time="0.195" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_auto_functionalize" time="0.192" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_basic" time="0.187" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_cond" time="0.315" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_constraints" time="0.239" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_custom_obj" time="0.096" file="export/test_serialize.py"><system-err>--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 438, in deserialize_torch_artifact
+    artifact = torch.load(buffer, weights_only=True)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/serialization.py", line 1609, in load
+    raise pickle.UnpicklingError(_get_wo_message(str(e))) from None
+_pickle.UnpicklingError: Weights only load failed. This file can still be loaded, to do so you have two options, #x1B[1mdo those steps only if you trust the source of the checkpoint#x1B[0m. 
+	(1) In PyTorch 2.6, we changed the default value of the `weights_only` argument in `torch.load` from `False` to `True`. Re-running `torch.load` with `weights_only` set to `False` will likely succeed, but it can result in arbitrary code execution. Do it only if you got the file from a trusted source.
+	(2) Alternatively, to load with `weights_only=True` please check the recommended steps in the following error message.
+	WeightsUnpickler error: Unsupported global: GLOBAL torch.ScriptObject was not an allowed global by default. Please use `torch.serialization.add_safe_globals([torch.ScriptObject])` or the `torch.serialization.safe_globals([torch.ScriptObject])` context manager to allowlist this global if you trust this class/function.
+
+Check the documentation of torch.load to learn more about types accepted by default with weights_only https://pytorch.org/docs/stable/generated/torch.load.html.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 1100, in emit
+    msg = self.format(record)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 943, in format
+    return fmt.format(record)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_logging/_internal.py", line 967, in format
+    record.message = record.getMessage()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 368, in getMessage
+    msg = msg % self.args
+TypeError: not enough arguments for format string
+Call stack:
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 2735, in &lt;module&gt;
+    run_tests()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 1386, in run_tests
+    exit_code = pytest.main(args=pytest_args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/config/__init__.py", line 166, in main
+    ret: Union[ExitCode, int] = config.hook.pytest_cmdline_main(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 316, in pytest_cmdline_main
+    return wrap_session(config, _main)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 269, in wrap_session
+    session.exitstatus = doit(config, session) or 0
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 323, in _main
+    config.hook.pytest_runtestloop(session=session)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 348, in pytest_runtestloop
+    item.config.hook.pytest_runtest_protocol(item=item, nextitem=nextitem)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pytest_rerunfailures.py", line 549, in pytest_runtest_protocol
+    reports = runtestprotocol(item, nextitem=nextitem, log=False)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 133, in runtestprotocol
+    reports.append(call_and_report(item, "call", log))
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 222, in call_and_report
+    call = call_runtest_hook(item, when, **kwds)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 261, in call_runtest_hook
+    return CallInfo.from_call(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 341, in from_call
+    result: Optional[TResult] = func()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 262, in &lt;lambda&gt;
+    lambda: ihook(item=item, **kwds), when=when, reraise=reraise
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 169, in pytest_runtest_call
+    item.runtest()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/unittest.py", line 333, in runtest
+    self._testcase(result=self)  # type: ignore[arg-type]
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 650, in __call__
+    return self.run(*args, **kwds)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3734, in run
+    self._run_custom(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3703, in _run_custom
+    super_run(result=result)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 591, in run
+    self._callTestMethod(testMethod)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 549, in _callTestMethod
+    method()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3551, in wrapper
+    method(*args, **kwargs)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 1975, in test_custom_obj
+    self.check_graph(m, inputs, strict=False)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 1357, in check_graph
+    _check_graph(pre_dispatch=True)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 1327, in _check_graph
+    deserialized_ep = deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 3788, in deserialize
+    return ExportedProgramDeserializer(expected_opset_version).deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 3602, in deserialize
+    res = GraphModuleDeserializer().deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 2953, in deserialize
+    self.constants = deserialize_torch_artifact(constants)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 442, in deserialize_torch_artifact
+    log.warning(
+Message: 'Fallback to weights_only=False succeeded. Loaded object of type %s after initial failure: %s'
+Arguments: (&lt;class 'dict'&gt;,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 438, in deserialize_torch_artifact
+    artifact = torch.load(buffer, weights_only=True)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/serialization.py", line 1609, in load
+    raise pickle.UnpicklingError(_get_wo_message(str(e))) from None
+_pickle.UnpicklingError: Weights only load failed. This file can still be loaded, to do so you have two options, #x1B[1mdo those steps only if you trust the source of the checkpoint#x1B[0m. 
+	(1) In PyTorch 2.6, we changed the default value of the `weights_only` argument in `torch.load` from `False` to `True`. Re-running `torch.load` with `weights_only` set to `False` will likely succeed, but it can result in arbitrary code execution. Do it only if you got the file from a trusted source.
+	(2) Alternatively, to load with `weights_only=True` please check the recommended steps in the following error message.
+	WeightsUnpickler error: Unsupported global: GLOBAL torch.ScriptObject was not an allowed global by default. Please use `torch.serialization.add_safe_globals([torch.ScriptObject])` or the `torch.serialization.safe_globals([torch.ScriptObject])` context manager to allowlist this global if you trust this class/function.
+
+Check the documentation of torch.load to learn more about types accepted by default with weights_only https://pytorch.org/docs/stable/generated/torch.load.html.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 1100, in emit
+    msg = self.format(record)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 943, in format
+    return fmt.format(record)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_logging/_internal.py", line 967, in format
+    record.message = record.getMessage()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 368, in getMessage
+    msg = msg % self.args
+TypeError: not enough arguments for format string
+Call stack:
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 2735, in &lt;module&gt;
+    run_tests()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 1386, in run_tests
+    exit_code = pytest.main(args=pytest_args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/config/__init__.py", line 166, in main
+    ret: Union[ExitCode, int] = config.hook.pytest_cmdline_main(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 316, in pytest_cmdline_main
+    return wrap_session(config, _main)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 269, in wrap_session
+    session.exitstatus = doit(config, session) or 0
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 323, in _main
+    config.hook.pytest_runtestloop(session=session)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 348, in pytest_runtestloop
+    item.config.hook.pytest_runtest_protocol(item=item, nextitem=nextitem)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pytest_rerunfailures.py", line 549, in pytest_runtest_protocol
+    reports = runtestprotocol(item, nextitem=nextitem, log=False)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 133, in runtestprotocol
+    reports.append(call_and_report(item, "call", log))
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 222, in call_and_report
+    call = call_runtest_hook(item, when, **kwds)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 261, in call_runtest_hook
+    return CallInfo.from_call(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 341, in from_call
+    result: Optional[TResult] = func()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 262, in &lt;lambda&gt;
+    lambda: ihook(item=item, **kwds), when=when, reraise=reraise
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 169, in pytest_runtest_call
+    item.runtest()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/unittest.py", line 333, in runtest
+    self._testcase(result=self)  # type: ignore[arg-type]
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 650, in __call__
+    return self.run(*args, **kwds)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3734, in run
+    self._run_custom(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3703, in _run_custom
+    super_run(result=result)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 591, in run
+    self._callTestMethod(testMethod)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 549, in _callTestMethod
+    method()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3551, in wrapper
+    method(*args, **kwargs)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 1975, in test_custom_obj
+    self.check_graph(m, inputs, strict=False)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 1358, in check_graph
+    _check_graph(pre_dispatch=False)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 1327, in _check_graph
+    deserialized_ep = deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 3788, in deserialize
+    return ExportedProgramDeserializer(expected_opset_version).deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 3602, in deserialize
+    res = GraphModuleDeserializer().deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 2953, in deserialize
+    self.constants = deserialize_torch_artifact(constants)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 442, in deserialize_torch_artifact
+    log.warning(
+Message: 'Fallback to weights_only=False succeeded. Loaded object of type %s after initial failure: %s'
+Arguments: (&lt;class 'dict'&gt;,)
+</system-err></testcase><testcase classname="TestDeserialize" name="test_custom_obj_list_out" time="0.117" file="export/test_serialize.py"><system-err>--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 438, in deserialize_torch_artifact
+    artifact = torch.load(buffer, weights_only=True)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/serialization.py", line 1609, in load
+    raise pickle.UnpicklingError(_get_wo_message(str(e))) from None
+_pickle.UnpicklingError: Weights only load failed. This file can still be loaded, to do so you have two options, #x1B[1mdo those steps only if you trust the source of the checkpoint#x1B[0m. 
+	(1) In PyTorch 2.6, we changed the default value of the `weights_only` argument in `torch.load` from `False` to `True`. Re-running `torch.load` with `weights_only` set to `False` will likely succeed, but it can result in arbitrary code execution. Do it only if you got the file from a trusted source.
+	(2) Alternatively, to load with `weights_only=True` please check the recommended steps in the following error message.
+	WeightsUnpickler error: Unsupported global: GLOBAL torch.ScriptObject was not an allowed global by default. Please use `torch.serialization.add_safe_globals([torch.ScriptObject])` or the `torch.serialization.safe_globals([torch.ScriptObject])` context manager to allowlist this global if you trust this class/function.
+
+Check the documentation of torch.load to learn more about types accepted by default with weights_only https://pytorch.org/docs/stable/generated/torch.load.html.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 1100, in emit
+    msg = self.format(record)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 943, in format
+    return fmt.format(record)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_logging/_internal.py", line 967, in format
+    record.message = record.getMessage()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 368, in getMessage
+    msg = msg % self.args
+TypeError: not enough arguments for format string
+Call stack:
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 2735, in &lt;module&gt;
+    run_tests()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 1386, in run_tests
+    exit_code = pytest.main(args=pytest_args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/config/__init__.py", line 166, in main
+    ret: Union[ExitCode, int] = config.hook.pytest_cmdline_main(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 316, in pytest_cmdline_main
+    return wrap_session(config, _main)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 269, in wrap_session
+    session.exitstatus = doit(config, session) or 0
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 323, in _main
+    config.hook.pytest_runtestloop(session=session)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 348, in pytest_runtestloop
+    item.config.hook.pytest_runtest_protocol(item=item, nextitem=nextitem)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pytest_rerunfailures.py", line 549, in pytest_runtest_protocol
+    reports = runtestprotocol(item, nextitem=nextitem, log=False)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 133, in runtestprotocol
+    reports.append(call_and_report(item, "call", log))
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 222, in call_and_report
+    call = call_runtest_hook(item, when, **kwds)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 261, in call_runtest_hook
+    return CallInfo.from_call(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 341, in from_call
+    result: Optional[TResult] = func()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 262, in &lt;lambda&gt;
+    lambda: ihook(item=item, **kwds), when=when, reraise=reraise
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 169, in pytest_runtest_call
+    item.runtest()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/unittest.py", line 333, in runtest
+    self._testcase(result=self)  # type: ignore[arg-type]
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 650, in __call__
+    return self.run(*args, **kwds)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3734, in run
+    self._run_custom(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3703, in _run_custom
+    super_run(result=result)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 591, in run
+    self._callTestMethod(testMethod)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 549, in _callTestMethod
+    method()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3551, in wrapper
+    method(*args, **kwargs)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 1991, in test_custom_obj_list_out
+    self.check_graph(m, inputs, strict=False)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 1357, in check_graph
+    _check_graph(pre_dispatch=True)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 1327, in _check_graph
+    deserialized_ep = deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 3788, in deserialize
+    return ExportedProgramDeserializer(expected_opset_version).deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 3602, in deserialize
+    res = GraphModuleDeserializer().deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 2953, in deserialize
+    self.constants = deserialize_torch_artifact(constants)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 442, in deserialize_torch_artifact
+    log.warning(
+Message: 'Fallback to weights_only=False succeeded. Loaded object of type %s after initial failure: %s'
+Arguments: (&lt;class 'dict'&gt;,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 438, in deserialize_torch_artifact
+    artifact = torch.load(buffer, weights_only=True)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/serialization.py", line 1609, in load
+    raise pickle.UnpicklingError(_get_wo_message(str(e))) from None
+_pickle.UnpicklingError: Weights only load failed. This file can still be loaded, to do so you have two options, #x1B[1mdo those steps only if you trust the source of the checkpoint#x1B[0m. 
+	(1) In PyTorch 2.6, we changed the default value of the `weights_only` argument in `torch.load` from `False` to `True`. Re-running `torch.load` with `weights_only` set to `False` will likely succeed, but it can result in arbitrary code execution. Do it only if you got the file from a trusted source.
+	(2) Alternatively, to load with `weights_only=True` please check the recommended steps in the following error message.
+	WeightsUnpickler error: Unsupported global: GLOBAL torch.ScriptObject was not an allowed global by default. Please use `torch.serialization.add_safe_globals([torch.ScriptObject])` or the `torch.serialization.safe_globals([torch.ScriptObject])` context manager to allowlist this global if you trust this class/function.
+
+Check the documentation of torch.load to learn more about types accepted by default with weights_only https://pytorch.org/docs/stable/generated/torch.load.html.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 1100, in emit
+    msg = self.format(record)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 943, in format
+    return fmt.format(record)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_logging/_internal.py", line 967, in format
+    record.message = record.getMessage()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 368, in getMessage
+    msg = msg % self.args
+TypeError: not enough arguments for format string
+Call stack:
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 2735, in &lt;module&gt;
+    run_tests()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 1386, in run_tests
+    exit_code = pytest.main(args=pytest_args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/config/__init__.py", line 166, in main
+    ret: Union[ExitCode, int] = config.hook.pytest_cmdline_main(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 316, in pytest_cmdline_main
+    return wrap_session(config, _main)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 269, in wrap_session
+    session.exitstatus = doit(config, session) or 0
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 323, in _main
+    config.hook.pytest_runtestloop(session=session)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 348, in pytest_runtestloop
+    item.config.hook.pytest_runtest_protocol(item=item, nextitem=nextitem)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pytest_rerunfailures.py", line 549, in pytest_runtest_protocol
+    reports = runtestprotocol(item, nextitem=nextitem, log=False)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 133, in runtestprotocol
+    reports.append(call_and_report(item, "call", log))
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 222, in call_and_report
+    call = call_runtest_hook(item, when, **kwds)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 261, in call_runtest_hook
+    return CallInfo.from_call(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 341, in from_call
+    result: Optional[TResult] = func()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 262, in &lt;lambda&gt;
+    lambda: ihook(item=item, **kwds), when=when, reraise=reraise
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 169, in pytest_runtest_call
+    item.runtest()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/unittest.py", line 333, in runtest
+    self._testcase(result=self)  # type: ignore[arg-type]
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 650, in __call__
+    return self.run(*args, **kwds)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3734, in run
+    self._run_custom(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3703, in _run_custom
+    super_run(result=result)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 591, in run
+    self._callTestMethod(testMethod)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 549, in _callTestMethod
+    method()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3551, in wrapper
+    method(*args, **kwargs)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 1991, in test_custom_obj_list_out
+    self.check_graph(m, inputs, strict=False)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 1358, in check_graph
+    _check_graph(pre_dispatch=False)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 1327, in _check_graph
+    deserialized_ep = deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 3788, in deserialize
+    return ExportedProgramDeserializer(expected_opset_version).deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 3602, in deserialize
+    res = GraphModuleDeserializer().deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 2953, in deserialize
+    self.constants = deserialize_torch_artifact(constants)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 442, in deserialize_torch_artifact
+    log.warning(
+Message: 'Fallback to weights_only=False succeeded. Loaded object of type %s after initial failure: %s'
+Arguments: (&lt;class 'dict'&gt;,)
+</system-err></testcase><testcase classname="TestDeserialize" name="test_custom_obj_tuple_out" time="0.104" file="export/test_serialize.py"><system-err>--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 438, in deserialize_torch_artifact
+    artifact = torch.load(buffer, weights_only=True)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/serialization.py", line 1609, in load
+    raise pickle.UnpicklingError(_get_wo_message(str(e))) from None
+_pickle.UnpicklingError: Weights only load failed. This file can still be loaded, to do so you have two options, #x1B[1mdo those steps only if you trust the source of the checkpoint#x1B[0m. 
+	(1) In PyTorch 2.6, we changed the default value of the `weights_only` argument in `torch.load` from `False` to `True`. Re-running `torch.load` with `weights_only` set to `False` will likely succeed, but it can result in arbitrary code execution. Do it only if you got the file from a trusted source.
+	(2) Alternatively, to load with `weights_only=True` please check the recommended steps in the following error message.
+	WeightsUnpickler error: Unsupported global: GLOBAL torch.ScriptObject was not an allowed global by default. Please use `torch.serialization.add_safe_globals([torch.ScriptObject])` or the `torch.serialization.safe_globals([torch.ScriptObject])` context manager to allowlist this global if you trust this class/function.
+
+Check the documentation of torch.load to learn more about types accepted by default with weights_only https://pytorch.org/docs/stable/generated/torch.load.html.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 1100, in emit
+    msg = self.format(record)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 943, in format
+    return fmt.format(record)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_logging/_internal.py", line 967, in format
+    record.message = record.getMessage()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 368, in getMessage
+    msg = msg % self.args
+TypeError: not enough arguments for format string
+Call stack:
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 2735, in &lt;module&gt;
+    run_tests()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 1386, in run_tests
+    exit_code = pytest.main(args=pytest_args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/config/__init__.py", line 166, in main
+    ret: Union[ExitCode, int] = config.hook.pytest_cmdline_main(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 316, in pytest_cmdline_main
+    return wrap_session(config, _main)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 269, in wrap_session
+    session.exitstatus = doit(config, session) or 0
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 323, in _main
+    config.hook.pytest_runtestloop(session=session)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 348, in pytest_runtestloop
+    item.config.hook.pytest_runtest_protocol(item=item, nextitem=nextitem)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pytest_rerunfailures.py", line 549, in pytest_runtest_protocol
+    reports = runtestprotocol(item, nextitem=nextitem, log=False)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 133, in runtestprotocol
+    reports.append(call_and_report(item, "call", log))
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 222, in call_and_report
+    call = call_runtest_hook(item, when, **kwds)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 261, in call_runtest_hook
+    return CallInfo.from_call(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 341, in from_call
+    result: Optional[TResult] = func()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 262, in &lt;lambda&gt;
+    lambda: ihook(item=item, **kwds), when=when, reraise=reraise
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 169, in pytest_runtest_call
+    item.runtest()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/unittest.py", line 333, in runtest
+    self._testcase(result=self)  # type: ignore[arg-type]
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 650, in __call__
+    return self.run(*args, **kwds)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3734, in run
+    self._run_custom(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3703, in _run_custom
+    super_run(result=result)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 591, in run
+    self._callTestMethod(testMethod)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 549, in _callTestMethod
+    method()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3551, in wrapper
+    method(*args, **kwargs)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 1960, in test_custom_obj_tuple_out
+    self.check_graph(m, inputs, strict=False)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 1357, in check_graph
+    _check_graph(pre_dispatch=True)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 1327, in _check_graph
+    deserialized_ep = deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 3788, in deserialize
+    return ExportedProgramDeserializer(expected_opset_version).deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 3602, in deserialize
+    res = GraphModuleDeserializer().deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 2953, in deserialize
+    self.constants = deserialize_torch_artifact(constants)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 442, in deserialize_torch_artifact
+    log.warning(
+Message: 'Fallback to weights_only=False succeeded. Loaded object of type %s after initial failure: %s'
+Arguments: (&lt;class 'dict'&gt;,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 438, in deserialize_torch_artifact
+    artifact = torch.load(buffer, weights_only=True)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/serialization.py", line 1609, in load
+    raise pickle.UnpicklingError(_get_wo_message(str(e))) from None
+_pickle.UnpicklingError: Weights only load failed. This file can still be loaded, to do so you have two options, #x1B[1mdo those steps only if you trust the source of the checkpoint#x1B[0m. 
+	(1) In PyTorch 2.6, we changed the default value of the `weights_only` argument in `torch.load` from `False` to `True`. Re-running `torch.load` with `weights_only` set to `False` will likely succeed, but it can result in arbitrary code execution. Do it only if you got the file from a trusted source.
+	(2) Alternatively, to load with `weights_only=True` please check the recommended steps in the following error message.
+	WeightsUnpickler error: Unsupported global: GLOBAL torch.ScriptObject was not an allowed global by default. Please use `torch.serialization.add_safe_globals([torch.ScriptObject])` or the `torch.serialization.safe_globals([torch.ScriptObject])` context manager to allowlist this global if you trust this class/function.
+
+Check the documentation of torch.load to learn more about types accepted by default with weights_only https://pytorch.org/docs/stable/generated/torch.load.html.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 1100, in emit
+    msg = self.format(record)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 943, in format
+    return fmt.format(record)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_logging/_internal.py", line 967, in format
+    record.message = record.getMessage()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 368, in getMessage
+    msg = msg % self.args
+TypeError: not enough arguments for format string
+Call stack:
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 2735, in &lt;module&gt;
+    run_tests()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 1386, in run_tests
+    exit_code = pytest.main(args=pytest_args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/config/__init__.py", line 166, in main
+    ret: Union[ExitCode, int] = config.hook.pytest_cmdline_main(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 316, in pytest_cmdline_main
+    return wrap_session(config, _main)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 269, in wrap_session
+    session.exitstatus = doit(config, session) or 0
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 323, in _main
+    config.hook.pytest_runtestloop(session=session)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 348, in pytest_runtestloop
+    item.config.hook.pytest_runtest_protocol(item=item, nextitem=nextitem)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pytest_rerunfailures.py", line 549, in pytest_runtest_protocol
+    reports = runtestprotocol(item, nextitem=nextitem, log=False)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 133, in runtestprotocol
+    reports.append(call_and_report(item, "call", log))
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 222, in call_and_report
+    call = call_runtest_hook(item, when, **kwds)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 261, in call_runtest_hook
+    return CallInfo.from_call(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 341, in from_call
+    result: Optional[TResult] = func()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 262, in &lt;lambda&gt;
+    lambda: ihook(item=item, **kwds), when=when, reraise=reraise
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 169, in pytest_runtest_call
+    item.runtest()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/unittest.py", line 333, in runtest
+    self._testcase(result=self)  # type: ignore[arg-type]
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 650, in __call__
+    return self.run(*args, **kwds)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3734, in run
+    self._run_custom(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3703, in _run_custom
+    super_run(result=result)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 591, in run
+    self._callTestMethod(testMethod)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 549, in _callTestMethod
+    method()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3551, in wrapper
+    method(*args, **kwargs)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 1960, in test_custom_obj_tuple_out
+    self.check_graph(m, inputs, strict=False)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 1358, in check_graph
+    _check_graph(pre_dispatch=False)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 1327, in _check_graph
+    deserialized_ep = deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 3788, in deserialize
+    return ExportedProgramDeserializer(expected_opset_version).deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 3602, in deserialize
+    res = GraphModuleDeserializer().deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 2953, in deserialize
+    self.constants = deserialize_torch_artifact(constants)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 442, in deserialize_torch_artifact
+    log.warning(
+Message: 'Fallback to weights_only=False succeeded. Loaded object of type %s after initial failure: %s'
+Arguments: (&lt;class 'dict'&gt;,)
+</system-err></testcase><testcase classname="TestDeserialize" name="test_device" time="0.001" file="export/test_serialize.py"><skipped type="pytest.skip" message="Requires cuda">/var/lib/jenkins/pytorch/test/export/test_serialize.py:1928: Requires cuda</skipped></testcase><testcase classname="TestDeserialize" name="test_dynamic" time="0.299" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_export_no_inputs" time="0.063" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_exportdb_supported_case_assume_constant_result" time="0.161" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_exportdb_supported_case_autograd_function" time="0.166" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_exportdb_supported_case_class_method" time="0.241" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_exportdb_supported_case_cond_branch_class_method" time="0.145" file="export/test_serialize.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/variables/higher_order_ops.py:2406: UserWarning: Pred is a Python constant. When used with torch.cond, it specializes on one of the branches. If you want torch.cond to preserve two branches, please make the predicate a boolean tensor or a SymBool.
+  warnings.warn(
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/variables/higher_order_ops.py:2406: UserWarning: Pred is a Python constant. When used with torch.cond, it specializes on one of the branches. If you want torch.cond to preserve two branches, please make the predicate a boolean tensor or a SymBool.
+  warnings.warn(
+</system-err></testcase><testcase classname="TestDeserialize" name="test_exportdb_supported_case_cond_branch_nested_function" time="0.399" file="export/test_serialize.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/variables/higher_order_ops.py:2406: UserWarning: Pred is a Python constant. When used with torch.cond, it specializes on one of the branches. If you want torch.cond to preserve two branches, please make the predicate a boolean tensor or a SymBool.
+  warnings.warn(
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/variables/higher_order_ops.py:2406: UserWarning: Pred is a Python constant. When used with torch.cond, it specializes on one of the branches. If you want torch.cond to preserve two branches, please make the predicate a boolean tensor or a SymBool.
+  warnings.warn(
+</system-err></testcase><testcase classname="TestDeserialize" name="test_exportdb_supported_case_cond_branch_nonlocal_variables" time="0.183" file="export/test_serialize.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/variables/higher_order_ops.py:2406: UserWarning: Pred is a Python constant. When used with torch.cond, it specializes on one of the branches. If you want torch.cond to preserve two branches, please make the predicate a boolean tensor or a SymBool.
+  warnings.warn(
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/variables/higher_order_ops.py:2406: UserWarning: Pred is a Python constant. When used with torch.cond, it specializes on one of the branches. If you want torch.cond to preserve two branches, please make the predicate a boolean tensor or a SymBool.
+  warnings.warn(
+</system-err></testcase><testcase classname="TestDeserialize" name="test_exportdb_supported_case_cond_closed_over_variable" time="0.300" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_exportdb_supported_case_cond_operands" time="0.158" file="export/test_serialize.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/variables/higher_order_ops.py:2406: UserWarning: Pred is a Python constant. When used with torch.cond, it specializes on one of the branches. If you want torch.cond to preserve two branches, please make the predicate a boolean tensor or a SymBool.
+  warnings.warn(
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/variables/higher_order_ops.py:2406: UserWarning: Pred is a Python constant. When used with torch.cond, it specializes on one of the branches. If you want torch.cond to preserve two branches, please make the predicate a boolean tensor or a SymBool.
+  warnings.warn(
+</system-err></testcase><testcase classname="TestDeserialize" name="test_exportdb_supported_case_cond_predicate" time="0.146" file="export/test_serialize.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/variables/higher_order_ops.py:2406: UserWarning: Pred is a Python constant. When used with torch.cond, it specializes on one of the branches. If you want torch.cond to preserve two branches, please make the predicate a boolean tensor or a SymBool.
+  warnings.warn(
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/variables/higher_order_ops.py:2406: UserWarning: Pred is a Python constant. When used with torch.cond, it specializes on one of the branches. If you want torch.cond to preserve two branches, please make the predicate a boolean tensor or a SymBool.
+  warnings.warn(
+</system-err></testcase><testcase classname="TestDeserialize" name="test_exportdb_supported_case_constrain_as_size_example" time="0.198" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_exportdb_supported_case_constrain_as_value_example" time="0.223" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_exportdb_supported_case_decorator" time="0.162" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_exportdb_supported_case_dictionary" time="0.173" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_exportdb_supported_case_dynamic_shape_assert" time="0.126" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_exportdb_supported_case_dynamic_shape_constructor" time="0.140" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_exportdb_supported_case_dynamic_shape_if_guard" time="0.140" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_exportdb_supported_case_dynamic_shape_map" time="0.295" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_exportdb_supported_case_dynamic_shape_slicing" time="0.150" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_exportdb_supported_case_dynamic_shape_view" time="0.154" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_exportdb_supported_case_fn_with_kwargs" time="0.002" file="export/test_serialize.py"><skipped type="pytest.xfail" message="" /></testcase><testcase classname="TestDeserialize" name="test_exportdb_supported_case_list_contains" time="0.138" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_exportdb_supported_case_list_unpack" time="0.171" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_exportdb_supported_case_model_attr_mutation" time="0.187" file="export/test_serialize.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py:2368: UserWarning: While compiling, we found certain side effects happened in the model.forward. Here are the list of potential sources you can double check: ["L['self']._modules['_export_root']"]
+  warnings.warn(
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py:2368: UserWarning: While compiling, we found certain side effects happened in the model.forward. Here are the list of potential sources you can double check: ["L['self']._modules['_export_root']"]
+  warnings.warn(
+</system-err></testcase><testcase classname="TestDeserialize" name="test_exportdb_supported_case_nested_function" time="0.242" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_exportdb_supported_case_null_context_manager" time="0.172" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_exportdb_supported_case_optional_input" time="0.185" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_exportdb_supported_case_pytree_flatten" time="0.204" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_exportdb_supported_case_scalar_output" time="0.180" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_exportdb_supported_case_specialized_attribute" time="0.169" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_exportdb_supported_case_static_for_loop" time="0.601" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_exportdb_supported_case_static_if" time="0.160" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_exportdb_supported_case_tensor_setattr" time="0.171" file="export/test_serialize.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py:2368: UserWarning: While compiling, we found certain side effects happened in the model.forward. Here are the list of potential sources you can double check: ["L['flat_args'][0]"]
+  warnings.warn(
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py:2368: UserWarning: While compiling, we found certain side effects happened in the model.forward. Here are the list of potential sources you can double check: ["L['flat_args'][0]"]
+  warnings.warn(
+</system-err></testcase><testcase classname="TestDeserialize" name="test_exportdb_supported_case_type_reflection_method" time="0.157" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_exportdb_supported_case_unsupported_operator" time="0.148" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_exportdb_supported_case_user_input_mutation" time="0.143" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_forward_compatibility" time="0.002" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_get_attr" time="0.146" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_get_attr_list" time="0.160" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_hoo_symint_input" time="0.210" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_list_of_optional_tensors" time="0.215" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_map" time="0.299" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_module" time="0.286" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_module_meta" time="0.190" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_multi_return" time="0.487" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_multiple_getitem" time="0.085" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_none_input" time="0.021" file="export/test_serialize.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TestDeserialize" name="test_opaque_reference_type_constant" time="0.062" file="export/test_serialize.py"><system-err>--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 438, in deserialize_torch_artifact
+    artifact = torch.load(buffer, weights_only=True)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/serialization.py", line 1609, in load
+    raise pickle.UnpicklingError(_get_wo_message(str(e))) from None
+_pickle.UnpicklingError: Weights only load failed. This file can still be loaded, to do so you have two options, #x1B[1mdo those steps only if you trust the source of the checkpoint#x1B[0m. 
+	(1) In PyTorch 2.6, we changed the default value of the `weights_only` argument in `torch.load` from `False` to `True`. Re-running `torch.load` with `weights_only` set to `False` will likely succeed, but it can result in arbitrary code execution. Do it only if you got the file from a trusted source.
+	(2) Alternatively, to load with `weights_only=True` please check the recommended steps in the following error message.
+	WeightsUnpickler error: Unsupported global: GLOBAL __main__._OpaqueEngine was not an allowed global by default. Please use `torch.serialization.add_safe_globals([__main__._OpaqueEngine])` or the `torch.serialization.safe_globals([__main__._OpaqueEngine])` context manager to allowlist this global if you trust this class/function.
+
+Check the documentation of torch.load to learn more about types accepted by default with weights_only https://pytorch.org/docs/stable/generated/torch.load.html.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 1100, in emit
+    msg = self.format(record)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 943, in format
+    return fmt.format(record)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_logging/_internal.py", line 967, in format
+    record.message = record.getMessage()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 368, in getMessage
+    msg = msg % self.args
+TypeError: not enough arguments for format string
+Call stack:
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 2735, in &lt;module&gt;
+    run_tests()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 1386, in run_tests
+    exit_code = pytest.main(args=pytest_args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/config/__init__.py", line 166, in main
+    ret: Union[ExitCode, int] = config.hook.pytest_cmdline_main(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 316, in pytest_cmdline_main
+    return wrap_session(config, _main)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 269, in wrap_session
+    session.exitstatus = doit(config, session) or 0
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 323, in _main
+    config.hook.pytest_runtestloop(session=session)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 348, in pytest_runtestloop
+    item.config.hook.pytest_runtest_protocol(item=item, nextitem=nextitem)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pytest_rerunfailures.py", line 549, in pytest_runtest_protocol
+    reports = runtestprotocol(item, nextitem=nextitem, log=False)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 133, in runtestprotocol
+    reports.append(call_and_report(item, "call", log))
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 222, in call_and_report
+    call = call_runtest_hook(item, when, **kwds)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 261, in call_runtest_hook
+    return CallInfo.from_call(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 341, in from_call
+    result: Optional[TResult] = func()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 262, in &lt;lambda&gt;
+    lambda: ihook(item=item, **kwds), when=when, reraise=reraise
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 169, in pytest_runtest_call
+    item.runtest()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/unittest.py", line 333, in runtest
+    self._testcase(result=self)  # type: ignore[arg-type]
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 650, in __call__
+    return self.run(*args, **kwds)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3734, in run
+    self._run_custom(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3703, in _run_custom
+    super_run(result=result)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 591, in run
+    self._callTestMethod(testMethod)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 549, in _callTestMethod
+    method()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3551, in wrapper
+    method(*args, **kwargs)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 2088, in test_opaque_reference_type_constant
+    self.check_graph(
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 1357, in check_graph
+    _check_graph(pre_dispatch=True)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 1327, in _check_graph
+    deserialized_ep = deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 3788, in deserialize
+    return ExportedProgramDeserializer(expected_opset_version).deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 3602, in deserialize
+    res = GraphModuleDeserializer().deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 2953, in deserialize
+    self.constants = deserialize_torch_artifact(constants)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 442, in deserialize_torch_artifact
+    log.warning(
+Message: 'Fallback to weights_only=False succeeded. Loaded object of type %s after initial failure: %s'
+Arguments: (&lt;class 'dict'&gt;,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 438, in deserialize_torch_artifact
+    artifact = torch.load(buffer, weights_only=True)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/serialization.py", line 1609, in load
+    raise pickle.UnpicklingError(_get_wo_message(str(e))) from None
+_pickle.UnpicklingError: Weights only load failed. This file can still be loaded, to do so you have two options, #x1B[1mdo those steps only if you trust the source of the checkpoint#x1B[0m. 
+	(1) In PyTorch 2.6, we changed the default value of the `weights_only` argument in `torch.load` from `False` to `True`. Re-running `torch.load` with `weights_only` set to `False` will likely succeed, but it can result in arbitrary code execution. Do it only if you got the file from a trusted source.
+	(2) Alternatively, to load with `weights_only=True` please check the recommended steps in the following error message.
+	WeightsUnpickler error: Unsupported global: GLOBAL __main__._OpaqueEngine was not an allowed global by default. Please use `torch.serialization.add_safe_globals([__main__._OpaqueEngine])` or the `torch.serialization.safe_globals([__main__._OpaqueEngine])` context manager to allowlist this global if you trust this class/function.
+
+Check the documentation of torch.load to learn more about types accepted by default with weights_only https://pytorch.org/docs/stable/generated/torch.load.html.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 1100, in emit
+    msg = self.format(record)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 943, in format
+    return fmt.format(record)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_logging/_internal.py", line 967, in format
+    record.message = record.getMessage()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 368, in getMessage
+    msg = msg % self.args
+TypeError: not enough arguments for format string
+Call stack:
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 2735, in &lt;module&gt;
+    run_tests()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 1386, in run_tests
+    exit_code = pytest.main(args=pytest_args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/config/__init__.py", line 166, in main
+    ret: Union[ExitCode, int] = config.hook.pytest_cmdline_main(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 316, in pytest_cmdline_main
+    return wrap_session(config, _main)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 269, in wrap_session
+    session.exitstatus = doit(config, session) or 0
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 323, in _main
+    config.hook.pytest_runtestloop(session=session)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 348, in pytest_runtestloop
+    item.config.hook.pytest_runtest_protocol(item=item, nextitem=nextitem)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pytest_rerunfailures.py", line 549, in pytest_runtest_protocol
+    reports = runtestprotocol(item, nextitem=nextitem, log=False)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 133, in runtestprotocol
+    reports.append(call_and_report(item, "call", log))
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 222, in call_and_report
+    call = call_runtest_hook(item, when, **kwds)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 261, in call_runtest_hook
+    return CallInfo.from_call(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 341, in from_call
+    result: Optional[TResult] = func()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 262, in &lt;lambda&gt;
+    lambda: ihook(item=item, **kwds), when=when, reraise=reraise
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 169, in pytest_runtest_call
+    item.runtest()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/unittest.py", line 333, in runtest
+    self._testcase(result=self)  # type: ignore[arg-type]
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 650, in __call__
+    return self.run(*args, **kwds)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3734, in run
+    self._run_custom(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3703, in _run_custom
+    super_run(result=result)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 591, in run
+    self._callTestMethod(testMethod)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 549, in _callTestMethod
+    method()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3551, in wrapper
+    method(*args, **kwargs)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 2088, in test_opaque_reference_type_constant
+    self.check_graph(
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 1358, in check_graph
+    _check_graph(pre_dispatch=False)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 1327, in _check_graph
+    deserialized_ep = deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 3788, in deserialize
+    return ExportedProgramDeserializer(expected_opset_version).deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 3602, in deserialize
+    res = GraphModuleDeserializer().deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 2953, in deserialize
+    self.constants = deserialize_torch_artifact(constants)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 442, in deserialize_torch_artifact
+    log.warning(
+Message: 'Fallback to weights_only=False succeeded. Loaded object of type %s after initial failure: %s'
+Arguments: (&lt;class 'dict'&gt;,)
+</system-err></testcase><testcase classname="TestDeserialize" name="test_opaque_value_type_constant" time="0.057" file="export/test_serialize.py"><system-err>--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 438, in deserialize_torch_artifact
+    artifact = torch.load(buffer, weights_only=True)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/serialization.py", line 1609, in load
+    raise pickle.UnpicklingError(_get_wo_message(str(e))) from None
+_pickle.UnpicklingError: Weights only load failed. This file can still be loaded, to do so you have two options, #x1B[1mdo those steps only if you trust the source of the checkpoint#x1B[0m. 
+	(1) In PyTorch 2.6, we changed the default value of the `weights_only` argument in `torch.load` from `False` to `True`. Re-running `torch.load` with `weights_only` set to `False` will likely succeed, but it can result in arbitrary code execution. Do it only if you got the file from a trusted source.
+	(2) Alternatively, to load with `weights_only=True` please check the recommended steps in the following error message.
+	WeightsUnpickler error: Unsupported global: GLOBAL __main__._OpaqueConfig was not an allowed global by default. Please use `torch.serialization.add_safe_globals([__main__._OpaqueConfig])` or the `torch.serialization.safe_globals([__main__._OpaqueConfig])` context manager to allowlist this global if you trust this class/function.
+
+Check the documentation of torch.load to learn more about types accepted by default with weights_only https://pytorch.org/docs/stable/generated/torch.load.html.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 1100, in emit
+    msg = self.format(record)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 943, in format
+    return fmt.format(record)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_logging/_internal.py", line 967, in format
+    record.message = record.getMessage()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 368, in getMessage
+    msg = msg % self.args
+TypeError: not enough arguments for format string
+Call stack:
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 2735, in &lt;module&gt;
+    run_tests()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 1386, in run_tests
+    exit_code = pytest.main(args=pytest_args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/config/__init__.py", line 166, in main
+    ret: Union[ExitCode, int] = config.hook.pytest_cmdline_main(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 316, in pytest_cmdline_main
+    return wrap_session(config, _main)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 269, in wrap_session
+    session.exitstatus = doit(config, session) or 0
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 323, in _main
+    config.hook.pytest_runtestloop(session=session)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 348, in pytest_runtestloop
+    item.config.hook.pytest_runtest_protocol(item=item, nextitem=nextitem)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pytest_rerunfailures.py", line 549, in pytest_runtest_protocol
+    reports = runtestprotocol(item, nextitem=nextitem, log=False)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 133, in runtestprotocol
+    reports.append(call_and_report(item, "call", log))
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 222, in call_and_report
+    call = call_runtest_hook(item, when, **kwds)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 261, in call_runtest_hook
+    return CallInfo.from_call(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 341, in from_call
+    result: Optional[TResult] = func()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 262, in &lt;lambda&gt;
+    lambda: ihook(item=item, **kwds), when=when, reraise=reraise
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 169, in pytest_runtest_call
+    item.runtest()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/unittest.py", line 333, in runtest
+    self._testcase(result=self)  # type: ignore[arg-type]
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 650, in __call__
+    return self.run(*args, **kwds)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3734, in run
+    self._run_custom(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3703, in _run_custom
+    super_run(result=result)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 591, in run
+    self._callTestMethod(testMethod)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 549, in _callTestMethod
+    method()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3551, in wrapper
+    method(*args, **kwargs)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 2062, in test_opaque_value_type_constant
+    self.check_graph(M(_OpaqueConfig(scale=3)), (torch.randn(4),), strict=False)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 1357, in check_graph
+    _check_graph(pre_dispatch=True)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 1327, in _check_graph
+    deserialized_ep = deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 3788, in deserialize
+    return ExportedProgramDeserializer(expected_opset_version).deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 3602, in deserialize
+    res = GraphModuleDeserializer().deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 2953, in deserialize
+    self.constants = deserialize_torch_artifact(constants)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 442, in deserialize_torch_artifact
+    log.warning(
+Message: 'Fallback to weights_only=False succeeded. Loaded object of type %s after initial failure: %s'
+Arguments: (&lt;class 'dict'&gt;,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 438, in deserialize_torch_artifact
+    artifact = torch.load(buffer, weights_only=True)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/serialization.py", line 1609, in load
+    raise pickle.UnpicklingError(_get_wo_message(str(e))) from None
+_pickle.UnpicklingError: Weights only load failed. This file can still be loaded, to do so you have two options, #x1B[1mdo those steps only if you trust the source of the checkpoint#x1B[0m. 
+	(1) In PyTorch 2.6, we changed the default value of the `weights_only` argument in `torch.load` from `False` to `True`. Re-running `torch.load` with `weights_only` set to `False` will likely succeed, but it can result in arbitrary code execution. Do it only if you got the file from a trusted source.
+	(2) Alternatively, to load with `weights_only=True` please check the recommended steps in the following error message.
+	WeightsUnpickler error: Unsupported global: GLOBAL __main__._OpaqueConfig was not an allowed global by default. Please use `torch.serialization.add_safe_globals([__main__._OpaqueConfig])` or the `torch.serialization.safe_globals([__main__._OpaqueConfig])` context manager to allowlist this global if you trust this class/function.
+
+Check the documentation of torch.load to learn more about types accepted by default with weights_only https://pytorch.org/docs/stable/generated/torch.load.html.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 1100, in emit
+    msg = self.format(record)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 943, in format
+    return fmt.format(record)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_logging/_internal.py", line 967, in format
+    record.message = record.getMessage()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 368, in getMessage
+    msg = msg % self.args
+TypeError: not enough arguments for format string
+Call stack:
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 2735, in &lt;module&gt;
+    run_tests()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 1386, in run_tests
+    exit_code = pytest.main(args=pytest_args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/config/__init__.py", line 166, in main
+    ret: Union[ExitCode, int] = config.hook.pytest_cmdline_main(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 316, in pytest_cmdline_main
+    return wrap_session(config, _main)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 269, in wrap_session
+    session.exitstatus = doit(config, session) or 0
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 323, in _main
+    config.hook.pytest_runtestloop(session=session)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 348, in pytest_runtestloop
+    item.config.hook.pytest_runtest_protocol(item=item, nextitem=nextitem)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pytest_rerunfailures.py", line 549, in pytest_runtest_protocol
+    reports = runtestprotocol(item, nextitem=nextitem, log=False)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 133, in runtestprotocol
+    reports.append(call_and_report(item, "call", log))
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 222, in call_and_report
+    call = call_runtest_hook(item, when, **kwds)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 261, in call_runtest_hook
+    return CallInfo.from_call(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 341, in from_call
+    result: Optional[TResult] = func()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 262, in &lt;lambda&gt;
+    lambda: ihook(item=item, **kwds), when=when, reraise=reraise
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 169, in pytest_runtest_call
+    item.runtest()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/unittest.py", line 333, in runtest
+    self._testcase(result=self)  # type: ignore[arg-type]
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 650, in __call__
+    return self.run(*args, **kwds)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3734, in run
+    self._run_custom(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3703, in _run_custom
+    super_run(result=result)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 591, in run
+    self._callTestMethod(testMethod)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 549, in _callTestMethod
+    method()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3551, in wrapper
+    method(*args, **kwargs)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 2062, in test_opaque_value_type_constant
+    self.check_graph(M(_OpaqueConfig(scale=3)), (torch.randn(4),), strict=False)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 1358, in check_graph
+    _check_graph(pre_dispatch=False)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 1327, in _check_graph
+    deserialized_ep = deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 3788, in deserialize
+    return ExportedProgramDeserializer(expected_opset_version).deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 3602, in deserialize
+    res = GraphModuleDeserializer().deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 2953, in deserialize
+    self.constants = deserialize_torch_artifact(constants)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 442, in deserialize_torch_artifact
+    log.warning(
+Message: 'Fallback to weights_only=False succeeded. Loaded object of type %s after initial failure: %s'
+Arguments: (&lt;class 'dict'&gt;,)
+</system-err></testcase><testcase classname="TestDeserialize" name="test_optional_tuple" time="0.195" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_positional_argument_with_default_value" time="0.174" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_pytree_namedtuple" time="0.028" file="export/test_serialize.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TestDeserialize" name="test_serialize_dtypes" time="0.287" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_shape" time="0.247" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_sym_bool" time="0.193" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_sym_bool_dynamic_shapes" time="0.267" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_sym_bool_torch_check_equal" time="0.198" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_sym_float" time="0.144" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_sym_int_torch_check_equal" time="0.213" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_sym_ite" time="0.512" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_tensor_tensor_list" time="0.178" file="export/test_serialize.py" /><testcase classname="TestDeserialize" name="test_unbacked_bindings_serialize" time="0.554" file="export/test_serialize.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TestSchemaVersioning" name="test_error" time="0.056" file="export/test_serialize.py" /><testcase classname="TestSaveLoad" name="test_deserialize_torch_artifact_dict" time="0.002" file="export/test_serialize.py" /><testcase classname="TestSaveLoad" name="test_from_node_metadata_serialization" time="0.251" file="export/test_serialize.py" /><testcase classname="TestSaveLoad" name="test_save_buffer" time="0.112" file="export/test_serialize.py" /><testcase classname="TestSaveLoad" name="test_save_constants" time="0.158" file="export/test_serialize.py" /><testcase classname="TestSaveLoad" name="test_save_extra" time="0.085" file="export/test_serialize.py" /><testcase classname="TestSaveLoad" name="test_save_file" time="0.067" file="export/test_serialize.py" /><testcase classname="TestSaveLoad" name="test_save_load_with_multiple_empty_tensors" time="0.033" file="export/test_serialize.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TestSaveLoad" name="test_save_path" time="0.072" file="export/test_serialize.py" /><testcase classname="TestSaveLoad" name="test_version_error" time="0.058" file="export/test_serialize.py" /><testcase classname="TestSerializeCustomClass" name="test_backed_size_oblivious_serdes" time="0.050" file="export/test_serialize.py" /><testcase classname="TestSerializeCustomClass" name="test_custom_class" time="0.065" file="export/test_serialize.py"><system-err>--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 438, in deserialize_torch_artifact
+    artifact = torch.load(buffer, weights_only=True)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/serialization.py", line 1609, in load
+    raise pickle.UnpicklingError(_get_wo_message(str(e))) from None
+_pickle.UnpicklingError: Weights only load failed. This file can still be loaded, to do so you have two options, #x1B[1mdo those steps only if you trust the source of the checkpoint#x1B[0m. 
+	(1) In PyTorch 2.6, we changed the default value of the `weights_only` argument in `torch.load` from `False` to `True`. Re-running `torch.load` with `weights_only` set to `False` will likely succeed, but it can result in arbitrary code execution. Do it only if you got the file from a trusted source.
+	(2) Alternatively, to load with `weights_only=True` please check the recommended steps in the following error message.
+	WeightsUnpickler error: Unsupported global: GLOBAL torch.ScriptObject was not an allowed global by default. Please use `torch.serialization.add_safe_globals([torch.ScriptObject])` or the `torch.serialization.safe_globals([torch.ScriptObject])` context manager to allowlist this global if you trust this class/function.
+
+Check the documentation of torch.load to learn more about types accepted by default with weights_only https://pytorch.org/docs/stable/generated/torch.load.html.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 1100, in emit
+    msg = self.format(record)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 943, in format
+    return fmt.format(record)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_logging/_internal.py", line 967, in format
+    record.message = record.getMessage()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 368, in getMessage
+    msg = msg % self.args
+TypeError: not enough arguments for format string
+Call stack:
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 2735, in &lt;module&gt;
+    run_tests()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 1386, in run_tests
+    exit_code = pytest.main(args=pytest_args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/config/__init__.py", line 166, in main
+    ret: Union[ExitCode, int] = config.hook.pytest_cmdline_main(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 316, in pytest_cmdline_main
+    return wrap_session(config, _main)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 269, in wrap_session
+    session.exitstatus = doit(config, session) or 0
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 323, in _main
+    config.hook.pytest_runtestloop(session=session)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 348, in pytest_runtestloop
+    item.config.hook.pytest_runtest_protocol(item=item, nextitem=nextitem)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pytest_rerunfailures.py", line 549, in pytest_runtest_protocol
+    reports = runtestprotocol(item, nextitem=nextitem, log=False)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 133, in runtestprotocol
+    reports.append(call_and_report(item, "call", log))
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 222, in call_and_report
+    call = call_runtest_hook(item, when, **kwds)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 261, in call_runtest_hook
+    return CallInfo.from_call(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 341, in from_call
+    result: Optional[TResult] = func()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 262, in &lt;lambda&gt;
+    lambda: ihook(item=item, **kwds), when=when, reraise=reraise
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 169, in pytest_runtest_call
+    item.runtest()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/unittest.py", line 333, in runtest
+    self._testcase(result=self)  # type: ignore[arg-type]
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 650, in __call__
+    return self.run(*args, **kwds)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3734, in run
+    self._run_custom(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3703, in _run_custom
+    super_run(result=result)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 591, in run
+    self._callTestMethod(testMethod)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 549, in _callTestMethod
+    method()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3551, in wrapper
+    method(*args, **kwargs)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 2411, in test_custom_class
+    deserialized_ep = deserialize(serialized_vals)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 3788, in deserialize
+    return ExportedProgramDeserializer(expected_opset_version).deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 3602, in deserialize
+    res = GraphModuleDeserializer().deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 2953, in deserialize
+    self.constants = deserialize_torch_artifact(constants)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 442, in deserialize_torch_artifact
+    log.warning(
+Message: 'Fallback to weights_only=False succeeded. Loaded object of type %s after initial failure: %s'
+Arguments: (&lt;class 'dict'&gt;,)
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py:2998: UserWarning: Unable to execute the generated python source code from the graph. The graph module will no longer be directly callable, but you can still run the ExportedProgram, and if needed, you can run the graph module eagerly using torch.fx.Interpreter.
+  graph_module = ep._create_graph_module_for_export(self.module, self.graph)
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/export/exported_program.py:1115: UserWarning: Unable to execute the generated python source code from the graph. The graph module will no longer be directly callable, but you can still run the ExportedProgram, and if needed, you can run the graph module eagerly using torch.fx.Interpreter.
+  self._graph_module = _create_graph_module_for_export(root, graph)
+</system-err></testcase><testcase classname="TestSerializeCustomClass" name="test_custom_class_containing_fake_tensor" time="0.026" file="export/test_serialize.py"><system-err>--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 438, in deserialize_torch_artifact
+    artifact = torch.load(buffer, weights_only=True)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/serialization.py", line 1609, in load
+    raise pickle.UnpicklingError(_get_wo_message(str(e))) from None
+_pickle.UnpicklingError: Weights only load failed. This file can still be loaded, to do so you have two options, #x1B[1mdo those steps only if you trust the source of the checkpoint#x1B[0m. 
+	(1) In PyTorch 2.6, we changed the default value of the `weights_only` argument in `torch.load` from `False` to `True`. Re-running `torch.load` with `weights_only` set to `False` will likely succeed, but it can result in arbitrary code execution. Do it only if you got the file from a trusted source.
+	(2) Alternatively, to load with `weights_only=True` please check the recommended steps in the following error message.
+	WeightsUnpickler error: Unsupported global: GLOBAL torch.ScriptObject was not an allowed global by default. Please use `torch.serialization.add_safe_globals([torch.ScriptObject])` or the `torch.serialization.safe_globals([torch.ScriptObject])` context manager to allowlist this global if you trust this class/function.
+
+Check the documentation of torch.load to learn more about types accepted by default with weights_only https://pytorch.org/docs/stable/generated/torch.load.html.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 1100, in emit
+    msg = self.format(record)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 943, in format
+    return fmt.format(record)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_logging/_internal.py", line 967, in format
+    record.message = record.getMessage()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 368, in getMessage
+    msg = msg % self.args
+TypeError: not enough arguments for format string
+Call stack:
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 2735, in &lt;module&gt;
+    run_tests()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 1386, in run_tests
+    exit_code = pytest.main(args=pytest_args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/config/__init__.py", line 166, in main
+    ret: Union[ExitCode, int] = config.hook.pytest_cmdline_main(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 316, in pytest_cmdline_main
+    return wrap_session(config, _main)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 269, in wrap_session
+    session.exitstatus = doit(config, session) or 0
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 323, in _main
+    config.hook.pytest_runtestloop(session=session)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 348, in pytest_runtestloop
+    item.config.hook.pytest_runtest_protocol(item=item, nextitem=nextitem)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pytest_rerunfailures.py", line 549, in pytest_runtest_protocol
+    reports = runtestprotocol(item, nextitem=nextitem, log=False)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 133, in runtestprotocol
+    reports.append(call_and_report(item, "call", log))
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 222, in call_and_report
+    call = call_runtest_hook(item, when, **kwds)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 261, in call_runtest_hook
+    return CallInfo.from_call(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 341, in from_call
+    result: Optional[TResult] = func()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 262, in &lt;lambda&gt;
+    lambda: ihook(item=item, **kwds), when=when, reraise=reraise
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 169, in pytest_runtest_call
+    item.runtest()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/unittest.py", line 333, in runtest
+    self._testcase(result=self)  # type: ignore[arg-type]
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 650, in __call__
+    return self.run(*args, **kwds)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3734, in run
+    self._run_custom(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3703, in _run_custom
+    super_run(result=result)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 591, in run
+    self._callTestMethod(testMethod)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 549, in _callTestMethod
+    method()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3551, in wrapper
+    method(*args, **kwargs)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 2444, in test_custom_class_containing_fake_tensor
+    ep = deserialize(serialized_vals)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 3788, in deserialize
+    return ExportedProgramDeserializer(expected_opset_version).deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 3602, in deserialize
+    res = GraphModuleDeserializer().deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 2953, in deserialize
+    self.constants = deserialize_torch_artifact(constants)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 442, in deserialize_torch_artifact
+    log.warning(
+Message: 'Fallback to weights_only=False succeeded. Loaded object of type %s after initial failure: %s'
+Arguments: (&lt;class 'dict'&gt;,)
+</system-err></testcase><testcase classname="TestSerializeCustomClass" name="test_custom_class_input_to_function" time="0.027" file="export/test_serialize.py"><system-err>--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 438, in deserialize_torch_artifact
+    artifact = torch.load(buffer, weights_only=True)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/serialization.py", line 1609, in load
+    raise pickle.UnpicklingError(_get_wo_message(str(e))) from None
+_pickle.UnpicklingError: Weights only load failed. This file can still be loaded, to do so you have two options, #x1B[1mdo those steps only if you trust the source of the checkpoint#x1B[0m. 
+	(1) In PyTorch 2.6, we changed the default value of the `weights_only` argument in `torch.load` from `False` to `True`. Re-running `torch.load` with `weights_only` set to `False` will likely succeed, but it can result in arbitrary code execution. Do it only if you got the file from a trusted source.
+	(2) Alternatively, to load with `weights_only=True` please check the recommended steps in the following error message.
+	WeightsUnpickler error: Unsupported global: GLOBAL torch.ScriptObject was not an allowed global by default. Please use `torch.serialization.add_safe_globals([torch.ScriptObject])` or the `torch.serialization.safe_globals([torch.ScriptObject])` context manager to allowlist this global if you trust this class/function.
+
+Check the documentation of torch.load to learn more about types accepted by default with weights_only https://pytorch.org/docs/stable/generated/torch.load.html.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 1100, in emit
+    msg = self.format(record)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 943, in format
+    return fmt.format(record)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_logging/_internal.py", line 967, in format
+    record.message = record.getMessage()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/logging/__init__.py", line 368, in getMessage
+    msg = msg % self.args
+TypeError: not enough arguments for format string
+Call stack:
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 2735, in &lt;module&gt;
+    run_tests()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 1386, in run_tests
+    exit_code = pytest.main(args=pytest_args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/config/__init__.py", line 166, in main
+    ret: Union[ExitCode, int] = config.hook.pytest_cmdline_main(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 316, in pytest_cmdline_main
+    return wrap_session(config, _main)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 269, in wrap_session
+    session.exitstatus = doit(config, session) or 0
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 323, in _main
+    config.hook.pytest_runtestloop(session=session)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/main.py", line 348, in pytest_runtestloop
+    item.config.hook.pytest_runtest_protocol(item=item, nextitem=nextitem)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pytest_rerunfailures.py", line 549, in pytest_runtest_protocol
+    reports = runtestprotocol(item, nextitem=nextitem, log=False)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 133, in runtestprotocol
+    reports.append(call_and_report(item, "call", log))
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 222, in call_and_report
+    call = call_runtest_hook(item, when, **kwds)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 261, in call_runtest_hook
+    return CallInfo.from_call(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 341, in from_call
+    result: Optional[TResult] = func()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 262, in &lt;lambda&gt;
+    lambda: ihook(item=item, **kwds), when=when, reraise=reraise
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/runner.py", line 169, in pytest_runtest_call
+    item.runtest()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/unittest.py", line 333, in runtest
+    self._testcase(result=self)  # type: ignore[arg-type]
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 650, in __call__
+    return self.run(*args, **kwds)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3734, in run
+    self._run_custom(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3703, in _run_custom
+    super_run(result=result)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 591, in run
+    self._callTestMethod(testMethod)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/unittest/case.py", line 549, in _callTestMethod
+    method()
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3551, in wrapper
+    method(*args, **kwargs)
+  File "/var/lib/jenkins/pytorch/test/export/test_serialize.py", line 2464, in test_custom_class_input_to_function
+    ep = deserialize(serialized_vals)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 3788, in deserialize
+    return ExportedProgramDeserializer(expected_opset_version).deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 3602, in deserialize
+    res = GraphModuleDeserializer().deserialize(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 2953, in deserialize
+    self.constants = deserialize_torch_artifact(constants)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/serde/serialize.py", line 442, in deserialize_torch_artifact
+    log.warning(
+Message: 'Fallback to weights_only=False succeeded. Loaded object of type %s after initial failure: %s'
+Arguments: (&lt;class 'dict'&gt;,)
+</system-err></testcase><testcase classname="TestSerializeCustomClass" name="test_custom_tag_metadata_copy" time="0.055" file="export/test_serialize.py" /><testcase classname="TestSerializeCustomClass" name="test_custom_tag_metadata_decomp" time="0.264" file="export/test_serialize.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TestSerializeCustomClass" name="test_custom_tag_metadata_serialization" time="0.060" file="export/test_serialize.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TestSerializeCustomClass" name="test_unbacked_range_serdes" time="0.055" file="export/test_serialize.py" /><testcase classname="TestPredispatchSerialization" name="test_predispatch_jvp_serialize_roundtrip" time="0.487" file="export/test_serialize.py" /><testcase classname="TestPredispatchSerialization" name="test_predispatch_vmap_serialize_roundtrip" time="0.175" file="export/test_serialize.py" /></testsuite></testsuites>

@@ -1,0 +1,146 @@
+++ python benchmarks/dynamo/torchbench.py --performance --float16 -d xpu -n10 --training --total-partitions 9 --partition-id 7 --backend=inductor --cold-start-latency --timeout=10800 --disable-cudagraphs --output=/__w/torch-xpu-ops/torch-xpu-ops/pytorch/inductor_log/torchbench/float16/inductor_torchbench_float16_training_xpu_performance.csv
+loading model: 0it [00:00, ?it/s]Downloading: "https://download.pytorch.org/models/resnet18-f37072fd.pth" to /github/home/.cache/torch/hub/checkpoints/resnet18-f37072fd.pth
+
+  0%|          | 0.00/44.7M [00:00<?, ?B/s][A
+ 10%|█         | 4.50M/44.7M [00:00<00:00, 46.5MB/s][A
+ 32%|███▏      | 14.1M/44.7M [00:00<00:00, 78.1MB/s][A
+ 57%|█████▋    | 25.4M/44.7M [00:00<00:00, 95.7MB/s][A
+ 82%|████████▏ | 36.6M/44.7M [00:00<00:00, 104MB/s] [A100%|██████████| 44.7M/44.7M [00:00<00:00, 98.1MB/s]
+loading model: 0it [00:04, ?it/s]
+xpu  train resnet18                           
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  60%|██████    | 6/10 [00:00<00:00, 57.46it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 57.93it/s]
+1.124x
+loading model: 0it [00:00, ?it/s]Downloading: "https://download.pytorch.org/models/resnet50-0676ba61.pth" to /github/home/.cache/torch/hub/checkpoints/resnet50-0676ba61.pth
+
+  0%|          | 0.00/97.8M [00:00<?, ?B/s][A
+  9%|▉         | 9.00M/97.8M [00:00<00:00, 93.8MB/s][A
+ 21%|██        | 20.2M/97.8M [00:00<00:00, 107MB/s] [A
+ 32%|███▏      | 31.4M/97.8M [00:00<00:00, 111MB/s][A
+ 44%|████▎     | 42.6M/97.8M [00:00<00:00, 114MB/s][A
+ 55%|█████▌    | 53.9M/97.8M [00:00<00:00, 115MB/s][A
+ 66%|██████▋   | 65.0M/97.8M [00:00<00:00, 115MB/s][A
+ 78%|███████▊  | 76.2M/97.8M [00:00<00:00, 116MB/s][A
+ 89%|████████▉ | 87.5M/97.8M [00:00<00:00, 116MB/s][A100%|██████████| 97.8M/97.8M [00:00<00:00, 114MB/s]
+loading model: 0it [00:09, ?it/s]
+xpu  train resnet50                           
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  20%|██        | 2/10 [00:00<00:00, 19.52it/s]running benchmark:  40%|████      | 4/10 [00:00<00:00, 19.73it/s]running benchmark:  60%|██████    | 6/10 [00:00<00:00, 19.79it/s]running benchmark:  80%|████████  | 8/10 [00:00<00:00, 19.83it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 19.85it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 19.80it/s]
+1.473x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:01, ?it/s]
+xpu  train resnet50_quantized_qat             
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 2057, in validate_model
+    self.model_iter_fn(model, example_inputs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/torchbench.py", line 486, in forward_and_backward_pass
+    pred = mod(*cloned_inputs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/fx/graph_module.py", line 1000, in call_wrapped
+    return self._wrapped_call(self, *args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/fx/graph_module.py", line 507, in __call__
+    raise e
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/fx/graph_module.py", line 493, in __call__
+    return super(self.cls, obj).__call__(*args, **kwargs)  # type: ignore[misc]
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "<eval_with_key>.3", line 5, in forward
+    activation_post_process_0 = self.activation_post_process_0(x);  x = None
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/ao/quantization/fake_quantize.py", line 424, in forward
+    return torch.fused_moving_avg_obs_fake_quant(
+RuntimeError: expected scalar type Float but found Half
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 4749, in run
+    ) = runner.load_model(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/torchbench.py", line 384, in load_model
+    self.validate_model(benchmark.name, model, example_inputs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 2059, in validate_model
+    raise RuntimeError("Eager run failed") from e
+RuntimeError: Eager run failed
+
+eager_fail_to_run
+loading model: 0it [00:00, ?it/s]Downloading: "https://download.pytorch.org/models/resnext50_32x4d-7cdf4587.pth" to /github/home/.cache/torch/hub/checkpoints/resnext50_32x4d-7cdf4587.pth
+
+  0%|          | 0.00/95.8M [00:00<?, ?B/s][A
+  9%|▉         | 9.00M/95.8M [00:00<00:00, 94.1MB/s][A
+ 21%|██        | 20.1M/95.8M [00:00<00:00, 107MB/s] [A
+ 33%|███▎      | 31.4M/95.8M [00:00<00:00, 112MB/s][A
+ 44%|████▍     | 42.6M/95.8M [00:00<00:00, 114MB/s][A
+ 56%|█████▌    | 53.9M/95.8M [00:00<00:00, 115MB/s][A
+ 68%|██████▊   | 65.1M/95.8M [00:00<00:00, 115MB/s][A
+ 80%|███████▉  | 76.2M/95.8M [00:00<00:00, 116MB/s][A
+ 91%|█████████▏| 87.5M/95.8M [00:00<00:00, 116MB/s][A100%|██████████| 95.8M/95.8M [00:00<00:00, 114MB/s]
+loading model: 0it [00:10, ?it/s]
+xpu  train resnext50_32x4d                    
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  30%|███       | 3/10 [00:00<00:00, 26.69it/s]running benchmark:  60%|██████    | 6/10 [00:00<00:00, 27.02it/s]running benchmark:  90%|█████████ | 9/10 [00:00<00:00, 27.12it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 27.07it/s]
+1.105x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:00, ?it/s]
+xpu  train sam                                
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 4749, in run
+    ) = runner.load_model(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/torchbench.py", line 307, in load_model
+    benchmark = benchmark_cls(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/benchmark/torchbenchmark/util/model.py", line 43, in __call__
+    obj = type.__call__(cls, *args, **kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/benchmark/torchbenchmark/models/sam/__init__.py", line 22, in __init__
+    super().__init__(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/benchmark/torchbenchmark/util/model.py", line 141, in __init__
+    self._determine_batch_size(batch_size)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/benchmark/torchbenchmark/util/model.py", line 266, in _determine_batch_size
+    raise NotImplementedError(
+NotImplementedError: Model's DEFAULT_TRAIN_BSIZE is not implemented.
+
+model_fail_to_load
+loading model: 0it [00:00, ?it/s]Downloading: "https://download.pytorch.org/models/shufflenetv2_x1-5666bf0f80.pth" to /github/home/.cache/torch/hub/checkpoints/shufflenetv2_x1-5666bf0f80.pth
+
+  0%|          | 0.00/8.79M [00:00<?, ?B/s][A100%|██████████| 8.79M/8.79M [00:00<00:00, 93.4MB/s]
+loading model: 0it [00:05, ?it/s]
+xpu  train shufflenet_v2_x1_0                 
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  20%|██        | 2/10 [00:00<00:00, 17.62it/s]running benchmark:  40%|████      | 4/10 [00:00<00:00, 17.70it/s]running benchmark:  60%|██████    | 6/10 [00:00<00:00, 17.72it/s]running benchmark:  80%|████████  | 8/10 [00:00<00:00, 17.74it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 17.76it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 17.73it/s]
+1.299x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:02, ?it/s]
+xpu  train soft_actor_critic                  
+W0531 16:00:08.650000 77596 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 276.98it/s]
+0.713x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:03, ?it/s]
+xpu  train speech_transformer                 
+W0531 16:00:22.582000 78222 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0] Graph break from `Tensor.item()`, consider setting:
+W0531 16:00:22.582000 78222 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0]     torch._dynamo.config.capture_scalar_outputs = True
+W0531 16:00:22.582000 78222 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0] or:
+W0531 16:00:22.582000 78222 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0]     env TORCHDYNAMO_CAPTURE_SCALAR_OUTPUTS=1
+W0531 16:00:22.582000 78222 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0] to include these operations in the captured graph.
+W0531 16:00:22.582000 78222 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0] 
+W0531 16:00:22.582000 78222 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0] Graph break: from user code at:
+W0531 16:00:22.582000 78222 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0]   File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/torchbench.py", line 486, in torch_dynamo_resume_in_forward_and_backward_pass_at_481
+W0531 16:00:22.582000 78222 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0]     pred = mod(*cloned_inputs)
+W0531 16:00:22.582000 78222 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0]   File "/__w/torch-xpu-ops/torch-xpu-ops/benchmark/torchbenchmark/models/speech_transformer/speech_transformer/transformer/transformer.py", line 27, in forward
+W0531 16:00:22.582000 78222 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0]     encoder_padded_outputs, *_ = self.encoder(padded_input, input_lengths)
+W0531 16:00:22.582000 78222 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0]   File "/__w/torch-xpu-ops/torch-xpu-ops/benchmark/torchbenchmark/models/speech_transformer/speech_transformer/transformer/encoder.py", line 60, in forward
+W0531 16:00:22.582000 78222 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0]     non_pad_mask = get_non_pad_mask(padded_input, input_lengths=input_lengths)
+W0531 16:00:22.582000 78222 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0]   File "/__w/torch-xpu-ops/torch-xpu-ops/benchmark/torchbenchmark/models/speech_transformer/speech_transformer/utils/utils.py", line 108, in get_non_pad_mask
+W0531 16:00:22.582000 78222 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0]     non_pad_mask[i, input_lengths[i] :] = 0
+W0531 16:00:22.582000 78222 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0] 
+W0531 16:00:22.582000 78222 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0] 
+W0531 16:00:30.463000 78222 site-packages/torch/_inductor/utils.py:3128] [9/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  20%|██        | 2/10 [00:00<00:00, 13.84it/s]running benchmark:  40%|████      | 4/10 [00:00<00:00, 13.89it/s]running benchmark:  60%|██████    | 6/10 [00:00<00:00, 13.95it/s]running benchmark:  80%|████████  | 8/10 [00:00<00:00, 13.94it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 13.95it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 13.93it/s]
+1.343x
+speedup             gmean=0.00x mean=0.988x
+abs_latency         gmean=0.00x mean=31.320x
+compilation_latency mean=40.406 seconds
+compression_ratio   mean=0.000x
+eager_peak_mem      gmean=0.00x mean=0.000x
+dynamo_peak_mem     gmean=0.00x mean=0.000x
+calls_captured      gmean=0.00x mean=313.870x
+unique_graphs       gmean=0.00x mean=1.500x
+graph_breaks        gmean=0.00x mean=5.463x
+unique_graph_breaks gmean=0.00x mean=4.259x
+autograd_captures   gmean=0.00x mean=0.000x
+autograd_compiles   gmean=0.00x mean=0.000x
+cudagraph_skips     gmean=0.00x mean=0.000x

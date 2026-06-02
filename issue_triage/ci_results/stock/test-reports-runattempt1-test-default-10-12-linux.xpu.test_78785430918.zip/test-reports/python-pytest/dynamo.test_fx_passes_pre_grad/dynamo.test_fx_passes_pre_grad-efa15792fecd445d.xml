@@ -1,0 +1,1 @@
+<testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="1.146" timestamp="2026-06-01T04:50:51.848685" hostname="9d48c37feb18"><testcase classname="FxPassesPreGradTests" name="test_pass_execution_and_save" time="1.127" file="dynamo/test_fx_passes_pre_grad.py" /></testsuite></testsuites>

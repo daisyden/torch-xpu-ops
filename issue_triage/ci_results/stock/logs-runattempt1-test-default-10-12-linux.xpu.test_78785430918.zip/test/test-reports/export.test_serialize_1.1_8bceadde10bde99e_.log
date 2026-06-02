@@ -1,0 +1,198 @@
+Test results will be stored in test-reports/python-pytest/export.test_serialize/export.test_serialize-3e782e9a4a21f094.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 124 items
+stepcurrent: Cannot find last run test, not skipping
+Running 124 items in this shard: test/export/test_serialize.py::TestSerialize::test_1D_tensor_slicing, test/export/test_serialize.py::TestSerialize::test_2D_tensor_slicing, test/export/test_serialize.py::TestSerialize::test_canonicalize, test/export/test_serialize.py::TestSerialize::test_complex_constant, test/export/test_serialize.py::TestSerialize::test_empty_constant, test/export/test_serialize.py::TestSerialize::test_empty_state_dict, test/export/test_serialize.py::TestSerialize::test_export_example_inputs_preserved, test/export/test_serialize.py::TestSerialize::test_export_with_extension_op_serialization, test/export/test_serialize.py::TestSerialize::test_int_list, test/export/test_serialize.py::TestSerialize::test_kwargs_default, test/export/test_serialize.py::TestSerialize::test_metadata_parsing_with_layer_split, test/export/test_serialize.py::TestSerialize::test_metadata_run_decomp_serder, test/export/test_serialize.py::TestSerialize::test_multi_return_list_tensor_unused, test/export/test_serialize.py::TestSerialize::test_multi_return_some_unused, test/export/test_serialize.py::TestSerialize::test_nested_layer_split, test/export/test_serialize.py::TestSerialize::test_non_float_weight, test/export/test_serialize.py::TestSerialize::test_nonfinite_inputs, test/export/test_serialize.py::TestSerialize::test_predispatch_export_with_autograd_op, test/export/test_serialize.py::TestSerialize::test_preserve_aliasing, test/export/test_serialize.py::TestSerialize::test_rational_ranges, test/export/test_serialize.py::TestSerialize::test_serialize_constant_outputs, test/export/test_serialize.py::TestSerialize::test_serialize_infinite_sym_int, test/export/test_serialize.py::TestSerialize::test_serialize_list_returns, test/export/test_serialize.py::TestSerialize::test_serialize_multiple_returns_from_node, test/export/test_serialize.py::TestSerialize::test_serialize_param_mutation, test/export/test_serialize.py::TestSerialize::test_serialize_sym_float, test/export/test_serialize.py::TestSerialize::test_serialize_sym_int, test/export/test_serialize.py::TestSerialize::test_storage_offset, test/export/test_serialize.py::TestSerialize::test_symint_list, test/export/test_serialize.py::TestSerialize::test_triton_constexpr_matching, test/export/test_serialize.py::TestSerialize::test_triton_hop, test/export/test_serialize.py::TestSerialize::test_weight_sharing_gpu, test/export/test_serialize.py::TestDeserialize::test_arg_from, test/export/test_serialize.py::TestDeserialize::test_auto_functionalize, test/export/test_serialize.py::TestDeserialize::test_basic, test/export/test_serialize.py::TestDeserialize::test_cond, test/export/test_serialize.py::TestDeserialize::test_constraints, test/export/test_serialize.py::TestDeserialize::test_custom_obj, test/export/test_serialize.py::TestDeserialize::test_custom_obj_list_out, test/export/test_serialize.py::TestDeserialize::test_custom_obj_tuple_out, test/export/test_serialize.py::TestDeserialize::test_device, test/export/test_serialize.py::TestDeserialize::test_dynamic, test/export/test_serialize.py::TestDeserialize::test_export_no_inputs, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_assume_constant_result, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_autograd_function, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_class_method, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_cond_branch_class_method, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_cond_branch_nested_function, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_cond_branch_nonlocal_variables, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_cond_closed_over_variable, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_cond_operands, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_cond_predicate, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_constrain_as_size_example, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_constrain_as_value_example, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_decorator, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_dictionary, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_dynamic_shape_assert, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_dynamic_shape_constructor, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_dynamic_shape_if_guard, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_dynamic_shape_map, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_dynamic_shape_slicing, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_dynamic_shape_view, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_fn_with_kwargs, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_list_contains, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_list_unpack, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_model_attr_mutation, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_nested_function, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_null_context_manager, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_optional_input, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_pytree_flatten, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_scalar_output, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_specialized_attribute, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_static_for_loop, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_static_if, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_tensor_setattr, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_type_reflection_method, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_unsupported_operator, test/export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_user_input_mutation, test/export/test_serialize.py::TestDeserialize::test_forward_compatibility, test/export/test_serialize.py::TestDeserialize::test_get_attr, test/export/test_serialize.py::TestDeserialize::test_get_attr_list, test/export/test_serialize.py::TestDeserialize::test_hoo_symint_input, test/export/test_serialize.py::TestDeserialize::test_list_of_optional_tensors, test/export/test_serialize.py::TestDeserialize::test_map, test/export/test_serialize.py::TestDeserialize::test_module, test/export/test_serialize.py::TestDeserialize::test_module_meta, test/export/test_serialize.py::TestDeserialize::test_multi_return, test/export/test_serialize.py::TestDeserialize::test_multiple_getitem, test/export/test_serialize.py::TestDeserialize::test_none_input, test/export/test_serialize.py::TestDeserialize::test_opaque_reference_type_constant, test/export/test_serialize.py::TestDeserialize::test_opaque_value_type_constant, test/export/test_serialize.py::TestDeserialize::test_optional_tuple, test/export/test_serialize.py::TestDeserialize::test_positional_argument_with_default_value, test/export/test_serialize.py::TestDeserialize::test_pytree_namedtuple, test/export/test_serialize.py::TestDeserialize::test_serialize_dtypes, test/export/test_serialize.py::TestDeserialize::test_shape, test/export/test_serialize.py::TestDeserialize::test_sym_bool, test/export/test_serialize.py::TestDeserialize::test_sym_bool_dynamic_shapes, test/export/test_serialize.py::TestDeserialize::test_sym_bool_torch_check_equal, test/export/test_serialize.py::TestDeserialize::test_sym_float, test/export/test_serialize.py::TestDeserialize::test_sym_int_torch_check_equal, test/export/test_serialize.py::TestDeserialize::test_sym_ite, test/export/test_serialize.py::TestDeserialize::test_tensor_tensor_list, test/export/test_serialize.py::TestDeserialize::test_unbacked_bindings_serialize, test/export/test_serialize.py::TestSchemaVersioning::test_error, test/export/test_serialize.py::TestSaveLoad::test_deserialize_torch_artifact_dict, test/export/test_serialize.py::TestSaveLoad::test_from_node_metadata_serialization, test/export/test_serialize.py::TestSaveLoad::test_save_buffer, test/export/test_serialize.py::TestSaveLoad::test_save_constants, test/export/test_serialize.py::TestSaveLoad::test_save_extra, test/export/test_serialize.py::TestSaveLoad::test_save_file, test/export/test_serialize.py::TestSaveLoad::test_save_load_with_multiple_empty_tensors, test/export/test_serialize.py::TestSaveLoad::test_save_path, test/export/test_serialize.py::TestSaveLoad::test_version_error, test/export/test_serialize.py::TestSerializeCustomClass::test_backed_size_oblivious_serdes, test/export/test_serialize.py::TestSerializeCustomClass::test_custom_class, test/export/test_serialize.py::TestSerializeCustomClass::test_custom_class_containing_fake_tensor, test/export/test_serialize.py::TestSerializeCustomClass::test_custom_class_input_to_function, test/export/test_serialize.py::TestSerializeCustomClass::test_custom_tag_metadata_copy, test/export/test_serialize.py::TestSerializeCustomClass::test_custom_tag_metadata_decomp, test/export/test_serialize.py::TestSerializeCustomClass::test_custom_tag_metadata_serialization, test/export/test_serialize.py::TestSerializeCustomClass::test_unbacked_range_serdes, test/export/test_serialize.py::TestPredispatchSerialization::test_predispatch_jvp_serialize_roundtrip, test/export/test_serialize.py::TestPredispatchSerialization::test_predispatch_vmap_serialize_roundtrip
+
+export/test_serialize.py::TestSerialize::test_1D_tensor_slicing PASSED [0.0623s] [  0%]
+export/test_serialize.py::TestSerialize::test_2D_tensor_slicing PASSED [0.0288s] [  1%]
+export/test_serialize.py::TestSerialize::test_canonicalize PASSED [0.3501s] [  2%]
+export/test_serialize.py::TestSerialize::test_complex_constant PASSED [0.0297s] [  3%]
+export/test_serialize.py::TestSerialize::test_empty_constant PASSED [0.0339s] [  4%]
+export/test_serialize.py::TestSerialize::test_empty_state_dict PASSED [0.0241s] [  4%]
+export/test_serialize.py::TestSerialize::test_export_example_inputs_preserved PASSED [0.0874s] [  5%]
+export/test_serialize.py::TestSerialize::test_export_with_extension_op_serialization PASSED [0.0636s] [  6%]
+export/test_serialize.py::TestSerialize::test_int_list PASSED [0.0714s]  [  7%]
+export/test_serialize.py::TestSerialize::test_kwargs_default PASSED [0.2503s] [  8%]
+export/test_serialize.py::TestSerialize::test_metadata_parsing_with_layer_split PASSED [0.1188s] [  8%]
+export/test_serialize.py::TestSerialize::test_metadata_run_decomp_serder PASSED [0.1847s] [  9%]
+export/test_serialize.py::TestSerialize::test_multi_return_list_tensor_unused PASSED [0.0740s] [ 10%]
+export/test_serialize.py::TestSerialize::test_multi_return_some_unused PASSED [0.2597s] [ 11%]
+export/test_serialize.py::TestSerialize::test_nested_layer_split PASSED [0.3822s] [ 12%]
+export/test_serialize.py::TestSerialize::test_non_float_weight PASSED [0.0248s] [ 12%]
+export/test_serialize.py::TestSerialize::test_nonfinite_inputs PASSED [0.0185s] [ 13%]
+export/test_serialize.py::TestSerialize::test_predispatch_export_with_autograd_op PASSED [0.0807s] [ 14%]
+export/test_serialize.py::TestSerialize::test_preserve_aliasing PASSED [0.0719s] [ 15%]
+export/test_serialize.py::TestSerialize::test_rational_ranges W0601 04:53:13.313000 105260 site-packages/torch/_export/serde/serialize.py:463] Export constraints cannot be non-integer expressions. Found type <class 'sympy.core.numbers.Rational'>, and value 5/3. We will attempt to ceil this value.
+W0601 04:53:13.313000 105260 site-packages/torch/_export/serde/serialize.py:463] Export constraints cannot be non-integer expressions. Found type <class 'sympy.core.numbers.Rational'>, and value 10/3. We will attempt to floor this value.
+PASSED [0.0996s] [ 16%]
+export/test_serialize.py::TestSerialize::test_serialize_constant_outputs PASSED [0.0774s] [ 16%]
+export/test_serialize.py::TestSerialize::test_serialize_infinite_sym_int PASSED [0.3739s] [ 17%]
+export/test_serialize.py::TestSerialize::test_serialize_list_returns PASSED [0.2994s] [ 18%]
+export/test_serialize.py::TestSerialize::test_serialize_multiple_returns_from_node PASSED [0.3579s] [ 19%]
+export/test_serialize.py::TestSerialize::test_serialize_param_mutation PASSED [0.4692s] [ 20%]
+export/test_serialize.py::TestSerialize::test_serialize_sym_float PASSED [0.0011s] [ 20%]
+export/test_serialize.py::TestSerialize::test_serialize_sym_int PASSED [0.3919s] [ 21%]
+export/test_serialize.py::TestSerialize::test_storage_offset PASSED [0.0342s] [ 22%]
+export/test_serialize.py::TestSerialize::test_symint_list PASSED [0.0019s] [ 23%]
+export/test_serialize.py::TestSerialize::test_triton_constexpr_matching SKIPPED [0.0003s] (requires cuda and triton) [ 24%]
+export/test_serialize.py::TestSerialize::test_triton_hop SKIPPED [0.0002s] (requires cuda and triton) [ 25%]
+export/test_serialize.py::TestSerialize::test_weight_sharing_gpu PASSED [0.2791s] [ 25%]
+export/test_serialize.py::TestDeserialize::test_arg_from PASSED [0.1946s] [ 26%]
+export/test_serialize.py::TestDeserialize::test_auto_functionalize PASSED [0.1919s] [ 27%]
+export/test_serialize.py::TestDeserialize::test_basic PASSED [0.1869s]   [ 28%]
+export/test_serialize.py::TestDeserialize::test_cond PASSED [0.3144s]    [ 29%]
+export/test_serialize.py::TestDeserialize::test_constraints W0601 04:53:16.624000 105260 site-packages/torch/_export/serde/serialize.py:3563] Symbol u1 did not appear in the graph that was deserialized
+W0601 04:53:16.745000 105260 site-packages/torch/_export/serde/serialize.py:3563] Symbol u1 did not appear in the graph that was deserialized
+W0601 04:53:16.745000 105260 site-packages/torch/_export/serde/serialize.py:3563] Symbol u2 did not appear in the graph that was deserialized
+PASSED [0.2387s] [ 29%]
+export/test_serialize.py::TestDeserialize::test_custom_obj W0601 04:53:16.762000 105260 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method info.
+W0601 04:53:16.763000 105260 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method increment.
+W0601 04:53:16.763000 105260 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method add.
+W0601 04:53:16.763000 105260 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method combine.
+W0601 04:53:16.798000 105260 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method info.
+W0601 04:53:16.798000 105260 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method increment.
+W0601 04:53:16.798000 105260 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method add.
+W0601 04:53:16.798000 105260 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method combine.
+PASSED [0.0956s] [ 30%]
+export/test_serialize.py::TestDeserialize::test_custom_obj_list_out W0601 04:53:16.859000 105260 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method info.
+W0601 04:53:16.860000 105260 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method increment.
+W0601 04:53:16.860000 105260 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method add.
+W0601 04:53:16.860000 105260 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method combine.
+W0601 04:53:16.904000 105260 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method info.
+W0601 04:53:16.904000 105260 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method increment.
+W0601 04:53:16.904000 105260 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method add.
+W0601 04:53:16.905000 105260 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method combine.
+PASSED [0.1162s] [ 31%]
+export/test_serialize.py::TestDeserialize::test_custom_obj_tuple_out W0601 04:53:16.977000 105260 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method info.
+W0601 04:53:16.977000 105260 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method increment.
+W0601 04:53:16.977000 105260 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method add.
+W0601 04:53:16.977000 105260 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method combine.
+W0601 04:53:17.017000 105260 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method info.
+W0601 04:53:17.017000 105260 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method increment.
+W0601 04:53:17.017000 105260 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method add.
+W0601 04:53:17.017000 105260 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method combine.
+PASSED [0.1034s] [ 32%]
+export/test_serialize.py::TestDeserialize::test_device SKIPPED [0.0003s] (Requires cuda) [ 33%]
+export/test_serialize.py::TestDeserialize::test_dynamic PASSED [0.2988s] [ 33%]
+export/test_serialize.py::TestDeserialize::test_export_no_inputs PASSED [0.0624s] [ 34%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_assume_constant_result PASSED [0.1610s] [ 35%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_autograd_function PASSED [0.1654s] [ 36%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_class_method PASSED [0.2405s] [ 37%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_cond_branch_class_method PASSED [0.1447s] [ 37%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_cond_branch_nested_function PASSED [0.3982s] [ 38%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_cond_branch_nonlocal_variables PASSED [0.1823s] [ 39%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_cond_closed_over_variable PASSED [0.2999s] [ 40%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_cond_operands PASSED [0.1580s] [ 41%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_cond_predicate PASSED [0.1452s] [ 41%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_constrain_as_size_example W0601 04:53:19.442000 105260 site-packages/torch/_export/serde/serialize.py:3563] Symbol u1 did not appear in the graph that was deserialized
+W0601 04:53:19.542000 105260 site-packages/torch/_export/serde/serialize.py:3563] Symbol u1 did not appear in the graph that was deserialized
+W0601 04:53:19.542000 105260 site-packages/torch/_export/serde/serialize.py:3563] Symbol u2 did not appear in the graph that was deserialized
+PASSED [0.1980s] [ 42%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_constrain_as_value_example W0601 04:53:19.655000 105260 site-packages/torch/_export/serde/serialize.py:3563] Symbol u1 did not appear in the graph that was deserialized
+W0601 04:53:19.768000 105260 site-packages/torch/_export/serde/serialize.py:3563] Symbol u0 did not appear in the graph that was deserialized
+W0601 04:53:19.768000 105260 site-packages/torch/_export/serde/serialize.py:3563] Symbol u1 did not appear in the graph that was deserialized
+W0601 04:53:19.768000 105260 site-packages/torch/_export/serde/serialize.py:3563] Symbol u2 did not appear in the graph that was deserialized
+PASSED [0.2226s] [ 43%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_decorator PASSED [0.1612s] [ 44%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_dictionary PASSED [0.1729s] [ 45%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_dynamic_shape_assert PASSED [0.1256s] [ 45%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_dynamic_shape_constructor PASSED [0.1393s] [ 46%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_dynamic_shape_if_guard PASSED [0.1392s] [ 47%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_dynamic_shape_map PASSED [0.2950s] [ 48%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_dynamic_shape_slicing PASSED [0.1497s] [ 49%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_dynamic_shape_view PASSED [0.1539s] [ 50%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_fn_with_kwargs XFAIL [0.0017s] [ 50%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_list_contains PASSED [0.1379s] [ 51%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_list_unpack PASSED [0.1704s] [ 52%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_model_attr_mutation PASSED [0.1863s] [ 53%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_nested_function PASSED [0.2417s] [ 54%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_null_context_manager PASSED [0.1713s] [ 54%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_optional_input PASSED [0.1846s] [ 55%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_pytree_flatten PASSED [0.2039s] [ 56%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_scalar_output PASSED [0.1795s] [ 57%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_specialized_attribute PASSED [0.1683s] [ 58%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_static_for_loop PASSED [0.6007s] [ 58%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_static_if PASSED [0.1591s] [ 59%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_tensor_setattr PASSED [0.1706s] [ 60%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_type_reflection_method PASSED [0.1568s] [ 61%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_unsupported_operator PASSED [0.1477s] [ 62%]
+export/test_serialize.py::TestDeserialize::test_exportdb_supported_case_user_input_mutation PASSED [0.1427s] [ 62%]
+export/test_serialize.py::TestDeserialize::test_forward_compatibility PASSED [0.0014s] [ 63%]
+export/test_serialize.py::TestDeserialize::test_get_attr PASSED [0.1455s] [ 64%]
+export/test_serialize.py::TestDeserialize::test_get_attr_list PASSED [0.1598s] [ 65%]
+export/test_serialize.py::TestDeserialize::test_hoo_symint_input W0601 04:53:24.673000 105260 site-packages/torch/_export/serde/serialize.py:3563] Symbol u1 did not appear in the graph that was deserialized
+W0601 04:53:24.673000 105260 site-packages/torch/_export/serde/serialize.py:3563] Symbol u2 did not appear in the graph that was deserialized
+PASSED [0.2091s] [ 66%]
+export/test_serialize.py::TestDeserialize::test_list_of_optional_tensors PASSED [0.2143s] [ 66%]
+export/test_serialize.py::TestDeserialize::test_map PASSED [0.2986s]     [ 67%]
+export/test_serialize.py::TestDeserialize::test_module PASSED [0.2854s]  [ 68%]
+export/test_serialize.py::TestDeserialize::test_module_meta PASSED [0.1896s] [ 69%]
+export/test_serialize.py::TestDeserialize::test_multi_return PASSED [0.4871s] [ 70%]
+export/test_serialize.py::TestDeserialize::test_multiple_getitem PASSED [0.0843s] [ 70%]
+export/test_serialize.py::TestDeserialize::test_none_input PASSED [0.0205s] [ 71%]
+export/test_serialize.py::TestDeserialize::test_opaque_reference_type_constant PASSED [0.0614s] [ 72%]
+export/test_serialize.py::TestDeserialize::test_opaque_value_type_constant PASSED [0.0571s] [ 73%]
+export/test_serialize.py::TestDeserialize::test_optional_tuple PASSED [0.1951s] [ 74%]
+export/test_serialize.py::TestDeserialize::test_positional_argument_with_default_value PASSED [0.1735s] [ 75%]
+export/test_serialize.py::TestDeserialize::test_pytree_namedtuple PASSED [0.0273s] [ 75%]
+export/test_serialize.py::TestDeserialize::test_serialize_dtypes PASSED [0.2870s] [ 76%]
+export/test_serialize.py::TestDeserialize::test_shape PASSED [0.2469s]   [ 77%]
+export/test_serialize.py::TestDeserialize::test_sym_bool W0601 04:53:27.422000 105260 site-packages/torch/_export/serde/serialize.py:3563] Symbol u0 did not appear in the graph that was deserialized
+W0601 04:53:27.529000 105260 site-packages/torch/_export/serde/serialize.py:3563] Symbol u0 did not appear in the graph that was deserialized
+PASSED [0.1926s] [ 78%]
+export/test_serialize.py::TestDeserialize::test_sym_bool_dynamic_shapes PASSED [0.2666s] [ 79%]
+export/test_serialize.py::TestDeserialize::test_sym_bool_torch_check_equal W0601 04:53:27.897000 105260 site-packages/torch/_export/serde/serialize.py:3563] Symbol u0 did not appear in the graph that was deserialized
+W0601 04:53:27.897000 105260 site-packages/torch/_export/serde/serialize.py:3563] Symbol u1 did not appear in the graph that was deserialized
+W0601 04:53:27.998000 105260 site-packages/torch/_export/serde/serialize.py:3563] Symbol u0 did not appear in the graph that was deserialized
+W0601 04:53:27.998000 105260 site-packages/torch/_export/serde/serialize.py:3563] Symbol u1 did not appear in the graph that was deserialized
+W0601 04:53:27.998000 105260 site-packages/torch/_export/serde/serialize.py:3563] Symbol u2 did not appear in the graph that was deserialized
+PASSED [0.1980s] [ 79%]
+export/test_serialize.py::TestDeserialize::test_sym_float W0601 04:53:28.073000 105260 site-packages/torch/_export/serde/serialize.py:3563] Symbol zuf1 did not appear in the graph that was deserialized
+W0601 04:53:28.146000 105260 site-packages/torch/_export/serde/serialize.py:3563] Symbol zuf1 did not appear in the graph that was deserialized
+W0601 04:53:28.146000 105260 site-packages/torch/_export/serde/serialize.py:3563] Symbol zuf2 did not appear in the graph that was deserialized
+PASSED [0.1441s] [ 80%]
+export/test_serialize.py::TestDeserialize::test_sym_int_torch_check_equal W0601 04:53:28.251000 105260 site-packages/torch/_export/serde/serialize.py:3563] Symbol u0 did not appear in the graph that was deserialized
+W0601 04:53:28.251000 105260 site-packages/torch/_export/serde/serialize.py:3563] Symbol u1 did not appear in the graph that was deserialized
+W0601 04:53:28.356000 105260 site-packages/torch/_export/serde/serialize.py:3563] Symbol u0 did not appear in the graph that was deserialized
+W0601 04:53:28.356000 105260 site-packages/torch/_export/serde/serialize.py:3563] Symbol u1 did not appear in the graph that was deserialized
+W0601 04:53:28.356000 105260 site-packages/torch/_export/serde/serialize.py:3563] Symbol u2 did not appear in the graph that was deserialized
+PASSED [0.2129s] [ 81%]
+export/test_serialize.py::TestDeserialize::test_sym_ite PASSED [0.5119s] [ 82%]
+export/test_serialize.py::TestDeserialize::test_tensor_tensor_list PASSED [0.1780s] [ 83%]
+export/test_serialize.py::TestDeserialize::test_unbacked_bindings_serialize PASSED [0.5530s] [ 83%]
+export/test_serialize.py::TestSchemaVersioning::test_error PASSED [0.0554s] [ 84%]
+export/test_serialize.py::TestSaveLoad::test_deserialize_torch_artifact_dict PASSED [0.0016s] [ 85%]
+export/test_serialize.py::TestSaveLoad::test_from_node_metadata_serialization PASSED [0.2510s] [ 86%]
+export/test_serialize.py::TestSaveLoad::test_save_buffer PASSED [0.1121s] [ 87%]
+export/test_serialize.py::TestSaveLoad::test_save_constants PASSED [0.1580s] [ 87%]
+export/test_serialize.py::TestSaveLoad::test_save_extra PASSED [0.0844s] [ 88%]
+export/test_serialize.py::TestSaveLoad::test_save_file PASSED [0.0671s]  [ 89%]
+export/test_serialize.py::TestSaveLoad::test_save_load_with_multiple_empty_tensors W0601 04:53:30.385000 105260 site-packages/torch/export/pt2_archive/_package.py:811] Cannot call torch.frombuffer() on empty bytes. Creating a tensor with zeros as workaround.
+W0601 04:53:30.385000 105260 site-packages/torch/export/pt2_archive/_package.py:811] Cannot call torch.frombuffer() on empty bytes. Creating a tensor with zeros as workaround.
+PASSED [0.0327s] [ 90%]
+export/test_serialize.py::TestSaveLoad::test_save_path PASSED [0.0718s]  [ 91%]
+export/test_serialize.py::TestSaveLoad::test_version_error PASSED [0.0572s] [ 91%]
+export/test_serialize.py::TestSerializeCustomClass::test_backed_size_oblivious_serdes PASSED [0.0497s] [ 92%]
+export/test_serialize.py::TestSerializeCustomClass::test_custom_class PASSED [0.0644s] [ 93%]
+export/test_serialize.py::TestSerializeCustomClass::test_custom_class_containing_fake_tensor PASSED [0.0257s] [ 94%]
+export/test_serialize.py::TestSerializeCustomClass::test_custom_class_input_to_function W0601 04:53:30.672000 105260 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method info.
+W0601 04:53:30.672000 105260 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method increment.
+W0601 04:53:30.673000 105260 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method add.
+W0601 04:53:30.673000 105260 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method combine.
+PASSED [0.0269s] [ 95%]
+export/test_serialize.py::TestSerializeCustomClass::test_custom_tag_metadata_copy PASSED [0.0542s] [ 95%]
+export/test_serialize.py::TestSerializeCustomClass::test_custom_tag_metadata_decomp PASSED [0.2639s] [ 96%]
+export/test_serialize.py::TestSerializeCustomClass::test_custom_tag_metadata_serialization PASSED [0.0595s] [ 97%]
+export/test_serialize.py::TestSerializeCustomClass::test_unbacked_range_serdes PASSED [0.0547s] [ 98%]
+export/test_serialize.py::TestPredispatchSerialization::test_predispatch_jvp_serialize_roundtrip PASSED [0.4861s] [ 99%]
+export/test_serialize.py::TestPredispatchSerialization::test_predispatch_vmap_serialize_roundtrip PASSED [0.1744s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/export.test_serialize/export.test_serialize-3e782e9a4a21f094.xml -
+================== 120 passed, 3 skipped, 1 xfailed in 20.86s ==================

@@ -1,0 +1,5 @@
+<testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="39.928" timestamp="2026-06-01T04:33:12.829748" hostname="69e11a0ddc78"><testcase classname="GPUTests" name="test_large_block_sizes_xpu" time="39.818" file="inductor/test_compile_subprocess.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/ops_handler.py:796: UserWarning: undefined OpHandler.__getstate__, please add missing op schema
+  warnings.warn(f"undefined OpHandler.{name}, please add missing op schema")
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/ops_handler.py:796: UserWarning: undefined OpHandler.__setstate__, please add missing op schema
+  warnings.warn(f"undefined OpHandler.{name}, please add missing op schema")
+</system-err></testcase></testsuite></testsuites>

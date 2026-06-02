@@ -1,0 +1,406 @@
+<testsuites><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="4.117" timestamp="2026-06-01T04:56:00.937409" hostname="9d48c37feb18"><testcase classname="TestControlFlowTraced" name="test_vmap_scan_vmap_scan_nested" time="3.844" file="functorch/test_control_flow.py"><rerun message="torch._inductor.exc.InductorError: AttributeError: '&lt;lambda&gt;' object has no attribute 'scan_combine_graph_0'&#10;&#10;Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you're reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS=&quot;+dynamo&quot;&#10;&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    python test/functorch/test_control_flow.py TestControlFlowTraced.test_vmap_scan_vmap_scan_nested&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/var/lib/jenkins/pytorch/test/functorch/test_control_flow.py", line 8555, in test_vmap_scan_vmap_scan_nested
+    compile_out = torch.compile(fn)(scan, init, xs_outer)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1183, in compile_wrapper
+    raise e.remove_dynamo_frames() from None  # see TORCHDYNAMO_VERBOSE=1
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/compile_fx.py", line 1047, in _compile_fx_inner
+    raise InductorError(e, currentframe()).with_traceback(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/compile_fx.py", line 1039, in _compile_fx_inner
+    mb_compiled_graph = fx_codegen_and_compile(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/compile_fx.py", line 1846, in fx_codegen_and_compile
+    return scheme.codegen_and_compile(gm, example_inputs, inputs_to_check, graph_kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/compile_fx.py", line 1379, in codegen_and_compile
+    _recursive_post_grad_passes(gm, is_inference=is_inference)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/compile_fx.py", line 581, in _recursive_post_grad_passes
+    post_grad_passes(gm, is_inference)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/fx_passes/post_grad.py", line 427, in post_grad_passes
+    GraphTransformObserver(gm, "decompose_scan_to_while_loop").apply_gm_pass(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/passes/graph_transform_observer.py", line 90, in apply_gm_pass
+    return pass_fn(self.gm)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/fx_passes/post_grad.py", line 779, in decompose_scan_to_while_loop
+    graph_pass.apply(gm)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/pattern_matcher.py", line 2431, in apply
+    entry.apply(m, graph, node)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/pattern_matcher.py", line 1176, in apply
+    self.handler(match, *match.args, **match.kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/fx_passes/post_grad.py", line 773, in _
+    match.replace_by_example(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/pattern_matcher.py", line 378, in replace_by_example
+    replacement = trace_fn(replacement_fn, example_vals)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/pattern_matcher.py", line 2585, in fwd_only
+    gm = make_fx(fn, get_decomp_fn(), tracing_mode="real")(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 3039, in wrapped
+    return make_fx_tracer.trace(f, *args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 2941, in trace
+    return self._trace_inner(f, *args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 2902, in _trace_inner
+    t = dispatch_trace(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_compile.py", line 54, in inner
+    return disable_fn(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 1669, in dispatch_trace
+    graph = tracer.trace(root, concrete_args)  # type: ignore[arg-type]
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_symbolic_trace.py", line 914, in trace
+    (self.create_arg(fn(*args)),),
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 1739, in wrapped
+    out = f(*tensors)  # type:ignore[call-arg]
+  File "&lt;string&gt;", line 1, in &lt;lambda&gt;
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/fx_passes/post_grad.py", line 756, in lower_to_while_loop
+    torch.ops.higher_order.while_loop(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_higher_order_ops/while_loop.py", line 64, in __call__
+    return super().__call__(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_ops.py", line 534, in __call__
+    return torch.overrides.handle_torch_function(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/overrides.py", line 1779, in handle_torch_function
+    result = mode.__torch_function__(public_api, types, args, kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 1801, in __torch_function__
+    return func(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_higher_order_ops/while_loop.py", line 64, in __call__
+    return super().__call__(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_ops.py", line 539, in __call__
+    return self.dispatch(dispatch_key_set.highestPriorityTypeId(), *args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_ops.py", line 386, in dispatch
+    return kernel(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_ops.py", line 336, in maybe_run_autograd
+    return self(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_higher_order_ops/while_loop.py", line 64, in __call__
+    return super().__call__(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_ops.py", line 539, in __call__
+    return self.dispatch(dispatch_key_set.highestPriorityTypeId(), *args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_ops.py", line 422, in dispatch
+    result = handler(mode, *args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_higher_order_ops/while_loop.py", line 509, in while_loop_tracing
+    return _trace_while_loop(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_higher_order_ops/while_loop.py", line 466, in _trace_while_loop
+    body_graph = produce_graph(body_fn)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_higher_order_ops/while_loop.py", line 463, in produce_graph
+    return reenter_make_fx(fn)(*cloned_carried_inputs, *additional_inputs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_higher_order_ops/utils.py", line 137, in wrapped
+    gm = _CURRENT_MAKE_FX_TRACER.trace_subgraph(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 2965, in trace_subgraph
+    return sub_tracer._trace_inner(f, *args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 2902, in _trace_inner
+    t = dispatch_trace(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_compile.py", line 54, in inner
+    return disable_fn(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 1669, in dispatch_trace
+    graph = tracer.trace(root, concrete_args)  # type: ignore[arg-type]
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_symbolic_trace.py", line 914, in trace
+    (self.create_arg(fn(*args)),),
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 1739, in wrapped
+    out = f(*tensors)  # type:ignore[call-arg]
+  File "&lt;string&gt;", line 1, in &lt;lambda&gt;
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/fx_passes/post_grad.py", line 746, in body_fn
+    sub_gm(*(list(carry) + sub_xs + list(additional_inputs))),
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/graph_module.py", line 1000, in call_wrapped
+    return self._wrapped_call(self, *args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/graph_module.py", line 507, in __call__
+    raise e
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/graph_module.py", line 493, in __call__
+    return super(self.cls, obj).__call__(*args, **kwargs)  # type: ignore[misc]
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_symbolic_trace.py", line 888, in module_call_wrapper
+    return self.call_module(mod, forward, args, kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 1423, in call_module
+    return forward(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_symbolic_trace.py", line 881, in forward
+    return _orig_module_call(mod, *args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "&lt;eval_with_key&gt;.29 from /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py:1716 in wrapped", line 5, in forward
+    scan_combine_graph_0 = self.scan_combine_graph_0;  scan_combine_graph_0 = None
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_symbolic_trace.py", line 873, in module_getattr_wrapper
+    attr_val = _orig_module_getattr(mod, attr)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1967, in __getattr__
+    raise AttributeError(
+torch._inductor.exc.InductorError: AttributeError: '&lt;lambda&gt;' object has no attribute 'scan_combine_graph_0'
+
+Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you're reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS="+dynamo"
+
+
+To execute this test, run the following from the base repo dir:
+    python test/functorch/test_control_flow.py TestControlFlowTraced.test_vmap_scan_vmap_scan_nested
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</rerun><rerun message="torch._inductor.exc.InductorError: AttributeError: '&lt;lambda&gt;' object has no attribute 'scan_combine_graph_0'&#10;&#10;Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you're reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS=&quot;+dynamo&quot;&#10;&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    python test/functorch/test_control_flow.py TestControlFlowTraced.test_vmap_scan_vmap_scan_nested&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/var/lib/jenkins/pytorch/test/functorch/test_control_flow.py", line 8555, in test_vmap_scan_vmap_scan_nested
+    compile_out = torch.compile(fn)(scan, init, xs_outer)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1183, in compile_wrapper
+    raise e.remove_dynamo_frames() from None  # see TORCHDYNAMO_VERBOSE=1
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/compile_fx.py", line 1047, in _compile_fx_inner
+    raise InductorError(e, currentframe()).with_traceback(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/compile_fx.py", line 1039, in _compile_fx_inner
+    mb_compiled_graph = fx_codegen_and_compile(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/compile_fx.py", line 1846, in fx_codegen_and_compile
+    return scheme.codegen_and_compile(gm, example_inputs, inputs_to_check, graph_kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/compile_fx.py", line 1379, in codegen_and_compile
+    _recursive_post_grad_passes(gm, is_inference=is_inference)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/compile_fx.py", line 581, in _recursive_post_grad_passes
+    post_grad_passes(gm, is_inference)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/fx_passes/post_grad.py", line 427, in post_grad_passes
+    GraphTransformObserver(gm, "decompose_scan_to_while_loop").apply_gm_pass(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/passes/graph_transform_observer.py", line 90, in apply_gm_pass
+    return pass_fn(self.gm)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/fx_passes/post_grad.py", line 779, in decompose_scan_to_while_loop
+    graph_pass.apply(gm)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/pattern_matcher.py", line 2431, in apply
+    entry.apply(m, graph, node)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/pattern_matcher.py", line 1176, in apply
+    self.handler(match, *match.args, **match.kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/fx_passes/post_grad.py", line 773, in _
+    match.replace_by_example(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/pattern_matcher.py", line 378, in replace_by_example
+    replacement = trace_fn(replacement_fn, example_vals)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/pattern_matcher.py", line 2585, in fwd_only
+    gm = make_fx(fn, get_decomp_fn(), tracing_mode="real")(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 3039, in wrapped
+    return make_fx_tracer.trace(f, *args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 2941, in trace
+    return self._trace_inner(f, *args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 2902, in _trace_inner
+    t = dispatch_trace(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_compile.py", line 54, in inner
+    return disable_fn(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 1669, in dispatch_trace
+    graph = tracer.trace(root, concrete_args)  # type: ignore[arg-type]
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_symbolic_trace.py", line 914, in trace
+    (self.create_arg(fn(*args)),),
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 1739, in wrapped
+    out = f(*tensors)  # type:ignore[call-arg]
+  File "&lt;string&gt;", line 1, in &lt;lambda&gt;
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/fx_passes/post_grad.py", line 756, in lower_to_while_loop
+    torch.ops.higher_order.while_loop(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_higher_order_ops/while_loop.py", line 64, in __call__
+    return super().__call__(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_ops.py", line 534, in __call__
+    return torch.overrides.handle_torch_function(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/overrides.py", line 1779, in handle_torch_function
+    result = mode.__torch_function__(public_api, types, args, kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 1801, in __torch_function__
+    return func(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_higher_order_ops/while_loop.py", line 64, in __call__
+    return super().__call__(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_ops.py", line 539, in __call__
+    return self.dispatch(dispatch_key_set.highestPriorityTypeId(), *args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_ops.py", line 386, in dispatch
+    return kernel(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_ops.py", line 336, in maybe_run_autograd
+    return self(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_higher_order_ops/while_loop.py", line 64, in __call__
+    return super().__call__(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_ops.py", line 539, in __call__
+    return self.dispatch(dispatch_key_set.highestPriorityTypeId(), *args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_ops.py", line 422, in dispatch
+    result = handler(mode, *args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_higher_order_ops/while_loop.py", line 509, in while_loop_tracing
+    return _trace_while_loop(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_higher_order_ops/while_loop.py", line 466, in _trace_while_loop
+    body_graph = produce_graph(body_fn)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_higher_order_ops/while_loop.py", line 463, in produce_graph
+    return reenter_make_fx(fn)(*cloned_carried_inputs, *additional_inputs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_higher_order_ops/utils.py", line 137, in wrapped
+    gm = _CURRENT_MAKE_FX_TRACER.trace_subgraph(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 2965, in trace_subgraph
+    return sub_tracer._trace_inner(f, *args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 2902, in _trace_inner
+    t = dispatch_trace(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_compile.py", line 54, in inner
+    return disable_fn(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 1669, in dispatch_trace
+    graph = tracer.trace(root, concrete_args)  # type: ignore[arg-type]
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_symbolic_trace.py", line 914, in trace
+    (self.create_arg(fn(*args)),),
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 1739, in wrapped
+    out = f(*tensors)  # type:ignore[call-arg]
+  File "&lt;string&gt;", line 1, in &lt;lambda&gt;
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/fx_passes/post_grad.py", line 746, in body_fn
+    sub_gm(*(list(carry) + sub_xs + list(additional_inputs))),
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/graph_module.py", line 1000, in call_wrapped
+    return self._wrapped_call(self, *args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/graph_module.py", line 507, in __call__
+    raise e
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/graph_module.py", line 493, in __call__
+    return super(self.cls, obj).__call__(*args, **kwargs)  # type: ignore[misc]
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_symbolic_trace.py", line 888, in module_call_wrapper
+    return self.call_module(mod, forward, args, kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 1423, in call_module
+    return forward(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_symbolic_trace.py", line 881, in forward
+    return _orig_module_call(mod, *args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "&lt;eval_with_key&gt;.60 from /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py:1716 in wrapped", line 5, in forward
+    scan_combine_graph_0 = self.scan_combine_graph_0;  scan_combine_graph_0 = None
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_symbolic_trace.py", line 873, in module_getattr_wrapper
+    attr_val = _orig_module_getattr(mod, attr)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1967, in __getattr__
+    raise AttributeError(
+torch._inductor.exc.InductorError: AttributeError: '&lt;lambda&gt;' object has no attribute 'scan_combine_graph_0'
+
+Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you're reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS="+dynamo"
+
+
+To execute this test, run the following from the base repo dir:
+    python test/functorch/test_control_flow.py TestControlFlowTraced.test_vmap_scan_vmap_scan_nested
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</rerun><failure message="torch._inductor.exc.InductorError: AttributeError: '&lt;lambda&gt;' object has no attribute 'scan_combine_graph_0'&#10;&#10;Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you're reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS=&quot;+dynamo&quot;&#10;&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    python test/functorch/test_control_flow.py TestControlFlowTraced.test_vmap_scan_vmap_scan_nested&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/var/lib/jenkins/pytorch/test/functorch/test_control_flow.py", line 8555, in test_vmap_scan_vmap_scan_nested
+    compile_out = torch.compile(fn)(scan, init, xs_outer)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1183, in compile_wrapper
+    raise e.remove_dynamo_frames() from None  # see TORCHDYNAMO_VERBOSE=1
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/compile_fx.py", line 1047, in _compile_fx_inner
+    raise InductorError(e, currentframe()).with_traceback(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/compile_fx.py", line 1039, in _compile_fx_inner
+    mb_compiled_graph = fx_codegen_and_compile(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/compile_fx.py", line 1846, in fx_codegen_and_compile
+    return scheme.codegen_and_compile(gm, example_inputs, inputs_to_check, graph_kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/compile_fx.py", line 1379, in codegen_and_compile
+    _recursive_post_grad_passes(gm, is_inference=is_inference)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/compile_fx.py", line 581, in _recursive_post_grad_passes
+    post_grad_passes(gm, is_inference)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/fx_passes/post_grad.py", line 427, in post_grad_passes
+    GraphTransformObserver(gm, "decompose_scan_to_while_loop").apply_gm_pass(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/passes/graph_transform_observer.py", line 90, in apply_gm_pass
+    return pass_fn(self.gm)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/fx_passes/post_grad.py", line 779, in decompose_scan_to_while_loop
+    graph_pass.apply(gm)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/pattern_matcher.py", line 2431, in apply
+    entry.apply(m, graph, node)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/pattern_matcher.py", line 1176, in apply
+    self.handler(match, *match.args, **match.kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/fx_passes/post_grad.py", line 773, in _
+    match.replace_by_example(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/pattern_matcher.py", line 378, in replace_by_example
+    replacement = trace_fn(replacement_fn, example_vals)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/pattern_matcher.py", line 2585, in fwd_only
+    gm = make_fx(fn, get_decomp_fn(), tracing_mode="real")(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 3039, in wrapped
+    return make_fx_tracer.trace(f, *args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 2941, in trace
+    return self._trace_inner(f, *args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 2902, in _trace_inner
+    t = dispatch_trace(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_compile.py", line 54, in inner
+    return disable_fn(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 1669, in dispatch_trace
+    graph = tracer.trace(root, concrete_args)  # type: ignore[arg-type]
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_symbolic_trace.py", line 914, in trace
+    (self.create_arg(fn(*args)),),
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 1739, in wrapped
+    out = f(*tensors)  # type:ignore[call-arg]
+  File "&lt;string&gt;", line 1, in &lt;lambda&gt;
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/fx_passes/post_grad.py", line 756, in lower_to_while_loop
+    torch.ops.higher_order.while_loop(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_higher_order_ops/while_loop.py", line 64, in __call__
+    return super().__call__(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_ops.py", line 534, in __call__
+    return torch.overrides.handle_torch_function(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/overrides.py", line 1779, in handle_torch_function
+    result = mode.__torch_function__(public_api, types, args, kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 1801, in __torch_function__
+    return func(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_higher_order_ops/while_loop.py", line 64, in __call__
+    return super().__call__(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_ops.py", line 539, in __call__
+    return self.dispatch(dispatch_key_set.highestPriorityTypeId(), *args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_ops.py", line 386, in dispatch
+    return kernel(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_ops.py", line 336, in maybe_run_autograd
+    return self(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_higher_order_ops/while_loop.py", line 64, in __call__
+    return super().__call__(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_ops.py", line 539, in __call__
+    return self.dispatch(dispatch_key_set.highestPriorityTypeId(), *args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_ops.py", line 422, in dispatch
+    result = handler(mode, *args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_higher_order_ops/while_loop.py", line 509, in while_loop_tracing
+    return _trace_while_loop(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_higher_order_ops/while_loop.py", line 466, in _trace_while_loop
+    body_graph = produce_graph(body_fn)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_higher_order_ops/while_loop.py", line 463, in produce_graph
+    return reenter_make_fx(fn)(*cloned_carried_inputs, *additional_inputs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_higher_order_ops/utils.py", line 137, in wrapped
+    gm = _CURRENT_MAKE_FX_TRACER.trace_subgraph(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 2965, in trace_subgraph
+    return sub_tracer._trace_inner(f, *args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 2902, in _trace_inner
+    t = dispatch_trace(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_compile.py", line 54, in inner
+    return disable_fn(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 1669, in dispatch_trace
+    graph = tracer.trace(root, concrete_args)  # type: ignore[arg-type]
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_symbolic_trace.py", line 914, in trace
+    (self.create_arg(fn(*args)),),
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 1739, in wrapped
+    out = f(*tensors)  # type:ignore[call-arg]
+  File "&lt;string&gt;", line 1, in &lt;lambda&gt;
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/fx_passes/post_grad.py", line 746, in body_fn
+    sub_gm(*(list(carry) + sub_xs + list(additional_inputs))),
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/graph_module.py", line 1000, in call_wrapped
+    return self._wrapped_call(self, *args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/graph_module.py", line 507, in __call__
+    raise e
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/graph_module.py", line 493, in __call__
+    return super(self.cls, obj).__call__(*args, **kwargs)  # type: ignore[misc]
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_symbolic_trace.py", line 888, in module_call_wrapper
+    return self.call_module(mod, forward, args, kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py", line 1423, in call_module
+    return forward(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_symbolic_trace.py", line 881, in forward
+    return _orig_module_call(mod, *args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "&lt;eval_with_key&gt;.91 from /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py:1716 in wrapped", line 5, in forward
+    scan_combine_graph_0 = self.scan_combine_graph_0;  scan_combine_graph_0 = None
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_symbolic_trace.py", line 873, in module_getattr_wrapper
+    attr_val = _orig_module_getattr(mod, attr)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1967, in __getattr__
+    raise AttributeError(
+torch._inductor.exc.InductorError: AttributeError: '&lt;lambda&gt;' object has no attribute 'scan_combine_graph_0'
+
+Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you're reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS="+dynamo"
+
+
+To execute this test, run the following from the base repo dir:
+    python test/functorch/test_control_flow.py TestControlFlowTraced.test_vmap_scan_vmap_scan_nested
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure><system-err>/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/utils.py:4194: UserWarning: There is a performance drop because we have not yet implemented the batching rule for aten::select_copy.int. Please file us an issue on GitHub so that we can prioritize its implementation. (Triggered internally at /var/lib/jenkins/workspace/aten/src/ATen/functorch/BatchedFallback.cpp:82.)
+  return node.target(*args, **kwargs)  # type: ignore[operator]
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/utils.py:4194: UserWarning: There is a performance drop because we have not yet implemented the batching rule for aten::select_copy.int. Please file us an issue on GitHub so that we can prioritize its implementation. (Triggered internally at /var/lib/jenkins/workspace/aten/src/ATen/functorch/BatchedFallback.cpp:82.)
+  return node.target(*args, **kwargs)  # type: ignore[operator]
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/utils.py:4194: UserWarning: There is a performance drop because we have not yet implemented the batching rule for aten::select_copy.int. Please file us an issue on GitHub so that we can prioritize its implementation. (Triggered internally at /var/lib/jenkins/workspace/aten/src/ATen/functorch/BatchedFallback.cpp:82.)
+  return node.target(*args, **kwargs)  # type: ignore[operator]
+</system-err></testcase></testsuite></testsuites>

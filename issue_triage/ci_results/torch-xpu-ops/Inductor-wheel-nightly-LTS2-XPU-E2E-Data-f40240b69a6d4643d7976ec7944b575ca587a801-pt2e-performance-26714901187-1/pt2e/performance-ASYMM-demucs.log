@@ -1,0 +1,65 @@
+W0531 14:26:40.269000 57365 site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+/__w/torch-xpu-ops/torch-xpu-ops/pt2e-performance/torchbenchmark/util/backends/torchdynamo.py:41: FutureWarning: `config.shallow_copy_dict()` has been deprecated. It no longer changes the underlying config. use `config.get_config_copy()` instead if you just want a copy of the config, or config.load_config if you need mutable access
+  return torch._inductor.config.shallow_copy_dict()
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/pgo.py:605: UserWarning: dynamo_pgo force disabled by torch.compiler.config.force_disable_caches
+  warn_once(
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/pgo.py:605: UserWarning: dynamo_pgo force disabled by torch.compiler.config.force_disable_caches
+  warn_once(
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/pgo.py:605: UserWarning: dynamo_pgo force disabled by torch.compiler.config.force_disable_caches
+  warn_once(
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/pgo.py:605: UserWarning: dynamo_pgo force disabled by torch.compiler.config.force_disable_caches
+  warn_once(
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/pgo.py:605: UserWarning: dynamo_pgo force disabled by torch.compiler.config.force_disable_caches
+  warn_once(
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/pgo.py:605: UserWarning: dynamo_pgo force disabled by torch.compiler.config.force_disable_caches
+  warn_once(
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/pgo.py:605: UserWarning: dynamo_pgo force disabled by torch.compiler.config.force_disable_caches
+  warn_once(
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/pgo.py:605: UserWarning: dynamo_pgo force disabled by torch.compiler.config.force_disable_caches
+  warn_once(
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_inductor/mkldnn_lowerings.py:805: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  torch.tensor(w_zp_tensor, dtype=torch.int32), name=w_zp.get_name()
+W0531 14:27:24.962000 57365 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+Running TorchBenchModelConfig(name='demucs', test='eval', device='xpu', batch_size=None, extra_args=['--channels-last', '--torchdynamo', 'inductor', '--quantization', 'pt2e'], extra_env=None, output_dir=None) ...Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pt2e-performance/userbenchmark/xpu/run_config.py", line 97, in <module>
+    run(args, extra_args)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pt2e-performance/userbenchmark/xpu/run_config.py", line 75, in run
+    metrics_res = run_config(config, metrics, nwarmup=int(args.nwarmup), niter=int(args.niter), dryrun=args.dryrun)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pt2e-performance/userbenchmark/xpu/run_config.py", line 57, in run_config
+    result: TorchBenchModelMetrics = get_model_test_metrics(model, metrics=metrics, nwarmup=nwarmup, num_iter=niter)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pt2e-performance/torchbenchmark/util/experiment/metrics.py", line 183, in get_model_test_metrics
+    latencies = get_latencies(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pt2e-performance/torchbenchmark/util/experiment/metrics.py", line 40, in get_latencies
+    func()
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pt2e-performance/torchbenchmark/util/model.py", line 413, in invoke
+    out = self.eval()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1166, in compile_wrapper
+    result = fn(*args, **kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pt2e-performance/torchbenchmark/models/demucs/__init__.py", line 88, in eval
+    def eval(self) -> Tuple[torch.Tensor]:
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/aot_autograd.py", line 1277, in forward
+    return compiled_fn(full_args)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 1142, in runtime_wrapper
+    result = _codegen_runtime_wrapper(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:codegen(runtime_wrapper_orchestration)", line 8, in _runtime_wrapper
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_inductor/compile_fx.py", line 2220, in wrapper
+    return optimized_function(args_new)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_inductor/output_code.py", line 763, in __call__
+    return self.current_callable(inputs)
+  File "/tmp/torchinductor_ubuntu/tmpd3lntegz/sg/csgljkvzcglqmg32wy6ma7p2kskehy2hop3mzjvjkic7vsq4dmn3.py", line 41844, in call
+    buf1 = torch.ops.onednn.qconv_pointwise.tensor(buf0, x_scale, x_zp, _frozen_param88, _frozen_param59, _frozen_param60, _frozen_param0, [4], [0], [1], 1, 1.0, 0, torch.float32, 'relu', [None], '')
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 871, in __call__
+    return self._op(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_compile.py", line 54, in inner
+    return disable_fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 433, in __torch_dispatch__
+    res = func(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 871, in __call__
+    return self._op(*args, **kwargs)
+RuntimeError: quantized pointwise conv1d doesn't support unary_post_op fusion. Got unary_post_op:relu.
+
+Running benchmark: /tmp/xpu-tool/Python/3.10.20/x64/bin/python /__w/torch-xpu-ops/torch-xpu-ops/pt2e-performance/userbenchmark/xpu/run_config.py -m demucs -d xpu -t eval --channels-last --torchdynamo inductor --quantization pt2e --metrics throughputs --nwarmup 20 --niter 50 -o /__w/torch-xpu-ops/torch-xpu-ops/pt2e-performance/.userbenchmark/xpu/xpu-20260531142637

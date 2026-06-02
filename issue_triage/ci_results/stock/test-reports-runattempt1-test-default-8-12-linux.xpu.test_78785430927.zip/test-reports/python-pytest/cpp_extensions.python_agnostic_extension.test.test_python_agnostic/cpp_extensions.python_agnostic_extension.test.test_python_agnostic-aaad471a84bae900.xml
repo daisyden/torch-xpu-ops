@@ -1,0 +1,1 @@
+<testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="5.162" timestamp="2026-06-01T04:46:41.111770" hostname="69e11a0ddc78"><testcase classname="TestPythonAgnosticXPU" name="test_extension_is_python_agnostic_xpu" time="5.142" file="cpp_extensions/python_agnostic_extension/test/test_python_agnostic.py" /></testsuite></testsuites>

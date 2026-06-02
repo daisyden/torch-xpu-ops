@@ -1,0 +1,35 @@
+++ python benchmarks/dynamo/timm_models.py --accuracy --bfloat16 -d xpu -n10 --training --total-partitions 8 --partition-id 4 --backend=inductor --cold-start-latency --timeout=10800 --disable-cudagraphs --output=/__w/torch-xpu-ops/torch-xpu-ops/pytorch/inductor_log/timm_models/bfloat16/inductor_timm_models_bfloat16_training_xpu_accuracy.csv
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:06, ?it/s]
+xpu  train mixnet_l                           
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:03, ?it/s]
+xpu  train mnasnet_100                        
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:02, ?it/s]
+xpu  train mobilenetv2_100                    
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:04, ?it/s]
+xpu  train mobilenetv3_large_100              
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:04, ?it/s]
+xpu  train mobilevit_s                        
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:04, ?it/s]
+xpu  train nfnet_l0                           
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:02, ?it/s]
+xpu  train pit_b_224                          
+W0531 14:41:49.444000 72063 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:14, ?it/s]
+xpu  train pnasnet5large                      
+pass
+accuracy            pass_rate=95.38%
+calls_captured      gmean=414.46x mean=492.723x
+unique_graphs       gmean=1.08x mean=1.123x
+graph_breaks        gmean=5.01x mean=5.015x
+unique_graph_breaks gmean=4.00x mean=4.000x
+autograd_captures   gmean=0.00x mean=0.000x
+autograd_compiles   gmean=0.00x mean=0.000x
+cudagraph_skips     gmean=0.00x mean=0.000x
+compilation_latency mean=46.090 seconds

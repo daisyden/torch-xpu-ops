@@ -1,0 +1,71 @@
+Test results will be stored in test-reports/python-pytest/dynamo.test_aot_compile/dynamo.test_aot_compile-b5294daa7a2b96c8.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... /var/lib/jenkins/pytorch/test/dynamo/test_aot_compile.py:369: PytestCollectionWarning: cannot collect test class 'TestVLLMModel' because it has a __init__ constructor (from: test/dynamo/test_aot_compile.py)
+  class TestVLLMModel(MultiModalMixin, TextModel):
+collected 40 items
+stepcurrent: Cannot find last run test, not skipping
+Running 40 items in this shard: test/dynamo/test_aot_compile.py::TestAOTCompile::test_aot_cache_predicate_not_pickleable, test/dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_basic_fn, test/dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_basic_fn_inductor, test/dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_basic_forward, test/dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_disable_guard_check, test/dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_grad_mode_after_prior_compile, test/dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_graph_break_error_fmt, test/dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_module, test/dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_portable_guards_unsafe, test/dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_repeat_interleave, test/dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_source_info, test/dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_with_aoti, test/dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_with_aoti_module, test/dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_with_aoti_torch_compile, test/dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_with_captured_module, test/dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_with_captured_module_2, test/dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_with_checkpoint, test/dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_with_closure_save_and_load, test/dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_with_default_args, test/dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_with_global_tensor, test/dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_with_redistribute, test/dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_with_super_call, test/dynamo/test_aot_compile.py::TestAOTCompile::test_aot_eager_backend, test/dynamo/test_aot_compile.py::TestAOTCompile::test_aot_module_simplified_serializable_autograd, test/dynamo/test_aot_compile.py::TestAOTCompile::test_aot_module_simplified_serializable_inference, test/dynamo/test_aot_compile.py::TestAOTCompile::test_builtins_dict_survives_serialization, test/dynamo/test_aot_compile.py::TestAOTCompile::test_code_cache, test/dynamo/test_aot_compile.py::TestAOTCompile::test_cross_aot_compile, test/dynamo/test_aot_compile.py::TestAOTCompile::test_cross_compile_realistic_transformer_model, test/dynamo/test_aot_compile.py::TestAOTCompile::test_decorated_function_aot, test/dynamo/test_aot_compile.py::TestAOTCompile::test_decorated_function_with_functools_wrap_aot, test/dynamo/test_aot_compile.py::TestAOTCompile::test_dynamic_settings, test/dynamo/test_aot_compile.py::TestAOTCompile::test_eager_backend, test/dynamo/test_aot_compile.py::TestAOTCompile::test_external_refs_validation, test/dynamo/test_aot_compile.py::TestAOTCompile::test_fullgraph_capture_schema_self_arg_no_collision, test/dynamo/test_aot_compile.py::TestAOTCompile::test_fullgraph_capture_with_pytree_func, test/dynamo/test_aot_compile.py::TestAOTCompile::test_fullgraph_capture_with_pytree_module, test/dynamo/test_aot_compile.py::TestAOTCompile::test_guard_filter_override_aot, test/dynamo/test_aot_compile.py::TestAOTCompile::test_regional_inductor_backend, test/dynamo/test_aot_compile.py::TestTritonKernelSerialization::test_kernel_side_table_serialization_roundtrip
+
+dynamo/test_aot_compile.py::TestAOTCompile::test_aot_cache_predicate_not_pickleable PASSED [17.8729s] [  2%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_basic_fn PASSED [0.0545s] [  5%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_basic_fn_inductor PASSED [0.6963s] [  7%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_basic_forward PASSED [0.0740s] [ 10%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_disable_guard_check PASSED [43.5969s] [ 12%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_grad_mode_after_prior_compile PASSED [44.1919s] [ 15%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_graph_break_error_fmt PASSED [0.0140s] [ 17%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_module PASSED [44.2695s] [ 20%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_portable_guards_unsafe PASSED [0.7569s] [ 22%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_repeat_interleave PASSED [0.1158s] [ 25%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_source_info PASSED [0.6740s] [ 27%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_with_aoti PASSED [19.8415s] [ 30%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_with_aoti_module W0601 04:41:36.989000 40451 site-packages/torch/_inductor/utils.py:3137] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+PASSED [24.2030s] [ 32%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_with_aoti_torch_compile PASSED [17.0822s] [ 35%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_with_captured_module PASSED [0.8451s] [ 37%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_with_captured_module_2 PASSED [0.8019s] [ 40%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_with_checkpoint PASSED [0.7440s] [ 42%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_with_closure_save_and_load PASSED [0.7269s] [ 45%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_with_default_args PASSED [0.7067s] [ 47%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_with_global_tensor PASSED [0.6896s] [ 50%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_with_redistribute PASSED [0.8981s] [ 52%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_aot_compile_with_super_call PASSED [0.7118s] [ 55%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_aot_eager_backend PASSED [0.0705s] [ 57%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_aot_module_simplified_serializable_autograd PASSED [0.7156s] [ 60%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_aot_module_simplified_serializable_inference PASSED [0.8128s] [ 62%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_builtins_dict_survives_serialization PASSED [0.6947s] [ 65%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_code_cache PASSED [0.0019s] [ 67%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_cross_aot_compile /opt/conda/envs/py_3.10/lib/python3.10/site-packages/_pytest/unraisableexception.py:78: PytestUnraisableExceptionWarning: Exception ignored in: <function remove at 0x7ec38197b640>
+
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/utils/weak.py", line 162, in remove
+    if self._iterating:
+AttributeError: '_Missing' object has no attribute '_iterating'
+
+  warnings.warn(pytest.PytestUnraisableExceptionWarning(msg))
+Exception ignored in: <function remove at 0x7ec38197b6d0>
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/weakref.py", line 109, in remove
+    if self._iterating:
+AttributeError: '_Missing' object has no attribute '_iterating'
+PASSED [7.3709s] [ 70%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_cross_compile_realistic_transformer_model PASSED [23.8381s] [ 72%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_decorated_function_aot PASSED [0.0429s] [ 75%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_decorated_function_with_functools_wrap_aot PASSED [0.0398s] [ 77%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_dynamic_settings PASSED [0.0371s] [ 80%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_eager_backend PASSED [0.0457s] [ 82%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_external_refs_validation PASSED [0.6984s] [ 85%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_fullgraph_capture_schema_self_arg_no_collision PASSED [0.0215s] [ 87%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_fullgraph_capture_with_pytree_func PASSED [0.0222s] [ 90%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_fullgraph_capture_with_pytree_module PASSED [0.0466s] [ 92%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_guard_filter_override_aot PASSED [0.0373s] [ 95%]
+dynamo/test_aot_compile.py::TestAOTCompile::test_regional_inductor_backend PASSED [1.4194s] [ 97%]
+dynamo/test_aot_compile.py::TestTritonKernelSerialization::test_kernel_side_table_serialization_roundtrip PASSED [0.0019s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/dynamo.test_aot_compile/dynamo.test_aot_compile-b5294daa7a2b96c8.xml -
+======================== 40 passed in 255.58s (0:04:15) ========================

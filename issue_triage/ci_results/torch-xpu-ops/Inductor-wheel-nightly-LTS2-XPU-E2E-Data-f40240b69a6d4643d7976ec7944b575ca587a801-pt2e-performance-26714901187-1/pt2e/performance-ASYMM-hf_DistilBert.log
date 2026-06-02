@@ -1,0 +1,39 @@
+W0531 14:38:30.812000 67937 site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+/__w/torch-xpu-ops/torch-xpu-ops/pt2e-performance/torchbenchmark/util/backends/torchdynamo.py:41: FutureWarning: `config.shallow_copy_dict()` has been deprecated. It no longer changes the underlying config. use `config.get_config_copy()` instead if you just want a copy of the config, or config.load_config if you need mutable access
+  return torch._inductor.config.shallow_copy_dict()
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/huggingface_hub/file_download.py:949: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+/__w/torch-xpu-ops/torch-xpu-ops/pt2e-performance/torchbenchmark/util/backends/torchdynamo.py:41: FutureWarning: `config.shallow_copy_dict()` has been deprecated. It no longer changes the underlying config. use `config.get_config_copy()` instead if you just want a copy of the config, or config.load_config if you need mutable access
+  return torch._inductor.config.shallow_copy_dict()
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/pgo.py:605: UserWarning: dynamo_pgo force disabled by torch.compiler.config.force_disable_caches
+  warn_once(
+Running TorchBenchModelConfig(name='hf_DistilBert', test='eval', device='xpu', batch_size=None, extra_args=['--channels-last', '--torchdynamo', 'inductor', '--quantization', 'pt2e'], extra_env=None, output_dir=None) ...Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pt2e-performance/userbenchmark/xpu/run_config.py", line 97, in <module>
+    run(args, extra_args)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pt2e-performance/userbenchmark/xpu/run_config.py", line 75, in run
+    metrics_res = run_config(config, metrics, nwarmup=int(args.nwarmup), niter=int(args.niter), dryrun=args.dryrun)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pt2e-performance/userbenchmark/xpu/run_config.py", line 55, in run_config
+    model = load_model(config)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pt2e-performance/torchbenchmark/util/experiment/instantiator.py", line 97, in load_model
+    model_instance = Model(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pt2e-performance/torchbenchmark/util/model.py", line 40, in __call__
+    obj.__post__init__()
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pt2e-performance/torchbenchmark/util/model.py", line 157, in __post__init__
+    apply_torchdynamo_args(self, self.opt_args, self.dargs.precision)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pt2e-performance/torchbenchmark/util/backends/torchdynamo.py", line 223, in apply_torchdynamo_args
+    enable_inductor_quant(model, args.is_qat)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pt2e-performance/torchbenchmark/util/backends/torchdynamo.py", line 384, in enable_inductor_quant
+    converted_model = convert_pt2e(prepared_model)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchao/quantization/pt2e/quantize_pt2e.py", line 341, in convert_pt2e
+    model = _convert_to_reference_decomposed_fx(model)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchao/quantization/pt2e/convert.py", line 1287, in _convert_to_reference_decomposed_fx
+    return _convert_fx(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchao/quantization/pt2e/convert.py", line 1230, in _convert_fx
+    quantized = convert(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchao/quantization/pt2e/convert.py", line 1088, in convert
+    model_device = _assert_and_get_unique_device(model)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchao/utils.py", line 66, in _assert_and_get_unique_device
+    assert len(devices) <= 1, (
+AssertionError: prepare only works with cpu or single-device CUDA modules, but got devices {device(type='xpu', index=0), device(type='cpu')}
+
+Running benchmark: /tmp/xpu-tool/Python/3.10.20/x64/bin/python /__w/torch-xpu-ops/torch-xpu-ops/pt2e-performance/userbenchmark/xpu/run_config.py -m hf_DistilBert -d xpu -t eval --channels-last --torchdynamo inductor --quantization pt2e --metrics throughputs --nwarmup 20 --niter 50 -o /__w/torch-xpu-ops/torch-xpu-ops/pt2e-performance/.userbenchmark/xpu/xpu-20260531143827

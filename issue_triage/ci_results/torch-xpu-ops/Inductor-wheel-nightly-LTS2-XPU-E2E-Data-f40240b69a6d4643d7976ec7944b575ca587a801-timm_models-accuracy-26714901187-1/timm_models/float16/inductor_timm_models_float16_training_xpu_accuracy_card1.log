@@ -1,0 +1,38 @@
+++ python benchmarks/dynamo/timm_models.py --accuracy --float16 -d xpu -n10 --training --total-partitions 8 --partition-id 1 --backend=inductor --cold-start-latency --timeout=10800 --disable-cudagraphs --output=/__w/torch-xpu-ops/torch-xpu-ops/pytorch/inductor_log/timm_models/float16/inductor_timm_models_float16_training_xpu_accuracy.csv
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:04, ?it/s]
+xpu  train convnextv2_nano.fcmae_ft_in22k_in1k 
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:03, ?it/s]
+xpu  train crossvit_9_240                     
+W0531 14:16:22.573000 5276 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+W0531 14:16:22.692000 5276 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:05, ?it/s]
+xpu  train cspdarknet53                       
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:03, ?it/s]
+xpu  train deit_base_distilled_patch16_224    
+W0531 14:18:48.296000 13238 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:02, ?it/s]
+xpu  train deit_tiny_patch16_224.fb_in1k      
+W0531 14:19:19.105000 15450 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:06, ?it/s]
+xpu  train dla102                             
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:07, ?it/s]
+xpu  train dm_nfnet_f0                        
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:10, ?it/s]
+xpu  train dpn107                             
+pass
+accuracy            pass_rate=94.55%
+calls_captured      gmean=406.66x mean=484.982x
+unique_graphs       gmean=1.10x mean=1.145x
+graph_breaks        gmean=5.02x mean=5.018x
+unique_graph_breaks gmean=4.00x mean=4.000x
+autograd_captures   gmean=0.00x mean=0.000x
+autograd_compiles   gmean=0.00x mean=0.000x
+cudagraph_skips     gmean=0.00x mean=0.000x
+compilation_latency mean=45.838 seconds

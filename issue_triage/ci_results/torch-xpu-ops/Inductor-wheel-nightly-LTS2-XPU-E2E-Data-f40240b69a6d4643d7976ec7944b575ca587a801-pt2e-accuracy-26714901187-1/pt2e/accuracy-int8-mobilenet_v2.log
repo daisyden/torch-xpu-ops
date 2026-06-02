@@ -1,0 +1,11 @@
+W0531 14:25:41.729000 56468 site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=MobileNet_V2_Weights.IMAGENET1K_V1`. You can also use `weights=MobileNet_V2_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+using ptq
+W0531 14:25:53.223000 56468 site-packages/torch/_inductor/utils.py:3128] [1/0] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_inductor/mkldnn_lowerings.py:805: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  torch.tensor(w_zp_tensor, dtype=torch.int32), name=w_zp.get_name()
+W0531 14:25:55.474000 56468 site-packages/torch/_inductor/select_algorithm.py:3293] [1/0] Constructing input/output tensor meta failed for Extern Choice
+mobilenet_v2 int8:  * Acc@1 71.052 Acc@5 89.960

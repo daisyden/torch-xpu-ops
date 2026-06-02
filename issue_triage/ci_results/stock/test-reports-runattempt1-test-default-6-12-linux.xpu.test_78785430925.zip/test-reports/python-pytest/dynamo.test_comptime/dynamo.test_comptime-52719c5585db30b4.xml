@@ -1,0 +1,134 @@
+<testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="12" time="6.034" timestamp="2026-06-01T04:37:08.697112" hostname="fd632ab80588"><testcase classname="ComptimeTests" name="test_get_local" time="0.356" file="dynamo/test_comptime.py" /><testcase classname="ComptimeTests" name="test_get_local_closure_variable" time="0.104" file="dynamo/test_comptime.py"><system-out>3
+</system-out></testcase><testcase classname="ComptimeTests" name="test_graph_break" time="0.140" file="dynamo/test_comptime.py" /><testcase classname="ComptimeTests" name="test_print_bt" time="0.034" file="dynamo/test_comptime.py"><system-out>  File "/var/lib/jenkins/pytorch/test/dynamo/test_comptime.py", line 288, in f
+    y = g(y)
+  File "/var/lib/jenkins/pytorch/test/dynamo/test_comptime.py", line 281, in g
+    comptime.print_bt()
+
+</system-out></testcase><testcase classname="ComptimeTests" name="test_print_direct" time="0.033" file="dynamo/test_comptime.py"><system-out>Tensor(shape=(2,), dtype=torch.float32)
+</system-out></testcase><testcase classname="ComptimeTests" name="test_print_disas" time="0.032" file="dynamo/test_comptime.py"><system-out>127           0 LOAD_FAST                0 (x)
+              2 LOAD_CONST               1 (2)
+              4 BINARY_MULTIPLY
+              6 STORE_FAST               1 (y)
+
+129           8 LOAD_GLOBAL              0 (comptime)
+
+130          10 LOAD_CONST               2 (&lt;code object _ at 0x732a2fdcbe10, file "/var/lib/jenkins/pytorch/test/dynamo/test_comptime.py", line 129&gt;)
+             12 LOAD_CONST               3 ('ComptimeTests.test_print_disas.&lt;locals&gt;.f.&lt;locals&gt;._')
+             14 MAKE_FUNCTION            0
+             16 CALL_FUNCTION            1
+             18 STORE_FAST               2 (_)
+
+133          20 LOAD_GLOBAL              0 (comptime)
+             22 LOAD_METHOD              1 (print_disas)
+             24 CALL_METHOD              0
+    --&gt;      26 POP_TOP
+
+135          28 LOAD_FAST                1 (y)
+             30 LOAD_CONST               4 (3)
+             32 BINARY_ADD
+             34 RETURN_VALUE
+
+</system-out></testcase><testcase classname="ComptimeTests" name="test_print_graph" time="0.032" file="dynamo/test_comptime.py"><system-out>
+
+
+def forward(self, L_x_: "f32[2]"):
+    l_x_ = L_x_
+    
+    # File: /var/lib/jenkins/pytorch/test/dynamo/test_comptime.py:98 in f, code: y = x * 2
+    y: "f32[2]" = l_x_ * 2;  l_x_ = y = None
+    
+</system-out></testcase><testcase classname="ComptimeTests" name="test_print_guards" time="0.031" file="dynamo/test_comptime.py"><system-out>
+        local "L['x']" TENSOR_MATCH
+        {
+            'guard_types': None,
+            'code': None,
+            'obj_weakref': None
+            'guarded_class': None
+        }
+        
+
+        global '' AUTOGRAD_SAVED_TENSORS_HOOKS
+        {
+            'guard_types': None,
+            'code': None,
+            'obj_weakref': None
+            'guarded_class': None
+        }
+        
+
+        global '' GRAD_MODE
+        {
+            'guard_types': None,
+            'code': None,
+            'obj_weakref': None
+            'guarded_class': None
+        }
+        
+
+        global '' DETERMINISTIC_ALGORITHMS
+        {
+            'guard_types': None,
+            'code': None,
+            'obj_weakref': None
+            'guarded_class': None
+        }
+        
+
+        global '' GLOBAL_STATE
+        {
+            'guard_types': None,
+            'code': None,
+            'obj_weakref': None
+            'guarded_class': None
+        }
+        
+
+        global '' TORCH_FUNCTION_STATE
+        {
+            'guard_types': None,
+            'code': None,
+            'obj_weakref': None
+            'guarded_class': None
+        }
+        
+
+        global '' DEFAULT_DEVICE
+        {
+            'guard_types': None,
+            'code': None,
+            'obj_weakref': None
+            'guarded_class': None
+        }
+        
+
+        global "G['comptime'].print_guards" CLOSURE_MATCH
+        {
+            'guard_types': None,
+            'code': None,
+            'obj_weakref': None
+            'guarded_class': None
+        }
+        
+
+        global "G['__import_torch_dot__dynamo_dot_comptime']" MODULE_MATCH
+        {
+            'guard_types': None,
+            'code': None,
+            'obj_weakref': None
+            'guarded_class': None
+        }
+        
+
+        shape_env '' SHAPE_ENV
+        {
+            'guard_types': None,
+            'code': None,
+            'obj_weakref': None
+            'guarded_class': None
+        }
+        
+</system-out></testcase><testcase classname="ComptimeTests" name="test_print_locals" time="0.032" file="dynamo/test_comptime.py"><system-out>x = Tensor(shape=(2,), dtype=torch.float32)
+y = Tensor(shape=(2,), dtype=torch.float32)
+_ = None
+</system-out></testcase><testcase classname="ComptimeTests" name="test_print_single" time="0.097" file="dynamo/test_comptime.py" /><testcase classname="ComptimeTests" name="test_print_value_stack" time="0.037" file="dynamo/test_comptime.py"><system-out>- Tensor(shape=(2,), dtype=torch.float32)
+</system-out></testcase><testcase classname="ComptimeTests" name="test_sleep" time="5.073" file="dynamo/test_comptime.py" /></testsuite></testsuites>

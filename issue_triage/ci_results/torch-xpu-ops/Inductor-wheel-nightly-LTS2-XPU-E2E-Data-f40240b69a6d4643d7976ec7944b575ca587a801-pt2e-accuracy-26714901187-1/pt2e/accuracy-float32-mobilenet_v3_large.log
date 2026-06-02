@@ -1,0 +1,10 @@
+W0531 14:27:06.488000 56846 site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=MobileNet_V3_Large_Weights.IMAGENET1K_V1`. You can also use `weights=MobileNet_V3_Large_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Downloading: "https://download.pytorch.org/models/mobilenet_v3_large-8738ca79.pth" to /github/home/.cache/torch/hub/checkpoints/mobilenet_v3_large-8738ca79.pth
+  0%|          | 0.00/21.1M [00:00<?, ?B/s]100%|██████████| 21.1M/21.1M [00:00<00:00, 308MB/s]
+using fp32
+W0531 14:27:11.473000 56846 site-packages/torch/_inductor/utils.py:3128] [0/0] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+mobilenet_v3_large fp32:  * Acc@1 74.054 Acc@5 91.340

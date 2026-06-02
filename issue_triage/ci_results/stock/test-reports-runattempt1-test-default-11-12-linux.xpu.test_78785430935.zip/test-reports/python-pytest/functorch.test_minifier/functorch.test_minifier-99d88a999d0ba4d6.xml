@@ -1,0 +1,741 @@
+<testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="5" time="0.461" timestamp="2026-06-01T04:45:12.644274" hostname="54b354415dfd"><testcase classname="TestMinifier" name="test_has_add_mul" time="0.324" file="functorch/test_minifier.py"><system-out>
+# Working Repro with 9 nodes
+inps = [(torch.Size([3]), torch.float32, 'cpu')]
+inps = [torch.zeros(())] + [torch.ones(shape, dtype=dtype, device=device) for (shape, dtype, device) in inps]
+
+
+
+def forward(self, x_1):
+    mul = torch.ops.aten.mul.Tensor(x_1, 3);  x_1 = None
+    add = torch.ops.aten.add.Tensor(mul, 5);  mul = None
+    cos = torch.ops.aten.cos.default(add);  add = None
+    sub = torch.ops.aten.sub.Tensor(cos, cos);  cos = None
+    div = torch.ops.aten.div.Tensor(sub, sub);  sub = None
+    add_1 = torch.ops.aten.add.Tensor(div, 3);  div = None
+    mul_1 = torch.ops.aten.mul.Tensor(add_1, 2);  add_1 = None
+    return (mul_1,)
+    
+
+
+# Working Repro with 6 nodes
+inps = [(torch.Size([3]), torch.float32, 'cpu')]
+inps = [torch.zeros(())] + [torch.ones(shape, dtype=dtype, device=device) for (shape, dtype, device) in inps]
+
+
+
+def forward(self, cos):
+    sub = torch.ops.aten.sub.Tensor(cos, cos);  cos = None
+    div = torch.ops.aten.div.Tensor(sub, sub);  sub = None
+    add_1 = torch.ops.aten.add.Tensor(div, 3);  div = None
+    mul_1 = torch.ops.aten.mul.Tensor(add_1, 2);  add_1 = None
+    return (mul_1,)
+    
+
+
+# Working Repro with 4 nodes
+inps = [(torch.Size([3]), torch.float32, 'cpu')]
+inps = [torch.zeros(())] + [torch.ones(shape, dtype=dtype, device=device) for (shape, dtype, device) in inps]
+
+
+
+def forward(self, cos):
+    sub = torch.ops.aten.sub.Tensor(cos, cos);  cos = None
+    div = torch.ops.aten.div.Tensor(sub, sub);  sub = None
+    return (div,)
+    
+
+
+# Working Repro with 3 nodes
+inps = [(torch.Size([3]), torch.float32, 'cpu')]
+inps = [torch.zeros(())] + [torch.ones(shape, dtype=dtype, device=device) for (shape, dtype, device) in inps]
+
+
+
+def forward(self, sub):
+    div = torch.ops.aten.div.Tensor(sub, sub);  sub = None
+    return (div,)
+    
+
+
+# Working Repro with 3 nodes
+inps = [(torch.Size([3]), torch.float32, 'cpu')]
+inps = [torch.zeros(())] + [torch.ones(shape, dtype=dtype, device=device) for (shape, dtype, device) in inps]
+
+
+
+def forward(self, sub):
+    div = torch.ops.aten.div.Tensor(sub, sub);  sub = None
+    return (div,)
+    
+
+</system-out><system-err>Started off with 9 nodes
+Trying granularity 8
+
+Strategy: Eliminate dead code (G: 8) (9 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 8) (9 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 8) (9 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 8) (9 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 8) (9 nodes, 1 inputs)
+FAIL: Delta Debugging
+Trying granularity 4
+
+Strategy: Truncate suffix (G: 4) (9 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 4) (9 nodes, 1 inputs)
+SUCCESS: Went from 9 to 6 nodes
+Trying granularity 4
+
+Strategy: Eliminate dead code (G: 4) (6 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 4) (6 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 4) (6 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 4) (6 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 4) (6 nodes, 1 inputs)
+FAIL: Delta Debugging
+Trying granularity 2
+
+Strategy: Truncate suffix (G: 2) (6 nodes, 1 inputs)
+SUCCESS: Went from 6 to 4 nodes
+Trying granularity 4
+
+Strategy: Eliminate dead code (G: 4) (4 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 4) (4 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 4) (4 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 4) (4 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 4) (4 nodes, 1 inputs)
+FAIL: Delta Debugging
+Trying granularity 2
+
+Strategy: Truncate suffix (G: 2) (4 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 2) (4 nodes, 1 inputs)
+SUCCESS: Went from 4 to 3 nodes
+Trying granularity 2
+
+Strategy: Eliminate dead code (G: 2) (3 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 2) (3 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 2) (3 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 2) (3 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 2) (3 nodes, 1 inputs)
+FAIL: Delta Debugging
+Trying granularity 1
+
+Strategy: Truncate suffix (G: 1) (3 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 1) (3 nodes, 1 inputs)
+FAIL: Delta Debugging
+
+Strategy: Remove outputs (G: 1) (3 nodes, 1 inputs)
+FAIL: Remove outputs
+Made 15 queries
+Wrote minimal repro out to repro.py
+</system-err></testcase><testcase classname="TestMinifier" name="test_has_mul_minifier" time="0.026" file="functorch/test_minifier.py"><system-out>
+# Working Repro with 7 nodes
+inps = [(torch.Size([3]), torch.float32, 'cpu'), (torch.Size([3]), torch.float32, 'cpu')]
+inps = [torch.zeros(())] + [torch.ones(shape, dtype=dtype, device=device) for (shape, dtype, device) in inps]
+
+
+
+def forward(self, x_1, y_1):
+    div = torch.ops.aten.div.Tensor(y_1, 3);  y_1 = None
+    add = torch.ops.aten.add.Tensor(x_1, 3);  x_1 = None
+    mul = torch.ops.aten.mul.Tensor(add, div);  add = None
+    add_1 = torch.ops.aten.add.Tensor(mul, div);  mul = div = None
+    return add_1
+    
+
+
+# Working Repro with 6 nodes
+inps = [(torch.Size([3]), torch.float32, 'cpu'), (torch.Size([3]), torch.float32, 'cpu')]
+inps = [torch.zeros(())] + [torch.ones(shape, dtype=dtype, device=device) for (shape, dtype, device) in inps]
+
+
+
+def forward(self, x_1, y_1):
+    div = torch.ops.aten.div.Tensor(y_1, 3);  y_1 = None
+    add = torch.ops.aten.add.Tensor(x_1, 3);  x_1 = None
+    mul = torch.ops.aten.mul.Tensor(add, div);  add = div = None
+    return (mul,)
+    
+
+
+# Working Repro with 4 nodes
+inps = [(torch.Size([3]), torch.float32, 'cpu'), (torch.Size([3]), torch.float32, 'cpu')]
+inps = [torch.zeros(())] + [torch.ones(shape, dtype=dtype, device=device) for (shape, dtype, device) in inps]
+
+
+
+def forward(self, div, add):
+    mul = torch.ops.aten.mul.Tensor(add, div);  add = div = None
+    return (mul,)
+    
+
+
+# Working Repro with 4 nodes
+inps = [(torch.Size([3]), torch.float32, 'cpu'), (torch.Size([3]), torch.float32, 'cpu')]
+inps = [torch.zeros(())] + [torch.ones(shape, dtype=dtype, device=device) for (shape, dtype, device) in inps]
+
+
+
+def forward(self, div, add):
+    mul = torch.ops.aten.mul.Tensor(add, div);  add = div = None
+    return (mul,)
+    
+
+</system-out><system-err>Started off with 7 nodes
+Trying granularity 4
+
+Strategy: Eliminate dead code (G: 4) (7 nodes, 2 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 4) (7 nodes, 2 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 4) (7 nodes, 2 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 4) (7 nodes, 2 inputs)
+SUCCESS: Went from 7 to 6 nodes
+Trying granularity 4
+
+Strategy: Eliminate dead code (G: 4) (6 nodes, 2 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 4) (6 nodes, 2 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 4) (6 nodes, 2 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 4) (6 nodes, 2 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 4) (6 nodes, 2 inputs)
+SUCCESS: Went from 6 to 4 nodes
+Trying granularity 4
+
+Strategy: Eliminate dead code (G: 4) (4 nodes, 2 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 4) (4 nodes, 2 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 4) (4 nodes, 2 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 4) (4 nodes, 2 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 4) (4 nodes, 2 inputs)
+FAIL: Delta Debugging
+Trying granularity 2
+
+Strategy: Truncate suffix (G: 2) (4 nodes, 2 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 2) (4 nodes, 2 inputs)
+FAIL: Delta Debugging
+Trying granularity 1
+
+Strategy: Truncate suffix (G: 1) (4 nodes, 2 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 1) (4 nodes, 2 inputs)
+FAIL: Delta Debugging
+
+Strategy: Remove outputs (G: 1) (4 nodes, 2 inputs)
+FAIL: Remove outputs
+Made 9 queries
+Wrote minimal repro out to repro.py
+</system-err></testcase><testcase classname="TestMinifier" name="test_input_returned" time="0.025" file="functorch/test_minifier.py"><system-out>
+# Working Repro with 7 nodes
+inps = [(torch.Size([3]), torch.float32, 'cpu'), (torch.Size([3]), torch.float32, 'cpu'), (torch.Size([3]), torch.float32, 'cpu')]
+inps = [torch.zeros(())] + [torch.ones(shape, dtype=dtype, device=device) for (shape, dtype, device) in inps]
+
+
+
+def forward(self, a_1, b_1, c_1):
+    sin = torch.ops.aten.sin.default(a_1);  a_1 = None
+    cos = torch.ops.aten.cos.default(c_1);  c_1 = None
+    mul = torch.ops.aten.mul.Tensor(sin, cos)
+    return (sin, b_1, cos, mul)
+    
+
+
+# Working Repro with 7 nodes
+inps = [(torch.Size([3]), torch.float32, 'cpu'), (torch.Size([3]), torch.float32, 'cpu'), (torch.Size([3]), torch.float32, 'cpu')]
+inps = [torch.zeros(())] + [torch.ones(shape, dtype=dtype, device=device) for (shape, dtype, device) in inps]
+
+
+
+def forward(self, a_1, b_1, c_1):
+    sin = torch.ops.aten.sin.default(a_1);  a_1 = None
+    cos = torch.ops.aten.cos.default(c_1);  c_1 = None
+    mul = torch.ops.aten.mul.Tensor(sin, cos);  cos = mul = None
+    return [b_1, sin]
+    
+
+
+# Working Repro with 5 nodes
+inps = [(torch.Size([3]), torch.float32, 'cpu'), (torch.Size([3]), torch.float32, 'cpu'), (torch.Size([3]), torch.float32, 'cpu')]
+inps = [torch.zeros(())] + [torch.ones(shape, dtype=dtype, device=device) for (shape, dtype, device) in inps]
+
+
+
+def forward(self, a_1, b_1, c_1):
+    sin = torch.ops.aten.sin.default(a_1);  a_1 = None
+    return [b_1, sin]
+    
+
+
+# Working Repro with 4 nodes
+inps = [(torch.Size([3]), torch.float32, 'cpu'), (torch.Size([3]), torch.float32, 'cpu')]
+inps = [torch.zeros(())] + [torch.ones(shape, dtype=dtype, device=device) for (shape, dtype, device) in inps]
+
+
+
+def forward(self, a_1, b_1):
+    sin = torch.ops.aten.sin.default(a_1);  a_1 = None
+    return [b_1, sin]
+    
+
+
+# Working Repro with 3 nodes
+inps = [(torch.Size([3]), torch.float32, 'cpu'), (torch.Size([3]), torch.float32, 'cpu')]
+inps = [torch.zeros(())] + [torch.ones(shape, dtype=dtype, device=device) for (shape, dtype, device) in inps]
+
+
+
+def forward(self, b_1, sin):
+    return [b_1, sin]
+    
+
+
+# Working Repro with 3 nodes
+inps = [(torch.Size([3]), torch.float32, 'cpu'), (torch.Size([3]), torch.float32, 'cpu')]
+inps = [torch.zeros(())] + [torch.ones(shape, dtype=dtype, device=device) for (shape, dtype, device) in inps]
+
+
+
+def forward(self, b_1, sin):
+    return [sin]
+    
+
+
+# Working Repro with 2 nodes
+inps = [(torch.Size([3]), torch.float32, 'cpu')]
+inps = [torch.zeros(())] + [torch.ones(shape, dtype=dtype, device=device) for (shape, dtype, device) in inps]
+
+
+
+def forward(self, sin):
+    return [sin]
+    
+
+
+# Working Repro with 2 nodes
+inps = [(torch.Size([3]), torch.float32, 'cpu')]
+inps = [torch.zeros(())] + [torch.ones(shape, dtype=dtype, device=device) for (shape, dtype, device) in inps]
+
+
+
+def forward(self, sin):
+    return [sin]
+    
+
+</system-out><system-err>Started off with 7 nodes
+Trying granularity 4
+
+Strategy: Remove outputs (G: 4) (7 nodes, 3 inputs)
+SUCCESS: Went from 4 to 2 outputs
+Trying granularity 4
+
+Strategy: Eliminate dead code (G: 4) (7 nodes, 3 inputs)
+SUCCESS: Went from 7 to 5 nodes
+Trying granularity 4
+
+Strategy: Eliminate dead code (G: 4) (5 nodes, 3 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 4) (5 nodes, 3 inputs)
+SUCCESS: Went from 5 to 4 nodes
+Trying granularity 4
+
+Strategy: Eliminate dead code (G: 4) (4 nodes, 2 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 4) (4 nodes, 2 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 4) (4 nodes, 2 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 4) (4 nodes, 2 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 4) (4 nodes, 2 inputs)
+SUCCESS: Went from 4 to 3 nodes
+Trying granularity 2
+
+Strategy: Remove outputs (G: 2) (3 nodes, 2 inputs)
+SUCCESS: Went from 2 to 1 outputs
+Trying granularity 2
+
+Strategy: Eliminate dead code (G: 2) (3 nodes, 2 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 2) (3 nodes, 2 inputs)
+SUCCESS: Went from 3 to 2 nodes
+Trying granularity 2
+
+Strategy: Eliminate dead code (G: 2) (2 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 2) (2 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 2) (2 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 2) (2 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 2) (2 nodes, 1 inputs)
+FAIL: Delta Debugging
+Trying granularity 1
+
+Strategy: Truncate suffix (G: 1) (2 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 1) (2 nodes, 1 inputs)
+FAIL: Delta Debugging
+
+Strategy: Remove outputs (G: 1) (2 nodes, 1 inputs)
+FAIL: Remove outputs
+Made 15 queries
+Wrote minimal repro out to repro.py
+</system-err></testcase><testcase classname="TestMinifier" name="test_module" time="0.029" file="functorch/test_minifier.py"><system-out>
+# Working Repro with 6 nodes
+inps = [(torch.Size([3]), torch.float32, 'cpu')]
+inps = [torch.zeros(())] + [torch.ones(shape, dtype=dtype, device=device) for (shape, dtype, device) in inps]
+
+
+
+def forward(self, x):
+    relu = self.relu(x);  x = None
+    sub = relu - relu;  relu = None
+    truediv = sub / sub;  sub = None
+    add = truediv + 3;  truediv = None
+    return add
+    
+
+
+# Working Repro with 5 nodes
+inps = [(torch.Size([3]), torch.float32, 'cpu')]
+inps = [torch.zeros(())] + [torch.ones(shape, dtype=dtype, device=device) for (shape, dtype, device) in inps]
+
+
+
+def forward(self, relu):
+    sub = relu - relu;  relu = None
+    truediv = sub / sub;  sub = None
+    add = truediv + 3;  truediv = None
+    return add
+    
+
+
+# Working Repro with 4 nodes
+inps = [(torch.Size([3]), torch.float32, 'cpu')]
+inps = [torch.zeros(())] + [torch.ones(shape, dtype=dtype, device=device) for (shape, dtype, device) in inps]
+
+
+
+def forward(self, relu):
+    sub = relu - relu;  relu = None
+    truediv = sub / sub;  sub = None
+    return (truediv,)
+    
+
+
+# Working Repro with 3 nodes
+inps = [(torch.Size([3]), torch.float32, 'cpu')]
+inps = [torch.zeros(())] + [torch.ones(shape, dtype=dtype, device=device) for (shape, dtype, device) in inps]
+
+
+
+def forward(self, sub):
+    truediv = sub / sub;  sub = None
+    return (truediv,)
+    
+
+
+# Working Repro with 3 nodes
+inps = [(torch.Size([3]), torch.float32, 'cpu')]
+inps = [torch.zeros(())] + [torch.ones(shape, dtype=dtype, device=device) for (shape, dtype, device) in inps]
+
+
+
+def forward(self, sub):
+    truediv = sub / sub;  sub = None
+    return (truediv,)
+    
+
+</system-out><system-err>Started off with 6 nodes
+Trying granularity 4
+
+Strategy: Eliminate dead code (G: 4) (6 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 4) (6 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 4) (6 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 4) (6 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 4) (6 nodes, 1 inputs)
+FAIL: Delta Debugging
+Trying granularity 2
+
+Strategy: Truncate suffix (G: 2) (6 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 2) (6 nodes, 1 inputs)
+SUCCESS: Went from 6 to 5 nodes
+Trying granularity 4
+
+Strategy: Eliminate dead code (G: 4) (5 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 4) (5 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 4) (5 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 4) (5 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 4) (5 nodes, 1 inputs)
+FAIL: Delta Debugging
+Trying granularity 2
+
+Strategy: Truncate suffix (G: 2) (5 nodes, 1 inputs)
+SUCCESS: Went from 5 to 4 nodes
+Trying granularity 4
+
+Strategy: Eliminate dead code (G: 4) (4 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 4) (4 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 4) (4 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 4) (4 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 4) (4 nodes, 1 inputs)
+FAIL: Delta Debugging
+Trying granularity 2
+
+Strategy: Truncate suffix (G: 2) (4 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 2) (4 nodes, 1 inputs)
+SUCCESS: Went from 4 to 3 nodes
+Trying granularity 2
+
+Strategy: Eliminate dead code (G: 2) (3 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 2) (3 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 2) (3 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 2) (3 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 2) (3 nodes, 1 inputs)
+FAIL: Delta Debugging
+Trying granularity 1
+
+Strategy: Truncate suffix (G: 1) (3 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 1) (3 nodes, 1 inputs)
+FAIL: Delta Debugging
+
+Strategy: Remove outputs (G: 1) (3 nodes, 1 inputs)
+FAIL: Remove outputs
+Made 15 queries
+Wrote minimal repro out to repro.py
+</system-err></testcase><testcase classname="TestMinifier" name="test_tup_use" time="0.032" file="functorch/test_minifier.py"><system-out>
+# Working Repro with 8 nodes
+inps = [(torch.Size([3]), torch.float32, 'cpu'), (torch.Size([3]), torch.float32, 'cpu')]
+inps = [torch.zeros(())] + [torch.ones(shape, dtype=dtype, device=device) for (shape, dtype, device) in inps]
+
+
+
+def forward(self, a_1, b_1):
+    std_mean = torch.ops.aten.std_mean.correction(a_1);  a_1 = None
+    getitem = std_mean[0]
+    getitem_1 = std_mean[1];  std_mean = None
+    mul = torch.ops.aten.mul.Tensor(b_1, getitem_1);  b_1 = getitem_1 = None
+    add = torch.ops.aten.add.Tensor(getitem, mul);  getitem = mul = None
+    return (add,)
+    
+
+
+# Working Repro with 6 nodes
+inps = [(torch.Size([3]), torch.float32, 'cpu'), (torch.Size([]), torch.float32, 'cpu'), (torch.Size([]), torch.float32, 'cpu')]
+inps = [torch.zeros(())] + [torch.ones(shape, dtype=dtype, device=device) for (shape, dtype, device) in inps]
+
+
+
+def forward(self, b_1, getitem, getitem_1):
+    mul = torch.ops.aten.mul.Tensor(b_1, getitem_1);  b_1 = getitem_1 = None
+    add = torch.ops.aten.add.Tensor(getitem, mul);  getitem = mul = None
+    return (add,)
+    
+
+
+# Working Repro with 4 nodes
+inps = [(torch.Size([]), torch.float32, 'cpu'), (torch.Size([3]), torch.float32, 'cpu')]
+inps = [torch.zeros(())] + [torch.ones(shape, dtype=dtype, device=device) for (shape, dtype, device) in inps]
+
+
+
+def forward(self, getitem, mul):
+    add = torch.ops.aten.add.Tensor(getitem, mul);  getitem = mul = None
+    return (add,)
+    
+
+
+# Working Repro with 4 nodes
+inps = [(torch.Size([]), torch.float32, 'cpu'), (torch.Size([3]), torch.float32, 'cpu')]
+inps = [torch.zeros(())] + [torch.ones(shape, dtype=dtype, device=device) for (shape, dtype, device) in inps]
+
+
+
+def forward(self, getitem, mul):
+    add = torch.ops.aten.add.Tensor(getitem, mul);  getitem = mul = None
+    return (add,)
+    
+
+</system-out><system-err>Started off with 8 nodes
+Trying granularity 8
+
+Strategy: Eliminate dead code (G: 8) (8 nodes, 2 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 8) (8 nodes, 2 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 8) (8 nodes, 2 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 8) (8 nodes, 2 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 8) (8 nodes, 2 inputs)
+FAIL: Delta Debugging
+Trying granularity 4
+
+Strategy: Truncate suffix (G: 4) (8 nodes, 2 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 4) (8 nodes, 2 inputs)
+SUCCESS: Went from 8 to 6 nodes
+SUCCESS: Went from 2 to 3 inputs
+Trying granularity 4
+
+Strategy: Eliminate dead code (G: 4) (6 nodes, 3 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 4) (6 nodes, 3 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 4) (6 nodes, 3 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 4) (6 nodes, 3 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 4) (6 nodes, 3 inputs)
+SUCCESS: Went from 6 to 4 nodes
+Trying granularity 4
+
+Strategy: Eliminate dead code (G: 4) (4 nodes, 2 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 4) (4 nodes, 2 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 4) (4 nodes, 2 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 4) (4 nodes, 2 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 4) (4 nodes, 2 inputs)
+FAIL: Delta Debugging
+Trying granularity 2
+
+Strategy: Truncate suffix (G: 2) (4 nodes, 2 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 2) (4 nodes, 2 inputs)
+FAIL: Delta Debugging
+Trying granularity 1
+
+Strategy: Truncate suffix (G: 1) (4 nodes, 2 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 1) (4 nodes, 2 inputs)
+FAIL: Delta Debugging
+
+Strategy: Remove outputs (G: 1) (4 nodes, 2 inputs)
+FAIL: Remove outputs
+Made 11 queries
+Wrote minimal repro out to repro.py
+</system-err></testcase></testsuite></testsuites>

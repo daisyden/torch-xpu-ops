@@ -1,0 +1,1351 @@
+[W531 14:21:32.558667519 Resize.cpp:31] Warning: An output with one or more elements was resized since it had shape [1, 1, 4, 4], which does not match the required output shape [2, 1, 4, 4]. This behavior is deprecated, and in a future PyTorch release outputs will not be resized unless they have zero elements. You can explicitly reuse an out tensor t by resizing it, inplace, to zero elements with t.resize_(0). (function _resize_output_check)
+USDT:2026-05-31 14:23:27 43053:43053 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 14:23:27 43053:43053 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 14:23:27 43053:43053 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 14:23:27 43053:43053 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 14:23:27 43053:43053 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 14:23:27 43053:43053 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 14:23:27 43053:43053 SyncActivityProfilerHandler.cpp:52] profiler_start
+[W531 14:23:27.358147565 record_function.cpp:504] Exception in RecordFunction callback: Kineto Profiler on XPU got error from function popCorrelationID line 51. The error code is 5. The detailed error message is: PTI_ERROR_EXTERNAL_ID_QUEUE_EMPTY , for the range in_bar
+[W531 14:23:27.358178166 record_function.cpp:504] Exception in RecordFunction callback: Kineto Profiler on XPU got error from function popCorrelationID line 47. The error code is 5. The detailed error message is: PTI_ERROR_EXTERNAL_ID_QUEUE_EMPTY , for the range bar
+USDT:2026-05-31 14:23:27 43053:43053 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 14:23:27 43053:43053 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 14:23:27 43053:43053 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 14:23:27 43053:43053 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 14:23:27 43053:43053 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 14:23:27 43053:43053 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 14:23:27 43053:43053 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 14:23:29 43053:43053 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 14:23:29 43053:43053 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 14:23:29 43053:43053 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 14:23:29 43053:43053 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 14:23:29 43053:43053 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 14:23:29 43053:43053 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 14:23:29 43036:43036 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 14:23:29 43036:43036 SyncActivityProfilerHandler.cpp:59] profiler_stop
+Process ErrorTrackingProcess-6:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 685, in run
+    super().run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 1052, in _test_proper_exit
+    raise RuntimeError("Loader error")
+RuntimeError: Loader error
+Process ErrorTrackingProcess-48:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 685, in run
+    super().run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 1052, in _test_proper_exit
+    raise RuntimeError("Loader error")
+RuntimeError: Loader error
+Process ErrorTrackingProcess-7:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 685, in run
+    super().run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 1035, in _test_proper_exit
+    for i, _ in enumerate(it):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 725, in __next__
+    data = self._next_data()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1529, in _next_data
+    return self._process_data(data, worker_id)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1567, in _process_data
+    data.reraise()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_utils.py", line 792, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in DataLoader worker process 1.
+Original Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 374, in _worker_loop
+    data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 35, in fetch
+    data.append(next(self.dataset_iter))
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 957, in __next__
+    raise RuntimeError("Worker error")
+RuntimeError: Worker error
+
+Process ErrorTrackingProcess-49:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 685, in run
+    super().run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 1035, in _test_proper_exit
+    for i, _ in enumerate(it):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 725, in __next__
+    data = self._next_data()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1529, in _next_data
+    return self._process_data(data, worker_id)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1567, in _process_data
+    data.reraise()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_utils.py", line 792, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in DataLoader worker process 1.
+Original Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 374, in _worker_loop
+    data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 35, in fetch
+    data.append(next(self.dataset_iter))
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 957, in __next__
+    raise RuntimeError("Worker error")
+RuntimeError: Worker error
+
+Process ErrorTrackingProcess-9:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 685, in run
+    super().run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 1052, in _test_proper_exit
+    raise RuntimeError("Loader error")
+RuntimeError: Loader error
+Process ErrorTrackingProcess-51:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 685, in run
+    super().run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 1052, in _test_proper_exit
+    raise RuntimeError("Loader error")
+RuntimeError: Loader error
+Process ErrorTrackingProcess-10:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 685, in run
+    super().run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 1035, in _test_proper_exit
+    for i, _ in enumerate(it):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 725, in __next__
+    data = self._next_data()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1529, in _next_data
+    return self._process_data(data, worker_id)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1567, in _process_data
+    data.reraise()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_utils.py", line 792, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in DataLoader worker process 1.
+Original Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 374, in _worker_loop
+    data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 35, in fetch
+    data.append(next(self.dataset_iter))
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 957, in __next__
+    raise RuntimeError("Worker error")
+RuntimeError: Worker error
+
+Process ErrorTrackingProcess-52:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 685, in run
+    super().run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 1035, in _test_proper_exit
+    for i, _ in enumerate(it):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 725, in __next__
+    data = self._next_data()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1529, in _next_data
+    return self._process_data(data, worker_id)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1567, in _process_data
+    data.reraise()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_utils.py", line 792, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in DataLoader worker process 1.
+Original Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 374, in _worker_loop
+    data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 35, in fetch
+    data.append(next(self.dataset_iter))
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 957, in __next__
+    raise RuntimeError("Worker error")
+RuntimeError: Worker error
+
+Process ErrorTrackingProcess-12:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 685, in run
+    super().run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 1052, in _test_proper_exit
+    raise RuntimeError("Loader error")
+RuntimeError: Loader error
+Process ErrorTrackingProcess-54:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 685, in run
+    super().run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 1052, in _test_proper_exit
+    raise RuntimeError("Loader error")
+RuntimeError: Loader error
+Process ErrorTrackingProcess-15:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 685, in run
+    super().run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 1052, in _test_proper_exit
+    raise RuntimeError("Loader error")
+RuntimeError: Loader error
+Process ErrorTrackingProcess-57:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 685, in run
+    super().run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 1052, in _test_proper_exit
+    raise RuntimeError("Loader error")
+RuntimeError: Loader error
+Process ErrorTrackingProcess-18:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 685, in run
+    super().run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 1052, in _test_proper_exit
+    raise RuntimeError("Loader error")
+RuntimeError: Loader error
+Process ErrorTrackingProcess-60:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 685, in run
+    super().run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 1052, in _test_proper_exit
+    raise RuntimeError("Loader error")
+RuntimeError: Loader error
+Process ErrorTrackingProcess-19:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 685, in run
+    super().run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 1035, in _test_proper_exit
+    for i, _ in enumerate(it):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 725, in __next__
+    data = self._next_data()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1529, in _next_data
+    return self._process_data(data, worker_id)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1567, in _process_data
+    data.reraise()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_utils.py", line 792, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in DataLoader worker process 1.
+Original Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 374, in _worker_loop
+    data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 54, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 54, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 933, in __getitem__
+    raise RuntimeError("Worker error")
+RuntimeError: Worker error
+
+Process ErrorTrackingProcess-61:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 685, in run
+    super().run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 1035, in _test_proper_exit
+    for i, _ in enumerate(it):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 725, in __next__
+    data = self._next_data()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1529, in _next_data
+    return self._process_data(data, worker_id)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1567, in _process_data
+    data.reraise()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_utils.py", line 792, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in DataLoader worker process 1.
+Original Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 374, in _worker_loop
+    data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 54, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 54, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 933, in __getitem__
+    raise RuntimeError("Worker error")
+RuntimeError: Worker error
+
+Process ErrorTrackingProcess-21:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 685, in run
+    super().run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 1052, in _test_proper_exit
+    raise RuntimeError("Loader error")
+RuntimeError: Loader error
+Process ErrorTrackingProcess-63:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 685, in run
+    super().run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 1052, in _test_proper_exit
+    raise RuntimeError("Loader error")
+RuntimeError: Loader error
+Process ErrorTrackingProcess-22:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 685, in run
+    super().run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 1035, in _test_proper_exit
+    for i, _ in enumerate(it):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 725, in __next__
+    data = self._next_data()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1529, in _next_data
+    return self._process_data(data, worker_id)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1567, in _process_data
+    data.reraise()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_utils.py", line 792, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in DataLoader worker process 1.
+Original Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 374, in _worker_loop
+    data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 54, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 54, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 933, in __getitem__
+    raise RuntimeError("Worker error")
+RuntimeError: Worker error
+
+Process ErrorTrackingProcess-64:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 685, in run
+    super().run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 1035, in _test_proper_exit
+    for i, _ in enumerate(it):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 725, in __next__
+    data = self._next_data()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1529, in _next_data
+    return self._process_data(data, worker_id)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1567, in _process_data
+    data.reraise()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_utils.py", line 792, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in DataLoader worker process 1.
+Original Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 374, in _worker_loop
+    data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 54, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 54, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 933, in __getitem__
+    raise RuntimeError("Worker error")
+RuntimeError: Worker error
+
+Process ErrorTrackingProcess-24:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 685, in run
+    super().run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 1052, in _test_proper_exit
+    raise RuntimeError("Loader error")
+RuntimeError: Loader error
+Process ErrorTrackingProcess-66:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 685, in run
+    super().run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 1052, in _test_proper_exit
+    raise RuntimeError("Loader error")
+RuntimeError: Loader error
+Process ErrorTrackingProcess-27:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 685, in run
+    super().run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 1052, in _test_proper_exit
+    raise RuntimeError("Loader error")
+RuntimeError: Loader error
+Process ErrorTrackingProcess-69:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 685, in run
+    super().run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/test_dataloader.py", line 1052, in _test_proper_exit
+    raise RuntimeError("Loader error")
+RuntimeError: Loader error
+USDT:2026-05-31 15:02:22 74009:74009 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 15:02:22 74009:74009 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 15:02:22 74009:74009 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 15:02:22 74009:74009 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 15:02:22 74009:74009 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 15:02:22 74009:74009 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 15:02:22 74009:74009 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 15:02:22 74009:74009 SyncActivityProfilerHandler.cpp:59] profiler_stop
+/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_meta_xpu.py:0: PytestCollectionWarning: cannot collect test class 'TestExpect' because it has a __new__ constructor (from: third_party/torch-xpu-ops/test/xpu/test_meta_xpu.py)
+/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_meta_xpu.py:0: PytestCollectionWarning: cannot collect test class 'TestExpect' because it has a __new__ constructor (from: third_party/torch-xpu-ops/test/xpu/test_meta_xpu.py)
+/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_meta_xpu.py:0: PytestCollectionWarning: cannot collect test class 'TestExpect' because it has a __new__ constructor (from: third_party/torch-xpu-ops/test/xpu/test_meta_xpu.py)
+/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_meta_xpu.py:0: PytestCollectionWarning: cannot collect test class 'TestExpect' because it has a __new__ constructor (from: third_party/torch-xpu-ops/test/xpu/test_meta_xpu.py)
+/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_meta_xpu.py:0: PytestCollectionWarning: cannot collect test class 'TestExpect' because it has a __new__ constructor (from: third_party/torch-xpu-ops/test/xpu/test_meta_xpu.py)
+/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_meta_xpu.py:0: PytestCollectionWarning: cannot collect test class 'TestExpect' because it has a __new__ constructor (from: third_party/torch-xpu-ops/test/xpu/test_meta_xpu.py)
+/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_meta_xpu.py:0: PytestCollectionWarning: cannot collect test class 'TestExpect' because it has a __new__ constructor (from: third_party/torch-xpu-ops/test/xpu/test_meta_xpu.py)
+/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_meta_xpu.py:0: PytestCollectionWarning: cannot collect test class 'TestExpect' because it has a __new__ constructor (from: third_party/torch-xpu-ops/test/xpu/test_meta_xpu.py)
+Module doesn't contain any kernels. Please attempt to tune the 'num_warps' parameter.
+Module doesn't contain any kernels. Please attempt to tune the 'num_warps' parameter.
+Module doesn't contain any kernels. Please attempt to tune the 'num_warps' parameter.
+Module doesn't contain any kernels. Please attempt to tune the 'num_warps' parameter.
+Module doesn't contain any kernels. Please attempt to tune the 'num_warps' parameter.
+Module doesn't contain any kernels. Please attempt to tune the 'num_warps' parameter.
+terminate called without an active exception
+[W531 16:20:56.452570684 attention.cpp:911] Warning: Dropout mask should only be used for testing purposes. (function operator())
+
+!RESTART gw0
+
+!RESTART gw8
+
+!RESTART gw9
+[W531 16:29:02.139629432 attention.cpp:911] Warning: Dropout mask should only be used for testing purposes. (function operator())
+[W531 16:29:03.618562769 attention.cpp:911] Warning: Dropout mask should only be used for testing purposes. (function operator())
+[W531 16:29:03.720273593 attention.cpp:911] Warning: Dropout mask should only be used for testing purposes. (function operator())
+[W531 16:29:40.387448055 attention.cpp:911] Warning: Dropout mask should only be used for testing purposes. (function operator())
+USDT:2026-05-31 16:37:11 333417:333417 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:37:11 333417:333417 SyncActivityProfilerHandler.cpp:59] profiler_stop
+Traceback (most recent call last):
+  File "<string>", line 2, in <module>
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/cuda/__init__.py", line 518, in _lazy_init
+    raise AssertionError("Torch not compiled with CUDA enabled")
+AssertionError: Torch not compiled with CUDA enabled
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_nn.py:3364: PytestCollectionWarning: cannot collect test class 'TestBase' because it has a __init__ constructor (from: third_party/torch-xpu-ops/test/xpu/test_expanded_weights_xpu.py)
+  class TestBase:
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_nn.py:3364: PytestCollectionWarning: cannot collect test class 'TestBase' because it has a __init__ constructor (from: third_party/torch-xpu-ops/test/xpu/test_expanded_weights_xpu.py)
+  class TestBase:
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_nn.py:3364: PytestCollectionWarning: cannot collect test class 'TestBase' because it has a __init__ constructor (from: third_party/torch-xpu-ops/test/xpu/test_expanded_weights_xpu.py)
+  class TestBase:
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_nn.py:3364: PytestCollectionWarning: cannot collect test class 'TestBase' because it has a __init__ constructor (from: third_party/torch-xpu-ops/test/xpu/test_expanded_weights_xpu.py)
+  class TestBase:
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_nn.py:3364: PytestCollectionWarning: cannot collect test class 'TestBase' because it has a __init__ constructor (from: third_party/torch-xpu-ops/test/xpu/test_expanded_weights_xpu.py)
+  class TestBase:
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_nn.py:3364: PytestCollectionWarning: cannot collect test class 'TestBase' because it has a __init__ constructor (from: third_party/torch-xpu-ops/test/xpu/test_expanded_weights_xpu.py)
+  class TestBase:
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_nn.py:3364: PytestCollectionWarning: cannot collect test class 'TestBase' because it has a __init__ constructor (from: third_party/torch-xpu-ops/test/xpu/test_expanded_weights_xpu.py)
+  class TestBase:
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_nn.py:3364: PytestCollectionWarning: cannot collect test class 'TestBase' because it has a __init__ constructor (from: third_party/torch-xpu-ops/test/xpu/test_expanded_weights_xpu.py)
+  class TestBase:
+USDT:2026-05-31 16:45:14 352765:352765 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:45:14 352765:352765 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:45:15 352777:352777 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:45:15 352777:352777 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:45:15 352765:352765 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:45:15 352777:352777 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:45:15 352777:352777 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:45:15 352765:352765 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:45:15 352777:352777 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:45:15 352777:352777 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:19 362733:362733 SyncActivityProfilerHandler.cpp:52] profiler_startUSDT:2026-05-31 16:51:19 362736:362736 SyncActivityProfilerHandler.cpp:52] profiler_start
+
+USDT:2026-05-31 16:51:19 362724:362724 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:19 362730:362730 SyncActivityProfilerHandler.cpp:52] profiler_startUSDT:2026-05-31 16:51:19 362727:362727 SyncActivityProfilerHandler.cpp:52] profiler_start
+
+USDT:2026-05-31 16:51:19 362746:362746 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:19 362721:362721 SyncActivityProfilerHandler.cpp:52] profiler_startUSDT:2026-05-31 16:51:19 362741:362741 SyncActivityProfilerHandler.cpp:52] profiler_start
+
+USDT:2026-05-31 16:51:19 362721:362721 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:19 362721:362721 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:19 362721:362721 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:19 362724:362724 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:19 362741:362741 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:19 362721:362721 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:19 362721:362721 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:19 362746:362746 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:19 362733:362733 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:19 362724:362724 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:19 362736:362736 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:19 362724:362724 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:19 362724:362724 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:19 362724:362724 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:19 362724:362724 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:19 362724:362724 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:19 362724:362724 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:19 362724:362724 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:19 362746:362746 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:19 362721:362721 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:19 362741:362741 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:19 362724:362724 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:19 362724:362724 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:19 362721:362721 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:19 362741:362741 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:19 362733:362733 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:19 362746:362746 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:19 362721:362721 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:19 362721:362721 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362721:362721 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362721:362721 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362733:362733 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362721:362721 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362721:362721 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362724:362724 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362721:362721 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362721:362721 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362727:362727 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362730:362730 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362727:362727 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362730:362730 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362730:362730 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362736:362736 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362736:362736 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362721:362721 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362721:362721 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362741:362741 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362721:362721 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362741:362741 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362721:362721 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362721:362721 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362721:362721 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362721:362721 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362746:362746 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362746:362746 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362721:362721 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362730:362730 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362730:362730 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362746:362746 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362746:362746 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362736:362736 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362721:362721 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362736:362736 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362741:362741 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362741:362741 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362727:362727 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362724:362724 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362746:362746 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362746:362746 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362727:362727 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362724:362724 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362724:362724 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362730:362730 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362730:362730 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362733:362733 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362724:362724 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362733:362733 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362741:362741 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362746:362746 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362746:362746 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362736:362736 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362741:362741 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362736:362736 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362746:362746 SyncActivityProfilerHandler.cpp:52] profiler_start
+[W531 16:51:20.716234273 CPUAllocator.cpp:245] Memory block of unknown size was allocated before the profiling started, profiler results will not include the deallocation event
+USDT:2026-05-31 16:51:20 362746:362746 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362730:362730 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362730:362730 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362727:362727 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362721:362721 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362721:362721 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362724:362724 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362746:362746 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362746:362746 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362721:362721 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362721:362721 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362721:362721 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362721:362721 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362721:362721 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:20 362721:362721 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:20 362721:362721 SyncActivityProfilerHandler.cpp:59] profiler_stop
+ERROR: External init callback must run in same thread as registerClient (447727296 != -749282432)
+ERROR: External init callback must run in same thread as registerClient (2075891392 != 878848896)
+USDT:2026-05-31 16:51:35 363016:363168 SyncActivityProfilerHandler.cpp:52] profiler_start
+ERROR: External init callback must run in same thread as registerClient (-714856768 != -1911907456)
+USDT:2026-05-31 16:51:35 363021:363169 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:35 363016:363168 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:35 363021:363169 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:35 363026:363170 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:35 363026:363170 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:36 363021:363187 SyncActivityProfilerHandler.cpp:52] profiler_start
+[W531 16:51:36.560639352 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.560831903 observer.cpp:171] Warning: ProfilerStateBase already has a registered callback. Removing to avoid leaked callback. (function operator())
+[W531 16:51:36.560834869 record_function.cpp:255] Requested callback is not found
+USDT:2026-05-31 16:51:36 363016:363177 SyncActivityProfilerHandler.cpp:52] profiler_start
+[W531 16:51:36.560862430 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.560890633 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.560920114 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.560950996 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.560979481 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.560993951 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.561025009 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.561044328 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.561084134 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.561156873 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.561181250 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.561194854 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.561222826 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.561249049 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.561252385 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.561261882 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.561268671 observer.cpp:171] Warning: ProfilerStateBase already has a registered callback. Removing to avoid leaked callback. (function operator())
+[W531 16:51:36.561266222 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.561277405 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.561295579 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.561296854 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.561317388 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.561324094 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.561353294 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.561384108 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.561411665 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.561457899 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.561484006 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.561511462 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.561545809 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.561574188 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.561589362 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.561618934 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.561634210 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.561711501 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.561726958 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.561845091 record_function.cpp:255] Requested callback is not found
+USDT:2026-05-31 16:51:36 363026:363217 SyncActivityProfilerHandler.cpp:52] profiler_start
+[W531 16:51:36.572335972 record_function.cpp:255] Requested callback is not found
+[W531 16:51:36.572903816 record_function.cpp:255] Requested callback is not found
+USDT:2026-05-31 16:51:36 363021:363187 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:36 363026:363217 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:36 363016:363177 SyncActivityProfilerHandler.cpp:59] profiler_stop
+[W531 16:51:40.198678458 execution_trace_observer.cpp:991] Enabling Execution Trace Observer
+[W531 16:51:40.202289909 execution_trace_observer.cpp:991] Enabling Execution Trace Observer
+USDT:2026-05-31 16:51:40 363270:363270 SyncActivityProfilerHandler.cpp:52] profiler_start
+[W531 16:51:40.247958212 execution_trace_observer.cpp:991] Enabling Execution Trace Observer
+USDT:2026-05-31 16:51:40 363267:363267 SyncActivityProfilerHandler.cpp:52] profiler_start
+[W531 16:51:40.275891893 execution_trace_observer.cpp:1003] Disabling Execution Trace Observer
+USDT:2026-05-31 16:51:40 363270:363270 SyncActivityProfilerHandler.cpp:59] profiler_stop
+[W531 16:51:40.276481201 execution_trace_observer.cpp:1003] Disabling Execution Trace Observer
+USDT:2026-05-31 16:51:40 363267:363267 SyncActivityProfilerHandler.cpp:59] profiler_stop
+[W531 16:51:40.278233621 execution_trace_observer.cpp:991] Enabling Execution Trace Observer
+USDT:2026-05-31 16:51:40 363258:363258 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:40 363261:363261 SyncActivityProfilerHandler.cpp:52] profiler_start
+[W531 16:51:40.279766581 execution_trace_observer.cpp:1003] Disabling Execution Trace Observer
+USDT:2026-05-31 16:51:40 363258:363258 SyncActivityProfilerHandler.cpp:59] profiler_stop
+[W531 16:51:40.282827660 execution_trace_observer.cpp:1003] Disabling Execution Trace Observer
+USDT:2026-05-31 16:51:40 363261:363261 SyncActivityProfilerHandler.cpp:59] profiler_stop
+[W531 16:51:40.287447230 execution_trace_observer.cpp:991] Enabling Execution Trace Observer
+[W531 16:51:40.290300948 execution_trace_observer.cpp:1003] Disabling Execution Trace Observer
+[W531 16:51:40.291350444 execution_trace_observer.cpp:991] Enabling Execution Trace Observer
+[W531 16:51:40.292485041 execution_trace_observer.cpp:1003] Disabling Execution Trace Observer
+[W531 16:51:40.306122147 execution_trace_observer.cpp:991] Enabling Execution Trace Observer
+USDT:2026-05-31 16:51:40 363275:363275 SyncActivityProfilerHandler.cpp:52] profiler_start
+[W531 16:51:40.309856522 execution_trace_observer.cpp:1003] Disabling Execution Trace Observer
+USDT:2026-05-31 16:51:40 363275:363275 SyncActivityProfilerHandler.cpp:59] profiler_stop
+[W531 16:51:40.366409841 execution_trace_observer.cpp:991] Enabling Execution Trace Observer
+[W531 16:51:40.368517800 execution_trace_observer.cpp:1003] Disabling Execution Trace Observer
+[W531 16:51:40.368752920 execution_trace_observer.cpp:991] Enabling Execution Trace Observer
+[W531 16:51:40.369978619 execution_trace_observer.cpp:1003] Disabling Execution Trace Observer
+[W531 16:51:40.370597155 execution_trace_observer.cpp:991] Enabling Execution Trace Observer
+[W531 16:51:40.372098930 execution_trace_observer.cpp:1003] Disabling Execution Trace Observer
+[W531 16:51:40.372726879 execution_trace_observer.cpp:991] Enabling Execution Trace Observer
+[W531 16:51:40.373896731 execution_trace_observer.cpp:1003] Disabling Execution Trace Observer
+[W531 16:51:43.600478108 execution_trace_observer.cpp:991] Enabling Execution Trace Observer
+USDT:2026-05-31 16:51:43 363264:363264 SyncActivityProfilerHandler.cpp:52] profiler_start
+[W531 16:51:43.601730442 execution_trace_observer.cpp:1003] Disabling Execution Trace Observer
+USDT:2026-05-31 16:51:43 363264:363264 SyncActivityProfilerHandler.cpp:59] profiler_stop
+[W531 16:51:43.608846483 execution_trace_observer.cpp:991] Enabling Execution Trace Observer
+USDT:2026-05-31 16:51:43 363264:363264 SyncActivityProfilerHandler.cpp:52] profiler_start
+[W531 16:51:43.614376328 execution_trace_observer.cpp:1003] Disabling Execution Trace Observer
+USDT:2026-05-31 16:51:43 363264:363264 SyncActivityProfilerHandler.cpp:59] profiler_stop
+[W531 16:51:43.655405098 execution_trace_observer.cpp:991] Enabling Execution Trace Observer
+USDT:2026-05-31 16:51:43 363280:363280 SyncActivityProfilerHandler.cpp:52] profiler_start
+[W531 16:51:43.656736003 execution_trace_observer.cpp:1003] Disabling Execution Trace Observer
+USDT:2026-05-31 16:51:43 363280:363280 SyncActivityProfilerHandler.cpp:59] profiler_stop
+[W531 16:51:43.941523312 execution_trace_observer.cpp:991] Enabling Execution Trace Observer
+USDT:2026-05-31 16:51:43 363280:363280 SyncActivityProfilerHandler.cpp:52] profiler_start
+[W531 16:51:43.942187946 execution_trace_observer.cpp:1003] Disabling Execution Trace Observer
+USDT:2026-05-31 16:51:43 363280:363280 SyncActivityProfilerHandler.cpp:59] profiler_stop
+INFO:2026-05-31 16:51:48 363526:363526 init.cpp:148] Registering daemon config loader, cpuOnly =  0
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:52] profiler_start
+INFO:2026-05-31 16:51:48 363526:363695 DaemonConfigLoader.cpp:66] Setting communication fabric enabled = 1USDT:2026-05-31 16:51:48 363523:363523 SyncActivityProfilerHandler.cpp:52] profiler_start
+
+USDT:2026-05-31 16:51:48 363526:363526 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363526:363526 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363526:363526 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363526:363526 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363526:363526 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363526:363526 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363526:363526 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363526:363526 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363526:363526 SyncActivityProfilerHandler.cpp:52] profiler_startUSDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:59] profiler_stop
+
+USDT:2026-05-31 16:51:48 363526:363526 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363526:363526 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363526:363526 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363526:363526 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363526:363526 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363535:363535 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363535:363535 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363535:363535 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363535:363535 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363535:363535 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363535:363535 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363535:363535 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363535:363535 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363535:363535 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363535:363535 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363535:363535 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363535:363535 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363535:363535 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363535:363535 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363535:363535 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363535:363535 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:59] profiler_stop
+[W531 16:51:48.039490517 profiler_kineto.cpp:307] Inputted kwarg: grid is not an int, double, string, bool, or list of strings for op: add_test_kwinputs skipping
+[W531 16:51:48.039496997 profiler_kineto.cpp:286] Inputted stream is not an int for op: add_test_kwinputs skipping
+[W531 16:51:48.039511387 profiler_kineto.cpp:307] Inputted kwarg: grid is not an int, double, string, bool, or list of strings for op: add_test_kwinputs skipping
+[W531 16:51:48.039513524 profiler_kineto.cpp:286] Inputted stream is not an int for op: add_test_kwinputs skipping
+[W531 16:51:48.039525310 profiler_kineto.cpp:307] Inputted kwarg: grid is not an int, double, string, bool, or list of strings for op: add_test_kwinputs skipping
+[W531 16:51:48.039527413 profiler_kineto.cpp:286] Inputted stream is not an int for op: add_test_kwinputs skipping
+[W531 16:51:48.039536985 profiler_kineto.cpp:307] Inputted kwarg: grid is not an int, double, string, bool, or list of strings for op: add_test_kwinputs skipping
+[W531 16:51:48.039538739 profiler_kineto.cpp:286] Inputted stream is not an int for op: add_test_kwinputs skipping
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363535:363535 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363535:363535 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:59] profiler_stop
+[W531 16:51:48.087826468 profiler_kineto.cpp:307] Inputted kwarg: non_string_list is not an int, double, string, bool, or list of strings for op: add_test_kwinputs_string_list_filtered skipping
+[W531 16:51:48.087830969 profiler_kineto.cpp:307] Inputted kwarg: mixed_list is not an int, double, string, bool, or list of strings for op: add_test_kwinputs_string_list_filtered skipping
+[W531 16:51:48.087846840 profiler_kineto.cpp:307] Inputted kwarg: non_string_list is not an int, double, string, bool, or list of strings for op: add_test_kwinputs_string_list_filtered skipping
+[W531 16:51:48.087848514 profiler_kineto.cpp:307] Inputted kwarg: mixed_list is not an int, double, string, bool, or list of strings for op: add_test_kwinputs_string_list_filtered skipping
+[W531 16:51:48.087859443 profiler_kineto.cpp:307] Inputted kwarg: non_string_list is not an int, double, string, bool, or list of strings for op: add_test_kwinputs_string_list_filtered skipping
+[W531 16:51:48.087860946 profiler_kineto.cpp:307] Inputted kwarg: mixed_list is not an int, double, string, bool, or list of strings for op: add_test_kwinputs_string_list_filtered skipping
+[W531 16:51:48.087871356 profiler_kineto.cpp:307] Inputted kwarg: non_string_list is not an int, double, string, bool, or list of strings for op: add_test_kwinputs_string_list_filtered skipping
+[W531 16:51:48.087872836 profiler_kineto.cpp:307] Inputted kwarg: mixed_list is not an int, double, string, bool, or list of strings for op: add_test_kwinputs_string_list_filtered skipping
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363523:363523 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363523:363523 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363529:363529 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_startINFO:2026-05-31 16:51:48 363740:363740 init.cpp:148] Registering daemon config loader, cpuOnly =  0
+
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+INFO:2026-05-31 16:51:48 363740:363801 DaemonConfigLoader.cpp:66] Setting communication fabric enabled = 1
+INFO:2026-05-31 16:51:48 363740:363801 IpcFabricConfigClient.cpp:88] Setting up IPC Fabric at endpoint: dynoconfigclientd7478e95-a208-4460-8bdc-b3d39878e0c9 status = initialized
+INFO:2026-05-31 16:51:48 363740:363801 DaemonConfigLoader.cpp:66] Setting communication fabric enabled = 1
+INFO:2026-05-31 16:51:48 363740:363801 DaemonConfigLoader.cpp:28] Reading base config
+WARNING:2026-05-31 16:51:48 363740:363801 IpcFabricConfigClient.cpp:145] Missing IPC Fabric implementation for getLibkinetoBaseConfig
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363523:363523 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363523:363523 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363523:363523 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363523:363523 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363523:363523 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363523:363523 SyncActivityProfilerHandler.cpp:52] profiler_start
+[W531 16:51:48.304576431 profiler_kineto.cpp:813] Toggling GPU activity with CPU activity on may result in traces with incorrect correlation between CPU and GPU events
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363523:363523 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363523:363523 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:48 363540:363540 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:49 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:49 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:49 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:49 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:49 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:49 363540:363540 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:49 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:49 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:49 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:49 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:49 363523:363523 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:49 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:49 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:49 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:49 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:49 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:49 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:49 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:49 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:49 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:49 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:49 363540:363540 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:49 363540:363540 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:49 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:49 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:49 363523:363523 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:49 363523:363523 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:49 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:49 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:49 363523:363523 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:49 363523:363523 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:49 363532:363991 SyncActivityProfilerHandler.cpp:52] profiler_startUSDT:2026-05-31 16:51:49 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+
+USDT:2026-05-31 16:51:49 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:49 363540:363540 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:49 363540:363540 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:49 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:49 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:49 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:49 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:49 363523:363523 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:49 363523:363523 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:49 363540:363540 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:49 363540:363540 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:49 363532:363991 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:49 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:49 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:49 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:49 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:49 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:49 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:49 363532:364011 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:49 363532:364011 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:49 363532:363532 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:49 363532:363532 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:49 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:49 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:49 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:49 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:50 363692:363692 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:50 363692:363692 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:50 363692:363692 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:50 363692:363692 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:50 363740:363740 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:50 363740:363740 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:50 363740:363740 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:50 363740:363740 SyncActivityProfilerHandler.cpp:59] profiler_stop
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/profiler/profiler.py:272: UserWarning: Warning: Profiler clears events at the end of each cycle. Only events from the current cycle will be reported. To keep events across cycles, set acc_events=True.
+  _warn_once(
+USDT:2026-05-31 16:51:50 363740:363740 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:50 363740:363740 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:50 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:50 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:50 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:50 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:50 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:50 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:51 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:51 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:51 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:51 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:51 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:51 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:51 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:52 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:52 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:52 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+ERROR:2026-05-31 16:51:58 363526:363695 IpcFabricConfigClient.cpp:178] Failed to send config type=1 to dyno: IPC sync_send fail
+USDT:2026-05-31 16:51:58 363529:363529 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:58 363529:363529 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:58 363529:363529 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:58 363529:363529 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:58 363529:363529 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:58 363529:363529 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:58 363529:363529 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:58 363529:363529 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:58 363529:363529 SyncActivityProfilerHandler.cpp:59] profiler_stop
+ERROR:2026-05-31 16:51:58 363740:363801 IpcFabricConfigClient.cpp:178] Failed to send config type=3 to dyno: IPC sync_send fail
+USDT:2026-05-31 16:51:59 363526:363526 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:59 363526:363526 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:59 363526:363526 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:59 363526:363526 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:59 363529:363529 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:59 363529:363529 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:59 363526:363526 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:59 363526:363526 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:59 363526:363526 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:59 363526:363526 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:59 363526:363526 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:59 363526:363526 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:59 363526:363526 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:59 363535:363535 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:59 363535:363535 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:59 363535:363535 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:59 363535:363535 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:59 363535:363535 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:59 363535:363535 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:59 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:59 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:59 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:59 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:59 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:59 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:59 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:59 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:59 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:59 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:59 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:59 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:59 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:59 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:59 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:59 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:59 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:59 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:59 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:59 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:59 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:59 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:59 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:59 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:59 363545:363545 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-05-31 16:51:59 363526:363526 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-05-31 16:51:59 363545:363545 SyncActivityProfilerHandler.cpp:59] profiler_stop
+ERROR:2026-05-31 16:52:08 363526:363695 IpcFabricConfigClient.cpp:178] Failed to send config type=3 to dyno: IPC sync_send fail
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_export/non_strict_utils.py:1169: UserWarning: Using padding='same' with even kernel lengths and odd dilation may require a zero-padded copy of the input be created (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/Convolution.cpp:1100.)
+  return func(*args, **kwargs)
+/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/functorch/test_aotdispatch_xpu.py:4591: PytestCollectionWarning: cannot collect test class 'TestMod' because it has a __init__ constructor (from: third_party/torch-xpu-ops/test/xpu/functorch/test_aotdispatch_xpu.py)
+  class TestMod(torch.nn.Module):
+/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/functorch/test_aotdispatch_xpu.py:4591: PytestCollectionWarning: cannot collect test class 'TestMod' because it has a __init__ constructor (from: third_party/torch-xpu-ops/test/xpu/functorch/test_aotdispatch_xpu.py)
+  class TestMod(torch.nn.Module):
+/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/functorch/test_aotdispatch_xpu.py:4591: PytestCollectionWarning: cannot collect test class 'TestMod' because it has a __init__ constructor (from: third_party/torch-xpu-ops/test/xpu/functorch/test_aotdispatch_xpu.py)
+  class TestMod(torch.nn.Module):
+/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/functorch/test_aotdispatch_xpu.py:4591: PytestCollectionWarning: cannot collect test class 'TestMod' because it has a __init__ constructor (from: third_party/torch-xpu-ops/test/xpu/functorch/test_aotdispatch_xpu.py)
+  class TestMod(torch.nn.Module):
+/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/functorch/test_aotdispatch_xpu.py:4591: PytestCollectionWarning: cannot collect test class 'TestMod' because it has a __init__ constructor (from: third_party/torch-xpu-ops/test/xpu/functorch/test_aotdispatch_xpu.py)
+  class TestMod(torch.nn.Module):
+/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/functorch/test_aotdispatch_xpu.py:4591: PytestCollectionWarning: cannot collect test class 'TestMod' because it has a __init__ constructor (from: third_party/torch-xpu-ops/test/xpu/functorch/test_aotdispatch_xpu.py)
+  class TestMod(torch.nn.Module):
+/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/functorch/test_aotdispatch_xpu.py:4591: PytestCollectionWarning: cannot collect test class 'TestMod' because it has a __init__ constructor (from: third_party/torch-xpu-ops/test/xpu/functorch/test_aotdispatch_xpu.py)
+  class TestMod(torch.nn.Module):
+/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/functorch/test_aotdispatch_xpu.py:4591: PytestCollectionWarning: cannot collect test class 'TestMod' because it has a __init__ constructor (from: third_party/torch-xpu-ops/test/xpu/functorch/test_aotdispatch_xpu.py)
+  class TestMod(torch.nn.Module):
+Process SpawnPoolWorker-4:
+Process SpawnPoolWorker-6:
+Process SpawnPoolWorker-5:
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/queues.py", line 367, in get
+    return _ForkingPickler.loads(res)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/queues.py", line 367, in get
+    return _ForkingPickler.loads(res)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+ModuleNotFoundError: No module named 'test_multiprocessing'
+ModuleNotFoundError: No module named 'test_multiprocessing'
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/queues.py", line 367, in get
+    return _ForkingPickler.loads(res)
+ModuleNotFoundError: No module named 'test_multiprocessing'
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/spawn.py", line 126, in _main
+    self = reduction.pickle.load(from_parent)
+ModuleNotFoundError: No module named 'test_multiprocessing'
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 6 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+Process SpawnPoolWorker-1:
+Process SpawnPoolWorker-2:
+Process SpawnPoolWorker-3:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/queues.py", line 367, in get
+    return _ForkingPickler.loads(res)
+ModuleNotFoundError: No module named 'test_multiprocessing'
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/queues.py", line 367, in get
+    return _ForkingPickler.loads(res)
+ModuleNotFoundError: No module named 'test_multiprocessing'
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/queues.py", line 367, in get
+    return _ForkingPickler.loads(res)
+ModuleNotFoundError: No module named 'test_multiprocessing'
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 6 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+Process SpawnPoolWorker-1:
+Process SpawnPoolWorker-2:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/queues.py", line 367, in get
+    return _ForkingPickler.loads(res)
+ModuleNotFoundError: No module named 'test_multiprocessing'
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/queues.py", line 367, in get
+    return _ForkingPickler.loads(res)
+ModuleNotFoundError: No module named 'test_multiprocessing'
+Process SpawnPoolWorker-3:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/queues.py", line 367, in get
+    return _ForkingPickler.loads(res)
+ModuleNotFoundError: No module named 'test_multiprocessing'
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 6 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+[W531 17:38:58.936698126 init.cpp:816] Warning: nvfuser is no longer supported in torch script, use _jit_nvfuser_enabled is deprecated and a no-op (function operator())
+[W531 17:38:58.936753177 init.cpp:774] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+[W531 17:38:58.957242739 init.cpp:816] Warning: nvfuser is no longer supported in torch script, use _jit_nvfuser_enabled is deprecated and a no-op (function operator())
+[W531 17:38:58.957287784 init.cpp:774] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+[W531 17:38:58.958044290 init.cpp:816] Warning: nvfuser is no longer supported in torch script, use _jit_nvfuser_enabled is deprecated and a no-op (function operator())
+[W531 17:38:58.958080977 init.cpp:774] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+[W531 17:38:58.018394088 init.cpp:816] Warning: nvfuser is no longer supported in torch script, use _jit_nvfuser_enabled is deprecated and a no-op (function operator())
+[W531 17:38:58.018471466 init.cpp:774] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+[W531 17:38:58.018832870 init.cpp:816] Warning: nvfuser is no longer supported in torch script, use _jit_nvfuser_enabled is deprecated and a no-op (function operator())
+[W531 17:38:58.018902522 init.cpp:774] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+[W531 17:38:58.020264678 init.cpp:816] Warning: nvfuser is no longer supported in torch script, use _jit_nvfuser_enabled is deprecated and a no-op (function operator())
+[W531 17:38:58.020306488 init.cpp:774] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+[W531 17:38:58.021251794 init.cpp:816] Warning: nvfuser is no longer supported in torch script, use _jit_nvfuser_enabled is deprecated and a no-op (function operator())
+[W531 17:38:58.021299179 init.cpp:774] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+[W531 17:38:59.054560558 init.cpp:774] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+[W531 17:38:59.176948146 init.cpp:774] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+[W531 17:38:59.181437641 init.cpp:774] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+[W531 17:38:59.273145453 init.cpp:774] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+[W531 17:38:59.348388616 init.cpp:774] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+[W531 17:38:59.507290591 init.cpp:774] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+[W531 17:39:00.634184721 init.cpp:774] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())

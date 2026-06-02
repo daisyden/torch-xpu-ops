@@ -1,0 +1,29 @@
+Test results will be stored in test-reports/python-pytest/inductor.test_codegen_triton/inductor.test_codegen_triton-654f3d27c0f259c6.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 14 items
+stepcurrent: Cannot find last run test, not skipping
+Running 14 items in this shard: test/inductor/test_codegen_triton.py::TestCodegenTriton::test_config_of_emit_pointer_range_32_disabled, test/inductor/test_codegen_triton.py::TestCodegenTriton::test_config_of_emit_pointer_range_32_enabled, test/inductor/test_codegen_triton.py::TestCodegenTriton::test_config_of_sizearg, test/inductor/test_codegen_triton.py::TestCodegenTriton::test_config_of_sizearg_with_check_constraint, test/inductor/test_codegen_triton.py::TestCodegenTriton::test_is_multiple_of_rules, test/inductor/test_codegen_triton.py::TestCodegenTriton::test_materialize_trunc_to_float_expr_preserves_integer_subexpressions, test/inductor/test_codegen_triton.py::TestCodegenTriton::test_no_fp64_in_kernel_when_device_unsupported, test/inductor/test_codegen_triton.py::TestCodegenTriton::test_pointer_range_in_generated_code, test/inductor/test_codegen_triton.py::TestCodegenTriton::test_pointer_range_not_in_user_defined_triton_kernel, test/inductor/test_codegen_triton.py::TestCodegenTriton::test_pow_preserves_integer_dtype_for_unsigned_scalar_exponents, test/inductor/test_codegen_triton.py::TestCodegenTriton::test_pow_uses_active_override_constant_lowering, test/inductor/test_codegen_triton.py::TestCodegenTriton::test_pow_uses_integer_helper_for_unsigned_scalar_exponents, test/inductor/test_codegen_triton.py::TestCodegenTriton::test_range_tree_entry_ownership_uses_root_identity, test/inductor/test_codegen_triton.py::TestCodegenTriton::test_signature_of_fp8_dtypes
+
+inductor/test_codegen_triton.py::TestCodegenTriton::test_config_of_emit_pointer_range_32_disabled PASSED [0.0617s] [  7%]
+inductor/test_codegen_triton.py::TestCodegenTriton::test_config_of_emit_pointer_range_32_enabled PASSED [0.0046s] [ 14%]
+inductor/test_codegen_triton.py::TestCodegenTriton::test_config_of_sizearg PASSED [0.0117s] [ 21%]
+inductor/test_codegen_triton.py::TestCodegenTriton::test_config_of_sizearg_with_check_constraint PASSED [0.0061s] [ 28%]
+inductor/test_codegen_triton.py::TestCodegenTriton::test_is_multiple_of_rules PASSED [0.0286s] [ 35%]
+inductor/test_codegen_triton.py::TestCodegenTriton::test_materialize_trunc_to_float_expr_preserves_integer_subexpressions PASSED [0.0070s] [ 42%]
+inductor/test_codegen_triton.py::TestCodegenTriton::test_no_fp64_in_kernel_when_device_unsupported PASSED [13.2427s] [ 50%]
+inductor/test_codegen_triton.py::TestCodegenTriton::test_pointer_range_in_generated_code SKIPPED [0.0004s] (pointer_range_32 is HIP-only) [ 57%]
+inductor/test_codegen_triton.py::TestCodegenTriton::test_pointer_range_not_in_user_defined_triton_kernel SKIPPED [0.0002s] (pointer_range_32 is HIP-only) [ 64%]
+inductor/test_codegen_triton.py::TestCodegenTriton::test_pow_preserves_integer_dtype_for_unsigned_scalar_exponents PASSED [0.0055s] [ 71%]
+inductor/test_codegen_triton.py::TestCodegenTriton::test_pow_uses_active_override_constant_lowering PASSED [0.0047s] [ 78%]
+inductor/test_codegen_triton.py::TestCodegenTriton::test_pow_uses_integer_helper_for_unsigned_scalar_exponents PASSED [0.0037s] [ 85%]
+inductor/test_codegen_triton.py::TestCodegenTriton::test_range_tree_entry_ownership_uses_root_identity PASSED [0.0054s] [ 92%]
+inductor/test_codegen_triton.py::TestCodegenTriton::test_signature_of_fp8_dtypes PASSED [0.0036s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/inductor.test_codegen_triton/inductor.test_codegen_triton-654f3d27c0f259c6.xml -
+======================== 12 passed, 2 skipped in 13.42s ========================

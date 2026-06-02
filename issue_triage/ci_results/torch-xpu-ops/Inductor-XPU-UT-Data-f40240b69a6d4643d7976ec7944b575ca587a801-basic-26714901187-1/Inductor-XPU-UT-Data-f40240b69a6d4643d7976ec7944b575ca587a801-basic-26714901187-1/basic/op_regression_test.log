@@ -1,0 +1,596 @@
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /tmp/xpu-tool/Python/3.10.20/x64/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default' -> database=DirectoryBasedExampleDatabase('/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/regressions/.hypothesis/examples')
+rootdir: /__w/torch-xpu-ops/torch-xpu-ops/pytorch
+configfile: pytest.ini
+plugins: timeout-2.4.0, xdoctest-1.3.0, subtests-0.13.1, rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, cpp-2.3.0, flakefinder-1.1.0
+timeout: 600.0s
+timeout method: thread
+timeout func_only: False
+created: 8/8 workers
+8 workers [289 items]
+
+scheduling tests via WorkStealingScheduling
+
+test_resize.py::TestSimpleResize::test_view_as_complex 
+test_batch_norm.py::TestBatchNormContiguous::test_bn1d_noncontiguous_save_float32 
+test_deform_conv.py::TestDeformConv::test_schema__test_is_leaf_node[xpu] 
+test_conversion.py::TestSimpleConversionXPU::test_half_nonzero_xpu_float8_e5m2 
+test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[True-xpu-6] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_forward[False-False-x_dtype0-xpu-True] 
+test_torchvision_roi_ops.py::TestRoiPool::test_backward[False-xpu-6] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_backward[True-xpu-2] 
+[gw3] [  0%] PASSED test_resize.py::TestSimpleResize::test_view_as_complex 
+[gw2] [  0%] PASSED test_deform_conv.py::TestDeformConv::test_schema__test_is_leaf_node[xpu] 
+[gw1] [  1%] PASSED test_conversion.py::TestSimpleConversionXPU::test_half_nonzero_xpu_float8_e5m2 
+test_resize.py::TestSimpleResize::test_view_as_real 
+test_conversion.py::TestSimpleConversionXPU::test_half_nonzero_xpu_float8_e5m2fnuz 
+test_deform_conv.py::TestDeformConv::test_faketensor__test_is_leaf_node[xpu] 
+[gw3] [  1%] PASSED test_resize.py::TestSimpleResize::test_view_as_real 
+[gw1] [  1%] PASSED test_conversion.py::TestSimpleConversionXPU::test_half_nonzero_xpu_float8_e5m2fnuz 
+[gw2] [  2%] PASSED test_deform_conv.py::TestDeformConv::test_faketensor__test_is_leaf_node[xpu] 
+test_conversion.py::TestSimpleConversionXPU::test_half_zero_xpu_float8_e4m3fn 
+test_roi_align.py::TestNNMethod::test_roi_align_backward 
+test_deform_conv.py::TestDeformConv::test_aot_dispatch_dynamic__test_is_leaf_node[xpu] 
+[gw1] [  2%] PASSED test_conversion.py::TestSimpleConversionXPU::test_half_zero_xpu_float8_e4m3fn 
+[gw2] [  2%] PASSED test_deform_conv.py::TestDeformConv::test_aot_dispatch_dynamic__test_is_leaf_node[xpu] 
+test_div_mode.py::TestDivMode::test_div_true_dtype 
+test_conversion.py::TestSimpleConversionXPU::test_half_zero_xpu_float8_e4m3fnuz 
+[gw1] [  3%] PASSED test_conversion.py::TestSimpleConversionXPU::test_half_zero_xpu_float8_e4m3fnuz 
+[gw0] [  3%] PASSED test_batch_norm.py::TestBatchNormContiguous::test_bn1d_noncontiguous_save_float32 
+test_batch_norm.py::TestBatchNormContiguous::test_bn2d_noncontiguous_output 
+[gw0] [  3%] PASSED test_batch_norm.py::TestBatchNormContiguous::test_bn2d_noncontiguous_output 
+test_conversion.py::TestSimpleConversionXPU::test_half_zero_xpu_float8_e5m2 
+test_batch_norm.py::TestBatchNormContiguous::test_bn2d_noncontiguous_save_bfloat16 
+[gw1] [  4%] PASSED test_conversion.py::TestSimpleConversionXPU::test_half_zero_xpu_float8_e5m2 
+test_conversion.py::TestSimpleConversionXPU::test_half_zero_xpu_float8_e5m2fnuz 
+[gw0] [  4%] PASSED test_batch_norm.py::TestBatchNormContiguous::test_bn2d_noncontiguous_save_bfloat16 
+test_batch_norm.py::TestBatchNormContiguous::test_bn2d_noncontiguous_save_float16 
+[gw1] [  4%] PASSED test_conversion.py::TestSimpleConversionXPU::test_half_zero_xpu_float8_e5m2fnuz 
+test_copy.py::TestSimpleCopyXPU::test_copy_and_clone_float4_xpu 
+[gw0] [  5%] PASSED test_batch_norm.py::TestBatchNormContiguous::test_bn2d_noncontiguous_save_float16 
+test_batch_norm.py::TestBatchNormContiguous::test_bn2d_noncontiguous_save_float32 
+[gw0] [  5%] PASSED test_batch_norm.py::TestBatchNormContiguous::test_bn2d_noncontiguous_save_float32 
+[gw1] [  5%] PASSED test_copy.py::TestSimpleCopyXPU::test_copy_and_clone_float4_xpu 
+test_copy.py::TestSimpleCopyXPU::test_copy_and_clone_xpu_float32 
+[gw1] [  6%] PASSED test_copy.py::TestSimpleCopyXPU::test_copy_and_clone_xpu_float32 
+test_batch_norm.py::TestBatchNormContiguous::test_bn2d_noncontiguous_save_running_stats 
+[gw0] [  6%] PASSED test_batch_norm.py::TestBatchNormContiguous::test_bn2d_noncontiguous_save_running_stats 
+test_copy.py::TestSimpleCopyXPU::test_copy_and_clone_xpu_float8_e4m3fn 
+[gw1] [  6%] PASSED test_copy.py::TestSimpleCopyXPU::test_copy_and_clone_xpu_float8_e4m3fn 
+test_batch_norm.py::TestBatchNormContiguous::test_bn3d_noncontiguous_save_float32 
+[gw0] [  7%] PASSED test_batch_norm.py::TestBatchNormContiguous::test_bn3d_noncontiguous_save_float32 
+test_copy.py::TestSimpleCopyXPU::test_copy_and_clone_xpu_float8_e4m3fnuz 
+[gw2] [  7%] PASSED test_div_mode.py::TestDivMode::test_div_true_dtype 
+test_foreach_list.py::TestForeachListMethod::test_foreach_add 
+[gw1] [  7%] PASSED test_copy.py::TestSimpleCopyXPU::test_copy_and_clone_xpu_float8_e4m3fnuz 
+test_binary.py::TestSimpleBinary::test_add 
+test_copy.py::TestSimpleCopyXPU::test_copy_and_clone_xpu_float8_e5m2 
+[gw1] [  8%] PASSED test_copy.py::TestSimpleCopyXPU::test_copy_and_clone_xpu_float8_e5m2 
+[gw0] [  8%] PASSED test_binary.py::TestSimpleBinary::test_add 
+test_binary.py::TestSimpleBinary::test_add_scalar 
+test_copy.py::TestSimpleCopyXPU::test_copy_and_clone_xpu_float8_e5m2fnuz 
+[gw0] [  8%] PASSED test_binary.py::TestSimpleBinary::test_add_scalar 
+[gw1] [  9%] PASSED test_copy.py::TestSimpleCopyXPU::test_copy_and_clone_xpu_float8_e5m2fnuz 
+[gw7] [  9%] PASSED test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[True-xpu-6] 
+test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[True-xpu-7] 
+test_binary.py::TestSimpleBinary::test_binary_div_channels_last 
+test_copy.py::TestSimpleCopyXPU::test_copy_and_clone_xpu_float8_e8m0fnu 
+[gw1] [ 10%] PASSED test_copy.py::TestSimpleCopyXPU::test_copy_and_clone_xpu_float8_e8m0fnu 
+[gw4] [ 10%] PASSED test_torchvision_roi_ops.py::TestRoiPool::test_backward[False-xpu-6] 
+test_torchvision_roi_ops.py::TestRoiPool::test_backward[False-xpu-7] 
+[gw5] [ 10%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_backward[True-xpu-2] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_backward[True-xpu-3] 
+[gw0] [ 11%] PASSED test_binary.py::TestSimpleBinary::test_binary_div_channels_last 
+test_copy_downcast_fp8.py::TestTorchMethod::test_fp8_downcast_copy_float8_e4m3 
+test_binary.py::TestSimpleBinary::test_binary_op 
+[gw7] [ 11%] PASSED test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[True-xpu-7] 
+test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[True-xpu-8] 
+[gw4] [ 11%] PASSED test_torchvision_roi_ops.py::TestRoiPool::test_backward[False-xpu-7] 
+test_torchvision_roi_ops.py::TestRoiPool::test_backward[False-xpu-8] 
+[gw0] [ 12%] PASSED test_binary.py::TestSimpleBinary::test_binary_op 
+test_binary.py::TestSimpleBinary::test_div 
+[gw0] [ 12%] PASSED test_binary.py::TestSimpleBinary::test_div 
+[gw5] [ 12%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_backward[True-xpu-3] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_backward[True-xpu-4] 
+[gw7] [ 13%] PASSED test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[True-xpu-8] 
+test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[True-xpu-9] 
+test_binary.py::TestSimpleBinary::test_div_int 
+[gw0] [ 13%] PASSED test_binary.py::TestSimpleBinary::test_div_int 
+test_binary.py::TestSimpleBinary::test_ldexp 
+[gw7] [ 13%] PASSED test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[True-xpu-9] 
+test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[False-xpu-0] 
+[gw4] [ 14%] PASSED test_torchvision_roi_ops.py::TestRoiPool::test_backward[False-xpu-8] 
+test_torchvision_roi_ops.py::TestRoiPool::test_backward[False-xpu-9] 
+[gw0] [ 14%] PASSED test_binary.py::TestSimpleBinary::test_ldexp 
+test_binary.py::TestSimpleBinary::test_mul 
+[gw0] [ 14%] PASSED test_binary.py::TestSimpleBinary::test_mul 
+[gw5] [ 15%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_backward[True-xpu-4] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_backward[True-xpu-5] 
+test_binary.py::TestSimpleBinary::test_pow 
+[gw2] [ 15%] PASSED test_foreach_list.py::TestForeachListMethod::test_foreach_add 
+test_foreach_scalar.py::TestForeachScalarMethod::test_foreach_add 
+[gw7] [ 15%] PASSED test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[False-xpu-0] 
+test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[False-xpu-1] 
+[gw1] [ 16%] PASSED test_copy_downcast_fp8.py::TestTorchMethod::test_fp8_downcast_copy_float8_e4m3 
+test_copy_downcast_fp8.py::TestTorchMethod::test_fp8_downcast_copy_float8_e4m3fnuz 
+[gw1] [ 16%] PASSED test_copy_downcast_fp8.py::TestTorchMethod::test_fp8_downcast_copy_float8_e4m3fnuz 
+[gw4] [ 16%] PASSED test_torchvision_roi_ops.py::TestRoiPool::test_backward[False-xpu-9] 
+test_torchvision_roi_ops.py::TestPSRoIPool::test_forward[torch.float16-True-xpu] 
+[gw5] [ 17%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_backward[True-xpu-5] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_backward[True-xpu-6] 
+test_copy_downcast_fp8.py::TestTorchMethod::test_fp8_downcast_copy_float8_e5m2 
+[gw0] [ 17%] PASSED test_binary.py::TestSimpleBinary::test_pow 
+test_binary.py::TestSimpleBinary::test_sub 
+[gw0] [ 17%] PASSED test_binary.py::TestSimpleBinary::test_sub 
+[gw7] [ 18%] PASSED test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[False-xpu-1] 
+test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[False-xpu-2] 
+test_cat.py::TestTorchMethodXPU::test_cat_8d_xpu 
+[gw0] [ 18%] PASSED test_cat.py::TestTorchMethodXPU::test_cat_8d_xpu 
+test_cat.py::TestTorchMethodXPU::test_cat_array_2_xpu 
+[gw5] [ 19%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_backward[True-xpu-6] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_backward[True-xpu-7] 
+[gw0] [ 19%] PASSED test_cat.py::TestTorchMethodXPU::test_cat_array_2_xpu 
+[gw7] [ 19%] PASSED test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[False-xpu-2] 
+test_cat.py::TestTorchMethodXPU::test_cat_array_xpu 
+test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[False-xpu-3] 
+[gw0] [ 20%] PASSED test_cat.py::TestTorchMethodXPU::test_cat_array_xpu 
+test_cat.py::TestTorchMethodXPU::test_cat_float4_simple_xpu 
+[gw0] [ 20%] PASSED test_cat.py::TestTorchMethodXPU::test_cat_float4_simple_xpu 
+test_cat.py::TestTorchMethodXPU::test_cat_simple_xpu_float8_e4m3fn 
+[gw0] [ 20%] PASSED test_cat.py::TestTorchMethodXPU::test_cat_simple_xpu_float8_e4m3fn 
+[gw7] [ 21%] PASSED test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[False-xpu-3] 
+test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[False-xpu-4] 
+[gw5] [ 21%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_backward[True-xpu-7] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_backward[True-xpu-8] 
+test_cat.py::TestTorchMethodXPU::test_cat_simple_xpu_float8_e4m3fnuz 
+[gw0] [ 21%] PASSED test_cat.py::TestTorchMethodXPU::test_cat_simple_xpu_float8_e4m3fnuz 
+[gw2] [ 22%] PASSED test_foreach_scalar.py::TestForeachScalarMethod::test_foreach_add 
+test_foreach_scalarlist.py::TestForeachScalarListMethod::test_foreach_add 
+test_cat.py::TestTorchMethodXPU::test_cat_simple_xpu_float8_e5m2 
+[gw0] [ 22%] PASSED test_cat.py::TestTorchMethodXPU::test_cat_simple_xpu_float8_e5m2 
+[gw7] [ 22%] PASSED test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[False-xpu-4] 
+test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[False-xpu-5] 
+test_cat.py::TestTorchMethodXPU::test_cat_simple_xpu_float8_e5m2fnuz 
+[gw0] [ 23%] PASSED test_cat.py::TestTorchMethodXPU::test_cat_simple_xpu_float8_e5m2fnuz 
+[gw1] [ 23%] PASSED test_copy_downcast_fp8.py::TestTorchMethod::test_fp8_downcast_copy_float8_e5m2 
+test_copy_downcast_fp8.py::TestTorchMethod::test_fp8_downcast_copy_float8_e5m2fnuz 
+[gw1] [ 23%] PASSED test_copy_downcast_fp8.py::TestTorchMethod::test_fp8_downcast_copy_float8_e5m2fnuz 
+[gw4] [ 24%] PASSED test_torchvision_roi_ops.py::TestPSRoIPool::test_forward[torch.float16-True-xpu] 
+test_torchvision_roi_ops.py::TestPSRoIPool::test_forward[torch.float16-False-xpu] 
+[gw4] [ 24%] PASSED test_torchvision_roi_ops.py::TestPSRoIPool::test_forward[torch.float16-False-xpu] 
+[gw5] [ 24%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_backward[True-xpu-8] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_backward[True-xpu-9] 
+test_deform_conv.py::TestDeformConv::test_is_leaf_node[xpu] 
+test_cat.py::TestTorchMethodXPU::test_cat_simple_xpu_float8_e8m0fnu 
+[gw0] [ 25%] PASSED test_cat.py::TestTorchMethodXPU::test_cat_simple_xpu_float8_e8m0fnu 
+[gw1] [ 25%] PASSED test_deform_conv.py::TestDeformConv::test_is_leaf_node[xpu] 
+test_torchvision_roi_ops.py::TestPSRoIPool::test_forward[torch.float32-True-xpu] 
+[gw7] [ 25%] PASSED test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[False-xpu-5] 
+test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[False-xpu-6] 
+test_clamp_promotion.py::TestTorchMethod::test_clamp_promotion 
+test_deform_conv.py::TestDeformConv::test_forward[0-True-xpu] 
+[gw1] [ 26%] PASSED test_deform_conv.py::TestDeformConv::test_forward[0-True-xpu] 
+test_deform_conv.py::TestDeformConv::test_forward[0-False-xpu] 
+[gw6] [ 26%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_forward[False-False-x_dtype0-xpu-True] 
+[gw1] [ 26%] PASSED test_deform_conv.py::TestDeformConv::test_forward[0-False-xpu] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_forward[False-False-x_dtype0-xpu-False] 
+[gw5] [ 27%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_backward[True-xpu-9] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_backward[False-xpu-0] 
+test_deform_conv.py::TestDeformConv::test_forward[1-True-xpu] 
+[gw7] [ 27%] PASSED test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[False-xpu-6] 
+test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[False-xpu-7] 
+[gw4] [ 28%] PASSED test_torchvision_roi_ops.py::TestPSRoIPool::test_forward[torch.float32-True-xpu] 
+test_torchvision_roi_ops.py::TestPSRoIPool::test_forward[torch.float32-False-xpu] 
+[gw4] [ 28%] PASSED test_torchvision_roi_ops.py::TestPSRoIPool::test_forward[torch.float32-False-xpu] 
+test_torchvision_roi_ops.py::TestPSRoIPool::test_forward[torch.float64-True-xpu] 
+[gw4] [ 28%] PASSED test_torchvision_roi_ops.py::TestPSRoIPool::test_forward[torch.float64-True-xpu] 
+[gw7] [ 29%] PASSED test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[False-xpu-7] 
+test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[False-xpu-8] 
+test_torchvision_roi_ops.py::TestPSRoIPool::test_forward[torch.float64-False-xpu] 
+[gw4] [ 29%] PASSED test_torchvision_roi_ops.py::TestPSRoIPool::test_forward[torch.float64-False-xpu] 
+[gw5] [ 29%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_backward[False-xpu-0] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_backward[False-xpu-1] 
+test_torchvision_roi_ops.py::TestPSRoIPool::test_is_leaf_node[xpu] 
+[gw4] [ 30%] PASSED test_torchvision_roi_ops.py::TestPSRoIPool::test_is_leaf_node[xpu] 
+[gw2] [ 30%] PASSED test_foreach_scalarlist.py::TestForeachScalarListMethod::test_foreach_add 
+test_grid_sample.py::TestSimpleCopy::test_grid_sample 
+test_torchvision_roi_ops.py::TestPSRoIPool::test_torch_fx_trace[xpu] 
+[gw4] [ 30%] PASSED test_torchvision_roi_ops.py::TestPSRoIPool::test_torch_fx_trace[xpu] 
+[gw7] [ 31%] PASSED test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[False-xpu-8] 
+test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[False-xpu-9] 
+[gw2] [ 31%] PASSED test_grid_sample.py::TestSimpleCopy::test_grid_sample 
+test_index_and_index_put.py::TestTorchMethod::test_flip_float8 
+[gw2] [ 31%] PASSED test_index_and_index_put.py::TestTorchMethod::test_flip_float8 
+test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[True-xpu-0] 
+test_index_and_index_put.py::TestTorchMethod::test_index_add_empty 
+[gw5] [ 32%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_backward[False-xpu-1] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_backward[False-xpu-2] 
+[gw7] [ 32%] PASSED test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[False-xpu-9] 
+test_torchvision_roi_ops.py::TestMultiScaleRoIAlign::test_is_leaf_node[xpu] 
+[gw7] [ 32%] PASSED test_torchvision_roi_ops.py::TestMultiScaleRoIAlign::test_is_leaf_node[xpu] 
+[gw2] [ 33%] PASSED test_index_and_index_put.py::TestTorchMethod::test_index_add_empty 
+test_index_and_index_put.py::TestTorchMethod::test_index_and_index_put 
+[gw4] [ 33%] PASSED test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[True-xpu-0] 
+test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[True-xpu-1] 
+test_triangular_solve_sparse.py::TestTriangularSolveSparseCSR::test_empty_rhs 
+[gw7] [ 33%] PASSED test_triangular_solve_sparse.py::TestTriangularSolveSparseCSR::test_empty_rhs 
+test_triangular_solve_sparse.py::TestTriangularSolveSparseCSR::test_float32 
+[gw5] [ 34%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_backward[False-xpu-2] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_backward[False-xpu-3] 
+[gw4] [ 34%] PASSED test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[True-xpu-1] 
+test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[True-xpu-2] 
+[gw1] [ 34%] PASSED test_deform_conv.py::TestDeformConv::test_forward[1-True-xpu] 
+test_deform_conv.py::TestDeformConv::test_forward[1-False-xpu] 
+[gw4] [ 35%] PASSED test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[True-xpu-2] 
+test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[True-xpu-3] 
+[gw0] [ 35%] PASSED test_clamp_promotion.py::TestTorchMethod::test_clamp_promotion 
+test_compare.py::TestTorchMethod::test_eq 
+[gw0] [ 35%] PASSED test_compare.py::TestTorchMethod::test_eq 
+[gw5] [ 36%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_backward[False-xpu-3] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_backward[False-xpu-4] 
+[gw1] [ 36%] PASSED test_deform_conv.py::TestDeformConv::test_forward[1-False-xpu] 
+test_deform_conv.py::TestDeformConv::test_forward[33-True-xpu] 
+test_compare.py::TestTorchMethod::test_ge 
+[gw0] [ 37%] PASSED test_compare.py::TestTorchMethod::test_ge 
+[gw4] [ 37%] PASSED test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[True-xpu-3] 
+test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[True-xpu-4] 
+test_compare.py::TestTorchMethod::test_gt 
+[gw0] [ 37%] PASSED test_compare.py::TestTorchMethod::test_gt 
+test_compare.py::TestTorchMethod::test_le 
+[gw0] [ 38%] PASSED test_compare.py::TestTorchMethod::test_le 
+[gw5] [ 38%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_backward[False-xpu-4] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_backward[False-xpu-5] 
+[gw4] [ 38%] PASSED test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[True-xpu-4] 
+test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[True-xpu-5] 
+test_compare.py::TestTorchMethod::test_lt 
+[gw0] [ 39%] PASSED test_compare.py::TestTorchMethod::test_lt 
+test_compare.py::TestTorchMethod::test_ne 
+[gw0] [ 39%] PASSED test_compare.py::TestTorchMethod::test_ne 
+[gw4] [ 39%] PASSED test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[True-xpu-5] 
+[gw3] [ 40%] PASSED test_roi_align.py::TestNNMethod::test_roi_align_backward 
+test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[True-xpu-6] 
+test_roi_align.py::TestNNMethod::test_roi_align_forward 
+test_conversion.py::TestSimpleConversionXPU::test_empty_nonzero_xpu 
+[gw0] [ 40%] PASSED test_conversion.py::TestSimpleConversionXPU::test_empty_nonzero_xpu 
+[gw7] [ 40%] PASSED test_triangular_solve_sparse.py::TestTriangularSolveSparseCSR::test_float32 
+test_triangular_solve_sparse.py::TestTriangularSolveSparseCSR::test_lower_triangular 
+[gw6] [ 41%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_forward[False-False-x_dtype0-xpu-False] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_forward[False-False-x_dtype1-xpu-True] 
+[gw7] [ 41%] PASSED test_triangular_solve_sparse.py::TestTriangularSolveSparseCSR::test_lower_triangular 
+[gw5] [ 41%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_backward[False-xpu-5] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_backward[False-xpu-6] 
+test_conversion.py::TestSimpleConversionXPU::test_half_nonzero_xpu_float8_e4m3fn 
+[gw0] [ 42%] PASSED test_conversion.py::TestSimpleConversionXPU::test_half_nonzero_xpu_float8_e4m3fn 
+test_triangular_solve_sparse.py::TestTriangularSolveSparseCSR::test_multiple_rhs 
+[gw7] [ 42%] PASSED test_triangular_solve_sparse.py::TestTriangularSolveSparseCSR::test_multiple_rhs 
+[gw4] [ 42%] PASSED test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[True-xpu-6] 
+test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[True-xpu-7] 
+test_conversion.py::TestSimpleConversionXPU::test_half_nonzero_xpu_float8_e4m3fnuz 
+[gw0] [ 43%] PASSED test_conversion.py::TestSimpleConversionXPU::test_half_nonzero_xpu_float8_e4m3fnuz 
+test_triangular_solve_sparse.py::TestTriangularSolveSparseCSR::test_transpose 
+[gw7] [ 43%] PASSED test_triangular_solve_sparse.py::TestTriangularSolveSparseCSR::test_transpose 
+test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype1-x_dtype1-True-False] 
+test_triangular_solve_sparse.py::TestTriangularSolveSparseCSR::test_unitriangular 
+[gw7] [ 43%] PASSED test_triangular_solve_sparse.py::TestTriangularSolveSparseCSR::test_unitriangular 
+[gw4] [ 44%] PASSED test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[True-xpu-7] 
+test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[True-xpu-8] 
+[gw5] [ 44%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_backward[False-xpu-6] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_backward[False-xpu-7] 
+test_triangular_solve_sparse.py::TestTriangularSolveSparseCSR::test_upper_triangular 
+[gw7] [ 44%] PASSED test_triangular_solve_sparse.py::TestTriangularSolveSparseCSR::test_upper_triangular 
+[gw2] [ 45%] PASSED test_index_and_index_put.py::TestTorchMethod::test_index_and_index_put 
+test_index_and_index_put.py::TestTorchMethod::test_index_put 
+test_triangular_solve_sparse.py::TestTriangularSolveSparseCSR::test_zero_nnz 
+[gw7] [ 45%] PASSED test_triangular_solve_sparse.py::TestTriangularSolveSparseCSR::test_zero_nnz 
+[gw4] [ 46%] PASSED test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[True-xpu-8] 
+test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[True-xpu-9] 
+test_unary.py::TestSimpleUnary::test_abs_out 
+[gw7] [ 46%] PASSED test_unary.py::TestSimpleUnary::test_abs_out 
+test_unary.py::TestSimpleUnary::test_cos_out 
+[gw5] [ 46%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_backward[False-xpu-7] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_backward[False-xpu-8] 
+[gw7] [ 47%] PASSED test_unary.py::TestSimpleUnary::test_cos_out 
+[gw4] [ 47%] PASSED test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[True-xpu-9] 
+test_unary.py::TestSimpleUnary::test_log_out 
+test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[False-xpu-0] 
+[gw7] [ 47%] PASSED test_unary.py::TestSimpleUnary::test_log_out 
+test_unary.py::TestSimpleUnary::test_neg_out 
+[gw4] [ 48%] PASSED test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[False-xpu-0] 
+test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[False-xpu-1] 
+[gw5] [ 48%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_backward[False-xpu-8] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_backward[False-xpu-9] 
+[gw4] [ 48%] PASSED test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[False-xpu-1] 
+test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[False-xpu-2] 
+[gw7] [ 49%] PASSED test_unary.py::TestSimpleUnary::test_neg_out 
+test_unary.py::TestSimpleUnary::test_reciprocal_out 
+[gw5] [ 49%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_backward[False-xpu-9] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_forward[True-True-x_dtype0-xpu-True] 
+[gw4] [ 49%] PASSED test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[False-xpu-2] 
+test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[False-xpu-3] 
+[gw7] [ 50%] PASSED test_unary.py::TestSimpleUnary::test_reciprocal_out 
+test_unary.py::TestSimpleUnary::test_rsqrt_out 
+[gw4] [ 50%] PASSED test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[False-xpu-3] 
+test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[False-xpu-4] 
+[gw7] [ 50%] PASSED test_unary.py::TestSimpleUnary::test_rsqrt_out 
+test_unary.py::TestSimpleUnary::test_sin_out 
+[gw7] [ 51%] PASSED test_unary.py::TestSimpleUnary::test_sin_out 
+test_unary.py::TestSimpleUnary::test_sqrt_out 
+[gw7] [ 51%] PASSED test_unary.py::TestSimpleUnary::test_sqrt_out 
+[gw4] [ 51%] PASSED test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[False-xpu-4] 
+test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[False-xpu-5] 
+test_unary.py::TestSimpleUnary::test_tanh_backward_reduced_precision 
+[gw4] [ 52%] PASSED test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[False-xpu-5] 
+test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[False-xpu-6] 
+[gw7] [ 52%] PASSED test_unary.py::TestSimpleUnary::test_tanh_backward_reduced_precision 
+test_unary.py::TestSimpleUnary::test_tanh_out 
+[gw7] [ 52%] PASSED test_unary.py::TestSimpleUnary::test_tanh_out 
+test_upsample_bilinear_bwd.py::TestTorchMethod::test_upsample_bilinear_bwd 
+[gw6] [ 53%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_forward[False-False-x_dtype1-xpu-True] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_forward[False-False-x_dtype1-xpu-False] 
+[gw4] [ 53%] PASSED test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[False-xpu-6] 
+test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[False-xpu-7] 
+[gw7] [ 53%] PASSED test_upsample_bilinear_bwd.py::TestTorchMethod::test_upsample_bilinear_bwd 
+test_upsample_nearest.py::TestTorchMethod::test_upsample_nearest 
+[gw7] [ 54%] PASSED test_upsample_nearest.py::TestTorchMethod::test_upsample_nearest 
+test_where.py::TestTorchWhereMethod::test_where 
+[gw4] [ 54%] PASSED test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[False-xpu-7] 
+test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[False-xpu-8] 
+[gw7] [ 55%] PASSED test_where.py::TestTorchWhereMethod::test_where 
+test_xpu_ops_header.py::TestXpuOpsHeader::test_xpu_ops_header 
+[gw7] [ 55%] PASSED test_xpu_ops_header.py::TestXpuOpsHeader::test_xpu_ops_header 
+test_torchvision_roi_ops.py::TestRoiPool::test_backward[True-xpu-0] 
+[gw4] [ 55%] PASSED test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[False-xpu-8] 
+test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[False-xpu-9] 
+[gw4] [ 56%] PASSED test_torchvision_roi_ops.py::TestPSRoIPool::test_backward[False-xpu-9] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_is_leaf_node[xpu] 
+[gw4] [ 56%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_is_leaf_node[xpu] 
+[gw7] [ 56%] PASSED test_torchvision_roi_ops.py::TestRoiPool::test_backward[True-xpu-0] 
+test_torchvision_roi_ops.py::TestRoiPool::test_backward[True-xpu-1] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_torch_fx_trace[xpu] 
+[gw4] [ 57%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_torch_fx_trace[xpu] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_backward[True-xpu-0] 
+[gw7] [ 57%] PASSED test_torchvision_roi_ops.py::TestRoiPool::test_backward[True-xpu-1] 
+test_torchvision_roi_ops.py::TestRoiPool::test_backward[True-xpu-2] 
+[gw4] [ 57%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_backward[True-xpu-0] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_backward[True-xpu-1] 
+[gw7] [ 58%] PASSED test_torchvision_roi_ops.py::TestRoiPool::test_backward[True-xpu-2] 
+test_torchvision_roi_ops.py::TestRoiPool::test_backward[True-xpu-3] 
+[gw4] [ 58%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_backward[True-xpu-1] 
+test_nms.py::TestNNMethod::test_batched_nms 
+[gw7] [ 58%] PASSED test_torchvision_roi_ops.py::TestRoiPool::test_backward[True-xpu-3] 
+test_torchvision_roi_ops.py::TestRoiPool::test_backward[True-xpu-4] 
+[gw3] [ 59%] PASSED test_roi_align.py::TestNNMethod::test_roi_align_forward 
+test_safe_softmax.py::TestSafeSoftMax::test_sm 
+[gw7] [ 59%] PASSED test_torchvision_roi_ops.py::TestRoiPool::test_backward[True-xpu-4] 
+test_torchvision_roi_ops.py::TestRoiPool::test_backward[True-xpu-5] 
+[gw6] [ 59%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_forward[False-False-x_dtype1-xpu-False] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_forward[False-False-x_dtype2-xpu-True] 
+[gw3] [ 60%] PASSED test_safe_softmax.py::TestSafeSoftMax::test_sm 
+test_softmax.py::TestNNMethod::test_softmax_half_to_float 
+[gw7] [ 60%] PASSED test_torchvision_roi_ops.py::TestRoiPool::test_backward[True-xpu-5] 
+test_torchvision_roi_ops.py::TestRoiPool::test_backward[True-xpu-6] 
+[gw7] [ 60%] PASSED test_torchvision_roi_ops.py::TestRoiPool::test_backward[True-xpu-6] 
+test_torchvision_roi_ops.py::TestRoiPool::test_backward[True-xpu-7] 
+[gw4] [ 61%] PASSED test_nms.py::TestNNMethod::test_batched_nms 
+test_nms.py::TestNNMethod::test_nms 
+[gw4] [ 61%] PASSED test_nms.py::TestNNMethod::test_nms 
+test_operation_on_device_1.py::TestOperationOnDevice1::test_sum_on_device1 
+[gw4] [ 61%] PASSED test_operation_on_device_1.py::TestOperationOnDevice1::test_sum_on_device1 
+[gw7] [ 62%] PASSED test_torchvision_roi_ops.py::TestRoiPool::test_backward[True-xpu-7] 
+test_torchvision_roi_ops.py::TestRoiPool::test_backward[True-xpu-8] 
+test_pin_memory.py::TestPinMemoryXPU::test_pin_memory_xpu 
+[gw4] [ 62%] PASSED test_pin_memory.py::TestPinMemoryXPU::test_pin_memory_xpu 
+test_rand.py::TestNNMethod::test_distribution_normal 
+[gw4] [ 62%] PASSED test_rand.py::TestNNMethod::test_distribution_normal 
+[gw7] [ 63%] PASSED test_torchvision_roi_ops.py::TestRoiPool::test_backward[True-xpu-8] 
+test_torchvision_roi_ops.py::TestRoiPool::test_backward[True-xpu-9] 
+test_rand.py::TestNNMethod::test_distribution_uniform 
+[gw4] [ 63%] PASSED test_rand.py::TestNNMethod::test_distribution_uniform 
+test_record_stream.py::TestTorchMethod::test_record_stream 
+[gw7] [ 64%] PASSED test_torchvision_roi_ops.py::TestRoiPool::test_backward[True-xpu-9] 
+test_torchvision_roi_ops.py::TestRoiPool::test_backward[False-xpu-0] 
+[gw4] [ 64%] PASSED test_record_stream.py::TestTorchMethod::test_record_stream 
+test_record_stream.py::TestTorchMethod::test_record_stream_on_shifted_view 
+[gw4] [ 64%] PASSED test_record_stream.py::TestTorchMethod::test_record_stream_on_shifted_view 
+[gw1] [ 65%] PASSED test_deform_conv.py::TestDeformConv::test_forward[33-True-xpu] 
+test_deform_conv.py::TestDeformConv::test_forward[33-False-xpu] 
+test_resize.py::TestSimpleResize::test_resize 
+[gw7] [ 65%] PASSED test_torchvision_roi_ops.py::TestRoiPool::test_backward[False-xpu-0] 
+test_torchvision_roi_ops.py::TestRoiPool::test_backward[False-xpu-1] 
+[gw4] [ 65%] PASSED test_resize.py::TestSimpleResize::test_resize 
+test_resize.py::TestSimpleResize::test_tensor_set_storage 
+[gw4] [ 66%] PASSED test_resize.py::TestSimpleResize::test_tensor_set_storage 
+test_resize.py::TestSimpleResize::test_unfold 
+[gw4] [ 66%] PASSED test_resize.py::TestSimpleResize::test_unfold 
+[gw7] [ 66%] PASSED test_torchvision_roi_ops.py::TestRoiPool::test_backward[False-xpu-1] 
+test_torchvision_roi_ops.py::TestRoiPool::test_backward[False-xpu-2] 
+test_resize.py::TestSimpleResize::test_view 
+[gw4] [ 67%] PASSED test_resize.py::TestSimpleResize::test_view 
+[gw6] [ 67%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_forward[False-False-x_dtype2-xpu-True] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_forward[False-False-x_dtype2-xpu-False] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_forward[True-False-x_dtype1-xpu-False] 
+[gw7] [ 67%] PASSED test_torchvision_roi_ops.py::TestRoiPool::test_backward[False-xpu-2] 
+test_torchvision_roi_ops.py::TestRoiPool::test_backward[False-xpu-3] 
+[gw7] [ 68%] PASSED test_torchvision_roi_ops.py::TestRoiPool::test_backward[False-xpu-3] 
+test_torchvision_roi_ops.py::TestRoiPool::test_backward[False-xpu-4] 
+[gw7] [ 68%] PASSED test_torchvision_roi_ops.py::TestRoiPool::test_backward[False-xpu-4] 
+test_torchvision_roi_ops.py::TestRoiPool::test_backward[False-xpu-5] 
+[gw7] [ 68%] PASSED test_torchvision_roi_ops.py::TestRoiPool::test_backward[False-xpu-5] 
+test_torchvision_roi_ops.py::TestPSRoIAlign::test_is_leaf_node[xpu] 
+[gw7] [ 69%] PASSED test_torchvision_roi_ops.py::TestPSRoIAlign::test_is_leaf_node[xpu] 
+test_torchvision_roi_ops.py::TestPSRoIAlign::test_torch_fx_trace[xpu] 
+[gw7] [ 69%] PASSED test_torchvision_roi_ops.py::TestPSRoIAlign::test_torch_fx_trace[xpu] 
+test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[True-xpu-0] 
+[gw7] [ 69%] PASSED test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[True-xpu-0] 
+test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[True-xpu-1] 
+[gw7] [ 70%] PASSED test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[True-xpu-1] 
+test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[True-xpu-2] 
+[gw6] [ 70%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_forward[False-False-x_dtype2-xpu-False] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype0-x_dtype0-True-True] 
+[gw7] [ 70%] PASSED test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[True-xpu-2] 
+test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[True-xpu-3] 
+[gw7] [ 71%] PASSED test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[True-xpu-3] 
+test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[True-xpu-4] 
+[gw7] [ 71%] PASSED test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[True-xpu-4] 
+test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[True-xpu-5] 
+[gw7] [ 71%] PASSED test_torchvision_roi_ops.py::TestPSRoIAlign::test_backward[True-xpu-5] 
+test_torchvision_roi_ops.py::TestRoiPool::test_forward[torch.float16-False-xpu] 
+[gw2] [ 72%] PASSED test_index_and_index_put.py::TestTorchMethod::test_index_put 
+test_index_and_index_put.py::TestTorchMethod::test_index_put_outer_inner 
+[gw2] [ 72%] PASSED test_index_and_index_put.py::TestTorchMethod::test_index_put_outer_inner 
+test_index_and_index_put.py::TestTorchMethod::test_index_put_with_zero_shape_dim 
+[gw2] [ 73%] PASSED test_index_and_index_put.py::TestTorchMethod::test_index_put_with_zero_shape_dim 
+test_int4pack.py::TestNNMethod::test_convert_weight_to_int4pack 
+[gw7] [ 73%] PASSED test_torchvision_roi_ops.py::TestRoiPool::test_forward[torch.float16-False-xpu] 
+test_torchvision_roi_ops.py::TestRoiPool::test_forward[torch.float32-True-xpu] 
+[gw7] [ 73%] PASSED test_torchvision_roi_ops.py::TestRoiPool::test_forward[torch.float32-True-xpu] 
+test_torchvision_roi_ops.py::TestRoiPool::test_forward[torch.float32-False-xpu] 
+[gw7] [ 74%] PASSED test_torchvision_roi_ops.py::TestRoiPool::test_forward[torch.float32-False-xpu] 
+test_torchvision_roi_ops.py::TestRoiPool::test_forward[torch.float64-True-xpu] 
+[gw7] [ 74%] PASSED test_torchvision_roi_ops.py::TestRoiPool::test_forward[torch.float64-True-xpu] 
+[gw2] [ 74%] PASSED test_int4pack.py::TestNNMethod::test_convert_weight_to_int4pack 
+test_layer_norm.py::TestLayerNorm::test_layer_norm_no_nan 
+test_torchvision_roi_ops.py::TestRoiPool::test_forward[torch.float64-False-xpu] 
+[gw7] [ 75%] PASSED test_torchvision_roi_ops.py::TestRoiPool::test_forward[torch.float64-False-xpu] 
+[gw2] [ 75%] PASSED test_layer_norm.py::TestLayerNorm::test_layer_norm_no_nan 
+test_linalg.py::TestLinalg::test_solve_batch_mixed_nan 
+test_torchvision_roi_ops.py::TestRoiPool::test_is_leaf_node[xpu] 
+[gw7] [ 75%] PASSED test_torchvision_roi_ops.py::TestRoiPool::test_is_leaf_node[xpu] 
+test_torchvision_roi_ops.py::TestRoiPool::test_torch_fx_trace[xpu] 
+[gw7] [ 76%] PASSED test_torchvision_roi_ops.py::TestRoiPool::test_torch_fx_trace[xpu] 
+test_deform_conv.py::TestDeformConv::test_schema__test_forward[0-True-xpu] 
+[gw7] [ 76%] PASSED test_deform_conv.py::TestDeformConv::test_schema__test_forward[0-True-xpu] 
+test_deform_conv.py::TestDeformConv::test_faketensor__test_forward[0-True-xpu] 
+[gw7] [ 76%] PASSED test_deform_conv.py::TestDeformConv::test_faketensor__test_forward[0-True-xpu] 
+[gw2] [ 77%] PASSED test_linalg.py::TestLinalg::test_solve_batch_mixed_nan 
+test_linalg.py::TestLinalg::test_solve_cayley_transform 
+[gw2] [ 77%] PASSED test_linalg.py::TestLinalg::test_solve_cayley_transform 
+test_deform_conv.py::TestDeformConv::test_aot_dispatch_dynamic__test_forward[0-True-xpu] 
+test_linalg.py::TestLinalg::test_solve_nan_variants 
+[gw2] [ 77%] PASSED test_linalg.py::TestLinalg::test_solve_nan_variants 
+test_loops.py::TestLoopsKernel::test_bc_vec_large_tensor 
+[gw1] [ 78%] PASSED test_deform_conv.py::TestDeformConv::test_forward[33-False-xpu] 
+test_deform_conv.py::TestDeformConv::test_compare_cpu_xpu_grads[True] 
+[gw7] [ 78%] PASSED test_deform_conv.py::TestDeformConv::test_aot_dispatch_dynamic__test_forward[0-True-xpu] 
+test_deform_conv.py::TestDeformConv::test_schema__test_forward_scriptability 
+[gw7] [ 78%] PASSED test_deform_conv.py::TestDeformConv::test_schema__test_forward_scriptability 
+test_deform_conv.py::TestDeformConv::test_faketensor__test_forward_scriptability 
+[gw7] [ 79%] PASSED test_deform_conv.py::TestDeformConv::test_faketensor__test_forward_scriptability 
+test_deform_conv.py::TestDeformConv::test_aot_dispatch_dynamic__test_forward_scriptability 
+[gw7] [ 79%] PASSED test_deform_conv.py::TestDeformConv::test_aot_dispatch_dynamic__test_forward_scriptability 
+test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype0-x_dtype1-False-False] 
+[gw1] [ 79%] PASSED test_deform_conv.py::TestDeformConv::test_compare_cpu_xpu_grads[True] 
+test_deform_conv.py::TestDeformConv::test_compare_cpu_xpu_grads[False] 
+[gw1] [ 80%] PASSED test_deform_conv.py::TestDeformConv::test_compare_cpu_xpu_grads[False] 
+test_deform_conv.py::TestDeformConv::test_forward_scriptability 
+[gw1] [ 80%] PASSED test_deform_conv.py::TestDeformConv::test_forward_scriptability 
+test_deform_conv.py::TestDeformConv::test_schema__test_compare_cpu_xpu_grads[True] 
+[gw1] [ 80%] PASSED test_deform_conv.py::TestDeformConv::test_schema__test_compare_cpu_xpu_grads[True] 
+test_deform_conv.py::TestDeformConv::test_faketensor__test_compare_cpu_xpu_grads[True] 
+[gw1] [ 81%] PASSED test_deform_conv.py::TestDeformConv::test_faketensor__test_compare_cpu_xpu_grads[True] 
+test_deform_conv.py::TestDeformConv::test_aot_dispatch_dynamic__test_compare_cpu_xpu_grads[True] 
+[gw7] [ 81%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype0-x_dtype1-False-False] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype1-x_dtype0-True-True] 
+[gw1] [ 82%] PASSED test_deform_conv.py::TestDeformConv::test_aot_dispatch_dynamic__test_compare_cpu_xpu_grads[True] 
+test_torchvision_roi_ops.py::TestPSRoIAlign::test_forward[torch.float32-True-xpu] 
+[gw1] [ 82%] PASSED test_torchvision_roi_ops.py::TestPSRoIAlign::test_forward[torch.float32-True-xpu] 
+test_torchvision_roi_ops.py::TestPSRoIAlign::test_forward[torch.float32-False-xpu] 
+[gw1] [ 82%] PASSED test_torchvision_roi_ops.py::TestPSRoIAlign::test_forward[torch.float32-False-xpu] 
+test_torchvision_roi_ops.py::TestPSRoIAlign::test_forward[torch.float64-True-xpu] 
+[gw1] [ 83%] PASSED test_torchvision_roi_ops.py::TestPSRoIAlign::test_forward[torch.float64-True-xpu] 
+test_torchvision_roi_ops.py::TestPSRoIAlign::test_forward[torch.float64-False-xpu] 
+[gw1] [ 83%] PASSED test_torchvision_roi_ops.py::TestPSRoIAlign::test_forward[torch.float64-False-xpu] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_forward[False-True-x_dtype1-xpu-True] 
+[gw1] [ 83%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_forward[False-True-x_dtype1-xpu-True] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_forward[False-True-x_dtype1-xpu-False] 
+[gw2] [ 84%] PASSED test_loops.py::TestLoopsKernel::test_bc_vec_large_tensor 
+test_loops.py::TestLoopsKernel::test_loops_bfloat16 
+[gw1] [ 84%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_forward[False-True-x_dtype1-xpu-False] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_forward[False-True-x_dtype2-xpu-True] 
+[gw1] [ 84%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_forward[False-True-x_dtype2-xpu-True] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_forward[False-True-x_dtype2-xpu-False] 
+[gw1] [ 85%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_forward[False-True-x_dtype2-xpu-False] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_forward[True-True-x_dtype2-xpu-False] 
+[gw2] [ 85%] PASSED test_loops.py::TestLoopsKernel::test_loops_bfloat16 
+test_loops.py::TestLoopsKernel::test_loops_dynamic_cast 
+[gw2] [ 85%] PASSED test_loops.py::TestLoopsKernel::test_loops_dynamic_cast 
+test_loops.py::TestLoopsKernel::test_loops_float 
+[gw3] [ 86%] PASSED test_softmax.py::TestNNMethod::test_softmax_half_to_float 
+test_sort.py::TestNNMethod::test_sort_large_bool 
+[gw3] [ 86%] PASSED test_sort.py::TestNNMethod::test_sort_large_bool 
+test_sort.py::TestNNMethod::test_sort_large_slice 
+[gw3] [ 86%] PASSED test_sort.py::TestNNMethod::test_sort_large_slice 
+test_tensor_factory.py::TestSimpleEmptyDeterministic::test_empty_float 
+[gw3] [ 87%] PASSED test_tensor_factory.py::TestSimpleEmptyDeterministic::test_empty_float 
+test_tensor_factory.py::TestSimpleEmptyDeterministic::test_empty_int64 
+[gw3] [ 87%] PASSED test_tensor_factory.py::TestSimpleEmptyDeterministic::test_empty_int64 
+test_tensor_factory.py::TestSimpleEmptyDeterministic::test_empty_strided_float 
+[gw3] [ 87%] PASSED test_tensor_factory.py::TestSimpleEmptyDeterministic::test_empty_strided_float 
+test_tensor_factory.py::TestSimpleEmptyDeterministic::test_empty_strided_int64 
+[gw3] [ 88%] PASSED test_tensor_factory.py::TestSimpleEmptyDeterministic::test_empty_strided_int64 
+test_torchvision_roi_ops.py::TestRoiPool::test_forward[torch.float16-True-xpu] 
+[gw3] [ 88%] PASSED test_torchvision_roi_ops.py::TestRoiPool::test_forward[torch.float16-True-xpu] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype0-x_dtype1-True-True] 
+[gw2] [ 88%] PASSED test_loops.py::TestLoopsKernel::test_loops_float 
+test_loops.py::TestLoopsKernel::test_loops_half 
+[gw6] [ 89%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype0-x_dtype0-True-True] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype0-x_dtype0-True-False] 
+[gw2] [ 89%] PASSED test_loops.py::TestLoopsKernel::test_loops_half 
+test_torchvision_roi_ops.py::TestPSRoIAlign::test_forward[torch.float16-True-xpu] 
+[gw2] [ 89%] PASSED test_torchvision_roi_ops.py::TestPSRoIAlign::test_forward[torch.float16-True-xpu] 
+test_torchvision_roi_ops.py::TestPSRoIAlign::test_forward[torch.float16-False-xpu] 
+[gw2] [ 90%] PASSED test_torchvision_roi_ops.py::TestPSRoIAlign::test_forward[torch.float16-False-xpu] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_forward[False-True-x_dtype0-xpu-True] 
+[gw2] [ 90%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_forward[False-True-x_dtype0-xpu-True] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_forward[False-True-x_dtype0-xpu-False] 
+[gw0] [ 91%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype1-x_dtype1-True-False] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype1-x_dtype1-False-True] 
+[gw4] [ 91%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_forward[True-False-x_dtype1-xpu-False] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_forward[True-False-x_dtype2-xpu-True] 
+[gw2] [ 91%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_forward[False-True-x_dtype0-xpu-False] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_forward[True-True-x_dtype1-xpu-False] 
+[gw5] [ 92%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_forward[True-True-x_dtype0-xpu-True] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_forward[True-True-x_dtype0-xpu-False] 
+[gw0] [ 92%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype1-x_dtype1-False-True] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype1-x_dtype1-False-False] 
+[gw7] [ 92%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype1-x_dtype0-True-True] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype1-x_dtype0-True-False] 
+[gw0] [ 93%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype1-x_dtype1-False-False] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype1-x_dtype0-False-False] 
+[gw0] [ 93%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype1-x_dtype0-False-False] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype1-x_dtype1-True-True] 
+[gw6] [ 93%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype0-x_dtype0-True-False] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype0-x_dtype0-False-True] 
+[gw6] [ 94%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype0-x_dtype0-False-True] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype0-x_dtype0-False-False] 
+[gw1] [ 94%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_forward[True-True-x_dtype2-xpu-False] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_forward[True-False-x_dtype0-xpu-True] 
+[gw6] [ 94%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype0-x_dtype0-False-False] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_forward[True-False-x_dtype1-xpu-True] 
+[gw3] [ 95%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype0-x_dtype1-True-True] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype0-x_dtype1-True-False] 
+[gw4] [ 95%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_forward[True-False-x_dtype2-xpu-True] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_forward[True-False-x_dtype2-xpu-False] 
+[gw7] [ 95%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype1-x_dtype0-True-False] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype1-x_dtype0-False-True] 
+[gw6] [ 96%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_forward[True-False-x_dtype1-xpu-True] 
+[gw7] [ 96%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype1-x_dtype0-False-True] 
+[gw5] [ 96%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_forward[True-True-x_dtype0-xpu-False] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_forward[True-True-x_dtype1-xpu-True] 
+[gw2] [ 97%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_forward[True-True-x_dtype1-xpu-False] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_forward[True-True-x_dtype2-xpu-True] 
+[gw0] [ 97%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype1-x_dtype1-True-True] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_forward[True-False-x_dtype0-xpu-False] 
+[gw1] [ 97%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_forward[True-False-x_dtype0-xpu-True] 
+test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype0-x_dtype1-False-True] 
+[gw1] [ 98%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype0-x_dtype1-False-True] 
+[gw3] [ 98%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_autocast[rois_dtype0-x_dtype1-True-False] 
+[gw5] [ 98%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_forward[True-True-x_dtype1-xpu-True] 
+[gw4] [ 99%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_forward[True-False-x_dtype2-xpu-False] 
+[gw2] [ 99%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_forward[True-True-x_dtype2-xpu-True] 
+[gw0] [100%] PASSED test_torchvision_roi_ops.py::TestRoIAlign::test_forward[True-False-x_dtype0-xpu-False] 
+
+- generated xml file: /home/jenkins/actions-runner/_work/torch-xpu-ops/torch-xpu-ops/ut_log/op_regression.xml -
+============================= 289 passed in 51.94s =============================

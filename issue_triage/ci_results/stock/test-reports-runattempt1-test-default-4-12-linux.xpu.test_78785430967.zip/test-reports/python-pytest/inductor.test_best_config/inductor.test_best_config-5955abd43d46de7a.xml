@@ -1,0 +1,1 @@
+<testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="13.438" timestamp="2026-06-01T04:53:40.423197" hostname="4f112793be87"><testcase classname="TestKernelBestConfig" name="test_best_config_has_triton_cache_key" time="13.415" file="inductor/test_best_config.py" /></testsuite></testsuites>

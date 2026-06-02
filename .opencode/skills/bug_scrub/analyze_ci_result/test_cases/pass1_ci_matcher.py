@@ -25,6 +25,11 @@ import openpyxl
 
 
 def find_issue_triage_root(start: str) -> str:
+    if os.environ.get('ISSUE_TRIAGE_ROOT'):
+        root = os.path.abspath(os.environ['ISSUE_TRIAGE_ROOT'])
+        if (os.path.isdir(os.path.join(root, 'result')) and
+                os.path.isdir(os.path.join(root, 'ci_results'))):
+            return root
     path = os.path.abspath(start)
     while True:
         if (os.path.isdir(os.path.join(path, 'result')) and
@@ -308,6 +313,7 @@ def create_test_cases_all_excel(stock_cases, xpu_cases):
     for col, header in enumerate(stock_headers, 1):
         write_by_name(ws_stock, 1, header, header)
 
+    log(f"  Writing {len(stock_cases)} stock test cases...")
     for row_idx, tc in enumerate(stock_cases, 2):
         write_by_name(ws_stock, row_idx, 'Test File', tc.get('test_file', ''))
         write_by_name(ws_stock, row_idx, 'Test Class', tc.get('test_class', ''))
@@ -321,6 +327,7 @@ def create_test_cases_all_excel(stock_cases, xpu_cases):
     for col, header in enumerate(xpu_headers, 1):
         write_by_name(ws_xpu, 1, header, header)
 
+    log(f"  Writing {len(xpu_cases)} XPU test cases...")
     for row_idx, tc in enumerate(xpu_cases, 2):
         write_by_name(ws_xpu, row_idx, 'Test File', tc.get('test_file', ''))
         write_by_name(ws_xpu, row_idx, 'Test Class', tc.get('test_class', ''))
@@ -330,18 +337,7 @@ def create_test_cases_all_excel(stock_cases, xpu_cases):
         write_by_name(ws_xpu, row_idx, 'Error Message', tc.get('error_msg', ''))
         write_by_name(ws_xpu, row_idx, 'Traceback', tc.get('traceback', '')[:3000] if tc.get('traceback') else '')
 
-    for ws in [ws_stock, ws_xpu]:
-        for col in ws.columns:
-            max_length = 0
-            col_letter = col[0].column_letter
-            for cell in col:
-                try:
-                    if cell.value and len(str(cell.value)) > max_length:
-                        max_length = len(str(cell.value))
-                except:
-                    pass
-            ws.column_dimensions[col_letter].width = min(max_length + 2, 60)
-
+    log(f"  Saving Excel file (skipping column width formatting for performance)...")
     wb.save(output_path)
     log(f"  Created: {output_path}")
     return output_path
@@ -382,6 +378,36 @@ def normalize_class_name(class_name):
     if short and short != basename and short.strip():
         return short.strip()
     return basename
+
+
+def extract_test_case_from_path(test_file, test_class=None, test_case=None):
+    """
+    Extract test_class and test_case from test_file if they are missing.
+    Handles pytest format: path/to/file.py::ClassName::method_name
+    Returns: (test_class, test_case)
+    """
+    if not test_file:
+        return test_class, test_case
+    
+    test_file = str(test_file).strip()
+    
+    if '::' not in test_file:
+        return test_class, test_case
+    
+    parts = test_file.split('::')
+    if len(parts) >= 3:
+        extracted_class = parts[1].strip()
+        extracted_method = parts[2].strip()
+        if extracted_method and not test_case:
+            test_case = extracted_method
+        if extracted_class and not test_class:
+            test_class = extracted_class
+    elif len(parts) == 2:
+        extracted_class = parts[1].strip()
+        if extracted_class and not test_class:
+            test_class = extracted_class
+    
+    return test_class, test_case
 
 
 def normalize_file_path(file_path):
@@ -488,16 +514,57 @@ def pass1_match_ci_results(ws, output_path):
     for name in ["Error Message", "Traceback", "XPU Status", "Stock Status", "No Match Reason"]:
         ensure_col(ws, name)
 
-    test_cases_all_path = output_path
-    if not os.path.exists(test_cases_all_path):
-        stock_cases = collect_stock_test_cases()
-        xpu_cases = collect_torch_xpu_ops_test_cases()
-        create_test_cases_all_excel(stock_cases, xpu_cases)
+    # Collect CI test cases directly without creating slow Excel intermediate
+    log(f"  Collecting CI test cases from XML files...")
+    stock_cases = collect_stock_test_cases()
+    xpu_cases = collect_torch_xpu_ops_test_cases()
 
-    stock_lookup, xpu_lookup = load_test_cases_all()
-    if not stock_lookup or not xpu_lookup:
-        log(f"  Warning: Could not load test_cases_all.xlsx")
-        return {}
+    # Build lookup maps directly from collected cases (skip Excel creation for performance)
+    log(f"  Building lookup maps...")
+    stock_case_map = build_stock_status_map(stock_cases)
+    
+    # For XPU, build map WITHOUT prefix since matching just needs test class/case
+    xpu_case_map = {}
+    for tc in xpu_cases:
+        key = (tc.get('test_class', ''), tc.get('test_case', ''))
+        xpu_case_map[key] = {
+            'status': tc.get('status', ''),
+            'error_msg': tc.get('error_msg', ''),
+            'traceback': tc.get('traceback', '')
+        }
+    
+    # Also build short class name maps for fuzzy matching
+    stock_short_class_map = {}
+    stock_classes = set()
+    for tc in stock_cases:
+        test_class = tc.get('test_class', '')
+        test_case = tc.get('test_case', '')
+        if test_class and test_case:
+            short_class = normalize_class_name(test_class)
+            stock_classes.add(test_class)
+            stock_classes.add(short_class)
+            if short_class != test_class:
+                stock_short_class_map[(short_class, test_case)] = stock_case_map[(test_class, test_case)]
+            else:
+                stock_short_class_map[(test_class, test_case)] = stock_case_map[(test_class, test_case)]
+    
+    xpu_short_class_map = {}
+    xpu_classes = set()
+    for tc in xpu_cases:
+        test_class = tc.get('test_class', '')
+        test_case = tc.get('test_case', '')
+        if test_class and test_case:
+            short_class = normalize_class_name(test_class)
+            xpu_classes.add(test_class)
+            xpu_classes.add(short_class)
+            key = (test_class, test_case)
+            if short_class != test_class:
+                xpu_short_class_map[(short_class, test_case)] = xpu_case_map[key]
+            else:
+                xpu_short_class_map[(test_class, test_case)] = xpu_case_map[key]
+    
+    stock_lookup = (stock_case_map, stock_short_class_map, stock_classes)
+    xpu_lookup = (xpu_case_map, xpu_short_class_map, xpu_classes)
     stock_case_map, stock_short_class_map, stock_classes = stock_lookup
     xpu_case_map, xpu_short_class_map, xpu_classes = xpu_lookup
 
@@ -507,13 +574,25 @@ def pass1_match_ci_results(ws, output_path):
     not_found_count = 0
 
     log("  Matching CI results from test_cases_all.xlsx...")
+    rows_to_move_to_others = []
+    
     for i, row_idx in enumerate(range(2, ws.max_row + 1), 1):
         test_file = cell_by_name(ws, row_idx, 'Test File').value
         test_class = cell_by_name(ws, row_idx, 'Test Class').value
         test_case = cell_by_name(ws, row_idx, 'Test Case').value
         issue_id = cell_by_name(ws, row_idx, 'Issue ID').value
+        test_type = cell_by_name(ws, row_idx, 'Test Type').value
 
         if not test_case:
+            test_class, test_case = extract_test_case_from_path(test_file, test_class, test_case)
+            if test_case:
+                write_by_name(ws, row_idx, 'Test Class', test_class if test_class else '')
+                write_by_name(ws, row_idx, 'Test Case', test_case)
+        
+        if not test_case:
+            test_type_str = test_type if test_type else 'unknown'
+            if test_type_str.lower() != 'e2e':
+                rows_to_move_to_others.append((row_idx, issue_id, 'No unittest test case found'))
             continue
 
         xpu_status = None
@@ -581,4 +660,31 @@ def pass1_match_ci_results(ws, output_path):
             log(f"    Progress: {i}/{total}")
 
     log(f"  PASS 1 complete: {found_count} matched, {not_found_count} not found")
+    
+    if rows_to_move_to_others:
+        log(f"  Moving {len(rows_to_move_to_others)} rows with no test case to Others sheet...")
+        workbook = ws.parent
+        
+        if 'Others' not in workbook.sheetnames:
+            log("    Warning: Others sheet not found, skipping move")
+        else:
+            ws_others = workbook['Others']
+            
+            for row_idx, issue_id, reason in rows_to_move_to_others:
+                try:
+                    issue_id_cell = cell_by_name(ws, row_idx, 'Issue ID').value
+                    title_cell = ws.cell(row_idx, 2).value if row_idx <= ws.max_row else None
+                    test_repro_cell = cell_by_name(ws, row_idx, 'Test Reproducer').value
+                    
+                    next_row = ws_others.max_row + 1
+                    write_by_name(ws_others, next_row, 'ID', issue_id_cell if issue_id_cell else '')
+                    write_by_name(ws_others, next_row, 'Title', title_cell if title_cell else test_repro_cell if test_repro_cell else '')
+                    write_by_name(ws_others, next_row, 'reproduce step', reason)
+                except Exception as e:
+                    log(f"    Warning: Failed to move row {row_idx} to Others: {e}")
+            
+            log(f"  Deleting {len(rows_to_move_to_others)} rows from Test Cases sheet...")
+            for row_idx in sorted(rows_to_move_to_others, key=lambda x: x[0], reverse=True):
+                ws.delete_rows(row_idx[0], 1)
+    
     return issues_needing_llm

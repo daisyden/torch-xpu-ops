@@ -1,0 +1,175 @@
+W0531 14:37:07.200000 66892 site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+/__w/torch-xpu-ops/torch-xpu-ops/pt2e-performance/torchbenchmark/util/backends/torchdynamo.py:41: FutureWarning: `config.shallow_copy_dict()` has been deprecated. It no longer changes the underlying config. use `config.get_config_copy()` instead if you just want a copy of the config, or config.load_config if you need mutable access
+  return torch._inductor.config.shallow_copy_dict()
+/__w/torch-xpu-ops/torch-xpu-ops/pt2e-performance/torchbenchmark/util/backends/torchdynamo.py:41: FutureWarning: `config.shallow_copy_dict()` has been deprecated. It no longer changes the underlying config. use `config.get_config_copy()` instead if you just want a copy of the config, or config.load_config if you need mutable access
+  return torch._inductor.config.shallow_copy_dict()
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/pgo.py:605: UserWarning: dynamo_pgo force disabled by torch.compiler.config.force_disable_caches
+  warn_once(
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/pgo.py:605: UserWarning: dynamo_pgo force disabled by torch.compiler.config.force_disable_caches
+  warn_once(
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/pgo.py:605: UserWarning: dynamo_pgo force disabled by torch.compiler.config.force_disable_caches
+  warn_once(
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/pgo.py:605: UserWarning: dynamo_pgo force disabled by torch.compiler.config.force_disable_caches
+  warn_once(
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/pgo.py:605: UserWarning: dynamo_pgo force disabled by torch.compiler.config.force_disable_caches
+  warn_once(
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/pgo.py:605: UserWarning: dynamo_pgo force disabled by torch.compiler.config.force_disable_caches
+  warn_once(
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/pgo.py:605: UserWarning: dynamo_pgo force disabled by torch.compiler.config.force_disable_caches
+  warn_once(
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_dynamo/pgo.py:605: UserWarning: dynamo_pgo force disabled by torch.compiler.config.force_disable_caches
+  warn_once(
+W0531 14:37:32.419000 66892 site-packages/torch/_inductor/utils.py:3128] [0/0] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_inductor/mkldnn_lowerings.py:805: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  torch.tensor(w_zp_tensor, dtype=torch.int32), name=w_zp.get_name()
+W0531 14:37:39.139000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.159000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.164000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_inductor/mkldnn_lowerings.py:1111: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  torch.tensor(w_zp_tensor, dtype=torch.int32), name=w_zp.get_name()
+W0531 14:37:39.177000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.207000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.212000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.227000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.232000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.237000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.248000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.264000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.269000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.284000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.289000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.294000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.305000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.321000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.325000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.341000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.346000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.351000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.362000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.378000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.383000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.398000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.404000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.409000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.420000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.436000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.441000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.457000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.462000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.467000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.478000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.494000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.499000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.515000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.521000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.526000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.537000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.553000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.558000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.574000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.579000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.584000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.596000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.612000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.617000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.633000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.639000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.644000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.656000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.672000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.677000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.693000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.698000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.703000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.715000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.732000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.737000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.753000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.759000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.764000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.776000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.792000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.797000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.813000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.819000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.824000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.837000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.854000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.859000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.876000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.882000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.887000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.899000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.915000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.920000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.937000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.943000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.948000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.960000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.977000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.982000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:39.998000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.004000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.010000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.022000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.038000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.044000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.060000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.067000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.072000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.084000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.101000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.106000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.123000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.129000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.134000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.147000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.163000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.169000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.186000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.192000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.198000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.210000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.227000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.232000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.250000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.256000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.261000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.274000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.290000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.296000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.313000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.320000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.325000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.338000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.355000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.360000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.377000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.384000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.389000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.402000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.419000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.425000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.442000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.449000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.454000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.467000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.484000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.490000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.507000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.513000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.519000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.532000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.549000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.555000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.573000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.579000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.585000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.598000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.615000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.620000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.636000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+W0531 14:37:40.653000 66892 site-packages/torch/_inductor/select_algorithm.py:3293] [0/0] Constructing input/output tensor meta failed for Extern Choice
+Running TorchBenchModelConfig(name='hf_Bert_large', test='eval', device='xpu', batch_size=None, extra_args=['--channels-last', '--torchdynamo', 'inductor', '--quantization', 'pt2e'], extra_env=None, output_dir=None) ... [Done]
+
+Running benchmark: /tmp/xpu-tool/Python/3.10.20/x64/bin/python /__w/torch-xpu-ops/torch-xpu-ops/pt2e-performance/userbenchmark/xpu/run_config.py -m hf_Bert_large -d xpu -t eval --channels-last --torchdynamo inductor --quantization pt2e --metrics throughputs --nwarmup 20 --niter 50 -o /__w/torch-xpu-ops/torch-xpu-ops/pt2e-performance/.userbenchmark/xpu/xpu-20260531143704

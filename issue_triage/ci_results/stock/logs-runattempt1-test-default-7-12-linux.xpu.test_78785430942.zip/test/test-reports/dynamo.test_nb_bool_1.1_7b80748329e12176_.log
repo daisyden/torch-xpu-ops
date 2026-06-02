@@ -1,0 +1,54 @@
+Test results will be stored in test-reports/python-pytest/dynamo.test_nb_bool/dynamo.test_nb_bool-975516a1df0ece0f.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 39 items
+stepcurrent: Cannot find last run test, not skipping
+Running 39 items in this shard: test/dynamo/test_nb_bool.py::NbBoolTests::test_bool, test/dynamo/test_nb_bool.py::NbBoolTests::test_bool_user_defined_object_raises_typeerror, test/dynamo/test_nb_bool.py::NbBoolTests::test_bytes, test/dynamo/test_nb_bool.py::NbBoolTests::test_complex_nonzero, test/dynamo/test_nb_bool.py::NbBoolTests::test_complex_real_nonzero_imag_zero, test/dynamo/test_nb_bool.py::NbBoolTests::test_complex_real_zero_imag_nonzero, test/dynamo/test_nb_bool.py::NbBoolTests::test_complex_zero, test/dynamo/test_nb_bool.py::NbBoolTests::test_empty_counter, test/dynamo/test_nb_bool.py::NbBoolTests::test_empty_defaultdict, test/dynamo/test_nb_bool.py::NbBoolTests::test_empty_dict, test/dynamo/test_nb_bool.py::NbBoolTests::test_empty_frozenset, test/dynamo/test_nb_bool.py::NbBoolTests::test_empty_list, test/dynamo/test_nb_bool.py::NbBoolTests::test_empty_range, test/dynamo/test_nb_bool.py::NbBoolTests::test_empty_set, test/dynamo/test_nb_bool.py::NbBoolTests::test_empty_tuple, test/dynamo/test_nb_bool.py::NbBoolTests::test_enum_member, test/dynamo/test_nb_bool.py::NbBoolTests::test_float, test/dynamo/test_nb_bool.py::NbBoolTests::test_if_cond_user_defined_object_returns_self, test/dynamo/test_nb_bool.py::NbBoolTests::test_int, test/dynamo/test_nb_bool.py::NbBoolTests::test_metaclass_bool, test/dynamo/test_nb_bool.py::NbBoolTests::test_nn_module_empty, test/dynamo/test_nb_bool.py::NbBoolTests::test_nn_module_nonempty, test/dynamo/test_nb_bool.py::NbBoolTests::test_none, test/dynamo/test_nb_bool.py::NbBoolTests::test_nonempty_counter, test/dynamo/test_nb_bool.py::NbBoolTests::test_nonempty_defaultdict, test/dynamo/test_nb_bool.py::NbBoolTests::test_nonempty_dict, test/dynamo/test_nb_bool.py::NbBoolTests::test_nonempty_frozenset, test/dynamo/test_nb_bool.py::NbBoolTests::test_nonempty_list, test/dynamo/test_nb_bool.py::NbBoolTests::test_nonempty_range, test/dynamo/test_nb_bool.py::NbBoolTests::test_nonempty_set, test/dynamo/test_nb_bool.py::NbBoolTests::test_nonempty_tuple, test/dynamo/test_nb_bool.py::NbBoolTests::test_str, test/dynamo/test_nb_bool.py::NbBoolTests::test_tensor_nonzero, test/dynamo/test_nb_bool.py::NbBoolTests::test_tensor_zero, test/dynamo/test_nb_bool.py::NbBoolTests::test_user_defined_bool_none_raises, test/dynamo/test_nb_bool.py::NbBoolTests::test_user_defined_bool_returns_non_bool_raises, test/dynamo/test_nb_bool.py::NbBoolTests::test_user_defined_no_bool_no_len, test/dynamo/test_nb_bool.py::NbBoolTests::test_user_defined_with_bool, test/dynamo/test_nb_bool.py::NbBoolTests::test_user_defined_with_len
+
+dynamo/test_nb_bool.py::NbBoolTests::test_bool PASSED [0.4592s]          [  2%]
+dynamo/test_nb_bool.py::NbBoolTests::test_bool_user_defined_object_raises_typeerror PASSED [0.0138s] [  5%]
+dynamo/test_nb_bool.py::NbBoolTests::test_bytes PASSED [0.0811s]         [  7%]
+dynamo/test_nb_bool.py::NbBoolTests::test_complex_nonzero PASSED [0.0654s] [ 10%]
+dynamo/test_nb_bool.py::NbBoolTests::test_complex_real_nonzero_imag_zero PASSED [0.0648s] [ 12%]
+dynamo/test_nb_bool.py::NbBoolTests::test_complex_real_zero_imag_nonzero PASSED [0.0644s] [ 15%]
+dynamo/test_nb_bool.py::NbBoolTests::test_complex_zero PASSED [0.0643s]  [ 17%]
+dynamo/test_nb_bool.py::NbBoolTests::test_empty_counter PASSED [0.0846s] [ 20%]
+dynamo/test_nb_bool.py::NbBoolTests::test_empty_defaultdict PASSED [0.0873s] [ 23%]
+dynamo/test_nb_bool.py::NbBoolTests::test_empty_dict PASSED [0.0897s]    [ 25%]
+dynamo/test_nb_bool.py::NbBoolTests::test_empty_frozenset PASSED [0.0655s] [ 28%]
+dynamo/test_nb_bool.py::NbBoolTests::test_empty_list PASSED [0.0623s]    [ 30%]
+dynamo/test_nb_bool.py::NbBoolTests::test_empty_range PASSED [0.0620s]   [ 33%]
+dynamo/test_nb_bool.py::NbBoolTests::test_empty_set PASSED [0.0626s]     [ 35%]
+dynamo/test_nb_bool.py::NbBoolTests::test_empty_tuple PASSED [0.0619s]   [ 38%]
+dynamo/test_nb_bool.py::NbBoolTests::test_enum_member PASSED [0.0798s]   [ 41%]
+dynamo/test_nb_bool.py::NbBoolTests::test_float PASSED [0.0960s]         [ 43%]
+dynamo/test_nb_bool.py::NbBoolTests::test_if_cond_user_defined_object_returns_self PASSED [0.0101s] [ 46%]
+dynamo/test_nb_bool.py::NbBoolTests::test_int PASSED [0.0949s]           [ 48%]
+dynamo/test_nb_bool.py::NbBoolTests::test_metaclass_bool PASSED [0.0404s] [ 51%]
+dynamo/test_nb_bool.py::NbBoolTests::test_nn_module_empty PASSED [0.0354s] [ 53%]
+dynamo/test_nb_bool.py::NbBoolTests::test_nn_module_nonempty PASSED [0.0337s] [ 56%]
+dynamo/test_nb_bool.py::NbBoolTests::test_none PASSED [0.0625s]          [ 58%]
+dynamo/test_nb_bool.py::NbBoolTests::test_nonempty_counter PASSED [0.0708s] [ 61%]
+dynamo/test_nb_bool.py::NbBoolTests::test_nonempty_defaultdict PASSED [0.0671s] [ 64%]
+dynamo/test_nb_bool.py::NbBoolTests::test_nonempty_dict PASSED [0.0642s] [ 66%]
+dynamo/test_nb_bool.py::NbBoolTests::test_nonempty_frozenset PASSED [0.0682s] [ 69%]
+dynamo/test_nb_bool.py::NbBoolTests::test_nonempty_list PASSED [0.0646s] [ 71%]
+dynamo/test_nb_bool.py::NbBoolTests::test_nonempty_range PASSED [0.0645s] [ 74%]
+dynamo/test_nb_bool.py::NbBoolTests::test_nonempty_set PASSED [0.0645s]  [ 76%]
+dynamo/test_nb_bool.py::NbBoolTests::test_nonempty_tuple PASSED [0.2376s] [ 79%]
+dynamo/test_nb_bool.py::NbBoolTests::test_str PASSED [0.0804s]           [ 82%]
+dynamo/test_nb_bool.py::NbBoolTests::test_tensor_nonzero PASSED [0.0533s] [ 84%]
+dynamo/test_nb_bool.py::NbBoolTests::test_tensor_zero PASSED [0.0473s]   [ 87%]
+dynamo/test_nb_bool.py::NbBoolTests::test_user_defined_bool_none_raises PASSED [0.0433s] [ 89%]
+dynamo/test_nb_bool.py::NbBoolTests::test_user_defined_bool_returns_non_bool_raises PASSED [0.0130s] [ 92%]
+dynamo/test_nb_bool.py::NbBoolTests::test_user_defined_no_bool_no_len PASSED [0.0435s] [ 94%]
+dynamo/test_nb_bool.py::NbBoolTests::test_user_defined_with_bool PASSED [0.0759s] [ 97%]
+dynamo/test_nb_bool.py::NbBoolTests::test_user_defined_with_len PASSED [0.0794s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/dynamo.test_nb_bool/dynamo.test_nb_bool-975516a1df0ece0f.xml -
+============================== 39 passed in 3.05s ==============================

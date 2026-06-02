@@ -1,0 +1,122 @@
+Test results will be stored in test-reports/python-pytest/dynamo.test_exception_contract/dynamo.test_exception_contract-5c55e68e72e32b04.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 2 items
+stepcurrent: Cannot find last run test, not skipping
+Running 2 items in this shard: test/dynamo/test_exception_contract.py::TestIndexErrorContract::test_compile_preserves_index_error, test/dynamo/test_exception_contract.py::TestIndexErrorContract::test_size_negative_out_of_range
+
+dynamo/test_exception_contract.py::TestIndexErrorContract::test_compile_preserves_index_error E0601 04:44:02.149000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0] failed while attempting to run meta for aten.squeeze.dims
+E0601 04:44:02.149000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0] Traceback (most recent call last):
+E0601 04:44:02.149000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_subclasses/fake_tensor.py", line 2960, in _dispatch_impl
+E0601 04:44:02.149000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     r = func(*args, **kwargs)
+E0601 04:44:02.149000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_ops.py", line 871, in __call__
+E0601 04:44:02.149000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     return self._op(*args, **kwargs)
+E0601 04:44:02.149000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_refs/__init__.py", line 4404, in squeeze
+E0601 04:44:02.149000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     dim = utils.canonicalize_dims(ndim, dim)
+E0601 04:44:02.149000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_prims_common/__init__.py", line 863, in canonicalize_dims
+E0601 04:44:02.149000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     return tuple(canonicalize_dim(rank, x, wrap_scalar) for x in indices)
+E0601 04:44:02.149000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_prims_common/__init__.py", line 863, in <genexpr>
+E0601 04:44:02.149000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     return tuple(canonicalize_dim(rank, x, wrap_scalar) for x in indices)
+E0601 04:44:02.149000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_prims_common/__init__.py", line 836, in canonicalize_dim
+E0601 04:44:02.149000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     raise IndexError(msg)
+E0601 04:44:02.149000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0] IndexError: Dimension out of range (expected to be in range of [-1, 0], but got 99)
+E0601 04:44:02.167000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0] failed while attempting to run meta for aten.unsqueeze.default
+E0601 04:44:02.167000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0] Traceback (most recent call last):
+E0601 04:44:02.167000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_subclasses/fake_tensor.py", line 2960, in _dispatch_impl
+E0601 04:44:02.167000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     r = func(*args, **kwargs)
+E0601 04:44:02.167000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_ops.py", line 871, in __call__
+E0601 04:44:02.167000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     return self._op(*args, **kwargs)
+E0601 04:44:02.167000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_refs/__init__.py", line 4941, in unsqueeze
+E0601 04:44:02.167000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     dim = utils.canonicalize_dim(ndim, dim)
+E0601 04:44:02.167000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_prims_common/__init__.py", line 836, in canonicalize_dim
+E0601 04:44:02.167000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     raise IndexError(msg)
+E0601 04:44:02.167000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0] IndexError: Dimension out of range (expected to be in range of [-2, 1], but got 99)
+E0601 04:44:02.179000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0] failed while attempting to run meta for aten.amax.default
+E0601 04:44:02.179000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0] Traceback (most recent call last):
+E0601 04:44:02.179000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_subclasses/fake_tensor.py", line 2960, in _dispatch_impl
+E0601 04:44:02.179000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     r = func(*args, **kwargs)
+E0601 04:44:02.179000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_ops.py", line 871, in __call__
+E0601 04:44:02.179000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     return self._op(*args, **kwargs)
+E0601 04:44:02.179000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_refs/__init__.py", line 2549, in amax
+E0601 04:44:02.179000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     return _reduction(
+E0601 04:44:02.179000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_refs/__init__.py", line 2330, in _reduction
+E0601 04:44:02.179000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     dims = utils.reduction_dims(a.shape, dims)
+E0601 04:44:02.179000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_prims_common/__init__.py", line 1921, in reduction_dims
+E0601 04:44:02.179000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     dims = tuple(canonicalize_dim(len(shape), idx) for idx in dims)
+E0601 04:44:02.179000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_prims_common/__init__.py", line 1921, in <genexpr>
+E0601 04:44:02.179000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     dims = tuple(canonicalize_dim(len(shape), idx) for idx in dims)
+E0601 04:44:02.179000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_prims_common/__init__.py", line 836, in canonicalize_dim
+E0601 04:44:02.179000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     raise IndexError(msg)
+E0601 04:44:02.179000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0] IndexError: Dimension out of range (expected to be in range of [-1, 0], but got 99)
+E0601 04:44:02.190000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0] failed while attempting to run meta for aten.argmax.default
+E0601 04:44:02.190000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0] Traceback (most recent call last):
+E0601 04:44:02.190000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_subclasses/fake_tensor.py", line 2960, in _dispatch_impl
+E0601 04:44:02.190000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     r = func(*args, **kwargs)
+E0601 04:44:02.190000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_ops.py", line 871, in __call__
+E0601 04:44:02.190000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     return self._op(*args, **kwargs)
+E0601 04:44:02.190000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_meta_registrations.py", line 7906, in argmax_argmin_meta
+E0601 04:44:02.190000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     check_argmax_argmin("argmax", self, dim)
+E0601 04:44:02.190000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_meta_registrations.py", line 7895, in check_argmax_argmin
+E0601 04:44:02.190000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     dim = maybe_wrap_dim(dim, self.dim())
+E0601 04:44:02.190000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_meta_registrations.py", line 5881, in maybe_wrap_dim
+E0601 04:44:02.190000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     raise IndexError(
+E0601 04:44:02.190000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0] IndexError: Dimension out of range (expected to be in range of [-1, 0], but got 99)
+E0601 04:44:02.202000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0] failed while attempting to run meta for aten.flip.default
+E0601 04:44:02.202000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0] Traceback (most recent call last):
+E0601 04:44:02.202000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_subclasses/fake_tensor.py", line 2960, in _dispatch_impl
+E0601 04:44:02.202000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     r = func(*args, **kwargs)
+E0601 04:44:02.202000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_ops.py", line 871, in __call__
+E0601 04:44:02.202000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     return self._op(*args, **kwargs)
+E0601 04:44:02.202000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_prims_common/wrappers.py", line 313, in _fn
+E0601 04:44:02.202000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     result = fn(*args, **kwargs)
+E0601 04:44:02.202000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_refs/__init__.py", line 3262, in flip
+E0601 04:44:02.202000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     dims = utils.canonicalize_dims(a.ndim, dims)  # type: ignore[assignment]
+E0601 04:44:02.202000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_prims_common/__init__.py", line 863, in canonicalize_dims
+E0601 04:44:02.202000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     return tuple(canonicalize_dim(rank, x, wrap_scalar) for x in indices)
+E0601 04:44:02.202000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_prims_common/__init__.py", line 863, in <genexpr>
+E0601 04:44:02.202000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     return tuple(canonicalize_dim(rank, x, wrap_scalar) for x in indices)
+E0601 04:44:02.202000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_prims_common/__init__.py", line 836, in canonicalize_dim
+E0601 04:44:02.202000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     raise IndexError(msg)
+E0601 04:44:02.202000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0] IndexError: Dimension out of range (expected to be in range of [-1, 0], but got 99)
+E0601 04:44:02.214000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0] failed while attempting to run meta for aten.cat.default
+E0601 04:44:02.214000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0] Traceback (most recent call last):
+E0601 04:44:02.214000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_subclasses/fake_tensor.py", line 2960, in _dispatch_impl
+E0601 04:44:02.214000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     r = func(*args, **kwargs)
+E0601 04:44:02.214000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_ops.py", line 871, in __call__
+E0601 04:44:02.214000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     return self._op(*args, **kwargs)
+E0601 04:44:02.214000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_prims_common/wrappers.py", line 313, in _fn
+E0601 04:44:02.214000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     result = fn(*args, **kwargs)
+E0601 04:44:02.214000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_compile.py", line 54, in inner
+E0601 04:44:02.214000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     return disable_fn(*args, **kwargs)
+E0601 04:44:02.214000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+E0601 04:44:02.214000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     return fn(*args, **kwargs)
+E0601 04:44:02.214000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_prims_common/wrappers.py", line 151, in _fn
+E0601 04:44:02.214000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     result = fn(**bound.arguments)
+E0601 04:44:02.214000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_refs/__init__.py", line 3004, in cat
+E0601 04:44:02.214000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     dim = utils.canonicalize_dim(filtered[0].ndim, dim)
+E0601 04:44:02.214000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_prims_common/__init__.py", line 836, in canonicalize_dim
+E0601 04:44:02.214000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     raise IndexError(msg)
+E0601 04:44:02.214000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0] IndexError: Dimension out of range (expected to be in range of [-1, 0], but got 99)
+E0601 04:44:02.225000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0] failed while attempting to run meta for aten.stack.default
+E0601 04:44:02.225000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0] Traceback (most recent call last):
+E0601 04:44:02.225000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_subclasses/fake_tensor.py", line 2960, in _dispatch_impl
+E0601 04:44:02.225000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     r = func(*args, **kwargs)
+E0601 04:44:02.225000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_ops.py", line 871, in __call__
+E0601 04:44:02.225000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     return self._op(*args, **kwargs)
+E0601 04:44:02.225000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_prims_common/wrappers.py", line 313, in _fn
+E0601 04:44:02.225000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     result = fn(*args, **kwargs)
+E0601 04:44:02.225000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_refs/__init__.py", line 4194, in stack
+E0601 04:44:02.225000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     wrapped_dim = utils.canonicalize_dim(tensors[0].ndim + 1, dim)
+E0601 04:44:02.225000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_prims_common/__init__.py", line 836, in canonicalize_dim
+E0601 04:44:02.225000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     raise IndexError(msg)
+E0601 04:44:02.225000 62176 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0] IndexError: Dimension out of range (expected to be in range of [-2, 1], but got 99)
+PASSED [0.6718s] [ 50%]
+dynamo/test_exception_contract.py::TestIndexErrorContract::test_size_negative_out_of_range PASSED [0.0086s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/dynamo.test_exception_contract/dynamo.test_exception_contract-5c55e68e72e32b04.xml -
+============================== 2 passed in 0.70s ===============================

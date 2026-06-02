@@ -1,0 +1,1 @@
+<testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="0.505" timestamp="2026-06-01T04:42:35.034887" hostname="4f112793be87"><testcase classname="TestUnittest" name="test_SkipTest" time="0.481" file="dynamo/test_unittest.py" /></testsuite></testsuites>

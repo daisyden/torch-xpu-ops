@@ -1,0 +1,10 @@
+W0531 14:38:51.215000 60027 site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNeXt50_32X4D_Weights.IMAGENET1K_V1`. You can also use `weights=ResNeXt50_32X4D_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Downloading: "https://download.pytorch.org/models/resnext50_32x4d-7cdf4587.pth" to /github/home/.cache/torch/hub/checkpoints/resnext50_32x4d-7cdf4587.pth
+  0%|          | 0.00/95.8M [00:00<?, ?B/s] 26%|██▌       | 24.8M/95.8M [00:00<00:00, 259MB/s] 57%|█████▋    | 54.9M/95.8M [00:00<00:00, 292MB/s] 90%|████████▉ | 85.8M/95.8M [00:00<00:00, 304MB/s]100%|██████████| 95.8M/95.8M [00:00<00:00, 298MB/s]
+using fp32
+W0531 14:38:56.219000 60027 site-packages/torch/_inductor/utils.py:3128] [0/0] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+resnext50_32x4d fp32:  * Acc@1 77.608 Acc@5 93.688

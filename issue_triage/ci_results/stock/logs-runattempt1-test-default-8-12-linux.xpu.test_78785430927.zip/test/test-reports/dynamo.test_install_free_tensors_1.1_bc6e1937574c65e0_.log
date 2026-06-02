@@ -1,0 +1,40 @@
+Test results will be stored in test-reports/python-pytest/dynamo.test_install_free_tensors/dynamo.test_install_free_tensors-7c9cbc8c5d842aa1.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 25 items
+stepcurrent: Cannot find last run test, not skipping
+Running 25 items in this shard: test/dynamo/test_install_free_tensors.py::InstallParamsAsGraphAttrTests::test_breadth_linear, test/dynamo/test_install_free_tensors.py::InstallParamsAsGraphAttrTests::test_nested_linear, test/dynamo/test_install_free_tensors.py::InstallParamsAsGraphAttrTests::test_nets_as_input, test/dynamo/test_install_free_tensors.py::InstallParamsAsGraphAttrTests::test_optimizing_buffer_and_param_in_input, test/dynamo/test_install_free_tensors.py::InstallParamsAsGraphAttrTests::test_optimizing_buffer_in_input, test/dynamo/test_install_free_tensors.py::InstallParamsAsGraphAttrTests::test_optimizing_linear, test/dynamo/test_install_free_tensors.py::InstallParamsAsGraphAttrTests::test_optimizing_params_in_input, test/dynamo/test_install_free_tensors.py::InstallParamsAsGraphAttrTests::test_resnet_structure, test/dynamo/test_install_free_tensors.py::InstallParamsAsGraphAttrTests::test_simple_batchnorm, test/dynamo/test_install_free_tensors.py::InstallParamsAsGraphAttrTests::test_transformer, test/dynamo/test_install_free_tensors.py::InstallParamsWhenExport::test_dict_of_tensor, test/dynamo/test_install_free_tensors.py::InstallParamsWhenExport::test_global_tensor_export, test/dynamo/test_install_free_tensors.py::InstallParamsWhenExport::test_list_of_tensor, test/dynamo/test_install_free_tensors.py::InstallParamsWhenExport::test_modify_net_state, test/dynamo/test_install_free_tensors.py::InstallParamsWhenExport::test_nested_list_of_tensor, test/dynamo/test_install_free_tensors.py::InstallParamsWhenExport::test_nonlocal_closure, test/dynamo/test_install_free_tensors.py::InstallParamsWhenExport::test_optimizing_buffer_and_param_in_input, test/dynamo/test_install_free_tensors.py::InstallParamsWhenExport::test_optimizing_buffer_in_input, test/dynamo/test_install_free_tensors.py::InstallParamsWhenExport::test_optimizing_params_in_input, test/dynamo/test_install_free_tensors.py::InstallParamsWhenExport::test_resnet_structure, test/dynamo/test_install_free_tensors.py::InstallParamsWhenExport::test_simple_batchnorm, test/dynamo/test_install_free_tensors.py::InstallParamsWhenExport::test_simple_linear, test/dynamo/test_install_free_tensors.py::InstallParamsWhenExport::test_tensors_as_nn_attr, test/dynamo/test_install_free_tensors.py::InstallParamsWhenExport::test_transformer, test/dynamo/test_install_free_tensors.py::InstallParamsWhenExport::test_user_defined_object
+
+dynamo/test_install_free_tensors.py::InstallParamsAsGraphAttrTests::test_breadth_linear PASSED [0.5787s] [  4%]
+dynamo/test_install_free_tensors.py::InstallParamsAsGraphAttrTests::test_nested_linear PASSED [0.1482s] [  8%]
+dynamo/test_install_free_tensors.py::InstallParamsAsGraphAttrTests::test_nets_as_input PASSED [0.3906s] [ 12%]
+dynamo/test_install_free_tensors.py::InstallParamsAsGraphAttrTests::test_optimizing_buffer_and_param_in_input PASSED [0.1461s] [ 16%]
+dynamo/test_install_free_tensors.py::InstallParamsAsGraphAttrTests::test_optimizing_buffer_in_input PASSED [0.2634s] [ 20%]
+dynamo/test_install_free_tensors.py::InstallParamsAsGraphAttrTests::test_optimizing_linear PASSED [0.0841s] [ 24%]
+dynamo/test_install_free_tensors.py::InstallParamsAsGraphAttrTests::test_optimizing_params_in_input PASSED [0.4508s] [ 28%]
+dynamo/test_install_free_tensors.py::InstallParamsAsGraphAttrTests::test_resnet_structure PASSED [0.6050s] [ 32%]
+dynamo/test_install_free_tensors.py::InstallParamsAsGraphAttrTests::test_simple_batchnorm PASSED [0.3197s] [ 36%]
+dynamo/test_install_free_tensors.py::InstallParamsAsGraphAttrTests::test_transformer PASSED [3.2802s] [ 40%]
+dynamo/test_install_free_tensors.py::InstallParamsWhenExport::test_dict_of_tensor PASSED [0.0204s] [ 44%]
+dynamo/test_install_free_tensors.py::InstallParamsWhenExport::test_global_tensor_export PASSED [0.0683s] [ 48%]
+dynamo/test_install_free_tensors.py::InstallParamsWhenExport::test_list_of_tensor PASSED [0.0326s] [ 52%]
+dynamo/test_install_free_tensors.py::InstallParamsWhenExport::test_modify_net_state PASSED [0.0731s] [ 56%]
+dynamo/test_install_free_tensors.py::InstallParamsWhenExport::test_nested_list_of_tensor PASSED [0.0328s] [ 60%]
+dynamo/test_install_free_tensors.py::InstallParamsWhenExport::test_nonlocal_closure PASSED [0.0291s] [ 64%]
+dynamo/test_install_free_tensors.py::InstallParamsWhenExport::test_optimizing_buffer_and_param_in_input PASSED [0.0503s] [ 68%]
+dynamo/test_install_free_tensors.py::InstallParamsWhenExport::test_optimizing_buffer_in_input PASSED [0.1155s] [ 72%]
+dynamo/test_install_free_tensors.py::InstallParamsWhenExport::test_optimizing_params_in_input PASSED [0.1442s] [ 76%]
+dynamo/test_install_free_tensors.py::InstallParamsWhenExport::test_resnet_structure PASSED [0.4204s] [ 80%]
+dynamo/test_install_free_tensors.py::InstallParamsWhenExport::test_simple_batchnorm PASSED [0.4484s] [ 84%]
+dynamo/test_install_free_tensors.py::InstallParamsWhenExport::test_simple_linear PASSED [0.1183s] [ 88%]
+dynamo/test_install_free_tensors.py::InstallParamsWhenExport::test_tensors_as_nn_attr PASSED [0.0533s] [ 92%]
+dynamo/test_install_free_tensors.py::InstallParamsWhenExport::test_transformer PASSED [6.9290s] [ 96%]
+dynamo/test_install_free_tensors.py::InstallParamsWhenExport::test_user_defined_object XFAIL [0.0480s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/dynamo.test_install_free_tensors/dynamo.test_install_free_tensors-7c9cbc8c5d842aa1.xml -
+======================== 24 passed, 1 xfailed in 14.91s ========================

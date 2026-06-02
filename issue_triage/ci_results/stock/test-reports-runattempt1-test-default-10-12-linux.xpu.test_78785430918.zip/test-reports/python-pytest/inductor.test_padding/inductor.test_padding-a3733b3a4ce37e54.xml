@@ -1,0 +1,3 @@
+<testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="16.178" timestamp="2026-06-01T04:44:48.162816" hostname="9d48c37feb18"><testcase classname="PaddingTest" name="test_nobias_LinearAndSoftmax_codegen" time="16.149" file="inductor/test_padding.py"><system-err>Compiled module path: /tmp/tmpoxikriwf/zj/czj7vumonjccgkxosmb5hlh6pv6zk4cyl64yz5tvruphkughnpdp.py
+Compiled module path: /tmp/tmpoxikriwf/yf/cyfd77qxsy7c4nv2srjcd7hcoghospyeiukkhhqtredmsdam7fps.py
+</system-err></testcase></testsuite></testsuites>

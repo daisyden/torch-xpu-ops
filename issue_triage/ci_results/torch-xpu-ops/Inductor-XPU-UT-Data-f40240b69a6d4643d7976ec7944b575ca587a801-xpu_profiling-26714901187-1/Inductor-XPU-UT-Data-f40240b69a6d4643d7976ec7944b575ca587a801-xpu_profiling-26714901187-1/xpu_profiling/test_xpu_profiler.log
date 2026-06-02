@@ -1,0 +1,21 @@
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /tmp/xpu-tool/Python/3.10.20/x64/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /__w/torch-xpu-ops/torch-xpu-ops/pytorch
+configfile: pytest.ini
+plugins: timeout-2.4.0, xdoctest-1.3.0, subtests-0.13.1, rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, cpp-2.3.0, anyio-4.13.0, flakefinder-1.1.0
+timeout: 600.0s
+timeout method: thread
+timeout func_only: False
+created: 8/8 workers
+8 workers [2 items]
+
+scheduling tests via WorkStealingScheduling
+
+test_xpu_profiler.py::XpuProfilerTest::test_profiler_xpu_driver 
+test_xpu_profiler.py::XpuProfilerTest::test_profiler 
+[gw6] PASSED [0.8636s] test_xpu_profiler.py::XpuProfilerTest::test_profiler 
+[gw7] PASSED [0.9449s] test_xpu_profiler.py::XpuProfilerTest::test_profiler_xpu_driver 
+
+============================== 2 passed in 3.45s ===============================

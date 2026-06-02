@@ -1,0 +1,145 @@
+<testsuites><testsuite name="pytest" errors="0" failures="0" skipped="1" tests="48" time="15.413" timestamp="2026-06-01T04:44:01.510021" hostname="4f112793be87"><testcase classname="TestConverter" name="test_aten___getitem___dict" time="0.632" file="export/test_converter.py" /><testcase classname="TestConverter" name="test_aten___getitem___list" time="0.115" file="export/test_converter.py" /><testcase classname="TestConverter" name="test_aten___is__" time="0.065" file="export/test_converter.py" /><testcase classname="TestConverter" name="test_aten___isnot__" time="0.049" file="export/test_converter.py" /><testcase classname="TestConverter" name="test_aten___not__" time="0.050" file="export/test_converter.py" /><testcase classname="TestConverter" name="test_aten_add_t" time="0.103" file="export/test_converter.py" /><testcase classname="TestConverter" name="test_aten_append_t" time="0.087" file="export/test_converter.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/converter.py:1259: UserWarning: Converting aten::append.t, which is an inplace mutation of the list. This makes the converter non-functional: the result depends on the order of the append nodes being converted!
+  handler_func(node)
+</system-err></testcase><testcase classname="TestConverter" name="test_aten_dim" time="0.072" file="export/test_converter.py" /><testcase classname="TestConverter" name="test_aten_floordiv" time="0.271" file="export/test_converter.py" /><testcase classname="TestConverter" name="test_aten_len" time="0.194" file="export/test_converter.py"><system-err>/var/lib/jenkins/pytorch/test/export/test_converter.py:187: TracerWarning: Using len to get tensor shape might cause the trace to be incorrect. Recommended usage would be tensor.shape[0]. Passing a tensor of different shape might lead to errors or silently give incorrect results.
+  length = len(x)
+</system-err></testcase><testcase classname="TestConverter" name="test_aten_tensor_dtype_int" time="0.056" file="export/test_converter.py"><system-err>/var/lib/jenkins/pytorch/test/export/test_converter.py:1039: TracerWarning: torch.tensor results are registered as constants in the trace. You can safely ignore this warning if you use this function to create tensors out of constant variables that would be the same every time you call this function. In any other case, this might cause the trace to be incorrect.
+  y = torch.tensor(1, dtype=torch.int32)
+</system-err></testcase><testcase classname="TestConverter" name="test_aten_tensor_dynamic" time="0.155" file="export/test_converter.py"><system-err>/var/lib/jenkins/pytorch/test/export/test_converter.py:1060: TracerWarning: torch.tensor results are registered as constants in the trace. You can safely ignore this warning if you use this function to create tensors out of constant variables that would be the same every time you call this function. In any other case, this might cause the trace to be incorrect.
+  y = torch.tensor(s)
+/var/lib/jenkins/pytorch/test/export/test_converter.py:1060: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  y = torch.tensor(s)
+/var/lib/jenkins/pytorch/test/export/test_converter.py:1077: TracerWarning: torch.tensor results are registered as constants in the trace. You can safely ignore this warning if you use this function to create tensors out of constant variables that would be the same every time you call this function. In any other case, this might cause the trace to be incorrect.
+  y = torch.tensor([s, s * 2, 1])
+</system-err></testcase><testcase classname="TestConverter" name="test_aten_tensor_prim_dtype" time="0.062" file="export/test_converter.py"><system-err>/var/lib/jenkins/pytorch/test/export/test_converter.py:1049: TracerWarning: torch.tensor results are registered as constants in the trace. You can safely ignore this warning if you use this function to create tensors out of constant variables that would be the same every time you call this function. In any other case, this might cause the trace to be incorrect.
+  y = torch.tensor(1, dtype=x.dtype)
+</system-err></testcase><testcase classname="TestConverter" name="test_aten_to_dtype_with_mutating_storage" time="0.134" file="export/test_converter.py"><system-err>/var/lib/jenkins/pytorch/test/export/test_converter.py:270: TracerWarning: torch.tensor results are registered as constants in the trace. You can safely ignore this warning if you use this function to create tensors out of constant variables that would be the same every time you call this function. In any other case, this might cause the trace to be incorrect.
+  torch.ops.aten.index_put_(x, [torch.tensor([0])], y)
+</system-err></testcase><testcase classname="TestConverter" name="test_context_manager" time="0.128" file="export/test_converter.py" /><testcase classname="TestConverter" name="test_convert_func_without_param" time="0.278" file="export/test_converter.py"><system-err>/var/lib/jenkins/pytorch/test/export/test_converter.py:935: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if x.sum() &gt; 0:
+</system-err></testcase><testcase classname="TestConverter" name="test_convert_if_basic" time="0.359" file="export/test_converter.py"><system-err>/var/lib/jenkins/pytorch/test/export/test_converter.py:414: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if x:
+</system-err></testcase><testcase classname="TestConverter" name="test_convert_if_duplicate_attr_names" time="0.058" file="export/test_converter.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/interpreter.py:377: UserWarning: Pred is a Python constant. When used with torch.cond, it specializes on one of the branches. If you want torch.cond to preserve two branches, please make the predicate a boolean tensor or a SymBool.
+  return target(*args, **kwargs)
+</system-err></testcase><testcase classname="TestConverter" name="test_convert_if_multiple_out" time="0.193" file="export/test_converter.py"><system-err>/var/lib/jenkins/pytorch/test/export/test_converter.py:466: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if x:
+</system-err></testcase><testcase classname="TestConverter" name="test_convert_if_tuple_out" time="0.202" file="export/test_converter.py"><system-err>/var/lib/jenkins/pytorch/test/export/test_converter.py:439: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if x:
+</system-err></testcase><testcase classname="TestConverter" name="test_convert_nn_module_with_nested_buffer" time="0.152" file="export/test_converter.py" /><testcase classname="TestConverter" name="test_convert_nn_module_with_nested_if_and_buffer" time="0.453" file="export/test_converter.py"><system-err>/var/lib/jenkins/pytorch/test/export/test_converter.py:714: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if torch.max(x) &gt; 1:
+/var/lib/jenkins/pytorch/test/export/test_converter.py:699: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if torch.sum(x) &gt; 1:
+/var/lib/jenkins/pytorch/test/export/test_converter.py:80: UserWarning: Manually populate m1.w into state_dict ExportedProgram, but it is never used by the ExportedProgram.
+  ep = converter.convert()
+/var/lib/jenkins/pytorch/test/export/test_converter.py:80: UserWarning: Manually populate m1.m1.w into state_dict ExportedProgram, but it is never used by the ExportedProgram.
+  ep = converter.convert()
+/var/lib/jenkins/pytorch/test/export/test_converter.py:80: UserWarning: Manually populate m1.m2.w into state_dict ExportedProgram, but it is never used by the ExportedProgram.
+  ep = converter.convert()
+/var/lib/jenkins/pytorch/test/export/test_converter.py:80: UserWarning: Manually populate m2.m1.w into state_dict ExportedProgram, but it is never used by the ExportedProgram.
+  ep = converter.convert()
+</system-err></testcase><testcase classname="TestConverter" name="test_convert_nn_module_with_nested_if_and_param" time="3.606" file="export/test_converter.py"><system-err>/var/lib/jenkins/pytorch/test/export/test_converter.py:754: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if torch.sum(x) &gt; 1:
+/var/lib/jenkins/pytorch/test/export/test_converter.py:80: UserWarning: Manually populate m2.linear.weight into state_dict ExportedProgram, but it is never used by the ExportedProgram.
+  ep = converter.convert()
+/var/lib/jenkins/pytorch/test/export/test_converter.py:80: UserWarning: Manually populate m2.linear.bias into state_dict ExportedProgram, but it is never used by the ExportedProgram.
+  ep = converter.convert()
+/var/lib/jenkins/pytorch/test/export/test_converter.py:769: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if torch.max(x) &gt; 1:
+/var/lib/jenkins/pytorch/test/export/test_converter.py:754: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if torch.sum(x) &gt; 1:
+/var/lib/jenkins/pytorch/test/export/test_converter.py:80: UserWarning: Manually populate m1.m1.linear.weight into state_dict ExportedProgram, but it is never used by the ExportedProgram.
+  ep = converter.convert()
+/var/lib/jenkins/pytorch/test/export/test_converter.py:80: UserWarning: Manually populate m1.m1.linear.bias into state_dict ExportedProgram, but it is never used by the ExportedProgram.
+  ep = converter.convert()
+/var/lib/jenkins/pytorch/test/export/test_converter.py:80: UserWarning: Manually populate m1.m2.linear.weight into state_dict ExportedProgram, but it is never used by the ExportedProgram.
+  ep = converter.convert()
+/var/lib/jenkins/pytorch/test/export/test_converter.py:80: UserWarning: Manually populate m1.m2.linear.bias into state_dict ExportedProgram, but it is never used by the ExportedProgram.
+  ep = converter.convert()
+/var/lib/jenkins/pytorch/test/export/test_converter.py:80: UserWarning: Manually populate m1.linear.weight into state_dict ExportedProgram, but it is never used by the ExportedProgram.
+  ep = converter.convert()
+/var/lib/jenkins/pytorch/test/export/test_converter.py:80: UserWarning: Manually populate m1.linear.bias into state_dict ExportedProgram, but it is never used by the ExportedProgram.
+  ep = converter.convert()
+/var/lib/jenkins/pytorch/test/export/test_converter.py:80: UserWarning: Manually populate m2.m2.linear.weight into state_dict ExportedProgram, but it is never used by the ExportedProgram.
+  ep = converter.convert()
+/var/lib/jenkins/pytorch/test/export/test_converter.py:80: UserWarning: Manually populate m2.m2.linear.bias into state_dict ExportedProgram, but it is never used by the ExportedProgram.
+  ep = converter.convert()
+/var/lib/jenkins/pytorch/test/export/test_converter.py:784: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if torch.sum(x) &gt; 1:
+/var/lib/jenkins/pytorch/test/export/test_converter.py:754: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if torch.sum(x) &gt; 1:
+/var/lib/jenkins/pytorch/test/export/test_converter.py:80: UserWarning: Manually populate m1.m2.linear.weight into state_dict ExportedProgram, but it is never used by the ExportedProgram.
+  ep = converter.convert()
+/var/lib/jenkins/pytorch/test/export/test_converter.py:80: UserWarning: Manually populate m1.m2.linear.bias into state_dict ExportedProgram, but it is never used by the ExportedProgram.
+  ep = converter.convert()
+/var/lib/jenkins/pytorch/test/export/test_converter.py:80: UserWarning: Manually populate m2.m1.linear.weight into state_dict ExportedProgram, but it is never used by the ExportedProgram.
+  ep = converter.convert()
+/var/lib/jenkins/pytorch/test/export/test_converter.py:80: UserWarning: Manually populate m2.m1.linear.bias into state_dict ExportedProgram, but it is never used by the ExportedProgram.
+  ep = converter.convert()
+/var/lib/jenkins/pytorch/test/export/test_converter.py:80: UserWarning: Manually populate m2.m2.linear.weight into state_dict ExportedProgram, but it is never used by the ExportedProgram.
+  ep = converter.convert()
+/var/lib/jenkins/pytorch/test/export/test_converter.py:80: UserWarning: Manually populate m2.m2.linear.bias into state_dict ExportedProgram, but it is never used by the ExportedProgram.
+  ep = converter.convert()
+/var/lib/jenkins/pytorch/test/export/test_converter.py:80: UserWarning: Manually populate m2.linear.weight into state_dict ExportedProgram, but it is never used by the ExportedProgram.
+  ep = converter.convert()
+/var/lib/jenkins/pytorch/test/export/test_converter.py:80: UserWarning: Manually populate m2.linear.bias into state_dict ExportedProgram, but it is never used by the ExportedProgram.
+  ep = converter.convert()
+</system-err></testcase><testcase classname="TestConverter" name="test_convert_nn_module_with_nested_param" time="0.253" file="export/test_converter.py" /><testcase classname="TestConverter" name="test_convert_retrace_nested_scripted_modules" time="2.474" file="export/test_converter.py"><system-err>/var/lib/jenkins/pytorch/test/export/test_converter.py:604: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if x:
+/var/lib/jenkins/pytorch/test/export/test_converter.py:80: UserWarning: Manually populate mod1.mod1.linear.weight into state_dict ExportedProgram, but it is never used by the ExportedProgram.
+  ep = converter.convert()
+/var/lib/jenkins/pytorch/test/export/test_converter.py:80: UserWarning: Manually populate mod1.mod1.linear.bias into state_dict ExportedProgram, but it is never used by the ExportedProgram.
+  ep = converter.convert()
+/var/lib/jenkins/pytorch/test/export/test_converter.py:80: UserWarning: Manually populate mod1.mod2.mod.linear.weight into state_dict ExportedProgram, but it is never used by the ExportedProgram.
+  ep = converter.convert()
+/var/lib/jenkins/pytorch/test/export/test_converter.py:80: UserWarning: Manually populate mod1.mod2.mod.linear.bias into state_dict ExportedProgram, but it is never used by the ExportedProgram.
+  ep = converter.convert()
+</system-err></testcase><testcase classname="TestConverter" name="test_convert_script_object" time="0.046" file="export/test_converter.py" /><testcase classname="TestConverter" name="test_get_tensor_constants" time="0.104" file="export/test_converter.py" /><testcase classname="TestConverter" name="test_hidden_input_name" time="0.232" file="export/test_converter.py" /><testcase classname="TestConverter" name="test_implicit_constant_to_tensor_handling" time="0.985" file="export/test_converter.py"><system-err>/var/lib/jenkins/pytorch/test/export/test_converter.py:964: TracerWarning: torch.tensor results are registered as constants in the trace. You can safely ignore this warning if you use this function to create tensors out of constant variables that would be the same every time you call this function. In any other case, this might cause the trace to be incorrect.
+  return x + torch.tensor([3])
+/var/lib/jenkins/pytorch/test/export/test_converter.py:967: TracerWarning: torch.tensor results are registered as constants in the trace. You can safely ignore this warning if you use this function to create tensors out of constant variables that would be the same every time you call this function. In any other case, this might cause the trace to be incorrect.
+  val = torch.tensor(float("inf"))
+/var/lib/jenkins/pytorch/test/export/test_converter.py:1000: TracerWarning: torch.tensor results are registered as constants in the trace. You can safely ignore this warning if you use this function to create tensors out of constant variables that would be the same every time you call this function. In any other case, this might cause the trace to be incorrect.
+  return torch.tensor(4) + x
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/jit/_trace.py:802: TracerWarning: Output nr 1. of the traced function does not match the corresponding output of the Python function. Detailed error:
+The values for attribute 'shape' do not match: torch.Size([]) != torch.Size([24]).
+  _check_trace(
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/jit/_trace.py:802: TracerWarning: Output nr 2. of the traced function does not match the corresponding output of the Python function. Detailed error:
+The values for attribute 'shape' do not match: torch.Size([]) != torch.Size([2, 3, 4]).
+  _check_trace(
+</system-err></testcase><testcase classname="TestConverter" name="test_prim_SetAttr" time="0.336" file="export/test_converter.py" /><testcase classname="TestConverter" name="test_prim_device" time="0.073" file="export/test_converter.py" /><testcase classname="TestConverter" name="test_prim_device_cuda" time="0.001" file="export/test_converter.py"><skipped type="pytest.skip" message="requires cuda">/var/lib/jenkins/pytorch/test/export/test_converter.py:380: requires cuda</skipped></testcase><testcase classname="TestConverter" name="test_prim_dtype" time="0.351" file="export/test_converter.py" /><testcase classname="TestConverter" name="test_prim_max" time="0.110" file="export/test_converter.py"><system-err>/var/lib/jenkins/pytorch/test/export/test_converter.py:315: TracerWarning: Using len to get tensor shape might cause the trace to be incorrect. Recommended usage would be tensor.shape[0]. Passing a tensor of different shape might lead to errors or silently give incorrect results.
+  x_len = len(x)
+/var/lib/jenkins/pytorch/test/export/test_converter.py:316: TracerWarning: Using len to get tensor shape might cause the trace to be incorrect. Recommended usage would be tensor.shape[0]. Passing a tensor of different shape might lead to errors or silently give incorrect results.
+  y_len = len(y)
+</system-err></testcase><testcase classname="TestConverter" name="test_prim_min" time="0.100" file="export/test_converter.py"><system-err>/var/lib/jenkins/pytorch/test/export/test_converter.py:279: TracerWarning: Using len to get tensor shape might cause the trace to be incorrect. Recommended usage would be tensor.shape[0]. Passing a tensor of different shape might lead to errors or silently give incorrect results.
+  x_len = len(x)
+/var/lib/jenkins/pytorch/test/export/test_converter.py:280: TracerWarning: Using len to get tensor shape might cause the trace to be incorrect. Recommended usage would be tensor.shape[0]. Passing a tensor of different shape might lead to errors or silently give incorrect results.
+  y_len = len(y)
+</system-err></testcase><testcase classname="TestConverter" name="test_prim_tolist" time="0.157" file="export/test_converter.py" /><testcase classname="TestConverter" name="test_profiler__record_function" time="0.093" file="export/test_converter.py" /><testcase classname="TestConverter" name="test_raise_exception" time="0.201" file="export/test_converter.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/interpreter.py:377: UserWarning: Pred is a Python constant. When used with torch.cond, it specializes on one of the branches. If you want torch.cond to preserve two branches, please make the predicate a boolean tensor or a SymBool.
+  return target(*args, **kwargs)
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/interpreter.py:377: UserWarning: Pred is a Python constant. When used with torch.cond, it specializes on one of the branches. If you want torch.cond to preserve two branches, please make the predicate a boolean tensor or a SymBool.
+  return target(*args, **kwargs)
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/interpreter.py:377: UserWarning: Pred is a Python constant. When used with torch.cond, it specializes on one of the branches. If you want torch.cond to preserve two branches, please make the predicate a boolean tensor or a SymBool.
+  return target(*args, **kwargs)
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/interpreter.py:377: UserWarning: Pred is a Python constant. When used with torch.cond, it specializes on one of the branches. If you want torch.cond to preserve two branches, please make the predicate a boolean tensor or a SymBool.
+  return target(*args, **kwargs)
+</system-err></testcase><testcase classname="TestConverter" name="test_ts2ep_convert_quantized_model1" time="0.849" file="export/test_converter.py"><system-err>/var/lib/jenkins/pytorch/test/export/test_converter.py:1436: DeprecationWarning: torch.ao.quantization is deprecated and will be removed in 2.10. 
+For migrations of users: 
+1. Eager mode quantization (torch.ao.quantization.quantize, torch.ao.quantization.quantize_dynamic), please migrate to use torchao eager mode quantize_ API instead 
+2. FX graph mode quantization (torch.ao.quantization.quantize_fx.prepare_fx,torch.ao.quantization.quantize_fx.convert_fx, please migrate to use torchao pt2e quantization API instead (prepare_pt2e, convert_pt2e) 
+3. pt2e quantization has been migrated to torchao (https://github.com/pytorch/ao/tree/main/torchao/quantization/pt2e) 
+see https://github.com/pytorch/ao/issues/2259 for more details
+  torch.ao.quantization.prepare(model, inplace=True)
+/var/lib/jenkins/pytorch/test/export/test_converter.py:1438: DeprecationWarning: torch.ao.quantization is deprecated and will be removed in 2.10. 
+For migrations of users: 
+1. Eager mode quantization (torch.ao.quantization.quantize, torch.ao.quantization.quantize_dynamic), please migrate to use torchao eager mode quantize_ API instead 
+2. FX graph mode quantization (torch.ao.quantization.quantize_fx.prepare_fx,torch.ao.quantization.quantize_fx.convert_fx, please migrate to use torchao pt2e quantization API instead (prepare_pt2e, convert_pt2e) 
+3. pt2e quantization has been migrated to torchao (https://github.com/pytorch/ao/tree/main/torchao/quantization/pt2e) 
+see https://github.com/pytorch/ao/issues/2259 for more details
+  torch.ao.quantization.convert(model, inplace=True)
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/ao/nn/quantized/modules/utils.py:72: UserWarning: torch.quantize_per_tensor, torch.quantize_per_channel and other quantized tensor creation functions that produce tensors with dtype torch.quint8, torch.qint8, and torch.qint32 are deprecated and will be removed in a future PyTorch release. Please see https://github.com/pytorch/pytorch/issues/184982 for more information. (Triggered internally at /var/lib/jenkins/workspace/aten/src/ATen/quantized/Quantizer.cpp:111.)
+  qweight = torch.quantize_per_tensor(
+</system-err></testcase><testcase classname="TestConverter" name="test_ts2ep_convert_quantized_model_with_opcontext" time="0.043" file="export/test_converter.py" /><testcase classname="TestConverter" name="test_ts2ep_convert_quantized_model_with_opcontext_and_constant" time="0.042" file="export/test_converter.py" /><testcase classname="TestConverter" name="test_ts2ep_converter_basic" time="0.240" file="export/test_converter.py" /><testcase classname="TestConverter" name="test_ts2ep_converter_container_output" time="0.145" file="export/test_converter.py" /><testcase classname="TestConverter" name="test_ts2ep_converter_contains" time="0.088" file="export/test_converter.py" /><testcase classname="TestConverter" name="test_ts2ep_converter_custom_op" time="0.075" file="export/test_converter.py" /><testcase classname="TestConverter" name="test_ts2ep_converter_unpack" time="0.209" file="export/test_converter.py" /><testcase classname="TestConverter" name="test_ts2ep_multi_outputs_on_call_ops" time="0.296" file="export/test_converter.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/interpreter.py:377: UserWarning: Pred is a Python constant. When used with torch.cond, it specializes on one of the branches. If you want torch.cond to preserve two branches, please make the predicate a boolean tensor or a SymBool.
+  return target(*args, **kwargs)
+</system-err></testcase><testcase classname="TestConverter" name="test_ts2ep_with_loop" time="0.359" file="export/test_converter.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/converter.py:1259: UserWarning: Converting aten::append.t, which is an inplace mutation of the list. This makes the converter non-functional: the result depends on the order of the append nodes being converted!
+  handler_func(node)
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_export/converter.py:1259: UserWarning: Converting aten::append.t, which is an inplace mutation of the list. This makes the converter non-functional: the result depends on the order of the append nodes being converted!
+  handler_func(node)
+</system-err></testcase></testsuite></testsuites>

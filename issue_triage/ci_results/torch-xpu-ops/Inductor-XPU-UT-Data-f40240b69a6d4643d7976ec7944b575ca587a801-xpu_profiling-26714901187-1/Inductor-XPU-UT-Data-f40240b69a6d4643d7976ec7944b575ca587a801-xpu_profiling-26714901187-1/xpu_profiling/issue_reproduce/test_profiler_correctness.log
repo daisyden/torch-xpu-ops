@@ -1,0 +1,45 @@
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /tmp/xpu-tool/Python/3.10.20/x64/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default' -> database=DirectoryBasedExampleDatabase('/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/.hypothesis/examples')
+rootdir: /__w/torch-xpu-ops/torch-xpu-ops/pytorch
+configfile: pytest.ini
+plugins: timeout-2.4.0, xdoctest-1.3.0, subtests-0.13.1, rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, cpp-2.3.0, flakefinder-1.1.0
+timeout: 600.0s
+timeout method: thread
+timeout func_only: False
+created: 8/8 workers
+8 workers [14 items]
+
+scheduling tests via WorkStealingScheduling
+
+test/profiling/test_profiler_correctness.py::TestProfilerCorrectness::test_triton_xpu_ops_profiling 
+test/profiling/test_profiler_correctness.py::TestProfilerCorrectness::test_backward_kernels_profiled 
+test/profiling/test_profiler_correctness.py::TestProfilerCorrectness::test_profile_partial_runtime_ops 
+test/profiling/test_profiler_correctness.py::TestProfilerCorrectness::test_profiler_schedule_callback 
+test/profiling/test_profiler_correctness.py::TestProfilerCorrectness::test_correlation_id_mixed 
+test/profiling/test_profiler_correctness.py::TestProfilerCorrectness::test_h2d_d2h_transfer_events 
+test/profiling/test_profiler_correctness.py::TestProfilerCorrectness::test_memory_events_present 
+test/profiling/test_profiler_correctness.py::TestProfilerCorrectness::test_chrome_trace_json_structure 
+[gw5] PASSED test/profiling/test_profiler_correctness.py::TestProfilerCorrectness::test_profile_partial_runtime_ops 
+[gw4] PASSED test/profiling/test_profiler_correctness.py::TestProfilerCorrectness::test_memory_events_present 
+[gw6] PASSED test/profiling/test_profiler_correctness.py::TestProfilerCorrectness::test_profiler_schedule_callback 
+test/profiling/test_profiler_correctness.py::TestProfilerCorrectness::test_profiler_repeated_start_stop 
+[gw3] PASSED test/profiling/test_profiler_correctness.py::TestProfilerCorrectness::test_h2d_d2h_transfer_events 
+test/profiling/test_profiler_correctness.py::TestProfilerCorrectness::test_profiler_with_record_function 
+[gw2] PASSED test/profiling/test_profiler_correctness.py::TestProfilerCorrectness::test_correlation_id_mixed 
+test/profiling/test_profiler_correctness.py::TestProfilerCorrectness::test_multi_op_kernel_to_op_association 
+test/profiling/test_profiler_correctness.py::TestProfilerCorrectness::test_kernel_set_stability 
+test/profiling/test_profiler_correctness.py::TestProfilerCorrectness::test_event_duration_positive 
+[gw5] PASSED test/profiling/test_profiler_correctness.py::TestProfilerCorrectness::test_profiler_repeated_start_stop 
+[gw3] PASSED test/profiling/test_profiler_correctness.py::TestProfilerCorrectness::test_kernel_set_stability 
+[gw2] PASSED test/profiling/test_profiler_correctness.py::TestProfilerCorrectness::test_event_duration_positive 
+[gw4] PASSED test/profiling/test_profiler_correctness.py::TestProfilerCorrectness::test_multi_op_kernel_to_op_association 
+[gw1] PASSED test/profiling/test_profiler_correctness.py::TestProfilerCorrectness::test_chrome_trace_json_structure 
+[gw6] PASSED test/profiling/test_profiler_correctness.py::TestProfilerCorrectness::test_profiler_with_record_function 
+[gw0] PASSED test/profiling/test_profiler_correctness.py::TestProfilerCorrectness::test_backward_kernels_profiled 
+[gw7] PASSED test/profiling/test_profiler_correctness.py::TestProfilerCorrectness::test_triton_xpu_ops_profiling 
+test/profiling/test_profiler_correctness.py::TestProfilerCorrectness::test_xpu_kernel_time_present 
+[gw7] PASSED test/profiling/test_profiler_correctness.py::TestProfilerCorrectness::test_xpu_kernel_time_present 
+
+============================== 14 passed in 7.82s ==============================

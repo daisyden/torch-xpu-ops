@@ -1,0 +1,133 @@
+++ python benchmarks/dynamo/torchbench.py --performance --float16 -d xpu -n10 --training --total-partitions 9 --partition-id 8 --backend=inductor --cold-start-latency --timeout=10800 --disable-cudagraphs --output=/__w/torch-xpu-ops/torch-xpu-ops/pytorch/inductor_log/torchbench/float16/inductor_torchbench_float16_training_xpu_performance.csv
+loading model: 0it [00:00, ?it/s]Downloading: "https://download.pytorch.org/models/squeezenet1_1-b8a52dc0.pth" to /github/home/.cache/torch/hub/checkpoints/squeezenet1_1-b8a52dc0.pth
+
+  0%|          | 0.00/4.73M [00:00<?, ?B/s][A100%|██████████| 4.73M/4.73M [00:00<00:00, 56.2MB/s]
+loading model: 0it [00:04, ?it/s]
+xpu  train squeezenet1_1                      
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  60%|██████    | 6/10 [00:00<00:00, 53.45it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 53.61it/s]
+1.201x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:02, ?it/s]
+xpu  train timm_efficientdet                  
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 4749, in run
+    ) = runner.load_model(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/torchbench.py", line 307, in load_model
+    benchmark = benchmark_cls(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/benchmark/torchbenchmark/util/model.py", line 43, in __call__
+    obj = type.__call__(cls, *args, **kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/benchmark/torchbenchmark/models/timm_efficientdet/__init__.py", line 78, in __init__
+    raise NotImplementedError("The original model code forces the use of CUDA.")
+NotImplementedError: The original model code forces the use of CUDA.
+
+model_fail_to_load
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:09, ?it/s]
+xpu  train timm_efficientnet                  
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  20%|██        | 2/10 [00:00<00:00, 16.29it/s]running benchmark:  40%|████      | 4/10 [00:00<00:00, 16.54it/s]running benchmark:  60%|██████    | 6/10 [00:00<00:00, 16.71it/s]running benchmark:  80%|████████  | 8/10 [00:00<00:00, 16.84it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 16.84it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 16.75it/s]
+1.156x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:20, ?it/s]
+xpu  train timm_nfnet                         
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:03,  2.88it/s]running benchmark:  20%|██        | 2/10 [00:00<00:02,  3.76it/s]running benchmark:  30%|███       | 3/10 [00:00<00:01,  4.16it/s]running benchmark:  40%|████      | 4/10 [00:00<00:01,  4.38it/s]running benchmark:  50%|█████     | 5/10 [00:01<00:01,  4.52it/s]running benchmark:  60%|██████    | 6/10 [00:01<00:00,  4.60it/s]running benchmark:  70%|███████   | 7/10 [00:01<00:00,  4.66it/s]running benchmark:  80%|████████  | 8/10 [00:01<00:00,  4.70it/s]running benchmark:  90%|█████████ | 9/10 [00:02<00:00,  4.71it/s]running benchmark: 100%|██████████| 10/10 [00:02<00:00,  4.73it/s]running benchmark: 100%|██████████| 10/10 [00:02<00:00,  4.48it/s]
+2.092x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:16, ?it/s]
+xpu  train timm_regnet                        
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:02,  4.00it/s]running benchmark:  20%|██        | 2/10 [00:00<00:01,  5.25it/s]running benchmark:  30%|███       | 3/10 [00:00<00:01,  5.86it/s]running benchmark:  40%|████      | 4/10 [00:00<00:00,  6.20it/s]running benchmark:  50%|█████     | 5/10 [00:00<00:00,  6.42it/s]running benchmark:  60%|██████    | 6/10 [00:00<00:00,  6.56it/s]running benchmark:  70%|███████   | 7/10 [00:01<00:00,  6.65it/s]running benchmark:  80%|████████  | 8/10 [00:01<00:00,  6.69it/s]running benchmark:  90%|█████████ | 9/10 [00:01<00:00,  6.72it/s]running benchmark: 100%|██████████| 10/10 [00:01<00:00,  6.72it/s]running benchmark: 100%|██████████| 10/10 [00:01<00:00,  6.35it/s]
+1.186x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:08, ?it/s]
+xpu  train timm_resnest                       
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  30%|███       | 3/10 [00:00<00:00, 25.00it/s]running benchmark:  60%|██████    | 6/10 [00:00<00:00, 25.98it/s]running benchmark:  90%|█████████ | 9/10 [00:00<00:00, 26.28it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 26.11it/s]
+1.781x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:05, ?it/s]
+xpu  train timm_vision_transformer            
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  30%|███       | 3/10 [00:00<00:00, 25.54it/s]running benchmark:  60%|██████    | 6/10 [00:00<00:00, 25.72it/s]running benchmark:  90%|█████████ | 9/10 [00:00<00:00, 25.74it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 25.72it/s]
+1.348x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:13, ?it/s]
+xpu  train timm_vision_transformer_large      
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:01<00:17,  1.91s/it]running benchmark:  20%|██        | 2/10 [00:02<00:09,  1.23s/it]running benchmark:  30%|███       | 3/10 [00:03<00:07,  1.01s/it]running benchmark:  40%|████      | 4/10 [00:04<00:05,  1.09it/s]running benchmark:  50%|█████     | 5/10 [00:04<00:04,  1.16it/s]running benchmark:  60%|██████    | 6/10 [00:05<00:03,  1.21it/s]running benchmark:  70%|███████   | 7/10 [00:06<00:02,  1.24it/s]running benchmark:  80%|████████  | 8/10 [00:07<00:01,  1.27it/s]running benchmark:  90%|█████████ | 9/10 [00:07<00:00,  1.28it/s]running benchmark: 100%|██████████| 10/10 [00:08<00:00,  1.29it/s]running benchmark: 100%|██████████| 10/10 [00:08<00:00,  1.14it/s]
+1.076x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:09, ?it/s]
+xpu  train timm_vovnet                        
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  20%|██        | 2/10 [00:00<00:00, 16.55it/s]running benchmark:  40%|████      | 4/10 [00:00<00:00, 18.01it/s]running benchmark:  60%|██████    | 6/10 [00:00<00:00, 18.42it/s]running benchmark:  80%|████████  | 8/10 [00:00<00:00, 18.67it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 18.82it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 18.50it/s]
+1.406x
+loading model: 0it [00:00, ?it/s]
+clip_merges.bpe: 0.00B [00:00, ?B/s][A
+clip_merges.bpe:   2%|▏         | 8.19k/525k [00:10<11:11, 770B/s][Aclip_merges.bpe: 532kB [00:10, 49.9kB/s]                          
+loading model: 0it [00:15, ?it/s]
+xpu  train torch_multimodal_clip              
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  20%|██        | 2/10 [00:00<00:00, 14.45it/s]running benchmark:  40%|████      | 4/10 [00:00<00:00, 14.60it/s]running benchmark:  60%|██████    | 6/10 [00:00<00:00, 14.67it/s]running benchmark:  80%|████████  | 8/10 [00:00<00:00, 14.70it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 14.72it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 14.68it/s]
+1.461x
+loading model: 0it [00:00, ?it/s]WARNING:common:Model tts_angular does not support float16, running with amp instead
+loading model: 0it [00:01, ?it/s]
+WARNING:common:Model tts_angular does not support float16, running with amp instead
+xpu  train tts_angular                        
+WARNING:common:Model tts_angular does not support float16, running with amp instead
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:01,  8.97it/s]running benchmark:  20%|██        | 2/10 [00:00<00:00,  8.98it/s]running benchmark:  30%|███       | 3/10 [00:00<00:00,  8.99it/s]running benchmark:  40%|████      | 4/10 [00:00<00:00,  8.99it/s]running benchmark:  50%|█████     | 5/10 [00:00<00:00,  8.99it/s]running benchmark:  60%|██████    | 6/10 [00:00<00:00,  8.99it/s]running benchmark:  70%|███████   | 7/10 [00:00<00:00,  8.98it/s]running benchmark:  80%|████████  | 8/10 [00:00<00:00,  8.98it/s]running benchmark:  90%|█████████ | 9/10 [00:01<00:00,  8.98it/s]running benchmark: 100%|██████████| 10/10 [00:01<00:00,  8.98it/s]running benchmark: 100%|██████████| 10/10 [00:01<00:00,  8.98it/s]
+0.986x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:08, ?it/s]
+xpu  train vgg16                              
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:02,  4.24it/s]running benchmark:  20%|██        | 2/10 [00:00<00:01,  6.17it/s]running benchmark:  30%|███       | 3/10 [00:00<00:00,  7.21it/s]running benchmark:  40%|████      | 4/10 [00:00<00:00,  7.85it/s]running benchmark:  50%|█████     | 5/10 [00:00<00:00,  8.23it/s]running benchmark:  60%|██████    | 6/10 [00:00<00:00,  8.40it/s]running benchmark:  70%|███████   | 7/10 [00:00<00:00,  8.51it/s]running benchmark:  80%|████████  | 8/10 [00:01<00:00,  8.60it/s]running benchmark:  90%|█████████ | 9/10 [00:01<00:00,  8.65it/s]running benchmark: 100%|██████████| 10/10 [00:01<00:00,  8.69it/s]running benchmark: 100%|██████████| 10/10 [00:01<00:00,  8.01it/s]
+1.948x
+loading model: 0it [00:00, ?it/s]Downloading: "https://download.pytorch.org/models/maskrcnn_resnet50_fpn_coco-bf2d0c1e.pth" to /github/home/.cache/torch/hub/checkpoints/maskrcnn_resnet50_fpn_coco-bf2d0c1e.pth
+
+  0%|          | 0.00/170M [00:00<?, ?B/s][A
+  5%|▌         | 9.00M/170M [00:00<00:01, 93.6MB/s][A
+ 12%|█▏        | 20.2M/170M [00:00<00:01, 107MB/s] [A
+ 19%|█▊        | 31.5M/170M [00:00<00:01, 112MB/s][A
+ 25%|██▌       | 42.6M/170M [00:00<00:01, 113MB/s][A
+ 32%|███▏      | 53.9M/170M [00:00<00:01, 115MB/s][A
+ 38%|███▊      | 65.1M/170M [00:00<00:00, 115MB/s][A
+ 45%|████▍     | 76.2M/170M [00:00<00:00, 116MB/s][A
+ 52%|█████▏    | 87.5M/170M [00:00<00:00, 116MB/s][A
+ 58%|█████▊    | 98.6M/170M [00:00<00:00, 116MB/s][A
+ 65%|██████▍   | 110M/170M [00:01<00:00, 116MB/s] [A
+ 71%|███████▏  | 121M/170M [00:01<00:00, 116MB/s][A
+ 78%|███████▊  | 132M/170M [00:01<00:00, 117MB/s][A
+ 85%|████████▍ | 144M/170M [00:01<00:00, 117MB/s][A
+ 91%|█████████ | 155M/170M [00:01<00:00, 117MB/s][A
+ 98%|█████████▊| 166M/170M [00:01<00:00, 117MB/s][A100%|██████████| 170M/170M [00:01<00:00, 115MB/s]
+loading model: 0it [00:14, ?it/s]
+xpu  train vision_maskrcnn                    
+W0531 16:08:51.646000 83389 site-packages/torch/_inductor/utils.py:3027] [4/0_1] DeviceCopy in input program
+W0531 16:08:51.649000 83389 site-packages/torch/_inductor/utils.py:3027] [4/0_1] DeviceCopy in input program
+W0531 16:08:51.650000 83389 site-packages/torch/_inductor/utils.py:3027] [4/0_1] DeviceCopy in input program
+W0531 16:08:51.652000 83389 site-packages/torch/_inductor/utils.py:3027] [4/0_1] DeviceCopy in input program
+W0531 16:08:51.653000 83389 site-packages/torch/_inductor/utils.py:3027] [4/0_1] DeviceCopy in input program
+W0531 16:09:00.135000 83389 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0] Graph break from `Tensor.item()`, consider setting:
+W0531 16:09:00.135000 83389 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0]     torch._dynamo.config.capture_scalar_outputs = True
+W0531 16:09:00.135000 83389 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0] or:
+W0531 16:09:00.135000 83389 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0]     env TORCHDYNAMO_CAPTURE_SCALAR_OUTPUTS=1
+W0531 16:09:00.135000 83389 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0] to include these operations in the captured graph.
+W0531 16:09:00.135000 83389 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0] 
+W0531 16:09:00.135000 83389 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0] Graph break: from user code at:
+W0531 16:09:00.135000 83389 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0]   File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchvision/models/detection/generalized_rcnn.py", line 118, in torch_dynamo_resume_in_forward_at_117
+W0531 16:09:00.135000 83389 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0]     detections, detector_losses = self.roi_heads(features, proposals, images.image_sizes, targets)
+W0531 16:09:00.135000 83389 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0]   File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchvision/models/detection/roi_heads.py", line 772, in forward
+W0531 16:09:00.135000 83389 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0]     box_features = self.box_roi_pool(features, proposals, image_shapes)
+W0531 16:09:00.135000 83389 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0]   File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchvision/ops/poolers.py", line 310, in forward
+W0531 16:09:00.135000 83389 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0]     self.scales, self.map_levels = _setup_scales(
+W0531 16:09:00.135000 83389 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0]   File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchvision/ops/poolers.py", line 122, in _setup_scales
+W0531 16:09:00.135000 83389 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0]     scales = [_infer_scale(feat, original_input_shape) for feat in features]
+W0531 16:09:00.135000 83389 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0]   File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchvision/ops/poolers.py", line 122, in <listcomp>
+W0531 16:09:00.135000 83389 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0]     scales = [_infer_scale(feat, original_input_shape) for feat in features]
+W0531 16:09:00.135000 83389 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0]   File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchvision/ops/poolers.py", line 104, in _infer_scale
+W0531 16:09:00.135000 83389 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0]     scale = 2 ** float(torch.tensor(approx_scale).log2().round())
+W0531 16:09:00.135000 83389 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0] 
+W0531 16:09:00.135000 83389 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0] 
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  20%|██        | 2/10 [00:00<00:00, 19.92it/s]running benchmark:  50%|█████     | 5/10 [00:00<00:00, 20.09it/s]running benchmark:  80%|████████  | 8/10 [00:00<00:00, 20.14it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 20.12it/s]
+1.617x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:14, ?it/s]
+xpu  train yolov3                             
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:01,  8.59it/s]running benchmark:  30%|███       | 3/10 [00:00<00:00, 10.59it/s]running benchmark:  50%|█████     | 5/10 [00:00<00:00, 11.05it/s]running benchmark:  70%|███████   | 7/10 [00:00<00:00, 11.24it/s]running benchmark:  90%|█████████ | 9/10 [00:00<00:00, 11.33it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 11.12it/s]
+1.199x
+speedup             gmean=0.00x mean=1.008x
+abs_latency         gmean=0.00x mean=37.056x
+compilation_latency mean=40.630 seconds
+compression_ratio   mean=0.000x
+eager_peak_mem      gmean=0.00x mean=0.000x
+dynamo_peak_mem     gmean=0.00x mean=0.000x
+calls_captured      gmean=0.00x mean=339.480x
+unique_graphs       gmean=0.00x mean=2.040x
+graph_breaks        gmean=0.00x mean=5.987x
+unique_graph_breaks gmean=0.00x mean=4.453x
+autograd_captures   gmean=0.00x mean=0.000x
+autograd_compiles   gmean=0.00x mean=0.000x
+cudagraph_skips     gmean=0.00x mean=0.000x

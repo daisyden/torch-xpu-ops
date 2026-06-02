@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="7.715" timestamp="2026-05-31T14:46:26.551995" hostname="gm03pappvc006"><testcase classname="test.distributed.fsdp.test_fsdp_multiple_wrapping.TestMultipleWrappingXPU" name="test_multiple_wrapping_xpu" time="4.765" /></testsuite></testsuites>

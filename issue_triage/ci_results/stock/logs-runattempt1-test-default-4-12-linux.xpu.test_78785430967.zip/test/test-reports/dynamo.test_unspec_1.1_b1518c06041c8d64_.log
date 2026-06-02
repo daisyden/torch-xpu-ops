@@ -1,0 +1,75 @@
+Test results will be stored in test-reports/python-pytest/dynamo.test_unspec/dynamo.test_unspec-95e481757afb546c.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 55 items
+stepcurrent: Cannot find last run test, not skipping
+Running 55 items in this shard: test/dynamo/test_unspec.py::UnspecTests::test_argmin_coerces_symint_to_intlist_spec, test/dynamo/test_unspec.py::UnspecTests::test_bool_tensor_ctor, test/dynamo/test_unspec.py::UnspecTests::test_builtin_getitem, test/dynamo/test_unspec.py::UnspecTests::test_builtin_max_min, test/dynamo/test_unspec.py::UnspecTests::test_compiled_random_calls_are_random, test/dynamo/test_unspec.py::UnspecTests::test_conv1d_symint_padding, test/dynamo/test_unspec.py::UnspecTests::test_data_dependent_evaluate_expr_graph_break, test/dynamo/test_unspec.py::UnspecTests::test_defaults, test/dynamo/test_unspec.py::UnspecTests::test_exponential, test/dynamo/test_unspec.py::UnspecTests::test_feed_random_values_into_graph_only, test/dynamo/test_unspec.py::UnspecTests::test_float_guard_source_on_recompile, test/dynamo/test_unspec.py::UnspecTests::test_isinstance_symint, test/dynamo/test_unspec.py::UnspecTests::test_item_max, test/dynamo/test_unspec.py::UnspecTests::test_lshift_scalar_dynamic, test/dynamo/test_unspec.py::UnspecTests::test_mark_01_dynamic, test/dynamo/test_unspec.py::UnspecTests::test_mark_static_inside, test/dynamo/test_unspec.py::UnspecTests::test_mark_unbacked, test/dynamo/test_unspec.py::UnspecTests::test_mark_unbacked_channels_last, test/dynamo/test_unspec.py::UnspecTests::test_mark_unbacked_hint_consistency, test/dynamo/test_unspec.py::UnspecTests::test_multiple_consecutive_random_calls_before_graph, test/dynamo/test_unspec.py::UnspecTests::test_no_recompilations, test/dynamo/test_unspec.py::UnspecTests::test_no_recompiles, test/dynamo/test_unspec.py::UnspecTests::test_no_recompiles_prod_backward, test/dynamo/test_unspec.py::UnspecTests::test_numpy_correctness, test/dynamo/test_unspec.py::UnspecTests::test_propagate_dynamic_dim, test/dynamo/test_unspec.py::UnspecTests::test_prune_torch_check, test/dynamo/test_unspec.py::UnspecTests::test_random_call_with_while_loop, test/dynamo/test_unspec.py::UnspecTests::test_random_in_dynamo, test/dynamo/test_unspec.py::UnspecTests::test_random_object, test/dynamo/test_unspec.py::UnspecTests::test_random_object_methods, test/dynamo/test_unspec.py::UnspecTests::test_random_object_overridden_methods, test/dynamo/test_unspec.py::UnspecTests::test_random_values_with_graph_break, test/dynamo/test_unspec.py::UnspecTests::test_rshift_dynamic, test/dynamo/test_unspec.py::UnspecTests::test_rshift_scalar_dynamic, test/dynamo/test_unspec.py::UnspecTests::test_shape_graph_break, test/dynamo/test_unspec.py::UnspecTests::test_specializing_numpy_float_in_control_flow, test/dynamo/test_unspec.py::UnspecTests::test_split_aot_autograd, test/dynamo/test_unspec.py::UnspecTests::test_sum_dimlist_spec, test/dynamo/test_unspec.py::UnspecTests::test_sym_int_conversion, test/dynamo/test_unspec.py::UnspecTests::test_symbol_guard_limit_before_specialize, test/dynamo/test_unspec.py::UnspecTests::test_symfloat_no_replacement, test/dynamo/test_unspec.py::UnspecTests::test_symfloat_to_tensor, test/dynamo/test_unspec.py::UnspecTests::test_tensorfiy_python_scalars_1, test/dynamo/test_unspec.py::UnspecTests::test_tensorfiy_python_scalars_2, test/dynamo/test_unspec.py::UnspecTests::test_tensorfiy_python_scalars_3, test/dynamo/test_unspec.py::UnspecTests::test_to_tensor, test/dynamo/test_unspec.py::UnspecTests::test_unspec_float_input, test/dynamo/test_unspec.py::UnspecTests::test_unspec_float_input_f64, test/dynamo/test_unspec.py::UnspecTests::test_unspec_float_output, test/dynamo/test_unspec.py::UnspecTests::test_unspec_float_precision, test/dynamo/test_unspec.py::UnspecTests::test_unspec_roundtrip_float_input, test/dynamo/test_unspec.py::UnspecTests::test_unspecialized_float_multiply_precision, test/dynamo/test_unspec.py::UnspecTests::test_use_and_specialize, test/dynamo/test_unspec.py::UnspecTestsDeviceXPU::test_builtin_functions_on_device_xpu, test/dynamo/test_unspec.py::UnspecTestsDeviceXPU::test_no_recompilations_with_efficient_attention_xpu
+
+dynamo/test_unspec.py::UnspecTests::test_argmin_coerces_symint_to_intlist_spec PASSED [0.2050s] [  1%]
+dynamo/test_unspec.py::UnspecTests::test_bool_tensor_ctor PASSED [0.0498s] [  3%]
+dynamo/test_unspec.py::UnspecTests::test_builtin_getitem PASSED [0.0473s] [  5%]
+dynamo/test_unspec.py::UnspecTests::test_builtin_max_min E0601 04:42:43.085000 60385 site-packages/torch/_dynamo/utils.py:3714] Accuracy failed (numpy): 8 != 8
+XFAIL [0.1331s] [  7%]
+dynamo/test_unspec.py::UnspecTests::test_compiled_random_calls_are_random E0601 04:42:43.128000 60385 site-packages/torch/_dynamo/utils.py:3698] Accuracy failed: allclose not within tol=0.0001
+E0601 04:42:43.128000 60385 site-packages/torch/_dynamo/utils.py:3698] Accuracy failed: allclose not within tol=0.0001
+E0601 04:42:43.128000 60385 site-packages/torch/_dynamo/utils.py:3698] Accuracy failed: allclose not within tol=0.0001
+E0601 04:42:43.128000 60385 site-packages/torch/_dynamo/utils.py:3698] Accuracy failed: allclose not within tol=0.0001
+PASSED [0.0410s] [  9%]
+dynamo/test_unspec.py::UnspecTests::test_conv1d_symint_padding PASSED [0.1594s] [ 10%]
+dynamo/test_unspec.py::UnspecTests::test_data_dependent_evaluate_expr_graph_break PASSED [0.0828s] [ 12%]
+dynamo/test_unspec.py::UnspecTests::test_defaults PASSED [0.0570s]       [ 14%]
+dynamo/test_unspec.py::UnspecTests::test_exponential PASSED [0.0859s]    [ 16%]
+dynamo/test_unspec.py::UnspecTests::test_feed_random_values_into_graph_only PASSED [0.1041s] [ 18%]
+dynamo/test_unspec.py::UnspecTests::test_float_guard_source_on_recompile PASSED [22.0651s] [ 20%]
+dynamo/test_unspec.py::UnspecTests::test_isinstance_symint PASSED [0.0803s] [ 21%]
+dynamo/test_unspec.py::UnspecTests::test_item_max PASSED [0.0405s]       [ 23%]
+dynamo/test_unspec.py::UnspecTests::test_lshift_scalar_dynamic PASSED [0.0328s] [ 25%]
+dynamo/test_unspec.py::UnspecTests::test_mark_01_dynamic PASSED [0.0351s] [ 27%]
+dynamo/test_unspec.py::UnspecTests::test_mark_static_inside PASSED [0.0528s] [ 29%]
+dynamo/test_unspec.py::UnspecTests::test_mark_unbacked PASSED [0.8746s]  [ 30%]
+dynamo/test_unspec.py::UnspecTests::test_mark_unbacked_channels_last PASSED [0.1679s] [ 32%]
+dynamo/test_unspec.py::UnspecTests::test_mark_unbacked_hint_consistency PASSED [0.0443s] [ 34%]
+dynamo/test_unspec.py::UnspecTests::test_multiple_consecutive_random_calls_before_graph PASSED [0.1300s] [ 36%]
+dynamo/test_unspec.py::UnspecTests::test_no_recompilations PASSED [0.0465s] [ 38%]
+dynamo/test_unspec.py::UnspecTests::test_no_recompiles PASSED [0.0355s]  [ 40%]
+dynamo/test_unspec.py::UnspecTests::test_no_recompiles_prod_backward PASSED [0.0771s] [ 41%]
+dynamo/test_unspec.py::UnspecTests::test_numpy_correctness PASSED [0.0895s] [ 43%]
+dynamo/test_unspec.py::UnspecTests::test_propagate_dynamic_dim PASSED [0.8141s] [ 45%]
+dynamo/test_unspec.py::UnspecTests::test_prune_torch_check PASSED [0.0604s] [ 47%]
+dynamo/test_unspec.py::UnspecTests::test_random_call_with_while_loop PASSED [0.1024s] [ 49%]
+dynamo/test_unspec.py::UnspecTests::test_random_in_dynamo PASSED [0.1702s] [ 50%]
+dynamo/test_unspec.py::UnspecTests::test_random_object PASSED [0.0884s]  [ 52%]
+dynamo/test_unspec.py::UnspecTests::test_random_object_methods PASSED [0.3214s] [ 54%]
+dynamo/test_unspec.py::UnspecTests::test_random_object_overridden_methods PASSED [0.1749s] [ 56%]
+dynamo/test_unspec.py::UnspecTests::test_random_values_with_graph_break PASSED [0.1769s] [ 58%]
+dynamo/test_unspec.py::UnspecTests::test_rshift_dynamic PASSED [0.0440s] [ 60%]
+dynamo/test_unspec.py::UnspecTests::test_rshift_scalar_dynamic PASSED [0.0311s] [ 61%]
+dynamo/test_unspec.py::UnspecTests::test_shape_graph_break PASSED [0.0992s] [ 63%]
+dynamo/test_unspec.py::UnspecTests::test_specializing_numpy_float_in_control_flow XFAIL [0.0119s] [ 65%]
+dynamo/test_unspec.py::UnspecTests::test_split_aot_autograd PASSED [0.1728s] [ 67%]
+dynamo/test_unspec.py::UnspecTests::test_sum_dimlist_spec PASSED [0.0890s] [ 69%]
+dynamo/test_unspec.py::UnspecTests::test_sym_int_conversion PASSED [0.0480s] [ 70%]
+dynamo/test_unspec.py::UnspecTests::test_symbol_guard_limit_before_specialize PASSED [0.2072s] [ 72%]
+dynamo/test_unspec.py::UnspecTests::test_symfloat_no_replacement PASSED [0.0542s] [ 74%]
+dynamo/test_unspec.py::UnspecTests::test_symfloat_to_tensor PASSED [0.2238s] [ 76%]
+dynamo/test_unspec.py::UnspecTests::test_tensorfiy_python_scalars_1 PASSED [0.2850s] [ 78%]
+dynamo/test_unspec.py::UnspecTests::test_tensorfiy_python_scalars_2 PASSED [0.0614s] [ 80%]
+dynamo/test_unspec.py::UnspecTests::test_tensorfiy_python_scalars_3 PASSED [0.0636s] [ 81%]
+dynamo/test_unspec.py::UnspecTests::test_to_tensor PASSED [0.3028s]      [ 83%]
+dynamo/test_unspec.py::UnspecTests::test_unspec_float_input PASSED [0.1425s] [ 85%]
+dynamo/test_unspec.py::UnspecTests::test_unspec_float_input_f64 PASSED [0.0402s] [ 87%]
+dynamo/test_unspec.py::UnspecTests::test_unspec_float_output PASSED [0.0713s] [ 89%]
+dynamo/test_unspec.py::UnspecTests::test_unspec_float_precision PASSED [0.3931s] [ 90%]
+dynamo/test_unspec.py::UnspecTests::test_unspec_roundtrip_float_input PASSED [0.0457s] [ 92%]
+dynamo/test_unspec.py::UnspecTests::test_unspecialized_float_multiply_precision PASSED [0.3165s] [ 94%]
+dynamo/test_unspec.py::UnspecTests::test_use_and_specialize PASSED [0.0783s] [ 96%]
+dynamo/test_unspec.py::UnspecTestsDeviceXPU::test_builtin_functions_on_device_xpu PASSED [0.2827s] [ 98%]
+dynamo/test_unspec.py::UnspecTestsDeviceXPU::test_no_recompilations_with_efficient_attention_xpu PASSED [0.6752s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/dynamo.test_unspec/dynamo.test_unspec-95e481757afb546c.xml -
+======================== 53 passed, 2 xfailed in 30.49s ========================

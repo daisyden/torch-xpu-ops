@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="1" failures="0" skipped="0" tests="1" time="5.301" timestamp="2026-05-31T14:18:33.443933" hostname="06945b282243"><testcase classname="" name="third_party.torch-xpu-ops.test.xpu.functorch.test_ops_xpu" time="0.000"><error message="collection failure">ImportError while importing test module '/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/functorch/test_ops_xpu.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+functorch/test_ops_xpu.py:27: in &lt;module&gt;
+    from common_utils import (
+E   ImportError: cannot import name 'skipOps' from 'common_utils' (/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/functorch/common_utils.py)</error></testcase></testsuite></testsuites>

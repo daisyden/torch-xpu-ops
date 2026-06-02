@@ -1,0 +1,44 @@
+Test results will be stored in test-reports/python-pytest/test_autocast/test_autocast-8b6b7a244788a6e7.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 29 items
+stepcurrent: Cannot find last run test, not skipping
+Running 29 items in this shard: test/test_autocast.py::TestAutocastCPU::test_autocast_disabled_with_fp32_dtype, test/test_autocast.py::TestAutocastCPU::test_autocast_methods_expect_builtin_promote, test/test_autocast.py::TestAutocastCPU::test_autocast_nn_16, test/test_autocast.py::TestAutocastCPU::test_autocast_nn_fp32, test/test_autocast.py::TestAutocastCPU::test_autocast_rnn, test/test_autocast.py::TestAutocastCPU::test_autocast_torch_16, test/test_autocast.py::TestAutocastCPU::test_autocast_torch_expect_builtin_promote, test/test_autocast.py::TestAutocastCPU::test_autocast_torch_fp32, test/test_autocast.py::TestAutocastCPU::test_autocast_torch_need_autocast_promote, test/test_autocast.py::TestAutocastCPU::test_cpu_autocast_deprecated_warning, test/test_autocast.py::TestAutocastCPU::test_generic_autocast, test/test_autocast.py::TestAutocastGPU::test_autocast_prioritize, test/test_autocast.py::TestAutocastGPU::test_cache_disabled, test/test_autocast.py::TestAutocastGPU::test_cast_cache_is_global, test/test_autocast.py::TestAutocastMPS::test_cast_cache_is_global, test/test_autocast.py::TestAutocastMPS::test_mps_autocast_bfloat16_supported, test/test_autocast.py::TestAutocastMPS::test_mps_autocast_error_message, test/test_autocast.py::TestTorchAutocast::test_autocast_caching_still_works_with_gradients_cpu, test/test_autocast.py::TestTorchAutocast::test_autocast_caching_still_works_with_gradients_cuda, test/test_autocast.py::TestTorchAutocast::test_autocast_called_with_non_callable, test/test_autocast.py::TestTorchAutocast::test_autocast_fast_dtype, test/test_autocast.py::TestTorchAutocast::test_autocast_inference_mode_interaction_cpu, test/test_autocast.py::TestTorchAutocast::test_autocast_inference_mode_interaction_cuda, test/test_autocast.py::TestTorchAutocast::test_autocast_mixed_grad_contexts_cpu, test/test_autocast.py::TestTorchAutocast::test_autocast_mixed_grad_contexts_cuda, test/test_autocast.py::TestTorchAutocast::test_autocast_nograd_caching_issue_158232_cpu, test/test_autocast.py::TestTorchAutocast::test_autocast_nograd_caching_issue_158232_cuda, test/test_autocast.py::TestTorchAutocast::test_invalid_device, test/test_autocast.py::TestTorchAutocast::test_non_string_device
+
+test_autocast.py::TestAutocastCPU::test_autocast_disabled_with_fp32_dtype PASSED [1.0986s] [  3%]
+test_autocast.py::TestAutocastCPU::test_autocast_methods_expect_builtin_promote PASSED [0.0035s] [  6%]
+test_autocast.py::TestAutocastCPU::test_autocast_nn_16 PASSED [0.0081s]  [ 10%]
+test_autocast.py::TestAutocastCPU::test_autocast_nn_fp32 PASSED [0.0083s] [ 13%]
+test_autocast.py::TestAutocastCPU::test_autocast_rnn PASSED [0.0057s]    [ 17%]
+test_autocast.py::TestAutocastCPU::test_autocast_torch_16 PASSED [0.3298s] [ 20%]
+test_autocast.py::TestAutocastCPU::test_autocast_torch_expect_builtin_promote PASSED [0.0039s] [ 24%]
+test_autocast.py::TestAutocastCPU::test_autocast_torch_fp32 PASSED [0.0254s] [ 27%]
+test_autocast.py::TestAutocastCPU::test_autocast_torch_need_autocast_promote PASSED [0.0025s] [ 31%]
+test_autocast.py::TestAutocastCPU::test_cpu_autocast_deprecated_warning PASSED [0.0074s] [ 34%]
+test_autocast.py::TestAutocastCPU::test_generic_autocast PASSED [0.3576s] [ 37%]
+test_autocast.py::TestAutocastGPU::test_autocast_prioritize SKIPPED [0.0004s] (requires cuda) [ 41%]
+test_autocast.py::TestAutocastGPU::test_cache_disabled SKIPPED [0.0002s] (requires cuda) [ 44%]
+test_autocast.py::TestAutocastGPU::test_cast_cache_is_global SKIPPED [0.0002s] (requires cuda) [ 48%]
+test_autocast.py::TestAutocastMPS::test_cast_cache_is_global SKIPPED [0.0002s] (requires mps) [ 51%]
+test_autocast.py::TestAutocastMPS::test_mps_autocast_bfloat16_supported SKIPPED [0.0002s] (requires mps) [ 55%]
+test_autocast.py::TestAutocastMPS::test_mps_autocast_error_message SKIPPED [0.0002s] (requires mps) [ 58%]
+test_autocast.py::TestTorchAutocast::test_autocast_caching_still_works_with_gradients_cpu PASSED [0.0130s] [ 62%]
+test_autocast.py::TestTorchAutocast::test_autocast_caching_still_works_with_gradients_cuda SKIPPED [0.0003s] (requires CUDA) [ 65%]
+test_autocast.py::TestTorchAutocast::test_autocast_called_with_non_callable PASSED [0.0015s] [ 68%]
+test_autocast.py::TestTorchAutocast::test_autocast_fast_dtype PASSED [0.0014s] [ 72%]
+test_autocast.py::TestTorchAutocast::test_autocast_inference_mode_interaction_cpu PASSED [0.0023s] [ 75%]
+test_autocast.py::TestTorchAutocast::test_autocast_inference_mode_interaction_cuda SKIPPED [0.0002s] (requires CUDA) [ 79%]
+test_autocast.py::TestTorchAutocast::test_autocast_mixed_grad_contexts_cpu PASSED [0.0018s] [ 82%]
+test_autocast.py::TestTorchAutocast::test_autocast_mixed_grad_contexts_cuda SKIPPED [0.0002s] (requires CUDA) [ 86%]
+test_autocast.py::TestTorchAutocast::test_autocast_nograd_caching_issue_158232_cpu PASSED [0.0015s] [ 89%]
+test_autocast.py::TestTorchAutocast::test_autocast_nograd_caching_issue_158232_cuda SKIPPED [0.0002s] (requires CUDA) [ 93%]
+test_autocast.py::TestTorchAutocast::test_invalid_device PASSED [0.0014s] [ 96%]
+test_autocast.py::TestTorchAutocast::test_non_string_device PASSED [0.0011s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/test_autocast/test_autocast-8b6b7a244788a6e7.xml -
+======================== 19 passed, 10 skipped in 1.93s ========================

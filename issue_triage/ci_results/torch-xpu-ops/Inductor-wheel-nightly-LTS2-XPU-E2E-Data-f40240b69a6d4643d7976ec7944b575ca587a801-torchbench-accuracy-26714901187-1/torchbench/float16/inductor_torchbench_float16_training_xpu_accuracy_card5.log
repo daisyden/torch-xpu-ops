@@ -1,0 +1,89 @@
+++ python benchmarks/dynamo/torchbench.py --accuracy --float16 -d xpu -n10 --training --total-partitions 8 --partition-id 5 --backend=inductor --cold-start-latency --timeout=10800 --disable-cudagraphs --output=/__w/torch-xpu-ops/torch-xpu-ops/pytorch/inductor_log/torchbench/float16/inductor_torchbench_float16_training_xpu_accuracy.csv
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:02, ?it/s]
+number of parameters: 123.69M
+num decayed parameter tensors: 50, with 124,354,560 parameters
+num non-decayed parameter tensors: 98, with 121,344 parameters
+using fused AdamW: False
+xpu  train nanogpt                            
+W0531 15:18:12.546000 62680 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:02, ?it/s]
+xpu  train nvidia_deeprecommender             
+W0531 15:18:43.500000 64476 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:01, ?it/s]
+xpu  train opacus_cifar10                     
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 2057, in validate_model
+    self.model_iter_fn(model, example_inputs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/torchbench.py", line 488, in forward_and_backward_pass
+    self.grad_scaler.scale(loss).backward()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_tensor.py", line 633, in backward
+    torch.autograd.backward(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/autograd/__init__.py", line 395, in backward
+    _engine_run_backward(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/autograd/graph.py", line 913, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 90, in __call__
+    return self.hook(module, *args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/opacus/grad_sample/grad_sample_module.py", line 327, in capture_backprops_hook
+    activations, backprops = self.rearrange_grad_samples(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/opacus/grad_sample/grad_sample_module.py", line 383, in rearrange_grad_samples
+    raise ValueError(
+ValueError: No activations detected for <class 'torch.nn.modules.linear.Linear'>, run forward after add_hooks(model)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 4749, in run
+    ) = runner.load_model(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/torchbench.py", line 384, in load_model
+    self.validate_model(benchmark.name, model, example_inputs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 2059, in validate_model
+    raise RuntimeError("Eager run failed") from e
+RuntimeError: Eager run failed
+
+eager_fail_to_run
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:02, ?it/s]
+xpu  train phlippe_densenet                   
+W0531 15:19:07.847000 65483 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:01, ?it/s]
+xpu  train phlippe_resnet                     
+W0531 15:19:54.666000 67779 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:01, ?it/s]
+xpu  train pytorch_stargan                    
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:03, ?it/s]
+xpu  train pytorch_unet                       
+pass_due_to_skip
+loading model: 0it [00:00, ?it/s]Downloading: "https://download.pytorch.org/models/resnet152-394f9c45.pth" to /github/home/.cache/torch/hub/checkpoints/resnet152-394f9c45.pth
+
+  0%|          | 0.00/230M [00:00<?, ?B/s][A
+ 14%|█▎        | 31.6M/230M [00:00<00:00, 331MB/s][A
+ 31%|███       | 70.9M/230M [00:00<00:00, 378MB/s][A
+ 50%|████▉     | 114M/230M [00:00<00:00, 412MB/s] [A
+ 69%|██████▊   | 158M/230M [00:00<00:00, 429MB/s][A
+ 86%|████████▋ | 199M/230M [00:00<00:00, 424MB/s][A100%|██████████| 230M/230M [00:00<00:00, 413MB/s]
+loading model: 0it [00:05, ?it/s]
+xpu  train resnet152                          
+W0531 15:22:05.003000 73986 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]Downloading: "https://download.pytorch.org/models/resnet18-f37072fd.pth" to /github/home/.cache/torch/hub/checkpoints/resnet18-f37072fd.pth
+
+  0%|          | 0.00/44.7M [00:00<?, ?B/s][A
+ 67%|██████▋   | 30.0M/44.7M [00:00<00:00, 314MB/s][A100%|██████████| 44.7M/44.7M [00:00<00:00, 321MB/s]
+loading model: 0it [00:02, ?it/s]
+xpu  train resnet18                           
+W0531 15:22:51.432000 76330 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+accuracy            pass_rate=76.79%
+calls_captured      gmean=0.00x mean=242.107x
+unique_graphs       gmean=0.00x mean=1.536x
+graph_breaks        gmean=0.00x mean=4.714x
+unique_graph_breaks gmean=0.00x mean=3.482x
+autograd_captures   gmean=0.00x mean=0.000x
+autograd_compiles   gmean=0.00x mean=0.000x
+cudagraph_skips     gmean=0.00x mean=0.000x
+compilation_latency mean=18.268 seconds

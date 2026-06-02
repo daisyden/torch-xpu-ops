@@ -1,0 +1,121 @@
+<testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="2" time="0.553" timestamp="2026-06-01T04:43:40.295351" hostname="56eb177b00a9"><testcase classname="DynamoProfilerTests" name="test_function_trace_timing" time="0.484" file="dynamo/test_dynamo_profiler.py"><system-out>
+=== Aggregate Timings (raw) ===
+  ncalls   pcalls      tottime      cumtime  function
+--------------------------------------------------------------------------------
+       1        1      70.28ms      92.78ms  test_fn (test_dynamo_profiler.py:38)
+       1        1       0.89ms      22.50ms  main_fn (test_dynamo_profiler.py:28)
+       1        1       2.65ms      21.60ms  nested_helper (test_dynamo_profiler.py:25)
+       2        2      18.95ms      18.95ms  helper_fn (test_dynamo_profiler.py:22)
+--------------------------------------------------------------------------------
+Total timings: 5, unique functions: 4
+Sum tottime: 92.78ms, Sum cumtime: 155.83ms
+
+=== Dynamo Profiler (pstats) ===
+         5 function calls in 0.093 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.070    0.070    0.093    0.093 /var/lib/jenkins/pytorch/test/dynamo/test_dynamo_profiler.py:38(test_fn)
+        1    0.001    0.001    0.022    0.022 /var/lib/jenkins/pytorch/test/dynamo/test_dynamo_profiler.py:28(main_fn)
+        1    0.003    0.003    0.022    0.022 /var/lib/jenkins/pytorch/test/dynamo/test_dynamo_profiler.py:25(nested_helper)
+        2    0.019    0.009    0.019    0.009 /var/lib/jenkins/pytorch/test/dynamo/test_dynamo_profiler.py:22(helper_fn)
+
+
+
+Profile saved to: /tmp/tmpx2v3c30z/profile.prof
+Visualize with: snakeviz /tmp/tmpx2v3c30z/profile.prof
+gprof2dot not found. Install with: pip install gprof2dot
+
+=== Aggregate Timings (raw) ===
+  ncalls   pcalls      tottime      cumtime  function
+--------------------------------------------------------------------------------
+       1        1      70.28ms      92.78ms  test_fn (test_dynamo_profiler.py:38)
+       1        1       0.89ms      22.50ms  main_fn (test_dynamo_profiler.py:28)
+       1        1       2.65ms      21.60ms  nested_helper (test_dynamo_profiler.py:25)
+       2        2      18.95ms      18.95ms  helper_fn (test_dynamo_profiler.py:22)
+--------------------------------------------------------------------------------
+Total timings: 5, unique functions: 4
+Sum tottime: 92.78ms, Sum cumtime: 155.83ms
+
+=== Dynamo Profiler (pstats) ===
+         5 function calls in 0.093 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.070    0.070    0.093    0.093 /var/lib/jenkins/pytorch/test/dynamo/test_dynamo_profiler.py:38(test_fn)
+        1    0.001    0.001    0.022    0.022 /var/lib/jenkins/pytorch/test/dynamo/test_dynamo_profiler.py:28(main_fn)
+        1    0.003    0.003    0.022    0.022 /var/lib/jenkins/pytorch/test/dynamo/test_dynamo_profiler.py:25(nested_helper)
+        2    0.019    0.009    0.019    0.009 /var/lib/jenkins/pytorch/test/dynamo/test_dynamo_profiler.py:22(helper_fn)
+
+
+
+Profile saved to: /tmp/tmpx2v3c30z/profile.prof
+Visualize with: snakeviz /tmp/tmpx2v3c30z/profile.prof
+gprof2dot not found. Install with: pip install gprof2dot
+</system-out></testcase><testcase classname="DynamoProfilerTests" name="test_pstats_file_loadable" time="0.044" file="dynamo/test_dynamo_profiler.py"><system-out>
+=== Aggregate Timings (raw) ===
+  ncalls   pcalls      tottime      cumtime  function
+--------------------------------------------------------------------------------
+       1        1       0.92ms       4.61ms  compiled_fn (test_dynamo_profiler.py:74)
+       1        1       0.85ms       3.69ms  main_fn (test_dynamo_profiler.py:64)
+       1        1       2.84ms       2.84ms  helper_fn (test_dynamo_profiler.py:61)
+--------------------------------------------------------------------------------
+Total timings: 3, unique functions: 3
+Sum tottime: 4.61ms, Sum cumtime: 11.15ms
+
+=== Dynamo Profiler (pstats) ===
+         3 function calls in 0.005 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.001    0.001    0.005    0.005 /var/lib/jenkins/pytorch/test/dynamo/test_dynamo_profiler.py:74(compiled_fn)
+        1    0.001    0.001    0.004    0.004 /var/lib/jenkins/pytorch/test/dynamo/test_dynamo_profiler.py:64(main_fn)
+        1    0.003    0.003    0.003    0.003 /var/lib/jenkins/pytorch/test/dynamo/test_dynamo_profiler.py:61(helper_fn)
+
+
+
+Profile saved to: /tmp/tmpb9ytl_b3/profile.prof
+Visualize with: snakeviz /tmp/tmpb9ytl_b3/profile.prof
+gprof2dot not found. Install with: pip install gprof2dot
+
+=== Aggregate Timings (raw) ===
+  ncalls   pcalls      tottime      cumtime  function
+--------------------------------------------------------------------------------
+       1        1       0.92ms       4.61ms  compiled_fn (test_dynamo_profiler.py:74)
+       1        1       0.85ms       3.69ms  main_fn (test_dynamo_profiler.py:64)
+       1        1       2.84ms       2.84ms  helper_fn (test_dynamo_profiler.py:61)
+--------------------------------------------------------------------------------
+Total timings: 3, unique functions: 3
+Sum tottime: 4.61ms, Sum cumtime: 11.15ms
+
+=== Dynamo Profiler (pstats) ===
+         3 function calls in 0.005 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.001    0.001    0.005    0.005 /var/lib/jenkins/pytorch/test/dynamo/test_dynamo_profiler.py:74(compiled_fn)
+        1    0.001    0.001    0.004    0.004 /var/lib/jenkins/pytorch/test/dynamo/test_dynamo_profiler.py:64(main_fn)
+        1    0.003    0.003    0.003    0.003 /var/lib/jenkins/pytorch/test/dynamo/test_dynamo_profiler.py:61(helper_fn)
+
+
+
+Profile saved to: /tmp/tmpb9ytl_b3/profile.prof
+Visualize with: snakeviz /tmp/tmpb9ytl_b3/profile.prof
+gprof2dot not found. Install with: pip install gprof2dot
+Mon Jun  1 04:43:40 2026    /tmp/tmpb9ytl_b3/profile.prof
+
+         3 function calls in 0.005 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.001    0.001    0.005    0.005 /var/lib/jenkins/pytorch/test/dynamo/test_dynamo_profiler.py:74(compiled_fn)
+        1    0.001    0.001    0.004    0.004 /var/lib/jenkins/pytorch/test/dynamo/test_dynamo_profiler.py:64(main_fn)
+        1    0.003    0.003    0.003    0.003 /var/lib/jenkins/pytorch/test/dynamo/test_dynamo_profiler.py:61(helper_fn)
+
+
+</system-out></testcase></testsuite></testsuites>

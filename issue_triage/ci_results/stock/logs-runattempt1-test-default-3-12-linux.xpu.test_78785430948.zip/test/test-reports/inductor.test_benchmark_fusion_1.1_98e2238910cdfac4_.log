@@ -1,0 +1,31 @@
+Test results will be stored in test-reports/python-pytest/inductor.test_benchmark_fusion/inductor.test_benchmark_fusion-f493d3c7bae65bc9.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 16 items
+stepcurrent: Cannot find last run test, not skipping
+Running 16 items in this shard: test/inductor/test_benchmark_fusion.py::BenchmarkFusionGpuTest::test_avoid_register_spilling_xpu, test/inductor/test_benchmark_fusion.py::BenchmarkFusionGpuTest::test_foreach_kernel_xpu, test/inductor/test_benchmark_fusion.py::BenchmarkFusionGpuTest::test_register_spills_xpu, test/inductor/test_benchmark_fusion.py::BenchmarkFusionGpuTest::test_resnet18_xpu, test/inductor/test_benchmark_fusion.py::BenchmarkFusionGpuTest::test_softmax_xpu, test/inductor/test_benchmark_fusion.py::BenchmarkFusionGpuTest::test_tield_kernel_fusion_xpu, test/inductor/test_benchmark_fusion.py::BenchmarkingTest::test_benchmark_on_non_zero_device, test/inductor/test_benchmark_fusion.py::BenchmarkMultiTemplateFusionGpuTest::test_changed_layout, test/inductor/test_benchmark_fusion.py::BenchmarkMultiTemplateFusionGpuTest::test_equivalent_extern_code, test/inductor/test_benchmark_fusion.py::BenchmarkMultiTemplateFusionGpuTest::test_equivalent_template_code, test/inductor/test_benchmark_fusion.py::BenchmarkFusionCpuTest::test_avoid_register_spilling_cpu, test/inductor/test_benchmark_fusion.py::BenchmarkFusionCpuTest::test_foreach_kernel_cpu, test/inductor/test_benchmark_fusion.py::BenchmarkFusionCpuTest::test_register_spills_cpu, test/inductor/test_benchmark_fusion.py::BenchmarkFusionCpuTest::test_resnet18_cpu, test/inductor/test_benchmark_fusion.py::BenchmarkFusionCpuTest::test_softmax_cpu, test/inductor/test_benchmark_fusion.py::BenchmarkFusionCpuTest::test_tield_kernel_fusion_cpu
+
+inductor/test_benchmark_fusion.py::BenchmarkFusionGpuTest::test_avoid_register_spilling_xpu PASSED [28.0316s] [  6%]
+inductor/test_benchmark_fusion.py::BenchmarkFusionGpuTest::test_foreach_kernel_xpu <- test/inductor/test_torchinductor.py PASSED [7.7496s] [ 12%]
+inductor/test_benchmark_fusion.py::BenchmarkFusionGpuTest::test_register_spills_xpu <- test/inductor/test_torchinductor.py PASSED [82.8772s] [ 18%]
+inductor/test_benchmark_fusion.py::BenchmarkFusionGpuTest::test_resnet18_xpu SKIPPED [0.0022s] (test is slow; run with PYTORCH_TEST_WITH_SLOW to enable test) [ 25%]
+inductor/test_benchmark_fusion.py::BenchmarkFusionGpuTest::test_softmax_xpu <- test/inductor/test_torchinductor.py PASSED [5.8307s] [ 31%]
+inductor/test_benchmark_fusion.py::BenchmarkFusionGpuTest::test_tield_kernel_fusion_xpu <- test/inductor/test_torchinductor.py PASSED [4.9159s] [ 37%]
+inductor/test_benchmark_fusion.py::BenchmarkingTest::test_benchmark_on_non_zero_device SKIPPED [0.0003s] (The test need at least 2 devices) [ 43%]
+inductor/test_benchmark_fusion.py::BenchmarkMultiTemplateFusionGpuTest::test_changed_layout PASSED [2.5088s] [ 50%]
+inductor/test_benchmark_fusion.py::BenchmarkMultiTemplateFusionGpuTest::test_equivalent_extern_code PASSED [0.2226s] [ 56%]
+inductor/test_benchmark_fusion.py::BenchmarkMultiTemplateFusionGpuTest::test_equivalent_template_code PASSED [7.3186s] [ 62%]
+inductor/test_benchmark_fusion.py::BenchmarkFusionCpuTest::test_avoid_register_spilling_cpu SKIPPED [0.0017s] (GPU only) [ 68%]
+inductor/test_benchmark_fusion.py::BenchmarkFusionCpuTest::test_foreach_kernel_cpu <- test/inductor/test_torchinductor.py PASSED [5.1820s] [ 75%]
+inductor/test_benchmark_fusion.py::BenchmarkFusionCpuTest::test_register_spills_cpu <- test/inductor/test_torchinductor.py PASSED [2.5772s] [ 81%]
+inductor/test_benchmark_fusion.py::BenchmarkFusionCpuTest::test_resnet18_cpu SKIPPED [0.0018s] (test is slow; run with PYTORCH_TEST_WITH_SLOW to enable test) [ 87%]
+inductor/test_benchmark_fusion.py::BenchmarkFusionCpuTest::test_softmax_cpu <- test/inductor/test_torchinductor.py PASSED [0.9425s] [ 93%]
+inductor/test_benchmark_fusion.py::BenchmarkFusionCpuTest::test_tield_kernel_fusion_cpu <- test/inductor/test_torchinductor.py PASSED [0.8287s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/inductor.test_benchmark_fusion/inductor.test_benchmark_fusion-f493d3c7bae65bc9.xml -
+================== 12 passed, 4 skipped in 149.03s (0:02:29) ===================

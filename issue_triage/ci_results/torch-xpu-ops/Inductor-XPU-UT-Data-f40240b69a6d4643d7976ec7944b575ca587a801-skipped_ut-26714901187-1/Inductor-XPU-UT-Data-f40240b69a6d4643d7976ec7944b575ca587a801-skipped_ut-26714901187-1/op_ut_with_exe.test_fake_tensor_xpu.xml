@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="4" time="36.753" timestamp="2026-05-31T14:58:15.356260" hostname="ef1f3112d585"><testcase classname="third_party.torch-xpu-ops.test.xpu.test_fake_tensor_xpu.FakeTensorTest" name="test_cudnn_rnn_without_fallback" time="1.754"><failure message="NotImplementedError: The operator 'aten::miopen_rnn' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/test_fake_tensor_xpu.py FakeTensorTest.test_cudnn_rnn_without_fallback&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_fake_tensor_xpu.py", line 754, in test_cudnn_rnn
+    out = fn(*inps)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_fake_tensor_xpu.py", line 706, in fn
+    return torch.ops.aten.miopen_rnn(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1275, in __call__
+    return self._op(*args, **kwargs)
+NotImplementedError: The operator 'aten::miopen_rnn' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/test_fake_tensor_xpu.py FakeTensorTest.test_cudnn_rnn_without_fallback
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_fake_tensor_xpu.FakeTensorTest" name="test_cudnn_rnn_with_fallback" time="1.767"><failure message="NotImplementedError: The operator 'aten::miopen_rnn' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/test_fake_tensor_xpu.py FakeTensorTest.test_cudnn_rnn_with_fallback&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_fake_tensor_xpu.py", line 754, in test_cudnn_rnn
+    out = fn(*inps)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_fake_tensor_xpu.py", line 706, in fn
+    return torch.ops.aten.miopen_rnn(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1275, in __call__
+    return self._op(*args, **kwargs)
+NotImplementedError: The operator 'aten::miopen_rnn' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/test_fake_tensor_xpu.py FakeTensorTest.test_cudnn_rnn_with_fallback
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_fake_tensor_xpu.PropagateRealTensorsFakeTensorTest" name="test_cudnn_rnn_with_fallback_propagate_real_tensors" time="1.770"><failure message="NotImplementedError: The operator 'aten::miopen_rnn' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/test_fake_tensor_xpu.py PropagateRealTensorsFakeTensorTest.test_cudnn_rnn_with_fallback_propagate_real_tensors&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_fake_tensor_xpu.py", line 754, in test_cudnn_rnn
+    out = fn(*inps)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_fake_tensor_xpu.py", line 706, in fn
+    return torch.ops.aten.miopen_rnn(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1275, in __call__
+    return self._op(*args, **kwargs)
+NotImplementedError: The operator 'aten::miopen_rnn' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/test_fake_tensor_xpu.py PropagateRealTensorsFakeTensorTest.test_cudnn_rnn_with_fallback_propagate_real_tensors
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.test_fake_tensor_xpu.PropagateRealTensorsFakeTensorTest" name="test_cudnn_rnn_without_fallback_propagate_real_tensors" time="1.771"><failure message="NotImplementedError: The operator 'aten::miopen_rnn' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/test_fake_tensor_xpu.py PropagateRealTensorsFakeTensorTest.test_cudnn_rnn_without_fallback_propagate_real_tensors&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_fake_tensor_xpu.py", line 754, in test_cudnn_rnn
+    out = fn(*inps)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/test_fake_tensor_xpu.py", line 706, in fn
+    return torch.ops.aten.miopen_rnn(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_ops.py", line 1275, in __call__
+    return self._op(*args, **kwargs)
+NotImplementedError: The operator 'aten::miopen_rnn' is not currently implemented for the XPU device. Please open a feature on https://github.com/intel/torch-xpu-ops/issues. You can set the environment variable `PYTORCH_ENABLE_XPU_FALLBACK=1` to use the CPU implementation as a fallback for XPU unimplemented operators. WARNING: this will bring unexpected performance compared with running natively on XPU.
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/test_fake_tensor_xpu.py PropagateRealTensorsFakeTensorTest.test_cudnn_rnn_without_fallback_propagate_real_tensors
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase></testsuite></testsuites>

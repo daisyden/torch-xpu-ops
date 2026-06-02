@@ -1,0 +1,2 @@
+File Path: cd pytorch/third_party/torch-xpu-ops/test/regressions
+Reproduce Command: pytest -sv failed_case

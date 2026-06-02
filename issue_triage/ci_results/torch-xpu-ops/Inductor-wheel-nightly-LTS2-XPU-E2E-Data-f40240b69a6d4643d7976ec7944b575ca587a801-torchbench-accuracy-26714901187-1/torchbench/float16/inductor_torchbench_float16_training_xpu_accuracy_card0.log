@@ -1,0 +1,150 @@
+++ python benchmarks/dynamo/torchbench.py --accuracy --float16 -d xpu -n10 --training --total-partitions 8 --partition-id 0 --backend=inductor --cold-start-latency --timeout=10800 --disable-cudagraphs --output=/__w/torch-xpu-ops/torch-xpu-ops/pytorch/inductor_log/torchbench/float16/inductor_torchbench_float16_training_xpu_accuracy.csv
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:00, ?it/s]
+xpu  train torchrec_dlrm                      
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 4749, in run
+    ) = runner.load_model(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/torchbench.py", line 241, in load_model
+    module = importlib.import_module(c)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/__w/torch-xpu-ops/torch-xpu-ops/benchmark/torchbenchmark/canary_models/torchrec_dlrm/__init__.py", line 17, in <module>
+    from torchrec import EmbeddingBagCollection
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchrec/__init__.py", line 8, in <module>
+    import torchrec.distributed  # noqa
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchrec/distributed/__init__.py", line 36, in <module>
+    from torchrec.distributed.model_parallel import DistributedModelParallel  # noqa
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchrec/distributed/model_parallel.py", line 21, in <module>
+    from torchrec.distributed.planner import EmbeddingShardingPlanner, Topology
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchrec/distributed/planner/__init__.py", line 22, in <module>
+    from torchrec.distributed.planner.planners import EmbeddingShardingPlanner  # noqa
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchrec/distributed/planner/planners.py", line 19, in <module>
+    from torchrec.distributed.planner.constants import BATCH_SIZE, MAX_SIZE
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchrec/distributed/planner/constants.py", line 10, in <module>
+    from torchrec.distributed.embedding_types import EmbeddingComputeKernel
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchrec/distributed/embedding_types.py", line 14, in <module>
+    from fbgemm_gpu.split_table_batched_embeddings_ops_training import EmbeddingLocation
+ModuleNotFoundError: No module named 'fbgemm_gpu'
+
+eager_fail_to_run
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:03, ?it/s]
+xpu  train BERT_pytorch                       
+W0531 15:18:17.319000 62923 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:04, ?it/s]
+xpu  train Background_Matting                 
+pass_due_to_skip
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:05, ?it/s]
+xpu  train LearningToPaint                    
+W0531 15:18:59.156000 65142 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]Downloading: "https://download.pytorch.org/models/vgg16-397923af.pth" to /github/home/.cache/torch/hub/checkpoints/vgg16-397923af.pth
+
+  0%|          | 0.00/528M [00:00<?, ?B/s][A
+  4%|▍         | 22.5M/528M [00:00<00:02, 235MB/s][A
+ 14%|█▎        | 71.6M/528M [00:00<00:01, 399MB/s][A
+ 21%|██▏       | 113M/528M [00:00<00:01, 416MB/s] [A
+ 29%|██▉       | 156M/528M [00:00<00:00, 426MB/s][A
+ 39%|███▊      | 204M/528M [00:00<00:00, 455MB/s][A
+ 47%|████▋     | 248M/528M [00:00<00:00, 458MB/s][A
+ 56%|█████▋    | 297M/528M [00:00<00:00, 475MB/s][A
+ 65%|██████▌   | 344M/528M [00:00<00:00, 480MB/s][A
+ 74%|███████▍  | 390M/528M [00:00<00:00, 461MB/s][A
+ 82%|████████▏ | 434M/528M [00:01<00:00, 446MB/s][A
+ 91%|█████████ | 478M/528M [00:01<00:00, 452MB/s][A
+ 99%|█████████▉| 522M/528M [00:01<00:00, 453MB/s][A100%|██████████| 528M/528M [00:01<00:00, 446MB/s]
+WARNING:common:Model Super_SloMo does not support float16, running with amp instead
+loading model: 0it [00:07, ?it/s]
+WARNING:common:Model Super_SloMo does not support float16, running with amp instead
+xpu  train Super_SloMo                        
+WARNING:common:Model Super_SloMo does not support float16, running with amp instead
+pass
+loading model: 0it [00:00, ?it/s]Downloading: "https://download.pytorch.org/models/alexnet-owt-7be5be79.pth" to /github/home/.cache/torch/hub/checkpoints/alexnet-owt-7be5be79.pth
+
+  0%|          | 0.00/233M [00:00<?, ?B/s][A
+ 12%|█▏        | 27.1M/233M [00:00<00:00, 284MB/s][A
+ 31%|███       | 72.6M/233M [00:00<00:00, 397MB/s][A
+ 51%|█████     | 118M/233M [00:00<00:00, 434MB/s] [A
+ 70%|██████▉   | 162M/233M [00:00<00:00, 445MB/s][A
+ 89%|████████▉ | 207M/233M [00:00<00:00, 454MB/s][A100%|██████████| 233M/233M [00:00<00:00, 442MB/s]
+loading model: 0it [00:02, ?it/s]
+xpu  train alexnet                            
+W0531 15:21:02.161000 71629 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:02, ?it/s]
+xpu  train basic_gnn_edgecnn                  
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:02, ?it/s]
+xpu  train basic_gnn_gcn                      
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:02, ?it/s]
+xpu  train basic_gnn_gin                      
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:02, ?it/s]
+xpu  train basic_gnn_sage                     
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:01, ?it/s]
+xpu  train dcgan                              
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:01, ?it/s]
+xpu  train demucs                             
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 2057, in validate_model
+    self.model_iter_fn(model, example_inputs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/torchbench.py", line 486, in forward_and_backward_pass
+    pred = mod(*cloned_inputs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/benchmark/torchbenchmark/models/demucs/__init__.py", line 32, in forward
+    return sources, self.model(mix)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/benchmark/torchbenchmark/models/demucs/demucs/model.py", line 215, in forward
+    x = encode(x)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 385, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 380, in _conv_forward
+    return F.conv1d(
+RuntimeError: Input type (float) and bias type (c10::Half) should be the same
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 4749, in run
+    ) = runner.load_model(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/torchbench.py", line 384, in load_model
+    self.validate_model(benchmark.name, model, example_inputs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 2059, in validate_model
+    raise RuntimeError("Eager run failed") from e
+RuntimeError: Eager run failed
+
+eager_fail_to_run
+accuracy            pass_rate=74.51%
+calls_captured      gmean=0.00x mean=243.961x
+unique_graphs       gmean=0.00x mean=1.588x
+graph_breaks        gmean=0.00x mean=4.725x
+unique_graph_breaks gmean=0.00x mean=3.431x
+autograd_captures   gmean=0.00x mean=0.000x
+autograd_compiles   gmean=0.00x mean=0.000x
+cudagraph_skips     gmean=0.00x mean=0.000x
+compilation_latency mean=18.085 seconds

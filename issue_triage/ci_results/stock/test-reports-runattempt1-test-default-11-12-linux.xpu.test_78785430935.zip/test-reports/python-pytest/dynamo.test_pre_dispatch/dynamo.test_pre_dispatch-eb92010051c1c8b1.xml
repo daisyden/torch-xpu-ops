@@ -1,0 +1,38 @@
+<testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="3" time="0.720" timestamp="2026-06-01T04:38:42.163358" hostname="54b354415dfd"><testcase classname="PreDispatchTests" name="test_autocast_simple" time="0.603" file="dynamo/test_pre_dispatch.py"><system-out>class &lt;lambda&gt;(torch.nn.Module):
+    def forward(self, arg0_1: "f32[4]"):
+        # No stacktrace found for following nodes
+        mul: "f32[4]" = torch.ops.aten.mul.Tensor(arg0_1, 2);  arg0_1 = None
+        _enter_autocast = torch.amp.autocast_mode._enter_autocast('cpu', None, True, None)
+        matmul: "f32[]" = torch.ops.aten.matmul.default(mul, mul)
+        _exit_autocast = torch.amp.autocast_mode._exit_autocast(_enter_autocast);  _enter_autocast = _exit_autocast = None
+        add: "f32[4]" = torch.ops.aten.add.Tensor(mul, matmul);  mul = matmul = None
+        return (add,)
+
+</system-out></testcase><testcase classname="PreDispatchTests" name="test_enable_grad_and_no_grad" time="0.050" file="dynamo/test_pre_dispatch.py"><system-out>class &lt;lambda&gt;(torch.nn.Module):
+    def forward(self, arg0_1: "f32[4]"):
+        # No stacktrace found for following nodes
+        mul: "f32[4]" = torch.ops.aten.mul.Tensor(arg0_1, 2);  arg0_1 = None
+        _set_grad_enabled = torch._C._set_grad_enabled(False);  _set_grad_enabled = None
+        mul_1: "f32[4]" = torch.ops.aten.mul.Tensor(mul, 3)
+        _set_grad_enabled_1 = torch._C._set_grad_enabled(True);  _set_grad_enabled_1 = None
+        mul_2: "f32[4]" = torch.ops.aten.mul.Tensor(mul_1, 4)
+        _set_grad_enabled_2 = torch._C._set_grad_enabled(False);  _set_grad_enabled_2 = None
+        mul_3: "f32[4]" = torch.ops.aten.mul.Tensor(mul_2, 5)
+        _set_grad_enabled_3 = torch._C._set_grad_enabled(True);  _set_grad_enabled_3 = None
+        add: "f32[4]" = torch.ops.aten.add.Tensor(mul, mul_1);  mul = mul_1 = None
+        add_1: "f32[4]" = torch.ops.aten.add.Tensor(add, mul_2);  add = mul_2 = None
+        add_2: "f32[4]" = torch.ops.aten.add.Tensor(add_1, mul_3);  add_1 = mul_3 = None
+        return (add_2,)
+
+</system-out></testcase><testcase classname="PreDispatchTests" name="test_no_grad_simple" time="0.046" file="dynamo/test_pre_dispatch.py"><system-out>class &lt;lambda&gt;(torch.nn.Module):
+    def forward(self, arg0_1: "f32[4]"):
+        # No stacktrace found for following nodes
+        sin: "f32[4]" = torch.ops.aten.sin.default(arg0_1);  arg0_1 = None
+        _set_grad_enabled = torch._C._set_grad_enabled(False);  _set_grad_enabled = None
+        cos: "f32[4]" = torch.ops.aten.cos.default(sin)
+        _set_grad_enabled_1 = torch._C._set_grad_enabled(True);  _set_grad_enabled_1 = None
+        sin_1: "f32[4]" = torch.ops.aten.sin.default(cos);  cos = None
+        mul: "f32[4]" = torch.ops.aten.mul.Tensor(sin, sin_1);  sin = sin_1 = None
+        return (mul,)
+
+</system-out></testcase></testsuite></testsuites>

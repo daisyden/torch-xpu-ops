@@ -1,0 +1,22 @@
+Test results will be stored in test-reports/python-pytest/dynamo.test_debug_utils/dynamo.test_debug_utils-bef715afdf614c0d.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 7 items
+stepcurrent: Cannot find last run test, not skipping
+Running 7 items in this shard: test/dynamo/test_debug_utils.py::TestNNModuleToStringBufferDeviceXPU::test_nn_module_to_string_buffer_device_xpu, test/dynamo/test_debug_utils.py::TestNNModuleToStringBufferDeviceXPU::test_nn_module_to_string_param_device_xpu, test/dynamo/test_debug_utils.py::TestConfigOverrideValidation::test_invalid_backend_raises_on_compile, test/dynamo/test_debug_utils.py::TestConfigOverrideValidation::test_invalid_dynamo_config_raises_on_compile, test/dynamo/test_debug_utils.py::TestConfigOverrideValidation::test_invalid_inductor_config_raises_on_compile, test/dynamo/test_debug_utils.py::TestDynamoConfigOverrideIntegration::test_dynamo_config_override_per_graph, test/dynamo/test_debug_utils.py::TestDynamoConfigOverrideIntegration::test_dynamo_config_override_warning
+
+dynamo/test_debug_utils.py::TestNNModuleToStringBufferDeviceXPU::test_nn_module_to_string_buffer_device_xpu PASSED [0.0043s] [ 14%]
+dynamo/test_debug_utils.py::TestNNModuleToStringBufferDeviceXPU::test_nn_module_to_string_param_device_xpu PASSED [0.0038s] [ 28%]
+dynamo/test_debug_utils.py::TestConfigOverrideValidation::test_invalid_backend_raises_on_compile PASSED [0.0310s] [ 42%]
+dynamo/test_debug_utils.py::TestConfigOverrideValidation::test_invalid_dynamo_config_raises_on_compile PASSED [0.0045s] [ 57%]
+dynamo/test_debug_utils.py::TestConfigOverrideValidation::test_invalid_inductor_config_raises_on_compile PASSED [0.0039s] [ 71%]
+dynamo/test_debug_utils.py::TestDynamoConfigOverrideIntegration::test_dynamo_config_override_per_graph PASSED [0.1950s] [ 85%]
+dynamo/test_debug_utils.py::TestDynamoConfigOverrideIntegration::test_dynamo_config_override_warning PASSED [0.0068s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/dynamo.test_debug_utils/dynamo.test_debug_utils-bef715afdf614c0d.xml -
+============================== 7 passed in 0.27s ===============================

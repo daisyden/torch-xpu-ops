@@ -1,0 +1,25 @@
+Test results will be stored in test-reports/python-pytest/dynamo.test_einops/dynamo.test_einops-68b65485944f7f91.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 10 items
+stepcurrent: Cannot find last run test, not skipping
+Running 10 items in this shard: test/dynamo/test_einops.py::TestEinops::test_einops_method_einsum, test/dynamo/test_einops.py::TestEinops::test_einops_method_pack, test/dynamo/test_einops.py::TestEinops::test_einops_method_rearrange, test/dynamo/test_einops.py::TestEinops::test_einops_method_reduce, test/dynamo/test_einops.py::TestEinops::test_einops_method_repeat, test/dynamo/test_einops.py::TestEinops::test_einops_method_unpack, test/dynamo/test_einops.py::TestEinops::test_functions_version_none, test/dynamo/test_einops.py::TestEinops::test_layers_version_none, test/dynamo/test_einops.py::TestEinops::test_no_recompile_on_lazy_state_version_none, test/dynamo/test_einops.py::TestEinops::test_no_warning
+
+dynamo/test_einops.py::TestEinops::test_einops_method_einsum SKIPPED [0.0004s] (these tests require einops) [ 10%]
+dynamo/test_einops.py::TestEinops::test_einops_method_pack SKIPPED [0.0002s] (these tests require einops) [ 20%]
+dynamo/test_einops.py::TestEinops::test_einops_method_rearrange SKIPPED [0.0002s] (these tests require einops) [ 30%]
+dynamo/test_einops.py::TestEinops::test_einops_method_reduce SKIPPED [0.0002s] (these tests require einops) [ 40%]
+dynamo/test_einops.py::TestEinops::test_einops_method_repeat SKIPPED [0.0003s] (these tests require einops) [ 50%]
+dynamo/test_einops.py::TestEinops::test_einops_method_unpack SKIPPED [0.0002s] (these tests require einops) [ 60%]
+dynamo/test_einops.py::TestEinops::test_functions_version_none SKIPPED [0.0002s] (these tests require einops) [ 70%]
+dynamo/test_einops.py::TestEinops::test_layers_version_none SKIPPED [0.0002s] (these tests require einops) [ 80%]
+dynamo/test_einops.py::TestEinops::test_no_recompile_on_lazy_state_version_none SKIPPED [0.0002s] (these tests require einops) [ 90%]
+dynamo/test_einops.py::TestEinops::test_no_warning SKIPPED [0.0002s] (these tests require einops) [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/dynamo.test_einops/dynamo.test_einops-68b65485944f7f91.xml -
+============================= 10 skipped in 0.02s ==============================

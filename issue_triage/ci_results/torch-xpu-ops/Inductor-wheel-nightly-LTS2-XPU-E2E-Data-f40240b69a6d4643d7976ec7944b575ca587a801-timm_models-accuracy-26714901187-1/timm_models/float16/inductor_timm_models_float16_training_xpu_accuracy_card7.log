@@ -1,0 +1,47 @@
+++ python benchmarks/dynamo/timm_models.py --accuracy --float16 -d xpu -n10 --training --total-partitions 8 --partition-id 7 --backend=inductor --cold-start-latency --timeout=10800 --disable-cudagraphs --output=/__w/torch-xpu-ops/torch-xpu-ops/pytorch/inductor_log/timm_models/float16/inductor_timm_models_float16_training_xpu_accuracy.csv
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:05, ?it/s]
+xpu  train tinynet_a                          
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:04, ?it/s]
+xpu  train tnt_s_patch16_224                  
+W0531 14:17:07.551000 7805 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:05, ?it/s]
+xpu  train twins_pcpvt_base                   
+W0531 14:18:22.122000 11630 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:05, ?it/s]
+xpu  train visformer_small                    
+W0531 14:19:48.205000 16232 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:03, ?it/s]
+xpu  train vit_base_patch14_dinov2.lvd142m    
+W0531 14:20:44.385000 19490 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:04, ?it/s]
+xpu  train vit_base_patch16_224               
+W0531 14:21:19.739000 20382 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:04, ?it/s]
+xpu  train vit_base_patch16_siglip_256        
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:07, ?it/s]
+xpu  train volo_d1_224                        
+W0531 14:22:42.500000 24422 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]WARNING:common:Model xcit_large_24_p8_224 does not support float16, running with amp instead
+loading model: 0it [00:08, ?it/s]
+WARNING:common:Model xcit_large_24_p8_224 does not support float16, running with amp instead
+xpu  train xcit_large_24_p8_224               
+WARNING:common:Model xcit_large_24_p8_224 does not support float16, running with amp instead
+W0531 14:24:04.320000 28542 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass_due_to_skip
+accuracy            pass_rate=94.34%
+calls_captured      gmean=405.74x mean=485.811x
+unique_graphs       gmean=1.10x mean=1.151x
+graph_breaks        gmean=5.02x mean=5.019x
+unique_graph_breaks gmean=4.00x mean=4.000x
+autograd_captures   gmean=0.00x mean=0.000x
+autograd_compiles   gmean=0.00x mean=0.000x
+cudagraph_skips     gmean=0.00x mean=0.000x
+compilation_latency mean=45.444 seconds

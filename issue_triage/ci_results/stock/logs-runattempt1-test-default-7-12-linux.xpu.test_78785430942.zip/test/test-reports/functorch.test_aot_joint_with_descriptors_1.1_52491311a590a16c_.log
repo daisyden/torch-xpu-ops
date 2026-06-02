@@ -1,0 +1,36 @@
+Test results will be stored in test-reports/python-pytest/functorch.test_aot_joint_with_descriptors/functorch.test_aot_joint_with_descriptors-58eeb42efff8797c.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 21 items
+stepcurrent: Cannot find last run test, not skipping
+Running 21 items in this shard: test/functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_annotate_fn_anchors_nested_functional_call, test/functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_annotate_fn_anchors_pure_tensor_ops, test/functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_annotate_fn_nested_with_module_forward, test/functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_annotate_invoke_subgraph_simple, test/functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_conv_bn_module, test/functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_custom_op_stack_trace, test/functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_export_and_compile, test/functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_fx_utils_conv_bn_module, test/functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_fx_utils_multiple_outputs, test/functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_fx_utils_node_consistency, test/functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_fx_utils_simple_linear, test/functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_in_out_specs, test/functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_module_with_kwargs, test/functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_multiple_outputs_module, test/functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_no_annotation_on_gradient_acc_nodes, test/functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_preserve_annotate_flex_attention, test/functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_preserve_annotate_function, test/functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_preserve_annotate_replay_view, test/functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_preserve_annotate_simple, test/functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_simple_linear_module, test/functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_static_input_indices
+
+functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_annotate_fn_anchors_nested_functional_call PASSED [0.3279s] [  4%]
+functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_annotate_fn_anchors_pure_tensor_ops PASSED [0.0159s] [  9%]
+functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_annotate_fn_nested_with_module_forward PASSED [0.0097s] [ 14%]
+functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_annotate_invoke_subgraph_simple PASSED [0.1887s] [ 19%]
+functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_conv_bn_module PASSED [0.2093s] [ 23%]
+functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_custom_op_stack_trace PASSED [0.0353s] [ 28%]
+functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_export_and_compile PASSED [23.5982s] [ 33%]
+functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_fx_utils_conv_bn_module PASSED [0.1050s] [ 38%]
+functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_fx_utils_multiple_outputs PASSED [0.0745s] [ 42%]
+functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_fx_utils_node_consistency PASSED [0.0361s] [ 47%]
+functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_fx_utils_simple_linear PASSED [0.0266s] [ 52%]
+functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_in_out_specs PASSED [0.0346s] [ 57%]
+functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_module_with_kwargs PASSED [0.0636s] [ 61%]
+functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_multiple_outputs_module PASSED [0.0529s] [ 66%]
+functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_no_annotation_on_gradient_acc_nodes PASSED [0.0677s] [ 71%]
+functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_preserve_annotate_flex_attention SKIPPED [0.0004s] (Requires CUDA) [ 76%]
+functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_preserve_annotate_function PASSED [0.0731s] [ 80%]
+functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_preserve_annotate_replay_view PASSED [0.0487s] [ 85%]
+functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_preserve_annotate_simple PASSED [0.0594s] [ 90%]
+functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_simple_linear_module PASSED [0.0350s] [ 95%]
+functorch/test_aot_joint_with_descriptors.py::TestAOTJointWithDescriptors::test_static_input_indices PASSED [0.0810s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/functorch.test_aot_joint_with_descriptors/functorch.test_aot_joint_with_descriptors-58eeb42efff8797c.xml -
+======================== 20 passed, 1 skipped in 25.19s ========================

@@ -1,0 +1,16 @@
+Test results will be stored in test-reports/python-pytest/test_foreach/test_foreach-fa329f902f93066f.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 3690 items / 3689 deselected / 1 selected
+stepcurrent: Cannot find last run test, not skipping
+Running 1 items in this shard: test/test_foreach.py::TestForeachXPU::test_foreach_copy_with_multi_dtypes_large_input_xpu
+
+test_foreach.py::TestForeachXPU::test_foreach_copy_with_multi_dtypes_large_input_xpu SKIPPED [0.0026s] (Only runs on cuda) [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/test_foreach/test_foreach-fa329f902f93066f.xml -
+===================== 1 skipped, 3689 deselected in 0.17s ======================

@@ -1,0 +1,66 @@
+Test results will be stored in test-reports/python-pytest/dynamo.test_mapping_ops/dynamo.test_mapping_ops-b20a6f381bf6d276.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 51 items
+stepcurrent: Cannot find last run test, not skipping
+Running 51 items in this shard: test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_basic_label_Counter_factory2, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_basic_label_DictSubclass_factory4, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_basic_label_OrderedDict_factory1, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_basic_label_defaultdict_factory3, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_basic_label_dict_factory0, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_dict_all_keys, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_dict_missing_key, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_dict_unhashable_key, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_outer_dict_persists, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_subclass_dict_inherited, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_subclass_dict_override, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_then_set_label_Counter_factory2, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_then_set_label_DictSubclass_factory4, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_then_set_label_OrderedDict_factory1, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_then_set_label_defaultdict_factory3, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_then_set_label_dict_factory0, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_dict_various_key_types, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_dict_various_value_types, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_error_dict_unhashable_key, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_mutation_nested_dict, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_mutation_outer_dict_persists, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_basic_label_Counter_factory2, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_basic_label_DictSubclass_factory4, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_basic_label_OrderedDict_factory1, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_basic_label_WithSetitemViaMapping_factory5, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_basic_label_defaultdict_factory3, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_basic_label_dict_factory0, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_multiple_label_Counter_factory2, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_multiple_label_DictSubclass_factory4, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_multiple_label_OrderedDict_factory1, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_multiple_label_WithSetitemViaMapping_factory5, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_multiple_label_defaultdict_factory3, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_multiple_label_dict_factory0, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_new_key_label_Counter_factory2, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_new_key_label_DictSubclass_factory4, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_new_key_label_OrderedDict_factory1, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_new_key_label_WithSetitemViaMapping_factory5, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_new_key_label_defaultdict_factory3, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_new_key_label_dict_factory0, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_replaces_value_label_Counter_factory2, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_replaces_value_label_DictSubclass_factory4, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_replaces_value_label_OrderedDict_factory1, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_replaces_value_label_WithSetitemViaMapping_factory5, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_replaces_value_label_defaultdict_factory3, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_replaces_value_label_dict_factory0, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_subclass_dict_inherited_setitem, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_subclass_dict_overriding, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_subclass_dict_track_writes, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_subclass_dict_with_missing, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_subclass_ordereddict, test/dynamo/test_mapping_ops.py::TestMpAssSubscript::test_symnode_dict_value
+
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_basic_label_Counter_factory2 PASSED [0.4997s] [  1%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_basic_label_DictSubclass_factory4 PASSED [0.1210s] [  3%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_basic_label_OrderedDict_factory1 PASSED [0.1208s] [  5%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_basic_label_defaultdict_factory3 PASSED [0.1211s] [  7%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_basic_label_dict_factory0 PASSED [0.1205s] [  9%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_dict_all_keys PASSED [0.0989s] [ 11%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_dict_missing_key PASSED [0.0506s] [ 13%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_dict_unhashable_key PASSED [0.0430s] [ 15%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_outer_dict_persists PASSED [0.0450s] [ 17%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_subclass_dict_inherited PASSED [0.1132s] [ 19%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_subclass_dict_override PASSED [0.1866s] [ 21%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_then_set_label_Counter_factory2 PASSED [0.0931s] [ 23%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_then_set_label_DictSubclass_factory4 PASSED [0.0911s] [ 25%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_then_set_label_OrderedDict_factory1 PASSED [0.2792s] [ 27%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_then_set_label_defaultdict_factory3 PASSED [0.1003s] [ 29%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_delitem_then_set_label_dict_factory0 PASSED [0.1001s] [ 31%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_dict_various_key_types PASSED [0.1463s] [ 33%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_dict_various_value_types PASSED [0.2343s] [ 35%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_error_dict_unhashable_key PASSED [0.0404s] [ 37%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_mutation_nested_dict PASSED [0.1158s] [ 39%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_mutation_outer_dict_persists PASSED [0.0338s] [ 41%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_basic_label_Counter_factory2 PASSED [0.0925s] [ 43%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_basic_label_DictSubclass_factory4 PASSED [0.1264s] [ 45%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_basic_label_OrderedDict_factory1 PASSED [0.0899s] [ 47%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_basic_label_WithSetitemViaMapping_factory5 PASSED [0.0942s] [ 49%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_basic_label_defaultdict_factory3 PASSED [0.0899s] [ 50%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_basic_label_dict_factory0 PASSED [0.0893s] [ 52%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_multiple_label_Counter_factory2 PASSED [0.1236s] [ 54%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_multiple_label_DictSubclass_factory4 PASSED [0.1359s] [ 56%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_multiple_label_OrderedDict_factory1 PASSED [0.1319s] [ 58%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_multiple_label_WithSetitemViaMapping_factory5 PASSED [0.1511s] [ 60%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_multiple_label_defaultdict_factory3 PASSED [0.1323s] [ 62%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_multiple_label_dict_factory0 PASSED [0.1268s] [ 64%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_new_key_label_Counter_factory2 PASSED [0.2708s] [ 66%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_new_key_label_DictSubclass_factory4 PASSED [0.0932s] [ 68%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_new_key_label_OrderedDict_factory1 PASSED [0.1066s] [ 70%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_new_key_label_WithSetitemViaMapping_factory5 PASSED [0.1006s] [ 72%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_new_key_label_defaultdict_factory3 PASSED [0.1281s] [ 74%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_new_key_label_dict_factory0 PASSED [0.0902s] [ 76%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_replaces_value_label_Counter_factory2 PASSED [0.0932s] [ 78%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_replaces_value_label_DictSubclass_factory4 PASSED [0.0910s] [ 80%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_replaces_value_label_OrderedDict_factory1 PASSED [0.0934s] [ 82%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_replaces_value_label_WithSetitemViaMapping_factory5 PASSED [0.0898s] [ 84%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_replaces_value_label_defaultdict_factory3 PASSED [0.0912s] [ 86%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_setitem_replaces_value_label_dict_factory0 PASSED [0.1070s] [ 88%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_subclass_dict_inherited_setitem PASSED [0.1368s] [ 90%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_subclass_dict_overriding PASSED [0.1043s] [ 92%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_subclass_dict_track_writes PASSED [0.3922s] [ 94%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_subclass_dict_with_missing PASSED [0.1428s] [ 96%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_subclass_ordereddict PASSED [0.1732s] [ 98%]
+dynamo/test_mapping_ops.py::TestMpAssSubscript::test_symnode_dict_value PASSED [0.1084s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/dynamo.test_mapping_ops/dynamo.test_mapping_ops-b20a6f381bf6d276.xml -
+============================== 51 passed in 6.65s ==============================

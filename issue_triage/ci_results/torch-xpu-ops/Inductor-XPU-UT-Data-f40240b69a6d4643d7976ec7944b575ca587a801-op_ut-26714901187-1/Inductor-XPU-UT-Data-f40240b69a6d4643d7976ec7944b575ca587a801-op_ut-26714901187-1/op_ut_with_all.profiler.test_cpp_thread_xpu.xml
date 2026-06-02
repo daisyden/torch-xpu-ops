@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="2" skipped="3" tests="6" time="15.680" timestamp="2026-05-31T16:51:21.788240" hostname="06945b282243"><testcase classname="third_party.torch-xpu-ops.test.xpu.profiler.test_cpp_thread_xpu.CppThreadTestCUDA" name="test_with_enable_profiler_in_child_thread_cuda" time="0.859"><skipped type="pytest.skip" message="Test machine does not have cuda">/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/profiler/test_cpp_thread_xpu.py:172: Test machine does not have cuda</skipped></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.profiler.test_cpp_thread_xpu.CppThreadTestCUDA" name="test_profile_memory_cuda" time="0.875"><skipped type="pytest.skip" message="Test machine does not have cuda">/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/profiler/test_cpp_thread_xpu.py:200: Test machine does not have cuda</skipped></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.profiler.test_cpp_thread_xpu.CppThreadTestCUDA" name="test_without_enable_profiler_in_child_thread_cuda" time="1.019"><skipped type="pytest.skip" message="Test machine does not have cuda">/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/profiler/test_cpp_thread_xpu.py:186: Test machine does not have cuda</skipped></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.profiler.test_cpp_thread_xpu.CppThreadTestXPU" name="test_without_enable_profiler_in_child_thread_xpu" time="1.268"><failure message="AssertionError: False is not true : baseline event count incorrect&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/profiler/test_cpp_thread_xpu.py CppThreadTestXPU.test_without_enable_profiler_in_child_thread_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/profiler/test_cpp_thread_xpu.py", line 328, in test_without_enable_profiler_in_child_thread_xpu
+    self.check_trace(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/profiler/test_cpp_thread_xpu.py", line 303, in check_trace
+    self.assert_text(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/profiler/test_cpp_thread_xpu.py", line 269, in assert_text
+    self.assertTrue(condition, msg)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/unittest/case.py", line 687, in assertTrue
+    raise self.failureException(msg)
+AssertionError: False is not true : baseline event count incorrect
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/profiler/test_cpp_thread_xpu.py CppThreadTestXPU.test_without_enable_profiler_in_child_thread_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.profiler.test_cpp_thread_xpu.CppThreadTestXPU" name="test_with_enable_profiler_in_child_thread_xpu" time="1.414"><failure message="AssertionError: False is not true : not enough event recorded&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/profiler/test_cpp_thread_xpu.py CppThreadTestXPU.test_with_enable_profiler_in_child_thread_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/profiler/test_cpp_thread_xpu.py", line 318, in test_with_enable_profiler_in_child_thread_xpu
+    self.check_trace(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/profiler/test_cpp_thread_xpu.py", line 309, in check_trace
+    self.assert_text(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/profiler/test_cpp_thread_xpu.py", line 269, in assert_text
+    self.assertTrue(condition, msg)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/unittest/case.py", line 687, in assertTrue
+    raise self.failureException(msg)
+AssertionError: False is not true : not enough event recorded
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/profiler/test_cpp_thread_xpu.py CppThreadTestXPU.test_with_enable_profiler_in_child_thread_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.profiler.test_cpp_thread_xpu.CppThreadTestXPU" name="test_profile_memory_xpu" time="1.528" /></testsuite></testsuites>

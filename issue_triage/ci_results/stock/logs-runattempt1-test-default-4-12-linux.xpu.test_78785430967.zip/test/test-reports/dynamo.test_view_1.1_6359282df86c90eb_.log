@@ -1,0 +1,21 @@
+Test results will be stored in test-reports/python-pytest/dynamo.test_view/dynamo.test_view-1a5d43654dbabd03.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 6 items
+stepcurrent: Cannot find last run test, not skipping
+Running 6 items in this shard: test/dynamo/test_view.py::ViewTests::test_tensor_view_with_tensor_args, test/dynamo/test_view.py::ViewTests::test_tensor_view_with_tensor_shape_params, test/dynamo/test_view.py::ViewTests::test_torch_reshape_with_tensor_shape_params, test/dynamo/test_view.py::ViewTests::test_view_to_1d, test/dynamo/test_view.py::ViewTests::test_view_to_2d, test/dynamo/test_view.py::ViewTests::test_view_with_tensor_shape_params
+
+dynamo/test_view.py::ViewTests::test_tensor_view_with_tensor_args PASSED [0.6182s] [ 16%]
+dynamo/test_view.py::ViewTests::test_tensor_view_with_tensor_shape_params PASSED [0.0543s] [ 33%]
+dynamo/test_view.py::ViewTests::test_torch_reshape_with_tensor_shape_params PASSED [0.1320s] [ 50%]
+dynamo/test_view.py::ViewTests::test_view_to_1d PASSED [0.1013s]         [ 66%]
+dynamo/test_view.py::ViewTests::test_view_to_2d PASSED [0.0682s]         [ 83%]
+dynamo/test_view.py::ViewTests::test_view_with_tensor_shape_params PASSED [0.0549s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/dynamo.test_view/dynamo.test_view-1a5d43654dbabd03.xml -
+============================== 6 passed in 1.05s ===============================

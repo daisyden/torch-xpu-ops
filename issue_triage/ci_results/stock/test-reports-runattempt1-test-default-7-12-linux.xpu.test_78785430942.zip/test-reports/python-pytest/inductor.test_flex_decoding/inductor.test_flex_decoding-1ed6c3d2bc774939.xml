@@ -1,0 +1,13 @@
+<testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="17.068" timestamp="2026-06-01T04:39:15.081779" hostname="56eb177b00a9"><testcase classname="TestFlexDecodingXPU" name="test_non_pow_2_headdim_head_dim_17_float16_xpu_float16" time="17.023" file="inductor/test_flex_decoding.py"><system-out>very small ref error of  tensor(0.0081, device='xpu:0', dtype=torch.float64)
+</system-out><system-err>/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/attention/flex_attention.py:2408: FutureWarning: return_lse is deprecated and will be removed in v2.10. Please use return_aux=AuxRequest(lse=True) instead.
+  _warn_once(
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/attention/flex_attention.py:2481: UserWarning: flex_attention called without torch.compile() - this will use an unfused implementation that materializes the full scores matrix instead of generating a fused kernel.
+
+SOLUTION: Use torch.compile(flex_attention)(...)
+
+If you want to debug your score_mod/mask_mod, you can set:
+torch.nn.attention.flex_attention._FLEX_ATTENTION_DISABLE_COMPILE_DEBUG = True
+
+This will allow you to use print statements or breakpoints. Note: This doesn't work with the backwards pass and may produce incorrect results.
+  _warn_once(
+</system-err></testcase></testsuite></testsuites>

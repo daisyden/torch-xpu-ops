@@ -1,0 +1,18 @@
+Test results will be stored in test-reports/python-pytest/functorch.test_codegen_backward_epilogue/functorch.test_codegen_backward_epilogue-f8cca112f29674e3.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 3 items
+stepcurrent: Cannot find last run test, not skipping
+Running 3 items in this shard: test/functorch/test_codegen_backward_epilogue.py::TestCodegenBackwardEpilogue::test_multi_input_backward_wraps_grad_inputs, test/functorch/test_codegen_backward_epilogue.py::TestCodegenBackwardEpilogue::test_nested_subclass_backward_wraps_grad_inputs, test/functorch/test_codegen_backward_epilogue.py::TestCodegenBackwardEpilogue::test_simple_backward_wraps_grad_inputs
+
+functorch/test_codegen_backward_epilogue.py::TestCodegenBackwardEpilogue::test_multi_input_backward_wraps_grad_inputs PASSED [2.1384s] [ 33%]
+functorch/test_codegen_backward_epilogue.py::TestCodegenBackwardEpilogue::test_nested_subclass_backward_wraps_grad_inputs PASSED [0.1265s] [ 66%]
+functorch/test_codegen_backward_epilogue.py::TestCodegenBackwardEpilogue::test_simple_backward_wraps_grad_inputs PASSED [0.0858s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/functorch.test_codegen_backward_epilogue/functorch.test_codegen_backward_epilogue-f8cca112f29674e3.xml -
+============================== 3 passed in 2.38s ===============================

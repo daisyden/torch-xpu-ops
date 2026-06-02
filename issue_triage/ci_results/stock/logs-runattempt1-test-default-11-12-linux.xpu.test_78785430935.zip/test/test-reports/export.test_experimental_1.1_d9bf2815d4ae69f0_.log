@@ -1,0 +1,62 @@
+Test results will be stored in test-reports/python-pytest/export.test_experimental/export.test_experimental-212be611ea9d5333.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 47 items
+stepcurrent: Cannot find last run test, not skipping
+Running 47 items in this shard: test/export/test_experimental.py::TestExperiment::test_aot_export_blockmask_closure_spec_mismatch, test/export/test_experimental.py::TestExperiment::test_aot_export_blockmask_with_new_closure, test/export/test_experimental.py::TestExperiment::test_aot_export_closure_buffer_mutation, test/export/test_experimental.py::TestExperiment::test_aot_export_flex_attention_callable_mask_mod, test/export/test_experimental.py::TestExperiment::test_aot_export_flex_attention_with_blockmask_placeholders, test/export/test_experimental.py::TestExperiment::test_blockmask_and_masks_closure_extraction, test/export/test_experimental.py::TestExperiment::test_blockmask_partial_extraction_replays_bound_tensors, test/export/test_experimental.py::TestExperiment::test_blockmask_recursive_partial_extraction_replays_bound_tensors, test/export/test_experimental.py::TestExperiment::test_blockmask_self_referential_function_closure_extraction, test/export/test_experimental.py::TestExperiment::test_dynamo_graph_capture, test/export/test_experimental.py::TestExperiment::test_dynamo_graph_capture_closure, test/export/test_experimental.py::TestExperiment::test_dynamo_graph_capture_ctx_return, test/export/test_experimental.py::TestExperiment::test_dynamo_graph_capture_custom_pytree_type, test/export/test_experimental.py::TestExperiment::test_dynamo_graph_capture_default_args, test/export/test_experimental.py::TestExperiment::test_dynamo_graph_capture_dict_keys_getitem, test/export/test_experimental.py::TestExperiment::test_dynamo_graph_capture_full_tracing_context, test/export/test_experimental.py::TestExperiment::test_dynamo_graph_capture_fx_graph_annotate_overlap_pass, test/export/test_experimental.py::TestExperiment::test_dynamo_graph_capture_side_effects, test/export/test_experimental.py::TestExperiment::test_dynamo_graph_capture_with_call_override, test/export/test_experimental.py::TestExperiment::test_dynamo_graph_capture_with_tensor_constant, test/export/test_experimental.py::TestExperiment::test_export_add_in_out_info, test/export/test_experimental.py::TestExperiment::test_export_blockmask, test/export/test_experimental.py::TestExperiment::test_export_blockmask_closure_mutually_recursive, test/export/test_experimental.py::TestExperiment::test_export_blockmask_closure_self_recursive, test/export/test_experimental.py::TestExperiment::test_export_blockmask_closure_tensor, test/export/test_experimental.py::TestExperiment::test_export_blockmask_closure_triple_nested, test/export/test_experimental.py::TestExperiment::test_export_blockmask_closure_unsupported_class_instance, test/export/test_experimental.py::TestExperiment::test_export_blockmask_closure_with_containers, test/export/test_experimental.py::TestExperiment::test_export_blockmask_mutated_closure, test/export/test_experimental.py::TestExperiment::test_export_leaf, test/export/test_experimental.py::TestExperiment::test_export_with_default_kwargs, test/export/test_experimental.py::TestExperiment::test_joint_basic, test/export/test_experimental.py::TestExperiment::test_joint_buffer_input_mutations, test/export/test_experimental.py::TestExperiment::test_joint_cifar10_backwards, test/export/test_experimental.py::TestExperiment::test_joint_dynamic, test/export/test_experimental.py::TestExperiment::test_joint_loss_index, test/export/test_experimental.py::TestExperiment::test_mask_mod_wrapper_eq_for_partials, test/export/test_experimental.py::TestExperiment::test_mask_mod_wrapper_eq_for_plain_functions, test/export/test_experimental.py::TestExperiment::test_restore_state_dict_basic, test/export/test_experimental.py::TestExperiment::test_restore_state_dict_nested_modules, test/export/test_experimental.py::TestExperiment::test_restore_state_dict_type_error, test/export/test_experimental.py::TestExperiment::test_restore_state_dict_with_bound_method, test/export/test_experimental.py::TestExperiment::test_side_effect, test/export/test_experimental.py::TestExperiment::test_single_op, test/export/test_experimental.py::TestExperiment::test_sticky_export, test/export/test_experimental.py::TestExperiment::test_sticky_export_dynamic, test/export/test_experimental.py::TestExperiment::test_sticky_export_nested_inp
+
+export/test_experimental.py::TestExperiment::test_aot_export_blockmask_closure_spec_mismatch SKIPPED [0.0003s] (CUDA not available) [  2%]
+export/test_experimental.py::TestExperiment::test_aot_export_blockmask_with_new_closure SKIPPED [0.0002s] (CUDA not available) [  4%]
+export/test_experimental.py::TestExperiment::test_aot_export_closure_buffer_mutation PASSED [0.2456s] [  6%]
+export/test_experimental.py::TestExperiment::test_aot_export_flex_attention_callable_mask_mod SKIPPED [0.0003s] (Requires CUDA with SM >= 8.0, Triton, and not ROCm) [  8%]
+export/test_experimental.py::TestExperiment::test_aot_export_flex_attention_with_blockmask_placeholders SKIPPED [0.0002s] (Requires CUDA with SM >= 8.0, Triton, and not ROCm) [ 10%]
+export/test_experimental.py::TestExperiment::test_blockmask_and_masks_closure_extraction SKIPPED [0.0002s] (CUDA not available) [ 12%]
+export/test_experimental.py::TestExperiment::test_blockmask_partial_extraction_replays_bound_tensors PASSED [0.0558s] [ 14%]
+export/test_experimental.py::TestExperiment::test_blockmask_recursive_partial_extraction_replays_bound_tensors PASSED [0.0484s] [ 17%]
+export/test_experimental.py::TestExperiment::test_blockmask_self_referential_function_closure_extraction PASSED [0.0042s] [ 19%]
+export/test_experimental.py::TestExperiment::test_dynamo_graph_capture PASSED [0.0208s] [ 21%]
+export/test_experimental.py::TestExperiment::test_dynamo_graph_capture_closure PASSED [0.0286s] [ 23%]
+export/test_experimental.py::TestExperiment::test_dynamo_graph_capture_ctx_return PASSED [0.0180s] [ 25%]
+export/test_experimental.py::TestExperiment::test_dynamo_graph_capture_custom_pytree_type PASSED [0.0135s] [ 27%]
+export/test_experimental.py::TestExperiment::test_dynamo_graph_capture_default_args PASSED [0.0109s] [ 29%]
+export/test_experimental.py::TestExperiment::test_dynamo_graph_capture_dict_keys_getitem PASSED [0.0246s] [ 31%]
+export/test_experimental.py::TestExperiment::test_dynamo_graph_capture_full_tracing_context PASSED [0.0493s] [ 34%]
+export/test_experimental.py::TestExperiment::test_dynamo_graph_capture_fx_graph_annotate_overlap_pass SKIPPED [0.0002s] (CUDA not available) [ 36%]
+export/test_experimental.py::TestExperiment::test_dynamo_graph_capture_side_effects PASSED [0.0113s] [ 38%]
+export/test_experimental.py::TestExperiment::test_dynamo_graph_capture_with_call_override PASSED [0.0134s] [ 40%]
+export/test_experimental.py::TestExperiment::test_dynamo_graph_capture_with_tensor_constant PASSED [0.0117s] [ 42%]
+export/test_experimental.py::TestExperiment::test_export_add_in_out_info PASSED [0.0169s] [ 44%]
+export/test_experimental.py::TestExperiment::test_export_blockmask SKIPPED [0.0002s] (CUDA not available) [ 46%]
+export/test_experimental.py::TestExperiment::test_export_blockmask_closure_mutually_recursive SKIPPED [0.0002s] (CUDA not available) [ 48%]
+export/test_experimental.py::TestExperiment::test_export_blockmask_closure_self_recursive SKIPPED [0.0002s] (CUDA not available) [ 51%]
+export/test_experimental.py::TestExperiment::test_export_blockmask_closure_tensor SKIPPED [0.0002s] (CUDA not available) [ 53%]
+export/test_experimental.py::TestExperiment::test_export_blockmask_closure_triple_nested SKIPPED [0.0002s] (CUDA not available) [ 55%]
+export/test_experimental.py::TestExperiment::test_export_blockmask_closure_unsupported_class_instance SKIPPED [0.0002s] (CUDA not available) [ 57%]
+export/test_experimental.py::TestExperiment::test_export_blockmask_closure_with_containers SKIPPED [0.0002s] (CUDA not available) [ 59%]
+export/test_experimental.py::TestExperiment::test_export_blockmask_mutated_closure SKIPPED [0.0002s] (CUDA not available) [ 61%]
+export/test_experimental.py::TestExperiment::test_export_leaf PASSED [0.0115s] [ 63%]
+export/test_experimental.py::TestExperiment::test_export_with_default_kwargs PASSED [0.0227s] [ 65%]
+export/test_experimental.py::TestExperiment::test_joint_basic PASSED [0.5218s] [ 68%]
+export/test_experimental.py::TestExperiment::test_joint_buffer_input_mutations PASSED [0.3572s] [ 70%]
+export/test_experimental.py::TestExperiment::test_joint_cifar10_backwards PASSED [0.5548s] [ 72%]
+export/test_experimental.py::TestExperiment::test_joint_dynamic PASSED [0.1792s] [ 74%]
+export/test_experimental.py::TestExperiment::test_joint_loss_index PASSED [0.3480s] [ 76%]
+export/test_experimental.py::TestExperiment::test_mask_mod_wrapper_eq_for_partials PASSED [0.0021s] [ 78%]
+export/test_experimental.py::TestExperiment::test_mask_mod_wrapper_eq_for_plain_functions PASSED [0.0011s] [ 80%]
+export/test_experimental.py::TestExperiment::test_restore_state_dict_basic PASSED [0.0251s] [ 82%]
+export/test_experimental.py::TestExperiment::test_restore_state_dict_nested_modules PASSED [0.0368s] [ 85%]
+export/test_experimental.py::TestExperiment::test_restore_state_dict_type_error PASSED [0.0014s] [ 87%]
+export/test_experimental.py::TestExperiment::test_restore_state_dict_with_bound_method PASSED [0.0174s] [ 89%]
+export/test_experimental.py::TestExperiment::test_side_effect PASSED [0.0119s] [ 91%]
+export/test_experimental.py::TestExperiment::test_single_op PASSED [0.0231s] [ 93%]
+export/test_experimental.py::TestExperiment::test_sticky_export PASSED [0.0173s] [ 95%]
+export/test_experimental.py::TestExperiment::test_sticky_export_dynamic PASSED [0.0559s] [ 97%]
+export/test_experimental.py::TestExperiment::test_sticky_export_nested_inp PASSED [0.0235s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/export.test_experimental/export.test_experimental-212be611ea9d5333.xml -
+======================== 33 passed, 14 skipped in 2.86s ========================

@@ -1,0 +1,99 @@
+++ python benchmarks/dynamo/torchbench.py --accuracy --bfloat16 -d xpu -n10 --training --total-partitions 8 --partition-id 7 --backend=inductor --cold-start-latency --timeout=10800 --disable-cudagraphs --output=/__w/torch-xpu-ops/torch-xpu-ops/pytorch/inductor_log/torchbench/bfloat16/inductor_torchbench_bfloat16_training_xpu_accuracy.csv
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:01, ?it/s]
+xpu  train timm_efficientdet                  
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 4749, in run
+    ) = runner.load_model(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/torchbench.py", line 307, in load_model
+    benchmark = benchmark_cls(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/benchmark/torchbenchmark/util/model.py", line 43, in __call__
+    obj = type.__call__(cls, *args, **kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/benchmark/torchbenchmark/models/timm_efficientdet/__init__.py", line 78, in __init__
+    raise NotImplementedError("The original model code forces the use of CUDA.")
+NotImplementedError: The original model code forces the use of CUDA.
+
+model_fail_to_load
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:05, ?it/s]
+xpu  train timm_efficientnet                  
+W0531 15:31:02.381000 82188 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:06, ?it/s]
+xpu  train timm_nfnet                         
+W0531 15:32:25.051000 85850 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:06, ?it/s]
+xpu  train timm_regnet                        
+W0531 15:33:42.468000 90338 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:04, ?it/s]
+xpu  train timm_resnest                       
+W0531 15:34:45.629000 93072 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:03, ?it/s]
+xpu  train timm_vision_transformer            
+W0531 15:35:33.700000 94656 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+W0531 15:35:33.717000 94656 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:08, ?it/s]
+xpu  train timm_vision_transformer_large      
+W0531 15:36:20.806000 95737 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+W0531 15:36:20.821000 95737 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:04, ?it/s]
+xpu  train timm_vovnet                        
+W0531 15:37:21.844000 96619 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:03, ?it/s]
+xpu  train torch_multimodal_clip              
+W0531 15:38:13.715000 97117 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+W0531 15:38:14.042000 97117 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]WARNING:common:Model tts_angular does not support bfloat16, running with amp instead
+loading model: 0it [00:01, ?it/s]
+WARNING:common:Model tts_angular does not support bfloat16, running with amp instead
+xpu  train tts_angular                        
+WARNING:common:Model tts_angular does not support bfloat16, running with amp instead
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:02, ?it/s]
+xpu  train vgg16                              
+W0531 15:39:12.645000 97633 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]WARNING:common:Model vision_maskrcnn does not support bfloat16, running with float16 instead
+loading model: 0it [00:24, ?it/s]
+WARNING:common:Model vision_maskrcnn does not support bfloat16, running with float16 instead
+xpu  train vision_maskrcnn                    
+WARNING:common:Model vision_maskrcnn does not support bfloat16, running with float16 instead
+W0531 15:40:05.259000 98043 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0] Graph break from `Tensor.item()`, consider setting:
+W0531 15:40:05.259000 98043 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0]     torch._dynamo.config.capture_scalar_outputs = True
+W0531 15:40:05.259000 98043 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0] or:
+W0531 15:40:05.259000 98043 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0]     env TORCHDYNAMO_CAPTURE_SCALAR_OUTPUTS=1
+W0531 15:40:05.259000 98043 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0] to include these operations in the captured graph.
+W0531 15:40:05.259000 98043 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0] 
+W0531 15:40:05.259000 98043 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0] Graph break: from user code at:
+W0531 15:40:05.259000 98043 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0]   File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchvision/models/detection/generalized_rcnn.py", line 118, in torch_dynamo_resume_in_forward_at_117
+W0531 15:40:05.259000 98043 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0]     detections, detector_losses = self.roi_heads(features, proposals, images.image_sizes, targets)
+W0531 15:40:05.259000 98043 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0]   File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchvision/models/detection/roi_heads.py", line 772, in forward
+W0531 15:40:05.259000 98043 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0]     box_features = self.box_roi_pool(features, proposals, image_shapes)
+W0531 15:40:05.259000 98043 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0]   File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchvision/ops/poolers.py", line 310, in forward
+W0531 15:40:05.259000 98043 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0]     self.scales, self.map_levels = _setup_scales(
+W0531 15:40:05.259000 98043 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0]   File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchvision/ops/poolers.py", line 122, in _setup_scales
+W0531 15:40:05.259000 98043 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0]     scales = [_infer_scale(feat, original_input_shape) for feat in features]
+W0531 15:40:05.259000 98043 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0]   File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchvision/ops/poolers.py", line 122, in <listcomp>
+W0531 15:40:05.259000 98043 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0]     scales = [_infer_scale(feat, original_input_shape) for feat in features]
+W0531 15:40:05.259000 98043 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0]   File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchvision/ops/poolers.py", line 104, in _infer_scale
+W0531 15:40:05.259000 98043 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0]     scale = 2 ** float(torch.tensor(approx_scale).log2().round())
+W0531 15:40:05.259000 98043 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0] 
+W0531 15:40:05.259000 98043 site-packages/torch/_dynamo/variables/tensor.py:1744] [14/0] 
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:04, ?it/s]
+xpu  train yolov3                             
+pass
+accuracy            pass_rate=80.00%
+calls_captured      gmean=0.00x mean=318.533x
+unique_graphs       gmean=0.00x mean=1.840x
+graph_breaks        gmean=0.00x mean=5.013x
+unique_graph_breaks gmean=0.00x mean=3.507x
+autograd_captures   gmean=0.00x mean=0.000x
+autograd_compiles   gmean=0.00x mean=0.000x
+cudagraph_skips     gmean=0.00x mean=0.000x
+compilation_latency mean=19.006 seconds

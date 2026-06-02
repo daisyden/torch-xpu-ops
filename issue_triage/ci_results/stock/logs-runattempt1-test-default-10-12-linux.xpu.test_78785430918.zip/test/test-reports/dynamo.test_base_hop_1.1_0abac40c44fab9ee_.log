@@ -1,0 +1,26 @@
+Test results will be stored in test-reports/python-pytest/dynamo.test_base_hop/dynamo.test_base_hop-abd56fdf5c256165.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 11 items
+stepcurrent: Cannot find last run test, not skipping
+Running 11 items in this shard: test/dynamo/test_base_hop.py::BaseHOPTest::test_aliasing_mutation_error, test/dynamo/test_base_hop.py::BaseHOPTest::test_aot_eager, test/dynamo/test_base_hop.py::BaseHOPTest::test_auto_functionalize, test/dynamo/test_base_hop.py::BaseHOPTest::test_dynamo, test/dynamo/test_base_hop.py::BaseHOPTest::test_eager_call, test/dynamo/test_base_hop.py::BaseHOPTest::test_int_input, test/dynamo/test_base_hop.py::BaseHOPTest::test_none_input, test/dynamo/test_base_hop.py::BaseHOPTest::test_schema_gen_pytree_in_out, test/dynamo/test_base_hop.py::BaseHOPTest::test_schema_gen_pytree_in_out_with_mutation, test/dynamo/test_base_hop.py::BaseHOPTest::test_schema_gen_single_return, test/dynamo/test_base_hop.py::BaseHOPTest::test_schema_gen_single_return_with_mutation
+
+dynamo/test_base_hop.py::BaseHOPTest::test_aliasing_mutation_error PASSED [0.4101s] [  9%]
+dynamo/test_base_hop.py::BaseHOPTest::test_aot_eager PASSED [0.7231s]    [ 18%]
+dynamo/test_base_hop.py::BaseHOPTest::test_auto_functionalize PASSED [0.0828s] [ 27%]
+dynamo/test_base_hop.py::BaseHOPTest::test_dynamo PASSED [0.0512s]       [ 36%]
+dynamo/test_base_hop.py::BaseHOPTest::test_eager_call PASSED [0.0055s]   [ 45%]
+dynamo/test_base_hop.py::BaseHOPTest::test_int_input PASSED [0.0387s]    [ 54%]
+dynamo/test_base_hop.py::BaseHOPTest::test_none_input PASSED [0.0384s]   [ 63%]
+dynamo/test_base_hop.py::BaseHOPTest::test_schema_gen_pytree_in_out PASSED [0.0636s] [ 72%]
+dynamo/test_base_hop.py::BaseHOPTest::test_schema_gen_pytree_in_out_with_mutation PASSED [0.0547s] [ 81%]
+dynamo/test_base_hop.py::BaseHOPTest::test_schema_gen_single_return PASSED [0.0473s] [ 90%]
+dynamo/test_base_hop.py::BaseHOPTest::test_schema_gen_single_return_with_mutation PASSED [0.0497s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/dynamo.test_base_hop/dynamo.test_base_hop-abd56fdf5c256165.xml -
+============================== 11 passed in 1.59s ==============================

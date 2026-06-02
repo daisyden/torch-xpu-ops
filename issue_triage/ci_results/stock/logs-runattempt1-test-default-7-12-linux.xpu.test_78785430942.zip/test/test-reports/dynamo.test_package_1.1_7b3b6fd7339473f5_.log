@@ -1,0 +1,127 @@
+Test results will be stored in test-reports/python-pytest/dynamo.test_package/dynamo.test_package-3c044e6c1bdb5757.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 56 items
+stepcurrent: Cannot find last run test, not skipping
+Running 56 items in this shard: test/dynamo/test_package.py::TestPackage::test_automatic_dynamo_graph_breaks_device_cpu, test/dynamo/test_package.py::TestPackage::test_automatic_dynamo_graph_breaks_device_cuda, test/dynamo/test_package.py::TestPackage::test_automatic_dynamo_graph_breaks_device_xpu, test/dynamo/test_package.py::TestPackage::test_automatic_dynamo_graph_breaks_from_print_model_as_fn_device_cpu, test/dynamo/test_package.py::TestPackage::test_automatic_dynamo_graph_breaks_from_print_model_as_fn_device_cuda, test/dynamo/test_package.py::TestPackage::test_automatic_dynamo_graph_breaks_from_print_model_as_fn_device_xpu, test/dynamo/test_package.py::TestPackage::test_automatic_dynamo_lazy_backward_device_cpu, test/dynamo/test_package.py::TestPackage::test_automatic_dynamo_lazy_backward_device_cuda, test/dynamo/test_package.py::TestPackage::test_automatic_dynamo_lazy_backward_device_xpu, test/dynamo/test_package.py::TestPackage::test_automatic_dynamo_recompiles_device_cpu, test/dynamo/test_package.py::TestPackage::test_automatic_dynamo_recompiles_device_cuda, test/dynamo/test_package.py::TestPackage::test_automatic_dynamo_recompiles_device_xpu, test/dynamo/test_package.py::TestPackage::test_automatic_dynamo_serialize_device_cpu, test/dynamo/test_package.py::TestPackage::test_automatic_dynamo_serialize_device_cuda, test/dynamo/test_package.py::TestPackage::test_automatic_dynamo_serialize_device_xpu, test/dynamo/test_package.py::TestPackage::test_basic_fn_backend_eager_device_cpu, test/dynamo/test_package.py::TestPackage::test_basic_fn_backend_eager_device_cuda, test/dynamo/test_package.py::TestPackage::test_basic_fn_backend_eager_device_xpu, test/dynamo/test_package.py::TestPackage::test_basic_fn_backend_inductor_device_cpu, test/dynamo/test_package.py::TestPackage::test_basic_fn_backend_inductor_device_cuda, test/dynamo/test_package.py::TestPackage::test_basic_fn_backend_inductor_device_xpu, test/dynamo/test_package.py::TestPackage::test_call_function_from_resume_device_cpu, test/dynamo/test_package.py::TestPackage::test_call_function_from_resume_device_cuda, test/dynamo/test_package.py::TestPackage::test_call_function_from_resume_device_xpu, test/dynamo/test_package.py::TestPackage::test_classmethod_qualname_device_cpu, test/dynamo/test_package.py::TestPackage::test_classmethod_qualname_device_cuda, test/dynamo/test_package.py::TestPackage::test_classmethod_qualname_device_xpu, test/dynamo/test_package.py::TestPackage::test_code_with_generator_device_cpu, test/dynamo/test_package.py::TestPackage::test_code_with_generator_device_cuda, test/dynamo/test_package.py::TestPackage::test_code_with_generator_device_xpu, test/dynamo/test_package.py::TestPackage::test_dynamic_shape_backend_eager_device_cpu, test/dynamo/test_package.py::TestPackage::test_dynamic_shape_backend_eager_device_cuda, test/dynamo/test_package.py::TestPackage::test_dynamic_shape_backend_eager_device_xpu, test/dynamo/test_package.py::TestPackage::test_dynamic_shape_backend_inductor_device_cpu, test/dynamo/test_package.py::TestPackage::test_dynamic_shape_backend_inductor_device_cuda, test/dynamo/test_package.py::TestPackage::test_dynamic_shape_backend_inductor_device_xpu, test/dynamo/test_package.py::TestPackage::test_dynamo_cache_manual_load_device_cpu, test/dynamo/test_package.py::TestPackage::test_dynamo_cache_manual_load_device_cuda, test/dynamo/test_package.py::TestPackage::test_dynamo_cache_manual_load_device_xpu, test/dynamo/test_package.py::TestPackage::test_file_change, test/dynamo/test_package.py::TestPackage::test_graph_break_bomb_backend_eager_device_cpu, test/dynamo/test_package.py::TestPackage::test_graph_break_bomb_backend_eager_device_cuda, test/dynamo/test_package.py::TestPackage::test_graph_break_bomb_backend_eager_device_xpu, test/dynamo/test_package.py::TestPackage::test_graph_break_bomb_backend_inductor_device_cpu, test/dynamo/test_package.py::TestPackage::test_graph_break_bomb_backend_inductor_device_cuda, test/dynamo/test_package.py::TestPackage::test_graph_break_bomb_backend_inductor_device_xpu, test/dynamo/test_package.py::TestPackage::test_graph_break_partial_backend_device_cpu, test/dynamo/test_package.py::TestPackage::test_graph_break_partial_backend_device_cuda, test/dynamo/test_package.py::TestPackage::test_graph_break_partial_backend_device_xpu, test/dynamo/test_package.py::TestPackage::test_lazy_backward_backend_eager_device_cpu, test/dynamo/test_package.py::TestPackage::test_lazy_backward_backend_eager_device_cuda, test/dynamo/test_package.py::TestPackage::test_lazy_backward_backend_eager_device_xpu, test/dynamo/test_package.py::TestPackage::test_lazy_backward_backend_inductor_device_cpu, test/dynamo/test_package.py::TestPackage::test_lazy_backward_backend_inductor_device_cuda, test/dynamo/test_package.py::TestPackage::test_lazy_backward_backend_inductor_device_xpu, test/dynamo/test_package.py::TestPackage::test_nn_module
+
+dynamo/test_package.py::TestPackage::test_automatic_dynamo_graph_breaks_device_cpu SKIPPED [0.0004s] (https://github.com/pytorch/pytorch/issues/183810) [  1%]
+dynamo/test_package.py::TestPackage::test_automatic_dynamo_graph_breaks_device_cuda SKIPPED [0.0002s] (https://github.com/pytorch/pytorch/issues/183810) [  3%]
+dynamo/test_package.py::TestPackage::test_automatic_dynamo_graph_breaks_device_xpu SKIPPED [0.0002s] (https://github.com/pytorch/pytorch/issues/183810) [  5%]
+dynamo/test_package.py::TestPackage::test_automatic_dynamo_graph_breaks_from_print_model_as_fn_device_cpu W0601 04:46:13.929000 77533 site-packages/torch/_dynamo/variables/tensor.py:1757] [0/0] Graph break from `Tensor.item()`, consider setting:
+W0601 04:46:13.929000 77533 site-packages/torch/_dynamo/variables/tensor.py:1757] [0/0]     torch._dynamo.config.capture_scalar_outputs = True
+W0601 04:46:13.929000 77533 site-packages/torch/_dynamo/variables/tensor.py:1757] [0/0] or:
+W0601 04:46:13.929000 77533 site-packages/torch/_dynamo/variables/tensor.py:1757] [0/0]     env TORCHDYNAMO_CAPTURE_SCALAR_OUTPUTS=1
+W0601 04:46:13.929000 77533 site-packages/torch/_dynamo/variables/tensor.py:1757] [0/0] to include these operations in the captured graph.
+W0601 04:46:13.929000 77533 site-packages/torch/_dynamo/variables/tensor.py:1757] [0/0] 
+W0601 04:46:13.929000 77533 site-packages/torch/_dynamo/variables/tensor.py:1757] [0/0] Graph break: from user code at:
+W0601 04:46:13.929000 77533 site-packages/torch/_dynamo/variables/tensor.py:1757] [0/0]   File "/var/lib/jenkins/pytorch/test/dynamo/test_package.py", line 660, in forward
+W0601 04:46:13.929000 77533 site-packages/torch/_dynamo/variables/tensor.py:1757] [0/0]     print(x.sum().item())
+W0601 04:46:13.929000 77533 site-packages/torch/_dynamo/variables/tensor.py:1757] [0/0] 
+W0601 04:46:13.929000 77533 site-packages/torch/_dynamo/variables/tensor.py:1757] [0/0] 
+W0601 04:46:27.056000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0_1] MODULE_MATCH guard on G['torch'] is dropped with caching_precompile=True.
+W0601 04:46:27.056000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0_1] MODULE_MATCH guard on G['torch'].nn is dropped with caching_precompile=True.
+W0601 04:46:27.056000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0_1] MODULE_MATCH guard on G['torch'].nn.functional is dropped with caching_precompile=True.
+W0601 04:46:27.056000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0_1] BUILTIN_MATCH guard on G['__builtins_dict___1']['print'] is dropped with caching_precompile=True.
+W0601 04:46:27.105000 77533 site-packages/torch/_dynamo/guards.py:4418] [1/0_1] BUILTIN_MATCH guard on L['___stack0'] is dropped with caching_precompile=True.
+PASSED [14.0247s] [  7%]
+dynamo/test_package.py::TestPackage::test_automatic_dynamo_graph_breaks_from_print_model_as_fn_device_cuda SKIPPED [0.0019s] (Requires CUDA/Triton) [  8%]
+dynamo/test_package.py::TestPackage::test_automatic_dynamo_graph_breaks_from_print_model_as_fn_device_xpu W0601 04:46:28.366000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0_1] MODULE_MATCH guard on G['torch'] is dropped with caching_precompile=True.
+W0601 04:46:28.366000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0_1] MODULE_MATCH guard on G['torch'].nn is dropped with caching_precompile=True.
+W0601 04:46:28.366000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0_1] MODULE_MATCH guard on G['torch'].nn.functional is dropped with caching_precompile=True.
+W0601 04:46:28.366000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0_1] BUILTIN_MATCH guard on G['__builtins_dict___10']['print'] is dropped with caching_precompile=True.
+W0601 04:46:28.403000 77533 site-packages/torch/_dynamo/guards.py:4418] [1/0_1] BUILTIN_MATCH guard on L['___stack0'] is dropped with caching_precompile=True.
+PASSED [0.8663s] [ 10%]
+dynamo/test_package.py::TestPackage::test_automatic_dynamo_lazy_backward_device_cpu SKIPPED [0.0003s] (https://github.com/pytorch/pytorch/issues/184832) [ 12%]
+dynamo/test_package.py::TestPackage::test_automatic_dynamo_lazy_backward_device_cuda SKIPPED [0.0002s] (https://github.com/pytorch/pytorch/issues/184832) [ 14%]
+dynamo/test_package.py::TestPackage::test_automatic_dynamo_lazy_backward_device_xpu SKIPPED [0.0002s] (https://github.com/pytorch/pytorch/issues/184832) [ 16%]
+dynamo/test_package.py::TestPackage::test_automatic_dynamo_recompiles_device_cpu PASSED [1.6131s] [ 17%]
+dynamo/test_package.py::TestPackage::test_automatic_dynamo_recompiles_device_cuda SKIPPED [0.0027s] (Requires CUDA/Triton) [ 19%]
+dynamo/test_package.py::TestPackage::test_automatic_dynamo_recompiles_device_xpu PASSED [0.8101s] [ 21%]
+dynamo/test_package.py::TestPackage::test_automatic_dynamo_serialize_device_cpu PASSED [1.5435s] [ 23%]
+dynamo/test_package.py::TestPackage::test_automatic_dynamo_serialize_device_cuda SKIPPED [0.0018s] (Requires CUDA/Triton) [ 25%]
+dynamo/test_package.py::TestPackage::test_automatic_dynamo_serialize_device_xpu PASSED [7.7949s] [ 26%]
+dynamo/test_package.py::TestPackage::test_basic_fn_backend_eager_device_cpu PASSED [0.0429s] [ 28%]
+dynamo/test_package.py::TestPackage::test_basic_fn_backend_eager_device_cuda SKIPPED [0.0016s] (Requires CUDA/Triton) [ 30%]
+dynamo/test_package.py::TestPackage::test_basic_fn_backend_eager_device_xpu PASSED [0.0437s] [ 32%]
+dynamo/test_package.py::TestPackage::test_basic_fn_backend_inductor_device_cpu PASSED [0.6820s] [ 33%]
+dynamo/test_package.py::TestPackage::test_basic_fn_backend_inductor_device_cuda SKIPPED [0.0016s] (Requires CUDA/Triton) [ 35%]
+dynamo/test_package.py::TestPackage::test_basic_fn_backend_inductor_device_xpu PASSED [7.2176s] [ 37%]
+dynamo/test_package.py::TestPackage::test_call_function_from_resume_device_cpu W0601 04:46:48.595000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0_1] CLOSURE_MATCH guard on G['compute_loss_helper'] is dropped with caching_precompile=True.
+W0601 04:46:48.596000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0_1] CLOSURE_MATCH guard on G['reduce_to_scalar_loss'] is dropped with caching_precompile=True.
+W0601 04:46:48.596000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0_1] MODULE_MATCH guard on G['__import_torch_dot_nn_dot_modules_dot_linear'] is dropped with caching_precompile=True.
+W0601 04:46:48.596000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0_1] MODULE_MATCH guard on G['__import_torch_dot_nn_dot_modules_dot_module'] is dropped with caching_precompile=True.
+W0601 04:46:48.596000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0_1] MODULE_MATCH guard on G['__import_torch_dot_nn_dot_modules_dot_linear'].F is dropped with caching_precompile=True.
+W0601 04:46:48.596000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0_1] BUILTIN_MATCH guard on G['__import_torch_dot_nn_dot_modules_dot_linear'].F.linear is dropped with caching_precompile=True.
+PASSED [1.3108s] [ 39%]
+dynamo/test_package.py::TestPackage::test_call_function_from_resume_device_cuda SKIPPED [0.0018s] (Requires CUDA/Triton) [ 41%]
+dynamo/test_package.py::TestPackage::test_call_function_from_resume_device_xpu W0601 04:46:49.848000 77533 site-packages/torch/_inductor/utils.py:3137] [0/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+W0601 04:46:50.323000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0_1] CLOSURE_MATCH guard on G['compute_loss_helper'] is dropped with caching_precompile=True.
+W0601 04:46:50.323000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0_1] CLOSURE_MATCH guard on G['reduce_to_scalar_loss'] is dropped with caching_precompile=True.
+W0601 04:46:50.323000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0_1] MODULE_MATCH guard on G['__import_torch_dot_nn_dot_modules_dot_linear'] is dropped with caching_precompile=True.
+W0601 04:46:50.323000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0_1] MODULE_MATCH guard on G['__import_torch_dot_nn_dot_modules_dot_module'] is dropped with caching_precompile=True.
+W0601 04:46:50.323000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0_1] MODULE_MATCH guard on G['__import_torch_dot_nn_dot_modules_dot_linear'].F is dropped with caching_precompile=True.
+W0601 04:46:50.323000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0_1] BUILTIN_MATCH guard on G['__import_torch_dot_nn_dot_modules_dot_linear'].F.linear is dropped with caching_precompile=True.
+PASSED [7.6993s] [ 42%]
+dynamo/test_package.py::TestPackage::test_classmethod_qualname_device_cpu W0601 04:46:59.123000 77533 site-packages/torch/_dynamo/guards.py:4418] [2/0] CLASS_MATCH guard on L['cls'] is dropped with caching_precompile=True.
+W0601 04:46:59.907000 77533 site-packages/torch/_dynamo/guards.py:4418] [4/0] CLASS_MATCH guard on L['cls'] is dropped with caching_precompile=True.
+PASSED [3.1400s] [ 44%]
+dynamo/test_package.py::TestPackage::test_classmethod_qualname_device_cuda SKIPPED [0.0023s] (Requires CUDA/Triton) [ 46%]
+dynamo/test_package.py::TestPackage::test_classmethod_qualname_device_xpu W0601 04:47:08.713000 77533 site-packages/torch/_dynamo/guards.py:4418] [2/0] CLASS_MATCH guard on L['cls'] is dropped with caching_precompile=True.
+W0601 04:47:09.375000 77533 site-packages/torch/_dynamo/guards.py:4418] [4/0] CLASS_MATCH guard on L['cls'] is dropped with caching_precompile=True.
+PASSED [9.2557s] [ 48%]
+dynamo/test_package.py::TestPackage::test_code_with_generator_device_cpu W0601 04:47:10.561000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0] MODULE_MATCH guard on G['torch'] is dropped with caching_precompile=True.
+W0601 04:47:10.561000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0] BUILTIN_MATCH guard on G['torch'].cat is dropped with caching_precompile=True.
+W0601 04:47:10.561000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0] CLASS_MATCH guard on G['torch'].Tensor is dropped with caching_precompile=True.
+W0601 04:47:10.561000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0] ID_MATCH guard on G['__builtins_dict___78']['all'] is dropped with caching_precompile=True.
+W0601 04:47:10.561000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0] BUILTIN_MATCH guard on G['__builtins_dict___78']['isinstance'] is dropped with caching_precompile=True.
+PASSED [0.7228s] [ 50%]
+dynamo/test_package.py::TestPackage::test_code_with_generator_device_cuda SKIPPED [0.0027s] (Requires CUDA/Triton) [ 51%]
+dynamo/test_package.py::TestPackage::test_code_with_generator_device_xpu W0601 04:47:17.808000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0] MODULE_MATCH guard on G['torch'] is dropped with caching_precompile=True.
+W0601 04:47:17.809000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0] BUILTIN_MATCH guard on G['torch'].cat is dropped with caching_precompile=True.
+W0601 04:47:17.809000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0] CLASS_MATCH guard on G['torch'].Tensor is dropped with caching_precompile=True.
+W0601 04:47:17.809000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0] ID_MATCH guard on G['__builtins_dict___80']['all'] is dropped with caching_precompile=True.
+W0601 04:47:17.809000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0] BUILTIN_MATCH guard on G['__builtins_dict___80']['isinstance'] is dropped with caching_precompile=True.
+PASSED [7.2342s] [ 53%]
+dynamo/test_package.py::TestPackage::test_dynamic_shape_backend_eager_device_cpu PASSED [0.0559s] [ 55%]
+dynamo/test_package.py::TestPackage::test_dynamic_shape_backend_eager_device_cuda SKIPPED [0.0017s] (Requires CUDA/Triton) [ 57%]
+dynamo/test_package.py::TestPackage::test_dynamic_shape_backend_eager_device_xpu PASSED [0.0517s] [ 58%]
+dynamo/test_package.py::TestPackage::test_dynamic_shape_backend_inductor_device_cpu PASSED [0.7355s] [ 60%]
+dynamo/test_package.py::TestPackage::test_dynamic_shape_backend_inductor_device_cuda SKIPPED [0.0025s] (Requires CUDA/Triton) [ 62%]
+dynamo/test_package.py::TestPackage::test_dynamic_shape_backend_inductor_device_xpu PASSED [7.2440s] [ 64%]
+dynamo/test_package.py::TestPackage::test_dynamo_cache_manual_load_device_cpu PASSED [1.5960s] [ 66%]
+dynamo/test_package.py::TestPackage::test_dynamo_cache_manual_load_device_cuda SKIPPED [0.0020s] (Requires CUDA/Triton) [ 67%]
+dynamo/test_package.py::TestPackage::test_dynamo_cache_manual_load_device_xpu PASSED [7.8684s] [ 69%]
+dynamo/test_package.py::TestPackage::test_file_change PASSED [0.0627s]   [ 71%]
+dynamo/test_package.py::TestPackage::test_graph_break_bomb_backend_eager_device_cpu PASSED [0.4478s] [ 73%]
+dynamo/test_package.py::TestPackage::test_graph_break_bomb_backend_eager_device_cuda SKIPPED [0.0017s] (Requires CUDA/Triton) [ 75%]
+dynamo/test_package.py::TestPackage::test_graph_break_bomb_backend_eager_device_xpu PASSED [0.4341s] [ 76%]
+dynamo/test_package.py::TestPackage::test_graph_break_bomb_backend_inductor_device_cpu PASSED [6.5623s] [ 78%]
+dynamo/test_package.py::TestPackage::test_graph_break_bomb_backend_inductor_device_cuda SKIPPED [0.0029s] (Requires CUDA/Triton) [ 80%]
+dynamo/test_package.py::TestPackage::test_graph_break_bomb_backend_inductor_device_xpu PASSED [11.7627s] [ 82%]
+dynamo/test_package.py::TestPackage::test_graph_break_partial_backend_device_cpu W0601 04:47:55.427000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0_1] MODULE_MATCH guard on G['torch'] is dropped with caching_precompile=True.
+W0601 04:47:55.427000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0_1] MODULE_MATCH guard on G['torch']._dynamo is dropped with caching_precompile=True.
+W0601 04:47:55.427000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0_1] CLOSURE_MATCH guard on G['torch']._dynamo.graph_break is dropped with caching_precompile=True.
+W0601 04:47:56.989000 77533 site-packages/torch/_dynamo/package.py:525] Backend not found
+PASSED [2.4297s] [ 83%]
+dynamo/test_package.py::TestPackage::test_graph_break_partial_backend_device_cuda SKIPPED [0.0020s] (Requires CUDA/Triton) [ 85%]
+dynamo/test_package.py::TestPackage::test_graph_break_partial_backend_device_xpu W0601 04:48:04.736000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0_1] MODULE_MATCH guard on G['torch'] is dropped with caching_precompile=True.
+W0601 04:48:04.736000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0_1] MODULE_MATCH guard on G['torch']._dynamo is dropped with caching_precompile=True.
+W0601 04:48:04.736000 77533 site-packages/torch/_dynamo/guards.py:4418] [0/0_1] CLOSURE_MATCH guard on G['torch']._dynamo.graph_break is dropped with caching_precompile=True.
+W0601 04:48:05.989000 77533 site-packages/torch/_dynamo/package.py:525] Backend not found
+PASSED [9.1177s] [ 87%]
+dynamo/test_package.py::TestPackage::test_lazy_backward_backend_eager_device_cpu PASSED [0.0633s] [ 89%]
+dynamo/test_package.py::TestPackage::test_lazy_backward_backend_eager_device_cuda SKIPPED [0.0025s] (Requires CUDA/Triton) [ 91%]
+dynamo/test_package.py::TestPackage::test_lazy_backward_backend_eager_device_xpu PASSED [0.0715s] [ 92%]
+dynamo/test_package.py::TestPackage::test_lazy_backward_backend_inductor_device_cpu PASSED [1.5609s] [ 94%]
+dynamo/test_package.py::TestPackage::test_lazy_backward_backend_inductor_device_cuda SKIPPED [0.0018s] (Requires CUDA/Triton) [ 96%]
+dynamo/test_package.py::TestPackage::test_lazy_backward_backend_inductor_device_xpu PASSED [8.0376s] [ 98%]
+dynamo/test_package.py::TestPackage::test_nn_module XFAIL [0.0020s]      [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/dynamo.test_package/dynamo.test_package-3c044e6c1bdb5757.xml -
+============ 33 passed, 22 skipped, 1 xfailed in 122.29s (0:02:02) =============

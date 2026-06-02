@@ -1,0 +1,65 @@
+<testsuites><testsuite name="pytest" errors="0" failures="0" skipped="4" tests="16" time="149.039" timestamp="2026-06-01T04:29:18.294845" hostname="11c10c36cb5f"><testcase classname="BenchmarkFusionGpuTest" name="test_avoid_register_spilling_xpu" time="28.032" file="inductor/test_benchmark_fusion.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/select_algorithm.py:4698: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  current_out_size = out_base.storage().size()
+Autotune Choices Stats:
+{"num_choices": 23, "num_triton_choices": 23, "best_kernel": "triton_mm_10", "best_kernel_desc": "ACC_TYPE='tl.float32', ALLOW_TF32=False, BLOCK_K=32, BLOCK_M=64, BLOCK_N=128, EVEN_K=True, GROUP_M=8, USE_FAST_ACCUM=False, num_stages=4, num_warps=8", "best_time": 0.24792, "best_triton_pos": 0}
+AUTOTUNE addmm(2048x2048, 2048x2048, 2048x2048)
+strides: [0, 1], [2048, 1], [1, 2048]
+dtypes: torch.float16, torch.float16, torch.float16
+  triton_mm_10 0.2479 ms 100.0% ACC_TYPE='tl.float32', ALLOW_TF32=False, BLOCK_K=32, BLOCK_M=64, BLOCK_N=128, EVEN_K=True, GROUP_M=8, USE_FAST_ACCUM=False, num_stages=4, num_warps=8
+  triton_mm_6 0.2520 ms 98.4% ACC_TYPE='tl.float32', ALLOW_TF32=False, BLOCK_K=32, BLOCK_M=64, BLOCK_N=64, EVEN_K=True, GROUP_M=8, USE_FAST_ACCUM=False, num_stages=2, num_warps=4
+  triton_mm_5 0.2629 ms 94.3% ACC_TYPE='tl.float32', ALLOW_TF32=False, BLOCK_K=16, BLOCK_M=64, BLOCK_N=64, EVEN_K=True, GROUP_M=8, USE_FAST_ACCUM=False, num_stages=2, num_warps=4
+  triton_mm_14 0.2658 ms 93.3% ACC_TYPE='tl.float32', ALLOW_TF32=False, BLOCK_K=32, BLOCK_M=128, BLOCK_N=64, EVEN_K=True, GROUP_M=8, USE_FAST_ACCUM=False, num_stages=4, num_warps=8
+  triton_mm_15 0.2870 ms 86.4% ACC_TYPE='tl.float32', ALLOW_TF32=False, BLOCK_K=32, BLOCK_M=128, BLOCK_N=128, EVEN_K=True, GROUP_M=8, USE_FAST_ACCUM=False, num_stages=2, num_warps=8
+  triton_mm_9 0.2882 ms 86.0% ACC_TYPE='tl.float32', ALLOW_TF32=False, BLOCK_K=32, BLOCK_M=64, BLOCK_N=128, EVEN_K=True, GROUP_M=8, USE_FAST_ACCUM=False, num_stages=3, num_warps=4
+  triton_mm_13 0.3001 ms 82.6% ACC_TYPE='tl.float32', ALLOW_TF32=False, BLOCK_K=32, BLOCK_M=128, BLOCK_N=64, EVEN_K=True, GROUP_M=8, USE_FAST_ACCUM=False, num_stages=3, num_warps=4
+  triton_mm_22 0.3094 ms 80.1% ACC_TYPE='tl.float32', ALLOW_TF32=False, BLOCK_K=32, BLOCK_M=64, BLOCK_N=64, EVEN_K=True, GROUP_M=8, USE_FAST_ACCUM=False, num_stages=2, num_warps=8
+  triton_mm_0 0.3522 ms 70.4% ACC_TYPE='tl.float32', ALLOW_TF32=False, BLOCK_K=16, BLOCK_M=32, BLOCK_N=32, EVEN_K=True, GROUP_M=8, USE_FAST_ACCUM=False, num_stages=1, num_warps=2
+  triton_mm_7 0.3527 ms 70.3% ACC_TYPE='tl.float32', ALLOW_TF32=False, BLOCK_K=64, BLOCK_M=64, BLOCK_N=64, EVEN_K=True, GROUP_M=8, USE_FAST_ACCUM=False, num_stages=3, num_warps=8
+SingleProcess AUTOTUNE benchmarking takes 1.6170 seconds and 3.3819 seconds precompiling for 23 choices
+Compiled module path: /tmp/tmptgrr9qj6/m6/cm652vpbyyrnghdrmsfeji3fir324t5q7bb3uaarxy5yhig6xtyy.py
+Compiled module path: /tmp/tmptgrr9qj6/kj/ckjbue6z564gmpsacf2o6jwe5vdyugn5du4y5ky26lxl4up3tzyf.py
+</system-err></testcase><testcase classname="BenchmarkFusionGpuTest" name="test_foreach_kernel_xpu" time="7.750" file="inductor/test_benchmark_fusion.py"><system-err>Compiled module path: /tmp/tmpoe908u71/ur/cury3vuuv3mzvpugxnxhswhrl5wjir5gpp4mskyxsa7zsrapgyyk.py
+Compiled module path: /tmp/tmpoe908u71/bt/cbt5momiamwqiln4xarsqvsrcx6pabhjqmgnft3eclbc3cmj247f.py
+</system-err></testcase><testcase classname="BenchmarkFusionGpuTest" name="test_register_spills_xpu" time="82.878" file="inductor/test_benchmark_fusion.py"><system-err>Compiled module path: /tmp/tmpans63eok/ig/cigntbjcfps42r6ydoitpjyhmymhypknr6gtupgm2ibqbgae6atc.py
+</system-err></testcase><testcase classname="BenchmarkFusionGpuTest" name="test_resnet18_xpu" time="0.003" file="inductor/test_benchmark_fusion.py"><skipped type="pytest.skip" message="test is slow; run with PYTORCH_TEST_WITH_SLOW to enable test">/var/lib/jenkins/pytorch/test/inductor/test_benchmark_fusion.py:66: test is slow; run with PYTORCH_TEST_WITH_SLOW to enable test</skipped></testcase><testcase classname="BenchmarkFusionGpuTest" name="test_softmax_xpu" time="5.831" file="inductor/test_benchmark_fusion.py"><system-err>Compiled module path: /tmp/tmpj78hfx4k/2b/c2bmbvwzjq4mv2yelugpxymknmf775bzyx54boyvyoouwlbwj2wf.py
+Compiled module path: /tmp/tmpj78hfx4k/5q/c5qtdvgpe7shff6hmt23fr4cnfdl5i57qawo5uzbjmlgqwtinnym.py
+</system-err></testcase><testcase classname="BenchmarkFusionGpuTest" name="test_tield_kernel_fusion_xpu" time="4.916" file="inductor/test_benchmark_fusion.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/autograd/function.py:625: UserWarning: Aten Op fallback from XPU to CPU happends. This may have performance implications. If need debug the fallback ops please set environment variable `PYTORCH_DEBUG_XPU_FALLBACK=1`  (Triggered internally at /var/lib/jenkins/workspace/build/xpu/ATen/RegisterXPU_0.cpp:54907.)
+  return super().apply(*args, **kwargs)  # type: ignore[misc]
+Compiled module path: /tmp/tmpvap2b40n/aq/caq2f4c6fq6ta25bt5xejgu2hkyhtxbcvsr2ekci23fvz6py22dq.py
+</system-err></testcase><testcase classname="BenchmarkingTest" name="test_benchmark_on_non_zero_device" time="0.001" file="inductor/test_benchmark_fusion.py"><skipped type="pytest.skip" message="The test need at least 2 devices">/var/lib/jenkins/pytorch/test/inductor/test_benchmark_fusion.py:211: The test need at least 2 devices</skipped></testcase><testcase classname="BenchmarkMultiTemplateFusionGpuTest" name="test_changed_layout" time="2.509" file="inductor/test_benchmark_fusion.py"><system-err>Autotune Choices Stats:
+{"num_choices": 6, "num_triton_choices": 5, "best_kernel": "addmm", "best_time": 0.01136, "best_triton_pos": 1, "best_triton_time": 0.013439999999999999, "best_triton_kernel": "triton_mm_46", "best_triton_kernel_desc": "ACC_TYPE='tl.float32', ALLOW_TF32=False, BLOCK_K=16, BLOCK_M=16, BLOCK_N=16, EVEN_K=False, GROUP_M=8, USE_FAST_ACCUM=False, num_stages=1, num_warps=1"}
+AUTOTUNE addmm(4x4, 4x4, 4x4)
+strides: [4, 1], [4, 1], [4, 1]
+dtypes: torch.float32, torch.float32, torch.float32
+  addmm 0.0114 ms 100.0% 
+  triton_mm_46 0.0134 ms 84.5% ACC_TYPE='tl.float32', ALLOW_TF32=False, BLOCK_K=16, BLOCK_M=16, BLOCK_N=16, EVEN_K=False, GROUP_M=8, USE_FAST_ACCUM=False, num_stages=1, num_warps=1
+  triton_mm_48 0.0136 ms 83.5% ACC_TYPE='tl.float32', ALLOW_TF32=False, BLOCK_K=16, BLOCK_M=16, BLOCK_N=16, EVEN_K=False, GROUP_M=8, USE_FAST_ACCUM=False, num_stages=5, num_warps=1
+  triton_mm_50 0.0136 ms 83.5% ACC_TYPE='tl.float32', ALLOW_TF32=False, BLOCK_K=16, BLOCK_M=16, BLOCK_N=16, EVEN_K=False, GROUP_M=8, USE_FAST_ACCUM=False, num_stages=4, num_warps=1
+  triton_mm_49 0.0138 ms 82.6% ACC_TYPE='tl.float32', ALLOW_TF32=False, BLOCK_K=16, BLOCK_M=16, BLOCK_N=16, EVEN_K=False, GROUP_M=8, USE_FAST_ACCUM=False, num_stages=3, num_warps=1
+  triton_mm_47 0.0138 ms 82.1% ACC_TYPE='tl.float32', ALLOW_TF32=False, BLOCK_K=16, BLOCK_M=16, BLOCK_N=16, EVEN_K=False, GROUP_M=8, USE_FAST_ACCUM=False, num_stages=2, num_warps=1
+SingleProcess AUTOTUNE benchmarking takes 0.3316 seconds and 0.3879 seconds precompiling for 6 choices
+Compiled module path: /tmp/tmp4b061ewr/bm/cbmhpixopo4nmorjbrmiayrgtjhg7behlck27xrgercnmb6qtp4s.py
+</system-err></testcase><testcase classname="BenchmarkMultiTemplateFusionGpuTest" name="test_equivalent_extern_code" time="0.223" file="inductor/test_benchmark_fusion.py"><system-err>Compiled module path: /tmp/tmp3vggulep/sd/csddf4ym6ols4w36psfilot2x4fcnegsyihorlmtoq5n65fsnmor.py
+Compiled module path: /tmp/tmp3vggulep/ib/cib2tuhnavtlsigf6ltxbxsr74devjz2zv5o2bgbccqgzdjenhbv.py
+</system-err></testcase><testcase classname="BenchmarkMultiTemplateFusionGpuTest" name="test_equivalent_template_code" time="7.319" file="inductor/test_benchmark_fusion.py"><system-err>Autotune Choices Stats:
+{"num_choices": 23, "num_triton_choices": 23, "best_kernel": "triton_mm_58", "best_kernel_desc": "ACC_TYPE='tl.float32', ALLOW_TF32=False, BLOCK_K=32, BLOCK_M=32, BLOCK_N=64, EVEN_K=True, GROUP_M=8, USE_FAST_ACCUM=False, num_stages=5, num_warps=8", "best_time": 0.013999999999999999, "best_triton_pos": 0}
+AUTOTUNE addmm(256x256, 256x256, 256x256)
+strides: [0, 1], [256, 1], [1, 256]
+dtypes: torch.float16, torch.float16, torch.float16
+  triton_mm_58 0.0140 ms 100.0% ACC_TYPE='tl.float32', ALLOW_TF32=False, BLOCK_K=32, BLOCK_M=32, BLOCK_N=64, EVEN_K=True, GROUP_M=8, USE_FAST_ACCUM=False, num_stages=5, num_warps=8
+  triton_mm_59 0.0143 ms 97.8% ACC_TYPE='tl.float32', ALLOW_TF32=False, BLOCK_K=32, BLOCK_M=64, BLOCK_N=32, EVEN_K=True, GROUP_M=8, USE_FAST_ACCUM=False, num_stages=5, num_warps=8
+  triton_mm_78 0.0151 ms 92.6% ACC_TYPE='tl.float32', ALLOW_TF32=False, BLOCK_K=32, BLOCK_M=64, BLOCK_N=64, EVEN_K=True, GROUP_M=8, USE_FAST_ACCUM=False, num_stages=2, num_warps=8
+  triton_mm_57 0.0154 ms 91.1% ACC_TYPE='tl.float32', ALLOW_TF32=False, BLOCK_K=128, BLOCK_M=32, BLOCK_N=32, EVEN_K=True, GROUP_M=8, USE_FAST_ACCUM=False, num_stages=2, num_warps=4
+  triton_mm_56 0.0156 ms 89.7% ACC_TYPE='tl.float32', ALLOW_TF32=False, BLOCK_K=16, BLOCK_M=32, BLOCK_N=32, EVEN_K=True, GROUP_M=8, USE_FAST_ACCUM=False, num_stages=1, num_warps=2
+  triton_mm_63 0.0191 ms 73.2% ACC_TYPE='tl.float32', ALLOW_TF32=False, BLOCK_K=64, BLOCK_M=64, BLOCK_N=64, EVEN_K=True, GROUP_M=8, USE_FAST_ACCUM=False, num_stages=3, num_warps=8
+  triton_mm_62 0.0196 ms 71.4% ACC_TYPE='tl.float32', ALLOW_TF32=False, BLOCK_K=32, BLOCK_M=64, BLOCK_N=64, EVEN_K=True, GROUP_M=8, USE_FAST_ACCUM=False, num_stages=2, num_warps=4
+  triton_mm_66 0.0207 ms 67.6% ACC_TYPE='tl.float32', ALLOW_TF32=False, BLOCK_K=32, BLOCK_M=64, BLOCK_N=128, EVEN_K=True, GROUP_M=8, USE_FAST_ACCUM=False, num_stages=4, num_warps=8
+  triton_mm_61 0.0209 ms 67.0% ACC_TYPE='tl.float32', ALLOW_TF32=False, BLOCK_K=16, BLOCK_M=64, BLOCK_N=64, EVEN_K=True, GROUP_M=8, USE_FAST_ACCUM=False, num_stages=2, num_warps=4
+  triton_mm_70 0.0217 ms 64.6% ACC_TYPE='tl.float32', ALLOW_TF32=False, BLOCK_K=32, BLOCK_M=128, BLOCK_N=64, EVEN_K=True, GROUP_M=8, USE_FAST_ACCUM=False, num_stages=4, num_warps=8
+SingleProcess AUTOTUNE benchmarking takes 1.3270 seconds and 3.5766 seconds precompiling for 23 choices
+Compiled module path: /tmp/tmpq3nj5ej1/7g/c7g3hwuowgfuvd4n7nvw5bfrub5ihustypcasnvsm5q3gaevl675.py
+</system-err></testcase><testcase classname="BenchmarkFusionCpuTest" name="test_avoid_register_spilling_cpu" time="0.002" file="inductor/test_benchmark_fusion.py"><skipped type="pytest.skip" message="GPU only">/var/lib/jenkins/pytorch/test/inductor/test_benchmark_fusion.py:139: GPU only</skipped></testcase><testcase classname="BenchmarkFusionCpuTest" name="test_foreach_kernel_cpu" time="5.182" file="inductor/test_benchmark_fusion.py"><system-err>Compiled module path: /tmp/tmpvx0qjvh5/ub/cub3e2mlkuu4azxoiphpdtejqi2r5lu3jin2id4447czgrgcrypg.py
+</system-err></testcase><testcase classname="BenchmarkFusionCpuTest" name="test_register_spills_cpu" time="2.578" file="inductor/test_benchmark_fusion.py"><system-err>Compiled module path: /tmp/tmpycnglc98/yi/cyif72uduopkoscgsm2hblk6bw2wqfreq7lika52rfoasm7es3xh.py
+</system-err></testcase><testcase classname="BenchmarkFusionCpuTest" name="test_resnet18_cpu" time="0.002" file="inductor/test_benchmark_fusion.py"><skipped type="pytest.skip" message="test is slow; run with PYTORCH_TEST_WITH_SLOW to enable test">/var/lib/jenkins/pytorch/test/inductor/test_benchmark_fusion.py:66: test is slow; run with PYTORCH_TEST_WITH_SLOW to enable test</skipped></testcase><testcase classname="BenchmarkFusionCpuTest" name="test_softmax_cpu" time="0.943" file="inductor/test_benchmark_fusion.py"><system-err>Compiled module path: /tmp/tmpe0bo2krv/oj/cojn4pulgbzuy6qi3z4j5e65nm7usuckluhp27eq5jsth6xkm5z3.py
+</system-err></testcase><testcase classname="BenchmarkFusionCpuTest" name="test_tield_kernel_fusion_cpu" time="0.829" file="inductor/test_benchmark_fusion.py"><system-err>Compiled module path: /tmp/tmp6th0726a/cg/ccge3snjvau2spqsvbpd7u5ms3nsn4jccbptp4i2zdystdepibmc.py
+</system-err></testcase></testsuite></testsuites>

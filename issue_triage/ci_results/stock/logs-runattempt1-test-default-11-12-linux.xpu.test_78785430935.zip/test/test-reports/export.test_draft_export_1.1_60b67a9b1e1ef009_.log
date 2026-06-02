@@ -1,0 +1,273 @@
+Test results will be stored in test-reports/python-pytest/export.test_draft_export/export.test_draft_export-314067fb186e53d9.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 22 items
+stepcurrent: Cannot find last run test, not skipping
+Running 22 items in this shard: test/export/test_draft_export.py::TestDraftExport::test_complex_data_dependent_expr, test/export/test_draft_export.py::TestDraftExport::test_constantify_unbacked_symbol, test/export/test_draft_export.py::TestDraftExport::test_cuda_memory_usage, test/export/test_draft_export.py::TestDraftExport::test_data_dependent_failure, test/export/test_draft_export.py::TestDraftExport::test_dedup_data_dependent_failure, test/export/test_draft_export.py::TestDraftExport::test_fake_infer_dense_in_memory_check, test/export/test_draft_export.py::TestDraftExport::test_masked_linear, test/export/test_draft_export.py::TestDraftExport::test_missing_meta_kernel_custom_op_basic, test/export/test_draft_export.py::TestDraftExport::test_missing_meta_kernel_custom_op_multiple_profiles, test/export/test_draft_export.py::TestDraftExport::test_missing_meta_kernel_custom_op_update_profile, test/export/test_draft_export.py::TestDraftExport::test_missing_meta_kernel_guard, test/export/test_draft_export.py::TestDraftExport::test_missing_meta_kernel_impl, test/export/test_draft_export.py::TestDraftExport::test_offsets, test/export/test_draft_export.py::TestDraftExport::test_override_incorrectly_aliasing_kernel, test/export/test_draft_export.py::TestDraftExport::test_override_mismatched_fake_kernel_with_unbacked_symbols, test/export/test_draft_export.py::TestDraftExport::test_override_size_and_dtype_mismatched_fake_kernels, test/export/test_draft_export.py::TestDraftExport::test_retry_on_constraint_violation_uses_dim_auto, test/export/test_draft_export.py::TestDraftExport::test_shape_failure, test/export/test_draft_export.py::TestDraftExport::test_side_effect1, test/export/test_draft_export.py::TestDraftExport::test_side_effect_inps, test/export/test_draft_export.py::TestDraftExport::test_torchbind, test/export/test_draft_export.py::TestDraftExport::test_unbacked_div_mod_replacement
+
+export/test_draft_export.py::TestDraftExport::test_complex_data_dependent_expr W0601 04:43:04.990000 102759 site-packages/torch/fx/experimental/symbolic_shapes.py:8133] propagate_real_tensors evaluate_expr((((-u0)//3)) + 5 > 0) -> True
+W0601 04:43:05.086000 102759 site-packages/torch/export/_draft_export.py:525] 
+W0601 04:43:05.086000 102759 site-packages/torch/export/_draft_export.py:525] ###################################################################################################
+W0601 04:43:05.086000 102759 site-packages/torch/export/_draft_export.py:525] WARNING: 1 issue(s) found during export, and it was not able to soundly produce a graph.
+W0601 04:43:05.086000 102759 site-packages/torch/export/_draft_export.py:525] To view the report of failures in an html page, please run the command:
+W0601 04:43:05.086000 102759 site-packages/torch/export/_draft_export.py:525]     `tlparse /tmp/export_jenkins/dedicated_log_torch_trace_88qtrsqv.log --export`
+W0601 04:43:05.086000 102759 site-packages/torch/export/_draft_export.py:525] Or, you can view the errors in python by inspecting `print(ep._report)`.
+W0601 04:43:05.086000 102759 site-packages/torch/export/_draft_export.py:525] #################################################################################################
+PASSED [0.8155s] [  4%]
+export/test_draft_export.py::TestDraftExport::test_constantify_unbacked_symbol PASSED [34.5492s] [  9%]
+export/test_draft_export.py::TestDraftExport::test_cuda_memory_usage SKIPPED [0.0005s] (Requires 16 MB GPU memory to pass the test; setting it higher to catch violations) [ 13%]
+export/test_draft_export.py::TestDraftExport::test_data_dependent_failure W0601 04:43:39.979000 102759 site-packages/torch/fx/experimental/symbolic_shapes.py:8133] propagate_real_tensors evaluate_expr(u2 > 0) -> True
+W0601 04:43:40.051000 102759 site-packages/torch/export/_draft_export.py:525] 
+W0601 04:43:40.051000 102759 site-packages/torch/export/_draft_export.py:525] ###################################################################################################
+W0601 04:43:40.051000 102759 site-packages/torch/export/_draft_export.py:525] WARNING: 2 issue(s) found during export, and it was not able to soundly produce a graph.
+W0601 04:43:40.051000 102759 site-packages/torch/export/_draft_export.py:525] To view the report of failures in an html page, please run the command:
+W0601 04:43:40.051000 102759 site-packages/torch/export/_draft_export.py:525]     `tlparse /tmp/export_jenkins/dedicated_log_torch_trace_w490kh2u.log --export`
+W0601 04:43:40.051000 102759 site-packages/torch/export/_draft_export.py:525] Or, you can view the errors in python by inspecting `print(ep._report)`.
+W0601 04:43:40.051000 102759 site-packages/torch/export/_draft_export.py:525] 
+W0601 04:43:40.051000 102759 site-packages/torch/export/_draft_export.py:525] While tracing we found 1 operator(s) which do not have a fake kernel registered.
+W0601 04:43:40.051000 102759 site-packages/torch/export/_draft_export.py:525] If you intend to retrace the exported graph or run it with fake tensors, please run it under the
+W0601 04:43:40.051000 102759 site-packages/torch/export/_draft_export.py:525] following context manager, which will register a fake kernel for those operators.
+W0601 04:43:40.051000 102759 site-packages/torch/export/_draft_export.py:525] ```
+W0601 04:43:40.051000 102759 site-packages/torch/export/_draft_export.py:525] with torch._library.fake_profile.unsafe_generate_fake_kernels(ep._report.op_profiles):
+W0601 04:43:40.051000 102759 site-packages/torch/export/_draft_export.py:525]     # run with fake tensors
+W0601 04:43:40.051000 102759 site-packages/torch/export/_draft_export.py:525] ```
+W0601 04:43:40.051000 102759 site-packages/torch/export/_draft_export.py:525] #################################################################################################
+PASSED [0.1474s] [ 18%]
+export/test_draft_export.py::TestDraftExport::test_dedup_data_dependent_failure W0601 04:43:40.076000 102759 site-packages/torch/fx/experimental/symbolic_shapes.py:8133] propagate_real_tensors evaluate_expr(u0 > 10) -> False
+W0601 04:43:40.091000 102759 site-packages/torch/fx/experimental/symbolic_shapes.py:8133] propagate_real_tensors evaluate_expr(u1 > 10) -> False
+W0601 04:43:40.122000 102759 site-packages/torch/export/_draft_export.py:525] 
+W0601 04:43:40.122000 102759 site-packages/torch/export/_draft_export.py:525] ###################################################################################################
+W0601 04:43:40.122000 102759 site-packages/torch/export/_draft_export.py:525] WARNING: 1 issue(s) found during export, and it was not able to soundly produce a graph.
+W0601 04:43:40.122000 102759 site-packages/torch/export/_draft_export.py:525] To view the report of failures in an html page, please run the command:
+W0601 04:43:40.122000 102759 site-packages/torch/export/_draft_export.py:525]     `tlparse /tmp/export_jenkins/dedicated_log_torch_trace_b72ya81u.log --export`
+W0601 04:43:40.122000 102759 site-packages/torch/export/_draft_export.py:525] Or, you can view the errors in python by inspecting `print(ep._report)`.
+W0601 04:43:40.122000 102759 site-packages/torch/export/_draft_export.py:525] #################################################################################################
+PASSED [0.0725s] [ 22%]
+export/test_draft_export.py::TestDraftExport::test_fake_infer_dense_in_memory_check W0601 04:43:40.227000 102759 site-packages/torch/export/_draft_export.py:525] 
+W0601 04:43:40.227000 102759 site-packages/torch/export/_draft_export.py:525] ###################################################################################################
+W0601 04:43:40.227000 102759 site-packages/torch/export/_draft_export.py:525] WARNING: 1 issue(s) found during export, and it was not able to soundly produce a graph.
+W0601 04:43:40.227000 102759 site-packages/torch/export/_draft_export.py:525] To view the report of failures in an html page, please run the command:
+W0601 04:43:40.227000 102759 site-packages/torch/export/_draft_export.py:525]     `tlparse /tmp/export_jenkins/dedicated_log_torch_trace_g30kgwrn.log --export`
+W0601 04:43:40.227000 102759 site-packages/torch/export/_draft_export.py:525] Or, you can view the errors in python by inspecting `print(ep._report)`.
+W0601 04:43:40.227000 102759 site-packages/torch/export/_draft_export.py:525] 
+W0601 04:43:40.227000 102759 site-packages/torch/export/_draft_export.py:525] While tracing we found 1 operator(s) which do not have a fake kernel registered.
+W0601 04:43:40.227000 102759 site-packages/torch/export/_draft_export.py:525] If you intend to retrace the exported graph or run it with fake tensors, please run it under the
+W0601 04:43:40.227000 102759 site-packages/torch/export/_draft_export.py:525] following context manager, which will register a fake kernel for those operators.
+W0601 04:43:40.227000 102759 site-packages/torch/export/_draft_export.py:525] ```
+W0601 04:43:40.227000 102759 site-packages/torch/export/_draft_export.py:525] with torch._library.fake_profile.unsafe_generate_fake_kernels(ep._report.op_profiles):
+W0601 04:43:40.227000 102759 site-packages/torch/export/_draft_export.py:525]     # run with fake tensors
+W0601 04:43:40.227000 102759 site-packages/torch/export/_draft_export.py:525] ```
+W0601 04:43:40.227000 102759 site-packages/torch/export/_draft_export.py:525] #################################################################################################
+W0601 04:43:40.282000 102759 site-packages/torch/export/_draft_export.py:525] 
+W0601 04:43:40.282000 102759 site-packages/torch/export/_draft_export.py:525] ###################################################################################################
+W0601 04:43:40.282000 102759 site-packages/torch/export/_draft_export.py:525] WARNING: 1 issue(s) found during export, and it was not able to soundly produce a graph.
+W0601 04:43:40.282000 102759 site-packages/torch/export/_draft_export.py:525] To view the report of failures in an html page, please run the command:
+W0601 04:43:40.282000 102759 site-packages/torch/export/_draft_export.py:525]     `tlparse /tmp/export_jenkins/dedicated_log_torch_trace_mnt3yrym.log --export`
+W0601 04:43:40.282000 102759 site-packages/torch/export/_draft_export.py:525] Or, you can view the errors in python by inspecting `print(ep._report)`.
+W0601 04:43:40.282000 102759 site-packages/torch/export/_draft_export.py:525] 
+W0601 04:43:40.282000 102759 site-packages/torch/export/_draft_export.py:525] While tracing we found 1 operator(s) which do not have a fake kernel registered.
+W0601 04:43:40.282000 102759 site-packages/torch/export/_draft_export.py:525] If you intend to retrace the exported graph or run it with fake tensors, please run it under the
+W0601 04:43:40.282000 102759 site-packages/torch/export/_draft_export.py:525] following context manager, which will register a fake kernel for those operators.
+W0601 04:43:40.282000 102759 site-packages/torch/export/_draft_export.py:525] ```
+W0601 04:43:40.282000 102759 site-packages/torch/export/_draft_export.py:525] with torch._library.fake_profile.unsafe_generate_fake_kernels(ep._report.op_profiles):
+W0601 04:43:40.282000 102759 site-packages/torch/export/_draft_export.py:525]     # run with fake tensors
+W0601 04:43:40.282000 102759 site-packages/torch/export/_draft_export.py:525] ```
+W0601 04:43:40.282000 102759 site-packages/torch/export/_draft_export.py:525] #################################################################################################
+W0601 04:43:40.538000 102759 site-packages/torch/export/_draft_export.py:525] 
+W0601 04:43:40.538000 102759 site-packages/torch/export/_draft_export.py:525] ###################################################################################################
+W0601 04:43:40.538000 102759 site-packages/torch/export/_draft_export.py:525] WARNING: 1 issue(s) found during export, and it was not able to soundly produce a graph.
+W0601 04:43:40.538000 102759 site-packages/torch/export/_draft_export.py:525] To view the report of failures in an html page, please run the command:
+W0601 04:43:40.538000 102759 site-packages/torch/export/_draft_export.py:525]     `tlparse /tmp/export_jenkins/dedicated_log_torch_trace_fj6zquq5.log --export`
+W0601 04:43:40.538000 102759 site-packages/torch/export/_draft_export.py:525] Or, you can view the errors in python by inspecting `print(ep._report)`.
+W0601 04:43:40.538000 102759 site-packages/torch/export/_draft_export.py:525] 
+W0601 04:43:40.538000 102759 site-packages/torch/export/_draft_export.py:525] While tracing we found 1 operator(s) which do not have a fake kernel registered.
+W0601 04:43:40.538000 102759 site-packages/torch/export/_draft_export.py:525] If you intend to retrace the exported graph or run it with fake tensors, please run it under the
+W0601 04:43:40.538000 102759 site-packages/torch/export/_draft_export.py:525] following context manager, which will register a fake kernel for those operators.
+W0601 04:43:40.538000 102759 site-packages/torch/export/_draft_export.py:525] ```
+W0601 04:43:40.538000 102759 site-packages/torch/export/_draft_export.py:525] with torch._library.fake_profile.unsafe_generate_fake_kernels(ep._report.op_profiles):
+W0601 04:43:40.538000 102759 site-packages/torch/export/_draft_export.py:525]     # run with fake tensors
+W0601 04:43:40.538000 102759 site-packages/torch/export/_draft_export.py:525] ```
+W0601 04:43:40.538000 102759 site-packages/torch/export/_draft_export.py:525] #################################################################################################
+PASSED [0.4230s] [ 27%]
+export/test_draft_export.py::TestDraftExport::test_masked_linear PASSED [0.2063s] [ 31%]
+export/test_draft_export.py::TestDraftExport::test_missing_meta_kernel_custom_op_basic W0601 04:43:40.815000 102759 site-packages/torch/export/_draft_export.py:525] 
+W0601 04:43:40.815000 102759 site-packages/torch/export/_draft_export.py:525] ###################################################################################################
+W0601 04:43:40.815000 102759 site-packages/torch/export/_draft_export.py:525] WARNING: 1 issue(s) found during export, and it was not able to soundly produce a graph.
+W0601 04:43:40.815000 102759 site-packages/torch/export/_draft_export.py:525] To view the report of failures in an html page, please run the command:
+W0601 04:43:40.815000 102759 site-packages/torch/export/_draft_export.py:525]     `tlparse /tmp/export_jenkins/dedicated_log_torch_trace_wgen_udf.log --export`
+W0601 04:43:40.815000 102759 site-packages/torch/export/_draft_export.py:525] Or, you can view the errors in python by inspecting `print(ep._report)`.
+W0601 04:43:40.815000 102759 site-packages/torch/export/_draft_export.py:525] 
+W0601 04:43:40.815000 102759 site-packages/torch/export/_draft_export.py:525] While tracing we found 1 operator(s) which do not have a fake kernel registered.
+W0601 04:43:40.815000 102759 site-packages/torch/export/_draft_export.py:525] If you intend to retrace the exported graph or run it with fake tensors, please run it under the
+W0601 04:43:40.815000 102759 site-packages/torch/export/_draft_export.py:525] following context manager, which will register a fake kernel for those operators.
+W0601 04:43:40.815000 102759 site-packages/torch/export/_draft_export.py:525] ```
+W0601 04:43:40.815000 102759 site-packages/torch/export/_draft_export.py:525] with torch._library.fake_profile.unsafe_generate_fake_kernels(ep._report.op_profiles):
+W0601 04:43:40.815000 102759 site-packages/torch/export/_draft_export.py:525]     # run with fake tensors
+W0601 04:43:40.815000 102759 site-packages/torch/export/_draft_export.py:525] ```
+W0601 04:43:40.815000 102759 site-packages/torch/export/_draft_export.py:525] #################################################################################################
+W0601 04:43:40.819000 102759 site-packages/torch/_library/fake_profile.py:146] Registering fake profile for mylib.foo2.default. This will override any existing fake kernel registration.
+PASSED [0.4851s] [ 36%]
+export/test_draft_export.py::TestDraftExport::test_missing_meta_kernel_custom_op_multiple_profiles W0601 04:43:41.350000 102759 site-packages/torch/export/_draft_export.py:525] 
+W0601 04:43:41.350000 102759 site-packages/torch/export/_draft_export.py:525] ###################################################################################################
+W0601 04:43:41.350000 102759 site-packages/torch/export/_draft_export.py:525] WARNING: 1 issue(s) found during export, and it was not able to soundly produce a graph.
+W0601 04:43:41.350000 102759 site-packages/torch/export/_draft_export.py:525] To view the report of failures in an html page, please run the command:
+W0601 04:43:41.350000 102759 site-packages/torch/export/_draft_export.py:525]     `tlparse /tmp/export_jenkins/dedicated_log_torch_trace_ie2zvgs2.log --export`
+W0601 04:43:41.350000 102759 site-packages/torch/export/_draft_export.py:525] Or, you can view the errors in python by inspecting `print(ep._report)`.
+W0601 04:43:41.350000 102759 site-packages/torch/export/_draft_export.py:525] 
+W0601 04:43:41.350000 102759 site-packages/torch/export/_draft_export.py:525] While tracing we found 1 operator(s) which do not have a fake kernel registered.
+W0601 04:43:41.350000 102759 site-packages/torch/export/_draft_export.py:525] If you intend to retrace the exported graph or run it with fake tensors, please run it under the
+W0601 04:43:41.350000 102759 site-packages/torch/export/_draft_export.py:525] following context manager, which will register a fake kernel for those operators.
+W0601 04:43:41.350000 102759 site-packages/torch/export/_draft_export.py:525] ```
+W0601 04:43:41.350000 102759 site-packages/torch/export/_draft_export.py:525] with torch._library.fake_profile.unsafe_generate_fake_kernels(ep._report.op_profiles):
+W0601 04:43:41.350000 102759 site-packages/torch/export/_draft_export.py:525]     # run with fake tensors
+W0601 04:43:41.350000 102759 site-packages/torch/export/_draft_export.py:525] ```
+W0601 04:43:41.350000 102759 site-packages/torch/export/_draft_export.py:525] #################################################################################################
+W0601 04:43:41.351000 102759 site-packages/torch/_library/fake_profile.py:146] Registering fake profile for mylib.foo3.default. This will override any existing fake kernel registration.
+PASSED [0.3570s] [ 40%]
+export/test_draft_export.py::TestDraftExport::test_missing_meta_kernel_custom_op_update_profile W0601 04:43:41.659000 102759 site-packages/torch/export/_draft_export.py:525] 
+W0601 04:43:41.659000 102759 site-packages/torch/export/_draft_export.py:525] ###################################################################################################
+W0601 04:43:41.659000 102759 site-packages/torch/export/_draft_export.py:525] WARNING: 1 issue(s) found during export, and it was not able to soundly produce a graph.
+W0601 04:43:41.659000 102759 site-packages/torch/export/_draft_export.py:525] To view the report of failures in an html page, please run the command:
+W0601 04:43:41.659000 102759 site-packages/torch/export/_draft_export.py:525]     `tlparse /tmp/export_jenkins/dedicated_log_torch_trace_1te4e8_z.log --export`
+W0601 04:43:41.659000 102759 site-packages/torch/export/_draft_export.py:525] Or, you can view the errors in python by inspecting `print(ep._report)`.
+W0601 04:43:41.659000 102759 site-packages/torch/export/_draft_export.py:525] 
+W0601 04:43:41.659000 102759 site-packages/torch/export/_draft_export.py:525] While tracing we found 1 operator(s) which do not have a fake kernel registered.
+W0601 04:43:41.659000 102759 site-packages/torch/export/_draft_export.py:525] If you intend to retrace the exported graph or run it with fake tensors, please run it under the
+W0601 04:43:41.659000 102759 site-packages/torch/export/_draft_export.py:525] following context manager, which will register a fake kernel for those operators.
+W0601 04:43:41.659000 102759 site-packages/torch/export/_draft_export.py:525] ```
+W0601 04:43:41.659000 102759 site-packages/torch/export/_draft_export.py:525] with torch._library.fake_profile.unsafe_generate_fake_kernels(ep._report.op_profiles):
+W0601 04:43:41.659000 102759 site-packages/torch/export/_draft_export.py:525]     # run with fake tensors
+W0601 04:43:41.659000 102759 site-packages/torch/export/_draft_export.py:525] ```
+W0601 04:43:41.659000 102759 site-packages/torch/export/_draft_export.py:525] #################################################################################################
+W0601 04:43:41.659000 102759 site-packages/torch/_library/fake_profile.py:146] Registering fake profile for mylib.foo8.default. This will override any existing fake kernel registration.
+W0601 04:43:41.721000 102759 site-packages/torch/export/_draft_export.py:525] 
+W0601 04:43:41.721000 102759 site-packages/torch/export/_draft_export.py:525] ###################################################################################################
+W0601 04:43:41.721000 102759 site-packages/torch/export/_draft_export.py:525] WARNING: 1 issue(s) found during export, and it was not able to soundly produce a graph.
+W0601 04:43:41.721000 102759 site-packages/torch/export/_draft_export.py:525] To view the report of failures in an html page, please run the command:
+W0601 04:43:41.721000 102759 site-packages/torch/export/_draft_export.py:525]     `tlparse /tmp/export_jenkins/dedicated_log_torch_trace__h8c_1cq.log --export`
+W0601 04:43:41.721000 102759 site-packages/torch/export/_draft_export.py:525] Or, you can view the errors in python by inspecting `print(ep._report)`.
+W0601 04:43:41.721000 102759 site-packages/torch/export/_draft_export.py:525] 
+W0601 04:43:41.721000 102759 site-packages/torch/export/_draft_export.py:525] While tracing we found 1 operator(s) which do not have a fake kernel registered.
+W0601 04:43:41.721000 102759 site-packages/torch/export/_draft_export.py:525] If you intend to retrace the exported graph or run it with fake tensors, please run it under the
+W0601 04:43:41.721000 102759 site-packages/torch/export/_draft_export.py:525] following context manager, which will register a fake kernel for those operators.
+W0601 04:43:41.721000 102759 site-packages/torch/export/_draft_export.py:525] ```
+W0601 04:43:41.721000 102759 site-packages/torch/export/_draft_export.py:525] with torch._library.fake_profile.unsafe_generate_fake_kernels(ep._report.op_profiles):
+W0601 04:43:41.721000 102759 site-packages/torch/export/_draft_export.py:525]     # run with fake tensors
+W0601 04:43:41.721000 102759 site-packages/torch/export/_draft_export.py:525] ```
+W0601 04:43:41.721000 102759 site-packages/torch/export/_draft_export.py:525] #################################################################################################
+W0601 04:43:41.721000 102759 site-packages/torch/_library/fake_profile.py:146] Registering fake profile for mylib.foo8.default. This will override any existing fake kernel registration.
+PASSED [0.1137s] [ 45%]
+export/test_draft_export.py::TestDraftExport::test_missing_meta_kernel_guard SKIPPED [0.0003s] (Requires cuda) [ 50%]
+export/test_draft_export.py::TestDraftExport::test_missing_meta_kernel_impl W0601 04:43:41.808000 102759 site-packages/torch/export/_draft_export.py:525] 
+W0601 04:43:41.808000 102759 site-packages/torch/export/_draft_export.py:525] ###################################################################################################
+W0601 04:43:41.808000 102759 site-packages/torch/export/_draft_export.py:525] WARNING: 1 issue(s) found during export, and it was not able to soundly produce a graph.
+W0601 04:43:41.808000 102759 site-packages/torch/export/_draft_export.py:525] To view the report of failures in an html page, please run the command:
+W0601 04:43:41.808000 102759 site-packages/torch/export/_draft_export.py:525]     `tlparse /tmp/export_jenkins/dedicated_log_torch_trace_twjd18dr.log --export`
+W0601 04:43:41.808000 102759 site-packages/torch/export/_draft_export.py:525] Or, you can view the errors in python by inspecting `print(ep._report)`.
+W0601 04:43:41.808000 102759 site-packages/torch/export/_draft_export.py:525] 
+W0601 04:43:41.808000 102759 site-packages/torch/export/_draft_export.py:525] While tracing we found 1 operator(s) which do not have a fake kernel registered.
+W0601 04:43:41.808000 102759 site-packages/torch/export/_draft_export.py:525] If you intend to retrace the exported graph or run it with fake tensors, please run it under the
+W0601 04:43:41.808000 102759 site-packages/torch/export/_draft_export.py:525] following context manager, which will register a fake kernel for those operators.
+W0601 04:43:41.808000 102759 site-packages/torch/export/_draft_export.py:525] ```
+W0601 04:43:41.808000 102759 site-packages/torch/export/_draft_export.py:525] with torch._library.fake_profile.unsafe_generate_fake_kernels(ep._report.op_profiles):
+W0601 04:43:41.808000 102759 site-packages/torch/export/_draft_export.py:525]     # run with fake tensors
+W0601 04:43:41.808000 102759 site-packages/torch/export/_draft_export.py:525] ```
+W0601 04:43:41.808000 102759 site-packages/torch/export/_draft_export.py:525] #################################################################################################
+W0601 04:43:41.814000 102759 site-packages/torch/_library/fake_profile.py:146] Registering fake profile for mylib.foo.default. This will override any existing fake kernel registration.
+PASSED [0.3256s] [ 54%]
+export/test_draft_export.py::TestDraftExport::test_offsets W0601 04:43:42.067000 102759 site-packages/torch/fx/experimental/symbolic_shapes.py:8133] propagate_real_tensors evaluate_expr(Eq(u0, 0)) -> False
+W0601 04:43:42.088000 102759 site-packages/torch/export/_draft_export.py:525] 
+W0601 04:43:42.088000 102759 site-packages/torch/export/_draft_export.py:525] ###################################################################################################
+W0601 04:43:42.088000 102759 site-packages/torch/export/_draft_export.py:525] WARNING: 1 issue(s) found during export, and it was not able to soundly produce a graph.
+W0601 04:43:42.088000 102759 site-packages/torch/export/_draft_export.py:525] To view the report of failures in an html page, please run the command:
+W0601 04:43:42.088000 102759 site-packages/torch/export/_draft_export.py:525]     `tlparse /tmp/export_jenkins/dedicated_log_torch_trace_7mqufjc9.log --export`
+W0601 04:43:42.088000 102759 site-packages/torch/export/_draft_export.py:525] Or, you can view the errors in python by inspecting `print(ep._report)`.
+W0601 04:43:42.088000 102759 site-packages/torch/export/_draft_export.py:525] #################################################################################################
+PASSED [0.0317s] [ 59%]
+export/test_draft_export.py::TestDraftExport::test_override_incorrectly_aliasing_kernel E0601 04:43:42.167000 102759 site-packages/torch/export/_trace.py:1323] always_classified is unsupported.
+E0601 04:43:42.167000 102759 site-packages/torch/export/_trace.py:1323] always_classified is unsupported.
+W0601 04:43:42.246000 102759 site-packages/torch/export/_draft_export.py:525] 
+W0601 04:43:42.246000 102759 site-packages/torch/export/_draft_export.py:525] ###################################################################################################
+W0601 04:43:42.246000 102759 site-packages/torch/export/_draft_export.py:525] WARNING: 1 issue(s) found during export, and it was not able to soundly produce a graph.
+W0601 04:43:42.246000 102759 site-packages/torch/export/_draft_export.py:525] To view the report of failures in an html page, please run the command:
+W0601 04:43:42.246000 102759 site-packages/torch/export/_draft_export.py:525]     `tlparse /tmp/export_jenkins/dedicated_log_torch_trace_dhfwf46v.log --export`
+W0601 04:43:42.246000 102759 site-packages/torch/export/_draft_export.py:525] Or, you can view the errors in python by inspecting `print(ep._report)`.
+W0601 04:43:42.246000 102759 site-packages/torch/export/_draft_export.py:525] 
+W0601 04:43:42.246000 102759 site-packages/torch/export/_draft_export.py:525] While tracing we found 1 operator(s) which do not have a fake kernel registered.
+W0601 04:43:42.246000 102759 site-packages/torch/export/_draft_export.py:525] If you intend to retrace the exported graph or run it with fake tensors, please run it under the
+W0601 04:43:42.246000 102759 site-packages/torch/export/_draft_export.py:525] following context manager, which will register a fake kernel for those operators.
+W0601 04:43:42.246000 102759 site-packages/torch/export/_draft_export.py:525] ```
+W0601 04:43:42.246000 102759 site-packages/torch/export/_draft_export.py:525] with torch._library.fake_profile.unsafe_generate_fake_kernels(ep._report.op_profiles):
+W0601 04:43:42.246000 102759 site-packages/torch/export/_draft_export.py:525]     # run with fake tensors
+W0601 04:43:42.246000 102759 site-packages/torch/export/_draft_export.py:525] ```
+W0601 04:43:42.246000 102759 site-packages/torch/export/_draft_export.py:525] #################################################################################################
+PASSED [0.1627s] [ 63%]
+export/test_draft_export.py::TestDraftExport::test_override_mismatched_fake_kernel_with_unbacked_symbols W0601 04:43:42.294000 102759 site-packages/torch/export/_draft_export.py:525] 
+W0601 04:43:42.294000 102759 site-packages/torch/export/_draft_export.py:525] ###################################################################################################
+W0601 04:43:42.294000 102759 site-packages/torch/export/_draft_export.py:525] WARNING: 1 issue(s) found during export, and it was not able to soundly produce a graph.
+W0601 04:43:42.294000 102759 site-packages/torch/export/_draft_export.py:525] To view the report of failures in an html page, please run the command:
+W0601 04:43:42.294000 102759 site-packages/torch/export/_draft_export.py:525]     `tlparse /tmp/export_jenkins/dedicated_log_torch_trace_lb1m8_iv.log --export`
+W0601 04:43:42.294000 102759 site-packages/torch/export/_draft_export.py:525] Or, you can view the errors in python by inspecting `print(ep._report)`.
+W0601 04:43:42.294000 102759 site-packages/torch/export/_draft_export.py:525] 
+W0601 04:43:42.294000 102759 site-packages/torch/export/_draft_export.py:525] While tracing we found 1 operator(s) which do not have a fake kernel registered.
+W0601 04:43:42.294000 102759 site-packages/torch/export/_draft_export.py:525] If you intend to retrace the exported graph or run it with fake tensors, please run it under the
+W0601 04:43:42.294000 102759 site-packages/torch/export/_draft_export.py:525] following context manager, which will register a fake kernel for those operators.
+W0601 04:43:42.294000 102759 site-packages/torch/export/_draft_export.py:525] ```
+W0601 04:43:42.294000 102759 site-packages/torch/export/_draft_export.py:525] with torch._library.fake_profile.unsafe_generate_fake_kernels(ep._report.op_profiles):
+W0601 04:43:42.294000 102759 site-packages/torch/export/_draft_export.py:525]     # run with fake tensors
+W0601 04:43:42.294000 102759 site-packages/torch/export/_draft_export.py:525] ```
+W0601 04:43:42.294000 102759 site-packages/torch/export/_draft_export.py:525] #################################################################################################
+W0601 04:43:42.299000 102759 site-packages/torch/_library/fake_profile.py:146] Registering fake profile for mylib.foo11.default. This will override any existing fake kernel registration.
+PASSED [0.2493s] [ 68%]
+export/test_draft_export.py::TestDraftExport::test_override_size_and_dtype_mismatched_fake_kernels E0601 04:43:42.538000 102759 site-packages/torch/export/_trace.py:1323] always_classified is unsupported.
+E0601 04:43:42.538000 102759 site-packages/torch/export/_trace.py:1323] always_classified is unsupported.
+W0601 04:43:42.611000 102759 site-packages/torch/export/_draft_export.py:525] 
+W0601 04:43:42.611000 102759 site-packages/torch/export/_draft_export.py:525] ###################################################################################################
+W0601 04:43:42.611000 102759 site-packages/torch/export/_draft_export.py:525] WARNING: 2 issue(s) found during export, and it was not able to soundly produce a graph.
+W0601 04:43:42.611000 102759 site-packages/torch/export/_draft_export.py:525] To view the report of failures in an html page, please run the command:
+W0601 04:43:42.611000 102759 site-packages/torch/export/_draft_export.py:525]     `tlparse /tmp/export_jenkins/dedicated_log_torch_trace_la23k6da.log --export`
+W0601 04:43:42.611000 102759 site-packages/torch/export/_draft_export.py:525] Or, you can view the errors in python by inspecting `print(ep._report)`.
+W0601 04:43:42.611000 102759 site-packages/torch/export/_draft_export.py:525] 
+W0601 04:43:42.611000 102759 site-packages/torch/export/_draft_export.py:525] While tracing we found 1 operator(s) which do not have a fake kernel registered.
+W0601 04:43:42.611000 102759 site-packages/torch/export/_draft_export.py:525] If you intend to retrace the exported graph or run it with fake tensors, please run it under the
+W0601 04:43:42.611000 102759 site-packages/torch/export/_draft_export.py:525] following context manager, which will register a fake kernel for those operators.
+W0601 04:43:42.611000 102759 site-packages/torch/export/_draft_export.py:525] ```
+W0601 04:43:42.611000 102759 site-packages/torch/export/_draft_export.py:525] with torch._library.fake_profile.unsafe_generate_fake_kernels(ep._report.op_profiles):
+W0601 04:43:42.611000 102759 site-packages/torch/export/_draft_export.py:525]     # run with fake tensors
+W0601 04:43:42.611000 102759 site-packages/torch/export/_draft_export.py:525] ```
+W0601 04:43:42.611000 102759 site-packages/torch/export/_draft_export.py:525] #################################################################################################
+W0601 04:43:42.616000 102759 site-packages/torch/_library/fake_profile.py:146] Registering fake profile for mylib.foo9.default. This will override any existing fake kernel registration.
+PASSED [0.5963s] [ 72%]
+export/test_draft_export.py::TestDraftExport::test_retry_on_constraint_violation_uses_dim_auto PASSED [0.0463s] [ 77%]
+export/test_draft_export.py::TestDraftExport::test_shape_failure W0601 04:43:43.256000 102759 site-packages/torch/export/_draft_export.py:525] 
+W0601 04:43:43.256000 102759 site-packages/torch/export/_draft_export.py:525] ###################################################################################################
+W0601 04:43:43.256000 102759 site-packages/torch/export/_draft_export.py:525] WARNING: 1 issue(s) found during export, and it was not able to soundly produce a graph.
+W0601 04:43:43.256000 102759 site-packages/torch/export/_draft_export.py:525] To view the report of failures in an html page, please run the command:
+W0601 04:43:43.256000 102759 site-packages/torch/export/_draft_export.py:525]     `tlparse /tmp/export_jenkins/dedicated_log_torch_trace__50byxdg.log --export`
+W0601 04:43:43.256000 102759 site-packages/torch/export/_draft_export.py:525] Or, you can view the errors in python by inspecting `print(ep._report)`.
+W0601 04:43:43.256000 102759 site-packages/torch/export/_draft_export.py:525] #################################################################################################
+PASSED [0.1125s] [ 81%]
+export/test_draft_export.py::TestDraftExport::test_side_effect1 W0601 04:43:43.277000 102759 site-packages/torch/fx/experimental/symbolic_shapes.py:8133] propagate_real_tensors evaluate_expr(Eq(u0, 2)) -> True
+W0601 04:43:43.289000 102759 site-packages/torch/fx/experimental/symbolic_shapes.py:8133] propagate_real_tensors evaluate_expr(Eq(u1, 3)) -> True
+W0601 04:43:43.317000 102759 site-packages/torch/export/_draft_export.py:525] 
+W0601 04:43:43.317000 102759 site-packages/torch/export/_draft_export.py:525] ###################################################################################################
+W0601 04:43:43.317000 102759 site-packages/torch/export/_draft_export.py:525] WARNING: 2 issue(s) found during export, and it was not able to soundly produce a graph.
+W0601 04:43:43.317000 102759 site-packages/torch/export/_draft_export.py:525] To view the report of failures in an html page, please run the command:
+W0601 04:43:43.317000 102759 site-packages/torch/export/_draft_export.py:525]     `tlparse /tmp/export_jenkins/dedicated_log_torch_trace_orjczmpc.log --export`
+W0601 04:43:43.317000 102759 site-packages/torch/export/_draft_export.py:525] Or, you can view the errors in python by inspecting `print(ep._report)`.
+W0601 04:43:43.317000 102759 site-packages/torch/export/_draft_export.py:525] #################################################################################################
+PASSED [0.0531s] [ 86%]
+export/test_draft_export.py::TestDraftExport::test_side_effect_inps PASSED [0.0146s] [ 90%]
+export/test_draft_export.py::TestDraftExport::test_torchbind W0601 04:43:43.341000 102759 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._TensorQueue> doesn't implement method top.
+W0601 04:43:43.342000 102759 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._TensorQueue> doesn't implement method clone_queue.
+W0601 04:43:43.342000 102759 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._TensorQueue> doesn't implement method get_raw_queue.
+PASSED [0.0383s] [ 95%]
+export/test_draft_export.py::TestDraftExport::test_unbacked_div_mod_replacement PASSED [0.2630s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/export.test_draft_export/export.test_draft_export-314067fb186e53d9.xml -
+======================== 20 passed, 2 skipped in 39.11s ========================
