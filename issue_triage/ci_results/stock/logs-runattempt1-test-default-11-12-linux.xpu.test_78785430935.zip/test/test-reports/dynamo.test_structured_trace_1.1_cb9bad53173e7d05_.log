@@ -1,0 +1,94 @@
+Test results will be stored in test-reports/python-pytest/dynamo.test_structured_trace/dynamo.test_structured_trace-bd56f09698cc6fe5.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 30 items
+stepcurrent: Cannot find last run test, not skipping
+Running 30 items in this shard: test/dynamo/test_structured_trace.py::StructuredTraceTest::test_chromium_event, test/dynamo/test_structured_trace.py::StructuredTraceTest::test_codecache, test/dynamo/test_structured_trace.py::StructuredTraceTest::test_collective_schedule_empty, test/dynamo/test_structured_trace.py::StructuredTraceTest::test_collective_schedule_real, test/dynamo/test_structured_trace.py::StructuredTraceTest::test_compile_id_serialization_deserialization, test/dynamo/test_structured_trace.py::StructuredTraceTest::test_compiled_autograd_attribution, test/dynamo/test_structured_trace.py::StructuredTraceTest::test_compiled_autograd_chromium, test/dynamo/test_structured_trace.py::StructuredTraceTest::test_compiled_autograd_id, test/dynamo/test_structured_trace.py::StructuredTraceTest::test_cudagraphs, test/dynamo/test_structured_trace.py::StructuredTraceTest::test_ddp_graphs, test/dynamo/test_structured_trace.py::StructuredTraceTest::test_dump_file, test/dynamo/test_structured_trace.py::StructuredTraceTest::test_dynamo_error, test/dynamo/test_structured_trace.py::StructuredTraceTest::test_example_fn, test/dynamo/test_structured_trace.py::StructuredTraceTest::test_example_training_fn, test/dynamo/test_structured_trace.py::StructuredTraceTest::test_graph_breaks, test/dynamo/test_structured_trace.py::StructuredTraceTest::test_graph_execution_order, test/dynamo/test_structured_trace.py::StructuredTraceTest::test_graph_sizes_dynamic, test/dynamo/test_structured_trace.py::StructuredTraceTest::test_guards_recompiles, test/dynamo/test_structured_trace.py::StructuredTraceTest::test_inductor_error, test/dynamo/test_structured_trace.py::StructuredTraceTest::test_make_fx_fail_partial, test/dynamo/test_structured_trace.py::StructuredTraceTest::test_recompile_backend_match, test/dynamo/test_structured_trace.py::StructuredTraceTest::test_recompile_user_contexts, test/dynamo/test_structured_trace.py::StructuredTraceTest::test_recompile_user_contexts_iteration, test/dynamo/test_structured_trace.py::StructuredTraceTest::test_recompiles, test/dynamo/test_structured_trace.py::StructuredTraceTest::test_runtime_estimates_mixed, test/dynamo/test_structured_trace.py::StructuredTraceTest::test_runtime_estimates_simple, test/dynamo/test_structured_trace.py::StructuredTraceTest::test_schedule, test/dynamo/test_structured_trace.py::StructuredTraceTest::test_tensor_metadata_logging, test/dynamo/test_structured_trace.py::StructuredTraceTest::test_tensor_metadata_logging_dynamic_shapes, test/dynamo/test_structured_trace.py::StructuredTraceTest::test_tensor_metadata_logging_multiple_ops
+
+dynamo/test_structured_trace.py::StructuredTraceTest::test_chromium_event Stats { ok: 173 }
+PASSED [12.9248s] [  3%]
+dynamo/test_structured_trace.py::StructuredTraceTest::test_codecache Stats { ok: 167 }
+PASSED [0.8316s] [  6%]
+dynamo/test_structured_trace.py::StructuredTraceTest::test_collective_schedule_empty PASSED [0.0025s] [ 10%]
+dynamo/test_structured_trace.py::StructuredTraceTest::test_collective_schedule_real Detected rank: Some(0)
+Stats { ok: 125 }
+PASSED [0.8914s] [ 13%]
+dynamo/test_structured_trace.py::StructuredTraceTest::test_compile_id_serialization_deserialization PASSED [0.0029s] [ 16%]
+dynamo/test_structured_trace.py::StructuredTraceTest::test_compiled_autograd_attribution Stats { ok: 1279, unknown: 29 }
+Unknown fields: {"create_symbol"} (consider updating tlparse to render these)
+PASSED [5.2259s] [ 20%]
+dynamo/test_structured_trace.py::StructuredTraceTest::test_compiled_autograd_chromium Stats { ok: 283, unknown: 8 }
+Unknown fields: {"create_symbol"} (consider updating tlparse to render these)
+PASSED [1.6414s] [ 23%]
+dynamo/test_structured_trace.py::StructuredTraceTest::test_compiled_autograd_id Stats { ok: 508 }
+PASSED [2.7238s] [ 26%]
+dynamo/test_structured_trace.py::StructuredTraceTest::test_cudagraphs SKIPPED [0.0004s] (requires cuda and triton) [ 30%]
+dynamo/test_structured_trace.py::StructuredTraceTest::test_ddp_graphs SKIPPED [0.0002s] (requires cuda and triton) [ 33%]
+dynamo/test_structured_trace.py::StructuredTraceTest::test_dump_file PASSED [0.0447s] [ 36%]
+dynamo/test_structured_trace.py::StructuredTraceTest::test_dynamo_error E0601 04:43:30.586000 99978 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0] failed while attempting to run meta for aten.add.Tensor
+E0601 04:43:30.586000 99978 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0] Traceback (most recent call last):
+E0601 04:43:30.586000 99978 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_subclasses/fake_tensor.py", line 2960, in _dispatch_impl
+E0601 04:43:30.586000 99978 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     r = func(*args, **kwargs)
+E0601 04:43:30.586000 99978 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_ops.py", line 871, in __call__
+E0601 04:43:30.586000 99978 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     return self._op(*args, **kwargs)
+E0601 04:43:30.586000 99978 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_prims_common/wrappers.py", line 313, in _fn
+E0601 04:43:30.586000 99978 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     result = fn(*args, **kwargs)
+E0601 04:43:30.586000 99978 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_compile.py", line 54, in inner
+E0601 04:43:30.586000 99978 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     return disable_fn(*args, **kwargs)
+E0601 04:43:30.586000 99978 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+E0601 04:43:30.586000 99978 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     return fn(*args, **kwargs)
+E0601 04:43:30.586000 99978 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_prims_common/wrappers.py", line 151, in _fn
+E0601 04:43:30.586000 99978 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     result = fn(**bound.arguments)
+E0601 04:43:30.586000 99978 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_refs/__init__.py", line 1218, in add
+E0601 04:43:30.586000 99978 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     a, b = _maybe_broadcast(a, b)
+E0601 04:43:30.586000 99978 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_refs/__init__.py", line 475, in _maybe_broadcast
+E0601 04:43:30.586000 99978 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     common_shape = _broadcast_shapes(
+E0601 04:43:30.586000 99978 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_refs/__init__.py", line 463, in _broadcast_shapes
+E0601 04:43:30.586000 99978 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     torch._check(
+E0601 04:43:30.586000 99978 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/__init__.py", line 1762, in _check
+E0601 04:43:30.586000 99978 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     _check_with(RuntimeError, cond, message)  # pyrefly: ignore [bad-argument-type]
+E0601 04:43:30.586000 99978 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/__init__.py", line 1744, in _check_with
+E0601 04:43:30.586000 99978 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0]     raise error_type(message_evaluated)
+E0601 04:43:30.586000 99978 site-packages/torch/_subclasses/fake_tensor.py:2964] [0/0] RuntimeError: Attempting to broadcast a dimension of length 10 at -1! Mismatching argument at index 1 had torch.Size([10, 10]); but expected shape should be broadcastable to [1000, 1000]
+Stats { ok: 16 }
+PASSED [0.0314s] [ 40%]
+dynamo/test_structured_trace.py::StructuredTraceTest::test_example_fn Stats { ok: 125 }
+PASSED [0.7603s] [ 43%]
+dynamo/test_structured_trace.py::StructuredTraceTest::test_example_training_fn Stats { ok: 280 }
+PASSED [1.8198s] [ 46%]
+dynamo/test_structured_trace.py::StructuredTraceTest::test_graph_breaks SKIPPED [0.0003s] (https://github.com/pytorch/pytorch/issues/176188) [ 50%]
+dynamo/test_structured_trace.py::StructuredTraceTest::test_graph_execution_order Stats { ok: 251 }
+PASSED [1.3715s] [ 53%]
+dynamo/test_structured_trace.py::StructuredTraceTest::test_graph_sizes_dynamic Stats { ok: 64, unknown: 4 }
+Unknown fields: {"create_symbol"} (consider updating tlparse to render these)
+PASSED [0.1238s] [ 56%]
+dynamo/test_structured_trace.py::StructuredTraceTest::test_guards_recompiles Stats { ok: 47 }
+PASSED [0.0891s] [ 60%]
+dynamo/test_structured_trace.py::StructuredTraceTest::test_inductor_error Stats { ok: 99 }
+PASSED [0.0754s] [ 63%]
+dynamo/test_structured_trace.py::StructuredTraceTest::test_make_fx_fail_partial PASSED [0.0072s] [ 66%]
+dynamo/test_structured_trace.py::StructuredTraceTest::test_recompile_backend_match Stats { ok: 48, unknown: 1 }
+Unknown fields: {"create_symbol"} (consider updating tlparse to render these)
+PASSED [0.1010s] [ 70%]
+dynamo/test_structured_trace.py::StructuredTraceTest::test_recompile_user_contexts PASSED [1.4361s] [ 73%]
+dynamo/test_structured_trace.py::StructuredTraceTest::test_recompile_user_contexts_iteration PASSED [1.5249s] [ 76%]
+dynamo/test_structured_trace.py::StructuredTraceTest::test_recompiles Stats { ok: 259, unknown: 1 }
+Unknown fields: {"create_symbol"} (consider updating tlparse to render these)
+PASSED [1.4710s] [ 80%]
+dynamo/test_structured_trace.py::StructuredTraceTest::test_runtime_estimates_mixed SKIPPED [0.0003s] (requires cuda and triton) [ 83%]
+dynamo/test_structured_trace.py::StructuredTraceTest::test_runtime_estimates_simple SKIPPED [0.0002s] (requires cuda and triton) [ 86%]
+dynamo/test_structured_trace.py::StructuredTraceTest::test_schedule SKIPPED [0.0002s] (requires cuda and triton) [ 90%]
+dynamo/test_structured_trace.py::StructuredTraceTest::test_tensor_metadata_logging Stats { ok: 126 }
+PASSED [0.8877s] [ 93%]
+dynamo/test_structured_trace.py::StructuredTraceTest::test_tensor_metadata_logging_dynamic_shapes Stats { ok: 129, unknown: 2 }
+Unknown fields: {"create_symbol"} (consider updating tlparse to render these)
+PASSED [0.9174s] [ 96%]
+dynamo/test_structured_trace.py::StructuredTraceTest::test_tensor_metadata_logging_multiple_ops SKIPPED [0.0003s] (requires cuda and triton) [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/dynamo.test_structured_trace/dynamo.test_structured_trace-bd56f09698cc6fe5.xml -
+======================== 23 passed, 7 skipped in 34.97s ========================

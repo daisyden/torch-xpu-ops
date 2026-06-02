@@ -1,0 +1,142 @@
+++ python benchmarks/dynamo/huggingface.py --performance --bfloat16 -d xpu -n10 --training --total-partitions 9 --partition-id 8 --backend=inductor --cold-start-latency --timeout=10800 --disable-cudagraphs --output=/__w/torch-xpu-ops/torch-xpu-ops/pytorch/inductor_log/huggingface/bfloat16/inductor_huggingface_bfloat16_training_xpu_performance.csv
+W0531 15:40:41.433000 24118 site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0531 15:40:41.469000 24118 site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0531 15:40:46.928000 24419 site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0531 15:40:46.964000 24419 site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:04, ?it/s]
+xpu  train XLNetLMHeadModel                   
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:04,  2.08it/s]running benchmark:  20%|██        | 2/10 [00:00<00:03,  2.09it/s]running benchmark:  30%|███       | 3/10 [00:01<00:03,  2.09it/s]running benchmark:  40%|████      | 4/10 [00:01<00:02,  2.10it/s]running benchmark:  50%|█████     | 5/10 [00:02<00:02,  2.09it/s]running benchmark:  60%|██████    | 6/10 [00:02<00:01,  2.09it/s]running benchmark:  70%|███████   | 7/10 [00:03<00:01,  2.10it/s]running benchmark:  80%|████████  | 8/10 [00:03<00:00,  2.10it/s]running benchmark:  90%|█████████ | 9/10 [00:04<00:00,  2.09it/s]running benchmark: 100%|██████████| 10/10 [00:04<00:00,  2.10it/s]running benchmark: 100%|██████████| 10/10 [00:04<00:00,  2.09it/s]
+1.117x
+W0531 15:42:28.423000 27303 site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0531 15:42:28.459000 27303 site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:05, ?it/s]
+xpu  train YituTechConvBert                   
+W0531 15:42:47.969000 27303 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:02,  4.49it/s]running benchmark:  20%|██        | 2/10 [00:00<00:01,  4.50it/s]running benchmark:  30%|███       | 3/10 [00:00<00:01,  4.50it/s]running benchmark:  40%|████      | 4/10 [00:00<00:01,  4.51it/s]running benchmark:  50%|█████     | 5/10 [00:01<00:01,  4.52it/s]running benchmark:  60%|██████    | 6/10 [00:01<00:00,  4.50it/s]running benchmark:  70%|███████   | 7/10 [00:01<00:00,  4.49it/s]running benchmark:  80%|████████  | 8/10 [00:01<00:00,  4.50it/s]running benchmark:  90%|█████████ | 9/10 [00:01<00:00,  4.50it/s]running benchmark: 100%|██████████| 10/10 [00:02<00:00,  4.51it/s]running benchmark: 100%|██████████| 10/10 [00:02<00:00,  4.51it/s]
+1.409x
+W0531 15:43:44.496000 29195 site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0531 15:43:44.529000 29195 site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+loading model: 0it [00:00, ?it/s]
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s][A
+Loading weights:   2%|▏         | 5/288 [00:00<00:05, 48.97it/s][A
+Loading weights:   9%|▊         | 25/288 [00:00<00:01, 132.65it/s][A
+Loading weights:  16%|█▋        | 47/288 [00:00<00:01, 157.30it/s][A
+Loading weights:  22%|██▏       | 64/288 [00:00<00:01, 160.05it/s][A
+Loading weights:  28%|██▊       | 81/288 [00:00<00:01, 158.15it/s][A
+Loading weights:  35%|███▌      | 102/288 [00:00<00:01, 167.19it/s][A
+Loading weights:  42%|████▏     | 120/288 [00:00<00:00, 170.42it/s][A
+Loading weights:  48%|████▊     | 138/288 [00:00<00:00, 170.87it/s][A
+Loading weights:  55%|█████▍    | 157/288 [00:00<00:00, 171.65it/s][A
+Loading weights:  62%|██████▏   | 179/288 [00:01<00:00, 177.10it/s][A
+Loading weights:  70%|██████▉   | 201/288 [00:01<00:00, 180.59it/s][A
+Loading weights:  77%|███████▋  | 223/288 [00:01<00:00, 182.62it/s][A
+Loading weights:  85%|████████▍ | 244/288 [00:01<00:00, 189.98it/s][A
+Loading weights:  92%|█████████▏| 264/288 [00:01<00:00, 187.89it/s][A
+Loading weights:  98%|█████████▊| 283/288 [00:01<00:00, 187.41it/s][ALoading weights: 100%|██████████| 288/288 [00:01<00:00, 173.71it/s]
+loading model: 0it [00:05, ?it/s]
+xpu  train google/gemma-2-2b                  
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 2057, in validate_model
+    self.model_iter_fn(model, example_inputs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/huggingface.py", line 565, in forward_and_backward_pass
+    self.grad_scaler.scale(loss).backward()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_tensor.py", line 633, in backward
+    torch.autograd.backward(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/autograd/__init__.py", line 388, in backward
+    grad_tensors_ = _make_grads(tensors, grad_tensors_, is_grads_batched=False)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/autograd/__init__.py", line 208, in _make_grads
+    raise RuntimeError(
+RuntimeError: grad can be implicitly created only for scalar outputs
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 4749, in run
+    ) = runner.load_model(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/huggingface.py", line 492, in load_model
+    self.validate_model(model_name, model, example_inputs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 2059, in validate_model
+    raise RuntimeError("Eager run failed") from e
+RuntimeError: Eager run failed
+
+eager_fail_to_run
+W0531 15:43:57.133000 29490 site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0531 15:43:57.168000 29490 site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+loading model: 0it [00:00, ?it/s]
+Loading weights:   0%|          | 0/146 [00:00<?, ?it/s][A
+Loading weights:  15%|█▌        | 22/146 [00:00<00:00, 204.20it/s][A
+Loading weights:  36%|███▌      | 52/146 [00:00<00:00, 257.31it/s][A
+Loading weights:  58%|█████▊    | 84/146 [00:00<00:00, 274.46it/s][A
+Loading weights:  77%|███████▋  | 112/146 [00:00<00:00, 274.03it/s][A
+Loading weights:  98%|█████████▊| 143/146 [00:00<00:00, 284.15it/s][ALoading weights: 100%|██████████| 146/146 [00:00<00:00, 279.05it/s]
+loading model: 0it [00:03, ?it/s]
+xpu  train meta-llama/Llama-3.2-1B            
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 2057, in validate_model
+    self.model_iter_fn(model, example_inputs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/huggingface.py", line 565, in forward_and_backward_pass
+    self.grad_scaler.scale(loss).backward()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_tensor.py", line 633, in backward
+    torch.autograd.backward(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/autograd/__init__.py", line 388, in backward
+    grad_tensors_ = _make_grads(tensors, grad_tensors_, is_grads_batched=False)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/autograd/__init__.py", line 208, in _make_grads
+    raise RuntimeError(
+RuntimeError: grad can be implicitly created only for scalar outputs
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 4749, in run
+    ) = runner.load_model(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/huggingface.py", line 492, in load_model
+    self.validate_model(model_name, model, example_inputs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 2059, in validate_model
+    raise RuntimeError("Eager run failed") from e
+RuntimeError: Eager run failed
+
+eager_fail_to_run
+W0531 15:44:07.093000 29713 site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0531 15:44:07.129000 29713 site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+loading model: 0it [00:00, ?it/s]
+Loading weights:   0%|          | 0/167 [00:00<?, ?it/s][ALoading weights: 100%|██████████| 167/167 [00:00<00:00, 8357.78it/s]
+loading model: 0it [00:02, ?it/s]
+xpu  train openai/whisper-tiny                
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 2057, in validate_model
+    self.model_iter_fn(model, example_inputs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/huggingface.py", line 565, in forward_and_backward_pass
+    self.grad_scaler.scale(loss).backward()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/_tensor.py", line 633, in backward
+    torch.autograd.backward(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/autograd/__init__.py", line 388, in backward
+    grad_tensors_ = _make_grads(tensors, grad_tensors_, is_grads_batched=False)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/autograd/__init__.py", line 208, in _make_grads
+    raise RuntimeError(
+RuntimeError: grad can be implicitly created only for scalar outputs
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 4749, in run
+    ) = runner.load_model(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/huggingface.py", line 492, in load_model
+    self.validate_model(model_name, model, example_inputs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 2059, in validate_model
+    raise RuntimeError("Eager run failed") from e
+RuntimeError: Eager run failed
+
+eager_fail_to_run
+speedup             gmean=0.00x mean=1.074x
+abs_latency         gmean=0.00x mean=106.465x
+compilation_latency mean=33.207 seconds
+compression_ratio   mean=0.000x
+eager_peak_mem      gmean=0.00x mean=0.000x
+dynamo_peak_mem     gmean=0.00x mean=0.000x
+calls_captured      gmean=0.00x mean=409.839x
+unique_graphs       gmean=0.00x mean=2.677x
+graph_breaks        gmean=0.00x mean=4.645x
+unique_graph_breaks gmean=0.00x mean=3.903x
+autograd_captures   gmean=0.00x mean=0.000x
+autograd_compiles   gmean=0.00x mean=0.000x
+cudagraph_skips     gmean=0.00x mean=0.000x

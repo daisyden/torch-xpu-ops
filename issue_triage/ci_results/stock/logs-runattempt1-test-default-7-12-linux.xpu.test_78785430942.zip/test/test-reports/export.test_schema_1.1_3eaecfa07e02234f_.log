@@ -1,0 +1,20 @@
+Test results will be stored in test-reports/python-pytest/export.test_schema/export.test_schema-d0c32ceb8888b11c.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 5 items
+stepcurrent: Cannot find last run test, not skipping
+Running 5 items in this shard: test/export/test_schema.py::TestSchema::test_schema_check, test/export/test_schema.py::TestSchema::test_schema_comparison, test/export/test_schema.py::TestSchema::test_schema_compatibility, test/export/test_schema.py::TestSchema::test_schema_diff, test/export/test_schema.py::TestSchema::test_thrift_schema_unchanged
+
+export/test_schema.py::TestSchema::test_schema_check PASSED [1.1494s]    [ 20%]
+export/test_schema.py::TestSchema::test_schema_comparison PASSED [0.0018s] [ 40%]
+export/test_schema.py::TestSchema::test_schema_compatibility PASSED [0.3237s] [ 60%]
+export/test_schema.py::TestSchema::test_schema_diff PASSED [0.0016s]     [ 80%]
+export/test_schema.py::TestSchema::test_thrift_schema_unchanged PASSED [0.1876s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/export.test_schema/export.test_schema-d0c32ceb8888b11c.xml -
+============================== 5 passed in 1.68s ===============================

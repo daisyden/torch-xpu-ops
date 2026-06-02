@@ -1,0 +1,17 @@
+Test results will be stored in test-reports/python-pytest/inductor.test_inplace_padding/inductor.test_inplace_padding-5e14f5ac6a9638f6.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 9 items / 7 deselected / 2 selected
+stepcurrent: Cannot find last run test, not skipping
+Running 2 items in this shard: test/inductor/test_inplace_padding.py::InplacePaddingTest::test_linear_and_cel, test/inductor/test_inplace_padding.py::InplacePaddingTest::test_linear_and_cel_max_autotune
+
+inductor/test_inplace_padding.py::InplacePaddingTest::test_linear_and_cel PASSED [17.0166s] [ 50%]
+inductor/test_inplace_padding.py::InplacePaddingTest::test_linear_and_cel_max_autotune SKIPPED [0.0021s] (skipIfXpu: AssertionError: torch-xpu-ops: #2997) [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/inductor.test_inplace_padding/inductor.test_inplace_padding-5e14f5ac6a9638f6.xml -
+================= 1 passed, 1 skipped, 7 deselected in 17.04s ==================

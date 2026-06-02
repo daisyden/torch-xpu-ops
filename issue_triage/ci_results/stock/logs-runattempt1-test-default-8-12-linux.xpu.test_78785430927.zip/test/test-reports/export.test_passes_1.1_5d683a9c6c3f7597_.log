@@ -1,0 +1,98 @@
+Test results will be stored in test-reports/python-pytest/export.test_passes/export.test_passes-6fc9cf9048366079.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 27 items
+stepcurrent: Cannot find last run test, not skipping
+Running 27 items in this shard: test/export/test_passes.py::TestPasses::test_custom_obj_tuple_out, test/export/test_passes.py::TestPasses::test_fakify_script_objects, test/export/test_passes.py::TestPasses::test_fakify_script_objects_properly_handle_containers, test/export/test_passes.py::TestPasses::test_functionalization_with_view_copy, test/export/test_passes.py::TestPasses::test_inline_, test/export/test_passes.py::TestPasses::test_math_ops, test/export/test_passes.py::TestPasses::test_move_device_example_inputs, test/export/test_passes.py::TestPasses::test_move_device_submod, test/export/test_passes.py::TestPasses::test_move_device_to, test/export/test_passes.py::TestPasses::test_move_to_device_pass, test/export/test_passes.py::TestPasses::test_predispatch_autocast, test/export/test_passes.py::TestPasses::test_predispatch_autocast_and_set_grad, test/export/test_passes.py::TestPasses::test_predispatch_set_grad, test/export/test_passes.py::TestPasses::test_remove_auto_functionalized_pass, test/export/test_passes.py::TestPasses::test_remove_auto_functionalized_pass_tuple, test/export/test_passes.py::TestPasses::test_remove_effect_token_kwargs, test/export/test_passes.py::TestPasses::test_runtime_assert_inline_constraints_for_cond, test/export/test_passes.py::TestPasses::test_runtime_assert_inline_constraints_for_item, test/export/test_passes.py::TestPasses::test_runtime_assert_inline_constraints_for_nonzero, test/export/test_passes.py::TestPasses::test_runtime_assert_multiple_dims, test/export/test_passes.py::TestPasses::test_runtime_assert_one_dim, test/export/test_passes.py::TestPasses::test_runtime_assert_some_dims_not_specified, test/export/test_passes.py::TestPasses::test_runtime_assert_some_inps_not_used, test/export/test_passes.py::TestPasses::test_sequential_split, test/export/test_passes.py::TestPasses::test_sequential_split_graph, test/export/test_passes.py::TestPasses::test_view_to_view_copy, test/export/test_passes.py::TestPasses::test_views_op_having_view_copy
+
+export/test_passes.py::TestPasses::test_custom_obj_tuple_out W0601 04:49:18.000000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method info.
+W0601 04:49:18.000000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method increment.
+W0601 04:49:18.000000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method add.
+W0601 04:49:18.000000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method combine.
+PASSED [1.8157s] [  3%]
+export/test_passes.py::TestPasses::test_fakify_script_objects W0601 04:49:19.430000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method info.
+W0601 04:49:19.430000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method increment.
+W0601 04:49:19.430000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method add.
+W0601 04:49:19.430000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method combine.
+W0601 04:49:19.432000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method info.
+W0601 04:49:19.432000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method increment.
+W0601 04:49:19.432000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method add.
+W0601 04:49:19.432000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method combine.
+W0601 04:49:19.433000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method info.
+W0601 04:49:19.433000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method increment.
+W0601 04:49:19.433000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method add.
+W0601 04:49:19.433000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method combine.
+W0601 04:49:19.433000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method info.
+W0601 04:49:19.433000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method increment.
+W0601 04:49:19.433000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method add.
+W0601 04:49:19.433000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method combine.
+W0601 04:49:19.433000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method info.
+W0601 04:49:19.434000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method increment.
+W0601 04:49:19.434000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method add.
+W0601 04:49:19.434000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method combine.
+W0601 04:49:19.434000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method info.
+W0601 04:49:19.434000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method increment.
+W0601 04:49:19.435000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method add.
+W0601 04:49:19.435000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method combine.
+W0601 04:49:19.435000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method info.
+W0601 04:49:19.435000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method increment.
+W0601 04:49:19.435000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method add.
+W0601 04:49:19.435000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method combine.
+W0601 04:49:19.435000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method info.
+W0601 04:49:19.435000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method increment.
+W0601 04:49:19.435000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method add.
+W0601 04:49:19.435000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method combine.
+W0601 04:49:19.435000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method info.
+W0601 04:49:19.435000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method increment.
+W0601 04:49:19.435000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method add.
+W0601 04:49:19.435000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method combine.
+W0601 04:49:19.436000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method info.
+W0601 04:49:19.436000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method increment.
+W0601 04:49:19.436000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method add.
+W0601 04:49:19.436000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method combine.
+PASSED [1.4035s] [  7%]
+export/test_passes.py::TestPasses::test_fakify_script_objects_properly_handle_containers W0601 04:49:21.080000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method info.
+W0601 04:49:21.080000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method increment.
+W0601 04:49:21.080000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method add.
+W0601 04:49:21.081000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method combine.
+XFAIL [1.6432s] [ 11%]
+export/test_passes.py::TestPasses::test_functionalization_with_view_copy PASSED [1.4718s] [ 14%]
+export/test_passes.py::TestPasses::test_inline_ PASSED [1.7550s]         [ 18%]
+export/test_passes.py::TestPasses::test_math_ops PASSED [1.5630s]        [ 22%]
+export/test_passes.py::TestPasses::test_move_device_example_inputs SKIPPED [0.0003s] (requires cuda) [ 25%]
+export/test_passes.py::TestPasses::test_move_device_submod SKIPPED [0.0002s] (requires cuda) [ 29%]
+export/test_passes.py::TestPasses::test_move_device_to SKIPPED [0.0002s] (requires cuda) [ 33%]
+export/test_passes.py::TestPasses::test_move_to_device_pass SKIPPED [0.0002s] (requires cuda) [ 37%]
+export/test_passes.py::TestPasses::test_predispatch_autocast PASSED [1.7227s] [ 40%]
+export/test_passes.py::TestPasses::test_predispatch_autocast_and_set_grad PASSED [1.4385s] [ 44%]
+export/test_passes.py::TestPasses::test_predispatch_set_grad PASSED [1.4807s] [ 48%]
+export/test_passes.py::TestPasses::test_remove_auto_functionalized_pass PASSED [1.8993s] [ 51%]
+export/test_passes.py::TestPasses::test_remove_auto_functionalized_pass_tuple PASSED [1.6364s] [ 55%]
+export/test_passes.py::TestPasses::test_remove_effect_token_kwargs W0601 04:49:35.856000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method info.
+W0601 04:49:35.856000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method increment.
+W0601 04:49:35.856000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method add.
+W0601 04:49:35.856000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method combine.
+W0601 04:49:35.999000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method info.
+W0601 04:49:35.999000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method increment.
+W0601 04:49:35.999000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method add.
+W0601 04:49:35.999000 92755 site-packages/torch/_library/fake_class_registry.py:345] fake object of ScriptObject <__torch__.torch.classes._TorchScriptTesting._Foo> doesn't implement method combine.
+PASSED [1.9675s] [ 59%]
+export/test_passes.py::TestPasses::test_runtime_assert_inline_constraints_for_cond XFAIL [1.5673s] [ 62%]
+export/test_passes.py::TestPasses::test_runtime_assert_inline_constraints_for_item PASSED [1.9122s] [ 66%]
+export/test_passes.py::TestPasses::test_runtime_assert_inline_constraints_for_nonzero PASSED [1.5464s] [ 70%]
+export/test_passes.py::TestPasses::test_runtime_assert_multiple_dims PASSED [1.6266s] [ 74%]
+export/test_passes.py::TestPasses::test_runtime_assert_one_dim PASSED [1.9383s] [ 77%]
+export/test_passes.py::TestPasses::test_runtime_assert_some_dims_not_specified PASSED [1.6600s] [ 81%]
+export/test_passes.py::TestPasses::test_runtime_assert_some_inps_not_used PASSED [1.5993s] [ 85%]
+export/test_passes.py::TestPasses::test_sequential_split PASSED [2.2495s] [ 88%]
+export/test_passes.py::TestPasses::test_sequential_split_graph PASSED [1.6559s] [ 92%]
+export/test_passes.py::TestPasses::test_view_to_view_copy PASSED [1.6582s] [ 96%]
+export/test_passes.py::TestPasses::test_views_op_having_view_copy PASSED [1.5207s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/export.test_passes/export.test_passes-6fc9cf9048366079.xml -
+================== 21 passed, 4 skipped, 2 xfailed in 38.80s ===================

@@ -411,40 +411,28 @@ TORCHBENCH_MODELS = [
 ]
 
 def identify_benchmark(model_name):
-    """Identify benchmark from model name using exact matching"""
-    model_lower = model_name.lower()
-    
-    # Check for prefixed models (hf_*, timm_*) first - these are exact
-    if model_lower.startswith('hf_'):
-        return 'huggingface'
-    elif model_lower.startswith('timm_'):
-        return 'timm'
-    
-    # Check huggingface models (unprefixed variants)
-    for m in HUGGINGFACE_MODELS:
-        m_lower = m.lower()
-        # Only match if it's a prefixed model OR exact match, not substring
-        if m_lower.startswith('hf_'):
-            # Skip prefixed variants here - handled above
-            continue
-        if m_lower == model_lower or m_lower.replace('_', '') == model_lower.replace('_', ''):
-            return 'huggingface'
-    
-    # Check timm models
-    for m in TIMM_MODELS:
-        m_lower = m.lower()
-        if m_lower.startswith('timm_'):
-            continue
-        if m_lower == model_lower or m_lower.replace('_', '') == model_lower.replace('_', ''):
-            return 'timm'
-    
-    # Check torchbench models
-    for m in TORCHBENCH_MODELS:
-        m_lower = m.lower()
-        if m_lower == model_lower or m_lower.replace('_', '') == model_lower.replace('_', ''):
-            return 'torchbench'
-    
-    return 'unknown'
+     """Identify benchmark from model name using exact matching"""
+     model_lower = model_name.lower()
+     
+     # Check torchbench models first (includes hf_* and timm_* wrapped versions)
+     for m in TORCHBENCH_MODELS:
+         m_lower = m.lower()
+         if m_lower == model_lower or m_lower.replace('_', '') == model_lower.replace('_', ''):
+             return 'torchbench'
+     
+     # Check huggingface models (official class names)
+     for m in HUGGINGFACE_MODELS:
+         m_lower = m.lower()
+         if m_lower == model_lower or m_lower.replace('_', '') == model_lower.replace('_', ''):
+             return 'huggingface'
+     
+     # Check timm models
+     for m in TIMM_MODELS:
+         m_lower = m.lower()
+         if m_lower == model_lower or m_lower.replace('_', '') == model_lower.replace('_', ''):
+             return 'timm'
+     
+     return 'unknown'
 
 def extract_e2e_reproducer(body, title):
     """Extract reproducer command from issue body"""
@@ -1535,8 +1523,7 @@ for issue in issues:
     
     # Only parse e2e info if it's actually an e2e issue
     e2e_info = []
-    if test_module == 'e2e':
-        e2e_info = parse_e2e_info(body, title)
+    e2e_info = parse_e2e_info(body, title)
     
     # Add to test cases sheet (non-e2e)
     if test_cases:

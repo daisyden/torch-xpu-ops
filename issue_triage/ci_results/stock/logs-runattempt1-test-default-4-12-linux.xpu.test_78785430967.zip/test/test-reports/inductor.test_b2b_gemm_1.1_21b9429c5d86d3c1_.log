@@ -1,0 +1,24 @@
+Test results will be stored in test-reports/python-pytest/inductor.test_b2b_gemm/inductor.test_b2b_gemm-21ebcc6c314d5aa8.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 9 items
+stepcurrent: Cannot find last run test, not skipping
+Running 9 items in this shard: test/inductor/test_b2b_gemm.py::B2BGEMMTest::test_b2b_gemm_bad_pattern_good_shape, test/inductor/test_b2b_gemm.py::B2BGEMMTest::test_b2b_gemm_good_pattern_bad_shape, test/inductor/test_b2b_gemm.py::B2BGEMMTest::test_b2b_gemm_left_assoc_good_shape, test/inductor/test_b2b_gemm.py::B2BGEMMTest::test_b2b_gemm_right_assoc_good_shape, test/inductor/test_b2b_gemm.py::B2BGEMMTest::test_b2b_gemm_trivial_left_assoc_good_shape, test/inductor/test_b2b_gemm.py::B2BGEMMTest::test_b2b_gemm_trivial_right_assoc_good_shape, test/inductor/test_b2b_gemm.py::B2BGEMMTest::test_gelu_b2b_gemm_performance, test/inductor/test_b2b_gemm.py::B2BGEMMTest::test_gelu_mlp_b2b_gemm_performance, test/inductor/test_b2b_gemm.py::B2BGEMMTest::test_plain_b2b_gemm_performance
+
+inductor/test_b2b_gemm.py::B2BGEMMTest::test_b2b_gemm_bad_pattern_good_shape SKIPPED [0.0004s] (skipIfXpu: Segmentation fault on CI machine) [ 11%]
+inductor/test_b2b_gemm.py::B2BGEMMTest::test_b2b_gemm_good_pattern_bad_shape SKIPPED [0.0002s] (skipIfXpu: Segmentation fault on CI machine) [ 22%]
+inductor/test_b2b_gemm.py::B2BGEMMTest::test_b2b_gemm_left_assoc_good_shape SKIPPED [0.0002s] (skipIfXpu: Segmentation fault on CI machine) [ 33%]
+inductor/test_b2b_gemm.py::B2BGEMMTest::test_b2b_gemm_right_assoc_good_shape SKIPPED [0.0002s] (skipIfXpu: Segmentation fault on CI machine) [ 44%]
+inductor/test_b2b_gemm.py::B2BGEMMTest::test_b2b_gemm_trivial_left_assoc_good_shape SKIPPED [0.0003s] (skipIfXpu: Segmentation fault on CI machine) [ 55%]
+inductor/test_b2b_gemm.py::B2BGEMMTest::test_b2b_gemm_trivial_right_assoc_good_shape SKIPPED [0.0002s] (skipIfXpu: Segmentation fault on CI machine) [ 66%]
+inductor/test_b2b_gemm.py::B2BGEMMTest::test_gelu_b2b_gemm_performance SKIPPED [0.0002s] (skipIfXpu: Segmentation fault on CI machine) [ 77%]
+inductor/test_b2b_gemm.py::B2BGEMMTest::test_gelu_mlp_b2b_gemm_performance SKIPPED [0.0002s] (skipIfXpu: Segmentation fault on CI machine) [ 88%]
+inductor/test_b2b_gemm.py::B2BGEMMTest::test_plain_b2b_gemm_performance SKIPPED [0.0002s] (skipIfXpu: Segmentation fault on CI machine) [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/inductor.test_b2b_gemm/inductor.test_b2b_gemm-21ebcc6c314d5aa8.xml -
+============================== 9 skipped in 0.02s ==============================

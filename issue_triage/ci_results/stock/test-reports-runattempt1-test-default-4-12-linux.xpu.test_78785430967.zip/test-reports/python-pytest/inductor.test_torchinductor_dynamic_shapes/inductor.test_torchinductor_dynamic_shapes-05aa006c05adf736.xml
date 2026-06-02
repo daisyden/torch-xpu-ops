@@ -1,0 +1,1 @@
+<testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="30.684" timestamp="2026-06-01T04:39:03.714927" hostname="4f112793be87"><testcase classname="DynamicShapesCpuTests" name="test_large_block_sizes_dynamic_shapes_cpu" time="30.562" file="inductor/test_torchinductor_dynamic_shapes.py" /></testsuite></testsuites>

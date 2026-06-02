@@ -1,0 +1,45 @@
+/var/lib/jenkins/pytorch/test/dynamo/test_nb_index.py:266: SyntaxWarning: list indices must be integers or slices, not str; perhaps you missed a comma?
+  return [10, 20]["hello"]  # noqa: RUF016
+Test results will be stored in test-reports/python-pytest/dynamo.test_nb_index/dynamo.test_nb_index-3957f8f4ccf1ee19.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 28 items
+stepcurrent: Cannot find last run test, not skipping
+Running 28 items in this shard: test/dynamo/test_nb_index.py::NbIndexTests::test_bool_index, test/dynamo/test_nb_index.py::NbIndexTests::test_custom_getitem_with_user_defined_index, test/dynamo/test_nb_index.py::NbIndexTests::test_dict_getitem_with_non_indexable, test/dynamo/test_nb_index.py::NbIndexTests::test_float_index_raises, test/dynamo/test_nb_index.py::NbIndexTests::test_index_raising_exception_propagates, test/dynamo/test_nb_index.py::NbIndexTests::test_index_returning_non_int_raises, test/dynamo/test_nb_index.py::NbIndexTests::test_int_dunder_index, test/dynamo/test_nb_index.py::NbIndexTests::test_int_index, test/dynamo/test_nb_index.py::NbIndexTests::test_list_getitem_non_indexable_matches_cpython, test/dynamo/test_nb_index.py::NbIndexTests::test_list_index_raises, test/dynamo/test_nb_index.py::NbIndexTests::test_list_subscript_error_message_matches_cpython, test/dynamo/test_nb_index.py::NbIndexTests::test_list_subscript_with_bool, test/dynamo/test_nb_index.py::NbIndexTests::test_list_subscript_with_no_index_raises, test/dynamo/test_nb_index.py::NbIndexTests::test_list_subscript_with_tensor, test/dynamo/test_nb_index.py::NbIndexTests::test_list_subscript_with_user_defined_index, test/dynamo/test_nb_index.py::NbIndexTests::test_negative_index_via_user_defined, test/dynamo/test_nb_index.py::NbIndexTests::test_none_index_raises, test/dynamo/test_nb_index.py::NbIndexTests::test_str_index_raises, test/dynamo/test_nb_index.py::NbIndexTests::test_tensor_float_index_raises, test/dynamo/test_nb_index.py::NbIndexTests::test_tensor_int_index, test/dynamo/test_nb_index.py::NbIndexTests::test_tuple_subscript_with_bool, test/dynamo/test_nb_index.py::NbIndexTests::test_tuple_subscript_with_user_defined_index, test/dynamo/test_nb_index.py::NbIndexTests::test_user_defined_classmethod_index, test/dynamo/test_nb_index.py::NbIndexTests::test_user_defined_dunder_index, test/dynamo/test_nb_index.py::NbIndexTests::test_user_defined_index, test/dynamo/test_nb_index.py::NbIndexTests::test_user_defined_index_none_raises, test/dynamo/test_nb_index.py::NbIndexTests::test_user_defined_no_index_raises, test/dynamo/test_nb_index.py::NbIndexTests::test_user_defined_staticmethod_index
+
+dynamo/test_nb_index.py::NbIndexTests::test_bool_index PASSED [0.4784s]  [  3%]
+dynamo/test_nb_index.py::NbIndexTests::test_custom_getitem_with_user_defined_index PASSED [0.0431s] [  7%]
+dynamo/test_nb_index.py::NbIndexTests::test_dict_getitem_with_non_indexable PASSED [0.0326s] [ 10%]
+dynamo/test_nb_index.py::NbIndexTests::test_float_index_raises PASSED [0.0318s] [ 14%]
+dynamo/test_nb_index.py::NbIndexTests::test_index_raising_exception_propagates PASSED [0.0335s] [ 17%]
+dynamo/test_nb_index.py::NbIndexTests::test_index_returning_non_int_raises PASSED [0.0314s] [ 21%]
+dynamo/test_nb_index.py::NbIndexTests::test_int_dunder_index PASSED [0.0913s] [ 25%]
+dynamo/test_nb_index.py::NbIndexTests::test_int_index PASSED [0.0915s]   [ 28%]
+dynamo/test_nb_index.py::NbIndexTests::test_list_getitem_non_indexable_matches_cpython PASSED [0.0347s] [ 32%]
+dynamo/test_nb_index.py::NbIndexTests::test_list_index_raises PASSED [0.0332s] [ 35%]
+dynamo/test_nb_index.py::NbIndexTests::test_list_subscript_error_message_matches_cpython PASSED [0.0323s] [ 39%]
+dynamo/test_nb_index.py::NbIndexTests::test_list_subscript_with_bool PASSED [0.0894s] [ 42%]
+dynamo/test_nb_index.py::NbIndexTests::test_list_subscript_with_no_index_raises PASSED [0.0312s] [ 46%]
+dynamo/test_nb_index.py::NbIndexTests::test_list_subscript_with_tensor PASSED [0.0659s] [ 50%]
+dynamo/test_nb_index.py::NbIndexTests::test_list_subscript_with_user_defined_index PASSED [0.0338s] [ 53%]
+dynamo/test_nb_index.py::NbIndexTests::test_negative_index_via_user_defined PASSED [0.0332s] [ 57%]
+dynamo/test_nb_index.py::NbIndexTests::test_none_index_raises PASSED [0.0323s] [ 60%]
+dynamo/test_nb_index.py::NbIndexTests::test_str_index_raises PASSED [0.0313s] [ 64%]
+dynamo/test_nb_index.py::NbIndexTests::test_tensor_float_index_raises PASSED [0.0306s] [ 67%]
+dynamo/test_nb_index.py::NbIndexTests::test_tensor_int_index PASSED [0.0343s] [ 71%]
+dynamo/test_nb_index.py::NbIndexTests::test_tuple_subscript_with_bool PASSED [0.0908s] [ 75%]
+dynamo/test_nb_index.py::NbIndexTests::test_tuple_subscript_with_user_defined_index PASSED [0.0300s] [ 78%]
+dynamo/test_nb_index.py::NbIndexTests::test_user_defined_classmethod_index PASSED [0.0306s] [ 82%]
+dynamo/test_nb_index.py::NbIndexTests::test_user_defined_dunder_index PASSED [0.0314s] [ 85%]
+dynamo/test_nb_index.py::NbIndexTests::test_user_defined_index PASSED [0.0416s] [ 89%]
+dynamo/test_nb_index.py::NbIndexTests::test_user_defined_index_none_raises PASSED [0.0365s] [ 92%]
+dynamo/test_nb_index.py::NbIndexTests::test_user_defined_no_index_raises PASSED [0.0366s] [ 96%]
+dynamo/test_nb_index.py::NbIndexTests::test_user_defined_staticmethod_index PASSED [0.0298s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/dynamo.test_nb_index/dynamo.test_nb_index-3957f8f4ccf1ee19.xml -
+============================== 28 passed in 1.70s ==============================

@@ -1,0 +1,53 @@
+/var/lib/jenkins/pytorch/test/complex_tensor/test_complex_tensor.py:21: UserWarning: Not all implemented ops are tested. List of ops missing tests:
+    aten._conj
+    aten._conj_physical
+    aten._local_scalar_dense
+    aten._neg_view
+    aten._to_copy
+    aten._unsafe_view
+    aten.add_
+    aten.alias
+    aten.avg_pool2d
+    aten.avg_pool2d_backward
+    aten.avg_pool3d
+    aten.avg_pool3d_backward
+    aten.col2im
+    aten.complex
+    aten.convolution
+    aten.copy
+    aten.copy_
+    aten.detach
+    aten.diagonal_backward
+    aten.embedding
+    aten.fill_
+    aten.index
+    aten.index_add_
+    aten.index_put_
+    aten.is_pinned
+    aten.lift_fresh
+    aten.linalg_vector_norm
+    aten.masked_fill_
+    aten.masked_scatter_backward
+    aten.mul_
+    aten.scatter_add_
+    aten.select_backward
+    aten.slice_backward
+    aten.sub_
+    aten.tanh_backward
+    aten.unsqueeze_
+    prims.convert_element_type
+  from utils import (
+Test results will be stored in test-reports/python-pytest/complex_tensor.test_complex_tensor/complex_tensor.test_complex_tensor-84d34adc4bac533d.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 0 items
+stepcurrent: Cannot find last run test, not skipping
+Running 0 items in this shard: 
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/complex_tensor.test_complex_tensor/complex_tensor.test_complex_tensor-84d34adc4bac533d.xml -
+============================ no tests ran in 0.01s =============================

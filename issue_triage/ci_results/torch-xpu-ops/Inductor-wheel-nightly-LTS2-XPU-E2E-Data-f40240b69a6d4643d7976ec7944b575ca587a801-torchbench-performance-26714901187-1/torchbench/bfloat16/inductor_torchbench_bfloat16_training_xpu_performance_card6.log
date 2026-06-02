@@ -1,0 +1,84 @@
+++ python benchmarks/dynamo/torchbench.py --performance --bfloat16 -d xpu -n10 --training --total-partitions 9 --partition-id 6 --backend=inductor --cold-start-latency --timeout=10800 --disable-cudagraphs --output=/__w/torch-xpu-ops/torch-xpu-ops/pytorch/inductor_log/torchbench/bfloat16/inductor_torchbench_bfloat16_training_xpu_performance.csv
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:03, ?it/s]
+xpu  train nvidia_deeprecommender             
+W0531 16:12:22.809000 85156 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  70%|███████   | 7/10 [00:00<00:00, 67.58it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 70.30it/s]
+1.112x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:00, ?it/s]
+xpu  train opacus_cifar10                     
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 2057, in validate_model
+    self.model_iter_fn(model, example_inputs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/torchbench.py", line 486, in forward_and_backward_pass
+    pred = mod(*cloned_inputs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/opacus/grad_sample/grad_sample_module.py", line 149, in forward
+    return self._module(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchvision/models/resnet.py", line 285, in forward
+    return self._forward_impl(x)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchvision/models/resnet.py", line 268, in _forward_impl
+    x = self.conv1(x)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1884, in _call_impl
+    return inner()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1845, in inner
+    hook_result = hook(self, args, result)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/opacus/grad_sample/grad_sample_module.py", line 289, in capture_activations_hook
+    p._forward_counter += 1
+AttributeError: 'Parameter' object has no attribute '_forward_counter'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 4749, in run
+    ) = runner.load_model(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/torchbench.py", line 384, in load_model
+    self.validate_model(benchmark.name, model, example_inputs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 2059, in validate_model
+    raise RuntimeError("Eager run failed") from e
+RuntimeError: Eager run failed
+
+eager_fail_to_run
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:05, ?it/s]
+xpu  train phlippe_densenet                   
+W0531 16:12:53.893000 86604 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  30%|███       | 3/10 [00:00<00:00, 23.35it/s]running benchmark:  60%|██████    | 6/10 [00:00<00:00, 23.61it/s]running benchmark:  90%|█████████ | 9/10 [00:00<00:00, 23.78it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 23.73it/s]
+1.176x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:02, ?it/s]
+xpu  train phlippe_resnet                     
+W0531 16:13:58.288000 90170 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  60%|██████    | 6/10 [00:00<00:00, 55.69it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 55.89it/s]
+1.128x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:03, ?it/s]
+xpu  train pytorch_stargan                    
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  30%|███       | 3/10 [00:00<00:00, 26.73it/s]running benchmark:  70%|███████   | 7/10 [00:00<00:00, 29.64it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 30.17it/s]
+1.378x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:09, ?it/s]
+xpu  train pytorch_unet                       
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:01,  5.45it/s]running benchmark:  30%|███       | 3/10 [00:00<00:00,  8.62it/s]running benchmark:  50%|█████     | 5/10 [00:00<00:00,  9.60it/s]running benchmark:  70%|███████   | 7/10 [00:00<00:00, 10.08it/s]running benchmark:  90%|█████████ | 9/10 [00:00<00:00, 10.34it/s]running benchmark: 100%|██████████| 10/10 [00:01<00:00,  9.83it/s]
+1.588x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:09, ?it/s]
+xpu  train resnet152                          
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:01,  7.63it/s]running benchmark:  20%|██        | 2/10 [00:00<00:01,  7.53it/s]running benchmark:  30%|███       | 3/10 [00:00<00:00,  7.52it/s]running benchmark:  40%|████      | 4/10 [00:00<00:00,  7.54it/s]running benchmark:  50%|█████     | 5/10 [00:00<00:00,  7.55it/s]running benchmark:  60%|██████    | 6/10 [00:00<00:00,  7.55it/s]running benchmark:  70%|███████   | 7/10 [00:00<00:00,  7.56it/s]running benchmark:  80%|████████  | 8/10 [00:01<00:00,  7.58it/s]running benchmark:  90%|█████████ | 9/10 [00:01<00:00,  7.59it/s]running benchmark: 100%|██████████| 10/10 [00:01<00:00,  7.60it/s]running benchmark: 100%|██████████| 10/10 [00:01<00:00,  7.57it/s]
+1.505x
+speedup             gmean=0.00x mean=1.007x
+abs_latency         gmean=0.00x mean=30.231x
+compilation_latency mean=35.367 seconds
+compression_ratio   mean=0.000x
+eager_peak_mem      gmean=0.00x mean=0.000x
+dynamo_peak_mem     gmean=0.00x mean=0.000x
+calls_captured      gmean=0.00x mean=255.364x
+unique_graphs       gmean=0.00x mean=1.436x
+graph_breaks        gmean=0.00x mean=5.364x
+unique_graph_breaks gmean=0.00x mean=4.218x
+autograd_captures   gmean=0.00x mean=0.000x
+autograd_compiles   gmean=0.00x mean=0.000x
+cudagraph_skips     gmean=0.00x mean=0.000x

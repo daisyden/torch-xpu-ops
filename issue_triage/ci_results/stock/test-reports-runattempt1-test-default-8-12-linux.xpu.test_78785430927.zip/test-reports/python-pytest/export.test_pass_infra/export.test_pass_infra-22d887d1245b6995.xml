@@ -1,0 +1,9 @@
+<testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="5" time="1.306" timestamp="2026-06-01T04:49:06.920696" hostname="69e11a0ddc78"><testcase classname="TestPassInfra" name="test_cond" time="0.938" file="export/test_pass_infra.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TestPassInfra" name="test_export_pass_base" time="0.078" file="export/test_pass_infra.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TestPassInfra" name="test_graph_signature_updated_after_transformation" time="0.095" file="export/test_pass_infra.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TestPassInfra" name="test_node_name_stability" time="0.099" file="export/test_pass_infra.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TestPassInfra" name="test_replace_hook_basic" time="0.071" file="export/test_pass_infra.py" /></testsuite></testsuites>

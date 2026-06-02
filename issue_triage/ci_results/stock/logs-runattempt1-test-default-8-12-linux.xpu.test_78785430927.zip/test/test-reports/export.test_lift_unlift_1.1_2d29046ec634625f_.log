@@ -1,0 +1,20 @@
+Test results will be stored in test-reports/python-pytest/export.test_lift_unlift/export.test_lift_unlift-3ba7354442fcf85b.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 5 items
+stepcurrent: Cannot find last run test, not skipping
+Running 5 items in this shard: test/export/test_lift_unlift.py::TestLift::test_duplicate_constant_access, test/export/test_lift_unlift.py::TestLift::test_lift_basic, test/export/test_lift_unlift.py::TestLift::test_lift_nested, test/export/test_lift_unlift.py::TestLift::test_unlift_nonpersistent_buffer, test/export/test_lift_unlift.py::ConstantAttrMapTest::test_dict_api
+
+export/test_lift_unlift.py::TestLift::test_duplicate_constant_access PASSED [0.1407s] [ 20%]
+export/test_lift_unlift.py::TestLift::test_lift_basic PASSED [0.0046s]   [ 40%]
+export/test_lift_unlift.py::TestLift::test_lift_nested PASSED [0.0037s]  [ 60%]
+export/test_lift_unlift.py::TestLift::test_unlift_nonpersistent_buffer PASSED [0.3581s] [ 80%]
+export/test_lift_unlift.py::ConstantAttrMapTest::test_dict_api PASSED [0.0023s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/export.test_lift_unlift/export.test_lift_unlift-3ba7354442fcf85b.xml -
+============================== 5 passed in 0.53s ===============================

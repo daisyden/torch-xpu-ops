@@ -1,0 +1,197 @@
+++ python benchmarks/dynamo/torchbench.py --accuracy --bfloat16 -d xpu -n10 --training --total-partitions 8 --partition-id 4 --backend=inductor --cold-start-latency --timeout=10800 --disable-cudagraphs --output=/__w/torch-xpu-ops/torch-xpu-ops/pytorch/inductor_log/torchbench/bfloat16/inductor_torchbench_bfloat16_training_xpu_accuracy.csv
+loading model: 0it [00:00, ?it/s]W0531 15:30:41.579000 81877 site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0531 15:30:41.611000 81877 site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+loading model: 0it [01:24, ?it/s]
+xpu  train llava                              
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 4749, in run
+    ) = runner.load_model(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/torchbench.py", line 384, in load_model
+    self.validate_model(benchmark.name, model, example_inputs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 2052, in validate_model
+    model = self.deepcopy_model(model)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 2012, in deepcopy_model
+    return copy.deepcopy(model)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 172, in deepcopy
+    y = _reconstruct(x, memo, *rv)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 271, in _reconstruct
+    state = deepcopy(state, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 231, in _deepcopy_dict
+    y[deepcopy(key, memo)] = deepcopy(value, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 231, in _deepcopy_dict
+    y[deepcopy(key, memo)] = deepcopy(value, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 172, in deepcopy
+    y = _reconstruct(x, memo, *rv)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 271, in _reconstruct
+    state = deepcopy(state, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 231, in _deepcopy_dict
+    y[deepcopy(key, memo)] = deepcopy(value, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 231, in _deepcopy_dict
+    y[deepcopy(key, memo)] = deepcopy(value, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 172, in deepcopy
+    y = _reconstruct(x, memo, *rv)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 271, in _reconstruct
+    state = deepcopy(state, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 231, in _deepcopy_dict
+    y[deepcopy(key, memo)] = deepcopy(value, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 231, in _deepcopy_dict
+    y[deepcopy(key, memo)] = deepcopy(value, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 172, in deepcopy
+    y = _reconstruct(x, memo, *rv)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 271, in _reconstruct
+    state = deepcopy(state, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 231, in _deepcopy_dict
+    y[deepcopy(key, memo)] = deepcopy(value, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 231, in _deepcopy_dict
+    y[deepcopy(key, memo)] = deepcopy(value, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 172, in deepcopy
+    y = _reconstruct(x, memo, *rv)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 271, in _reconstruct
+    state = deepcopy(state, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 231, in _deepcopy_dict
+    y[deepcopy(key, memo)] = deepcopy(value, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 231, in _deepcopy_dict
+    y[deepcopy(key, memo)] = deepcopy(value, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 172, in deepcopy
+    y = _reconstruct(x, memo, *rv)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 271, in _reconstruct
+    state = deepcopy(state, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 231, in _deepcopy_dict
+    y[deepcopy(key, memo)] = deepcopy(value, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 231, in _deepcopy_dict
+    y[deepcopy(key, memo)] = deepcopy(value, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 172, in deepcopy
+    y = _reconstruct(x, memo, *rv)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 271, in _reconstruct
+    state = deepcopy(state, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 231, in _deepcopy_dict
+    y[deepcopy(key, memo)] = deepcopy(value, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 231, in _deepcopy_dict
+    y[deepcopy(key, memo)] = deepcopy(value, memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/copy.py", line 153, in deepcopy
+    y = copier(memo)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/parameter.py", line 79, in __deepcopy__
+    self.data.clone(memory_format=torch.preserve_format), self.requires_grad
+torch.OutOfMemoryError: XPU out of memory. Tried to allocate 172.00 MiB. GPU 0 has a total capacity of 47.98 GiB of which 89.62 MiB is free. Of the allocated memory 47.86 GiB is allocated by PyTorch, and 12.49 MiB is reserved by PyTorch but unallocated. Please use `empty_cache` to release all unoccupied cached memory.
+
+eager_fail_to_run
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:00, ?it/s]
+xpu  train maml_omniglot                      
+W0531 15:32:12.422000 85904 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:00, ?it/s]
+xpu  train microbench_unbacked_tolist_sum     
+W0531 15:32:29.051000 87051 site-packages/torch/_dynamo/variables/tensor.py:1744] [4/0] Graph break from `Tensor.item()`, consider setting:
+W0531 15:32:29.051000 87051 site-packages/torch/_dynamo/variables/tensor.py:1744] [4/0]     torch._dynamo.config.capture_scalar_outputs = True
+W0531 15:32:29.051000 87051 site-packages/torch/_dynamo/variables/tensor.py:1744] [4/0] or:
+W0531 15:32:29.051000 87051 site-packages/torch/_dynamo/variables/tensor.py:1744] [4/0]     env TORCHDYNAMO_CAPTURE_SCALAR_OUTPUTS=1
+W0531 15:32:29.051000 87051 site-packages/torch/_dynamo/variables/tensor.py:1744] [4/0] to include these operations in the captured graph.
+W0531 15:32:29.051000 87051 site-packages/torch/_dynamo/variables/tensor.py:1744] [4/0] 
+W0531 15:32:29.051000 87051 site-packages/torch/_dynamo/variables/tensor.py:1744] [4/0] Graph break: from user code at:
+W0531 15:32:29.051000 87051 site-packages/torch/_dynamo/variables/tensor.py:1744] [4/0]   File "/__w/torch-xpu-ops/torch-xpu-ops/benchmark/torchbenchmark/models/microbench_unbacked_tolist_sum/__init__.py", line 18, in torch_dynamo_resume_in_forward_at_13
+W0531 15:32:29.051000 87051 site-packages/torch/_dynamo/variables/tensor.py:1744] [4/0]     sum += tv[i].item()
+W0531 15:32:29.051000 87051 site-packages/torch/_dynamo/variables/tensor.py:1744] [4/0] 
+W0531 15:32:29.051000 87051 site-packages/torch/_dynamo/variables/tensor.py:1744] [4/0] 
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:04, ?it/s]
+xpu  train mnasnet1_0                         
+W0531 15:32:46.954000 87400 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:03, ?it/s]
+xpu  train mobilenet_v2                       
+W0531 15:33:52.643000 90714 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:01, ?it/s]
+xpu  train mobilenet_v2_quantized_qat         
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 2057, in validate_model
+    self.model_iter_fn(model, example_inputs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/torchbench.py", line 486, in forward_and_backward_pass
+    pred = mod(*cloned_inputs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/fx/graph_module.py", line 1000, in call_wrapped
+    return self._wrapped_call(self, *args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/fx/graph_module.py", line 507, in __call__
+    raise e
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/fx/graph_module.py", line 493, in __call__
+    return super(self.cls, obj).__call__(*args, **kwargs)  # type: ignore[misc]
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "<eval_with_key>.3", line 5, in forward
+    activation_post_process_0 = self.activation_post_process_0(x);  x = None
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/ao/quantization/fake_quantize.py", line 424, in forward
+    return torch.fused_moving_avg_obs_fake_quant(
+RuntimeError: expected scalar type Float but found BFloat16
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 4749, in run
+    ) = runner.load_model(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/torchbench.py", line 384, in load_model
+    self.validate_model(benchmark.name, model, example_inputs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 2059, in validate_model
+    raise RuntimeError("Eager run failed") from e
+RuntimeError: Eager run failed
+
+eager_fail_to_run
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:04, ?it/s]
+xpu  train mobilenet_v3_large                 
+W0531 15:35:01.742000 93370 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:00, ?it/s]
+xpu  train moco                               
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 4749, in run
+    ) = runner.load_model(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/torchbench.py", line 307, in load_model
+    benchmark = benchmark_cls(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/benchmark/torchbenchmark/util/model.py", line 43, in __call__
+    obj = type.__call__(cls, *args, **kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/benchmark/torchbenchmark/models/moco/__init__.py", line 80, in __init__
+    raise NotImplementedError(f"{device} not supported")
+NotImplementedError: xpu not supported
+
+model_fail_to_load
+accuracy            pass_rate=78.33%
+calls_captured      gmean=0.00x mean=249.650x
+unique_graphs       gmean=0.00x mean=1.383x
+graph_breaks        gmean=0.00x mean=4.567x
+unique_graph_breaks gmean=0.00x mean=3.433x
+autograd_captures   gmean=0.00x mean=0.000x
+autograd_compiles   gmean=0.00x mean=0.000x
+cudagraph_skips     gmean=0.00x mean=0.000x
+compilation_latency mean=17.304 seconds

@@ -1,0 +1,58 @@
+Test results will be stored in test-reports/python-pytest/dynamo.test_nested_graph_breaks/dynamo.test_nested_graph_breaks-6a968d79c8450289.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 43 items
+stepcurrent: Cannot find last run test, not skipping
+Running 43 items in this shard: test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_cells, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_cells_double_graph_break, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_contextmanager_graph_break_in_init, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_counters, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_ctx_manager_active_in_nested_call, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_ctx_manager_active_in_nested_step_graph_break, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_ctx_manager_nested_step_graph_break, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_dead_nested_cells, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_differing_arg_nums, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_differing_locals_nums, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_disable_nested_graph_breaks, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_disable_nested_graph_breaks_context_manager, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_doubly_nested_graph_break, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_error_on_graph_break_nested, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_functorch_with_nested_graph_break, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_generator_nested_graph_break, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_graph_break_in_nested_wrapped_user_function, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_graph_break_in_sequential_wrapped_user_functions, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_graph_break_in_wrapped_enable_grad, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_graph_break_in_wrapped_nested_function, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_graph_break_in_wrapped_skipped_function, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_graph_break_in_wrapped_user_function, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_graph_break_in_wrapped_user_function_with_multiple_breaks, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_graph_break_in_wrapped_user_method, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_inactive_ctx_manager, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_nested_graph_break_in_loop, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_nested_graph_break_in_try_block, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_nested_step_graph_break_diff_args, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_nested_step_unsupported, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_nested_store_attr_graph_break, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_nested_store_subscr_graph_break, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_no_recompiles, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_recursive_compiled_fn_with_graph_break, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_resume_closure_different_module_globals, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_return_after_graph_break_deep_nested, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_return_after_graph_break_nested, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_side_effects_cells, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_side_effects_globals, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_side_effects_globals_different_module, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_single_graph_break, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_single_graph_break_repeat, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_step_graph_break_frame_values_not_corrupted, test/dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_supported_ctx_manager
+
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_cells PASSED [0.5106s] [  2%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_cells_double_graph_break PASSED [0.1435s] [  4%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_contextmanager_graph_break_in_init PASSED [0.0765s] [  6%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_counters PASSED [0.1637s] [  9%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_ctx_manager_active_in_nested_call PASSED [0.0843s] [ 11%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_ctx_manager_active_in_nested_step_graph_break PASSED [0.0836s] [ 13%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_ctx_manager_nested_step_graph_break PASSED [0.0754s] [ 16%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_dead_nested_cells PASSED [0.0859s] [ 18%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_differing_arg_nums PASSED [0.0876s] [ 20%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_differing_locals_nums PASSED [0.0980s] [ 23%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_disable_nested_graph_breaks PASSED [0.3246s] [ 25%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_disable_nested_graph_breaks_context_manager PASSED [0.2293s] [ 27%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_doubly_nested_graph_break PASSED [0.1288s] [ 30%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_error_on_graph_break_nested PASSED [0.1736s] [ 32%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_functorch_with_nested_graph_break PASSED [0.2327s] [ 34%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_generator_nested_graph_break PASSED [0.3178s] [ 37%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_graph_break_in_nested_wrapped_user_function PASSED [0.1024s] [ 39%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_graph_break_in_sequential_wrapped_user_functions PASSED [0.1466s] [ 41%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_graph_break_in_wrapped_enable_grad PASSED [0.0851s] [ 44%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_graph_break_in_wrapped_nested_function PASSED [0.0922s] [ 46%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_graph_break_in_wrapped_skipped_function PASSED [0.1466s] [ 48%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_graph_break_in_wrapped_user_function PASSED [0.1002s] [ 51%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_graph_break_in_wrapped_user_function_with_multiple_breaks PASSED [0.1618s] [ 53%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_graph_break_in_wrapped_user_method PASSED [0.0931s] [ 55%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_inactive_ctx_manager PASSED [0.1594s] [ 58%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_nested_graph_break_in_loop PASSED [0.3218s] [ 60%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_nested_graph_break_in_try_block PASSED [0.1864s] [ 62%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_nested_step_graph_break_diff_args PASSED [0.0861s] [ 65%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_nested_step_unsupported PASSED [0.1269s] [ 67%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_nested_store_attr_graph_break PASSED [0.0823s] [ 69%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_nested_store_subscr_graph_break PASSED [0.0831s] [ 72%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_no_recompiles PASSED [0.1316s] [ 74%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_recursive_compiled_fn_with_graph_break PASSED [0.1582s] [ 76%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_resume_closure_different_module_globals PASSED [0.0788s] [ 79%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_return_after_graph_break_deep_nested PASSED [0.0935s] [ 81%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_return_after_graph_break_nested PASSED [0.2610s] [ 83%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_side_effects_cells PASSED [0.0910s] [ 86%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_side_effects_globals PASSED [0.0947s] [ 88%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_side_effects_globals_different_module PASSED [0.0915s] [ 90%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_single_graph_break PASSED [0.0895s] [ 93%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_single_graph_break_repeat PASSED [0.1531s] [ 95%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_step_graph_break_frame_values_not_corrupted PASSED [0.0551s] [ 97%]
+dynamo/test_nested_graph_breaks.py::NestedGraphBreakTests::test_supported_ctx_manager PASSED [0.2369s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/dynamo.test_nested_graph_breaks/dynamo.test_nested_graph_breaks-6a968d79c8450289.xml -
+============================== 43 passed in 6.41s ==============================

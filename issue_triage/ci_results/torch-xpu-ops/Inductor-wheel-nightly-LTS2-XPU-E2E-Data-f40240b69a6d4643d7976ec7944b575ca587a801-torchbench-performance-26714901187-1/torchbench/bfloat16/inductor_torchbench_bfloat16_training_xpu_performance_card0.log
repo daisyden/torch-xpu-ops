@@ -1,0 +1,89 @@
+++ python benchmarks/dynamo/torchbench.py --performance --bfloat16 -d xpu -n10 --training --total-partitions 9 --partition-id 0 --backend=inductor --cold-start-latency --timeout=10800 --disable-cudagraphs --output=/__w/torch-xpu-ops/torch-xpu-ops/pytorch/inductor_log/torchbench/bfloat16/inductor_torchbench_bfloat16_training_xpu_performance.csv
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:00, ?it/s]
+xpu  train torchrec_dlrm                      
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 4749, in run
+    ) = runner.load_model(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/torchbench.py", line 241, in load_model
+    module = importlib.import_module(c)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/__w/torch-xpu-ops/torch-xpu-ops/benchmark/torchbenchmark/canary_models/torchrec_dlrm/__init__.py", line 17, in <module>
+    from torchrec import EmbeddingBagCollection
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchrec/__init__.py", line 8, in <module>
+    import torchrec.distributed  # noqa
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchrec/distributed/__init__.py", line 36, in <module>
+    from torchrec.distributed.model_parallel import DistributedModelParallel  # noqa
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchrec/distributed/model_parallel.py", line 21, in <module>
+    from torchrec.distributed.planner import EmbeddingShardingPlanner, Topology
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchrec/distributed/planner/__init__.py", line 22, in <module>
+    from torchrec.distributed.planner.planners import EmbeddingShardingPlanner  # noqa
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchrec/distributed/planner/planners.py", line 19, in <module>
+    from torchrec.distributed.planner.constants import BATCH_SIZE, MAX_SIZE
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchrec/distributed/planner/constants.py", line 10, in <module>
+    from torchrec.distributed.embedding_types import EmbeddingComputeKernel
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchrec/distributed/embedding_types.py", line 14, in <module>
+    from fbgemm_gpu.split_table_batched_embeddings_ops_training import EmbeddingLocation
+ModuleNotFoundError: No module named 'fbgemm_gpu'
+
+eager_fail_to_run
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:04, ?it/s]
+xpu  train BERT_pytorch                       
+W0531 16:12:36.265000 85428 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  20%|██        | 2/10 [00:00<00:00, 14.64it/s]running benchmark:  40%|████      | 4/10 [00:00<00:00, 14.82it/s]running benchmark:  60%|██████    | 6/10 [00:00<00:00, 14.94it/s]running benchmark:  80%|████████  | 8/10 [00:00<00:00, 14.97it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 14.96it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 14.92it/s]
+1.462x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:12, ?it/s]
+xpu  train Background_Matting                 
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:06,  1.32it/s]running benchmark:  20%|██        | 2/10 [00:01<00:03,  2.03it/s]running benchmark:  30%|███       | 3/10 [00:01<00:02,  2.44it/s]running benchmark:  40%|████      | 4/10 [00:01<00:02,  2.69it/s]running benchmark:  50%|█████     | 5/10 [00:02<00:01,  2.86it/s]running benchmark:  60%|██████    | 6/10 [00:02<00:01,  2.97it/s]running benchmark:  70%|███████   | 7/10 [00:02<00:00,  3.05it/s]running benchmark:  80%|████████  | 8/10 [00:02<00:00,  3.09it/s]running benchmark:  90%|█████████ | 9/10 [00:03<00:00,  3.13it/s]running benchmark: 100%|██████████| 10/10 [00:03<00:00,  3.15it/s]running benchmark: 100%|██████████| 10/10 [00:03<00:00,  2.81it/s]
+1.189x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:08, ?it/s]
+xpu  train LearningToPaint                    
+W0531 16:15:15.288000 94312 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  50%|█████     | 5/10 [00:00<00:00, 49.32it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 49.68it/s]
+1.186x
+loading model: 0it [00:00, ?it/s]WARNING:common:Model Super_SloMo does not support bfloat16, running with amp instead
+loading model: 0it [00:11, ?it/s]
+WARNING:common:Model Super_SloMo does not support bfloat16, running with amp instead
+xpu  train Super_SloMo                        
+WARNING:common:Model Super_SloMo does not support bfloat16, running with amp instead
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:03,  2.89it/s]running benchmark:  20%|██        | 2/10 [00:00<00:01,  4.17it/s]running benchmark:  30%|███       | 3/10 [00:00<00:01,  4.86it/s]running benchmark:  40%|████      | 4/10 [00:00<00:01,  5.27it/s]running benchmark:  50%|█████     | 5/10 [00:01<00:00,  5.53it/s]running benchmark:  60%|██████    | 6/10 [00:01<00:00,  5.70it/s]running benchmark:  70%|███████   | 7/10 [00:01<00:00,  5.81it/s]running benchmark:  80%|████████  | 8/10 [00:01<00:00,  5.89it/s]running benchmark:  90%|█████████ | 9/10 [00:01<00:00,  5.94it/s]running benchmark: 100%|██████████| 10/10 [00:01<00:00,  5.96it/s]running benchmark: 100%|██████████| 10/10 [00:01<00:00,  5.45it/s]
+1.402x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:03, ?it/s]
+xpu  train alexnet                            
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  60%|██████    | 6/10 [00:00<00:00, 52.75it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 55.32it/s]
+1.379x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:02, ?it/s]
+xpu  train basic_gnn_edgecnn                  
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  40%|████      | 4/10 [00:00<00:00, 36.21it/s]running benchmark:  90%|█████████ | 9/10 [00:00<00:00, 41.25it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 40.85it/s]
+1.453x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:02, ?it/s]
+xpu  train basic_gnn_gcn                      
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  70%|███████   | 7/10 [00:00<00:00, 60.87it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 61.13it/s]
+1.121x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:02, ?it/s]
+xpu  train basic_gnn_gin                      
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 91.47it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 91.31it/s]
+1.110x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:02, ?it/s]
+xpu  train basic_gnn_sage                     
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  90%|█████████ | 9/10 [00:00<00:00, 83.96it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 84.45it/s]
+1.212x
+speedup             gmean=0.00x mean=1.007x
+abs_latency         gmean=0.00x mean=30.231x
+compilation_latency mean=35.367 seconds
+compression_ratio   mean=0.000x
+eager_peak_mem      gmean=0.00x mean=0.000x
+dynamo_peak_mem     gmean=0.00x mean=0.000x
+calls_captured      gmean=0.00x mean=255.364x
+unique_graphs       gmean=0.00x mean=1.436x
+graph_breaks        gmean=0.00x mean=5.364x
+unique_graph_breaks gmean=0.00x mean=4.218x
+autograd_captures   gmean=0.00x mean=0.000x
+autograd_compiles   gmean=0.00x mean=0.000x
+cudagraph_skips     gmean=0.00x mean=0.000x

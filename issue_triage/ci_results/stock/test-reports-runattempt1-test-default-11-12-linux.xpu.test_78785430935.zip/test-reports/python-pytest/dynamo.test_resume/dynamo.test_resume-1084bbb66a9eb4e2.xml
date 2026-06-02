@@ -1,0 +1,1 @@
+<testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="0.623" timestamp="2026-06-01T04:41:47.523013" hostname="54b354415dfd"><testcase classname="ResumeFunctionTests" name="test_freevars" time="0.604" file="dynamo/test_resume.py" /></testsuite></testsuites>

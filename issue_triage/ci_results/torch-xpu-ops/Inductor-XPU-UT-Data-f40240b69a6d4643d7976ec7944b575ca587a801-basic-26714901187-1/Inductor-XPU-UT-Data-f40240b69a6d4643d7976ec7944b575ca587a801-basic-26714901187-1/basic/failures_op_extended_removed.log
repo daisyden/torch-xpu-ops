@@ -1,0 +1,5 @@
+1:op_extended,third_party.torch-xpu-ops.test.xpu.extended.test_ops_xpu.TestCommonXPU,test_compare_cpu___rmod___xpu_int16
+2:op_extended,third_party.torch-xpu-ops.test.xpu.extended.test_ops_xpu.TestCommonXPU,test_compare_cpu___rmod___xpu_int32
+3:op_extended,third_party.torch-xpu-ops.test.xpu.extended.test_ops_xpu.TestCommonXPU,test_compare_cpu___rmod___xpu_int64
+4:op_extended,third_party.torch-xpu-ops.test.xpu.extended.test_ops_xpu.TestCommonXPU,test_compare_cpu___rmod___xpu_int8
+5:op_extended,third_party.torch-xpu-ops.test.xpu.extended.test_ops_xpu.TestCommonXPU,test_compare_cpu___rmod___xpu_uint8

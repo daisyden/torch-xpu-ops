@@ -1,0 +1,121 @@
+++ python benchmarks/dynamo/torchbench.py --performance --float16 -d xpu -n10 --training --total-partitions 9 --partition-id 5 --backend=inductor --cold-start-latency --timeout=10800 --disable-cudagraphs --output=/__w/torch-xpu-ops/torch-xpu-ops/pytorch/inductor_log/torchbench/float16/inductor_torchbench_float16_training_xpu_performance.csv
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:01, ?it/s]
+xpu  train maml_omniglot                      
+W0531 15:55:15.275000 63198 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 175.22it/s]
+0.732x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:00, ?it/s]
+xpu  train microbench_unbacked_tolist_sum     
+W0531 15:55:41.094000 65167 site-packages/torch/_dynamo/variables/tensor.py:1744] [4/0] Graph break from `Tensor.item()`, consider setting:
+W0531 15:55:41.094000 65167 site-packages/torch/_dynamo/variables/tensor.py:1744] [4/0]     torch._dynamo.config.capture_scalar_outputs = True
+W0531 15:55:41.094000 65167 site-packages/torch/_dynamo/variables/tensor.py:1744] [4/0] or:
+W0531 15:55:41.094000 65167 site-packages/torch/_dynamo/variables/tensor.py:1744] [4/0]     env TORCHDYNAMO_CAPTURE_SCALAR_OUTPUTS=1
+W0531 15:55:41.094000 65167 site-packages/torch/_dynamo/variables/tensor.py:1744] [4/0] to include these operations in the captured graph.
+W0531 15:55:41.094000 65167 site-packages/torch/_dynamo/variables/tensor.py:1744] [4/0] 
+W0531 15:55:41.094000 65167 site-packages/torch/_dynamo/variables/tensor.py:1744] [4/0] Graph break: from user code at:
+W0531 15:55:41.094000 65167 site-packages/torch/_dynamo/variables/tensor.py:1744] [4/0]   File "/__w/torch-xpu-ops/torch-xpu-ops/benchmark/torchbenchmark/models/microbench_unbacked_tolist_sum/__init__.py", line 18, in torch_dynamo_resume_in_forward_at_13
+W0531 15:55:41.094000 65167 site-packages/torch/_dynamo/variables/tensor.py:1744] [4/0]     sum += tv[i].item()
+W0531 15:55:41.094000 65167 site-packages/torch/_dynamo/variables/tensor.py:1744] [4/0] 
+W0531 15:55:41.094000 65167 site-packages/torch/_dynamo/variables/tensor.py:1744] [4/0] 
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  40%|████      | 4/10 [00:00<00:00, 33.14it/s]running benchmark:  80%|████████  | 8/10 [00:00<00:00, 33.18it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 33.17it/s]
+0.948x
+loading model: 0it [00:00, ?it/s]Downloading: "https://download.pytorch.org/models/mnasnet1.0_top1_73.512-f206786ef8.pth" to /github/home/.cache/torch/hub/checkpoints/mnasnet1.0_top1_73.512-f206786ef8.pth
+
+  0%|          | 0.00/16.9M [00:00<?, ?B/s][A
+ 19%|█▉        | 3.25M/16.9M [00:00<00:00, 33.6MB/s][A
+ 85%|████████▍ | 14.4M/16.9M [00:00<00:00, 81.9MB/s][A100%|██████████| 16.9M/16.9M [00:00<00:00, 78.6MB/s]
+loading model: 0it [00:07, ?it/s]
+xpu  train mnasnet1_0                         
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  30%|███       | 3/10 [00:00<00:00, 23.46it/s]running benchmark:  60%|██████    | 6/10 [00:00<00:00, 23.41it/s]running benchmark:  90%|█████████ | 9/10 [00:00<00:00, 23.48it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 23.46it/s]
+1.084x
+loading model: 0it [00:00, ?it/s]Downloading: "https://download.pytorch.org/models/mobilenet_v2-b0353104.pth" to /github/home/.cache/torch/hub/checkpoints/mobilenet_v2-b0353104.pth
+
+  0%|          | 0.00/13.6M [00:00<?, ?B/s][A
+ 66%|██████▋   | 9.00M/13.6M [00:00<00:00, 94.4MB/s][A100%|██████████| 13.6M/13.6M [00:00<00:00, 100MB/s] 
+loading model: 0it [00:09, ?it/s]
+xpu  train mobilenet_v2                       
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:01,  6.86it/s]running benchmark:  30%|███       | 3/10 [00:00<00:00,  9.16it/s]running benchmark:  50%|█████     | 5/10 [00:00<00:00,  9.75it/s]running benchmark:  70%|███████   | 7/10 [00:00<00:00, 10.01it/s]running benchmark:  90%|█████████ | 9/10 [00:00<00:00, 10.16it/s]running benchmark: 100%|██████████| 10/10 [00:01<00:00,  9.87it/s]
+1.513x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:01, ?it/s]
+xpu  train mobilenet_v2_quantized_qat         
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 2057, in validate_model
+    self.model_iter_fn(model, example_inputs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/torchbench.py", line 486, in forward_and_backward_pass
+    pred = mod(*cloned_inputs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/fx/graph_module.py", line 1000, in call_wrapped
+    return self._wrapped_call(self, *args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/fx/graph_module.py", line 507, in __call__
+    raise e
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/fx/graph_module.py", line 493, in __call__
+    return super(self.cls, obj).__call__(*args, **kwargs)  # type: ignore[misc]
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "<eval_with_key>.3", line 5, in forward
+    activation_post_process_0 = self.activation_post_process_0(x);  x = None
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/ao/quantization/fake_quantize.py", line 424, in forward
+    return torch.fused_moving_avg_obs_fake_quant(
+RuntimeError: expected scalar type Float but found Half
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 4749, in run
+    ) = runner.load_model(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/torchbench.py", line 384, in load_model
+    self.validate_model(benchmark.name, model, example_inputs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 2059, in validate_model
+    raise RuntimeError("Eager run failed") from e
+RuntimeError: Eager run failed
+
+eager_fail_to_run
+loading model: 0it [00:00, ?it/s]Downloading: "https://download.pytorch.org/models/mobilenet_v3_large-8738ca79.pth" to /github/home/.cache/torch/hub/checkpoints/mobilenet_v3_large-8738ca79.pth
+
+  0%|          | 0.00/21.1M [00:00<?, ?B/s][A
+ 43%|████▎     | 9.12M/21.1M [00:00<00:00, 94.9MB/s][A
+ 97%|█████████▋| 20.4M/21.1M [00:00<00:00, 108MB/s] [A100%|██████████| 21.1M/21.1M [00:00<00:00, 106MB/s]
+loading model: 0it [00:08, ?it/s]
+xpu  train mobilenet_v3_large                 
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  30%|███       | 3/10 [00:00<00:00, 21.19it/s]running benchmark:  60%|██████    | 6/10 [00:00<00:00, 21.15it/s]running benchmark:  90%|█████████ | 9/10 [00:00<00:00, 21.52it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 21.49it/s]
+1.095x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:00, ?it/s]
+xpu  train moco                               
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 4749, in run
+    ) = runner.load_model(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/torchbench.py", line 307, in load_model
+    benchmark = benchmark_cls(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/benchmark/torchbenchmark/util/model.py", line 43, in __call__
+    obj = type.__call__(cls, *args, **kwargs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/benchmark/torchbenchmark/models/moco/__init__.py", line 80, in __init__
+    raise NotImplementedError(f"{device} not supported")
+NotImplementedError: xpu not supported
+
+model_fail_to_load
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:03, ?it/s]
+number of parameters: 123.69M
+num decayed parameter tensors: 50, with 124,354,560 parameters
+num non-decayed parameter tensors: 98, with 121,344 parameters
+using fused AdamW: False
+xpu  train nanogpt                            
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  40%|████      | 4/10 [00:00<00:00, 32.74it/s]running benchmark:  80%|████████  | 8/10 [00:00<00:00, 32.94it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 32.95it/s]
+1.487x
+speedup             gmean=0.00x mean=0.949x
+abs_latency         gmean=0.00x mean=30.022x
+compilation_latency mean=37.411 seconds
+compression_ratio   mean=0.000x
+eager_peak_mem      gmean=0.00x mean=0.000x
+dynamo_peak_mem     gmean=0.00x mean=0.000x
+calls_captured      gmean=0.00x mean=219.208x
+unique_graphs       gmean=0.00x mean=1.417x
+graph_breaks        gmean=0.00x mean=5.188x
+unique_graph_breaks gmean=0.00x mean=4.104x
+autograd_captures   gmean=0.00x mean=0.000x
+autograd_compiles   gmean=0.00x mean=0.000x
+cudagraph_skips     gmean=0.00x mean=0.000x

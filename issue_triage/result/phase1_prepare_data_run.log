@@ -1,0 +1,16 @@
+[2026-06-01T06:12:16Z] Phase 1 Prepare Data incremental run
+Environment:
+  PYTORCH_REPO_ROOT=${PYTORCH_REPO_ROOT:-~/upstream/pytorch}
+  BUG_SCRUB_SKILL_ROOT=/home/daisyden/opencode/bug_scrub_verify/pytorch/third_party/torch-xpu-ops/.opencode/skills/bug_scrub
+  result_dir=/home/daisyden/opencode/bug_scrub_verify/pytorch/third_party/torch-xpu-ops/issue_triage/result
+  ci_results_dir=/home/daisyden/opencode/bug_scrub_verify/pytorch/third_party/torch-xpu-ops/issue_triage/ci_results
+  data_dir=/home/daisyden/opencode/bug_scrub_verify/pytorch/third_party/torch-xpu-ops/issue_triage/data
+Status:
+  Phase 1.1 OK: /home/daisyden/opencode/bug_scrub_verify/pytorch/third_party/torch-xpu-ops/issue_triage/result/torch_xpu_ops_issues.xlsx (100194 bytes); sheets=['Issues', 'Test Cases', 'E2E Test Cases', 'Others', 'Not applicable']; Issues rows=281
+  Phase 1.2 OK: downloaded CI artifacts; artifact files=2010; torch-xpu-ops entries=19; stock entries=24
+  Phase 1.3 OK: Not applicable sheet rows=3
+  Phase 1.4 OK: narrative=54083 bytes; registry=47780 bytes
+Warnings:
+  Phase 1.2 latest torch-xpu-ops run was in_progress/no artifacts; used latest completed run 26714901187.
+  Phase 1.3 had no prior Not applicable backup; bootstrapped deep-analysis rows for current not_target issues and removed duplicate Test Cases rows.
+  Phase 1.4 skipped regeneration; static registry already existed and narrative was materialized from bundled skill document.

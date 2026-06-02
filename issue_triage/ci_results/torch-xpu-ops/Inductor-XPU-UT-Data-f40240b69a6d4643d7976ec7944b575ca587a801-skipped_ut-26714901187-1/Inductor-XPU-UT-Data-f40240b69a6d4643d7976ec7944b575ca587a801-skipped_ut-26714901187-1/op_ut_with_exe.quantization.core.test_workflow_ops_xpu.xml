@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="11.601" timestamp="2026-05-31T14:55:06.795178" hostname="ef1f3112d585"><testcase classname="third_party.torch-xpu-ops.test.xpu.quantization.core.test_workflow_ops_xpu.TestFakeQuantizeOpsXPU" name="test_learnable_forward_per_channel_cpu_xpu" time="0.822"><failure message="AssertionError: False is not true : Expected kernel forward function to have results match the reference forward function&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/quantization/core/test_workflow_ops.py TestFakeQuantizeOpsXPU.test_learnable_forward_per_channel_cpu_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0&#10;Falsifying example: test_learnable_forward_per_channel_cpu(&#10;    X=(array([9.223372e+14], dtype=float32),&#10;     (array([1.]), array([0]), 0, torch.quint8)),&#10;    self=&lt;test_workflow_ops.TestFakeQuantizeOpsXPU testMethod=test_learnable_forward_per_channel_cpu_xpu&gt;,&#10;)&#10;&#10;You can reproduce this example by temporarily adding @reproduce_failure('6.56.4', b'AXicY2RAAYxgktntThSQDQAHswGD') as a decorator on your test case">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/quantization/core/test_workflow_ops.py", line 845, in test_learnable_forward_per_channel_cpu
+    qparams=hu.qparams(dtypes=torch.quint8)))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/hypothesis/core.py", line 1267, in wrapped_test
+    raise the_error_hypothesis_found
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/quantization/core/test_workflow_ops.py", line 853, in test_learnable_forward_per_channel_cpu
+    self._test_learnable_forward_per_channel(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/quantization/core/test_workflow_ops.py", line 840, in _test_learnable_forward_per_channel
+    self.assertTrue(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/unittest/case.py", line 687, in assertTrue
+    raise self.failureException(msg)
+AssertionError: False is not true : Expected kernel forward function to have results match the reference forward function
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/quantization/core/test_workflow_ops.py TestFakeQuantizeOpsXPU.test_learnable_forward_per_channel_cpu_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0
+Falsifying example: test_learnable_forward_per_channel_cpu(
+    X=(array([9.223372e+14], dtype=float32),
+     (array([1.]), array([0]), 0, torch.quint8)),
+    self=&lt;test_workflow_ops.TestFakeQuantizeOpsXPU testMethod=test_learnable_forward_per_channel_cpu_xpu&gt;,
+)
+
+You can reproduce this example by temporarily adding @reproduce_failure('6.56.4', b'AXicY2RAAYxgktntThSQDQAHswGD') as a decorator on your test case</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.quantization.core.test_workflow_ops_xpu.TestFakeQuantizeOpsXPU" name="test_forward_per_tensor_xpu" time="2.319"><failure message="AssertionError: &#10;Not equal to tolerance rtol=1e-06, atol=1e-06&#10;&#10;Mismatched elements: 299 / 300 (99.7%)&#10;Max absolute difference: 0.00784314&#10;Max relative difference: 0.00787401&#10; x: array([[[[ 0.996078, -1.003922, -1.003922, -1.003922, -1.003922],&#10;         [-1.003922, -1.003922, -1.003922, -1.003922, -1.003922],&#10;         [-1.003922, -1.003922, -1.003922, -1.003922, -1.003922],...&#10; y: array([[[[ 0.996078, -0.996078, -0.996078, -0.996078, -0.996078],&#10;         [-0.996078, -0.996078, -0.996078, -0.996078, -0.996078],&#10;         [-0.996078, -0.996078, -0.996078, -0.996078, -0.996078],...&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/quantization/core/test_workflow_ops.py TestFakeQuantizeOpsXPU.test_forward_per_tensor_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0&#10;Falsifying example: test_forward_per_tensor(&#10;    device='cpu', X=(array([[[[ 1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.]],&#10;     &#10;             [[-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.]],&#10;     &#10;             [[-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.]],&#10;     &#10;             [[-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.]]],&#10;     &#10;     &#10;            [[[-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.]],&#10;     &#10;             [[-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.]],&#10;     &#10;             [[-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.]],&#10;     &#10;             [[-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.]]],&#10;     &#10;     &#10;            [[[-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.]],&#10;     &#10;             [[-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.]],&#10;     &#10;             [[-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.]],&#10;     &#10;             [[-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.],&#10;              [-1., -1., -1., -1., -1.]]]], dtype=float32),&#10;     (0.00784313725490196,&#10;      128,&#10;      torch.quint8)), self=&lt;test_workflow_ops.TestFakeQuantizeOpsXPU testMethod=test_forward_per_tensor_xpu&gt;,&#10;)&#10;&#10;You can reproduce this example by temporarily adding @reproduce_failure('6.56.4', b'AXicY2BkYmRmZGFkYUAGjIwoPCgGswEDZgAX') as a decorator on your test case">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/quantization/core/test_workflow_ops.py", line 290, in test_forward_per_tensor
+    X=hu.tensor(shapes=hu.array_shapes(1, 5,),
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/hypothesis/core.py", line 1267, in wrapped_test
+    raise the_error_hypothesis_found
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/quantization/core/test_workflow_ops.py", line 304, in test_forward_per_tensor
+    np.testing.assert_allclose(Y, Y_prime.cpu(), rtol=tolerance, atol=tolerance)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/numpy/testing/_private/utils.py", line 1592, in assert_allclose
+    assert_array_compare(compare, actual, desired, err_msg=str(err_msg),
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/numpy/testing/_private/utils.py", line 862, in assert_array_compare
+    raise AssertionError(msg)
+AssertionError: 
+Not equal to tolerance rtol=1e-06, atol=1e-06
+
+Mismatched elements: 299 / 300 (99.7%)
+Max absolute difference: 0.00784314
+Max relative difference: 0.00787401
+ x: array([[[[ 0.996078, -1.003922, -1.003922, -1.003922, -1.003922],
+         [-1.003922, -1.003922, -1.003922, -1.003922, -1.003922],
+         [-1.003922, -1.003922, -1.003922, -1.003922, -1.003922],...
+ y: array([[[[ 0.996078, -0.996078, -0.996078, -0.996078, -0.996078],
+         [-0.996078, -0.996078, -0.996078, -0.996078, -0.996078],
+         [-0.996078, -0.996078, -0.996078, -0.996078, -0.996078],...
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/quantization/core/test_workflow_ops.py TestFakeQuantizeOpsXPU.test_forward_per_tensor_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0
+Falsifying example: test_forward_per_tensor(
+    device='cpu', X=(array([[[[ 1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.]],
+     
+             [[-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.]],
+     
+             [[-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.]],
+     
+             [[-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.]]],
+     
+     
+            [[[-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.]],
+     
+             [[-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.]],
+     
+             [[-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.]],
+     
+             [[-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.]]],
+     
+     
+            [[[-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.]],
+     
+             [[-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.]],
+     
+             [[-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.]],
+     
+             [[-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.],
+              [-1., -1., -1., -1., -1.]]]], dtype=float32),
+     (0.00784313725490196,
+      128,
+      torch.quint8)), self=&lt;test_workflow_ops.TestFakeQuantizeOpsXPU testMethod=test_forward_per_tensor_xpu&gt;,
+)
+
+You can reproduce this example by temporarily adding @reproduce_failure('6.56.4', b'AXicY2BkYmRmZGFkYUAGjIwoPCgGswEDZgAX') as a decorator on your test case</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.quantization.core.test_workflow_ops_xpu.TestFakeQuantizeOpsXPU" name="test_forward_per_channel_xpu" time="6.376"><failure message="AssertionError: &#10;Not equal to tolerance rtol=1e-06, atol=1e-06&#10;&#10;Mismatched elements: 268 / 270 (99.3%)&#10;Max absolute difference: 3.616926e+16&#10;Max relative difference: 0.0078125&#10; x: array([[[[ 0.000000e+00, -4.593495e+18,  4.593495e+18,  4.593495e+18,&#10;           4.593495e+18,  4.593495e+18],&#10;         [ 4.593495e+18,  4.593495e+18,  4.593495e+18,  4.593495e+18,...&#10; y: array([[[[ 0.000000e+00, -4.593495e+18,  4.629664e+18,  4.629664e+18,&#10;           4.629664e+18,  4.629664e+18],&#10;         [ 4.629664e+18,  4.629664e+18,  4.629664e+18,  4.629664e+18,...&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python ../../test/quantization/core/test_workflow_ops.py TestFakeQuantizeOpsXPU.test_forward_per_channel_xpu&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0&#10;Falsifying example: test_forward_per_channel(&#10;    device='cpu', X=(array([[[[ 0.0000000e+00, -4.6115788e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18]],&#10;     &#10;             [[ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18]],&#10;     &#10;             [[ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18]]],&#10;     &#10;     &#10;            [[[ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18]],&#10;     &#10;             [[ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18]],&#10;     &#10;             [[ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18]]],&#10;     &#10;     &#10;            [[[ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18]],&#10;     &#10;             [[ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18]],&#10;     &#10;             [[ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],&#10;              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,&#10;                4.6115796e+18,  4.6115796e+18,  4.6115796e+18]]]],&#10;           dtype=float32),&#10;     (array([3.61692499e+16, 3.61692499e+16, 3.61692499e+16]),&#10;      array([127, 127, 127]),&#10;      0,&#10;      torch.quint8)), self=&lt;test_workflow_ops.TestFakeQuantizeOpsXPU testMethod=test_forward_per_channel_xpu&gt;,&#10;)&#10;&#10;You can reproduce this example by temporarily adding @reproduce_failure('6.56.4', b'AXicY2BkAkIWRlYGZMDIiMoFQgbG5vv/zxtARUDsCUAxAFiXBzg=') as a decorator on your test case">Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/quantization/core/test_workflow_ops.py", line 719, in test_forward_per_channel
+    X=hu.per_channel_tensor(shapes=hu.array_shapes(1, 5,),
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/hypothesis/core.py", line 1267, in wrapped_test
+    raise the_error_hypothesis_found
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/../../../../test/quantization/core/test_workflow_ops.py", line 735, in test_forward_per_channel
+    np.testing.assert_allclose(Y, Y_prime.cpu(), rtol=tolerance, atol=tolerance)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/numpy/testing/_private/utils.py", line 1592, in assert_allclose
+    assert_array_compare(compare, actual, desired, err_msg=str(err_msg),
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/numpy/testing/_private/utils.py", line 862, in assert_array_compare
+    raise AssertionError(msg)
+AssertionError: 
+Not equal to tolerance rtol=1e-06, atol=1e-06
+
+Mismatched elements: 268 / 270 (99.3%)
+Max absolute difference: 3.616926e+16
+Max relative difference: 0.0078125
+ x: array([[[[ 0.000000e+00, -4.593495e+18,  4.593495e+18,  4.593495e+18,
+           4.593495e+18,  4.593495e+18],
+         [ 4.593495e+18,  4.593495e+18,  4.593495e+18,  4.593495e+18,...
+ y: array([[[[ 0.000000e+00, -4.593495e+18,  4.629664e+18,  4.629664e+18,
+           4.629664e+18,  4.629664e+18],
+         [ 4.629664e+18,  4.629664e+18,  4.629664e+18,  4.629664e+18,...
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python ../../test/quantization/core/test_workflow_ops.py TestFakeQuantizeOpsXPU.test_forward_per_channel_xpu
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0
+Falsifying example: test_forward_per_channel(
+    device='cpu', X=(array([[[[ 0.0000000e+00, -4.6115788e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18]],
+     
+             [[ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18]],
+     
+             [[ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18]]],
+     
+     
+            [[[ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18]],
+     
+             [[ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18]],
+     
+             [[ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18]]],
+     
+     
+            [[[ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18]],
+     
+             [[ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18]],
+     
+             [[ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18],
+              [ 4.6115796e+18,  4.6115796e+18,  4.6115796e+18,
+                4.6115796e+18,  4.6115796e+18,  4.6115796e+18]]]],
+           dtype=float32),
+     (array([3.61692499e+16, 3.61692499e+16, 3.61692499e+16]),
+      array([127, 127, 127]),
+      0,
+      torch.quint8)), self=&lt;test_workflow_ops.TestFakeQuantizeOpsXPU testMethod=test_forward_per_channel_xpu&gt;,
+)
+
+You can reproduce this example by temporarily adding @reproduce_failure('6.56.4', b'AXicY2BkAkIWRlYGZMDIiMoFQgbG5vv/zxtARUDsCUAxAFiXBzg=') as a decorator on your test case</failure></testcase></testsuite></testsuites>

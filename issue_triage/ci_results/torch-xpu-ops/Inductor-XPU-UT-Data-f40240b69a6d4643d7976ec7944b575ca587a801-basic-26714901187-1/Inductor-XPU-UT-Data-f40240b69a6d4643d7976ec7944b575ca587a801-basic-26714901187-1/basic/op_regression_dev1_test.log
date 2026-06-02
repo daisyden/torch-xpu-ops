@@ -1,0 +1,20 @@
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /tmp/xpu-tool/Python/3.10.20/x64/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default' -> database=DirectoryBasedExampleDatabase('/__w/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/regressions/.hypothesis/examples')
+rootdir: /__w/torch-xpu-ops/torch-xpu-ops/pytorch
+configfile: pytest.ini
+plugins: timeout-2.4.0, xdoctest-1.3.0, subtests-0.13.1, rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, cpp-2.3.0, flakefinder-1.1.0
+timeout: 600.0s
+timeout method: thread
+timeout func_only: False
+created: 8/8 workers
+8 workers [1 item]
+
+scheduling tests via WorkStealingScheduling
+
+test_operation_on_device_1.py::TestOperationOnDevice1::test_sum_on_device1 
+[gw7] [100%] PASSED test_operation_on_device_1.py::TestOperationOnDevice1::test_sum_on_device1 
+
+- generated xml file: /home/jenkins/actions-runner/_work/torch-xpu-ops/torch-xpu-ops/ut_log/op_regression_dev1.xml -
+============================== 1 passed in 3.33s ===============================

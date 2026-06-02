@@ -1,0 +1,185 @@
+<testsuites><testsuite name="pytest" errors="0" failures="0" skipped="4" tests="48" time="26.251" timestamp="2026-06-01T04:45:15.042291" hostname="56eb177b00a9"><testcase classname="TorchDispatchModeTests" name="test_skip_torch_dispatch_modes" time="0.010" file="dynamo/test_modes.py" /><testcase classname="TorchDispatchModeTests" name="test_torch_dispatch_ignore_compile_internals" time="2.533" file="dynamo/test_modes.py" /><testcase classname="TorchFunctionModeTests" name="test_builtin_equivalent_funcs" time="0.003" file="dynamo/test_modes.py" /><testcase classname="TorchFunctionModeTests" name="test_default_device_factory_functions" time="0.317" file="dynamo/test_modes.py" /><testcase classname="TorchFunctionModeTests" name="test_default_device_factory_functions_priority" time="0.083" file="dynamo/test_modes.py" /><testcase classname="TorchFunctionModeTests" name="test_error_empty_stack_pop_torch_function_mode" time="0.011" file="dynamo/test_modes.py" /><testcase classname="TorchFunctionModeTests" name="test_expand" time="1.553" file="dynamo/test_modes.py" /><testcase classname="TorchFunctionModeTests" name="test_flex_attention" time="5.263" file="dynamo/test_modes.py"><system-err>/var/lib/jenkins/pytorch/test/dynamo/test_modes.py:767: DeprecationWarning: _compile flag on create_block_mask was originally added to work around a torch.compile limitation. That limitation has since been addressed. So, to compile create_block_mask, we suggest doing torch.compile(create_block_mask). This still works for now, but will be removed in the future.
+  create_block_mask(
+</system-err></testcase><testcase classname="TorchFunctionModeTests" name="test_hop" time="0.002" file="dynamo/test_modes.py"><skipped type="pytest.skip" message="skipIfXpu: XPU does not support flex attention">/var/lib/jenkins/pytorch/test/dynamo/test_modes.py:794: skipIfXpu: XPU does not support flex attention</skipped></testcase><testcase classname="TorchFunctionModeTests" name="test_hop_eager" time="0.001" file="dynamo/test_modes.py"><skipped type="pytest.skip" message="skipIfXpu: XPU does not support flex attention">/var/lib/jenkins/pytorch/test/dynamo/test_modes.py:818: skipIfXpu: XPU does not support flex attention</skipped></testcase><testcase classname="TorchFunctionModeTests" name="test_intermedate_torch_function_mode_construction_mutation" time="0.762" file="dynamo/test_modes.py" /><testcase classname="TorchFunctionModeTests" name="test_is_torch_function_all_disabled" time="0.102" file="dynamo/test_modes.py" /><testcase classname="TorchFunctionModeTests" name="test_len_torch_function_mode" time="0.068" file="dynamo/test_modes.py" /><testcase classname="TorchFunctionModeTests" name="test_nested_torch_function_mode" time="0.748" file="dynamo/test_modes.py" /><testcase classname="TorchFunctionModeTests" name="test_pop_torch_function_mode" time="0.045" file="dynamo/test_modes.py" /><testcase classname="TorchFunctionModeTests" name="test_push_torch_function_mode" time="0.047" file="dynamo/test_modes.py" /><testcase classname="TorchFunctionModeTests" name="test_register_hook" time="0.117" file="dynamo/test_modes.py" /><testcase classname="TorchFunctionModeTests" name="test_stack_state_clear_default_device" time="0.236" file="dynamo/test_modes.py" /><testcase classname="TorchFunctionModeTests" name="test_stack_state_mutation_default_device" time="0.049" file="dynamo/test_modes.py" /><testcase classname="TorchFunctionModeTests" name="test_torch_function_mode_and_pop_graph_break" time="0.150" file="dynamo/test_modes.py" /><testcase classname="TorchFunctionModeTests" name="test_torch_function_mode_and_pop_graph_break_mutation" time="0.132" file="dynamo/test_modes.py" /><testcase classname="TorchFunctionModeTests" name="test_torch_function_mode_disable" time="1.343" file="dynamo/test_modes.py" /><testcase classname="TorchFunctionModeTests" name="test_torch_function_mode_enabled_guard" time="0.066" file="dynamo/test_modes.py" /><testcase classname="TorchFunctionModeTests" name="test_torch_function_mode_enter_exit" time="0.049" file="dynamo/test_modes.py" /><testcase classname="TorchFunctionModeTests" name="test_torch_function_mode_graph_break" time="0.112" file="dynamo/test_modes.py" /><testcase classname="TorchFunctionModeTests" name="test_torch_function_mode_guards_cpp" time="0.136" file="dynamo/test_modes.py" /><testcase classname="TorchFunctionModeTests" name="test_torch_function_mode_guards_py" time="0.133" file="dynamo/test_modes.py" /><testcase classname="TorchFunctionModeTests" name="test_torch_function_mode_highest_priority" time="0.046" file="dynamo/test_modes.py" /><testcase classname="TorchFunctionModeTests" name="test_torch_function_mode_mutated_state" time="0.069" file="dynamo/test_modes.py" /><testcase classname="TorchFunctionModeTests" name="test_torch_function_mode_no_leak_nested_graph_break" time="0.115" file="dynamo/test_modes.py" /><testcase classname="TorchFunctionModeTests" name="test_torch_function_mode_no_leak_on_graph_break" time="0.044" file="dynamo/test_modes.py" /><testcase classname="TorchFunctionModeTests" name="test_torch_function_mode_preserves_cuda_rng_state" time="0.009" file="dynamo/test_modes.py" /><testcase classname="TorchFunctionModeTests" name="test_torch_function_mode_restore_on_exc" time="0.693" file="dynamo/test_modes.py" /><testcase classname="InvokeSubgraphBackendTests" name="test_2tier_blockmask_tensor_closure_nested_compile_aot_export" time="0.001" file="dynamo/test_modes.py"><skipped type="pytest.skip" message="Requires CUDA with SM &gt;= 8.0, Triton, and not ROCm">/var/lib/jenkins/pytorch/test/dynamo/test_modes.py:2057: Requires CUDA with SM &gt;= 8.0, Triton, and not ROCm</skipped></testcase><testcase classname="InvokeSubgraphBackendTests" name="test_aot_autograd_over_dynamo_train_step" time="0.129" file="dynamo/test_modes.py" /><testcase classname="InvokeSubgraphBackendTests" name="test_aot_autograd_over_dynamo_with_requires_grad" time="0.419" file="dynamo/test_modes.py" /><testcase classname="InvokeSubgraphBackendTests" name="test_guard_failure_creates_separate_subgraphs" time="0.110" file="dynamo/test_modes.py" /><testcase classname="InvokeSubgraphBackendTests" name="test_invoke_subgraph_seq_nr" time="0.141" file="dynamo/test_modes.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py:3539: UserWarning: Your compiler for AOTAutograd is returning a function that doesn't take boxed arguments. Please wrap it with functorch.compile.make_boxed_func or handle the boxed arguments yourself. See https://github.com/pytorch/pytorch/pull/83137#issuecomment-1211320670 for rationale.
+  return call_func_at_runtime_with_args(
+</system-err></testcase><testcase classname="InvokeSubgraphBackendTests" name="test_make_fx_over_compiled_function" time="0.065" file="dynamo/test_modes.py" /><testcase classname="InvokeSubgraphBackendTests" name="test_multiple_inputs" time="0.071" file="dynamo/test_modes.py" /><testcase classname="InvokeSubgraphBackendTests" name="test_multiple_inputs_and_outputs" time="0.077" file="dynamo/test_modes.py" /><testcase classname="InvokeSubgraphBackendTests" name="test_multiple_outputs" time="0.077" file="dynamo/test_modes.py" /><testcase classname="InvokeSubgraphBackendTests" name="test_nested_compile_dynamic" time="8.461" file="dynamo/test_modes.py" /><testcase classname="InvokeSubgraphBackendTests" name="test_nested_compile_input_mutation" time="0.981" file="dynamo/test_modes.py"><system-out>=== input_mutation outer graph ===
+class inner_f(torch.nn.Module):
+    def forward(self, primals, tangents):
+        primals_1: "f32[64, 64]"; primals_2: "f32[64]"; primals_3: "f32[64, 64]"; primals_4: "f32[64]"; primals_5: "i64[]"; primals_6: "i64[]"; primals_7: "f32[2, 64]"; tangents_1: "f32[2, 64]"; 
+
+        primals_1, primals_2, primals_3, primals_4, primals_5, primals_6, primals_7, tangents_1, = fx_pytree.tree_flatten_spec([primals, tangents], self._in_spec)
+        # Annotation: {'_torchdynamo_disable': True, '_torchdynamo_disable_recursive': True, '_torchdynamo_disable_method': 'invoke_subgraph_wrapper_unboxed'} No stacktrace found for following nodes
+        auto_functionalized_subgraph_0 = self.auto_functionalized_subgraph_0
+        _tree_spec_constant0 = self._tree_spec_constant0
+        auto_functionalized_v2 = torch.ops.higher_order.auto_functionalized_v2(torch.ops.higher_order.invoke_subgraph, subgraph = auto_functionalized_subgraph_0, identifier = 'auto_functionalized_invoke_subgraph_0', arg1 = primals_1, arg2 = primals_2, arg3 = primals_7, _arg0_base_index = 0, _all_bases = [primals_5], _op_schema = _tree_spec_constant0);  auto_functionalized_subgraph_0 = primals_1 = primals_2 = primals_7 = _tree_spec_constant0 = None
+        getitem: "f32[2, 64]" = auto_functionalized_v2[0]
+        getitem_1: "f32[2, 64]" = auto_functionalized_v2[1]
+        getitem_2: "f32[64, 64]" = auto_functionalized_v2[2]
+        getitem_3: "i64[]" = auto_functionalized_v2[3];  auto_functionalized_v2 = None
+        auto_functionalized_subgraph_1 = self.auto_functionalized_subgraph_1
+        _tree_spec_constant0_1 = self._tree_spec_constant0
+        auto_functionalized_v2_1 = torch.ops.higher_order.auto_functionalized_v2(torch.ops.higher_order.invoke_subgraph, subgraph = auto_functionalized_subgraph_1, identifier = 'auto_functionalized_invoke_subgraph_1', arg1 = primals_3, arg2 = primals_4, arg3 = getitem, _arg0_base_index = 0, _all_bases = [primals_6], _op_schema = _tree_spec_constant0_1);  auto_functionalized_subgraph_1 = primals_3 = primals_4 = getitem = _tree_spec_constant0_1 = None
+        getitem_4: "f32[2, 64]" = auto_functionalized_v2_1[0]
+        getitem_5: "f32[2, 64]" = auto_functionalized_v2_1[1]
+        getitem_6: "f32[64, 64]" = auto_functionalized_v2_1[2]
+        getitem_7: "i64[]" = auto_functionalized_v2_1[3];  auto_functionalized_v2_1 = None
+        repeated_subgraph0 = self.repeated_subgraph0
+        invoke_subgraph = torch.ops.higher_order.invoke_subgraph(repeated_subgraph0, 'invoke_subgraph_2', getitem_5, getitem_6, tangents_1);  repeated_subgraph0 = getitem_5 = getitem_6 = tangents_1 = None
+        getitem_9: "f32[64, 64]" = invoke_subgraph[1]
+        getitem_10: "f32[64]" = invoke_subgraph[2]
+        getitem_11: "f32[2, 64]" = invoke_subgraph[3];  invoke_subgraph = None
+        repeated_subgraph1 = self.repeated_subgraph1
+        invoke_subgraph_1 = torch.ops.higher_order.invoke_subgraph(repeated_subgraph1, 'invoke_subgraph_3', getitem_1, getitem_2, getitem_11);  repeated_subgraph1 = getitem_1 = getitem_2 = getitem_11 = None
+        getitem_13: "f32[64, 64]" = invoke_subgraph_1[1]
+        getitem_14: "f32[64]" = invoke_subgraph_1[2]
+        getitem_15: "f32[2, 64]" = invoke_subgraph_1[3];  invoke_subgraph_1 = None
+
+        # Annotation: {'_torchdynamo_disable': True, '_torchdynamo_disable_recursive': True, '_torchdynamo_disable_method': 'record_pregraph_bytecode_enter'} No stacktrace found for following nodes
+        copy_: "i64[]" = torch.ops.aten.copy_.default(primals_5, getitem_3);  primals_5 = getitem_3 = copy_ = None
+        copy__1: "i64[]" = torch.ops.aten.copy_.default(primals_6, getitem_7);  primals_6 = getitem_7 = copy__1 = None
+        return pytree.tree_unflatten([getitem_4, getitem_13, getitem_14, getitem_9, getitem_10, None, None, getitem_15], self._out_spec)
+
+    class auto_functionalized_subgraph_0(torch.nn.Module):
+        def forward(self, arg0_1: "i64[]", arg1_1: "f32[64, 64]", arg2_1: "f32[64]", arg3_1: "f32[2, 64]"):
+            # Annotation: {'_torchdynamo_disable': True, '_torchdynamo_disable_recursive': True, '_torchdynamo_disable_method': 'forward'} No stacktrace found for following nodes
+            inductor_compiled_code = torch.ops.higher_order.inductor_compiled_code(2, [arg0_1])
+            getitem: "i64[]" = inductor_compiled_code[0];  inductor_compiled_code = None
+
+            # Annotation: {'_torchdynamo_disable': True, '_torchdynamo_disable_recursive': True, '_torchdynamo_disable_method': 'trace'} No stacktrace found for following nodes
+            t: "f32[64, 64]" = torch.ops.aten.t.default(arg1_1);  arg1_1 = None
+            addmm: "f32[2, 64]" = torch.ops.aten.addmm.default(arg2_1, arg3_1, t);  arg2_1 = None
+            copy: "i64[]" = torch.ops.aten.copy.default(arg0_1, getitem);  getitem = None
+            copy_: "i64[]" = torch.ops.aten.copy_.default(arg0_1, copy);  arg0_1 = copy = copy_ = None
+            return (addmm, arg3_1, t)
+
+    class auto_functionalized_subgraph_1(torch.nn.Module):
+        def forward(self, arg0_1: "i64[]", arg1_1: "f32[64, 64]", arg2_1: "f32[64]", arg3_1: "f32[2, 64]"):
+            # Annotation: {'_torchdynamo_disable': True, '_torchdynamo_disable_recursive': True, '_torchdynamo_disable_method': 'forward'} No stacktrace found for following nodes
+            inductor_compiled_code = torch.ops.higher_order.inductor_compiled_code(3, [arg0_1])
+            getitem: "i64[]" = inductor_compiled_code[0];  inductor_compiled_code = None
+
+            # Annotation: {'_torchdynamo_disable': True, '_torchdynamo_disable_recursive': True, '_torchdynamo_disable_method': 'trace'} No stacktrace found for following nodes
+            t: "f32[64, 64]" = torch.ops.aten.t.default(arg1_1);  arg1_1 = None
+            addmm: "f32[2, 64]" = torch.ops.aten.addmm.default(arg2_1, arg3_1, t);  arg2_1 = None
+            copy: "i64[]" = torch.ops.aten.copy.default(arg0_1, getitem);  getitem = None
+            copy_: "i64[]" = torch.ops.aten.copy_.default(arg0_1, copy);  arg0_1 = copy = copy_ = None
+            return (addmm, arg3_1, t)
+
+    class repeated_subgraph0(torch.nn.Module):
+        def forward(self, arg0_1: "f32[2, 64]", arg1_1: "f32[64, 64]", arg2_1: "f32[2, 64]"):
+            # Annotation: {'_torchdynamo_disable': True, '_torchdynamo_disable_recursive': True, '_torchdynamo_disable_method': 'trace'} File: /var/lib/jenkins/pytorch/test/dynamo/test_modes.py:1623 in forward, code: return self.linear(x)
+            t: "f32[64, 64]" = torch.ops.aten.t.default(arg1_1);  arg1_1 = None
+            mm: "f32[2, 64]" = torch.ops.aten.mm.default(arg2_1, t);  t = None
+            t_1: "f32[64, 2]" = torch.ops.aten.t.default(arg2_1)
+            mm_1: "f32[64, 64]" = torch.ops.aten.mm.default(t_1, arg0_1);  t_1 = arg0_1 = None
+            t_2: "f32[64, 64]" = torch.ops.aten.t.default(mm_1);  mm_1 = None
+            sum_1: "f32[1, 64]" = torch.ops.aten.sum.dim_IntList(arg2_1, [0], True);  arg2_1 = None
+            view: "f32[64]" = torch.ops.aten.view.default(sum_1, [64]);  sum_1 = None
+            t_3: "f32[64, 64]" = torch.ops.aten.t.default(t_2);  t_2 = None
+            return (None, t_3, view, mm)
+
+    class repeated_subgraph1(torch.nn.Module):
+        def forward(self, arg0_1: "f32[2, 64]", arg1_1: "f32[64, 64]", arg2_1: "f32[2, 64]"):
+            # Annotation: {'_torchdynamo_disable': True, '_torchdynamo_disable_recursive': True, '_torchdynamo_disable_method': 'trace'} File: /var/lib/jenkins/pytorch/test/dynamo/test_modes.py:1623 in forward, code: return self.linear(x)
+            t: "f32[64, 64]" = torch.ops.aten.t.default(arg1_1);  arg1_1 = None
+            mm: "f32[2, 64]" = torch.ops.aten.mm.default(arg2_1, t);  t = None
+            t_1: "f32[64, 2]" = torch.ops.aten.t.default(arg2_1)
+            mm_1: "f32[64, 64]" = torch.ops.aten.mm.default(t_1, arg0_1);  t_1 = arg0_1 = None
+            t_2: "f32[64, 64]" = torch.ops.aten.t.default(mm_1);  mm_1 = None
+            sum_1: "f32[1, 64]" = torch.ops.aten.sum.dim_IntList(arg2_1, [0], True);  arg2_1 = None
+            view: "f32[64]" = torch.ops.aten.view.default(sum_1, [64]);  sum_1 = None
+            t_3: "f32[64, 64]" = torch.ops.aten.t.default(t_2);  t_2 = None
+            return (None, t_3, view, mm)
+
+</system-out></testcase><testcase classname="InvokeSubgraphBackendTests" name="test_nested_compile_output_aliases_input" time="0.455" file="dynamo/test_modes.py"><system-out>=== output_aliases_input outer graph ===
+class inner_f(torch.nn.Module):
+    def forward(self, primals, tangents):
+        primals_1: "f32[64, 64]"; primals_2: "f32[64]"; primals_3: "f32[64, 64]"; primals_4: "f32[64]"; primals_5: "f32[2, 64]"; tangents_1: "f32[2, 64]"; 
+
+        primals_1, primals_2, primals_3, primals_4, primals_5, tangents_1, = fx_pytree.tree_flatten_spec([primals, tangents], self._in_spec)
+        # Annotation: {'_torchdynamo_disable': True, '_torchdynamo_disable_recursive': True, '_torchdynamo_disable_method': 'invoke_subgraph_wrapper_unboxed'} No stacktrace found for following nodes
+        repeated_subgraph0 = self.repeated_subgraph0
+        invoke_subgraph = torch.ops.higher_order.invoke_subgraph(repeated_subgraph0, 'invoke_subgraph_0', primals_1, primals_2, primals_5);  repeated_subgraph0 = primals_1 = primals_2 = primals_5 = None
+        getitem: "f32[2, 64]" = invoke_subgraph[0]
+        getitem_1: "f32[2, 64]" = invoke_subgraph[1]
+        getitem_2: "f32[64, 64]" = invoke_subgraph[2];  invoke_subgraph = None
+
+        # Annotation: {'_torchdynamo_disable': True, '_torchdynamo_disable_recursive': True, '_torchdynamo_disable_method': 'forward'} No stacktrace found for following nodes
+        _unsafe_view: "f32[2, 64]" = torch.ops.aten._unsafe_view.default(getitem, [2, 64]);  getitem = None
+
+        # Annotation: {'_torchdynamo_disable': True, '_torchdynamo_disable_recursive': True, '_torchdynamo_disable_method': 'invoke_subgraph_wrapper_unboxed'} No stacktrace found for following nodes
+        repeated_subgraph1 = self.repeated_subgraph1
+        invoke_subgraph_1 = torch.ops.higher_order.invoke_subgraph(repeated_subgraph1, 'invoke_subgraph_1', primals_3, primals_4, _unsafe_view);  repeated_subgraph1 = primals_3 = primals_4 = _unsafe_view = None
+        getitem_3: "f32[2, 64]" = invoke_subgraph_1[0]
+        getitem_4: "f32[2, 64]" = invoke_subgraph_1[1]
+        getitem_5: "f32[64, 64]" = invoke_subgraph_1[2];  invoke_subgraph_1 = None
+
+        # Annotation: {'_torchdynamo_disable': True, '_torchdynamo_disable_recursive': True, '_torchdynamo_disable_method': 'forward'} No stacktrace found for following nodes
+        _unsafe_view_1: "f32[2, 64]" = torch.ops.aten._unsafe_view.default(getitem_3, [2, 64]);  getitem_3 = None
+
+        # Annotation: {'_torchdynamo_disable': True, '_torchdynamo_disable_recursive': True, '_torchdynamo_disable_method': 'invoke_subgraph_wrapper_unboxed'} No stacktrace found for following nodes
+        repeated_subgraph2 = self.repeated_subgraph2
+        invoke_subgraph_2 = torch.ops.higher_order.invoke_subgraph(repeated_subgraph2, 'invoke_subgraph_2', getitem_4, getitem_5, tangents_1);  repeated_subgraph2 = getitem_4 = getitem_5 = tangents_1 = None
+        getitem_6: "f32[64, 64]" = invoke_subgraph_2[0]
+        getitem_7: "f32[64]" = invoke_subgraph_2[1]
+        getitem_8: "f32[2, 64]" = invoke_subgraph_2[2];  invoke_subgraph_2 = None
+        repeated_subgraph3 = self.repeated_subgraph3
+        invoke_subgraph_3 = torch.ops.higher_order.invoke_subgraph(repeated_subgraph3, 'invoke_subgraph_3', getitem_1, getitem_2, getitem_8);  repeated_subgraph3 = getitem_1 = getitem_2 = getitem_8 = None
+        getitem_9: "f32[64, 64]" = invoke_subgraph_3[0]
+        getitem_10: "f32[64]" = invoke_subgraph_3[1]
+        getitem_11: "f32[2, 64]" = invoke_subgraph_3[2];  invoke_subgraph_3 = None
+        return pytree.tree_unflatten([_unsafe_view_1, getitem_9, getitem_10, getitem_6, getitem_7, getitem_11], self._out_spec)
+
+    class repeated_subgraph0(torch.nn.Module):
+        def forward(self, arg0_1: "f32[64, 64]", arg1_1: "f32[64]", arg2_1: "f32[2, 64]"):
+            # Annotation: {'_torchdynamo_disable': True, '_torchdynamo_disable_recursive': True, '_torchdynamo_disable_method': 'trace'} No stacktrace found for following nodes
+            t: "f32[64, 64]" = torch.ops.aten.t.default(arg0_1);  arg0_1 = None
+            addmm: "f32[2, 64]" = torch.ops.aten.addmm.default(arg1_1, arg2_1, t);  arg1_1 = None
+
+            # Annotation: {'_torchdynamo_disable': True, '_torchdynamo_disable_recursive': True, '_torchdynamo_disable_method': 'forward'} No stacktrace found for following nodes
+            unsqueeze: "f32[2, 1, 64]" = torch.ops.aten.unsqueeze.default(addmm, 1);  addmm = None
+            squeeze: "f32[2, 64]" = torch.ops.aten.squeeze.dim(unsqueeze, 1);  unsqueeze = None
+            return (squeeze, arg2_1, t)
+
+    class repeated_subgraph1(torch.nn.Module):
+        def forward(self, arg0_1: "f32[64, 64]", arg1_1: "f32[64]", arg2_1: "f32[2, 64]"):
+            # Annotation: {'_torchdynamo_disable': True, '_torchdynamo_disable_recursive': True, '_torchdynamo_disable_method': 'trace'} No stacktrace found for following nodes
+            t: "f32[64, 64]" = torch.ops.aten.t.default(arg0_1);  arg0_1 = None
+            addmm: "f32[2, 64]" = torch.ops.aten.addmm.default(arg1_1, arg2_1, t);  arg1_1 = None
+
+            # Annotation: {'_torchdynamo_disable': True, '_torchdynamo_disable_recursive': True, '_torchdynamo_disable_method': 'forward'} No stacktrace found for following nodes
+            unsqueeze: "f32[2, 1, 64]" = torch.ops.aten.unsqueeze.default(addmm, 1);  addmm = None
+            squeeze: "f32[2, 64]" = torch.ops.aten.squeeze.dim(unsqueeze, 1);  unsqueeze = None
+            return (squeeze, arg2_1, t)
+
+    class repeated_subgraph2(torch.nn.Module):
+        def forward(self, arg0_1: "f32[2, 64]", arg1_1: "f32[64, 64]", arg2_1: "f32[2, 64]"):
+            # Annotation: {'_torchdynamo_disable': True, '_torchdynamo_disable_recursive': True, '_torchdynamo_disable_method': 'invoke_subgraph_wrapper_unboxed'} No stacktrace found for following nodes
+            unsqueeze: "f32[2, 1, 64]" = torch.ops.aten.unsqueeze.default(arg2_1, 1);  arg2_1 = None
+            squeeze: "f32[2, 64]" = torch.ops.aten.squeeze.dim(unsqueeze, 1);  unsqueeze = None
+            t: "f32[64, 64]" = torch.ops.aten.t.default(arg1_1);  arg1_1 = None
+            mm: "f32[2, 64]" = torch.ops.aten.mm.default(squeeze, t);  t = None
+            t_1: "f32[64, 2]" = torch.ops.aten.t.default(squeeze)
+            mm_1: "f32[64, 64]" = torch.ops.aten.mm.default(t_1, arg0_1);  t_1 = arg0_1 = None
+            t_2: "f32[64, 64]" = torch.ops.aten.t.default(mm_1);  mm_1 = None
+            sum_1: "f32[1, 64]" = torch.ops.aten.sum.dim_IntList(squeeze, [0], True);  squeeze = None
+            view: "f32[64]" = torch.ops.aten.view.default(sum_1, [64]);  sum_1 = None
+            t_3: "f32[64, 64]" = torch.ops.aten.t.default(t_2);  t_2 = None
+            return (t_3, view, mm)
+
+    class repeated_subgraph3(torch.nn.Module):
+        def forward(self, arg0_1: "f32[2, 64]", arg1_1: "f32[64, 64]", arg2_1: "f32[2, 64]"):
+            # Annotation: {'_torchdynamo_disable': True, '_torchdynamo_disable_recursive': True, '_torchdynamo_disable_method': 'invoke_subgraph_wrapper_unboxed'} No stacktrace found for following nodes
+            unsqueeze: "f32[2, 1, 64]" = torch.ops.aten.unsqueeze.default(arg2_1, 1);  arg2_1 = None
+            squeeze: "f32[2, 64]" = torch.ops.aten.squeeze.dim(unsqueeze, 1);  unsqueeze = None
+            t: "f32[64, 64]" = torch.ops.aten.t.default(arg1_1);  arg1_1 = None
+            mm: "f32[2, 64]" = torch.ops.aten.mm.default(squeeze, t);  t = None
+            t_1: "f32[64, 2]" = torch.ops.aten.t.default(squeeze)
+            mm_1: "f32[64, 64]" = torch.ops.aten.mm.default(t_1, arg0_1);  t_1 = arg0_1 = None
+            t_2: "f32[64, 64]" = torch.ops.aten.t.default(mm_1);  mm_1 = None
+            sum_1: "f32[1, 64]" = torch.ops.aten.sum.dim_IntList(squeeze, [0], True);  squeeze = None
+            view: "f32[64]" = torch.ops.aten.view.default(sum_1, [64]);  sum_1 = None
+            t_3: "f32[64, 64]" = torch.ops.aten.t.default(t_2);  t_2 = None
+            return (t_3, view, mm)
+
+</system-out></testcase><testcase classname="InvokeSubgraphBackendTests" name="test_nested_compile_transformer_with_flex_attention_compiled_layers" time="0.001" file="dynamo/test_modes.py"><skipped type="pytest.skip" message="Requires CUDA with SM &gt;= 8.0, Triton, and not ROCm">/var/lib/jenkins/pytorch/test/dynamo/test_modes.py:1803: Requires CUDA with SM &gt;= 8.0, Triton, and not ROCm</skipped></testcase><testcase classname="InvokeSubgraphBackendTests" name="test_same_compiled_fn_called_twice_shares_subgraph" time="0.063" file="dynamo/test_modes.py" /><testcase classname="TorchFunctionModeLifecycleTests" name="test_default_device_restored_after_mode_tests" time="0.047" file="dynamo/test_modes.py" /></testsuite></testsuites>

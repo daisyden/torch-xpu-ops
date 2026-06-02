@@ -1,0 +1,26 @@
+Test results will be stored in test-reports/python-pytest/test_xpu/test_xpu-da94912c6fd22fd0.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 155 items / 144 deselected / 11 selected
+stepcurrent: Cannot find last run test, not skipping
+Running 11 items in this shard: test/test_xpu.py::TestXpu::test_1mb_allocation_uses_small_block, test/test_xpu.py::TestXpu::test_graph_checkpoint_preserve_rng_state, test/test_xpu.py::TestXpu::test_graph_make_graphed_callables_parameterless_nograd_module_with_amp_cache_disabled_allow_unused_input, test/test_xpu.py::TestXpu::test_graph_make_graphed_callables_parameterless_nograd_module_with_amp_cache_enabled_allow_unused_input, test/test_xpu.py::TestXpu::test_graph_make_graphed_callables_parameterless_nograd_module_without_amp_allow_unused_input, test/test_xpu.py::TestXpu::test_graph_make_graphed_callables_parameterless_nograd_module_without_amp_not_allow_unused_input, test/test_xpu.py::TestXpu::test_graph_make_graphed_callables_with_amp_cache_enabled_allow_unused_input, test/test_xpu.py::TestXpu::test_graph_make_graphed_callables_without_amp_not_allow_unused_input, test/test_xpu.py::TestXpu::test_graph_manual_seed_mismatch_raises, test/test_xpu.py::TestXpu::test_memory_snapshot, test/test_xpu.py::TestXpu::test_set_per_process_memory_fraction
+
+test_xpu.py::TestXpu::test_1mb_allocation_uses_small_block PASSED [0.2168s] [  9%]
+test_xpu.py::TestXpu::test_graph_checkpoint_preserve_rng_state PASSED [0.1356s] [ 18%]
+test_xpu.py::TestXpu::test_graph_make_graphed_callables_parameterless_nograd_module_with_amp_cache_disabled_allow_unused_input PASSED [0.1579s] [ 27%]
+test_xpu.py::TestXpu::test_graph_make_graphed_callables_parameterless_nograd_module_with_amp_cache_enabled_allow_unused_input PASSED [0.0130s] [ 36%]
+test_xpu.py::TestXpu::test_graph_make_graphed_callables_parameterless_nograd_module_without_amp_allow_unused_input PASSED [0.0119s] [ 45%]
+test_xpu.py::TestXpu::test_graph_make_graphed_callables_parameterless_nograd_module_without_amp_not_allow_unused_input PASSED [0.0113s] [ 54%]
+test_xpu.py::TestXpu::test_graph_make_graphed_callables_with_amp_cache_enabled_allow_unused_input XFAIL [0.9666s] [ 63%]
+test_xpu.py::TestXpu::test_graph_make_graphed_callables_without_amp_not_allow_unused_input XFAIL [0.7270s] [ 72%]
+test_xpu.py::TestXpu::test_graph_manual_seed_mismatch_raises PASSED [0.0025s] [ 81%]
+test_xpu.py::TestXpu::test_memory_snapshot PASSED [0.2734s]              [ 90%]
+test_xpu.py::TestXpu::test_set_per_process_memory_fraction PASSED [0.4994s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/test_xpu/test_xpu-da94912c6fd22fd0.xml -
+================= 9 passed, 144 deselected, 2 xfailed in 3.06s =================

@@ -1,0 +1,32 @@
+Test results will be stored in test-reports/python-pytest/dynamo.test_compiler_bisector/dynamo.test_compiler_bisector-238e1c31730b6630.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 11 items
+stepcurrent: Cannot find last run test, not skipping
+Running 11 items in this shard: test/dynamo/test_compiler_bisector.py::TestCompilerBisector::test_bad_decomp, test/dynamo/test_compiler_bisector.py::TestCompilerBisector::test_bad_lowering, test/dynamo/test_compiler_bisector.py::TestCompilerBisector::test_bisect_pre_grad_graph, test/dynamo/test_compiler_bisector.py::TestCompilerBisector::test_bisect_run_debuginfo, test/dynamo/test_compiler_bisector.py::TestCompilerBisector::test_crossref, test/dynamo/test_compiler_bisector.py::TestCompilerBisector::test_cudagraph_bisect_max, test/dynamo/test_compiler_bisector.py::TestCompilerBisector::test_eager_backend, test/dynamo/test_compiler_bisector.py::TestCompilerBisector::test_emulate_precision_casts, test/dynamo/test_compiler_bisector.py::TestCompilerBisector::test_joint_graph, test/dynamo/test_compiler_bisector.py::TestCompilerBisector::test_pre_grad, test/dynamo/test_compiler_bisector.py::TestCompilerBisector::test_rng
+
+dynamo/test_compiler_bisector.py::TestCompilerBisector::test_bad_decomp PASSED [0.6842s] [  9%]
+dynamo/test_compiler_bisector.py::TestCompilerBisector::test_bad_lowering PASSED [15.6942s] [ 18%]
+dynamo/test_compiler_bisector.py::TestCompilerBisector::test_bisect_pre_grad_graph W0601 04:42:16.366000 48534 site-packages/torch/_inductor/standalone_compile.py:513] [0/0] standalone_compile artifact generation failed, cannot save. Run with TORCH_LOGS=+torch._inductor.codecache to identify the problem
+W0601 04:42:16.367000 48534 site-packages/torch/_inductor/standalone_compile.py:513] [0/0] standalone_compile artifact generation failed, cannot save. Run with TORCH_LOGS=+torch._inductor.codecache to identify the problem
+W0601 04:42:16.589000 48534 site-packages/torch/_inductor/standalone_compile.py:513] [0/0] standalone_compile artifact generation failed, cannot save. Run with TORCH_LOGS=+torch._inductor.codecache to identify the problem
+W0601 04:42:16.776000 48534 site-packages/torch/_inductor/standalone_compile.py:513] [0/0] standalone_compile artifact generation failed, cannot save. Run with TORCH_LOGS=+torch._inductor.codecache to identify the problem
+W0601 04:42:17.014000 48534 site-packages/torch/_inductor/standalone_compile.py:513] [0/0] standalone_compile artifact generation failed, cannot save. Run with TORCH_LOGS=+torch._inductor.codecache to identify the problem
+W0601 04:42:17.016000 48534 site-packages/torch/_inductor/standalone_compile.py:513] [0/0] standalone_compile artifact generation failed, cannot save. Run with TORCH_LOGS=+torch._inductor.codecache to identify the problem
+PASSED [9.6931s] [ 27%]
+dynamo/test_compiler_bisector.py::TestCompilerBisector::test_bisect_run_debuginfo PASSED [149.9453s] [ 36%]
+dynamo/test_compiler_bisector.py::TestCompilerBisector::test_crossref PASSED [0.2244s] [ 45%]
+dynamo/test_compiler_bisector.py::TestCompilerBisector::test_cudagraph_bisect_max SKIPPED [0.0003s] (Requires CUDA) [ 54%]
+dynamo/test_compiler_bisector.py::TestCompilerBisector::test_eager_backend PASSED [0.0024s] [ 63%]
+dynamo/test_compiler_bisector.py::TestCompilerBisector::test_emulate_precision_casts PASSED [10.4347s] [ 72%]
+dynamo/test_compiler_bisector.py::TestCompilerBisector::test_joint_graph PASSED [9.1399s] [ 81%]
+dynamo/test_compiler_bisector.py::TestCompilerBisector::test_pre_grad PASSED [2.0699s] [ 90%]
+dynamo/test_compiler_bisector.py::TestCompilerBisector::test_rng PASSED [8.9652s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/dynamo.test_compiler_bisector/dynamo.test_compiler_bisector-238e1c31730b6630.xml -
+================== 10 passed, 1 skipped in 206.89s (0:03:26) ===================

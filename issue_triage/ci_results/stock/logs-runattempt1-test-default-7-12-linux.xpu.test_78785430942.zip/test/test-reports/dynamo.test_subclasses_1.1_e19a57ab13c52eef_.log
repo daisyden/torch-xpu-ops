@@ -1,0 +1,338 @@
+Test results will be stored in test-reports/python-pytest/dynamo.test_subclasses/dynamo.test_subclasses-03f3cfa657dc1c4a.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 166 items
+stepcurrent: Cannot find last run test, not skipping
+Running 166 items in this shard: test/dynamo/test_subclasses.py::SubclassTests::test_as_subclass_attr_mutation, test/dynamo/test_subclasses.py::SubclassTests::test_base_torch_function_tracing, test/dynamo/test_subclasses.py::SubclassTests::test_compile_higher_order_with_functionalization, test/dynamo/test_subclasses.py::SubclassTests::test_compile_with_fake_tensor_automatic_dynamic, test/dynamo/test_subclasses.py::SubclassTests::test_compile_with_fake_tensor_dynamic_dim, test/dynamo/test_subclasses.py::SubclassTests::test_compile_with_functionalization, test/dynamo/test_subclasses.py::SubclassTests::test_deferred_init_subclass_init_not_traced, test/dynamo/test_subclasses.py::SubclassTests::test_disable_all_torch_function, test/dynamo/test_subclasses.py::SubclassTests::test_disable_all_torch_function_restore_values, test/dynamo/test_subclasses.py::SubclassTests::test_disable_all_torch_function_restore_values_graph_break, test/dynamo/test_subclasses.py::SubclassTests::test_has_torch_function, test/dynamo/test_subclasses.py::SubclassTests::test_make_subclass, test/dynamo/test_subclasses.py::SubclassTests::test_mark_static_with_subclass_desugaring_dynamic_False, test/dynamo/test_subclasses.py::SubclassTests::test_mark_static_with_subclass_desugaring_dynamic_True, test/dynamo/test_subclasses.py::SubclassTests::test_newly_constructed_tensor_subclass_attr_mutation, test/dynamo/test_subclasses.py::SubclassTests::test_njt_subclass_from_buffer, test/dynamo/test_subclasses.py::SubclassTests::test_njt_subclass_from_cat, test/dynamo/test_subclasses.py::SubclassTests::test_njt_subclass_simple, test/dynamo/test_subclasses.py::SubclassTests::test_no_call_to_new, test/dynamo/test_subclasses.py::SubclassTests::test_no_torch_function_on_size_bytecode, test/dynamo/test_subclasses.py::SubclassTests::test_no_torch_function_recompiles, test/dynamo/test_subclasses.py::SubclassTests::test_nontraceable_tensor_subclass, test/dynamo/test_subclasses.py::SubclassTests::test_overridden_method_guarding, test/dynamo/test_subclasses.py::SubclassTests::test_parameter_subclass_custom_torch_func_and_dynamic_attr, test/dynamo/test_subclasses.py::SubclassTests::test_parameter_subclass_with_old_torch_function, test/dynamo/test_subclasses.py::SubclassTests::test_recompile_with_symbool_inputs, test/dynamo/test_subclasses.py::SubclassTests::test_recompiles_with_optional_inner_tensor, test/dynamo/test_subclasses.py::SubclassTests::test_redispatch_function_graph_break, test/dynamo/test_subclasses.py::SubclassTests::test_redispatch_function_graph_break_before_has_torch_function, test/dynamo/test_subclasses.py::SubclassTests::test_redispatch_function_with_dynamo, test/dynamo/test_subclasses.py::SubclassTests::test_return_as_subclass, test/dynamo/test_subclasses.py::SubclassTests::test_return_local_subclass, test/dynamo/test_subclasses.py::SubclassTests::test_return_subclass, test/dynamo/test_subclasses.py::SubclassTests::test_subclass_TwoTensor_TwoTensor_TwoTensor, test/dynamo/test_subclasses.py::SubclassTests::test_subclass_TwoTensor_nested_diff_sizes, test/dynamo/test_subclasses.py::SubclassTests::test_subclass_constructor_proxying, test/dynamo/test_subclasses.py::SubclassTests::test_subclass_dont_invoke_torch_function_on_overridden_attr, test/dynamo/test_subclasses.py::SubclassTests::test_subclass_dont_invoke_torch_function_on_overridden_method, test/dynamo/test_subclasses.py::SubclassTests::test_subclass_method_override, test/dynamo/test_subclasses.py::SubclassTests::test_subclass_override_shape_and_to, test/dynamo/test_subclasses.py::SubclassTests::test_subclass_parameters_are_static_under_training, test/dynamo/test_subclasses.py::SubclassTests::test_subclass_views_dynamic_False, test/dynamo/test_subclasses.py::SubclassTests::test_subclass_views_dynamic_True, test/dynamo/test_subclasses.py::SubclassTests::test_subclass_with_disabled_torch_function, test/dynamo/test_subclasses.py::SubclassTests::test_support_bases, test/dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_TwoTensor_automatic_dynamic_shapes, test/dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_TwoTensor_clone_view, test/dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_TwoTensor_different_shape, test/dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_TwoTensor_mark_dynamic_shapes, test/dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_TwoTensor_mul, test/dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_TwoTensor_nested, test/dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_TwoTensor_return_multiple, test/dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_TwoTensor_return_shape, test/dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_TwoTensor_return_tensor_and_subclass, test/dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_TwoTensor_simple, test/dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_TwoTensor_view, test/dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_TwoTensor_view_mul, test/dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_attr_codegen_tos, test/dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_ctx_custom_guards_error_arg_num, test/dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_ctx_custom_guards_error_not_classmethod, test/dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_ctx_custom_guards_override, test/dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_ctx_guards, test/dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_ctx_recursive_guards, test/dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_custom_attr, test/dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_metadata_with_symint, test/dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_super_new, test/dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_unpack, test/dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_with_non_classmethod_torch_function, test/dynamo/test_subclasses.py::SubclassTests::test_tensorify_under_disabled_torch_function, test/dynamo/test_subclasses.py::SubclassTests::test_torch_dispatch_subclass_guard_recompile, test/dynamo/test_subclasses.py::SubclassTests::test_torch_function_call_on_attr, test/dynamo/test_subclasses.py::SubclassTests::test_torch_function_call_on_method, test/dynamo/test_subclasses.py::SubclassTests::test_torch_function_call_on_method_arg, test/dynamo/test_subclasses.py::SubclassTests::test_torch_function_list_args, test/dynamo/test_subclasses.py::SubclassTests::test_torch_function_reentrant_dispatch, test/dynamo/test_subclasses.py::SubclassTests::test_torch_function_state_graph_break, test/dynamo/test_subclasses.py::SubclassTests::test_torch_function_state_guards, test/dynamo/test_subclasses.py::SubclassTests::test_torch_function_state_nested, test/dynamo/test_subclasses.py::SubclassTests::test_torch_function_state_tracing, test/dynamo/test_subclasses.py::SubclassTests::test_torch_function_subclass_survives_into_aot_autograd, test/dynamo/test_subclasses.py::SubclassTests::test_torch_function_subclass_with_mode, test/dynamo/test_subclasses.py::SubclassTests::test_torch_function_wrapper_class, test/dynamo/test_subclasses.py::SubclassTests::test_torch_function_wrapper_class_with_kwargs, test/dynamo/test_subclasses.py::SubclassTests::test_type_check_equality_subclass, test/dynamo/test_subclasses.py::SubclassTests::test_type_check_equality_tensor, test/dynamo/test_subclasses.py::SubclassTests::test_type_check_identity_subclass, test/dynamo/test_subclasses.py::SubclassTests::test_type_check_identity_tensor, test/dynamo/test_subclasses.py::SubclassTests::test_type_check_isinstance_subclass, test/dynamo/test_subclasses.py::SubclassTests::test_type_check_isinstance_tensor, test/dynamo/test_subclasses.py::SubclassTests::test_user_overridden_attr_unsupported, test/dynamo/test_subclasses.py::SubclassTests::test_user_overridden_method_unsupported, test/dynamo/test_subclasses.py::SubclassTests::test_user_overridden_property_unsupported, test/dynamo/test_subclasses.py::SubclassTests::test_wrapper_subclass_dynamo_attribute_access_on_intermediate, test/dynamo/test_subclasses.py::SubclassTests::test_wrapper_subclass_guards_on_inner_tensor, test/dynamo/test_subclasses.py::SubclassTests::test_wrapper_subclass_with_differently_sized_inner_tensor, test/dynamo/test_subclasses.py::SubclassTests::test_wrapper_subclass_with_same_sized_inner_tensor, test/dynamo/test_subclasses.py::TestIssubclass::test_abc_not_registered, test/dynamo/test_subclasses.py::TestIssubclass::test_abc_register, test/dynamo/test_subclasses.py::TestIssubclass::test_base_not_sub, test/dynamo/test_subclasses.py::TestIssubclass::test_bool_is_int, test/dynamo/test_subclasses.py::TestIssubclass::test_class_is_subclass_of_itself, test/dynamo/test_subclasses.py::TestIssubclass::test_custom_metaclass_subclasscheck, test/dynamo/test_subclasses.py::TestIssubclass::test_custom_metaclass_subclasscheck_non_bool, test/dynamo/test_subclasses.py::TestIssubclass::test_int_is_int, test/dynamo/test_subclasses.py::TestIssubclass::test_int_not_str, test/dynamo/test_subclasses.py::TestIssubclass::test_invalid_args_graph_break, test/dynamo/test_subclasses.py::TestIssubclass::test_non_class_arg1_raises, test/dynamo/test_subclasses.py::TestIssubclass::test_non_class_arg2_doesnt_raise, test/dynamo/test_subclasses.py::TestIssubclass::test_non_class_arg2_raises, test/dynamo/test_subclasses.py::TestIssubclass::test_non_class_in_tuple_raises, test/dynamo/test_subclasses.py::TestIssubclass::test_object_supertype, test/dynamo/test_subclasses.py::TestIssubclass::test_sub_of_base, test/dynamo/test_subclasses.py::TestIssubclass::test_subsub_of_base, test/dynamo/test_subclasses.py::TestIssubclass::test_subsub_of_sub, test/dynamo/test_subclasses.py::TestIssubclass::test_tuple_empty, test/dynamo/test_subclasses.py::TestIssubclass::test_tuple_hit_first, test/dynamo/test_subclasses.py::TestIssubclass::test_tuple_hit_second, test/dynamo/test_subclasses.py::TestIssubclass::test_tuple_miss, test/dynamo/test_subclasses.py::TestIssubclass::test_tuple_with_user_classes, test/dynamo/test_subclasses.py::TestIssubclass::test_union_hit, test/dynamo/test_subclasses.py::TestIssubclass::test_union_miss, test/dynamo/test_subclasses.py::TestIssubclass::test_union_with_user_classes, test/dynamo/test_subclasses.py::TestIssubclass::test_unrelated_classes, test/dynamo/test_subclasses.py::TestNestedTensor::test_basic_autograd, test/dynamo/test_subclasses.py::TestNestedTensor::test_basic_autograd_inductor, test/dynamo/test_subclasses.py::TestNestedTensor::test_binary_does_not_recompile, test/dynamo/test_subclasses.py::TestNestedTensor::test_binary_recompiles, test/dynamo/test_subclasses.py::TestNestedTensor::test_buffer_subclass_check, test/dynamo/test_subclasses.py::TestNestedTensor::test_buffer_subclass_isinstance_input, test/dynamo/test_subclasses.py::TestNestedTensor::test_in_graph_construction_from_input, test/dynamo/test_subclasses.py::TestNestedTensor::test_in_graph_construction_from_input_2, test/dynamo/test_subclasses.py::TestNestedTensor::test_in_graph_construction_from_input_4, test/dynamo/test_subclasses.py::TestNestedTensor::test_in_graph_construction_from_input_5, test/dynamo/test_subclasses.py::TestNestedTensor::test_in_graph_construction_from_input_6, test/dynamo/test_subclasses.py::TestNestedTensor::test_in_graph_construction_from_intermediate, test/dynamo/test_subclasses.py::TestNestedTensor::test_in_graph_construction_from_intermediate_2, test/dynamo/test_subclasses.py::TestNestedTensor::test_in_graph_construction_from_intermediate_3, test/dynamo/test_subclasses.py::TestNestedTensor::test_in_graph_construction_from_intermediate_4, test/dynamo/test_subclasses.py::TestNestedTensor::test_in_graph_construction_from_intermediate_5, test/dynamo/test_subclasses.py::TestNestedTensor::test_in_graph_construction_mixed, test/dynamo/test_subclasses.py::TestNestedTensor::test_in_graph_construction_mixed_2, test/dynamo/test_subclasses.py::TestNestedTensor::test_in_graph_construction_mixed_3, test/dynamo/test_subclasses.py::TestNestedTensor::test_in_graph_is_nested_call, test/dynamo/test_subclasses.py::TestNestedTensor::test_inference_tensor, test/dynamo/test_subclasses.py::TestNestedTensor::test_inline_nested_tensor_from_jagged, test/dynamo/test_subclasses.py::TestNestedTensor::test_inputs_to_compiled_fn_are_views_nt_view_name_base_is_nt_False_basic, test/dynamo/test_subclasses.py::TestNestedTensor::test_inputs_to_compiled_fn_are_views_nt_view_name_base_is_nt_False_leaf_False_False, test/dynamo/test_subclasses.py::TestNestedTensor::test_inputs_to_compiled_fn_are_views_nt_view_name_base_is_nt_False_leaf_False_True, test/dynamo/test_subclasses.py::TestNestedTensor::test_inputs_to_compiled_fn_are_views_nt_view_name_base_is_nt_False_leaf_True_False, test/dynamo/test_subclasses.py::TestNestedTensor::test_inputs_to_compiled_fn_are_views_nt_view_name_base_is_nt_False_leaf_True_True, test/dynamo/test_subclasses.py::TestNestedTensor::test_inputs_to_compiled_fn_are_views_nt_view_name_base_is_nt_False_obscure, test/dynamo/test_subclasses.py::TestNestedTensor::test_inputs_to_compiled_fn_are_views_nt_view_name_base_is_nt_True_basic, test/dynamo/test_subclasses.py::TestNestedTensor::test_inputs_to_compiled_fn_are_views_nt_view_name_base_is_nt_True_leaf_False_False, test/dynamo/test_subclasses.py::TestNestedTensor::test_inputs_to_compiled_fn_are_views_nt_view_name_base_is_nt_True_leaf_False_True, test/dynamo/test_subclasses.py::TestNestedTensor::test_inputs_to_compiled_fn_are_views_nt_view_name_base_is_nt_True_leaf_True_False, test/dynamo/test_subclasses.py::TestNestedTensor::test_inputs_to_compiled_fn_are_views_nt_view_name_base_is_nt_True_leaf_True_True, test/dynamo/test_subclasses.py::TestNestedTensor::test_inputs_to_compiled_fn_are_views_nt_view_name_base_is_nt_True_obscure, test/dynamo/test_subclasses.py::TestNestedTensor::test_inputs_to_compiled_fn_are_views_nt_view_name_dense_subclass_dense_subclass, test/dynamo/test_subclasses.py::TestNestedTensor::test_inputs_to_compiled_fn_are_views_nt_view_name_subclass_dense, test/dynamo/test_subclasses.py::TestNestedTensor::test_param_subclass_isinstance_input, test/dynamo/test_subclasses.py::TestNestedTensor::test_return_shape, test/dynamo/test_subclasses.py::TestNestedTensor::test_subclass_dense_subclass_dense_view, test/dynamo/test_subclasses.py::TestNestedTensor::test_subclass_gives_static_shapes_when_dynamic_false, test/dynamo/test_subclasses.py::TestNestedTensor::test_subclass_with_mutation_in_graph, test/dynamo/test_subclasses.py::TestNestedTensor::test_unary_does_not_recompile, test/dynamo/test_subclasses.py::TestNestedTensor::test_unbind
+
+dynamo/test_subclasses.py::SubclassTests::test_as_subclass_attr_mutation PASSED [0.1797s] [  0%]
+dynamo/test_subclasses.py::SubclassTests::test_base_torch_function_tracing PASSED [0.2361s] [  1%]
+dynamo/test_subclasses.py::SubclassTests::test_compile_higher_order_with_functionalization PASSED [0.1133s] [  1%]
+dynamo/test_subclasses.py::SubclassTests::test_compile_with_fake_tensor_automatic_dynamic PASSED [0.7669s] [  2%]
+dynamo/test_subclasses.py::SubclassTests::test_compile_with_fake_tensor_dynamic_dim PASSED [0.1415s] [  3%]
+dynamo/test_subclasses.py::SubclassTests::test_compile_with_functionalization PASSED [0.1483s] [  3%]
+dynamo/test_subclasses.py::SubclassTests::test_deferred_init_subclass_init_not_traced PASSED [0.0023s] [  4%]
+dynamo/test_subclasses.py::SubclassTests::test_disable_all_torch_function PASSED [0.0723s] [  4%]
+dynamo/test_subclasses.py::SubclassTests::test_disable_all_torch_function_restore_values PASSED [0.0348s] [  5%]
+dynamo/test_subclasses.py::SubclassTests::test_disable_all_torch_function_restore_values_graph_break PASSED [0.0666s] [  6%]
+dynamo/test_subclasses.py::SubclassTests::test_has_torch_function PASSED [0.0089s] [  6%]
+dynamo/test_subclasses.py::SubclassTests::test_make_subclass PASSED [0.0639s] [  7%]
+dynamo/test_subclasses.py::SubclassTests::test_mark_static_with_subclass_desugaring_dynamic_False PASSED [1.4262s] [  7%]
+dynamo/test_subclasses.py::SubclassTests::test_mark_static_with_subclass_desugaring_dynamic_True W0601 04:46:20.631000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0] Failed to pickle cache key
+W0601 04:46:20.631000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0] Traceback (most recent call last):
+W0601 04:46:20.631000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 820, in dumps
+W0601 04:46:20.631000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0]     self.dump(obj)
+W0601 04:46:20.631000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/autograd_cache.py", line 581, in reducer_override
+W0601 04:46:20.631000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0]     return self._reduce_tensor_subclass(obj)
+W0601 04:46:20.631000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/autograd_cache.py", line 667, in _reduce_tensor_subclass
+W0601 04:46:20.631000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0]     return (_ident, (self._default_stable_hash_for_caching(tensor),))
+W0601 04:46:20.631000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/autograd_cache.py", line 704, in _default_stable_hash_for_caching
+W0601 04:46:20.631000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0]     self._collect_inner_tensor_hashes(tensor, inner_tensor_names),
+W0601 04:46:20.631000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/autograd_cache.py", line 675, in _collect_inner_tensor_hashes
+W0601 04:46:20.631000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0]     inner_hashes[name] = self._stable_hash_for_cache_value(
+W0601 04:46:20.631000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/autograd_cache.py", line 649, in _stable_hash_for_cache_value
+W0601 04:46:20.631000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0]     return self._hash_pickled_value_for_cache(
+W0601 04:46:20.631000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/autograd_cache.py", line 633, in _hash_pickled_value_for_cache
+W0601 04:46:20.631000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0]     return self._hash_bytes_for_cache(pickle.dumps(value))
+W0601 04:46:20.631000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0] AttributeError: Can't pickle local object 'WeakValueDictionary.__init__.<locals>.remove'
+PASSED [0.1396s] [  8%]
+dynamo/test_subclasses.py::SubclassTests::test_newly_constructed_tensor_subclass_attr_mutation PASSED [0.0549s] [  9%]
+dynamo/test_subclasses.py::SubclassTests::test_njt_subclass_from_buffer PASSED [0.2635s] [  9%]
+dynamo/test_subclasses.py::SubclassTests::test_njt_subclass_from_cat PASSED [0.2573s] [ 10%]
+dynamo/test_subclasses.py::SubclassTests::test_njt_subclass_simple PASSED [0.2274s] [ 10%]
+dynamo/test_subclasses.py::SubclassTests::test_no_call_to_new PASSED [0.0646s] [ 11%]
+dynamo/test_subclasses.py::SubclassTests::test_no_torch_function_on_size_bytecode PASSED [1.2763s] [ 12%]
+dynamo/test_subclasses.py::SubclassTests::test_no_torch_function_recompiles PASSED [0.0436s] [ 12%]
+dynamo/test_subclasses.py::SubclassTests::test_nontraceable_tensor_subclass PASSED [0.0338s] [ 13%]
+dynamo/test_subclasses.py::SubclassTests::test_overridden_method_guarding PASSED [0.0486s] [ 13%]
+dynamo/test_subclasses.py::SubclassTests::test_parameter_subclass_custom_torch_func_and_dynamic_attr PASSED [0.0532s] [ 14%]
+dynamo/test_subclasses.py::SubclassTests::test_parameter_subclass_with_old_torch_function PASSED [0.0346s] [ 15%]
+dynamo/test_subclasses.py::SubclassTests::test_recompile_with_symbool_inputs XFAIL [0.0228s] [ 15%]
+dynamo/test_subclasses.py::SubclassTests::test_recompiles_with_optional_inner_tensor PASSED [0.4041s] [ 16%]
+dynamo/test_subclasses.py::SubclassTests::test_redispatch_function_graph_break PASSED [0.0784s] [ 16%]
+dynamo/test_subclasses.py::SubclassTests::test_redispatch_function_graph_break_before_has_torch_function PASSED [0.1160s] [ 17%]
+dynamo/test_subclasses.py::SubclassTests::test_redispatch_function_with_dynamo PASSED [0.0492s] [ 18%]
+dynamo/test_subclasses.py::SubclassTests::test_return_as_subclass PASSED [0.0457s] [ 18%]
+dynamo/test_subclasses.py::SubclassTests::test_return_local_subclass PASSED [0.0443s] [ 19%]
+dynamo/test_subclasses.py::SubclassTests::test_return_subclass PASSED [0.0453s] [ 19%]
+dynamo/test_subclasses.py::SubclassTests::test_subclass_TwoTensor_TwoTensor_TwoTensor PASSED [0.2166s] [ 20%]
+dynamo/test_subclasses.py::SubclassTests::test_subclass_TwoTensor_nested_diff_sizes PASSED [0.2163s] [ 21%]
+dynamo/test_subclasses.py::SubclassTests::test_subclass_constructor_proxying PASSED [0.0813s] [ 21%]
+dynamo/test_subclasses.py::SubclassTests::test_subclass_dont_invoke_torch_function_on_overridden_attr PASSED [0.0488s] [ 22%]
+dynamo/test_subclasses.py::SubclassTests::test_subclass_dont_invoke_torch_function_on_overridden_method PASSED [0.0490s] [ 22%]
+dynamo/test_subclasses.py::SubclassTests::test_subclass_method_override PASSED [0.1220s] [ 23%]
+dynamo/test_subclasses.py::SubclassTests::test_subclass_override_shape_and_to PASSED [0.0695s] [ 24%]
+dynamo/test_subclasses.py::SubclassTests::test_subclass_parameters_are_static_under_training PASSED [0.1433s] [ 24%]
+dynamo/test_subclasses.py::SubclassTests::test_subclass_views_dynamic_False PASSED [0.4783s] [ 25%]
+dynamo/test_subclasses.py::SubclassTests::test_subclass_views_dynamic_True PASSED [1.1822s] [ 25%]
+dynamo/test_subclasses.py::SubclassTests::test_subclass_with_disabled_torch_function PASSED [0.0373s] [ 26%]
+dynamo/test_subclasses.py::SubclassTests::test_support_bases PASSED [0.0625s] [ 27%]
+dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_TwoTensor_automatic_dynamic_shapes PASSED [0.2746s] [ 27%]
+dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_TwoTensor_clone_view PASSED [0.2261s] [ 28%]
+dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_TwoTensor_different_shape PASSED [0.1044s] [ 28%]
+dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_TwoTensor_mark_dynamic_shapes PASSED [0.1564s] [ 29%]
+dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_TwoTensor_mul PASSED [0.2166s] [ 30%]
+dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_TwoTensor_nested PASSED [1.2623s] [ 30%]
+dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_TwoTensor_return_multiple XFAIL [0.2171s] [ 31%]
+dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_TwoTensor_return_shape PASSED [0.1159s] [ 31%]
+dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_TwoTensor_return_tensor_and_subclass PASSED [0.1576s] [ 32%]
+dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_TwoTensor_simple PASSED [0.1332s] [ 33%]
+dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_TwoTensor_view PASSED [0.1602s] [ 33%]
+dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_TwoTensor_view_mul PASSED [0.1535s] [ 34%]
+dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_attr_codegen_tos PASSED [0.0477s] [ 34%]
+dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_ctx_custom_guards_error_arg_num E0601 04:46:29.921000 77669 site-packages/torch/_guards.py:375] [0/0] Error while creating guard:
+E0601 04:46:29.921000 77669 site-packages/torch/_guards.py:375] [0/0] Name: "L['x']"
+E0601 04:46:29.921000 77669 site-packages/torch/_guards.py:375] [0/0]     Source: local
+E0601 04:46:29.921000 77669 site-packages/torch/_guards.py:375] [0/0]     Create Function: TENSOR_SUBCLASS_METADATA_MATCH
+E0601 04:46:29.921000 77669 site-packages/torch/_guards.py:375] [0/0]     Guard Types: None
+E0601 04:46:29.921000 77669 site-packages/torch/_guards.py:375] [0/0]     Code List: None
+E0601 04:46:29.921000 77669 site-packages/torch/_guards.py:375] [0/0]     Object Weakref: None
+E0601 04:46:29.921000 77669 site-packages/torch/_guards.py:375] [0/0]     Guarded Class Weakref: None
+E0601 04:46:29.921000 77669 site-packages/torch/_guards.py:375] [0/0] Traceback (most recent call last):
+E0601 04:46:29.921000 77669 site-packages/torch/_guards.py:375] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_guards.py", line 373, in create
+E0601 04:46:29.921000 77669 site-packages/torch/_guards.py:375] [0/0]     return self.create_fn(builder, self)
+E0601 04:46:29.921000 77669 site-packages/torch/_guards.py:375] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 2573, in TENSOR_SUBCLASS_METADATA_MATCH
+E0601 04:46:29.921000 77669 site-packages/torch/_guards.py:375] [0/0]     verify_guard_fn_signature(value)
+E0601 04:46:29.921000 77669 site-packages/torch/_guards.py:375] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/utils.py", line 5481, in verify_guard_fn_signature
+E0601 04:46:29.921000 77669 site-packages/torch/_guards.py:375] [0/0]     raise InternalTorchDynamoError(
+E0601 04:46:29.921000 77669 site-packages/torch/_guards.py:375] [0/0] torch._dynamo.exc.InternalTorchDynamoError: Tensor subclass method __metadata_guard__ must take exactly two subclass metadata arguments
+PASSED [0.0177s] [ 35%]
+dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_ctx_custom_guards_error_not_classmethod E0601 04:46:29.938000 77669 site-packages/torch/_guards.py:375] [0/0] Error while creating guard:
+E0601 04:46:29.938000 77669 site-packages/torch/_guards.py:375] [0/0] Name: "L['x']"
+E0601 04:46:29.938000 77669 site-packages/torch/_guards.py:375] [0/0]     Source: local
+E0601 04:46:29.938000 77669 site-packages/torch/_guards.py:375] [0/0]     Create Function: TENSOR_SUBCLASS_METADATA_MATCH
+E0601 04:46:29.938000 77669 site-packages/torch/_guards.py:375] [0/0]     Guard Types: None
+E0601 04:46:29.938000 77669 site-packages/torch/_guards.py:375] [0/0]     Code List: None
+E0601 04:46:29.938000 77669 site-packages/torch/_guards.py:375] [0/0]     Object Weakref: None
+E0601 04:46:29.938000 77669 site-packages/torch/_guards.py:375] [0/0]     Guarded Class Weakref: None
+E0601 04:46:29.938000 77669 site-packages/torch/_guards.py:375] [0/0] Traceback (most recent call last):
+E0601 04:46:29.938000 77669 site-packages/torch/_guards.py:375] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_guards.py", line 373, in create
+E0601 04:46:29.938000 77669 site-packages/torch/_guards.py:375] [0/0]     return self.create_fn(builder, self)
+E0601 04:46:29.938000 77669 site-packages/torch/_guards.py:375] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 2573, in TENSOR_SUBCLASS_METADATA_MATCH
+E0601 04:46:29.938000 77669 site-packages/torch/_guards.py:375] [0/0]     verify_guard_fn_signature(value)
+E0601 04:46:29.938000 77669 site-packages/torch/_guards.py:375] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/utils.py", line 5487, in verify_guard_fn_signature
+E0601 04:46:29.938000 77669 site-packages/torch/_guards.py:375] [0/0]     raise InternalTorchDynamoError(
+E0601 04:46:29.938000 77669 site-packages/torch/_guards.py:375] [0/0] torch._dynamo.exc.InternalTorchDynamoError: Tensor subclass method __metadata_guard__ must be a classmethod
+PASSED [0.0154s] [ 36%]
+dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_ctx_custom_guards_override PASSED [0.1239s] [ 36%]
+dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_ctx_guards PASSED [0.1200s] [ 37%]
+dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_ctx_recursive_guards PASSED [0.1469s] [ 37%]
+dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_custom_attr PASSED [0.0385s] [ 38%]
+dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_metadata_with_symint PASSED [0.0956s] [ 39%]
+dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_super_new PASSED [0.0406s] [ 39%]
+dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_unpack PASSED [0.0399s] [ 40%]
+dynamo/test_subclasses.py::SubclassTests::test_tensor_subclass_with_non_classmethod_torch_function PASSED [0.0371s] [ 40%]
+dynamo/test_subclasses.py::SubclassTests::test_tensorify_under_disabled_torch_function PASSED [0.0069s] [ 41%]
+dynamo/test_subclasses.py::SubclassTests::test_torch_dispatch_subclass_guard_recompile PASSED [0.0734s] [ 42%]
+dynamo/test_subclasses.py::SubclassTests::test_torch_function_call_on_attr PASSED [0.0377s] [ 42%]
+dynamo/test_subclasses.py::SubclassTests::test_torch_function_call_on_method PASSED [0.0485s] [ 43%]
+dynamo/test_subclasses.py::SubclassTests::test_torch_function_call_on_method_arg PASSED [0.0501s] [ 43%]
+dynamo/test_subclasses.py::SubclassTests::test_torch_function_list_args PASSED [0.0392s] [ 44%]
+dynamo/test_subclasses.py::SubclassTests::test_torch_function_reentrant_dispatch PASSED [0.0516s] [ 45%]
+dynamo/test_subclasses.py::SubclassTests::test_torch_function_state_graph_break PASSED [0.0671s] [ 45%]
+dynamo/test_subclasses.py::SubclassTests::test_torch_function_state_guards PASSED [0.0647s] [ 46%]
+dynamo/test_subclasses.py::SubclassTests::test_torch_function_state_nested PASSED [0.0374s] [ 46%]
+dynamo/test_subclasses.py::SubclassTests::test_torch_function_state_tracing PASSED [0.0351s] [ 47%]
+dynamo/test_subclasses.py::SubclassTests::test_torch_function_subclass_survives_into_aot_autograd PASSED [0.0572s] [ 48%]
+dynamo/test_subclasses.py::SubclassTests::test_torch_function_subclass_with_mode PASSED [0.0521s] [ 48%]
+dynamo/test_subclasses.py::SubclassTests::test_torch_function_wrapper_class PASSED [0.0378s] [ 49%]
+dynamo/test_subclasses.py::SubclassTests::test_torch_function_wrapper_class_with_kwargs PASSED [0.0418s] [ 50%]
+dynamo/test_subclasses.py::SubclassTests::test_type_check_equality_subclass PASSED [0.0373s] [ 50%]
+dynamo/test_subclasses.py::SubclassTests::test_type_check_equality_tensor PASSED [0.0368s] [ 51%]
+dynamo/test_subclasses.py::SubclassTests::test_type_check_identity_subclass PASSED [0.0368s] [ 51%]
+dynamo/test_subclasses.py::SubclassTests::test_type_check_identity_tensor PASSED [0.0364s] [ 52%]
+dynamo/test_subclasses.py::SubclassTests::test_type_check_isinstance_subclass PASSED [0.0357s] [ 53%]
+dynamo/test_subclasses.py::SubclassTests::test_type_check_isinstance_tensor PASSED [0.0352s] [ 53%]
+dynamo/test_subclasses.py::SubclassTests::test_user_overridden_attr_unsupported PASSED [0.0099s] [ 54%]
+dynamo/test_subclasses.py::SubclassTests::test_user_overridden_method_unsupported PASSED [0.0430s] [ 54%]
+dynamo/test_subclasses.py::SubclassTests::test_user_overridden_property_unsupported PASSED [0.0690s] [ 55%]
+dynamo/test_subclasses.py::SubclassTests::test_wrapper_subclass_dynamo_attribute_access_on_intermediate PASSED [0.0596s] [ 56%]
+dynamo/test_subclasses.py::SubclassTests::test_wrapper_subclass_guards_on_inner_tensor PASSED [0.0719s] [ 56%]
+dynamo/test_subclasses.py::SubclassTests::test_wrapper_subclass_with_differently_sized_inner_tensor PASSED [0.1673s] [ 57%]
+dynamo/test_subclasses.py::SubclassTests::test_wrapper_subclass_with_same_sized_inner_tensor PASSED [0.1685s] [ 57%]
+dynamo/test_subclasses.py::TestIssubclass::test_abc_not_registered PASSED [0.0335s] [ 58%]
+dynamo/test_subclasses.py::TestIssubclass::test_abc_register PASSED [0.0328s] [ 59%]
+dynamo/test_subclasses.py::TestIssubclass::test_base_not_sub PASSED [0.0333s] [ 59%]
+dynamo/test_subclasses.py::TestIssubclass::test_bool_is_int PASSED [0.0392s] [ 60%]
+dynamo/test_subclasses.py::TestIssubclass::test_class_is_subclass_of_itself PASSED [0.0336s] [ 60%]
+dynamo/test_subclasses.py::TestIssubclass::test_custom_metaclass_subclasscheck PASSED [0.0314s] [ 61%]
+dynamo/test_subclasses.py::TestIssubclass::test_custom_metaclass_subclasscheck_non_bool PASSED [0.3822s] [ 62%]
+dynamo/test_subclasses.py::TestIssubclass::test_int_is_int PASSED [0.0317s] [ 62%]
+dynamo/test_subclasses.py::TestIssubclass::test_int_not_str PASSED [0.0311s] [ 63%]
+dynamo/test_subclasses.py::TestIssubclass::test_invalid_args_graph_break PASSED [0.0094s] [ 63%]
+dynamo/test_subclasses.py::TestIssubclass::test_non_class_arg1_raises PASSED [0.0438s] [ 64%]
+dynamo/test_subclasses.py::TestIssubclass::test_non_class_arg2_doesnt_raise PASSED [0.0311s] [ 65%]
+dynamo/test_subclasses.py::TestIssubclass::test_non_class_arg2_raises PASSED [0.0430s] [ 65%]
+dynamo/test_subclasses.py::TestIssubclass::test_non_class_in_tuple_raises PASSED [0.0409s] [ 66%]
+dynamo/test_subclasses.py::TestIssubclass::test_object_supertype PASSED [0.0313s] [ 66%]
+dynamo/test_subclasses.py::TestIssubclass::test_sub_of_base PASSED [0.0310s] [ 67%]
+dynamo/test_subclasses.py::TestIssubclass::test_subsub_of_base PASSED [0.0308s] [ 68%]
+dynamo/test_subclasses.py::TestIssubclass::test_subsub_of_sub PASSED [0.0315s] [ 68%]
+dynamo/test_subclasses.py::TestIssubclass::test_tuple_empty PASSED [0.0314s] [ 69%]
+dynamo/test_subclasses.py::TestIssubclass::test_tuple_hit_first PASSED [0.0322s] [ 69%]
+dynamo/test_subclasses.py::TestIssubclass::test_tuple_hit_second PASSED [0.0318s] [ 70%]
+dynamo/test_subclasses.py::TestIssubclass::test_tuple_miss PASSED [0.0314s] [ 71%]
+dynamo/test_subclasses.py::TestIssubclass::test_tuple_with_user_classes PASSED [0.0323s] [ 71%]
+dynamo/test_subclasses.py::TestIssubclass::test_union_hit PASSED [0.0321s] [ 72%]
+dynamo/test_subclasses.py::TestIssubclass::test_union_miss PASSED [0.0325s] [ 72%]
+dynamo/test_subclasses.py::TestIssubclass::test_union_with_user_classes PASSED [0.0324s] [ 73%]
+dynamo/test_subclasses.py::TestIssubclass::test_unrelated_classes PASSED [0.0322s] [ 74%]
+dynamo/test_subclasses.py::TestNestedTensor::test_basic_autograd PASSED [0.3646s] [ 74%]
+dynamo/test_subclasses.py::TestNestedTensor::test_basic_autograd_inductor SKIPPED [0.0003s] (requires cuda and triton) [ 75%]
+dynamo/test_subclasses.py::TestNestedTensor::test_binary_does_not_recompile PASSED [0.1136s] [ 75%]
+dynamo/test_subclasses.py::TestNestedTensor::test_binary_recompiles PASSED [0.2095s] [ 76%]
+dynamo/test_subclasses.py::TestNestedTensor::test_buffer_subclass_check PASSED [0.0606s] [ 77%]
+dynamo/test_subclasses.py::TestNestedTensor::test_buffer_subclass_isinstance_input PASSED [0.0938s] [ 77%]
+dynamo/test_subclasses.py::TestNestedTensor::test_in_graph_construction_from_input W0601 04:46:34.360000 77669 site-packages/torch/fx/_symbolic_trace.py:56] is_fx_tracing will return true for both fx.symbolic_trace and torch.export. Please use is_fx_tracing_symbolic_tracing() for specifically fx.symbolic_trace or torch.compiler.is_compiling() for specifically torch.export/compile.
+PASSED [0.0972s] [ 78%]
+dynamo/test_subclasses.py::TestNestedTensor::test_in_graph_construction_from_input_2 PASSED [0.3144s] [ 78%]
+dynamo/test_subclasses.py::TestNestedTensor::test_in_graph_construction_from_input_4 PASSED [0.1365s] [ 79%]
+dynamo/test_subclasses.py::TestNestedTensor::test_in_graph_construction_from_input_5 PASSED [0.1000s] [ 80%]
+dynamo/test_subclasses.py::TestNestedTensor::test_in_graph_construction_from_input_6 PASSED [0.0637s] [ 80%]
+dynamo/test_subclasses.py::TestNestedTensor::test_in_graph_construction_from_intermediate PASSED [0.1162s] [ 81%]
+dynamo/test_subclasses.py::TestNestedTensor::test_in_graph_construction_from_intermediate_2 PASSED [0.0847s] [ 81%]
+dynamo/test_subclasses.py::TestNestedTensor::test_in_graph_construction_from_intermediate_3 PASSED [0.1086s] [ 82%]
+dynamo/test_subclasses.py::TestNestedTensor::test_in_graph_construction_from_intermediate_4 PASSED [0.0979s] [ 83%]
+dynamo/test_subclasses.py::TestNestedTensor::test_in_graph_construction_from_intermediate_5 E0601 04:46:35.474000 77669 site-packages/torch/_dynamo/guards.py:3828] [0/0] Failed to visit expr at line 1.
+E0601 04:46:35.474000 77669 site-packages/torch/_dynamo/guards.py:3828] [0/0] <ephemeral: intermediate_offsets_or_lengths> != <ephemeral: intermediate_offsets_or_lengths>
+E0601 04:46:35.474000 77669 site-packages/torch/_dynamo/guards.py:3828] [0/0] Traceback (most recent call last):
+E0601 04:46:35.474000 77669 site-packages/torch/_dynamo/guards.py:3828] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3826, in count
+E0601 04:46:35.474000 77669 site-packages/torch/_dynamo/guards.py:3828] [0/0]     counter.visit(ast.parse(e))
+E0601 04:46:35.474000 77669 site-packages/torch/_dynamo/guards.py:3828] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/ast.py", line 50, in parse
+E0601 04:46:35.474000 77669 site-packages/torch/_dynamo/guards.py:3828] [0/0]     return compile(source, filename, mode, flags,
+E0601 04:46:35.474000 77669 site-packages/torch/_dynamo/guards.py:3828] [0/0]   File "<unknown>", line 1
+E0601 04:46:35.474000 77669 site-packages/torch/_dynamo/guards.py:3828] [0/0]     <ephemeral: intermediate_offsets_or_lengths> != <ephemeral: intermediate_offsets_or_lengths>
+E0601 04:46:35.474000 77669 site-packages/torch/_dynamo/guards.py:3828] [0/0]     ^
+E0601 04:46:35.474000 77669 site-packages/torch/_dynamo/guards.py:3828] [0/0] SyntaxError: invalid syntax
+E0601 04:46:35.474000 77669 site-packages/torch/_guards.py:375] [0/0] Error while creating guard:
+E0601 04:46:35.474000 77669 site-packages/torch/_guards.py:375] [0/0] Name: ''
+E0601 04:46:35.474000 77669 site-packages/torch/_guards.py:375] [0/0]     Source: shape_env
+E0601 04:46:35.474000 77669 site-packages/torch/_guards.py:375] [0/0]     Create Function: SHAPE_ENV
+E0601 04:46:35.474000 77669 site-packages/torch/_guards.py:375] [0/0]     Guard Types: ['SHAPE_ENV']
+E0601 04:46:35.474000 77669 site-packages/torch/_guards.py:375] [0/0]     Code List: ['<ephemeral: intermediate_offsets_or_lengths> != <ephemeral: intermediate_offsets_or_lengths>']
+E0601 04:46:35.474000 77669 site-packages/torch/_guards.py:375] [0/0]     Object Weakref: None
+E0601 04:46:35.474000 77669 site-packages/torch/_guards.py:375] [0/0]     Guarded Class Weakref: None
+E0601 04:46:35.474000 77669 site-packages/torch/_guards.py:375] [0/0] Traceback (most recent call last):
+E0601 04:46:35.474000 77669 site-packages/torch/_guards.py:375] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_guards.py", line 373, in create
+E0601 04:46:35.474000 77669 site-packages/torch/_guards.py:375] [0/0]     return self.create_fn(builder, self)
+E0601 04:46:35.474000 77669 site-packages/torch/_guards.py:375] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3445, in SHAPE_ENV
+E0601 04:46:35.474000 77669 site-packages/torch/_guards.py:375] [0/0]     self.add_python_lambda_leaf_guard_to_root(
+E0601 04:46:35.474000 77669 site-packages/torch/_guards.py:375] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 2022, in add_python_lambda_leaf_guard_to_root
+E0601 04:46:35.474000 77669 site-packages/torch/_guards.py:375] [0/0]     _guard_body, pycode = build_guard_function(code_parts, make_guard_fn_args)
+E0601 04:46:35.474000 77669 site-packages/torch/_guards.py:375] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 5029, in build_guard_function
+E0601 04:46:35.474000 77669 site-packages/torch/_guards.py:375] [0/0]     csepass.count(code_parts)
+E0601 04:46:35.474000 77669 site-packages/torch/_guards.py:375] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3826, in count
+E0601 04:46:35.474000 77669 site-packages/torch/_guards.py:375] [0/0]     counter.visit(ast.parse(e))
+E0601 04:46:35.474000 77669 site-packages/torch/_guards.py:375] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/ast.py", line 50, in parse
+E0601 04:46:35.474000 77669 site-packages/torch/_guards.py:375] [0/0]     return compile(source, filename, mode, flags,
+E0601 04:46:35.474000 77669 site-packages/torch/_guards.py:375] [0/0]   File "<unknown>", line 1
+E0601 04:46:35.474000 77669 site-packages/torch/_guards.py:375] [0/0]     <ephemeral: intermediate_offsets_or_lengths> != <ephemeral: intermediate_offsets_or_lengths>
+E0601 04:46:35.474000 77669 site-packages/torch/_guards.py:375] [0/0]     ^
+E0601 04:46:35.474000 77669 site-packages/torch/_guards.py:375] [0/0] SyntaxError: invalid syntax
+E0601 04:46:35.475000 77669 site-packages/torch/_guards.py:377] [0/0] Created at:
+E0601 04:46:35.475000 77669 site-packages/torch/_guards.py:377] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py", line 911, in trace_frame
+E0601 04:46:35.475000 77669 site-packages/torch/_guards.py:377] [0/0]     tracer = InstructionTranslator(
+E0601 04:46:35.475000 77669 site-packages/torch/_guards.py:377] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/symbolic_convert.py", line 5293, in __init__
+E0601 04:46:35.475000 77669 site-packages/torch/_guards.py:377] [0/0]     output=OutputGraph(
+E0601 04:46:35.475000 77669 site-packages/torch/_guards.py:377] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 758, in __init__
+E0601 04:46:35.475000 77669 site-packages/torch/_guards.py:377] [0/0]     self.init_ambient_guards()
+E0601 04:46:35.475000 77669 site-packages/torch/_guards.py:377] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 1114, in init_ambient_guards
+E0601 04:46:35.475000 77669 site-packages/torch/_guards.py:377] [0/0]     self.guards.add(ShapeEnvSource().make_guard(GuardBuilder.SHAPE_ENV))
+XFAIL [0.0775s] [ 83%]
+dynamo/test_subclasses.py::TestNestedTensor::test_in_graph_construction_mixed PASSED [0.1584s] [ 84%]
+dynamo/test_subclasses.py::TestNestedTensor::test_in_graph_construction_mixed_2 E0601 04:46:35.773000 77669 site-packages/torch/_dynamo/guards.py:3828] [0/0] Failed to visit expr at line 1.
+E0601 04:46:35.773000 77669 site-packages/torch/_dynamo/guards.py:3828] [0/0] L['nt2'].size()[1] != <ephemeral: intermediate_offsets_or_lengths>
+E0601 04:46:35.773000 77669 site-packages/torch/_dynamo/guards.py:3828] [0/0] Traceback (most recent call last):
+E0601 04:46:35.773000 77669 site-packages/torch/_dynamo/guards.py:3828] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3826, in count
+E0601 04:46:35.773000 77669 site-packages/torch/_dynamo/guards.py:3828] [0/0]     counter.visit(ast.parse(e))
+E0601 04:46:35.773000 77669 site-packages/torch/_dynamo/guards.py:3828] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/ast.py", line 50, in parse
+E0601 04:46:35.773000 77669 site-packages/torch/_dynamo/guards.py:3828] [0/0]     return compile(source, filename, mode, flags,
+E0601 04:46:35.773000 77669 site-packages/torch/_dynamo/guards.py:3828] [0/0]   File "<unknown>", line 1
+E0601 04:46:35.773000 77669 site-packages/torch/_dynamo/guards.py:3828] [0/0]     L['nt2'].size()[1] != <ephemeral: intermediate_offsets_or_lengths>
+E0601 04:46:35.773000 77669 site-packages/torch/_dynamo/guards.py:3828] [0/0]                           ^
+E0601 04:46:35.773000 77669 site-packages/torch/_dynamo/guards.py:3828] [0/0] SyntaxError: invalid syntax
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:375] [0/0] Error while creating guard:
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:375] [0/0] Name: ''
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:375] [0/0]     Source: shape_env
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:375] [0/0]     Create Function: SHAPE_ENV
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:375] [0/0]     Guard Types: ['SHAPE_ENV', 'SHAPE_ENV', 'SHAPE_ENV', 'SHAPE_ENV', 'SHAPE_ENV', 'SHAPE_ENV', 'SHAPE_ENV', 'SHAPE_ENV']
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:375] [0/0]     Code List: ["L['nt2']._values.size()[0] == L['values'].size()[0]", "L['nt2']._values.size()[0] == L['values'].size()[0]", "L['nt2']._base.size()[0] == L['values'].size()[0]", "L['nt']._values.size()[0] == L['values'].size()[0]", "L['nt']._values.size()[0] == L['values'].size()[0]", "L['nt']._base.size()[0] == L['values'].size()[0]", "L['nt2'].size()[1] != <ephemeral: intermediate_offsets_or_lengths>", "2 <= L['values'].size()[0]"]
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:375] [0/0]     Object Weakref: None
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:375] [0/0]     Guarded Class Weakref: None
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:375] [0/0] Traceback (most recent call last):
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:375] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_guards.py", line 373, in create
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:375] [0/0]     return self.create_fn(builder, self)
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:375] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3445, in SHAPE_ENV
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:375] [0/0]     self.add_python_lambda_leaf_guard_to_root(
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:375] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 2022, in add_python_lambda_leaf_guard_to_root
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:375] [0/0]     _guard_body, pycode = build_guard_function(code_parts, make_guard_fn_args)
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:375] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 5029, in build_guard_function
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:375] [0/0]     csepass.count(code_parts)
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:375] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3826, in count
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:375] [0/0]     counter.visit(ast.parse(e))
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:375] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/ast.py", line 50, in parse
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:375] [0/0]     return compile(source, filename, mode, flags,
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:375] [0/0]   File "<unknown>", line 1
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:375] [0/0]     L['nt2'].size()[1] != <ephemeral: intermediate_offsets_or_lengths>
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:375] [0/0]                           ^
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:375] [0/0] SyntaxError: invalid syntax
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:377] [0/0] Created at:
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:377] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py", line 911, in trace_frame
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:377] [0/0]     tracer = InstructionTranslator(
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:377] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/symbolic_convert.py", line 5293, in __init__
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:377] [0/0]     output=OutputGraph(
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:377] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 758, in __init__
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:377] [0/0]     self.init_ambient_guards()
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:377] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 1114, in init_ambient_guards
+E0601 04:46:35.773000 77669 site-packages/torch/_guards.py:377] [0/0]     self.guards.add(ShapeEnvSource().make_guard(GuardBuilder.SHAPE_ENV))
+XFAIL [0.1376s] [ 84%]
+dynamo/test_subclasses.py::TestNestedTensor::test_in_graph_construction_mixed_3 PASSED [0.1827s] [ 85%]
+dynamo/test_subclasses.py::TestNestedTensor::test_in_graph_is_nested_call PASSED [0.1512s] [ 86%]
+dynamo/test_subclasses.py::TestNestedTensor::test_inference_tensor PASSED [0.0717s] [ 86%]
+dynamo/test_subclasses.py::TestNestedTensor::test_inline_nested_tensor_from_jagged PASSED [0.1829s] [ 87%]
+dynamo/test_subclasses.py::TestNestedTensor::test_inputs_to_compiled_fn_are_views_nt_view_name_base_is_nt_False_basic PASSED [0.3636s] [ 87%]
+dynamo/test_subclasses.py::TestNestedTensor::test_inputs_to_compiled_fn_are_views_nt_view_name_base_is_nt_False_leaf_False_False PASSED [0.2460s] [ 88%]
+dynamo/test_subclasses.py::TestNestedTensor::test_inputs_to_compiled_fn_are_views_nt_view_name_base_is_nt_False_leaf_False_True PASSED [0.3069s] [ 89%]
+dynamo/test_subclasses.py::TestNestedTensor::test_inputs_to_compiled_fn_are_views_nt_view_name_base_is_nt_False_leaf_True_False PASSED [0.2839s] [ 89%]
+dynamo/test_subclasses.py::TestNestedTensor::test_inputs_to_compiled_fn_are_views_nt_view_name_base_is_nt_False_leaf_True_True PASSED [0.2833s] [ 90%]
+dynamo/test_subclasses.py::TestNestedTensor::test_inputs_to_compiled_fn_are_views_nt_view_name_base_is_nt_False_obscure PASSED [0.3604s] [ 90%]
+dynamo/test_subclasses.py::TestNestedTensor::test_inputs_to_compiled_fn_are_views_nt_view_name_base_is_nt_True_basic PASSED [0.3025s] [ 91%]
+dynamo/test_subclasses.py::TestNestedTensor::test_inputs_to_compiled_fn_are_views_nt_view_name_base_is_nt_True_leaf_False_False PASSED [0.2012s] [ 92%]
+dynamo/test_subclasses.py::TestNestedTensor::test_inputs_to_compiled_fn_are_views_nt_view_name_base_is_nt_True_leaf_False_True PASSED [0.2588s] [ 92%]
+dynamo/test_subclasses.py::TestNestedTensor::test_inputs_to_compiled_fn_are_views_nt_view_name_base_is_nt_True_leaf_True_False PASSED [0.2703s] [ 93%]
+dynamo/test_subclasses.py::TestNestedTensor::test_inputs_to_compiled_fn_are_views_nt_view_name_base_is_nt_True_leaf_True_True PASSED [0.2706s] [ 93%]
+dynamo/test_subclasses.py::TestNestedTensor::test_inputs_to_compiled_fn_are_views_nt_view_name_base_is_nt_True_obscure PASSED [0.6700s] [ 94%]
+dynamo/test_subclasses.py::TestNestedTensor::test_inputs_to_compiled_fn_are_views_nt_view_name_dense_subclass_dense_subclass PASSED [0.2447s] [ 95%]
+dynamo/test_subclasses.py::TestNestedTensor::test_inputs_to_compiled_fn_are_views_nt_view_name_subclass_dense PASSED [0.2366s] [ 95%]
+dynamo/test_subclasses.py::TestNestedTensor::test_param_subclass_isinstance_input PASSED [0.0765s] [ 96%]
+dynamo/test_subclasses.py::TestNestedTensor::test_return_shape PASSED [0.1133s] [ 96%]
+dynamo/test_subclasses.py::TestNestedTensor::test_subclass_dense_subclass_dense_view XFAIL [0.0025s] [ 97%]
+dynamo/test_subclasses.py::TestNestedTensor::test_subclass_gives_static_shapes_when_dynamic_false PASSED [0.0446s] [ 98%]
+dynamo/test_subclasses.py::TestNestedTensor::test_subclass_with_mutation_in_graph W0601 04:46:41.004000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0] Failed to pickle cache key
+W0601 04:46:41.004000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0] Traceback (most recent call last):
+W0601 04:46:41.004000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_inductor/codecache.py", line 820, in dumps
+W0601 04:46:41.004000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0]     self.dump(obj)
+W0601 04:46:41.004000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/autograd_cache.py", line 581, in reducer_override
+W0601 04:46:41.004000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0]     return self._reduce_tensor_subclass(obj)
+W0601 04:46:41.004000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/autograd_cache.py", line 667, in _reduce_tensor_subclass
+W0601 04:46:41.004000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0]     return (_ident, (self._default_stable_hash_for_caching(tensor),))
+W0601 04:46:41.004000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/autograd_cache.py", line 704, in _default_stable_hash_for_caching
+W0601 04:46:41.004000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0]     self._collect_inner_tensor_hashes(tensor, inner_tensor_names),
+W0601 04:46:41.004000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/autograd_cache.py", line 675, in _collect_inner_tensor_hashes
+W0601 04:46:41.004000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0]     inner_hashes[name] = self._stable_hash_for_cache_value(
+W0601 04:46:41.004000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/autograd_cache.py", line 649, in _stable_hash_for_cache_value
+W0601 04:46:41.004000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0]     return self._hash_pickled_value_for_cache(
+W0601 04:46:41.004000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/autograd_cache.py", line 633, in _hash_pickled_value_for_cache
+W0601 04:46:41.004000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0]     return self._hash_bytes_for_cache(pickle.dumps(value))
+W0601 04:46:41.004000 77669 site-packages/torch/_inductor/codecache.py:1019] [0/0] AttributeError: Can't pickle local object 'WeakValueDictionary.__init__.<locals>.remove'
+PASSED [1.7362s] [ 98%]
+dynamo/test_subclasses.py::TestNestedTensor::test_unary_does_not_recompile PASSED [0.0904s] [ 99%]
+dynamo/test_subclasses.py::TestNestedTensor::test_unbind PASSED [0.5520s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/dynamo.test_subclasses/dynamo.test_subclasses-03f3cfa657dc1c4a.xml -
+================== 160 passed, 1 skipped, 5 xfailed in 26.03s ==================

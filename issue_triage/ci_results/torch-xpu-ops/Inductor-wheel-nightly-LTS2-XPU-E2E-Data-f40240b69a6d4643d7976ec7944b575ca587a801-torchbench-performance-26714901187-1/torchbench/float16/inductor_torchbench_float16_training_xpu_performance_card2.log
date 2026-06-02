@@ -1,0 +1,96 @@
+++ python benchmarks/dynamo/torchbench.py --performance --float16 -d xpu -n10 --training --total-partitions 9 --partition-id 2 --backend=inductor --cold-start-latency --timeout=10800 --disable-cudagraphs --output=/__w/torch-xpu-ops/torch-xpu-ops/pytorch/inductor_log/torchbench/float16/inductor_torchbench_float16_training_xpu_performance.csv
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:04, ?it/s]
+xpu  train detectron2_maskrcnn_r_50_c4        
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 2057, in validate_model
+    self.model_iter_fn(model, example_inputs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/torchbench.py", line 486, in forward_and_backward_pass
+    pred = mod(*cloned_inputs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/detectron2/modeling/meta_arch/rcnn.py", line 161, in forward
+    proposals, proposal_losses = self.proposal_generator(images, features, gt_instances)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/detectron2/modeling/proposal_generator/rpn.py", line 472, in forward
+    losses = self.losses(
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/detectron2/modeling/proposal_generator/rpn.py", line 401, in losses
+    storage = get_event_storage()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/detectron2/utils/events.py", line 34, in get_event_storage
+    assert len(
+AssertionError: get_event_storage() has to be called inside a 'with EventStorage(...)' context!
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 4749, in run
+    ) = runner.load_model(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/torchbench.py", line 384, in load_model
+    self.validate_model(benchmark.name, model, example_inputs)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 2059, in validate_model
+    raise RuntimeError("Eager run failed") from e
+RuntimeError: Eager run failed
+
+eager_fail_to_run
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:09, ?it/s]
+xpu  train dlrm                               
+W0531 15:55:33.527000 63632 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 124.23it/s]
+1.201x
+loading model: 0it [00:00, ?it/s]Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+loading model: 0it [00:02, ?it/s]
+xpu  train drq                                
+W0531 15:55:51.341000 65411 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 161.35it/s]
+0.838x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:04, ?it/s]
+xpu  train fastNLP_Bert                       
+W0531 15:56:13.566000 66348 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0] Graph break from `Tensor.item()`, consider setting:
+W0531 15:56:13.566000 66348 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0]     torch._dynamo.config.capture_scalar_outputs = True
+W0531 15:56:13.566000 66348 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0] or:
+W0531 15:56:13.566000 66348 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0]     env TORCHDYNAMO_CAPTURE_SCALAR_OUTPUTS=1
+W0531 15:56:13.566000 66348 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0] to include these operations in the captured graph.
+W0531 15:56:13.566000 66348 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0] 
+W0531 15:56:13.566000 66348 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0] Graph break: from user code at:
+W0531 15:56:13.566000 66348 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0]   File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/torchbench.py", line 486, in torch_dynamo_resume_in_forward_and_backward_pass_at_481
+W0531 15:56:13.566000 66348 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0]     pred = mod(*cloned_inputs)
+W0531 15:56:13.566000 66348 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0]   File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/fastNLP/models/bert.py", line 265, in forward
+W0531 15:56:13.566000 66348 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0]     sequence_output = self.bert(words)
+W0531 15:56:13.566000 66348 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0]   File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/fastNLP/embeddings/bert_embedding.py", line 137, in forward
+W0531 15:56:13.566000 66348 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0]     outputs = self.model(words)
+W0531 15:56:13.566000 66348 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0]   File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/fastNLP/embeddings/bert_embedding.py", line 445, in forward
+W0531 15:56:13.566000 66348 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0]     max_word_piece_length = batch_word_pieces_length.sum(dim=-1).max().item()  # 表示word piece的长度(包括padding)
+W0531 15:56:13.566000 66348 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0] 
+W0531 15:56:13.566000 66348 site-packages/torch/_dynamo/variables/tensor.py:1744] [2/0] 
+W0531 15:56:23.003000 66348 site-packages/torch/_inductor/utils.py:3128] [7/0] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  20%|██        | 2/10 [00:00<00:00, 10.54it/s]running benchmark:  40%|████      | 4/10 [00:00<00:00, 10.55it/s]running benchmark:  60%|██████    | 6/10 [00:00<00:00, 10.49it/s]running benchmark:  80%|████████  | 8/10 [00:00<00:00, 10.50it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 10.47it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 10.49it/s]
+1.103x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:02, ?it/s]
+xpu  train functorch_dp_cifar10               
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  70%|███████   | 7/10 [00:00<00:00, 65.23it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 65.39it/s]
+1.114x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:01, ?it/s]
+xpu  train functorch_maml_omniglot            
+W0531 15:57:50.061000 71747 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark: 100%|██████████| 10/10 [00:00<00:00, 176.30it/s]
+0.731x
+speedup             gmean=0.00x mean=0.881x
+abs_latency         gmean=0.00x mean=20.759x
+compilation_latency mean=28.910 seconds
+compression_ratio   mean=0.000x
+eager_peak_mem      gmean=0.00x mean=0.000x
+dynamo_peak_mem     gmean=0.00x mean=0.000x
+calls_captured      gmean=0.00x mean=158.036x
+unique_graphs       gmean=0.00x mean=1.250x
+graph_breaks        gmean=0.00x mean=4.964x
+unique_graph_breaks gmean=0.00x mean=4.107x
+autograd_captures   gmean=0.00x mean=0.000x
+autograd_compiles   gmean=0.00x mean=0.000x
+cudagraph_skips     gmean=0.00x mean=0.000x

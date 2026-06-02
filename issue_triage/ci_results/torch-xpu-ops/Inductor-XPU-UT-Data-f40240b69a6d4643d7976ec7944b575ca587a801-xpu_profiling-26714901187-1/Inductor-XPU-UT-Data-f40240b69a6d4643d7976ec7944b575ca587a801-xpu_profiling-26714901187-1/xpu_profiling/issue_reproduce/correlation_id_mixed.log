@@ -1,0 +1,22 @@
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg      Self XPU    Self XPU %     XPU total  XPU time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                              aten::add        74.21%      48.100ms        99.99%      64.807ms      21.602ms      20.480us       100.00%      20.480us       6.827us             3  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us      15.040us        73.44%      15.040us       7.520us             2  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us       5.440us        26.56%       5.440us       5.440us             1  
+                                         zeModuleCreate        24.99%      16.196ms        24.99%      16.196ms      16.196ms       0.000us         0.00%       0.000us       0.000us             1  
+                                  zeModuleGetProperties         0.00%       0.566us         0.00%       0.566us       0.566us       0.000us         0.00%       0.000us       0.000us             1  
+                                         zeKernelCreate         0.03%      22.325us         0.03%      22.325us      11.162us       0.000us         0.00%       0.000us       0.000us             2  
+                                  zeDeviceGetSubDevices         0.00%       0.638us         0.00%       0.638us       0.159us       0.000us         0.00%       0.000us       0.000us             4  
+                              zeKernelSetIndirectAccess         0.00%       0.371us         0.00%       0.371us       0.185us       0.000us         0.00%       0.000us       0.000us             2  
+                       urEnqueueKernelLaunchWithArgsExp         0.52%     337.131us         0.75%     487.571us     162.524us       0.000us         0.00%       0.000us       0.000us             3  
+                                  zeKernelGetProperties         0.00%       1.559us         0.00%       1.559us       0.780us       0.000us         0.00%       0.000us       0.000us             2  
+                               zeKernelSetArgumentValue         0.00%       1.466us         0.00%       1.466us       0.163us       0.000us         0.00%       0.000us       0.000us             9  
+                                   zeKernelSetGroupSize         0.00%       1.013us         0.00%       1.013us       0.338us       0.000us         0.00%       0.000us       0.000us             3  
+                                          zeEventCreate         0.01%       8.715us         0.01%       8.715us       2.905us       0.000us         0.00%       0.000us       0.000us             3  
+                        zeCommandListAppendLaunchKernel         0.21%     137.687us         0.21%     137.687us      45.896us       0.000us         0.00%       0.000us       0.000us             3  
+                                 zeEventHostSynchronize         0.01%       5.671us         0.01%       5.671us       5.671us       0.000us         0.00%       0.000us       0.000us             1  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 64.812ms
+Self XPU time total: 20.480us
+

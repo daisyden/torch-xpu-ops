@@ -1,0 +1,10 @@
+W0531 14:18:55.794000 54479 site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=AlexNet_Weights.IMAGENET1K_V1`. You can also use `weights=AlexNet_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Downloading: "https://download.pytorch.org/models/alexnet-owt-7be5be79.pth" to /github/home/.cache/torch/hub/checkpoints/alexnet-owt-7be5be79.pth
+  0%|          | 0.00/233M [00:00<?, ?B/s] 14%|█▍        | 32.1M/233M [00:00<00:00, 337MB/s] 30%|██▉       | 69.6M/233M [00:00<00:00, 370MB/s] 49%|████▉     | 115M/233M [00:00<00:00, 420MB/s]  69%|██████▉   | 162M/233M [00:00<00:00, 445MB/s] 89%|████████▉ | 208M/233M [00:00<00:00, 458MB/s]100%|██████████| 233M/233M [00:00<00:00, 437MB/s]
+using fp32
+W0531 14:18:59.143000 54479 site-packages/torch/_inductor/utils.py:3128] [0/0] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+alexnet fp32:  * Acc@1 56.556 Acc@5 79.084

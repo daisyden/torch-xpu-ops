@@ -1,0 +1,1 @@
+<testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="0.040" timestamp="2026-06-01T04:42:56.403983" hostname="fd632ab80588"><testcase classname="TestGraphTransformObserver" name="test_sdpa_rewriter" time="0.004" file="inductor/test_graph_transform_observer.py" /></testsuite></testsuites>

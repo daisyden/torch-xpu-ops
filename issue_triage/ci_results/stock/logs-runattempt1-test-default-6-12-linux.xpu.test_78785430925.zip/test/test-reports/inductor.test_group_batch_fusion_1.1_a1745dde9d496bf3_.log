@@ -1,0 +1,42 @@
+Test results will be stored in test-reports/python-pytest/inductor.test_group_batch_fusion/inductor.test_group_batch_fusion-563e114af34f08e9.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... /var/lib/jenkins/pytorch/test/inductor/test_group_batch_fusion.py:23: PytestCollectionWarning: cannot collect test class 'TestHighwaySelfGating' because it has a __init__ constructor (from: test/inductor/test_group_batch_fusion.py)
+  class TestHighwaySelfGating(torch.nn.Module):
+/var/lib/jenkins/pytorch/test/inductor/test_group_batch_fusion.py:231: PytestCollectionWarning: cannot collect test class 'TestPoitwiseOps' because it has a __init__ constructor (from: test/inductor/test_group_batch_fusion.py)
+  class TestPoitwiseOps(torch.nn.Module):
+/var/lib/jenkins/pytorch/test/inductor/test_group_batch_fusion.py:251: PytestCollectionWarning: cannot collect test class 'TestPoitwiseOpsPostGrad' because it has a __init__ constructor (from: test/inductor/test_group_batch_fusion.py)
+  class TestPoitwiseOpsPostGrad(torch.nn.Module):
+/var/lib/jenkins/pytorch/test/inductor/test_group_batch_fusion.py:270: PytestCollectionWarning: cannot collect test class 'TestMathOps' because it has a __init__ constructor (from: test/inductor/test_group_batch_fusion.py)
+  class TestMathOps(torch.nn.Module):
+/var/lib/jenkins/pytorch/test/inductor/test_group_batch_fusion.py:289: PytestCollectionWarning: cannot collect test class 'TestDropout' because it has a __init__ constructor (from: test/inductor/test_group_batch_fusion.py)
+  class TestDropout(torch.nn.Module):
+/var/lib/jenkins/pytorch/test/inductor/test_group_batch_fusion.py:741: PytestCollectionWarning: cannot collect test class 'TestBMMFusionModule' because it has a __init__ constructor (from: test/inductor/test_group_batch_fusion.py)
+  class TestBMMFusionModule(torch.nn.Module):
+collected 14 items
+stepcurrent: Cannot find last run test, not skipping
+Running 14 items in this shard: test/inductor/test_group_batch_fusion.py::TestGroupBatchFusion::test_as_strided_storage_offset_after_mm_fusion, test/inductor/test_group_batch_fusion.py::TestGroupBatchFusion::test_batch_dropout_pre_grad_fusion, test/inductor/test_group_batch_fusion.py::TestGroupBatchFusion::test_batch_layer_norm_fusion, test/inductor/test_group_batch_fusion.py::TestGroupBatchFusion::test_batch_linear_lhs_fusion, test/inductor/test_group_batch_fusion.py::TestGroupBatchFusion::test_batch_linear_pre_grad_fusion, test/inductor/test_group_batch_fusion.py::TestGroupBatchFusion::test_gate_fusion_post_grad, test/inductor/test_group_batch_fusion.py::TestGroupBatchFusion::test_group_linear_fusion, test/inductor/test_group_batch_fusion.py::TestGroupBatchFusion::test_group_linear_fusion_different_shapes, test/inductor/test_group_batch_fusion.py::TestGroupBatchFusion::test_math_op_fusion, test/inductor/test_group_batch_fusion.py::TestGroupBatchFusion::test_pointwise_op_fusion, test/inductor/test_group_batch_fusion.py::TestGroupBatchFusion::test_pointwise_op_fusion_post_grad, test/inductor/test_group_batch_fusion.py::TestPostGradBatchLinearFusion::test_batch_linear_post_grad_fusion, test/inductor/test_group_batch_fusion.py::TestFindIndependentSubsetGreedy::test_find_independent_subset_greedy, test/inductor/test_group_batch_fusion.py::TestFindIndependentSubsetGreedy::test_find_independent_subset_greedy_fuse
+
+inductor/test_group_batch_fusion.py::TestGroupBatchFusion::test_as_strided_storage_offset_after_mm_fusion PASSED [14.5899s] [  7%]
+inductor/test_group_batch_fusion.py::TestGroupBatchFusion::test_batch_dropout_pre_grad_fusion PASSED [1.6655s] [ 14%]
+inductor/test_group_batch_fusion.py::TestGroupBatchFusion::test_batch_layer_norm_fusion PASSED [24.9310s] [ 21%]
+inductor/test_group_batch_fusion.py::TestGroupBatchFusion::test_batch_linear_lhs_fusion W0601 04:44:30.322000 125337 site-packages/torch/_inductor/utils.py:3137] [0/0] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+PASSED [12.8737s] [ 28%]
+inductor/test_group_batch_fusion.py::TestGroupBatchFusion::test_batch_linear_pre_grad_fusion PASSED [4.8570s] [ 35%]
+inductor/test_group_batch_fusion.py::TestGroupBatchFusion::test_gate_fusion_post_grad PASSED [29.7816s] [ 42%]
+inductor/test_group_batch_fusion.py::TestGroupBatchFusion::test_group_linear_fusion SKIPPED [0.0004s] (requires fbgemm) [ 50%]
+inductor/test_group_batch_fusion.py::TestGroupBatchFusion::test_group_linear_fusion_different_shapes SKIPPED [0.0002s] (requires fbgemm) [ 57%]
+inductor/test_group_batch_fusion.py::TestGroupBatchFusion::test_math_op_fusion PASSED [0.8581s] [ 64%]
+inductor/test_group_batch_fusion.py::TestGroupBatchFusion::test_pointwise_op_fusion PASSED [43.4361s] [ 71%]
+inductor/test_group_batch_fusion.py::TestGroupBatchFusion::test_pointwise_op_fusion_post_grad PASSED [10.9788s] [ 78%]
+inductor/test_group_batch_fusion.py::TestPostGradBatchLinearFusion::test_batch_linear_post_grad_fusion PASSED [2.2705s] [ 85%]
+inductor/test_group_batch_fusion.py::TestFindIndependentSubsetGreedy::test_find_independent_subset_greedy PASSED [0.0134s] [ 92%]
+inductor/test_group_batch_fusion.py::TestFindIndependentSubsetGreedy::test_find_independent_subset_greedy_fuse PASSED [0.0023s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/inductor.test_group_batch_fusion/inductor.test_group_batch_fusion-563e114af34f08e9.xml -
+================== 12 passed, 2 skipped in 146.61s (0:02:26) ===================

@@ -1,0 +1,79 @@
+Test results will be stored in test-reports/python-pytest/export.test_db/export.test_db-f216b9d81d8b0b11.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 36 items
+stepcurrent: Cannot find last run test, not skipping
+Running 36 items in this shard: test/export/test_db.py::ExampleTests::test_exportdb_not_supported_case_dynamic_shape_round, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_assume_constant_result, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_autograd_function, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_class_method, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_cond_branch_class_method, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_cond_branch_nested_function, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_cond_branch_nonlocal_variables, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_cond_closed_over_variable, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_cond_operands, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_cond_predicate, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_constrain_as_size_example, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_constrain_as_value_example, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_decorator, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_dictionary, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_dynamic_shape_assert, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_dynamic_shape_constructor, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_dynamic_shape_if_guard, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_dynamic_shape_map, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_dynamic_shape_slicing, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_dynamic_shape_view, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_fn_with_kwargs, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_list_contains, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_list_unpack, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_model_attr_mutation, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_nested_function, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_null_context_manager, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_optional_input, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_pytree_flatten, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_scalar_output, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_specialized_attribute, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_static_for_loop, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_static_if, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_tensor_setattr, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_type_reflection_method, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_unsupported_operator, test/export/test_db.py::ExampleTests::test_exportdb_supported_case_user_input_mutation
+
+export/test_db.py::ExampleTests::test_exportdb_not_supported_case_dynamic_shape_round E0601 04:42:54.774000 101628 site-packages/torch/_guards.py:375] Error while creating guard:
+E0601 04:42:54.774000 101628 site-packages/torch/_guards.py:375] Name: ''
+E0601 04:42:54.774000 101628 site-packages/torch/_guards.py:375]     Source: shape_env
+E0601 04:42:54.774000 101628 site-packages/torch/_guards.py:375]     Create Function: SHAPE_ENV
+E0601 04:42:54.774000 101628 site-packages/torch/_guards.py:375]     Guard Types: None
+E0601 04:42:54.774000 101628 site-packages/torch/_guards.py:375]     Code List: None
+E0601 04:42:54.774000 101628 site-packages/torch/_guards.py:375]     Object Weakref: None
+E0601 04:42:54.774000 101628 site-packages/torch/_guards.py:375]     Guarded Class Weakref: None
+E0601 04:42:54.774000 101628 site-packages/torch/_guards.py:375] Traceback (most recent call last):
+E0601 04:42:54.774000 101628 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_guards.py", line 373, in create
+E0601 04:42:54.774000 101628 site-packages/torch/_guards.py:375]     return self.create_fn(builder, self)
+E0601 04:42:54.774000 101628 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3286, in SHAPE_ENV
+E0601 04:42:54.774000 101628 site-packages/torch/_guards.py:375]     python_code_parts, verbose_code_parts = _get_code_parts(
+E0601 04:42:54.774000 101628 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3259, in _get_code_parts
+E0601 04:42:54.774000 101628 site-packages/torch/_guards.py:375]     return output_graph.shape_env.produce_guards_verbose(
+E0601 04:42:54.774000 101628 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/symbolic_shapes.py", line 6710, in produce_guards_verbose
+E0601 04:42:54.774000 101628 site-packages/torch/_guards.py:375]     raise ConstraintViolationError(
+E0601 04:42:54.774000 101628 site-packages/torch/_guards.py:375] torch.fx.experimental.symbolic_shapes.ConstraintViolationError: Constraints violated (dim0_x)! For more information, run with TORCH_LOGS="+dynamic".
+E0601 04:42:54.774000 101628 site-packages/torch/_guards.py:375]   - Not all values of dim0_x = L['flat_args'][0].size()[0] in the specified range satisfy the generated guard round(L['flat_args'][0].size()[0] / 2) >= 0 and round(L['flat_args'][0].size()[0] / 2) <= L['flat_args'][0].size()[0].
+E0601 04:42:54.777000 101628 site-packages/torch/_guards.py:377] Created at:
+E0601 04:42:54.777000 101628 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py", line 911, in trace_frame
+E0601 04:42:54.777000 101628 site-packages/torch/_guards.py:377]     tracer = InstructionTranslator(
+E0601 04:42:54.777000 101628 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/symbolic_convert.py", line 5293, in __init__
+E0601 04:42:54.777000 101628 site-packages/torch/_guards.py:377]     output=OutputGraph(
+E0601 04:42:54.777000 101628 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 758, in __init__
+E0601 04:42:54.777000 101628 site-packages/torch/_guards.py:377]     self.init_ambient_guards()
+E0601 04:42:54.777000 101628 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 1114, in init_ambient_guards
+E0601 04:42:54.777000 101628 site-packages/torch/_guards.py:377]     self.guards.add(ShapeEnvSource().make_guard(GuardBuilder.SHAPE_ENV))
+PASSED [0.6295s] [  2%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_assume_constant_result PASSED [0.0696s] [  5%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_autograd_function PASSED [0.0570s] [  8%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_class_method PASSED [0.0927s] [ 11%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_cond_branch_class_method PASSED [0.0608s] [ 13%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_cond_branch_nested_function PASSED [0.0679s] [ 16%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_cond_branch_nonlocal_variables PASSED [0.0833s] [ 19%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_cond_closed_over_variable PASSED [0.1823s] [ 22%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_cond_operands PASSED [0.1134s] [ 25%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_cond_predicate PASSED [0.0580s] [ 27%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_constrain_as_size_example PASSED [0.1085s] [ 30%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_constrain_as_value_example PASSED [0.1058s] [ 33%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_decorator PASSED [0.0954s] [ 36%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_dictionary PASSED [0.0862s] [ 38%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_dynamic_shape_assert PASSED [0.0562s] [ 41%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_dynamic_shape_constructor PASSED [0.0599s] [ 44%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_dynamic_shape_if_guard PASSED [0.0608s] [ 47%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_dynamic_shape_map PASSED [0.4645s] [ 50%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_dynamic_shape_slicing PASSED [0.0585s] [ 52%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_dynamic_shape_view PASSED [0.0628s] [ 55%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_fn_with_kwargs PASSED [0.1112s] [ 58%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_list_contains PASSED [0.0583s] [ 61%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_list_unpack PASSED [0.0682s] [ 63%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_model_attr_mutation PASSED [0.0736s] [ 66%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_nested_function PASSED [0.0700s] [ 69%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_null_context_manager PASSED [0.0666s] [ 72%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_optional_input PASSED [0.0612s] [ 75%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_pytree_flatten PASSED [0.0806s] [ 77%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_scalar_output PASSED [0.0679s] [ 80%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_specialized_attribute PASSED [0.0600s] [ 83%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_static_for_loop PASSED [0.0906s] [ 86%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_static_if PASSED [0.0636s] [ 88%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_tensor_setattr PASSED [0.0629s] [ 91%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_type_reflection_method PASSED [0.0575s] [ 94%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_unsupported_operator PASSED [0.0586s] [ 97%]
+export/test_db.py::ExampleTests::test_exportdb_supported_case_user_input_mutation PASSED [0.0553s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/export.test_db/export.test_db-f216b9d81d8b0b11.xml -
+============================== 36 passed in 3.75s ==============================

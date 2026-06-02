@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="42" time="213.979" timestamp="2026-05-31T14:59:15.874917" hostname="gm03pappvc006"><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.RendezvousEnvTest" name="test_common_errors" time="0.140" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.ProcessGroupXCCLTest" name="test_close_multi_pg_unordered" time="4.109" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.ProcessGroupXCCLTest" name="test_file_store_check" time="4.909" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.ProcessGroupXCCLTest" name="test_nan_assert_bfloat16" time="3.608" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.ProcessGroupXCCLTest" name="test_nan_assert_float16" time="3.608" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.ProcessGroupXCCLTest" name="test_nan_assert_float32" time="3.609" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.ProcessGroupXCCLTest" name="test_nan_assert_float64" time="3.608" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.ProcessGroupXCCLTest" name="test_nan_assert_float8_e4m3fn" time="3.508" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.ProcessGroupXCCLTest" name="test_nan_assert_float8_e5m2" time="3.508" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.ProcessGroupXCCLTest" name="test_nan_check_empty_tensor" time="3.508" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.ProcessGroupXCCLTest" name="test_nan_check_non_float_bool" time="3.808" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.ProcessGroupXCCLTest" name="test_nan_check_non_float_int32" time="3.909" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.ProcessGroupXCCLTest" name="test_nan_check_non_float_int64" time="3.909" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.ProcessGroupXCCLTest" name="test_nan_check_non_float_int8" time="3.909" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.ProcessGroupXCCLTest" name="test_nan_check_non_float_uint8" time="3.909" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.ProcessGroupXCCLTest" name="test_oom" time="58.384" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.ProcessGroupXCCLTest" name="test_send_recv_non_dense_tensor" time="2.907" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.ProcessGroupXCCLTest" name="test_set_process_group_desc" time="2.808" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.CommTest" name="test_all_gather_into_tensor" time="3.909" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.CommTest" name="test_all_reduce_coalesced_manager_xccl" time="3.808" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.CommTest" name="test_all_reduce_coalesced_xccl" time="3.809" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.CommTest" name="test_broadcast_coalesced_xccl" time="6.213" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.CommTest" name="test_pass_xccl_options_high_priority_stream" time="3.708" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.CommTest" name="test_reduce_scatter_base_k" time="3.809" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.CommTest" name="test_reduce_scatter_tensor_coalesced" time="3.808" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.CommTest" name="test_single_p2p" time="3.808" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.CommTest" name="test_tensor_dtype_complex" time="3.508" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.CommTest" name="test_unwaited" time="3.508" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.CommTest" name="test_wait_tensor" time="3.909" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.CommTest" name="test_xccl_barrier" time="4.310" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.CommTest" name="test_xccl_barrier_device_ids" time="3.509" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.XCCLTraceTest" name="test_allgather_uneven_timing_enabled_False" time="3.808"><failure message="RuntimeError: Process 0 exited with error code 10 and exception:&#10;Traceback (most recent call last):&#10;  File &quot;/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_distributed.py&quot;, line 1058, in run_test&#10;    getattr(self, test_name)()&#10;  File &quot;/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_distributed.py&quot;, line 905, in wrapper&#10;    fn()&#10;  File &quot;/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py&quot;, line 3550, in wrapper&#10;    method(*args, **kwargs)&#10;  File &quot;/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py&quot;, line 618, in instantiated_test&#10;    test(self, **param_kwargs)&#10;  File &quot;/home/jenkins/actions-runner/_work/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/distributed/test_c10d_xccl.py&quot;, line 1329, in test_allgather_uneven&#10;    self.assertEqual(len(t[&quot;entries&quot;]), self.world_size)&#10;  File &quot;/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py&quot;, line 4568, in assertEqual&#10;    raise error_metas.pop()[0].to_error(  # type: ignore[index]&#10;AssertionError: Scalars are not equal!&#10;&#10;Expected 2 but got 3.&#10;Absolute difference: 1&#10;Relative difference: 0.5&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/distributed/test_c10d_xccl.py XCCLTraceTest.test_allgather_uneven_timing_enabled_False&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0&#10;&#10;Process 1 exited with error code 10 and exception:&#10;Traceback (most recent call last):&#10;  File &quot;/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_distributed.py&quot;, line 1058, in run_test&#10;    getattr(self, test_name)()&#10;  File &quot;/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_distributed.py&quot;, line 905, in wrapper&#10;    fn()&#10;  File &quot;/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py&quot;, line 3550, in wrapper&#10;    method(*args, **kwargs)&#10;  File &quot;/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py&quot;, line 618, in instantiated_test&#10;    test(self, **param_kwargs)&#10;  File &quot;/home/jenkins/actions-runner/_work/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/distributed/test_c10d_xccl.py&quot;, line 1329, in test_allgather_uneven&#10;    self.assertEqual(len(t[&quot;entries&quot;]), self.world_size)&#10;  File &quot;/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py&quot;, line 4568, in assertEqual&#10;    raise error_metas.pop()[0].to_error(  # type: ignore[index]&#10;AssertionError: Scalars are not equal!&#10;&#10;Expected 2 but got 3.&#10;Absolute difference: 1&#10;Relative difference: 0.5&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/distributed/test_c10d_xccl.py XCCLTraceTest.test_allgather_uneven_timing_enabled_False&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/home/jenkins/actions-runner/_work/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/distributed/test_c10d_xccl.py", line 883, in _join_processes
+    super()._join_processes(fn)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_distributed.py", line 1173, in _join_processes
+    self._check_return_codes(fn, elapsed_time)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_distributed.py", line 1213, in _check_return_codes
+    raise RuntimeError(error)
+RuntimeError: Process 0 exited with error code 10 and exception:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_distributed.py", line 1058, in run_test
+    getattr(self, test_name)()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_distributed.py", line 905, in wrapper
+    fn()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3550, in wrapper
+    method(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 618, in instantiated_test
+    test(self, **param_kwargs)
+  File "/home/jenkins/actions-runner/_work/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/distributed/test_c10d_xccl.py", line 1329, in test_allgather_uneven
+    self.assertEqual(len(t["entries"]), self.world_size)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 4568, in assertEqual
+    raise error_metas.pop()[0].to_error(  # type: ignore[index]
+AssertionError: Scalars are not equal!
+
+Expected 2 but got 3.
+Absolute difference: 1
+Relative difference: 0.5
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/distributed/test_c10d_xccl.py XCCLTraceTest.test_allgather_uneven_timing_enabled_False
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0
+
+Process 1 exited with error code 10 and exception:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_distributed.py", line 1058, in run_test
+    getattr(self, test_name)()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_distributed.py", line 905, in wrapper
+    fn()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3550, in wrapper
+    method(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 618, in instantiated_test
+    test(self, **param_kwargs)
+  File "/home/jenkins/actions-runner/_work/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/distributed/test_c10d_xccl.py", line 1329, in test_allgather_uneven
+    self.assertEqual(len(t["entries"]), self.world_size)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 4568, in assertEqual
+    raise error_metas.pop()[0].to_error(  # type: ignore[index]
+AssertionError: Scalars are not equal!
+
+Expected 2 but got 3.
+Absolute difference: 1
+Relative difference: 0.5
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/distributed/test_c10d_xccl.py XCCLTraceTest.test_allgather_uneven_timing_enabled_False
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.XCCLTraceTest" name="test_barrier_profiling" time="3.508" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.XCCLTraceTest" name="test_batched_send_recv_op_sizes_per_coalesce0_timing_enabled_False" time="3.508"><failure message="RuntimeError: Process 0 exited with error code 10 and exception:&#10;Traceback (most recent call last):&#10;  File &quot;/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_distributed.py&quot;, line 1058, in run_test&#10;    getattr(self, test_name)()&#10;  File &quot;/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_distributed.py&quot;, line 905, in wrapper&#10;    fn()&#10;  File &quot;/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py&quot;, line 3550, in wrapper&#10;    method(*args, **kwargs)&#10;  File &quot;/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py&quot;, line 618, in instantiated_test&#10;    test(self, **param_kwargs)&#10;  File &quot;/home/jenkins/actions-runner/_work/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/distributed/test_c10d_xccl.py&quot;, line 1203, in test_batched_send_recv&#10;    self.assertEqual(len(t[&quot;entries&quot;]), num_coalesced_ops * ops_per_coalesce)&#10;  File &quot;/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py&quot;, line 4568, in assertEqual&#10;    raise error_metas.pop()[0].to_error(  # type: ignore[index]&#10;AssertionError: Scalars are not equal!&#10;&#10;Expected 20 but got 40.&#10;Absolute difference: 20&#10;Relative difference: 1.0&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/distributed/test_c10d_xccl.py XCCLTraceTest.test_batched_send_recv_op_sizes_per_coalesce0_timing_enabled_False&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0&#10;&#10;Process 1 exited with error code 10 and exception:&#10;Traceback (most recent call last):&#10;  File &quot;/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_distributed.py&quot;, line 1058, in run_test&#10;    getattr(self, test_name)()&#10;  File &quot;/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_distributed.py&quot;, line 905, in wrapper&#10;    fn()&#10;  File &quot;/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py&quot;, line 3550, in wrapper&#10;    method(*args, **kwargs)&#10;  File &quot;/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py&quot;, line 618, in instantiated_test&#10;    test(self, **param_kwargs)&#10;  File &quot;/home/jenkins/actions-runner/_work/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/distributed/test_c10d_xccl.py&quot;, line 1203, in test_batched_send_recv&#10;    self.assertEqual(len(t[&quot;entries&quot;]), num_coalesced_ops * ops_per_coalesce)&#10;  File &quot;/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py&quot;, line 4568, in assertEqual&#10;    raise error_metas.pop()[0].to_error(  # type: ignore[index]&#10;AssertionError: Scalars are not equal!&#10;&#10;Expected 20 but got 40.&#10;Absolute difference: 20&#10;Relative difference: 1.0&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/distributed/test_c10d_xccl.py XCCLTraceTest.test_batched_send_recv_op_sizes_per_coalesce0_timing_enabled_False&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/home/jenkins/actions-runner/_work/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/distributed/test_c10d_xccl.py", line 883, in _join_processes
+    super()._join_processes(fn)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_distributed.py", line 1173, in _join_processes
+    self._check_return_codes(fn, elapsed_time)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_distributed.py", line 1213, in _check_return_codes
+    raise RuntimeError(error)
+RuntimeError: Process 0 exited with error code 10 and exception:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_distributed.py", line 1058, in run_test
+    getattr(self, test_name)()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_distributed.py", line 905, in wrapper
+    fn()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3550, in wrapper
+    method(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 618, in instantiated_test
+    test(self, **param_kwargs)
+  File "/home/jenkins/actions-runner/_work/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/distributed/test_c10d_xccl.py", line 1203, in test_batched_send_recv
+    self.assertEqual(len(t["entries"]), num_coalesced_ops * ops_per_coalesce)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 4568, in assertEqual
+    raise error_metas.pop()[0].to_error(  # type: ignore[index]
+AssertionError: Scalars are not equal!
+
+Expected 20 but got 40.
+Absolute difference: 20
+Relative difference: 1.0
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/distributed/test_c10d_xccl.py XCCLTraceTest.test_batched_send_recv_op_sizes_per_coalesce0_timing_enabled_False
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0
+
+Process 1 exited with error code 10 and exception:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_distributed.py", line 1058, in run_test
+    getattr(self, test_name)()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_distributed.py", line 905, in wrapper
+    fn()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3550, in wrapper
+    method(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 618, in instantiated_test
+    test(self, **param_kwargs)
+  File "/home/jenkins/actions-runner/_work/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/distributed/test_c10d_xccl.py", line 1203, in test_batched_send_recv
+    self.assertEqual(len(t["entries"]), num_coalesced_ops * ops_per_coalesce)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 4568, in assertEqual
+    raise error_metas.pop()[0].to_error(  # type: ignore[index]
+AssertionError: Scalars are not equal!
+
+Expected 20 but got 40.
+Absolute difference: 20
+Relative difference: 1.0
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/distributed/test_c10d_xccl.py XCCLTraceTest.test_batched_send_recv_op_sizes_per_coalesce0_timing_enabled_False
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.XCCLTraceTest" name="test_batched_send_recv_op_sizes_per_coalesce1_timing_enabled_False" time="3.508"><failure message="RuntimeError: Process 0 exited with error code 10 and exception:&#10;Traceback (most recent call last):&#10;  File &quot;/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_distributed.py&quot;, line 1058, in run_test&#10;    getattr(self, test_name)()&#10;  File &quot;/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_distributed.py&quot;, line 905, in wrapper&#10;    fn()&#10;  File &quot;/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py&quot;, line 3550, in wrapper&#10;    method(*args, **kwargs)&#10;  File &quot;/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py&quot;, line 618, in instantiated_test&#10;    test(self, **param_kwargs)&#10;  File &quot;/home/jenkins/actions-runner/_work/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/distributed/test_c10d_xccl.py&quot;, line 1203, in test_batched_send_recv&#10;    self.assertEqual(len(t[&quot;entries&quot;]), num_coalesced_ops * ops_per_coalesce)&#10;  File &quot;/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py&quot;, line 4568, in assertEqual&#10;    raise error_metas.pop()[0].to_error(  # type: ignore[index]&#10;AssertionError: Scalars are not equal!&#10;&#10;Expected 60 but got 80.&#10;Absolute difference: 20&#10;Relative difference: 0.3333333333333333&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/distributed/test_c10d_xccl.py XCCLTraceTest.test_batched_send_recv_op_sizes_per_coalesce1_timing_enabled_False&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0&#10;&#10;Process 1 exited with error code 10 and exception:&#10;Traceback (most recent call last):&#10;  File &quot;/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_distributed.py&quot;, line 1058, in run_test&#10;    getattr(self, test_name)()&#10;  File &quot;/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_distributed.py&quot;, line 905, in wrapper&#10;    fn()&#10;  File &quot;/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py&quot;, line 3550, in wrapper&#10;    method(*args, **kwargs)&#10;  File &quot;/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py&quot;, line 618, in instantiated_test&#10;    test(self, **param_kwargs)&#10;  File &quot;/home/jenkins/actions-runner/_work/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/distributed/test_c10d_xccl.py&quot;, line 1203, in test_batched_send_recv&#10;    self.assertEqual(len(t[&quot;entries&quot;]), num_coalesced_ops * ops_per_coalesce)&#10;  File &quot;/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py&quot;, line 4568, in assertEqual&#10;    raise error_metas.pop()[0].to_error(  # type: ignore[index]&#10;AssertionError: Scalars are not equal!&#10;&#10;Expected 60 but got 80.&#10;Absolute difference: 20&#10;Relative difference: 0.3333333333333333&#10;&#10;To execute this test, run the following from the base repo dir:&#10;    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/distributed/test_c10d_xccl.py XCCLTraceTest.test_batched_send_recv_op_sizes_per_coalesce1_timing_enabled_False&#10;&#10;This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0">Traceback (most recent call last):
+  File "/home/jenkins/actions-runner/_work/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/distributed/test_c10d_xccl.py", line 883, in _join_processes
+    super()._join_processes(fn)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_distributed.py", line 1173, in _join_processes
+    self._check_return_codes(fn, elapsed_time)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_distributed.py", line 1213, in _check_return_codes
+    raise RuntimeError(error)
+RuntimeError: Process 0 exited with error code 10 and exception:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_distributed.py", line 1058, in run_test
+    getattr(self, test_name)()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_distributed.py", line 905, in wrapper
+    fn()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3550, in wrapper
+    method(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 618, in instantiated_test
+    test(self, **param_kwargs)
+  File "/home/jenkins/actions-runner/_work/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/distributed/test_c10d_xccl.py", line 1203, in test_batched_send_recv
+    self.assertEqual(len(t["entries"]), num_coalesced_ops * ops_per_coalesce)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 4568, in assertEqual
+    raise error_metas.pop()[0].to_error(  # type: ignore[index]
+AssertionError: Scalars are not equal!
+
+Expected 60 but got 80.
+Absolute difference: 20
+Relative difference: 0.3333333333333333
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/distributed/test_c10d_xccl.py XCCLTraceTest.test_batched_send_recv_op_sizes_per_coalesce1_timing_enabled_False
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0
+
+Process 1 exited with error code 10 and exception:
+Traceback (most recent call last):
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_distributed.py", line 1058, in run_test
+    getattr(self, test_name)()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_distributed.py", line 905, in wrapper
+    fn()
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 3550, in wrapper
+    method(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 618, in instantiated_test
+    test(self, **param_kwargs)
+  File "/home/jenkins/actions-runner/_work/torch-xpu-ops/torch-xpu-ops/pytorch/third_party/torch-xpu-ops/test/xpu/distributed/test_c10d_xccl.py", line 1203, in test_batched_send_recv
+    self.assertEqual(len(t["entries"]), num_coalesced_ops * ops_per_coalesce)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/testing/_internal/common_utils.py", line 4568, in assertEqual
+    raise error_metas.pop()[0].to_error(  # type: ignore[index]
+AssertionError: Scalars are not equal!
+
+Expected 60 but got 80.
+Absolute difference: 20
+Relative difference: 0.3333333333333333
+
+To execute this test, run the following from the base repo dir:
+    PYTORCH_TEST_WITH_SLOW=1 python test/xpu/distributed/test_c10d_xccl.py XCCLTraceTest.test_batched_send_recv_op_sizes_per_coalesce1_timing_enabled_False
+
+This message can be suppressed by setting PYTORCH_PRINT_REPRO_ON_FAILURE=0</failure></testcase><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.XCCLTraceTest" name="test_coalescing_manager_collective_timing_enabled_False" time="3.910" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.XCCLTraceTest" name="test_dump_pipe" time="3.879" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.XCCLTraceTest" name="test_individual_send_recv_op_sizes0_timing_enabled_False" time="3.608" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.XCCLTraceTest" name="test_individual_send_recv_op_sizes1_timing_enabled_False" time="3.510" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.XCCLTraceTest" name="test_long" time="3.509" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.XCCLTraceTest" name="test_short_pickle_include_collectives_False" time="4.510" /><testcase classname="third_party.torch-xpu-ops.test.xpu.distributed.test_c10d_xccl.XCCLTraceTest" name="test_short_pickle_include_collectives_True" time="4.512" /></testsuite></testsuites>

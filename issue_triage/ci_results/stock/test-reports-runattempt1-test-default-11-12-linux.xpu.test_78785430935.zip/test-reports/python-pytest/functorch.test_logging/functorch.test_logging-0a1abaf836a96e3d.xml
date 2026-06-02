@@ -1,0 +1,63 @@
+<testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="0.421" timestamp="2026-06-01T04:45:05.607280" hostname="54b354415dfd"><testcase classname="TestAOTLogging" name="test_logging" time="0.401" file="functorch/test_logging.py"><system-err>V0601 04:45:05.981000 115682 site-packages/torch/_functorch/_aot_autograd/graph_capture.py:322] [__aot_graphs] aot_config id: 0, fw_metadata=ViewAndMutationMeta(input_info=[InputAliasInfo(is_leaf=True, mutates_data=False, mutates_metadata=False, mutations_hidden_from_autograd=True, mutations_under_no_grad_or_inference_mode=False, mutation_inductor_storage_resize=False, mutates_storage_metadata=False, requires_grad=False, keep_input_mutations=False)], output_info=[OutputAliasInfo(output_type=&lt;OutputType.non_alias: 1&gt;, raw_type=&lt;class 'torch._subclasses.functional_tensor.FunctionalTensor'&gt;, base_idx=None, dynamic_dims=set(), requires_grad=False, requires_grad_for_backward=False, view_meta_sequence=None)], num_intermediate_bases=0, keep_input_mutations=False, traced_tangents=[], traced_tangents_descs=[], subclass_inp_meta=[PlainTensorMeta(unwrapped_idx=0, memory_format=None)], subclass_fw_graph_out_meta=[PlainTensorMeta(unwrapped_idx=0, memory_format=None)], subclass_tangent_meta=[], traced_tangent_metas=None, num_symints_saved_for_bw=None, num_tensors_saved_with_no_vc_check=None, num_opaque_objects_saved_for_bw=None, grad_enabled_mutation=None, deterministic=False, static_input_indices=[], act_input_indices=[], tokens={}, indices_of_inputs_that_requires_grad_with_mutations_in_bw=[], bw_donated_idxs=None, num_backward_tokens=0, num_graphsafe_rng_states=0, graphsafe_rng_state_index=None, graphsafe_rng_device=None, mutated_inp_stream_indices=None, compile_id_str=None, tangent_source_stack_traces=None),subclass_metadata=None
+I0601 04:45:05.989000 115682 site-packages/torch/_functorch/_aot_autograd/graph_capture.py:408] [__aot_graphs] TRACED GRAPH
+I0601 04:45:05.989000 115682 site-packages/torch/_functorch/_aot_autograd/graph_capture.py:408] [__aot_graphs]  ===== Forward graph 0 =====
+I0601 04:45:05.989000 115682 site-packages/torch/_functorch/_aot_autograd/graph_capture.py:408] [__aot_graphs]  &lt;eval_with_key&gt;.1 from /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py:1716 in wrapped class &lt;lambda&gt;(torch.nn.Module):
+I0601 04:45:05.989000 115682 site-packages/torch/_functorch/_aot_autograd/graph_capture.py:408] [__aot_graphs]     def forward(self, arg0_1: "f32[3][1]cpu"):
+I0601 04:45:05.989000 115682 site-packages/torch/_functorch/_aot_autograd/graph_capture.py:408] [__aot_graphs]         # No stacktrace found for following nodes
+I0601 04:45:05.989000 115682 site-packages/torch/_functorch/_aot_autograd/graph_capture.py:408] [__aot_graphs]         sin: "f32[3][1]cpu" = torch.ops.aten.sin.default(arg0_1);  arg0_1 = None
+I0601 04:45:05.989000 115682 site-packages/torch/_functorch/_aot_autograd/graph_capture.py:408] [__aot_graphs]         return (sin,)
+I0601 04:45:05.989000 115682 site-packages/torch/_functorch/_aot_autograd/graph_capture.py:408] [__aot_graphs] 
+I0601 04:45:05.989000 115682 site-packages/torch/_functorch/_aot_autograd/graph_capture.py:408] [__aot_graphs] 
+V0601 04:45:05.992000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331] Generated runtime_wrapper_orchestration:
+V0601 04:45:05.992000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331] def _runtime_wrapper(_compiled_fn_, _first_ctx_, _on_before_call_, args):
+V0601 04:45:05.992000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]     orig_inputs = {}
+V0601 04:45:05.992000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]     with _first_ctx_():
+V0601 04:45:05.992000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]         grad_enabled = torch.is_grad_enabled()
+V0601 04:45:05.992000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]         try:
+V0601 04:45:05.992000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]             if grad_enabled: torch._C._set_grad_enabled(False)
+V0601 04:45:05.992000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]             _on_before_call_()
+V0601 04:45:05.992000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]             all_outs = _compiled_fn_(args)
+V0601 04:45:05.992000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]             if isinstance(all_outs, tuple):
+V0601 04:45:05.992000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]                 all_outs = list(all_outs)
+V0601 04:45:05.992000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]             elif not isinstance(all_outs, list):
+V0601 04:45:05.992000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]                 all_outs = [all_outs]
+V0601 04:45:05.992000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]         finally:
+V0601 04:45:05.992000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]             if grad_enabled: torch._C._set_grad_enabled(True)
+V0601 04:45:05.992000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]     del args
+V0601 04:45:05.992000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]     if len(all_outs) != 1:
+V0601 04:45:05.992000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]         raise AssertionError(f"expected 1 outputs, got {len(all_outs)}")
+V0601 04:45:05.992000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]     fw_outs = all_outs
+V0601 04:45:05.992000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]     ret_outs = fw_outs
+V0601 04:45:05.992000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]     return ret_outs
+V0601 04:45:06.007000 115682 site-packages/torch/_functorch/_aot_autograd/graph_capture.py:322] [__aot_graphs] aot_config id: 1, fw_metadata=ViewAndMutationMeta(input_info=[InputAliasInfo(is_leaf=True, mutates_data=False, mutates_metadata=False, mutations_hidden_from_autograd=True, mutations_under_no_grad_or_inference_mode=False, mutation_inductor_storage_resize=False, mutates_storage_metadata=False, requires_grad=False, keep_input_mutations=False)], output_info=[OutputAliasInfo(output_type=&lt;OutputType.non_alias: 1&gt;, raw_type=&lt;class 'torch._subclasses.functional_tensor.FunctionalTensor'&gt;, base_idx=None, dynamic_dims=set(), requires_grad=False, requires_grad_for_backward=False, view_meta_sequence=None)], num_intermediate_bases=0, keep_input_mutations=False, traced_tangents=[], traced_tangents_descs=[], subclass_inp_meta=[PlainTensorMeta(unwrapped_idx=0, memory_format=None)], subclass_fw_graph_out_meta=[PlainTensorMeta(unwrapped_idx=0, memory_format=None)], subclass_tangent_meta=[], traced_tangent_metas=None, num_symints_saved_for_bw=None, num_tensors_saved_with_no_vc_check=None, num_opaque_objects_saved_for_bw=None, grad_enabled_mutation=None, deterministic=False, static_input_indices=[], act_input_indices=[], tokens={}, indices_of_inputs_that_requires_grad_with_mutations_in_bw=[], bw_donated_idxs=None, num_backward_tokens=0, num_graphsafe_rng_states=0, graphsafe_rng_state_index=None, graphsafe_rng_device=None, mutated_inp_stream_indices=None, compile_id_str=None, tangent_source_stack_traces=None),subclass_metadata=None
+I0601 04:45:06.011000 115682 site-packages/torch/_functorch/_aot_autograd/graph_capture.py:408] [__aot_graphs] TRACED GRAPH
+I0601 04:45:06.011000 115682 site-packages/torch/_functorch/_aot_autograd/graph_capture.py:408] [__aot_graphs]  ===== Forward graph 1 =====
+I0601 04:45:06.011000 115682 site-packages/torch/_functorch/_aot_autograd/graph_capture.py:408] [__aot_graphs]  &lt;eval_with_key&gt;.3 from /opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/proxy_tensor.py:1716 in wrapped class &lt;lambda&gt;(torch.nn.Module):
+I0601 04:45:06.011000 115682 site-packages/torch/_functorch/_aot_autograd/graph_capture.py:408] [__aot_graphs]     def forward(self, arg0_1: "f32[3][1]cpu"):
+I0601 04:45:06.011000 115682 site-packages/torch/_functorch/_aot_autograd/graph_capture.py:408] [__aot_graphs]         # No stacktrace found for following nodes
+I0601 04:45:06.011000 115682 site-packages/torch/_functorch/_aot_autograd/graph_capture.py:408] [__aot_graphs]         sin: "f32[3][1]cpu" = torch.ops.aten.sin.default(arg0_1);  arg0_1 = None
+I0601 04:45:06.011000 115682 site-packages/torch/_functorch/_aot_autograd/graph_capture.py:408] [__aot_graphs]         return (sin,)
+I0601 04:45:06.011000 115682 site-packages/torch/_functorch/_aot_autograd/graph_capture.py:408] [__aot_graphs] 
+I0601 04:45:06.011000 115682 site-packages/torch/_functorch/_aot_autograd/graph_capture.py:408] [__aot_graphs] 
+V0601 04:45:06.012000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331] Generated runtime_wrapper_orchestration:
+V0601 04:45:06.012000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331] def _runtime_wrapper(_compiled_fn_, _first_ctx_, _on_before_call_, args):
+V0601 04:45:06.012000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]     orig_inputs = {}
+V0601 04:45:06.012000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]     with _first_ctx_():
+V0601 04:45:06.012000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]         grad_enabled = torch.is_grad_enabled()
+V0601 04:45:06.012000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]         try:
+V0601 04:45:06.012000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]             if grad_enabled: torch._C._set_grad_enabled(False)
+V0601 04:45:06.012000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]             _on_before_call_()
+V0601 04:45:06.012000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]             all_outs = _compiled_fn_(args)
+V0601 04:45:06.012000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]             if isinstance(all_outs, tuple):
+V0601 04:45:06.012000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]                 all_outs = list(all_outs)
+V0601 04:45:06.012000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]             elif not isinstance(all_outs, list):
+V0601 04:45:06.012000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]                 all_outs = [all_outs]
+V0601 04:45:06.012000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]         finally:
+V0601 04:45:06.012000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]             if grad_enabled: torch._C._set_grad_enabled(True)
+V0601 04:45:06.012000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]     del args
+V0601 04:45:06.012000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]     if len(all_outs) != 1:
+V0601 04:45:06.012000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]         raise AssertionError(f"expected 1 outputs, got {len(all_outs)}")
+V0601 04:45:06.012000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]     fw_outs = all_outs
+V0601 04:45:06.012000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]     ret_outs = fw_outs
+V0601 04:45:06.012000 115682 site-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:331]     return ret_outs
+</system-err></testcase></testsuite></testsuites>

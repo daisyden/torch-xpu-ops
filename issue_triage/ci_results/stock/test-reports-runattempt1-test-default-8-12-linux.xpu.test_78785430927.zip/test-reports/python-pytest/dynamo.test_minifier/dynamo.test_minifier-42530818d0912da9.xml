@@ -1,0 +1,958 @@
+<testsuites><testsuite name="pytest" errors="0" failures="0" skipped="1" tests="11" time="2.116" timestamp="2026-06-01T04:48:16.092844" hostname="69e11a0ddc78"><testcase classname="TestAutocastDeviceDetectionXPU" name="test_repro_minify_autocast_uses_tensor_device_xpu" time="0.315" file="dynamo/test_minifier.py" /><testcase classname="TestAutocastDeviceDetectionXPU" name="test_repro_run_accuracy_branch_autocast_uses_tensor_device_xpu" time="0.005" file="dynamo/test_minifier.py" /><testcase classname="MinifierTestsXPU" name="test_after_dynamo_accuracy_backend_passes_xpu" time="0.172" file="dynamo/test_minifier.py" /><testcase classname="MinifierTestsXPU" name="test_after_dynamo_accuracy_error_xpu" time="0.652" file="dynamo/test_minifier.py"><system-out>test stdout: 
+test stderr: RMSE (res-fp64): 0.01194, (ref-fp64): 0.00000 and shape=torch.Size([20, 20]). res.dtype: torch.float32, multiplier: 3.000000, tol: 0.001000, use_larger_multiplier_for_smaller_tensor: 0
+Accuracy failed for the TorchDynamo produced graph. Creating script to minify the error.
+Writing minified repro to:
+/tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/minifier_launcher.py
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/test_minifier_common.py", line 160, in _maybe_subprocess_run
+    exec(code, {"__name__": "__main__", "__compile_source__": code})
+  File "/tmp/tmpy6t8jdre.py", line 27, in &lt;module&gt;
+    inner(torch.randn(20, 20, device="xpu:0"))
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1183, in compile_wrapper
+    raise e.remove_dynamo_frames() from None  # see TORCHDYNAMO_VERBOSE=1
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 3140, in _call_user_compiler
+    raise BackendCompilerFailed(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 3112, in _call_user_compiler
+    compiled_fn = compiler_fn(gm, example_inputs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/repro/after_dynamo.py", line 134, in __call__
+    raise exc
+torch._dynamo.exc.BackendCompilerFailed: backend='relu_accuracy_error_TESTING_ONLY' raised:
+AccuracyError: Bad accuracy detected.
+
+Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you're reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS="+dynamo"
+
+Minifier script written to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/minifier_launcher.py. Run this script to find the smallest traced graph which reproduces this error.
+
+
+minifier stdout: 
+minifier stderr: RMSE (res-fp64): 0.01194, (ref-fp64): 0.00000 and shape=torch.Size([20, 20]). res.dtype: torch.float32, multiplier: 3.000000, tol: 0.001000, use_larger_multiplier_for_smaller_tensor: 0
+Accuracy failed for the TorchDynamo produced graph
+Writing checkpoint with 23 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_23_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_23_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+RMSE (res-fp64): 0.01194, (ref-fp64): 0.00000 and shape=torch.Size([20, 20]). res.dtype: torch.float32, multiplier: 3.000000, tol: 0.001000, use_larger_multiplier_for_smaller_tensor: 0
+Writing checkpoint with 23 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_23_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_23_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+RMSE (res-fp64): 0.08716, (ref-fp64): 0.00000 and shape=torch.Size([20, 20]). res.dtype: torch.float32, multiplier: 3.000000, tol: 0.001000, use_larger_multiplier_for_smaller_tensor: 0
+RMSE (res-fp64): 0.08716, (ref-fp64): 0.00000 and shape=torch.Size([20, 20]). res.dtype: torch.float32, multiplier: 3.000000, tol: 0.001000, use_larger_multiplier_for_smaller_tensor: 0
+Writing checkpoint with 18 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_18_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_18_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+RMSE (res-fp64): 0.08716, (ref-fp64): 0.00000 and shape=torch.Size([20, 20]). res.dtype: torch.float32, multiplier: 3.000000, tol: 0.001000, use_larger_multiplier_for_smaller_tensor: 0
+RMSE (res-fp64): 0.08716, (ref-fp64): 0.00000 and shape=torch.Size([20, 20]). res.dtype: torch.float32, multiplier: 3.000000, tol: 0.001000, use_larger_multiplier_for_smaller_tensor: 0
+Writing checkpoint with 11 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_11_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_11_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+RMSE (res-fp64): 0.12774, (ref-fp64): 0.00000 and shape=torch.Size([20, 20]). res.dtype: torch.float32, multiplier: 3.000000, tol: 0.001000, use_larger_multiplier_for_smaller_tensor: 0
+RMSE (res-fp64): 0.12774, (ref-fp64): 0.00000 and shape=torch.Size([20, 20]). res.dtype: torch.float32, multiplier: 3.000000, tol: 0.001000, use_larger_multiplier_for_smaller_tensor: 0
+Writing checkpoint with 10 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_10_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_10_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+RMSE (res-fp64): 0.84686, (ref-fp64): 0.00000 and shape=torch.Size([20, 20]). res.dtype: torch.float32, multiplier: 3.000000, tol: 0.001000, use_larger_multiplier_for_smaller_tensor: 0
+RMSE (res-fp64): 0.84686, (ref-fp64): 0.00000 and shape=torch.Size([20, 20]). res.dtype: torch.float32, multiplier: 3.000000, tol: 0.001000, use_larger_multiplier_for_smaller_tensor: 0
+Writing checkpoint with 6 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_6_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_6_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+RMSE (res-fp64): 0.84686, (ref-fp64): 0.00000 and shape=torch.Size([20, 20]). res.dtype: torch.float32, multiplier: 3.000000, tol: 0.001000, use_larger_multiplier_for_smaller_tensor: 0
+RMSE (res-fp64): 0.84686, (ref-fp64): 0.00000 and shape=torch.Size([20, 20]). res.dtype: torch.float32, multiplier: 3.000000, tol: 0.001000, use_larger_multiplier_for_smaller_tensor: 0
+Writing checkpoint with 3 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_3_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_3_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+RMSE (res-fp64): 0.84686, (ref-fp64): 0.00000 and shape=torch.Size([20, 20]). res.dtype: torch.float32, multiplier: 3.000000, tol: 0.001000, use_larger_multiplier_for_smaller_tensor: 0
+Writing checkpoint with 3 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_3_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_3_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+
+repro stdout: 
+repro stderr: Could not generate fp64 outputs
+Could not generate fp64 outputs
+Accuracy failed: allclose not within tol=0.001
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/test_minifier_common.py", line 160, in _maybe_subprocess_run
+    exec(code, {"__name__": "__main__", "__compile_source__": code})
+  File "/tmp/tmp3tjm853o.py", line 765, in &lt;module&gt;
+    run_repro(mod, load_args, accuracy=True, command='run',
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/repro/after_dynamo.py", line 665, in run_repro
+    COMMAND_FNS[options.command](options, mod, load_args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/repro/after_dynamo.py", line 518, in repro_run
+    raise AccuracyError("Dynamo failed")
+torch._dynamo.debug_utils.AccuracyError: Dynamo failed
+
+</system-out><system-err>running test
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/utils/_config_module.py:793: FutureWarning: torch._dynamo.config.skip_code_recursive_on_recompile_limit_hit is deprecated and does not do anything. It will be removed in a future version of PyTorch.
+  setattr(self, k, v)
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/utils/_config_module.py:793: FutureWarning: torch._dynamo.config.inline_inbuilt_nn_modules is deprecated and does not do anything, inline_inbuilt_nn_modules is always True. It will be removed in a future version of PyTorch.
+  setattr(self, k, v)
+running minifier
+
+Loading inputs:   0%|          | 0/1 [00:00&lt;?, ?it/s]
+Loading inputs: 100%|&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;| 1/1 [00:00&lt;00:00, 751.13it/s]
+Started off with 23 nodes
+Trying granularity 16
+
+Strategy: Eliminate dead code (G: 16) (23 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 16) (23 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 16) (23 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 16) (23 nodes, 1 inputs)
+SUCCESS: Went from 23 to 18 nodes
+Trying granularity 16
+
+Strategy: Eliminate dead code (G: 16) (18 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 16) (18 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 16) (18 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 16) (18 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 16) (18 nodes, 1 inputs)
+FAIL: Delta Debugging
+Trying granularity 8
+
+Strategy: Truncate suffix (G: 8) (18 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 8) (18 nodes, 1 inputs)
+SUCCESS: Went from 18 to 11 nodes
+Trying granularity 8
+
+Strategy: Eliminate dead code (G: 8) (11 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 8) (11 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 8) (11 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 8) (11 nodes, 1 inputs)
+SUCCESS: Went from 11 to 10 nodes
+Trying granularity 8
+
+Strategy: Eliminate dead code (G: 8) (10 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 8) (10 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 8) (10 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 8) (10 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 8) (10 nodes, 1 inputs)
+FAIL: Delta Debugging
+Trying granularity 4
+
+Strategy: Truncate suffix (G: 4) (10 nodes, 1 inputs)
+SUCCESS: Went from 10 to 6 nodes
+Trying granularity 4
+
+Strategy: Eliminate dead code (G: 4) (6 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 4) (6 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 4) (6 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 4) (6 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 4) (6 nodes, 1 inputs)
+SUCCESS: Went from 6 to 3 nodes
+Trying granularity 2
+
+Strategy: Eliminate dead code (G: 2) (3 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 2) (3 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 2) (3 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 2) (3 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 2) (3 nodes, 1 inputs)
+FAIL: Delta Debugging
+Trying granularity 1
+
+Strategy: Truncate suffix (G: 1) (3 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 1) (3 nodes, 1 inputs)
+FAIL: Delta Debugging
+
+Strategy: Remove outputs (G: 1) (3 nodes, 1 inputs)
+FAIL: Remove outputs
+Made 19 queries
+Wrote minimal repro out to repro.py
+running repro
+
+Loading inputs:   0%|          | 0/1 [00:00&lt;?, ?it/s]
+Loading inputs: 100%|&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;| 1/1 [00:00&lt;00:00, 996.98it/s]
+</system-err></testcase><testcase classname="MinifierTestsXPU" name="test_after_dynamo_compile_backend_passes_xpu" time="0.048" file="dynamo/test_minifier.py" /><testcase classname="MinifierTestsXPU" name="test_after_dynamo_compile_error_xpu" time="0.207" file="dynamo/test_minifier.py"><system-out>test stdout: 
+test stderr: Compiled Fx GraphModule failed. Creating script to minify the error.
+Writing minified repro to:
+/tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/minifier_launcher.py
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/test_minifier_common.py", line 160, in _maybe_subprocess_run
+    exec(code, {"__name__": "__main__", "__compile_source__": code})
+  File "/tmp/tmpjmyyjvj7.py", line 731, in &lt;module&gt;
+    inner(torch.randn(20, 20, device="xpu:0"))
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1183, in compile_wrapper
+    raise e.remove_dynamo_frames() from None  # see TORCHDYNAMO_VERBOSE=1
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 3140, in _call_user_compiler
+    raise BackendCompilerFailed(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 3112, in _call_user_compiler
+    compiled_fn = compiler_fn(gm, example_inputs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/repro/after_dynamo.py", line 137, in __call__
+    compiled_gm = compiler_fn(copy.deepcopy(gm), example_inputs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/__init__.py", line 2562, in __call__
+    return self.compiler_fn(model_, inputs_, **self.kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/backends/debugging.py", line 551, in relu_compile_error_TESTING_ONLY
+    raise ReluCompileError
+torch._dynamo.exc.BackendCompilerFailed: backend='relu_compile_error_TESTING_ONLY' raised:
+ReluCompileError: 
+
+Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you're reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS="+dynamo"
+
+Minifier script written to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/minifier_launcher.py. Run this script to find the smallest traced graph which reproduces this error.
+
+
+minifier stdout: 
+minifier stderr: Compiled Fx GraphModule failed. Creating script to minify the error.
+Writing checkpoint with 23 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_23_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_23_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+Writing checkpoint with 23 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_23_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_23_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+Writing checkpoint with 18 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_18_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_18_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+Writing checkpoint with 11 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_11_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_11_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+Writing checkpoint with 10 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_10_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_10_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+Writing checkpoint with 6 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_6_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_6_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+Writing checkpoint with 3 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_3_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_3_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+Writing checkpoint with 3 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_3_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_3_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+
+repro stdout: 
+repro stderr: Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/test_minifier_common.py", line 160, in _maybe_subprocess_run
+    exec(code, {"__name__": "__main__", "__compile_source__": code})
+  File "/tmp/tmp9lpmszgd.py", line 765, in &lt;module&gt;
+    run_repro(mod, load_args, accuracy=False, command='run',
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/repro/after_dynamo.py", line 665, in run_repro
+    COMMAND_FNS[options.command](options, mod, load_args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/repro/after_dynamo.py", line 534, in repro_run
+    run_fwd_maybe_bwd(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/debug_utils.py", line 401, in run_fwd_maybe_bwd
+    out = gm(args) if getattr(gm, "_boxed_call", False) else gm(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 511, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1183, in compile_wrapper
+    raise e.remove_dynamo_frames() from None  # see TORCHDYNAMO_VERBOSE=1
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 3140, in _call_user_compiler
+    raise BackendCompilerFailed(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 3112, in _call_user_compiler
+    compiled_fn = compiler_fn(gm, example_inputs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/repro/after_dynamo.py", line 159, in __call__
+    compiled_gm = compiler_fn(gm, example_inputs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/backends/debugging.py", line 551, in relu_compile_error_TESTING_ONLY
+    raise ReluCompileError
+torch._dynamo.exc.BackendCompilerFailed: backend='relu_compile_error_TESTING_ONLY' raised:
+ReluCompileError: 
+
+Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you're reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS="+dynamo"
+
+
+</system-out><system-err>running test
+running minifier
+
+Loading inputs:   0%|          | 0/1 [00:00&lt;?, ?it/s]
+Loading inputs: 100%|&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;| 1/1 [00:00&lt;00:00, 1352.13it/s]
+Started off with 23 nodes
+Trying granularity 16
+
+Strategy: Eliminate dead code (G: 16) (23 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 16) (23 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 16) (23 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 16) (23 nodes, 1 inputs)
+SUCCESS: Went from 23 to 18 nodes
+Trying granularity 16
+
+Strategy: Eliminate dead code (G: 16) (18 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 16) (18 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 16) (18 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 16) (18 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 16) (18 nodes, 1 inputs)
+FAIL: Delta Debugging
+Trying granularity 8
+
+Strategy: Truncate suffix (G: 8) (18 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 8) (18 nodes, 1 inputs)
+SUCCESS: Went from 18 to 11 nodes
+Trying granularity 8
+
+Strategy: Eliminate dead code (G: 8) (11 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 8) (11 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 8) (11 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 8) (11 nodes, 1 inputs)
+SUCCESS: Went from 11 to 10 nodes
+Trying granularity 8
+
+Strategy: Eliminate dead code (G: 8) (10 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 8) (10 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 8) (10 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 8) (10 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 8) (10 nodes, 1 inputs)
+FAIL: Delta Debugging
+Trying granularity 4
+
+Strategy: Truncate suffix (G: 4) (10 nodes, 1 inputs)
+SUCCESS: Went from 10 to 6 nodes
+Trying granularity 4
+
+Strategy: Eliminate dead code (G: 4) (6 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 4) (6 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 4) (6 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 4) (6 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 4) (6 nodes, 1 inputs)
+SUCCESS: Went from 6 to 3 nodes
+Trying granularity 2
+
+Strategy: Eliminate dead code (G: 2) (3 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 2) (3 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 2) (3 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 2) (3 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 2) (3 nodes, 1 inputs)
+FAIL: Delta Debugging
+Trying granularity 1
+
+Strategy: Truncate suffix (G: 1) (3 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 1) (3 nodes, 1 inputs)
+FAIL: Delta Debugging
+
+Strategy: Remove outputs (G: 1) (3 nodes, 1 inputs)
+FAIL: Remove outputs
+Made 19 queries
+Wrote minimal repro out to repro.py
+running repro
+
+Loading inputs:   0%|          | 0/1 [00:00&lt;?, ?it/s]
+Loading inputs: 100%|&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;| 1/1 [00:00&lt;00:00, 1263.34it/s]
+
+Loading inputs:   0%|          | 0/1 [00:00&lt;?, ?it/s]
+Loading inputs: 100%|&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;| 1/1 [00:00&lt;00:00, 2207.53it/s]
+</system-err></testcase><testcase classname="MinifierTestsXPU" name="test_after_dynamo_non_leaf_compile_error_xpu" time="0.193" file="dynamo/test_minifier.py"><system-out>test stdout: 
+test stderr: Compiled Fx GraphModule failed. Creating script to minify the error.
+Writing minified repro to:
+/tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/minifier_launcher.py
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/test_minifier_common.py", line 160, in _maybe_subprocess_run
+    exec(code, {"__name__": "__main__", "__compile_source__": code})
+  File "/tmp/tmp017u_amy.py", line 726, in &lt;module&gt;
+    inner(torch.randn(20, 20, requires_grad=True, device="xpu:0") + 1)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1183, in compile_wrapper
+    raise e.remove_dynamo_frames() from None  # see TORCHDYNAMO_VERBOSE=1
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 3140, in _call_user_compiler
+    raise BackendCompilerFailed(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 3112, in _call_user_compiler
+    compiled_fn = compiler_fn(gm, example_inputs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/repro/after_dynamo.py", line 137, in __call__
+    compiled_gm = compiler_fn(copy.deepcopy(gm), example_inputs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/__init__.py", line 2562, in __call__
+    return self.compiler_fn(model_, inputs_, **self.kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/backends/debugging.py", line 593, in non_leaf_compile_error_TESTING_ONLY
+    raise TestingOnlyCompileError
+torch._dynamo.exc.BackendCompilerFailed: backend='non_leaf_compile_error_TESTING_ONLY' raised:
+TestingOnlyCompileError: 
+
+Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you're reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS="+dynamo"
+
+Minifier script written to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/minifier_launcher.py. Run this script to find the smallest traced graph which reproduces this error.
+
+
+minifier stdout: 
+minifier stderr: Compiled Fx GraphModule failed. Creating script to minify the error.
+Writing checkpoint with 3 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_3_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_3_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+Writing checkpoint with 3 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_3_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_3_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+Writing checkpoint with 3 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_3_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_3_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+
+repro stdout: 
+repro stderr: Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/test_minifier_common.py", line 160, in _maybe_subprocess_run
+    exec(code, {"__name__": "__main__", "__compile_source__": code})
+  File "/tmp/tmpw03zsux8.py", line 766, in &lt;module&gt;
+    run_repro(mod, load_args, accuracy=False, command='run',
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/repro/after_dynamo.py", line 665, in run_repro
+    COMMAND_FNS[options.command](options, mod, load_args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/repro/after_dynamo.py", line 534, in repro_run
+    run_fwd_maybe_bwd(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/debug_utils.py", line 401, in run_fwd_maybe_bwd
+    out = gm(args) if getattr(gm, "_boxed_call", False) else gm(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 511, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1183, in compile_wrapper
+    raise e.remove_dynamo_frames() from None  # see TORCHDYNAMO_VERBOSE=1
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 3140, in _call_user_compiler
+    raise BackendCompilerFailed(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 3112, in _call_user_compiler
+    compiled_fn = compiler_fn(gm, example_inputs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/repro/after_dynamo.py", line 159, in __call__
+    compiled_gm = compiler_fn(gm, example_inputs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/backends/debugging.py", line 593, in non_leaf_compile_error_TESTING_ONLY
+    raise TestingOnlyCompileError
+torch._dynamo.exc.BackendCompilerFailed: backend='non_leaf_compile_error_TESTING_ONLY' raised:
+TestingOnlyCompileError: 
+
+Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you're reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS="+dynamo"
+
+
+</system-out><system-err>running test
+running minifier
+
+Loading inputs:   0%|          | 0/1 [00:00&lt;?, ?it/s]
+Loading inputs: 100%|&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;| 1/1 [00:00&lt;00:00, 1302.98it/s]
+Started off with 3 nodes
+Trying granularity 2
+
+Strategy: Eliminate dead code (G: 2) (3 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 2) (3 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 2) (3 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 2) (3 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 2) (3 nodes, 1 inputs)
+FAIL: Delta Debugging
+Trying granularity 1
+
+Strategy: Truncate suffix (G: 1) (3 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 1) (3 nodes, 1 inputs)
+FAIL: Delta Debugging
+
+Strategy: Remove outputs (G: 1) (3 nodes, 1 inputs)
+FAIL: Remove outputs
+Made 4 queries
+Wrote minimal repro out to repro.py
+running repro
+
+Loading inputs:   0%|          | 0/1 [00:00&lt;?, ?it/s]
+Loading inputs: 100%|&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;| 1/1 [00:00&lt;00:00, 1044.14it/s]
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/testing.py:132: UserWarning: The .grad attribute of a Tensor that is not a leaf Tensor is being accessed. Its .grad attribute won't be populated during autograd.backward(). If you indeed want the .grad field to be populated for a non-leaf Tensor, use .retain_grad() on the non-leaf Tensor. If you access the non-leaf Tensor by mistake, make sure you access the leaf Tensor instead. See github.com/pytorch/pytorch/pull/30531 for more information. (Triggered internally at /var/lib/jenkins/workspace/build/aten/src/ATen/core/TensorBody.h:494.)
+  results.append(example.grad)
+
+Loading inputs:   0%|          | 0/1 [00:00&lt;?, ?it/s]
+Loading inputs: 100%|&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;| 1/1 [00:00&lt;00:00, 1651.30it/s]
+</system-err></testcase><testcase classname="MinifierTestsXPU" name="test_after_dynamo_runtime_backend_passes_xpu" time="0.048" file="dynamo/test_minifier.py" /><testcase classname="MinifierTestsXPU" name="test_after_dynamo_runtime_error_xpu" time="0.092" file="dynamo/test_minifier.py"><system-out>test stdout: 
+test stderr: Compiled Fx GraphModule failed. Creating script to minify the error.
+Writing minified repro to:
+/tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/minifier_launcher.py
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/test_minifier_common.py", line 160, in _maybe_subprocess_run
+    exec(code, {"__name__": "__main__", "__compile_source__": code})
+  File "/tmp/tmppccpth18.py", line 731, in &lt;module&gt;
+    inner(torch.randn(20, 20, device="xpu:0"))
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1183, in compile_wrapper
+    raise e.remove_dynamo_frames() from None  # see TORCHDYNAMO_VERBOSE=1
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 3140, in _call_user_compiler
+    raise BackendCompilerFailed(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 3112, in _call_user_compiler
+    compiled_fn = compiler_fn(gm, example_inputs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/repro/after_dynamo.py", line 138, in __call__
+    run_fwd_maybe_bwd(compiled_gm, example_inputs)  # type: ignore[arg-type]
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/debug_utils.py", line 401, in run_fwd_maybe_bwd
+    out = gm(args) if getattr(gm, "_boxed_call", False) else gm(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/_lazy_graph_module.py", line 134, in _lazy_forward
+    return self(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/graph_module.py", line 1000, in call_wrapped
+    return self._wrapped_call(self, *args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/graph_module.py", line 507, in __call__
+    raise e
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/graph_module.py", line 493, in __call__
+    return super(self.cls, obj).__call__(*args, **kwargs)  # type: ignore[misc]
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "&lt;eval_with_key&gt;.360", line 16, in forward
+    x_10 = torch._assert(False, 'ReluRuntimeError')
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/__init__.py", line 2273, in _assert
+    raise AssertionError(message)
+torch._dynamo.exc.BackendCompilerFailed: backend='relu_runtime_error_TESTING_ONLY' raised:
+AssertionError: ReluRuntimeError
+
+Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you're reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS="+dynamo"
+
+Minifier script written to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/minifier_launcher.py. Run this script to find the smallest traced graph which reproduces this error.
+
+
+minifier stdout: 
+minifier stderr: Compiled Fx GraphModule failed. Creating script to minify the error.
+Writing checkpoint with 23 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_23_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_23_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/test_minifier_common.py", line 160, in _maybe_subprocess_run
+    exec(code, {"__name__": "__main__", "__compile_source__": code})
+  File "/tmp/tmp5e_3uhv9.py", line 786, in &lt;module&gt;
+    run_repro(mod, load_args, accuracy=False, command='minify',
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/repro/after_dynamo.py", line 665, in run_repro
+    COMMAND_FNS[options.command](options, mod, load_args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/repro/after_dynamo.py", line 488, in repro_minify
+    opt_mod(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 511, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1183, in compile_wrapper
+    raise e.remove_dynamo_frames() from None  # see TORCHDYNAMO_VERBOSE=1
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 3140, in _call_user_compiler
+    raise BackendCompilerFailed(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 3112, in _call_user_compiler
+    compiled_fn = compiler_fn(gm, example_inputs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/repro/after_dynamo.py", line 159, in __call__
+    compiled_gm = compiler_fn(gm, example_inputs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/repro/after_dynamo.py", line 353, in dynamo_minifier_backend
+    minifier(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_functorch/fx_minifier.py", line 247, in minifier
+    ConcreteProp(fail_f, writer=writer, skip_offload=skip_offload).propagate(*inps)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_functorch/fx_minifier.py", line 84, in propagate
+    r = super().run(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/interpreter.py", line 197, in run
+    self.env[node] = self.run_node(node)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_functorch/fx_minifier.py", line 51, in run_node
+    r = super().run_node(n)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/interpreter.py", line 294, in run_node
+    return getattr(self, n.op)(n.target, args, kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/interpreter.py", line 377, in call_function
+    return target(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/__init__.py", line 2273, in _assert
+    raise AssertionError(message)
+torch._dynamo.exc.BackendCompilerFailed: backend='?' raised:
+AssertionError: ReluRuntimeError
+
+While executing %x_10 : [num_users=1] = call_function[target=torch._assert](args = (False, ReluRuntimeError), kwargs = {})
+Original traceback:
+
+Use tlparse to see full graph. (https://github.com/pytorch/tlparse?tab=readme-ov-file#tlparse-parse-structured-pt2-logs)
+
+Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you're reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS="+dynamo"
+
+
+repro stdout: 
+repro stderr: Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/test_minifier_common.py", line 160, in _maybe_subprocess_run
+    exec(code, {"__name__": "__main__", "__compile_source__": code})
+  File "/tmp/tmpnh2mqus9.py", line 786, in &lt;module&gt;
+    run_repro(mod, load_args, accuracy=False, command='run',
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/repro/after_dynamo.py", line 665, in run_repro
+    COMMAND_FNS[options.command](options, mod, load_args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/repro/after_dynamo.py", line 530, in repro_run
+    run_fwd_maybe_bwd(mod, args, only_fwd=options.only_fwd, disable_clone=True)  # type: ignore[arg-type]
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/debug_utils.py", line 401, in run_fwd_maybe_bwd
+    out = gm(args) if getattr(gm, "_boxed_call", False) else gm(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/tmp/tmp4ec2d194.py", line 763, in forward
+    x_10 = torch._assert(False, 'ReluRuntimeError')
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/__init__.py", line 2273, in _assert
+    raise AssertionError(message)
+AssertionError: ReluRuntimeError
+
+</system-out><system-err>running test
+running minifier
+
+Loading inputs:   0%|          | 0/1 [00:00&lt;?, ?it/s]
+Loading inputs: 100%|&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;| 1/1 [00:00&lt;00:00, 1405.13it/s]
+running repro
+
+Loading inputs:   0%|          | 0/1 [00:00&lt;?, ?it/s]
+Loading inputs: 100%|&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;| 1/1 [00:00&lt;00:00, 1361.35it/s]
+</system-err></testcase><testcase classname="MinifierTestsXPU" name="test_cpu_device_module_after_dynamo_xpu" time="0.002" file="dynamo/test_minifier.py"><skipped type="pytest.skip" message="test doesn't currently work with nn module inlining">/var/lib/jenkins/pytorch/test/dynamo/test_minifier.py:83: test doesn't currently work with nn module inlining</skipped></testcase><testcase classname="MinifierTestsXPU" name="test_if_graph_minified_xpu" time="0.351" file="dynamo/test_minifier.py"><system-out>test stdout: 
+test stderr: Compiled Fx GraphModule failed. Creating script to minify the error.
+Writing minified repro to:
+/tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/minifier_launcher.py
+Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/test_minifier_common.py", line 160, in _maybe_subprocess_run
+    exec(code, {"__name__": "__main__", "__compile_source__": code})
+  File "/tmp/tmprdk0u5wr.py", line 731, in &lt;module&gt;
+    inner(torch.randn(20, 20, device="xpu:0"))
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1183, in compile_wrapper
+    raise e.remove_dynamo_frames() from None  # see TORCHDYNAMO_VERBOSE=1
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 3140, in _call_user_compiler
+    raise BackendCompilerFailed(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 3112, in _call_user_compiler
+    compiled_fn = compiler_fn(gm, example_inputs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/repro/after_dynamo.py", line 137, in __call__
+    compiled_gm = compiler_fn(copy.deepcopy(gm), example_inputs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/__init__.py", line 2562, in __call__
+    return self.compiler_fn(model_, inputs_, **self.kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/backends/debugging.py", line 551, in relu_compile_error_TESTING_ONLY
+    raise ReluCompileError
+torch._dynamo.exc.BackendCompilerFailed: backend='relu_compile_error_TESTING_ONLY' raised:
+ReluCompileError: 
+
+Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you're reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS="+dynamo"
+
+Minifier script written to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/minifier_launcher.py. Run this script to find the smallest traced graph which reproduces this error.
+
+
+minifier stdout: 
+minifier stderr: Compiled Fx GraphModule failed. Creating script to minify the error.
+Writing checkpoint with 43 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_43_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_43_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+Writing checkpoint with 43 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_43_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_43_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+Writing checkpoint with 34 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_34_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_34_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+Writing checkpoint with 19 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_19_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_19_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+Writing checkpoint with 18 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_18_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_18_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+Writing checkpoint with 10 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_10_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_10_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+Writing checkpoint with 7 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_7_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_7_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+Writing checkpoint with 6 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_6_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_6_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+Writing checkpoint with 5 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_5_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_5_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+Writing checkpoint with 4 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_4_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_4_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+Writing checkpoint with 3 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_3_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_3_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+Writing checkpoint with 3 nodes to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_3_nodes.py
+Copying /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/checkpoints/minified_3_nodes.py to /tmp/tmpphimzfkb/run_2026_06_01_04_48_16_956466-pid_83047/minifier/repro.py for convenience
+
+repro stdout: 
+repro stderr: Traceback (most recent call last):
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/test_minifier_common.py", line 160, in _maybe_subprocess_run
+    exec(code, {"__name__": "__main__", "__compile_source__": code})
+  File "/tmp/tmpv_37xg9m.py", line 765, in &lt;module&gt;
+    run_repro(mod, load_args, accuracy=False, command='run',
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/repro/after_dynamo.py", line 665, in run_repro
+    COMMAND_FNS[options.command](options, mod, load_args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/repro/after_dynamo.py", line 534, in repro_run
+    run_fwd_maybe_bwd(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/debug_utils.py", line 401, in run_fwd_maybe_bwd
+    out = gm(args) if getattr(gm, "_boxed_call", False) else gm(*args)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 511, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 1183, in compile_wrapper
+    raise e.remove_dynamo_frames() from None  # see TORCHDYNAMO_VERBOSE=1
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 3140, in _call_user_compiler
+    raise BackendCompilerFailed(
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 3112, in _call_user_compiler
+    compiled_fn = compiler_fn(gm, example_inputs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/repro/after_dynamo.py", line 159, in __call__
+    compiled_gm = compiler_fn(gm, example_inputs)
+  File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/backends/debugging.py", line 551, in relu_compile_error_TESTING_ONLY
+    raise ReluCompileError
+torch._dynamo.exc.BackendCompilerFailed: backend='relu_compile_error_TESTING_ONLY' raised:
+ReluCompileError: 
+
+Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you're reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS="+dynamo"
+
+
+</system-out><system-err>running test
+running minifier
+
+Loading inputs:   0%|          | 0/1 [00:00&lt;?, ?it/s]
+Loading inputs: 100%|&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;| 1/1 [00:00&lt;00:00, 1244.23it/s]
+Started off with 43 nodes
+Trying granularity 32
+
+Strategy: Eliminate dead code (G: 32) (43 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 32) (43 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 32) (43 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 32) (43 nodes, 1 inputs)
+SUCCESS: Went from 43 to 34 nodes
+Trying granularity 32
+
+Strategy: Eliminate dead code (G: 32) (34 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 32) (34 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 32) (34 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 32) (34 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 32) (34 nodes, 1 inputs)
+FAIL: Delta Debugging
+Trying granularity 16
+
+Strategy: Truncate suffix (G: 16) (34 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 16) (34 nodes, 1 inputs)
+SUCCESS: Went from 34 to 19 nodes
+Trying granularity 16
+
+Strategy: Eliminate dead code (G: 16) (19 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 16) (19 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 16) (19 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 16) (19 nodes, 1 inputs)
+SUCCESS: Went from 19 to 18 nodes
+Trying granularity 16
+
+Strategy: Eliminate dead code (G: 16) (18 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 16) (18 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 16) (18 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 16) (18 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 16) (18 nodes, 1 inputs)
+FAIL: Delta Debugging
+Trying granularity 8
+
+Strategy: Truncate suffix (G: 8) (18 nodes, 1 inputs)
+SUCCESS: Went from 18 to 10 nodes
+Trying granularity 8
+
+Strategy: Eliminate dead code (G: 8) (10 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 8) (10 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 8) (10 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 8) (10 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 8) (10 nodes, 1 inputs)
+FAIL: Delta Debugging
+Trying granularity 4
+
+Strategy: Truncate suffix (G: 4) (10 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 4) (10 nodes, 1 inputs)
+SUCCESS: Went from 10 to 7 nodes
+Trying granularity 4
+
+Strategy: Eliminate dead code (G: 4) (7 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 4) (7 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 4) (7 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 4) (7 nodes, 1 inputs)
+SUCCESS: Went from 7 to 6 nodes
+Trying granularity 4
+
+Strategy: Eliminate dead code (G: 4) (6 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 4) (6 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 4) (6 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 4) (6 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 4) (6 nodes, 1 inputs)
+FAIL: Delta Debugging
+Trying granularity 2
+
+Strategy: Truncate suffix (G: 2) (6 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 2) (6 nodes, 1 inputs)
+SUCCESS: Went from 6 to 5 nodes
+Trying granularity 4
+
+Strategy: Eliminate dead code (G: 4) (5 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 4) (5 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 4) (5 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 4) (5 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 4) (5 nodes, 1 inputs)
+FAIL: Delta Debugging
+Trying granularity 2
+
+Strategy: Truncate suffix (G: 2) (5 nodes, 1 inputs)
+SUCCESS: Went from 5 to 4 nodes
+Trying granularity 4
+
+Strategy: Eliminate dead code (G: 4) (4 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 4) (4 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 4) (4 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 4) (4 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 4) (4 nodes, 1 inputs)
+FAIL: Delta Debugging
+Trying granularity 2
+
+Strategy: Truncate suffix (G: 2) (4 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 2) (4 nodes, 1 inputs)
+SUCCESS: Went from 4 to 3 nodes
+Trying granularity 2
+
+Strategy: Eliminate dead code (G: 2) (3 nodes, 1 inputs)
+FAIL: Eliminate dead code
+
+Strategy: Remove unused inputs (G: 2) (3 nodes, 1 inputs)
+FAIL: Remove unused inputs
+
+Strategy: Consolidate Inputs (G: 2) (3 nodes, 1 inputs)
+FAIL: Consolidate Inputs
+
+Strategy: Truncate suffix (G: 2) (3 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 2) (3 nodes, 1 inputs)
+FAIL: Delta Debugging
+Trying granularity 1
+
+Strategy: Truncate suffix (G: 1) (3 nodes, 1 inputs)
+FAIL: Truncate suffix
+
+Strategy: Delta Debugging (G: 1) (3 nodes, 1 inputs)
+FAIL: Delta Debugging
+
+Strategy: Remove outputs (G: 1) (3 nodes, 1 inputs)
+FAIL: Remove outputs
+Made 35 queries
+Wrote minimal repro out to repro.py
+running repro
+
+Loading inputs:   0%|          | 0/1 [00:00&lt;?, ?it/s]
+Loading inputs: 100%|&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;| 1/1 [00:00&lt;00:00, 601.59it/s]
+
+Loading inputs:   0%|          | 0/1 [00:00&lt;?, ?it/s]
+Loading inputs: 100%|&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;| 1/1 [00:00&lt;00:00, 1655.86it/s]
+</system-err></testcase></testsuite></testsuites>

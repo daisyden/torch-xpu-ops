@@ -1,0 +1,7 @@
+<testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="3" time="46.893" timestamp="2026-06-01T04:46:16.431343" hostname="4f112793be87"><testcase classname="TestTorchbindAOTI" name="test_custom_objs_empty_when_no_torchbind" time="34.785" file="inductor/test_aoti_torchbind_constants.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TestTorchbindAOTI" name="test_custom_objs_exposed_through_loader" time="6.162" file="inductor/test_aoti_torchbind_constants.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TestTorchbindAOTI" name="test_mutating_custom_obj_after_load_affects_run" time="5.920" file="inductor/test_aoti_torchbind_constants.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase></testsuite></testsuites>

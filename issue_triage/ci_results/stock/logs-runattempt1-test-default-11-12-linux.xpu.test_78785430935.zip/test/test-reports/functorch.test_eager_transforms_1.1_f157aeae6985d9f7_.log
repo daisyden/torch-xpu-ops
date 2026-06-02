@@ -1,0 +1,44 @@
+Test results will be stored in test-reports/python-pytest/functorch.test_eager_transforms/functorch.test_eager_transforms-dfa5d4c04c567877.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 29 items
+stepcurrent: Cannot find last run test, not skipping
+Running 29 items in this shard: test/functorch/test_eager_transforms.py::TestSliceArgnums::test_argnums_reorders, test/functorch/test_eager_transforms.py::TestSliceArgnums::test_duplicate_argnums, test/functorch/test_eager_transforms.py::TestSliceArgnums::test_flat_args_with_negative_int_argnum, test/functorch/test_eager_transforms.py::TestSliceArgnums::test_flat_args_with_positive_int_argnum, test/functorch/test_eager_transforms.py::TestSliceArgnums::test_flat_args_with_tuple_argnum, test/functorch/test_eager_transforms.py::TestSliceArgnums::test_invalid_argnum_type, test/functorch/test_eager_transforms.py::TestSliceArgnums::test_not_enough_argnums, test/functorch/test_eager_transforms.py::TestSliceArgnums::test_out_of_bounds_argnum_values, test/functorch/test_eager_transforms.py::TestSliceArgnums::test_pytree_args, test/functorch/test_eager_transforms.py::TestMakeFunctional::test_buffer_tying, test/functorch/test_eager_transforms.py::TestMakeFunctional::test_combine_state_for_ensemble_error, test/functorch/test_eager_transforms.py::TestMakeFunctional::test_combine_state_for_ensemble_smoke, test/functorch/test_eager_transforms.py::TestMakeFunctional::test_correctness_mnist_mechanism_functional_call, test/functorch/test_eager_transforms.py::TestMakeFunctional::test_correctness_mnist_mechanism_make_functional, test/functorch/test_eager_transforms.py::TestMakeFunctional::test_disable_autograd_tracking_disable_autograd_tracking_False, test/functorch/test_eager_transforms.py::TestMakeFunctional::test_disable_autograd_tracking_disable_autograd_tracking_True, test/functorch/test_eager_transforms.py::TestMakeFunctional::test_make_functional_state_correctly_returned_after_forward_mechanism_functional_call, test/functorch/test_eager_transforms.py::TestMakeFunctional::test_make_functional_state_correctly_returned_after_forward_mechanism_make_functional, test/functorch/test_eager_transforms.py::TestMakeFunctional::test_parameter_tying, test/functorch/test_eager_transforms.py::TestMakeFunctional::test_parameter_tying_ensemble, test/functorch/test_eager_transforms.py::TestMakeFunctional::test_parameter_tying_grad, test/functorch/test_eager_transforms.py::TestMakeFunctional::test_stack_module_state_error, test/functorch/test_eager_transforms.py::TestMakeFunctional::test_stack_module_state_leaf, test/functorch/test_eager_transforms.py::TestMakeFunctional::test_stack_module_state_mismatch_error, test/functorch/test_eager_transforms.py::TestMakeFunctional::test_stack_module_state_smoke, test/functorch/test_eager_transforms.py::TestMakeFunctional::test_using_detach_functional_call_detach_params_False, test/functorch/test_eager_transforms.py::TestMakeFunctional::test_using_detach_functional_call_detach_params_True, test/functorch/test_eager_transforms.py::TestMakeFunctional::test_with_buffers_disable_autograd_tracking_disable_autograd_tracking_False, test/functorch/test_eager_transforms.py::TestMakeFunctional::test_with_buffers_disable_autograd_tracking_disable_autograd_tracking_True
+
+functorch/test_eager_transforms.py::TestSliceArgnums::test_argnums_reorders PASSED [0.0023s] [  3%]
+functorch/test_eager_transforms.py::TestSliceArgnums::test_duplicate_argnums PASSED [0.0017s] [  6%]
+functorch/test_eager_transforms.py::TestSliceArgnums::test_flat_args_with_negative_int_argnum PASSED [0.0014s] [ 10%]
+functorch/test_eager_transforms.py::TestSliceArgnums::test_flat_args_with_positive_int_argnum PASSED [0.0013s] [ 13%]
+functorch/test_eager_transforms.py::TestSliceArgnums::test_flat_args_with_tuple_argnum PASSED [0.0014s] [ 17%]
+functorch/test_eager_transforms.py::TestSliceArgnums::test_invalid_argnum_type PASSED [0.0014s] [ 20%]
+functorch/test_eager_transforms.py::TestSliceArgnums::test_not_enough_argnums PASSED [0.0013s] [ 24%]
+functorch/test_eager_transforms.py::TestSliceArgnums::test_out_of_bounds_argnum_values PASSED [0.0013s] [ 27%]
+functorch/test_eager_transforms.py::TestSliceArgnums::test_pytree_args PASSED [0.0014s] [ 31%]
+functorch/test_eager_transforms.py::TestMakeFunctional::test_buffer_tying PASSED [0.0060s] [ 34%]
+functorch/test_eager_transforms.py::TestMakeFunctional::test_combine_state_for_ensemble_error PASSED [0.0023s] [ 37%]
+functorch/test_eager_transforms.py::TestMakeFunctional::test_combine_state_for_ensemble_smoke PASSED [0.0022s] [ 41%]
+functorch/test_eager_transforms.py::TestMakeFunctional::test_correctness_mnist_mechanism_functional_call PASSED [0.6263s] [ 44%]
+functorch/test_eager_transforms.py::TestMakeFunctional::test_correctness_mnist_mechanism_make_functional PASSED [0.4707s] [ 48%]
+functorch/test_eager_transforms.py::TestMakeFunctional::test_disable_autograd_tracking_disable_autograd_tracking_False PASSED [0.0024s] [ 51%]
+functorch/test_eager_transforms.py::TestMakeFunctional::test_disable_autograd_tracking_disable_autograd_tracking_True PASSED [0.0018s] [ 55%]
+functorch/test_eager_transforms.py::TestMakeFunctional::test_make_functional_state_correctly_returned_after_forward_mechanism_functional_call PASSED [0.0022s] [ 58%]
+functorch/test_eager_transforms.py::TestMakeFunctional::test_make_functional_state_correctly_returned_after_forward_mechanism_make_functional PASSED [0.0020s] [ 62%]
+functorch/test_eager_transforms.py::TestMakeFunctional::test_parameter_tying PASSED [0.0037s] [ 65%]
+functorch/test_eager_transforms.py::TestMakeFunctional::test_parameter_tying_ensemble PASSED [0.0458s] [ 68%]
+functorch/test_eager_transforms.py::TestMakeFunctional::test_parameter_tying_grad PASSED [0.0055s] [ 72%]
+functorch/test_eager_transforms.py::TestMakeFunctional::test_stack_module_state_error PASSED [0.0019s] [ 75%]
+functorch/test_eager_transforms.py::TestMakeFunctional::test_stack_module_state_leaf PASSED [0.0013s] [ 79%]
+functorch/test_eager_transforms.py::TestMakeFunctional::test_stack_module_state_mismatch_error PASSED [0.0013s] [ 82%]
+functorch/test_eager_transforms.py::TestMakeFunctional::test_stack_module_state_smoke PASSED [0.0012s] [ 86%]
+functorch/test_eager_transforms.py::TestMakeFunctional::test_using_detach_functional_call_detach_params_False PASSED [0.0014s] [ 89%]
+functorch/test_eager_transforms.py::TestMakeFunctional::test_using_detach_functional_call_detach_params_True PASSED [0.0014s] [ 93%]
+functorch/test_eager_transforms.py::TestMakeFunctional::test_with_buffers_disable_autograd_tracking_disable_autograd_tracking_False PASSED [0.0018s] [ 96%]
+functorch/test_eager_transforms.py::TestMakeFunctional::test_with_buffers_disable_autograd_tracking_disable_autograd_tracking_True PASSED [0.0016s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/functorch.test_eager_transforms/functorch.test_eager_transforms-dfa5d4c04c567877.xml -
+============================== 29 passed in 1.26s ==============================

@@ -1,0 +1,67 @@
+Test results will be stored in test-reports/python-pytest/dynamo.test_modes/dynamo.test_modes-9d63cd832cbc7e38.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... /var/lib/jenkins/pytorch/test/dynamo/test_modes.py:36: PytestCollectionWarning: cannot collect test class 'TestMode' because it has a __init__ constructor (from: test/dynamo/test_modes.py)
+  class TestMode(BaseTorchFunctionMode):
+/var/lib/jenkins/pytorch/test/dynamo/test_modes.py:51: PytestCollectionWarning: cannot collect test class 'TestModeRaises' because it has a __init__ constructor (from: test/dynamo/test_modes.py)
+  class TestModeRaises(BaseTorchFunctionMode):
+collected 48 items
+stepcurrent: Cannot find last run test, not skipping
+Running 48 items in this shard: test/dynamo/test_modes.py::TorchDispatchModeTests::test_skip_torch_dispatch_modes, test/dynamo/test_modes.py::TorchDispatchModeTests::test_torch_dispatch_ignore_compile_internals, test/dynamo/test_modes.py::TorchFunctionModeTests::test_builtin_equivalent_funcs, test/dynamo/test_modes.py::TorchFunctionModeTests::test_default_device_factory_functions, test/dynamo/test_modes.py::TorchFunctionModeTests::test_default_device_factory_functions_priority, test/dynamo/test_modes.py::TorchFunctionModeTests::test_error_empty_stack_pop_torch_function_mode, test/dynamo/test_modes.py::TorchFunctionModeTests::test_expand, test/dynamo/test_modes.py::TorchFunctionModeTests::test_flex_attention, test/dynamo/test_modes.py::TorchFunctionModeTests::test_hop, test/dynamo/test_modes.py::TorchFunctionModeTests::test_hop_eager, test/dynamo/test_modes.py::TorchFunctionModeTests::test_intermedate_torch_function_mode_construction_mutation, test/dynamo/test_modes.py::TorchFunctionModeTests::test_is_torch_function_all_disabled, test/dynamo/test_modes.py::TorchFunctionModeTests::test_len_torch_function_mode, test/dynamo/test_modes.py::TorchFunctionModeTests::test_nested_torch_function_mode, test/dynamo/test_modes.py::TorchFunctionModeTests::test_pop_torch_function_mode, test/dynamo/test_modes.py::TorchFunctionModeTests::test_push_torch_function_mode, test/dynamo/test_modes.py::TorchFunctionModeTests::test_register_hook, test/dynamo/test_modes.py::TorchFunctionModeTests::test_stack_state_clear_default_device, test/dynamo/test_modes.py::TorchFunctionModeTests::test_stack_state_mutation_default_device, test/dynamo/test_modes.py::TorchFunctionModeTests::test_torch_function_mode_and_pop_graph_break, test/dynamo/test_modes.py::TorchFunctionModeTests::test_torch_function_mode_and_pop_graph_break_mutation, test/dynamo/test_modes.py::TorchFunctionModeTests::test_torch_function_mode_disable, test/dynamo/test_modes.py::TorchFunctionModeTests::test_torch_function_mode_enabled_guard, test/dynamo/test_modes.py::TorchFunctionModeTests::test_torch_function_mode_enter_exit, test/dynamo/test_modes.py::TorchFunctionModeTests::test_torch_function_mode_graph_break, test/dynamo/test_modes.py::TorchFunctionModeTests::test_torch_function_mode_guards_cpp, test/dynamo/test_modes.py::TorchFunctionModeTests::test_torch_function_mode_guards_py, test/dynamo/test_modes.py::TorchFunctionModeTests::test_torch_function_mode_highest_priority, test/dynamo/test_modes.py::TorchFunctionModeTests::test_torch_function_mode_mutated_state, test/dynamo/test_modes.py::TorchFunctionModeTests::test_torch_function_mode_no_leak_nested_graph_break, test/dynamo/test_modes.py::TorchFunctionModeTests::test_torch_function_mode_no_leak_on_graph_break, test/dynamo/test_modes.py::TorchFunctionModeTests::test_torch_function_mode_preserves_cuda_rng_state, test/dynamo/test_modes.py::TorchFunctionModeTests::test_torch_function_mode_restore_on_exc, test/dynamo/test_modes.py::InvokeSubgraphBackendTests::test_2tier_blockmask_tensor_closure_nested_compile_aot_export, test/dynamo/test_modes.py::InvokeSubgraphBackendTests::test_aot_autograd_over_dynamo_train_step, test/dynamo/test_modes.py::InvokeSubgraphBackendTests::test_aot_autograd_over_dynamo_with_requires_grad, test/dynamo/test_modes.py::InvokeSubgraphBackendTests::test_guard_failure_creates_separate_subgraphs, test/dynamo/test_modes.py::InvokeSubgraphBackendTests::test_invoke_subgraph_seq_nr, test/dynamo/test_modes.py::InvokeSubgraphBackendTests::test_make_fx_over_compiled_function, test/dynamo/test_modes.py::InvokeSubgraphBackendTests::test_multiple_inputs, test/dynamo/test_modes.py::InvokeSubgraphBackendTests::test_multiple_inputs_and_outputs, test/dynamo/test_modes.py::InvokeSubgraphBackendTests::test_multiple_outputs, test/dynamo/test_modes.py::InvokeSubgraphBackendTests::test_nested_compile_dynamic, test/dynamo/test_modes.py::InvokeSubgraphBackendTests::test_nested_compile_input_mutation, test/dynamo/test_modes.py::InvokeSubgraphBackendTests::test_nested_compile_output_aliases_input, test/dynamo/test_modes.py::InvokeSubgraphBackendTests::test_nested_compile_transformer_with_flex_attention_compiled_layers, test/dynamo/test_modes.py::InvokeSubgraphBackendTests::test_same_compiled_fn_called_twice_shares_subgraph, test/dynamo/test_modes.py::TorchFunctionModeLifecycleTests::test_default_device_restored_after_mode_tests
+
+dynamo/test_modes.py::TorchDispatchModeTests::test_skip_torch_dispatch_modes PASSED [0.0096s] [  2%]
+dynamo/test_modes.py::TorchDispatchModeTests::test_torch_dispatch_ignore_compile_internals PASSED [2.5327s] [  4%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_builtin_equivalent_funcs PASSED [0.0028s] [  6%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_default_device_factory_functions PASSED [0.3163s] [  8%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_default_device_factory_functions_priority PASSED [0.0829s] [ 10%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_error_empty_stack_pop_torch_function_mode PASSED [0.0104s] [ 12%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_expand PASSED [1.5528s] [ 14%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_flex_attention PASSED [5.2621s] [ 16%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_hop SKIPPED [0.0019s] (skipIfXpu: XPU does not support flex attention) [ 18%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_hop_eager SKIPPED [0.0011s] (skipIfXpu: XPU does not support flex attention) [ 20%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_intermedate_torch_function_mode_construction_mutation PASSED [0.7621s] [ 22%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_is_torch_function_all_disabled PASSED [0.1019s] [ 25%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_len_torch_function_mode PASSED [0.0677s] [ 27%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_nested_torch_function_mode PASSED [0.7474s] [ 29%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_pop_torch_function_mode PASSED [0.0445s] [ 31%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_push_torch_function_mode PASSED [0.0465s] [ 33%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_register_hook PASSED [0.1166s] [ 35%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_stack_state_clear_default_device PASSED [0.2353s] [ 37%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_stack_state_mutation_default_device PASSED [0.0489s] [ 39%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_torch_function_mode_and_pop_graph_break PASSED [0.1500s] [ 41%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_torch_function_mode_and_pop_graph_break_mutation PASSED [0.1311s] [ 43%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_torch_function_mode_disable PASSED [1.3429s] [ 45%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_torch_function_mode_enabled_guard PASSED [0.0656s] [ 47%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_torch_function_mode_enter_exit PASSED [0.0489s] [ 50%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_torch_function_mode_graph_break PASSED [0.1118s] [ 52%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_torch_function_mode_guards_cpp PASSED [0.1359s] [ 54%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_torch_function_mode_guards_py PASSED [0.1324s] [ 56%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_torch_function_mode_highest_priority PASSED [0.0455s] [ 58%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_torch_function_mode_mutated_state PASSED [0.0690s] [ 60%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_torch_function_mode_no_leak_nested_graph_break PASSED [0.1142s] [ 62%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_torch_function_mode_no_leak_on_graph_break PASSED [0.0439s] [ 64%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_torch_function_mode_preserves_cuda_rng_state PASSED [0.0086s] [ 66%]
+dynamo/test_modes.py::TorchFunctionModeTests::test_torch_function_mode_restore_on_exc PASSED [0.6919s] [ 68%]
+dynamo/test_modes.py::InvokeSubgraphBackendTests::test_2tier_blockmask_tensor_closure_nested_compile_aot_export SKIPPED [0.0003s] (Requires CUDA with SM >= 8.0, Triton, and not ROCm) [ 70%]
+dynamo/test_modes.py::InvokeSubgraphBackendTests::test_aot_autograd_over_dynamo_train_step PASSED [0.1282s] [ 72%]
+dynamo/test_modes.py::InvokeSubgraphBackendTests::test_aot_autograd_over_dynamo_with_requires_grad PASSED [0.4180s] [ 75%]
+dynamo/test_modes.py::InvokeSubgraphBackendTests::test_guard_failure_creates_separate_subgraphs PASSED [0.1093s] [ 77%]
+dynamo/test_modes.py::InvokeSubgraphBackendTests::test_invoke_subgraph_seq_nr PASSED [0.1406s] [ 79%]
+dynamo/test_modes.py::InvokeSubgraphBackendTests::test_make_fx_over_compiled_function PASSED [0.0650s] [ 81%]
+dynamo/test_modes.py::InvokeSubgraphBackendTests::test_multiple_inputs PASSED [0.0710s] [ 83%]
+dynamo/test_modes.py::InvokeSubgraphBackendTests::test_multiple_inputs_and_outputs PASSED [0.0770s] [ 85%]
+dynamo/test_modes.py::InvokeSubgraphBackendTests::test_multiple_outputs PASSED [0.0769s] [ 87%]
+dynamo/test_modes.py::InvokeSubgraphBackendTests::test_nested_compile_dynamic PASSED [8.4605s] [ 89%]
+dynamo/test_modes.py::InvokeSubgraphBackendTests::test_nested_compile_input_mutation PASSED [0.9800s] [ 91%]
+dynamo/test_modes.py::InvokeSubgraphBackendTests::test_nested_compile_output_aliases_input PASSED [0.4545s] [ 93%]
+dynamo/test_modes.py::InvokeSubgraphBackendTests::test_nested_compile_transformer_with_flex_attention_compiled_layers SKIPPED [0.0003s] (Requires CUDA with SM >= 8.0, Triton, and not ROCm) [ 95%]
+dynamo/test_modes.py::InvokeSubgraphBackendTests::test_same_compiled_fn_called_twice_shares_subgraph PASSED [0.0627s] [ 97%]
+dynamo/test_modes.py::TorchFunctionModeLifecycleTests::test_default_device_restored_after_mode_tests PASSED [0.0468s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/dynamo.test_modes/dynamo.test_modes-9d63cd832cbc7e38.xml -
+======================== 44 passed, 4 skipped in 26.24s ========================

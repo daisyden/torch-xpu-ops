@@ -1,0 +1,682 @@
+Test results will be stored in test-reports/python-pytest/dynamo.test_inline_and_install/dynamo.test_inline_and_install-34c6a35443ae0dc1.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 184 items
+stepcurrent: Cannot find last run test, not skipping
+Running 184 items in this shard: test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_access_class_method_from_user_class_attr_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_access_class_method_from_user_class_builtin_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_byte_tensor_does_not_crash_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_capture_symbolic_tracing_simple_within_fake_mode_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_capture_symbolic_tracing_within_fake_mode_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_cond_free_variables_overlapping_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_cond_op_param_buffer_lifted_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_cond_raise_user_error_on_branch_args_mismatch_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_cond_raise_user_error_on_branch_return_multiple_tensors_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_cond_raise_user_error_on_branch_return_non_tensor_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_cond_raise_user_error_on_mismatch_return_length_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_cond_raise_user_error_on_mismatch_return_tensor_meta_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_cond_raise_user_error_on_missing_args_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_cond_raise_user_error_on_non_list_operands_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_cond_raise_user_error_on_non_tensor_operands_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_cond_raise_user_error_on_unsupported_pred_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_cond_supported_pred_types_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_constraint_violation_error_messages_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dataclass_input_output_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dict_return_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dict_return_with_aten_graph_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dupes_2_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dupes_2_with_aten_graph_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dupes_and_bypass_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dupes_and_bypass_reorder_with_non_tensor_arg_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dupes_and_bypass_reorder_with_non_tensor_arg_with_aten_graph_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dupes_and_bypass_with_aten_graph_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dupes_and_bypass_with_non_tensor_arg_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dupes_and_bypass_with_non_tensor_arg_with_aten_graph_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dupes_and_bypass_with_non_tensor_output_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dupes_and_bypass_with_non_tensor_output_with_aten_graph_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dupes_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dupes_with_aten_graph_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dynamic_slicing_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dynamic_slicing_simple_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dynamo_enum_in_tuple_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dynamo_list_index_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_empty_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_enforce_equalities_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_compare_optimize_with_make_fx_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_cond_in_aten_symbolic_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_control_flow_with_getattr_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_decomp_asserts_bad_args_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_decomp_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_defaults_ok_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_dynamic_control_flow_error_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_dynamic_dim_cleanup_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_dynamic_dim_not_1_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_dynamic_dim_range_constraint_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_empty_graph_no_error_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_graph_bypass_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_graph_bypass_with_aten_graph_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_graph_with_complex_reorder_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_graph_with_complex_reorder_with_aten_graph_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_graph_with_list_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_graph_with_list_with_aten_graph_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_identity_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_masking_with_no_grad_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_meta_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_meta_val_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_mismatched_out_2_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_mismatched_out_2_with_aten_graph_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_mismatched_out_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_mismatched_out_with_aten_graph_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_module_specify_constraints_signature_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_multi_dynamic_dim_constraint_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_multi_dynamic_dim_unsafe_relationship_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_nn_module_stack_patched_module_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_no_raise_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_no_tensor_computation_with_aten_graph_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_pass_arg_by_name_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_pass_arg_by_name_star_args_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_persist_assert_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_preserve_constraints_as_metadata_tensor_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_preserves_nn_module_stack_for_get_attr_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_raise_guard_full_constraint_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_raise_guard_partial_constraint_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_raise_on_relationship_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_shape_control_flow_1_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_specialized_int_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_symbolic_shape_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_args_and_empty_kwargs_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_args_with_default_None_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_args_with_default_float_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_args_with_default_tensor_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_args_with_default_tuple_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_aten_graph_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_builtin_op_on_assume_constant_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_cond_branches_calling_methods_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_cond_closure_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_cond_dynamic_shape_pred_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_cond_with_closed_function_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_dict_values_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_free_function_and_class_method_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_free_function_and_class_method_multiarg_diff_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_free_function_and_class_method_multiarg_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_free_function_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_global_function_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_in_unspecialized_nn_module_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_list_nonzero_free_function_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_list_nonzero_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_method_on_module_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_method_on_module_invoke_twice_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_none_control_flow_free_func_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_none_control_flow_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_not_none_control_flow_free_func_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_not_none_control_flow_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_not_none_control_flow_pos_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_not_return_const_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_tuple_nonzero_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_functools_wrapped_fn_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_functools_wrapped_method_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_kwargs_and_empty_args_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_kwargs_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_kwargs_with_default_None_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_kwargs_with_default_float_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_kwargs_with_default_tensor_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_kwargs_with_default_tuple_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_map_cond_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_map_zero_sized_tensor_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_map_zero_sized_tensor_suppress_errors_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_module_layer_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_nonzero_static_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_shallow_list_copy_with_side_effects_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_shallow_list_copy_wo_side_effects_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_stack_trace_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_symbool_inputs_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_wrapped_fn_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_exported_graph_serialization_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_func_return_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_func_return_with_aten_graph_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_fx_pytree_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_immutable_list_dict_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_input_container_type_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_input_global_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_input_global_multiple_access_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_input_nonlocal_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_input_unused_nonlocal_ok_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_list_contains_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_list_not_contains_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_list_unpack_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_list_unpack_with_aten_graph_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_map_cond_param_buffer_lifted_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_mixed_real_and_fake_inputs_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_multiple_outputs_op_with_evaluator_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_nested_cond_op_param_buffer_lifted_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_no_tensor_computation_2_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_no_tensor_computation_2_with_aten_graph_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_no_tensor_computation_fail_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_no_tensor_computation_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_not_functionalize_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_param_buffer_safe_from_mutation_recurse_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_param_buffer_safe_from_mutation_simple_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_pre_dispatch_simple_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_predispatch_with_for_out_dtype_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_predispatch_with_for_out_dtype_nested_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_predispatch_with_higher_order_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_predispatch_with_higher_order_nested_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_preserve_fx_node_metadata_graph_break_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_preserve_fx_node_metadata_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_preserve_fx_node_metadata_inline_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_preserve_fx_node_metadata_recompile_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_remove_redundant_dynamic_dim_in_error_message_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_retracibility_dict_container_inp_out_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_retracibility_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_retracibility_nested_list_out_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_round_dynamic_shapes_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_strict_fake_tensor_prop_real_tensors_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_subclass_parameters_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_sum_param_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_sym_contains_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_symbolic_tracing_within_fake_mode_with_constraints_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_symbolic_tracing_within_fake_mode_with_constraints_with_parameters_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_symbool_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_torch_inference_mode_ctx_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_trivial_constraint_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_uncaptured_higher_order_op_error_not_suppresed_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_untracked_inputs_in_constraints_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_zeroes_in_and_out_different_shape_on_test_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_zeroes_in_and_out_different_shape_on_test_with_aten_graph_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_zeroes_in_new_shape_scalar_out_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_zeroes_in_new_shape_scalar_out_permute_dupe_and_bypass_inline_and_install, test/dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_zeroes_in_new_shape_scalar_out_permute_inline_and_install
+
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_access_class_method_from_user_class_attr_inline_and_install <- test/dynamo/test_export.py PASSED [0.2061s] [  0%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_access_class_method_from_user_class_builtin_inline_and_install <- test/dynamo/test_export.py PASSED [0.0391s] [  1%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_byte_tensor_does_not_crash_inline_and_install <- test/dynamo/test_export.py PASSED [0.1068s] [  1%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_capture_symbolic_tracing_simple_within_fake_mode_inline_and_install <- test/dynamo/test_export.py PASSED [0.0690s] [  2%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_capture_symbolic_tracing_within_fake_mode_inline_and_install <- test/dynamo/test_export.py PASSED [0.2520s] [  2%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_cond_free_variables_overlapping_inline_and_install <- test/dynamo/test_export.py PASSED [0.1709s] [  3%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_cond_op_param_buffer_lifted_inline_and_install <- test/dynamo/test_export.py PASSED [0.1135s] [  3%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_cond_raise_user_error_on_branch_args_mismatch_inline_and_install <- test/dynamo/test_export.py PASSED [0.0346s] [  4%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_cond_raise_user_error_on_branch_return_multiple_tensors_inline_and_install <- test/dynamo/test_export.py PASSED [0.2113s] [  4%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_cond_raise_user_error_on_branch_return_non_tensor_inline_and_install <- test/dynamo/test_export.py PASSED [0.0176s] [  5%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_cond_raise_user_error_on_mismatch_return_length_inline_and_install <- test/dynamo/test_export.py PASSED [0.0350s] [  5%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_cond_raise_user_error_on_mismatch_return_tensor_meta_inline_and_install <- test/dynamo/test_export.py PASSED [0.0248s] [  6%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_cond_raise_user_error_on_missing_args_inline_and_install <- test/dynamo/test_export.py PASSED [0.0013s] [  7%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_cond_raise_user_error_on_non_list_operands_inline_and_install <- test/dynamo/test_export.py PASSED [0.0018s] [  7%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_cond_raise_user_error_on_non_tensor_operands_inline_and_install <- test/dynamo/test_export.py PASSED [0.0014s] [  8%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_cond_raise_user_error_on_unsupported_pred_inline_and_install <- test/dynamo/test_export.py PASSED [0.0012s] [  8%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_cond_supported_pred_types_inline_and_install <- test/dynamo/test_export.py PASSED [0.2973s] [  9%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_constraint_violation_error_messages_inline_and_install <- test/dynamo/test_export.py E0601 04:44:28.604000 65769 site-packages/torch/_guards.py:375] Error while creating guard:
+E0601 04:44:28.604000 65769 site-packages/torch/_guards.py:375] Name: ''
+E0601 04:44:28.604000 65769 site-packages/torch/_guards.py:375]     Source: shape_env
+E0601 04:44:28.604000 65769 site-packages/torch/_guards.py:375]     Create Function: SHAPE_ENV
+E0601 04:44:28.604000 65769 site-packages/torch/_guards.py:375]     Guard Types: None
+E0601 04:44:28.604000 65769 site-packages/torch/_guards.py:375]     Code List: None
+E0601 04:44:28.604000 65769 site-packages/torch/_guards.py:375]     Object Weakref: None
+E0601 04:44:28.604000 65769 site-packages/torch/_guards.py:375]     Guarded Class Weakref: None
+E0601 04:44:28.604000 65769 site-packages/torch/_guards.py:375] Traceback (most recent call last):
+E0601 04:44:28.604000 65769 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_guards.py", line 373, in create
+E0601 04:44:28.604000 65769 site-packages/torch/_guards.py:375]     return self.create_fn(builder, self)
+E0601 04:44:28.604000 65769 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3286, in SHAPE_ENV
+E0601 04:44:28.604000 65769 site-packages/torch/_guards.py:375]     python_code_parts, verbose_code_parts = _get_code_parts(
+E0601 04:44:28.604000 65769 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3259, in _get_code_parts
+E0601 04:44:28.604000 65769 site-packages/torch/_guards.py:375]     return output_graph.shape_env.produce_guards_verbose(
+E0601 04:44:28.604000 65769 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/symbolic_shapes.py", line 6710, in produce_guards_verbose
+E0601 04:44:28.604000 65769 site-packages/torch/_guards.py:375]     raise ConstraintViolationError(
+E0601 04:44:28.604000 65769 site-packages/torch/_guards.py:375] torch.fx.experimental.symbolic_shapes.ConstraintViolationError: Constraints violated (dim0, dim1)! For more information, run with TORCH_LOGS="+dynamic".
+E0601 04:44:28.604000 65769 site-packages/torch/_guards.py:375]   - The values of dim0 = L['flat_args'][0].size()[0] must always be related to the values of dim1 = L['flat_args'][0].size()[1] by dim0 = 2*dim1.
+E0601 04:44:28.604000 65769 site-packages/torch/_guards.py:375]   - Not all values of dim1 = L['flat_args'][0].size()[1] in the specified range satisfy the generated guard 2 <= L['flat_args'][0].size()[1] and L['flat_args'][0].size()[1] <= 5
+E0601 04:44:28.606000 65769 site-packages/torch/_guards.py:377] Created at:
+E0601 04:44:28.606000 65769 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py", line 911, in trace_frame
+E0601 04:44:28.606000 65769 site-packages/torch/_guards.py:377]     tracer = InstructionTranslator(
+E0601 04:44:28.606000 65769 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/symbolic_convert.py", line 5293, in __init__
+E0601 04:44:28.606000 65769 site-packages/torch/_guards.py:377]     output=OutputGraph(
+E0601 04:44:28.606000 65769 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 758, in __init__
+E0601 04:44:28.606000 65769 site-packages/torch/_guards.py:377]     self.init_ambient_guards()
+E0601 04:44:28.606000 65769 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 1114, in init_ambient_guards
+E0601 04:44:28.606000 65769 site-packages/torch/_guards.py:377]     self.guards.add(ShapeEnvSource().make_guard(GuardBuilder.SHAPE_ENV))
+E0601 04:44:28.658000 65769 site-packages/torch/_guards.py:375] Error while creating guard:
+E0601 04:44:28.658000 65769 site-packages/torch/_guards.py:375] Name: ''
+E0601 04:44:28.658000 65769 site-packages/torch/_guards.py:375]     Source: shape_env
+E0601 04:44:28.658000 65769 site-packages/torch/_guards.py:375]     Create Function: SHAPE_ENV
+E0601 04:44:28.658000 65769 site-packages/torch/_guards.py:375]     Guard Types: None
+E0601 04:44:28.658000 65769 site-packages/torch/_guards.py:375]     Code List: None
+E0601 04:44:28.658000 65769 site-packages/torch/_guards.py:375]     Object Weakref: None
+E0601 04:44:28.658000 65769 site-packages/torch/_guards.py:375]     Guarded Class Weakref: None
+E0601 04:44:28.658000 65769 site-packages/torch/_guards.py:375] Traceback (most recent call last):
+E0601 04:44:28.658000 65769 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_guards.py", line 373, in create
+E0601 04:44:28.658000 65769 site-packages/torch/_guards.py:375]     return self.create_fn(builder, self)
+E0601 04:44:28.658000 65769 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3286, in SHAPE_ENV
+E0601 04:44:28.658000 65769 site-packages/torch/_guards.py:375]     python_code_parts, verbose_code_parts = _get_code_parts(
+E0601 04:44:28.658000 65769 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3259, in _get_code_parts
+E0601 04:44:28.658000 65769 site-packages/torch/_guards.py:375]     return output_graph.shape_env.produce_guards_verbose(
+E0601 04:44:28.658000 65769 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/symbolic_shapes.py", line 6710, in produce_guards_verbose
+E0601 04:44:28.658000 65769 site-packages/torch/_guards.py:375]     raise ConstraintViolationError(
+E0601 04:44:28.658000 65769 site-packages/torch/_guards.py:375] torch.fx.experimental.symbolic_shapes.ConstraintViolationError: Constraints violated (dim0)! For more information, run with TORCH_LOGS="+dynamic".
+E0601 04:44:28.658000 65769 site-packages/torch/_guards.py:375]   - You marked dim0 as dynamic but your code specialized it to be a constant (5). If you're using mark_dynamic, either remove it or use maybe_mark_dynamic. If you're using Dim.DYNAMIC, replace it with either Dim.STATIC or Dim.AUTO.
+E0601 04:44:28.658000 65769 site-packages/torch/_guards.py:375] 
+E0601 04:44:28.658000 65769 site-packages/torch/_guards.py:375] User stack:
+E0601 04:44:28.658000 65769 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/functional_export.py", line 232, in forward
+E0601 04:44:28.658000 65769 site-packages/torch/_guards.py:375]     res = self._export_root(*args, **kwargs)
+E0601 04:44:28.658000 65769 site-packages/torch/_guards.py:375]   File "/var/lib/jenkins/pytorch/test/dynamo/test_export.py", line 2525, in forward
+E0601 04:44:28.658000 65769 site-packages/torch/_guards.py:375]     if x.shape[0] == 5:
+E0601 04:44:28.658000 65769 site-packages/torch/_guards.py:375] 
+E0601 04:44:28.659000 65769 site-packages/torch/_guards.py:377] Created at:
+E0601 04:44:28.659000 65769 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py", line 911, in trace_frame
+E0601 04:44:28.659000 65769 site-packages/torch/_guards.py:377]     tracer = InstructionTranslator(
+E0601 04:44:28.659000 65769 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/symbolic_convert.py", line 5293, in __init__
+E0601 04:44:28.659000 65769 site-packages/torch/_guards.py:377]     output=OutputGraph(
+E0601 04:44:28.659000 65769 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 758, in __init__
+E0601 04:44:28.659000 65769 site-packages/torch/_guards.py:377]     self.init_ambient_guards()
+E0601 04:44:28.659000 65769 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 1114, in init_ambient_guards
+E0601 04:44:28.659000 65769 site-packages/torch/_guards.py:377]     self.guards.add(ShapeEnvSource().make_guard(GuardBuilder.SHAPE_ENV))
+E0601 04:44:28.715000 65769 site-packages/torch/_guards.py:375] Error while creating guard:
+E0601 04:44:28.715000 65769 site-packages/torch/_guards.py:375] Name: ''
+E0601 04:44:28.715000 65769 site-packages/torch/_guards.py:375]     Source: shape_env
+E0601 04:44:28.715000 65769 site-packages/torch/_guards.py:375]     Create Function: SHAPE_ENV
+E0601 04:44:28.715000 65769 site-packages/torch/_guards.py:375]     Guard Types: None
+E0601 04:44:28.715000 65769 site-packages/torch/_guards.py:375]     Code List: None
+E0601 04:44:28.715000 65769 site-packages/torch/_guards.py:375]     Object Weakref: None
+E0601 04:44:28.715000 65769 site-packages/torch/_guards.py:375]     Guarded Class Weakref: None
+E0601 04:44:28.715000 65769 site-packages/torch/_guards.py:375] Traceback (most recent call last):
+E0601 04:44:28.715000 65769 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_guards.py", line 373, in create
+E0601 04:44:28.715000 65769 site-packages/torch/_guards.py:375]     return self.create_fn(builder, self)
+E0601 04:44:28.715000 65769 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3286, in SHAPE_ENV
+E0601 04:44:28.715000 65769 site-packages/torch/_guards.py:375]     python_code_parts, verbose_code_parts = _get_code_parts(
+E0601 04:44:28.715000 65769 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3259, in _get_code_parts
+E0601 04:44:28.715000 65769 site-packages/torch/_guards.py:375]     return output_graph.shape_env.produce_guards_verbose(
+E0601 04:44:28.715000 65769 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/symbolic_shapes.py", line 6710, in produce_guards_verbose
+E0601 04:44:28.715000 65769 site-packages/torch/_guards.py:375]     raise ConstraintViolationError(
+E0601 04:44:28.715000 65769 site-packages/torch/_guards.py:375] torch.fx.experimental.symbolic_shapes.ConstraintViolationError: Constraints violated (dim0)! For more information, run with TORCH_LOGS="+dynamic".
+E0601 04:44:28.715000 65769 site-packages/torch/_guards.py:375]   - Not all values of dim0 = L['flat_args'][0].size()[0] in the specified range 3 <= dim0 <= 8 satisfy the generated guard 6 <= L['flat_args'][0].size()[0] and L['flat_args'][0].size()[0] <= 8
+E0601 04:44:28.716000 65769 site-packages/torch/_guards.py:377] Created at:
+E0601 04:44:28.716000 65769 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py", line 911, in trace_frame
+E0601 04:44:28.716000 65769 site-packages/torch/_guards.py:377]     tracer = InstructionTranslator(
+E0601 04:44:28.716000 65769 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/symbolic_convert.py", line 5293, in __init__
+E0601 04:44:28.716000 65769 site-packages/torch/_guards.py:377]     output=OutputGraph(
+E0601 04:44:28.716000 65769 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 758, in __init__
+E0601 04:44:28.716000 65769 site-packages/torch/_guards.py:377]     self.init_ambient_guards()
+E0601 04:44:28.716000 65769 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 1114, in init_ambient_guards
+E0601 04:44:28.716000 65769 site-packages/torch/_guards.py:377]     self.guards.add(ShapeEnvSource().make_guard(GuardBuilder.SHAPE_ENV))
+PASSED [0.3655s] [  9%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dataclass_input_output_inline_and_install <- test/dynamo/test_export.py PASSED [0.0607s] [ 10%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dict_return_inline_and_install <- test/dynamo/test_export.py PASSED [0.0748s] [ 10%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dict_return_with_aten_graph_inline_and_install <- test/dynamo/test_export.py PASSED [0.0758s] [ 11%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dupes_2_inline_and_install <- test/dynamo/test_export.py PASSED [0.0589s] [ 11%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dupes_2_with_aten_graph_inline_and_install <- test/dynamo/test_export.py PASSED [0.0623s] [ 12%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dupes_and_bypass_inline_and_install <- test/dynamo/test_export.py PASSED [0.0643s] [ 13%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dupes_and_bypass_reorder_with_non_tensor_arg_inline_and_install <- test/dynamo/test_export.py PASSED [0.0654s] [ 13%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dupes_and_bypass_reorder_with_non_tensor_arg_with_aten_graph_inline_and_install <- test/dynamo/test_export.py PASSED [0.0689s] [ 14%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dupes_and_bypass_with_aten_graph_inline_and_install <- test/dynamo/test_export.py PASSED [0.0887s] [ 14%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dupes_and_bypass_with_non_tensor_arg_inline_and_install <- test/dynamo/test_export.py PASSED [0.0789s] [ 15%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dupes_and_bypass_with_non_tensor_arg_with_aten_graph_inline_and_install <- test/dynamo/test_export.py PASSED [0.0681s] [ 15%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dupes_and_bypass_with_non_tensor_output_inline_and_install <- test/dynamo/test_export.py PASSED [0.0799s] [ 16%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dupes_and_bypass_with_non_tensor_output_with_aten_graph_inline_and_install <- test/dynamo/test_export.py PASSED [0.0756s] [ 16%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dupes_inline_and_install <- test/dynamo/test_export.py PASSED [0.0763s] [ 17%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dupes_with_aten_graph_inline_and_install <- test/dynamo/test_export.py PASSED [0.0693s] [ 17%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dynamic_slicing_inline_and_install <- test/dynamo/test_export.py PASSED [0.1248s] [ 18%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dynamic_slicing_simple_inline_and_install <- test/dynamo/test_export.py PASSED [0.0342s] [ 19%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dynamo_enum_in_tuple_inline_and_install <- test/dynamo/test_export.py PASSED [0.0328s] [ 19%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_dynamo_list_index_inline_and_install <- test/dynamo/test_export.py PASSED [0.0287s] [ 20%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_empty_inline_and_install <- test/dynamo/test_export.py PASSED [0.0420s] [ 20%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_enforce_equalities_inline_and_install <- test/dynamo/test_export.py E0601 04:44:30.196000 65769 site-packages/torch/_guards.py:375] Error while creating guard:
+E0601 04:44:30.196000 65769 site-packages/torch/_guards.py:375] Name: ''
+E0601 04:44:30.196000 65769 site-packages/torch/_guards.py:375]     Source: shape_env
+E0601 04:44:30.196000 65769 site-packages/torch/_guards.py:375]     Create Function: SHAPE_ENV
+E0601 04:44:30.196000 65769 site-packages/torch/_guards.py:375]     Guard Types: None
+E0601 04:44:30.196000 65769 site-packages/torch/_guards.py:375]     Code List: None
+E0601 04:44:30.196000 65769 site-packages/torch/_guards.py:375]     Object Weakref: None
+E0601 04:44:30.196000 65769 site-packages/torch/_guards.py:375]     Guarded Class Weakref: None
+E0601 04:44:30.196000 65769 site-packages/torch/_guards.py:375] Traceback (most recent call last):
+E0601 04:44:30.196000 65769 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_guards.py", line 373, in create
+E0601 04:44:30.196000 65769 site-packages/torch/_guards.py:375]     return self.create_fn(builder, self)
+E0601 04:44:30.196000 65769 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3286, in SHAPE_ENV
+E0601 04:44:30.196000 65769 site-packages/torch/_guards.py:375]     python_code_parts, verbose_code_parts = _get_code_parts(
+E0601 04:44:30.196000 65769 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3259, in _get_code_parts
+E0601 04:44:30.196000 65769 site-packages/torch/_guards.py:375]     return output_graph.shape_env.produce_guards_verbose(
+E0601 04:44:30.196000 65769 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/symbolic_shapes.py", line 6052, in produce_guards_verbose
+E0601 04:44:30.196000 65769 site-packages/torch/_guards.py:375]     raise ConstraintViolationError(
+E0601 04:44:30.196000 65769 site-packages/torch/_guards.py:375] torch.fx.experimental.symbolic_shapes.ConstraintViolationError: L['flat_args'][1].size()[2] = 4 is not equal to L['flat_args'][0].size()[1] = 3
+E0601 04:44:30.196000 65769 site-packages/torch/_guards.py:377] Created at:
+E0601 04:44:30.196000 65769 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py", line 911, in trace_frame
+E0601 04:44:30.196000 65769 site-packages/torch/_guards.py:377]     tracer = InstructionTranslator(
+E0601 04:44:30.196000 65769 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/symbolic_convert.py", line 5293, in __init__
+E0601 04:44:30.196000 65769 site-packages/torch/_guards.py:377]     output=OutputGraph(
+E0601 04:44:30.196000 65769 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 758, in __init__
+E0601 04:44:30.196000 65769 site-packages/torch/_guards.py:377]     self.init_ambient_guards()
+E0601 04:44:30.196000 65769 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 1114, in init_ambient_guards
+E0601 04:44:30.196000 65769 site-packages/torch/_guards.py:377]     self.guards.add(ShapeEnvSource().make_guard(GuardBuilder.SHAPE_ENV))
+PASSED [0.2513s] [ 21%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_compare_optimize_with_make_fx_inline_and_install <- test/dynamo/test_export.py PASSED [0.1438s] [ 21%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_cond_in_aten_symbolic_inline_and_install <- test/dynamo/test_export.py PASSED [0.1375s] [ 22%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_control_flow_with_getattr_inline_and_install <- test/dynamo/test_export.py PASSED [0.0327s] [ 22%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_decomp_asserts_bad_args_inline_and_install <- test/dynamo/test_export.py PASSED [0.0013s] [ 23%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_decomp_inline_and_install <- test/dynamo/test_export.py PASSED [0.0714s] [ 23%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_defaults_ok_inline_and_install <- test/dynamo/test_export.py PASSED [0.6549s] [ 24%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_dynamic_control_flow_error_inline_and_install <- test/dynamo/test_export.py PASSED [0.0417s] [ 25%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_dynamic_dim_cleanup_inline_and_install <- test/dynamo/test_export.py PASSED [0.0468s] [ 25%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_dynamic_dim_not_1_inline_and_install <- test/dynamo/test_export.py E0601 04:44:31.517000 65769 site-packages/torch/_guards.py:375] [1/0] Error while creating guard:
+E0601 04:44:31.517000 65769 site-packages/torch/_guards.py:375] [1/0] Name: ''
+E0601 04:44:31.517000 65769 site-packages/torch/_guards.py:375] [1/0]     Source: shape_env
+E0601 04:44:31.517000 65769 site-packages/torch/_guards.py:375] [1/0]     Create Function: SHAPE_ENV
+E0601 04:44:31.517000 65769 site-packages/torch/_guards.py:375] [1/0]     Guard Types: None
+E0601 04:44:31.517000 65769 site-packages/torch/_guards.py:375] [1/0]     Code List: None
+E0601 04:44:31.517000 65769 site-packages/torch/_guards.py:375] [1/0]     Object Weakref: None
+E0601 04:44:31.517000 65769 site-packages/torch/_guards.py:375] [1/0]     Guarded Class Weakref: None
+E0601 04:44:31.517000 65769 site-packages/torch/_guards.py:375] [1/0] Traceback (most recent call last):
+E0601 04:44:31.517000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_guards.py", line 373, in create
+E0601 04:44:31.517000 65769 site-packages/torch/_guards.py:375] [1/0]     return self.create_fn(builder, self)
+E0601 04:44:31.517000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3286, in SHAPE_ENV
+E0601 04:44:31.517000 65769 site-packages/torch/_guards.py:375] [1/0]     python_code_parts, verbose_code_parts = _get_code_parts(
+E0601 04:44:31.517000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3259, in _get_code_parts
+E0601 04:44:31.517000 65769 site-packages/torch/_guards.py:375] [1/0]     return output_graph.shape_env.produce_guards_verbose(
+E0601 04:44:31.517000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/symbolic_shapes.py", line 6710, in produce_guards_verbose
+E0601 04:44:31.517000 65769 site-packages/torch/_guards.py:375] [1/0]     raise ConstraintViolationError(
+E0601 04:44:31.517000 65769 site-packages/torch/_guards.py:375] [1/0] torch.fx.experimental.symbolic_shapes.ConstraintViolationError: Constraints violated (dimx)! For more information, run with TORCH_LOGS="+dynamic".
+E0601 04:44:31.517000 65769 site-packages/torch/_guards.py:375] [1/0]   - You marked dimx as dynamic but your code specialized it to be a constant (1). If you're using mark_dynamic, either remove it or use maybe_mark_dynamic. If you're using Dim.DYNAMIC, replace it with either Dim.STATIC or Dim.AUTO.
+E0601 04:44:31.518000 65769 site-packages/torch/_guards.py:377] [1/0] Created at:
+E0601 04:44:31.518000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py", line 911, in trace_frame
+E0601 04:44:31.518000 65769 site-packages/torch/_guards.py:377] [1/0]     tracer = InstructionTranslator(
+E0601 04:44:31.518000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/symbolic_convert.py", line 5293, in __init__
+E0601 04:44:31.518000 65769 site-packages/torch/_guards.py:377] [1/0]     output=OutputGraph(
+E0601 04:44:31.518000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 758, in __init__
+E0601 04:44:31.518000 65769 site-packages/torch/_guards.py:377] [1/0]     self.init_ambient_guards()
+E0601 04:44:31.518000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 1114, in init_ambient_guards
+E0601 04:44:31.518000 65769 site-packages/torch/_guards.py:377] [1/0]     self.guards.add(ShapeEnvSource().make_guard(GuardBuilder.SHAPE_ENV))
+PASSED [0.0420s] [ 26%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_dynamic_dim_range_constraint_inline_and_install <- test/dynamo/test_export.py E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:375] [1/0] Error while creating guard:
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:375] [1/0] Name: ''
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:375] [1/0]     Source: shape_env
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:375] [1/0]     Create Function: SHAPE_ENV
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:375] [1/0]     Guard Types: None
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:375] [1/0]     Code List: None
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:375] [1/0]     Object Weakref: None
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:375] [1/0]     Guarded Class Weakref: None
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:375] [1/0] Traceback (most recent call last):
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_guards.py", line 373, in create
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:375] [1/0]     return self.create_fn(builder, self)
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3286, in SHAPE_ENV
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:375] [1/0]     python_code_parts, verbose_code_parts = _get_code_parts(
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3259, in _get_code_parts
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:375] [1/0]     return output_graph.shape_env.produce_guards_verbose(
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/symbolic_shapes.py", line 6710, in produce_guards_verbose
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:375] [1/0]     raise ConstraintViolationError(
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:375] [1/0] torch.fx.experimental.symbolic_shapes.ConstraintViolationError: Constraints violated (dimx)! For more information, run with TORCH_LOGS="+dynamic".
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:375] [1/0]   - You marked dimx as dynamic but your code specialized it to be a constant (6). If you're using mark_dynamic, either remove it or use maybe_mark_dynamic. If you're using Dim.DYNAMIC, replace it with either Dim.STATIC or Dim.AUTO.
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:375] [1/0] 
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:375] [1/0] User stack:
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/var/lib/jenkins/pytorch/test/dynamo/test_export.py", line 2830, in bar
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:375] [1/0]     if x.shape[0] > 5:  # error
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:375] [1/0] 
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:377] [1/0] Created at:
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py", line 911, in trace_frame
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:377] [1/0]     tracer = InstructionTranslator(
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/symbolic_convert.py", line 5293, in __init__
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:377] [1/0]     output=OutputGraph(
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 758, in __init__
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:377] [1/0]     self.init_ambient_guards()
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 1114, in init_ambient_guards
+E0601 04:44:31.592000 65769 site-packages/torch/_guards.py:377] [1/0]     self.guards.add(ShapeEnvSource().make_guard(GuardBuilder.SHAPE_ENV))
+PASSED [0.0742s] [ 26%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_empty_graph_no_error_inline_and_install <- test/dynamo/test_export.py PASSED [0.0204s] [ 27%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_graph_bypass_inline_and_install <- test/dynamo/test_export.py PASSED [0.0746s] [ 27%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_graph_bypass_with_aten_graph_inline_and_install <- test/dynamo/test_export.py PASSED [0.0644s] [ 28%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_graph_with_complex_reorder_inline_and_install <- test/dynamo/test_export.py PASSED [0.0707s] [ 28%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_graph_with_complex_reorder_with_aten_graph_inline_and_install <- test/dynamo/test_export.py PASSED [0.0782s] [ 29%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_graph_with_list_inline_and_install <- test/dynamo/test_export.py PASSED [0.0714s] [ 29%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_graph_with_list_with_aten_graph_inline_and_install <- test/dynamo/test_export.py PASSED [0.0770s] [ 30%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_identity_inline_and_install <- test/dynamo/test_export.py PASSED [0.0233s] [ 30%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_inline_and_install <- test/dynamo/test_export.py PASSED [0.3366s] [ 31%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_masking_with_no_grad_inline_and_install <- test/dynamo/test_export.py PASSED [0.1105s] [ 32%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_meta_inline_and_install <- test/dynamo/test_export.py PASSED [0.0339s] [ 32%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_meta_val_inline_and_install <- test/dynamo/test_export.py PASSED [0.0460s] [ 33%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_mismatched_out_2_inline_and_install <- test/dynamo/test_export.py PASSED [0.0625s] [ 33%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_mismatched_out_2_with_aten_graph_inline_and_install <- test/dynamo/test_export.py PASSED [0.0667s] [ 34%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_mismatched_out_inline_and_install <- test/dynamo/test_export.py PASSED [0.0619s] [ 34%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_mismatched_out_with_aten_graph_inline_and_install <- test/dynamo/test_export.py PASSED [0.0656s] [ 35%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_module_specify_constraints_signature_inline_and_install <- test/dynamo/test_export.py E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:375] [1/0] Error while creating guard:
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:375] [1/0] Name: ''
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:375] [1/0]     Source: shape_env
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:375] [1/0]     Create Function: SHAPE_ENV
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:375] [1/0]     Guard Types: None
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:375] [1/0]     Code List: None
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:375] [1/0]     Object Weakref: None
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:375] [1/0]     Guarded Class Weakref: None
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:375] [1/0] Traceback (most recent call last):
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_guards.py", line 373, in create
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:375] [1/0]     return self.create_fn(builder, self)
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3286, in SHAPE_ENV
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:375] [1/0]     python_code_parts, verbose_code_parts = _get_code_parts(
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3259, in _get_code_parts
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:375] [1/0]     return output_graph.shape_env.produce_guards_verbose(
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/symbolic_shapes.py", line 6710, in produce_guards_verbose
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:375] [1/0]     raise ConstraintViolationError(
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:375] [1/0] torch.fx.experimental.symbolic_shapes.ConstraintViolationError: Constraints violated (dimx)! For more information, run with TORCH_LOGS="+dynamic".
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:375] [1/0]   - You marked dimx as dynamic but your code specialized it to be a constant (3). If you're using mark_dynamic, either remove it or use maybe_mark_dynamic. If you're using Dim.DYNAMIC, replace it with either Dim.STATIC or Dim.AUTO.
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:375] [1/0] 
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:375] [1/0] User stack:
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/var/lib/jenkins/pytorch/test/dynamo/test_export.py", line 2601, in forward
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:375] [1/0]     if x.shape[0] == 3:
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:375] [1/0] 
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:377] [1/0] Created at:
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py", line 911, in trace_frame
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:377] [1/0]     tracer = InstructionTranslator(
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/symbolic_convert.py", line 5293, in __init__
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:377] [1/0]     output=OutputGraph(
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 758, in __init__
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:377] [1/0]     self.init_ambient_guards()
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 1114, in init_ambient_guards
+E0601 04:44:32.941000 65769 site-packages/torch/_guards.py:377] [1/0]     self.guards.add(ShapeEnvSource().make_guard(GuardBuilder.SHAPE_ENV))
+PASSED [0.0600s] [ 35%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_multi_dynamic_dim_constraint_inline_and_install <- test/dynamo/test_export.py E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:375] [1/0] Error while creating guard:
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:375] [1/0] Name: ''
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:375] [1/0]     Source: shape_env
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:375] [1/0]     Create Function: SHAPE_ENV
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:375] [1/0]     Guard Types: None
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:375] [1/0]     Code List: None
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:375] [1/0]     Object Weakref: None
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:375] [1/0]     Guarded Class Weakref: None
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:375] [1/0] Traceback (most recent call last):
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_guards.py", line 373, in create
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:375] [1/0]     return self.create_fn(builder, self)
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3286, in SHAPE_ENV
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:375] [1/0]     python_code_parts, verbose_code_parts = _get_code_parts(
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3259, in _get_code_parts
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:375] [1/0]     return output_graph.shape_env.produce_guards_verbose(
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/symbolic_shapes.py", line 6710, in produce_guards_verbose
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:375] [1/0]     raise ConstraintViolationError(
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:375] [1/0] torch.fx.experimental.symbolic_shapes.ConstraintViolationError: Constraints violated (dimx_0)! For more information, run with TORCH_LOGS="+dynamic".
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:375] [1/0]   - You marked dimx_0 as dynamic but your code specialized it to be a constant (3). If you're using mark_dynamic, either remove it or use maybe_mark_dynamic. If you're using Dim.DYNAMIC, replace it with either Dim.STATIC or Dim.AUTO.
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:375] [1/0] 
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:375] [1/0] User stack:
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/var/lib/jenkins/pytorch/test/dynamo/test_export.py", line 2802, in my_dyn_fn
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:375] [1/0]     if a.shape[0] == c.shape[0]:
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:375] [1/0] 
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:377] [1/0] Created at:
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py", line 911, in trace_frame
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:377] [1/0]     tracer = InstructionTranslator(
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/symbolic_convert.py", line 5293, in __init__
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:377] [1/0]     output=OutputGraph(
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 758, in __init__
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:377] [1/0]     self.init_ambient_guards()
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 1114, in init_ambient_guards
+E0601 04:44:33.037000 65769 site-packages/torch/_guards.py:377] [1/0]     self.guards.add(ShapeEnvSource().make_guard(GuardBuilder.SHAPE_ENV))
+PASSED [0.1682s] [ 36%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_multi_dynamic_dim_unsafe_relationship_inline_and_install <- test/dynamo/test_export.py E0601 04:44:33.220000 65769 site-packages/torch/_guards.py:375] [1/0] Error while creating guard:
+E0601 04:44:33.220000 65769 site-packages/torch/_guards.py:375] [1/0] Name: ''
+E0601 04:44:33.220000 65769 site-packages/torch/_guards.py:375] [1/0]     Source: shape_env
+E0601 04:44:33.220000 65769 site-packages/torch/_guards.py:375] [1/0]     Create Function: SHAPE_ENV
+E0601 04:44:33.220000 65769 site-packages/torch/_guards.py:375] [1/0]     Guard Types: None
+E0601 04:44:33.220000 65769 site-packages/torch/_guards.py:375] [1/0]     Code List: None
+E0601 04:44:33.220000 65769 site-packages/torch/_guards.py:375] [1/0]     Object Weakref: None
+E0601 04:44:33.220000 65769 site-packages/torch/_guards.py:375] [1/0]     Guarded Class Weakref: None
+E0601 04:44:33.220000 65769 site-packages/torch/_guards.py:375] [1/0] Traceback (most recent call last):
+E0601 04:44:33.220000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_guards.py", line 373, in create
+E0601 04:44:33.220000 65769 site-packages/torch/_guards.py:375] [1/0]     return self.create_fn(builder, self)
+E0601 04:44:33.220000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3286, in SHAPE_ENV
+E0601 04:44:33.220000 65769 site-packages/torch/_guards.py:375] [1/0]     python_code_parts, verbose_code_parts = _get_code_parts(
+E0601 04:44:33.220000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3259, in _get_code_parts
+E0601 04:44:33.220000 65769 site-packages/torch/_guards.py:375] [1/0]     return output_graph.shape_env.produce_guards_verbose(
+E0601 04:44:33.220000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/symbolic_shapes.py", line 6710, in produce_guards_verbose
+E0601 04:44:33.220000 65769 site-packages/torch/_guards.py:375] [1/0]     raise ConstraintViolationError(
+E0601 04:44:33.220000 65769 site-packages/torch/_guards.py:375] [1/0] torch.fx.experimental.symbolic_shapes.ConstraintViolationError: Constraints violated (dimz)! For more information, run with TORCH_LOGS="+dynamic".
+E0601 04:44:33.220000 65769 site-packages/torch/_guards.py:375] [1/0]   - The values of dimz = L['c'].size()[0] and dimx = L['a'].size()[0] must always be equal.
+E0601 04:44:33.220000 65769 site-packages/torch/_guards.py:377] [1/0] Created at:
+E0601 04:44:33.220000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py", line 911, in trace_frame
+E0601 04:44:33.220000 65769 site-packages/torch/_guards.py:377] [1/0]     tracer = InstructionTranslator(
+E0601 04:44:33.220000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/symbolic_convert.py", line 5293, in __init__
+E0601 04:44:33.220000 65769 site-packages/torch/_guards.py:377] [1/0]     output=OutputGraph(
+E0601 04:44:33.220000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 758, in __init__
+E0601 04:44:33.220000 65769 site-packages/torch/_guards.py:377] [1/0]     self.init_ambient_guards()
+E0601 04:44:33.220000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 1114, in init_ambient_guards
+E0601 04:44:33.220000 65769 site-packages/torch/_guards.py:377] [1/0]     self.guards.add(ShapeEnvSource().make_guard(GuardBuilder.SHAPE_ENV))
+PASSED [0.1769s] [ 36%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_nn_module_stack_patched_module_inline_and_install <- test/dynamo/test_export.py PASSED [0.0480s] [ 37%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_no_raise_inline_and_install <- test/dynamo/test_export.py PASSED [0.0562s] [ 38%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_no_tensor_computation_with_aten_graph_inline_and_install <- test/dynamo/test_export.py PASSED [0.0446s] [ 38%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_pass_arg_by_name_inline_and_install <- test/dynamo/test_export.py PASSED [0.0543s] [ 39%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_pass_arg_by_name_star_args_inline_and_install <- test/dynamo/test_export.py PASSED [0.0786s] [ 39%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_persist_assert_inline_and_install <- test/dynamo/test_export.py PASSED [0.0772s] [ 40%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_preserve_constraints_as_metadata_tensor_inline_and_install <- test/dynamo/test_export.py PASSED [0.0547s] [ 40%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_preserves_nn_module_stack_for_get_attr_inline_and_install <- test/dynamo/test_export.py PASSED [0.1033s] [ 41%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_raise_guard_full_constraint_inline_and_install <- test/dynamo/test_export.py E0601 04:44:33.871000 65769 site-packages/torch/_guards.py:375] [1/0] Error while creating guard:
+E0601 04:44:33.871000 65769 site-packages/torch/_guards.py:375] [1/0] Name: ''
+E0601 04:44:33.871000 65769 site-packages/torch/_guards.py:375] [1/0]     Source: shape_env
+E0601 04:44:33.871000 65769 site-packages/torch/_guards.py:375] [1/0]     Create Function: SHAPE_ENV
+E0601 04:44:33.871000 65769 site-packages/torch/_guards.py:375] [1/0]     Guard Types: None
+E0601 04:44:33.871000 65769 site-packages/torch/_guards.py:375] [1/0]     Code List: None
+E0601 04:44:33.871000 65769 site-packages/torch/_guards.py:375] [1/0]     Object Weakref: None
+E0601 04:44:33.871000 65769 site-packages/torch/_guards.py:375] [1/0]     Guarded Class Weakref: None
+E0601 04:44:33.871000 65769 site-packages/torch/_guards.py:375] [1/0] Traceback (most recent call last):
+E0601 04:44:33.871000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_guards.py", line 373, in create
+E0601 04:44:33.871000 65769 site-packages/torch/_guards.py:375] [1/0]     return self.create_fn(builder, self)
+E0601 04:44:33.871000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3286, in SHAPE_ENV
+E0601 04:44:33.871000 65769 site-packages/torch/_guards.py:375] [1/0]     python_code_parts, verbose_code_parts = _get_code_parts(
+E0601 04:44:33.871000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3259, in _get_code_parts
+E0601 04:44:33.871000 65769 site-packages/torch/_guards.py:375] [1/0]     return output_graph.shape_env.produce_guards_verbose(
+E0601 04:44:33.871000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/symbolic_shapes.py", line 6710, in produce_guards_verbose
+E0601 04:44:33.871000 65769 site-packages/torch/_guards.py:375] [1/0]     raise ConstraintViolationError(
+E0601 04:44:33.871000 65769 site-packages/torch/_guards.py:375] [1/0] torch.fx.experimental.symbolic_shapes.ConstraintViolationError: Constraints violated (dimx)! For more information, run with TORCH_LOGS="+dynamic".
+E0601 04:44:33.871000 65769 site-packages/torch/_guards.py:375] [1/0]   - You marked dimx as dynamic but your code specialized it to be a constant (3). If you're using mark_dynamic, either remove it or use maybe_mark_dynamic. If you're using Dim.DYNAMIC, replace it with either Dim.STATIC or Dim.AUTO.
+E0601 04:44:33.871000 65769 site-packages/torch/_guards.py:375] [1/0] 
+E0601 04:44:33.871000 65769 site-packages/torch/_guards.py:375] [1/0] User stack:
+E0601 04:44:33.871000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/var/lib/jenkins/pytorch/test/dynamo/test_export.py", line 2585, in my_dyn_fn
+E0601 04:44:33.871000 65769 site-packages/torch/_guards.py:375] [1/0]     if x.shape[0] == 3:
+E0601 04:44:33.871000 65769 site-packages/torch/_guards.py:375] [1/0] 
+E0601 04:44:33.872000 65769 site-packages/torch/_guards.py:377] [1/0] Created at:
+E0601 04:44:33.872000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py", line 911, in trace_frame
+E0601 04:44:33.872000 65769 site-packages/torch/_guards.py:377] [1/0]     tracer = InstructionTranslator(
+E0601 04:44:33.872000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/symbolic_convert.py", line 5293, in __init__
+E0601 04:44:33.872000 65769 site-packages/torch/_guards.py:377] [1/0]     output=OutputGraph(
+E0601 04:44:33.872000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 758, in __init__
+E0601 04:44:33.872000 65769 site-packages/torch/_guards.py:377] [1/0]     self.init_ambient_guards()
+E0601 04:44:33.872000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 1114, in init_ambient_guards
+E0601 04:44:33.872000 65769 site-packages/torch/_guards.py:377] [1/0]     self.guards.add(ShapeEnvSource().make_guard(GuardBuilder.SHAPE_ENV))
+PASSED [0.0511s] [ 41%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_raise_guard_partial_constraint_inline_and_install <- test/dynamo/test_export.py E0601 04:44:33.938000 65769 site-packages/torch/_guards.py:375] [1/0] Error while creating guard:
+E0601 04:44:33.938000 65769 site-packages/torch/_guards.py:375] [1/0] Name: ''
+E0601 04:44:33.938000 65769 site-packages/torch/_guards.py:375] [1/0]     Source: shape_env
+E0601 04:44:33.938000 65769 site-packages/torch/_guards.py:375] [1/0]     Create Function: SHAPE_ENV
+E0601 04:44:33.938000 65769 site-packages/torch/_guards.py:375] [1/0]     Guard Types: None
+E0601 04:44:33.938000 65769 site-packages/torch/_guards.py:375] [1/0]     Code List: None
+E0601 04:44:33.938000 65769 site-packages/torch/_guards.py:375] [1/0]     Object Weakref: None
+E0601 04:44:33.938000 65769 site-packages/torch/_guards.py:375] [1/0]     Guarded Class Weakref: None
+E0601 04:44:33.938000 65769 site-packages/torch/_guards.py:375] [1/0] Traceback (most recent call last):
+E0601 04:44:33.938000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_guards.py", line 373, in create
+E0601 04:44:33.938000 65769 site-packages/torch/_guards.py:375] [1/0]     return self.create_fn(builder, self)
+E0601 04:44:33.938000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3286, in SHAPE_ENV
+E0601 04:44:33.938000 65769 site-packages/torch/_guards.py:375] [1/0]     python_code_parts, verbose_code_parts = _get_code_parts(
+E0601 04:44:33.938000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3259, in _get_code_parts
+E0601 04:44:33.938000 65769 site-packages/torch/_guards.py:375] [1/0]     return output_graph.shape_env.produce_guards_verbose(
+E0601 04:44:33.938000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/symbolic_shapes.py", line 6710, in produce_guards_verbose
+E0601 04:44:33.938000 65769 site-packages/torch/_guards.py:375] [1/0]     raise ConstraintViolationError(
+E0601 04:44:33.938000 65769 site-packages/torch/_guards.py:375] [1/0] torch.fx.experimental.symbolic_shapes.ConstraintViolationError: Constraints violated (dimx)! For more information, run with TORCH_LOGS="+dynamic".
+E0601 04:44:33.938000 65769 site-packages/torch/_guards.py:375] [1/0]   - Not all values of dimx = L['x'].size()[0] in the specified range satisfy the generated guard 2 <= L['x'].size()[0] and L['x'].size()[0] <= 3
+E0601 04:44:33.938000 65769 site-packages/torch/_guards.py:377] [1/0] Created at:
+E0601 04:44:33.938000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py", line 911, in trace_frame
+E0601 04:44:33.938000 65769 site-packages/torch/_guards.py:377] [1/0]     tracer = InstructionTranslator(
+E0601 04:44:33.938000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/symbolic_convert.py", line 5293, in __init__
+E0601 04:44:33.938000 65769 site-packages/torch/_guards.py:377] [1/0]     output=OutputGraph(
+E0601 04:44:33.938000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 758, in __init__
+E0601 04:44:33.938000 65769 site-packages/torch/_guards.py:377] [1/0]     self.init_ambient_guards()
+E0601 04:44:33.938000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 1114, in init_ambient_guards
+E0601 04:44:33.938000 65769 site-packages/torch/_guards.py:377] [1/0]     self.guards.add(ShapeEnvSource().make_guard(GuardBuilder.SHAPE_ENV))
+PASSED [0.0683s] [ 42%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_raise_on_relationship_inline_and_install <- test/dynamo/test_export.py E0601 04:44:34.006000 65769 site-packages/torch/_guards.py:375] [1/0] Error while creating guard:
+E0601 04:44:34.006000 65769 site-packages/torch/_guards.py:375] [1/0] Name: ''
+E0601 04:44:34.006000 65769 site-packages/torch/_guards.py:375] [1/0]     Source: shape_env
+E0601 04:44:34.006000 65769 site-packages/torch/_guards.py:375] [1/0]     Create Function: SHAPE_ENV
+E0601 04:44:34.006000 65769 site-packages/torch/_guards.py:375] [1/0]     Guard Types: None
+E0601 04:44:34.006000 65769 site-packages/torch/_guards.py:375] [1/0]     Code List: None
+E0601 04:44:34.006000 65769 site-packages/torch/_guards.py:375] [1/0]     Object Weakref: None
+E0601 04:44:34.006000 65769 site-packages/torch/_guards.py:375] [1/0]     Guarded Class Weakref: None
+E0601 04:44:34.006000 65769 site-packages/torch/_guards.py:375] [1/0] Traceback (most recent call last):
+E0601 04:44:34.006000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_guards.py", line 373, in create
+E0601 04:44:34.006000 65769 site-packages/torch/_guards.py:375] [1/0]     return self.create_fn(builder, self)
+E0601 04:44:34.006000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3286, in SHAPE_ENV
+E0601 04:44:34.006000 65769 site-packages/torch/_guards.py:375] [1/0]     python_code_parts, verbose_code_parts = _get_code_parts(
+E0601 04:44:34.006000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3259, in _get_code_parts
+E0601 04:44:34.006000 65769 site-packages/torch/_guards.py:375] [1/0]     return output_graph.shape_env.produce_guards_verbose(
+E0601 04:44:34.006000 65769 site-packages/torch/_guards.py:375] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/symbolic_shapes.py", line 6710, in produce_guards_verbose
+E0601 04:44:34.006000 65769 site-packages/torch/_guards.py:375] [1/0]     raise ConstraintViolationError(
+E0601 04:44:34.006000 65769 site-packages/torch/_guards.py:375] [1/0] torch.fx.experimental.symbolic_shapes.ConstraintViolationError: Constraints violated (L['a'].size()[1], L['a'].size()[2])! For more information, run with TORCH_LOGS="+dynamic".
+E0601 04:44:34.006000 65769 site-packages/torch/_guards.py:375] [1/0]   - The values of L['a'].size()[1] = L['a'].size()[1] and dim = L['a'].size()[0] must always be equal.
+E0601 04:44:34.006000 65769 site-packages/torch/_guards.py:375] [1/0]   - The values of L['a'].size()[2] = L['a'].size()[2] and dim = L['a'].size()[0] must always be equal.
+E0601 04:44:34.007000 65769 site-packages/torch/_guards.py:377] [1/0] Created at:
+E0601 04:44:34.007000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py", line 911, in trace_frame
+E0601 04:44:34.007000 65769 site-packages/torch/_guards.py:377] [1/0]     tracer = InstructionTranslator(
+E0601 04:44:34.007000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/symbolic_convert.py", line 5293, in __init__
+E0601 04:44:34.007000 65769 site-packages/torch/_guards.py:377] [1/0]     output=OutputGraph(
+E0601 04:44:34.007000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 758, in __init__
+E0601 04:44:34.007000 65769 site-packages/torch/_guards.py:377] [1/0]     self.init_ambient_guards()
+E0601 04:44:34.007000 65769 site-packages/torch/_guards.py:377] [1/0]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 1114, in init_ambient_guards
+E0601 04:44:34.007000 65769 site-packages/torch/_guards.py:377] [1/0]     self.guards.add(ShapeEnvSource().make_guard(GuardBuilder.SHAPE_ENV))
+PASSED [0.1247s] [ 42%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_shape_control_flow_1_inline_and_install <- test/dynamo/test_export.py PASSED [0.0815s] [ 43%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_specialized_int_inline_and_install <- test/dynamo/test_export.py PASSED [0.0570s] [ 44%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_symbolic_shape_inline_and_install <- test/dynamo/test_export.py PASSED [0.0413s] [ 44%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_args_and_empty_kwargs_inline_and_install <- test/dynamo/test_export.py PASSED [0.0400s] [ 45%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_args_with_default_None_inline_and_install <- test/dynamo/test_export.py PASSED [0.0276s] [ 45%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_args_with_default_float_inline_and_install <- test/dynamo/test_export.py PASSED [0.0229s] [ 46%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_args_with_default_tensor_inline_and_install <- test/dynamo/test_export.py E0601 04:44:34.378000 65769 site-packages/torch/_dynamo/eval_frame.py:2129] Parameter pos1_default is optional with a default value of tensor([-0.7938,  0.0183,  0.6638, -0.0941])
+XFAIL [0.0255s] [ 46%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_args_with_default_tuple_inline_and_install <- test/dynamo/test_export.py E0601 04:44:34.406000 65769 site-packages/torch/_dynamo/eval_frame.py:2129] Parameter pos1_default is optional with a default value of (tensor([ 1.1314,  1.0959, -0.3773,  1.3999]),)
+XFAIL [0.0259s] [ 47%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_aten_graph_inline_and_install <- test/dynamo/test_export.py PASSED [0.1634s] [ 47%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_builtin_op_on_assume_constant_inline_and_install <- test/dynamo/test_export.py PASSED [0.0394s] [ 48%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_cond_branches_calling_methods_inline_and_install <- test/dynamo/test_export.py PASSED [0.2388s] [ 48%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_cond_closure_inline_and_install <- test/dynamo/test_export.py PASSED [0.5904s] [ 49%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_cond_dynamic_shape_pred_inline_and_install <- test/dynamo/test_export.py PASSED [0.2809s] [ 50%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_cond_with_closed_function_inline_and_install <- test/dynamo/test_export.py PASSED [0.3996s] [ 50%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_dict_values_inline_and_install <- test/dynamo/test_export.py PASSED [0.0325s] [ 51%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_free_function_and_class_method_inline_and_install <- test/dynamo/test_export.py PASSED [0.0474s] [ 51%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_free_function_and_class_method_multiarg_diff_inline_and_install <- test/dynamo/test_export.py PASSED [0.0289s] [ 52%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_free_function_and_class_method_multiarg_inline_and_install <- test/dynamo/test_export.py PASSED [0.0507s] [ 52%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_free_function_inline_and_install <- test/dynamo/test_export.py PASSED [0.0475s] [ 53%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_global_function_inline_and_install <- test/dynamo/test_export.py PASSED [0.0103s] [ 53%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_in_unspecialized_nn_module_inline_and_install <- test/dynamo/test_export.py PASSED [0.0377s] [ 54%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_list_nonzero_free_function_inline_and_install <- test/dynamo/test_export.py PASSED [0.0438s] [ 54%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_list_nonzero_inline_and_install <- test/dynamo/test_export.py PASSED [0.0402s] [ 55%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_method_on_module_inline_and_install <- test/dynamo/test_export.py PASSED [0.0611s] [ 55%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_method_on_module_invoke_twice_inline_and_install <- test/dynamo/test_export.py PASSED [0.0577s] [ 56%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_none_control_flow_free_func_inline_and_install <- test/dynamo/test_export.py PASSED [0.0287s] [ 57%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_none_control_flow_inline_and_install <- test/dynamo/test_export.py PASSED [0.0218s] [ 57%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_not_none_control_flow_free_func_inline_and_install <- test/dynamo/test_export.py PASSED [0.0288s] [ 58%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_not_none_control_flow_inline_and_install <- test/dynamo/test_export.py PASSED [0.0258s] [ 58%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_not_none_control_flow_pos_inline_and_install <- test/dynamo/test_export.py PASSED [0.0265s] [ 59%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_not_return_const_inline_and_install <- test/dynamo/test_export.py PASSED [0.0238s] [ 59%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_constant_tuple_nonzero_inline_and_install <- test/dynamo/test_export.py PASSED [0.0460s] [ 60%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_functools_wrapped_fn_inline_and_install <- test/dynamo/test_export.py PASSED [0.0444s] [ 60%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_functools_wrapped_method_inline_and_install <- test/dynamo/test_export.py PASSED [0.0538s] [ 61%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_kwargs_and_empty_args_inline_and_install <- test/dynamo/test_export.py PASSED [0.0440s] [ 61%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_kwargs_inline_and_install <- test/dynamo/test_export.py PASSED [0.0576s] [ 62%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_kwargs_with_default_None_inline_and_install <- test/dynamo/test_export.py PASSED [0.0379s] [ 63%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_kwargs_with_default_float_inline_and_install <- test/dynamo/test_export.py PASSED [0.0336s] [ 63%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_kwargs_with_default_tensor_inline_and_install <- test/dynamo/test_export.py E0601 04:44:37.130000 65769 site-packages/torch/_dynamo/eval_frame.py:2129] Parameter kw1_default is optional with a default value of tensor([-2.1710, -0.1365, -1.5521, -0.1105])
+XFAIL [0.0334s] [ 64%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_kwargs_with_default_tuple_inline_and_install <- test/dynamo/test_export.py E0601 04:44:37.167000 65769 site-packages/torch/_dynamo/eval_frame.py:2129] Parameter kw1_default is optional with a default value of (tensor([-1.1864,  0.1794,  1.5768, -1.6548]),)
+XFAIL [0.0345s] [ 64%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_map_cond_inline_and_install <- test/dynamo/test_export.py PASSED [0.2856s] [ 65%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_map_zero_sized_tensor_inline_and_install <- test/dynamo/test_export.py PASSED [0.0333s] [ 65%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_map_zero_sized_tensor_suppress_errors_inline_and_install <- test/dynamo/test_export.py PASSED [0.0321s] [ 66%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_module_layer_inline_and_install <- test/dynamo/test_export.py PASSED [0.4024s] [ 66%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_nonzero_static_inline_and_install <- test/dynamo/test_export.py PASSED [0.0612s] [ 67%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_shallow_list_copy_with_side_effects_inline_and_install <- test/dynamo/test_export.py PASSED [0.0384s] [ 67%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_shallow_list_copy_wo_side_effects_inline_and_install <- test/dynamo/test_export.py PASSED [0.0296s] [ 68%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_stack_trace_inline_and_install <- test/dynamo/test_export.py PASSED [0.0873s] [ 69%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_symbool_inputs_inline_and_install <- test/dynamo/test_export.py PASSED [0.1441s] [ 69%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_export_with_wrapped_fn_inline_and_install <- test/dynamo/test_export.py PASSED [0.0387s] [ 70%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_exported_graph_serialization_inline_and_install <- test/dynamo/test_export.py PASSED [0.0796s] [ 70%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_func_return_inline_and_install <- test/dynamo/test_export.py PASSED [0.0754s] [ 71%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_func_return_with_aten_graph_inline_and_install <- test/dynamo/test_export.py PASSED [0.0798s] [ 71%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_fx_pytree_inline_and_install <- test/dynamo/test_export.py PASSED [0.3055s] [ 72%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_immutable_list_dict_inline_and_install <- test/dynamo/test_export.py PASSED [0.1772s] [ 72%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_input_container_type_inline_and_install <- test/dynamo/test_export.py PASSED [0.0569s] [ 73%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_input_global_inline_and_install <- test/dynamo/test_export.py PASSED [0.0267s] [ 73%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_input_global_multiple_access_inline_and_install <- test/dynamo/test_export.py PASSED [0.0278s] [ 74%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_input_nonlocal_inline_and_install <- test/dynamo/test_export.py PASSED [0.0243s] [ 75%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_input_unused_nonlocal_ok_inline_and_install <- test/dynamo/test_export.py PASSED [0.0205s] [ 75%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_list_contains_inline_and_install <- test/dynamo/test_export.py PASSED [0.1096s] [ 76%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_list_not_contains_inline_and_install <- test/dynamo/test_export.py PASSED [0.0651s] [ 76%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_list_unpack_inline_and_install <- test/dynamo/test_export.py PASSED [0.0896s] [ 77%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_list_unpack_with_aten_graph_inline_and_install <- test/dynamo/test_export.py PASSED [0.0738s] [ 77%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_map_cond_param_buffer_lifted_inline_and_install <- test/dynamo/test_export.py PASSED [0.5201s] [ 78%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_mixed_real_and_fake_inputs_inline_and_install <- test/dynamo/test_export.py W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383] Failed to reduce inequalities
+W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383] Traceback (most recent call last):
+W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/symbolic_shapes.py", line 3379, in solve
+W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383]     self._dynamic_results.add(self._dcp.doprint(arg))
+W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/sympy/printing/printer.py", line 292, in doprint
+W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383]     return self._str(self._print(expr))
+W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/sympy/printing/printer.py", line 331, in _print
+W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383]     return printmethod(expr, **kwargs)
+W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/utils/_sympy/printers.py", line 31, in _print_Relational
+W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383]     return self.stringify(expr.args, f" {expr.rel_op} ", precedence(expr))
+W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/sympy/printing/str.py", line 41, in stringify
+W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383]     return sep.join([self.parenthesize(item, level) for item in args])
+W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/sympy/printing/str.py", line 41, in <listcomp>
+W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383]     return sep.join([self.parenthesize(item, level) for item in args])
+W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/sympy/printing/str.py", line 38, in parenthesize
+W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383]     return self._print(item)
+W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/sympy/printing/printer.py", line 331, in _print
+W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383]     return printmethod(expr, **kwargs)
+W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/utils/_sympy/printers.py", line 21, in _print_Mul
+W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383]     return self.stringify(expr.args, "*", precedence(expr))
+W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/sympy/printing/str.py", line 41, in stringify
+W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383]     return sep.join([self.parenthesize(item, level) for item in args])
+W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/sympy/printing/str.py", line 41, in <listcomp>
+W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383]     return sep.join([self.parenthesize(item, level) for item in args])
+W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/sympy/printing/str.py", line 38, in parenthesize
+W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383]     return self._print(item)
+W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/sympy/printing/printer.py", line 331, in _print
+W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383]     return printmethod(expr, **kwargs)
+W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/utils/_sympy/printers.py", line 77, in _print_Pow
+W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383]     raise AssertionError(exp)
+W0601 04:44:40.273000 65769 site-packages/torch/fx/experimental/symbolic_shapes.py:3383] AssertionError: 1/2
+PASSED [0.2212s] [ 78%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_multiple_outputs_op_with_evaluator_inline_and_install <- test/dynamo/test_export.py PASSED [0.0302s] [ 79%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_nested_cond_op_param_buffer_lifted_inline_and_install <- test/dynamo/test_export.py PASSED [0.1182s] [ 79%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_no_tensor_computation_2_inline_and_install <- test/dynamo/test_export.py PASSED [0.0475s] [ 80%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_no_tensor_computation_2_with_aten_graph_inline_and_install <- test/dynamo/test_export.py PASSED [0.0496s] [ 80%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_no_tensor_computation_fail_inline_and_install <- test/dynamo/test_export.py PASSED [0.0141s] [ 81%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_no_tensor_computation_inline_and_install <- test/dynamo/test_export.py PASSED [0.0466s] [ 82%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_not_functionalize_inline_and_install <- test/dynamo/test_export.py PASSED [0.0436s] [ 82%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_param_buffer_safe_from_mutation_recurse_inline_and_install <- test/dynamo/test_export.py PASSED [0.0438s] [ 83%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_param_buffer_safe_from_mutation_simple_inline_and_install <- test/dynamo/test_export.py PASSED [0.0332s] [ 83%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_pre_dispatch_simple_inline_and_install <- test/dynamo/test_export.py PASSED [0.0268s] [ 84%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_predispatch_with_for_out_dtype_inline_and_install <- test/dynamo/test_export.py PASSED [0.0471s] [ 84%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_predispatch_with_for_out_dtype_nested_inline_and_install <- test/dynamo/test_export.py PASSED [0.1879s] [ 85%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_predispatch_with_higher_order_inline_and_install <- test/dynamo/test_export.py PASSED [0.0845s] [ 85%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_predispatch_with_higher_order_nested_inline_and_install <- test/dynamo/test_export.py PASSED [0.1466s] [ 86%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_preserve_fx_node_metadata_graph_break_inline_and_install <- test/dynamo/test_export.py PASSED [0.1740s] [ 86%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_preserve_fx_node_metadata_inline_and_install <- test/dynamo/test_export.py PASSED [0.1079s] [ 87%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_preserve_fx_node_metadata_inline_inline_and_install <- test/dynamo/test_export.py PASSED [0.0853s] [ 88%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_preserve_fx_node_metadata_recompile_inline_and_install <- test/dynamo/test_export.py PASSED [0.1534s] [ 88%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_remove_redundant_dynamic_dim_in_error_message_inline_and_install <- test/dynamo/test_export.py E0601 04:44:41.840000 65769 site-packages/torch/_guards.py:375] Error while creating guard:
+E0601 04:44:41.840000 65769 site-packages/torch/_guards.py:375] Name: ''
+E0601 04:44:41.840000 65769 site-packages/torch/_guards.py:375]     Source: shape_env
+E0601 04:44:41.840000 65769 site-packages/torch/_guards.py:375]     Create Function: SHAPE_ENV
+E0601 04:44:41.840000 65769 site-packages/torch/_guards.py:375]     Guard Types: None
+E0601 04:44:41.840000 65769 site-packages/torch/_guards.py:375]     Code List: None
+E0601 04:44:41.840000 65769 site-packages/torch/_guards.py:375]     Object Weakref: None
+E0601 04:44:41.840000 65769 site-packages/torch/_guards.py:375]     Guarded Class Weakref: None
+E0601 04:44:41.840000 65769 site-packages/torch/_guards.py:375] Traceback (most recent call last):
+E0601 04:44:41.840000 65769 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_guards.py", line 373, in create
+E0601 04:44:41.840000 65769 site-packages/torch/_guards.py:375]     return self.create_fn(builder, self)
+E0601 04:44:41.840000 65769 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3286, in SHAPE_ENV
+E0601 04:44:41.840000 65769 site-packages/torch/_guards.py:375]     python_code_parts, verbose_code_parts = _get_code_parts(
+E0601 04:44:41.840000 65769 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3259, in _get_code_parts
+E0601 04:44:41.840000 65769 site-packages/torch/_guards.py:375]     return output_graph.shape_env.produce_guards_verbose(
+E0601 04:44:41.840000 65769 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/symbolic_shapes.py", line 6710, in produce_guards_verbose
+E0601 04:44:41.840000 65769 site-packages/torch/_guards.py:375]     raise ConstraintViolationError(
+E0601 04:44:41.840000 65769 site-packages/torch/_guards.py:375] torch.fx.experimental.symbolic_shapes.ConstraintViolationError: Constraints violated (dim0_b)! For more information, run with TORCH_LOGS="+dynamic".
+E0601 04:44:41.840000 65769 site-packages/torch/_guards.py:375]   - The values of dim0_b = L['flat_args'][1].size()[0] and dim0_a = L['flat_args'][0].size()[0] must always be equal.
+E0601 04:44:41.841000 65769 site-packages/torch/_guards.py:377] Created at:
+E0601 04:44:41.841000 65769 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py", line 911, in trace_frame
+E0601 04:44:41.841000 65769 site-packages/torch/_guards.py:377]     tracer = InstructionTranslator(
+E0601 04:44:41.841000 65769 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/symbolic_convert.py", line 5293, in __init__
+E0601 04:44:41.841000 65769 site-packages/torch/_guards.py:377]     output=OutputGraph(
+E0601 04:44:41.841000 65769 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 758, in __init__
+E0601 04:44:41.841000 65769 site-packages/torch/_guards.py:377]     self.init_ambient_guards()
+E0601 04:44:41.841000 65769 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 1114, in init_ambient_guards
+E0601 04:44:41.841000 65769 site-packages/torch/_guards.py:377]     self.guards.add(ShapeEnvSource().make_guard(GuardBuilder.SHAPE_ENV))
+PASSED [0.0614s] [ 89%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_retracibility_dict_container_inp_out_inline_and_install <- test/dynamo/test_export.py PASSED [1.6827s] [ 89%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_retracibility_inline_and_install <- test/dynamo/test_export.py PASSED [1.1164s] [ 90%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_retracibility_nested_list_out_inline_and_install <- test/dynamo/test_export.py PASSED [1.4768s] [ 90%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_round_dynamic_shapes_inline_and_install <- test/dynamo/test_export.py PASSED [0.0852s] [ 91%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_strict_fake_tensor_prop_real_tensors_inline_and_install <- test/dynamo/test_export.py PASSED [0.0805s] [ 91%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_subclass_parameters_inline_and_install <- test/dynamo/test_export.py PASSED [0.0880s] [ 92%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_sum_param_inline_and_install <- test/dynamo/test_export.py PASSED [0.0421s] [ 92%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_sym_contains_inline_and_install <- test/dynamo/test_export.py PASSED [0.0575s] [ 93%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_symbolic_tracing_within_fake_mode_with_constraints_inline_and_install <- test/dynamo/test_export.py PASSED [0.1523s] [ 94%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_symbolic_tracing_within_fake_mode_with_constraints_with_parameters_inline_and_install <- test/dynamo/test_export.py PASSED [0.1592s] [ 94%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_symbool_inline_and_install <- test/dynamo/test_export.py PASSED [0.0501s] [ 95%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_torch_inference_mode_ctx_inline_and_install <- test/dynamo/test_export.py PASSED [0.0901s] [ 95%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_trivial_constraint_inline_and_install <- test/dynamo/test_export.py E0601 04:44:47.030000 65769 site-packages/torch/_guards.py:375] Error while creating guard:
+E0601 04:44:47.030000 65769 site-packages/torch/_guards.py:375] Name: ''
+E0601 04:44:47.030000 65769 site-packages/torch/_guards.py:375]     Source: shape_env
+E0601 04:44:47.030000 65769 site-packages/torch/_guards.py:375]     Create Function: SHAPE_ENV
+E0601 04:44:47.030000 65769 site-packages/torch/_guards.py:375]     Guard Types: None
+E0601 04:44:47.030000 65769 site-packages/torch/_guards.py:375]     Code List: None
+E0601 04:44:47.030000 65769 site-packages/torch/_guards.py:375]     Object Weakref: None
+E0601 04:44:47.030000 65769 site-packages/torch/_guards.py:375]     Guarded Class Weakref: None
+E0601 04:44:47.030000 65769 site-packages/torch/_guards.py:375] Traceback (most recent call last):
+E0601 04:44:47.030000 65769 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_guards.py", line 373, in create
+E0601 04:44:47.030000 65769 site-packages/torch/_guards.py:375]     return self.create_fn(builder, self)
+E0601 04:44:47.030000 65769 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3286, in SHAPE_ENV
+E0601 04:44:47.030000 65769 site-packages/torch/_guards.py:375]     python_code_parts, verbose_code_parts = _get_code_parts(
+E0601 04:44:47.030000 65769 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3259, in _get_code_parts
+E0601 04:44:47.030000 65769 site-packages/torch/_guards.py:375]     return output_graph.shape_env.produce_guards_verbose(
+E0601 04:44:47.030000 65769 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/symbolic_shapes.py", line 6710, in produce_guards_verbose
+E0601 04:44:47.030000 65769 site-packages/torch/_guards.py:375]     raise ConstraintViolationError(
+E0601 04:44:47.030000 65769 site-packages/torch/_guards.py:375] torch.fx.experimental.symbolic_shapes.ConstraintViolationError: Constraints violated (dim0)! For more information, run with TORCH_LOGS="+dynamic".
+E0601 04:44:47.030000 65769 site-packages/torch/_guards.py:375]   - Not all values of dim0 = L['flat_args'][0].size()[0] in the specified range dim0 <= 100 satisfy the generated guard ((3 + 2*L['flat_args'][0].size()[0]) % ((-3) + L['flat_args'][0].size()[0])) == 0.
+E0601 04:44:47.030000 65769 site-packages/torch/_guards.py:377] Created at:
+E0601 04:44:47.030000 65769 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py", line 911, in trace_frame
+E0601 04:44:47.030000 65769 site-packages/torch/_guards.py:377]     tracer = InstructionTranslator(
+E0601 04:44:47.030000 65769 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/symbolic_convert.py", line 5293, in __init__
+E0601 04:44:47.030000 65769 site-packages/torch/_guards.py:377]     output=OutputGraph(
+E0601 04:44:47.030000 65769 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 758, in __init__
+E0601 04:44:47.030000 65769 site-packages/torch/_guards.py:377]     self.init_ambient_guards()
+E0601 04:44:47.030000 65769 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 1114, in init_ambient_guards
+E0601 04:44:47.030000 65769 site-packages/torch/_guards.py:377]     self.guards.add(ShapeEnvSource().make_guard(GuardBuilder.SHAPE_ENV))
+E0601 04:44:47.173000 65769 site-packages/torch/_guards.py:375] Error while creating guard:
+E0601 04:44:47.173000 65769 site-packages/torch/_guards.py:375] Name: ''
+E0601 04:44:47.173000 65769 site-packages/torch/_guards.py:375]     Source: shape_env
+E0601 04:44:47.173000 65769 site-packages/torch/_guards.py:375]     Create Function: SHAPE_ENV
+E0601 04:44:47.173000 65769 site-packages/torch/_guards.py:375]     Guard Types: None
+E0601 04:44:47.173000 65769 site-packages/torch/_guards.py:375]     Code List: None
+E0601 04:44:47.173000 65769 site-packages/torch/_guards.py:375]     Object Weakref: None
+E0601 04:44:47.173000 65769 site-packages/torch/_guards.py:375]     Guarded Class Weakref: None
+E0601 04:44:47.173000 65769 site-packages/torch/_guards.py:375] Traceback (most recent call last):
+E0601 04:44:47.173000 65769 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_guards.py", line 373, in create
+E0601 04:44:47.173000 65769 site-packages/torch/_guards.py:375]     return self.create_fn(builder, self)
+E0601 04:44:47.173000 65769 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3286, in SHAPE_ENV
+E0601 04:44:47.173000 65769 site-packages/torch/_guards.py:375]     python_code_parts, verbose_code_parts = _get_code_parts(
+E0601 04:44:47.173000 65769 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/guards.py", line 3259, in _get_code_parts
+E0601 04:44:47.173000 65769 site-packages/torch/_guards.py:375]     return output_graph.shape_env.produce_guards_verbose(
+E0601 04:44:47.173000 65769 site-packages/torch/_guards.py:375]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/fx/experimental/symbolic_shapes.py", line 6710, in produce_guards_verbose
+E0601 04:44:47.173000 65769 site-packages/torch/_guards.py:375]     raise ConstraintViolationError(
+E0601 04:44:47.173000 65769 site-packages/torch/_guards.py:375] torch.fx.experimental.symbolic_shapes.ConstraintViolationError: Constraints violated (dim0)! For more information, run with TORCH_LOGS="+dynamic".
+E0601 04:44:47.173000 65769 site-packages/torch/_guards.py:375]   - Not all values of dim0 = L['flat_args'][0].size()[0] in the specified range dim0 <= 100 satisfy the generated guard ((3*L['flat_args'][0].size()[0]) % 2) == 0.
+E0601 04:44:47.173000 65769 site-packages/torch/_guards.py:377] Created at:
+E0601 04:44:47.173000 65769 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py", line 911, in trace_frame
+E0601 04:44:47.173000 65769 site-packages/torch/_guards.py:377]     tracer = InstructionTranslator(
+E0601 04:44:47.173000 65769 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/symbolic_convert.py", line 5293, in __init__
+E0601 04:44:47.173000 65769 site-packages/torch/_guards.py:377]     output=OutputGraph(
+E0601 04:44:47.173000 65769 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 758, in __init__
+E0601 04:44:47.173000 65769 site-packages/torch/_guards.py:377]     self.init_ambient_guards()
+E0601 04:44:47.173000 65769 site-packages/torch/_guards.py:377]   File "/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/_dynamo/output_graph.py", line 1114, in init_ambient_guards
+E0601 04:44:47.173000 65769 site-packages/torch/_guards.py:377]     self.guards.add(ShapeEnvSource().make_guard(GuardBuilder.SHAPE_ENV))
+PASSED [0.2359s] [ 96%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_uncaptured_higher_order_op_error_not_suppresed_inline_and_install <- test/dynamo/test_export.py PASSED [0.0247s] [ 96%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_untracked_inputs_in_constraints_inline_and_install <- test/dynamo/test_export.py PASSED [0.0753s] [ 97%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_zeroes_in_and_out_different_shape_on_test_inline_and_install <- test/dynamo/test_export.py PASSED [0.0839s] [ 97%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_zeroes_in_and_out_different_shape_on_test_with_aten_graph_inline_and_install <- test/dynamo/test_export.py PASSED [0.0808s] [ 98%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_zeroes_in_new_shape_scalar_out_inline_and_install <- test/dynamo/test_export.py PASSED [0.0889s] [ 98%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_zeroes_in_new_shape_scalar_out_permute_dupe_and_bypass_inline_and_install <- test/dynamo/test_export.py PASSED [0.0985s] [ 99%]
+dynamo/test_inline_and_install.py::InlineAndInstallExportTests::test_zeroes_in_new_shape_scalar_out_permute_inline_and_install <- test/dynamo/test_export.py PASSED [0.0937s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/dynamo.test_inline_and_install/dynamo.test_inline_and_install-34c6a35443ae0dc1.xml -
+======================= 180 passed, 4 xfailed in 21.02s ========================

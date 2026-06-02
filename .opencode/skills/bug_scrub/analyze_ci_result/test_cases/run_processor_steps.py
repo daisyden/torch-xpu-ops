@@ -30,6 +30,11 @@ import importlib
 
 
 def find_issue_triage_root(start: str) -> str:
+    if os.environ.get('ISSUE_TRIAGE_ROOT'):
+        root = os.path.abspath(os.environ['ISSUE_TRIAGE_ROOT'])
+        if (os.path.isdir(os.path.join(root, 'result')) and
+                os.path.isdir(os.path.join(root, 'ci_results'))):
+            return root
     path = os.path.abspath(start)
     while True:
         if (os.path.isdir(os.path.join(path, 'result')) and
@@ -191,7 +196,7 @@ def print_step_info(steps):
     print("=" * 60 + "\n")
 
 
-def run_steps(steps_to_run, input_file=None, save=True):
+def run_steps(steps_to_run, input_file=None, save=True, incremental=False):
     """
     Run specified steps of the test cases processor.
 
@@ -199,6 +204,7 @@ def run_steps(steps_to_run, input_file=None, save=True):
         steps_to_run: list of step numbers to execute
         input_file: optional path to input Excel file
         save: whether to save results after each step
+        incremental: skip rows with already-filled result columns
 
     Returns:
         tuple: (workbook, issues_needing_llm, issue_duplicated_map)
@@ -239,7 +245,7 @@ def run_steps(steps_to_run, input_file=None, save=True):
 
     if 5 in steps_to_run:
         print_step_info([5])
-        issue_duplicated_map = pass5_duplicate_detection(ws)
+        issue_duplicated_map = pass5_duplicate_detection(ws, skip_filled=incremental)
         if save:
             wb.save(excel_file)
             print(f"Saved to: {excel_file}")
@@ -274,6 +280,10 @@ def main():
     parser.add_argument(
         '--no-save', action='store_true',
         help='Do not save results after each step (for debugging)'
+    )
+    parser.add_argument(
+        '--incremental', action='store_true',
+        help='Incremental mode: skip rows with already-filled result columns (Phase 2.3+ only)'
     )
     parser.add_argument(
         '--fast', action='store_true',
@@ -313,7 +323,7 @@ def main():
     os.makedirs(RESULT_DIR, exist_ok=True)
 
     save = not args.no_save
-    run_steps(steps_to_run, input_file=args.input, save=save)
+    run_steps(steps_to_run, input_file=args.input, save=save, incremental=args.incremental)
 
     return 0
 

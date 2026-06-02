@@ -1,0 +1,71 @@
+Test results will be stored in test-reports/python-pytest/dynamo.test_aot_autograd/dynamo.test_aot_autograd-2e0b0c6f8a55d0dd.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 54 items
+stepcurrent: Cannot find last run test, not skipping
+Running 54 items in this shard: test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_LSTM, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_alias_inputs, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_aot_autograd_expand_mutation_backwards, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_aot_autograd_expand_mutation_error, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_aot_autograd_expand_mutation_functionalizes, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_aot_autograd_raises_invalid_leaf_set, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_aot_autograd_stride_reconstruction_on_zero_dim_dynamic_shaped_tensor, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_aot_export_joint_simple_repro, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_aot_grad_mode_mutation, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_aot_sequence_nr, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_arg_dupe_via_dynamo_recompiles, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_arg_dupe_via_dynamo_recompiles_many_args, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_arg_dupe_via_dynamo_recompiles_many_args_param, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_arg_dupe_via_dynamo_recompiles_many_args_param_non_tensor_arg, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_arg_dupe_via_dynamo_recompiles_many_args_param_non_tensor_arg_list, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_arg_dupe_via_dynamo_recompiles_many_with_global, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_autograd_function_tangent_mutation, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_batched_matmul_inference_mode, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_call_fn_with_non_const_inputs_aot_safe, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_call_fn_with_non_const_inputs_aot_unsafe, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_call_fn_with_non_const_inputs_aot_unsafe_control_flow, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_data_ptr_access_copy, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_data_ptr_access_fails_in_backward, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_data_ptr_access_fails_in_forward, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_different_inputs_overlapping_set_with_mutation, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_donated_buffer1, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_donated_buffer2, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_donated_buffer3, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_donated_buffer4, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_donated_buffer5, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_donated_buffer6, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_donated_buffer_with_retain_or_create_graph1, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_donated_buffer_with_retain_or_create_graph2, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_donated_buffer_with_retain_or_create_graph3, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_donated_buffer_with_retain_or_create_graph4, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_double_backward_with_compile, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_eager_sequence_nr, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_grad_inputs_alias_inputs, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_inputs_overlapping_with_mutation_recompile, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_inputs_overlapping_with_mutation_stress, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_joint_custom_pass, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_layer_norm_double_backward_dynamic_shapes, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_multiple_aot_autograd_calls_dupe_args, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_mutation, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_mutation1, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_negative_testing, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_negative_testing_mutation, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_nn_parameter_construction, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_no_storage_overlap_guards_no_aliasing, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_no_storage_overlap_guards_no_mutation, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_partitioner_filters_symbool_saved_for_bw, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_requires_grad_fake_via_dynamo_recompiles, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_split_with_sizes_aot_autograd_cleans_up_traceback_meta, test/dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_unbacked_activation_specialized_in_inductor
+
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_LSTM PASSED [1.1714s] [  1%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_alias_inputs PASSED [0.2976s] [  3%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_aot_autograd_expand_mutation_backwards PASSED [0.6367s] [  5%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_aot_autograd_expand_mutation_error XFAIL [0.0661s] [  7%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_aot_autograd_expand_mutation_functionalizes PASSED [0.0633s] [  9%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_aot_autograd_raises_invalid_leaf_set PASSED [0.0519s] [ 11%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_aot_autograd_stride_reconstruction_on_zero_dim_dynamic_shaped_tensor PASSED [42.4323s] [ 12%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_aot_export_joint_simple_repro PASSED [0.0879s] [ 14%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_aot_grad_mode_mutation PASSED [1.4166s] [ 16%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_aot_sequence_nr PASSED [0.4432s] [ 18%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_arg_dupe_via_dynamo_recompiles PASSED [0.2188s] [ 20%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_arg_dupe_via_dynamo_recompiles_many_args PASSED [0.3771s] [ 22%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_arg_dupe_via_dynamo_recompiles_many_args_param PASSED [0.3293s] [ 24%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_arg_dupe_via_dynamo_recompiles_many_args_param_non_tensor_arg PASSED [0.3271s] [ 25%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_arg_dupe_via_dynamo_recompiles_many_args_param_non_tensor_arg_list PASSED [0.6171s] [ 27%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_arg_dupe_via_dynamo_recompiles_many_with_global PASSED [0.1755s] [ 29%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_autograd_function_tangent_mutation PASSED [0.0878s] [ 31%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_batched_matmul_inference_mode PASSED [0.9161s] [ 33%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_call_fn_with_non_const_inputs_aot_safe PASSED [0.3120s] [ 35%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_call_fn_with_non_const_inputs_aot_unsafe PASSED [0.1152s] [ 37%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_call_fn_with_non_const_inputs_aot_unsafe_control_flow PASSED [0.2347s] [ 38%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_data_ptr_access_copy PASSED [0.0032s] [ 40%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_data_ptr_access_fails_in_backward PASSED [0.0281s] [ 42%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_data_ptr_access_fails_in_forward PASSED [0.0502s] [ 44%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_different_inputs_overlapping_set_with_mutation PASSED [0.3242s] [ 46%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_donated_buffer1 PASSED [1.4245s] [ 48%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_donated_buffer2 PASSED [0.1423s] [ 50%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_donated_buffer3 PASSED [0.1376s] [ 51%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_donated_buffer4 PASSED [1.4138s] [ 53%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_donated_buffer5 PASSED [1.4305s] [ 55%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_donated_buffer6 PASSED [1.5516s] [ 57%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_donated_buffer_with_retain_or_create_graph1 PASSED [1.4438s] [ 59%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_donated_buffer_with_retain_or_create_graph2 PASSED [1.3977s] [ 61%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_donated_buffer_with_retain_or_create_graph3 PASSED [1.3937s] [ 62%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_donated_buffer_with_retain_or_create_graph4 PASSED [1.4618s] [ 64%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_double_backward_with_compile PASSED [0.5118s] [ 66%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_eager_sequence_nr USDT:2026-06-01 04:47:39 66840:66840 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-06-01 04:47:39 66840:66840 SyncActivityProfilerHandler.cpp:59] profiler_stop
+PASSED [0.8948s] [ 68%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_grad_inputs_alias_inputs PASSED [0.0798s] [ 70%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_inputs_overlapping_with_mutation_recompile PASSED [0.2833s] [ 72%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_inputs_overlapping_with_mutation_stress PASSED [20.6839s] [ 74%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_joint_custom_pass PASSED [0.1193s] [ 75%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_layer_norm_double_backward_dynamic_shapes PASSED [2.9378s] [ 77%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_multiple_aot_autograd_calls_dupe_args PASSED [0.1772s] [ 79%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_mutation PASSED [0.0667s] [ 81%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_mutation1 PASSED [0.2618s] [ 83%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_negative_testing PASSED [0.0574s] [ 85%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_negative_testing_mutation PASSED [0.2445s] [ 87%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_nn_parameter_construction PASSED [0.1200s] [ 88%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_no_storage_overlap_guards_no_aliasing PASSED [0.1016s] [ 90%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_no_storage_overlap_guards_no_mutation PASSED [0.0713s] [ 92%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_partitioner_filters_symbool_saved_for_bw SKIPPED [0.0003s] (requires cuda) [ 94%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_requires_grad_fake_via_dynamo_recompiles PASSED [0.1811s] [ 96%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_split_with_sizes_aot_autograd_cleans_up_traceback_meta PASSED [0.0021s] [ 98%]
+dynamo/test_aot_autograd.py::AotAutogradFallbackTests::test_unbacked_activation_specialized_in_inductor PASSED [1.8533s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/dynamo.test_aot_autograd/dynamo.test_aot_autograd-2e0b0c6f8a55d0dd.xml -
+============= 52 passed, 1 skipped, 1 xfailed in 91.33s (0:01:31) ==============

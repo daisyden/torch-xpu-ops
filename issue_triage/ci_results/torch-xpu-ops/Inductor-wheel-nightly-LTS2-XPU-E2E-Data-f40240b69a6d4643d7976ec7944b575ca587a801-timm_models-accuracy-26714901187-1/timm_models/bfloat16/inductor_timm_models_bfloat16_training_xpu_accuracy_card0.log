@@ -1,0 +1,85 @@
+++ python benchmarks/dynamo/timm_models.py --accuracy --bfloat16 -d xpu -n10 --training --total-partitions 8 --partition-id 0 --backend=inductor --cold-start-latency --timeout=10800 --disable-cudagraphs --output=/__w/torch-xpu-ops/torch-xpu-ops/pytorch/inductor_log/timm_models/bfloat16/inductor_timm_models_bfloat16_training_xpu_accuracy.csv
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:05, ?it/s]
+xpu  train adv_inception_v3                   
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:02, ?it/s]
+xpu  train beit_base_patch16_224              
+W0531 14:33:48.148000 47933 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:03, ?it/s]
+xpu  train botnet26t_256                      
+W0531 14:34:25.919000 50008 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:03, ?it/s]
+xpu  train cait_m36_384                       
+WARNING:common:fp64 golden ref were not generated for cait_m36_384. Setting accuracy check to cosine
+Traceback (most recent call last):
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 2265, in check_accuracy
+    fp64_outputs = self.run_n_iterations(
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/common.py", line 2095, in run_n_iterations
+    model_iter_fn(mod, inputs, collect_outputs=False)
+  File "/__w/torch-xpu-ops/torch-xpu-ops/pytorch/benchmarks/dynamo/timm_models.py", line 366, in forward_and_backward_pass
+    pred = mod(*cloned_inputs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/timm/models/cait.py", line 477, in forward
+    x = self.forward_features(x)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/timm/models/cait.py", line 462, in forward_features
+    x = self.blocks(x)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/timm/models/cait.py", line 229, in forward
+    x = x + self.drop_path(self.gamma_1 * self.attn(self.norm1(x)))
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/timm/models/cait.py", line 171, in forward
+    attn = self.proj_l(attn.permute(0, 2, 3, 1)).permute(0, 3, 1, 2)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/tmp/xpu-tool/Python/3.10.20/x64/lib/python3.10/site-packages/torch/nn/modules/linear.py", line 134, in forward
+    return F.linear(input, self.weight, self.bias)
+torch.OutOfMemoryError: XPU out of memory. Tried to allocate 324.00 MiB. GPU 0 has a total capacity of 47.98 GiB of which 315.02 MiB is free. Of the allocated memory 47.06 GiB is allocated by PyTorch, and 266.45 MiB is reserved by PyTorch but unallocated. Please use `empty_cache` to release all unoccupied cached memory.
+W0531 14:36:58.946000 53220 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:02, ?it/s]
+xpu  train coat_lite_mini                     
+W0531 14:38:23.699000 61030 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]WARNING:common:Model convit_base does not support bfloat16, running with amp instead
+loading model: 0it [00:03, ?it/s]
+WARNING:common:Model convit_base does not support bfloat16, running with amp instead
+xpu  train convit_base                        
+WARNING:common:Model convit_base does not support bfloat16, running with amp instead
+W0531 14:39:49.874000 66193 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+pass
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:01, ?it/s]
+xpu  train convmixer_768_32                   
+E0531 14:40:48.691000 67577 site-packages/torch/_dynamo/utils.py:3666] RMSE (res-fp64): 0.03688, (ref-fp64): 0.01176 and shape=torch.Size([768]). res.dtype: torch.bfloat16, multiplier: 3.000000, tol: 0.010000, use_larger_multiplier_for_smaller_tensor: 0
+E0531 14:40:48.691000 67577 site-packages/torch/_dynamo/utils.py:3498] Accuracy failed for key name blocks.13.0.fn.2.running_var
+fail_accuracy
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:02, ?it/s]
+xpu  train convnext_base                      
+pass
+accuracy            pass_rate=94.55%
+calls_captured      gmean=404.26x mean=481.800x
+unique_graphs       gmean=1.10x mean=1.145x
+graph_breaks        gmean=5.02x mean=5.018x
+unique_graph_breaks gmean=4.00x mean=4.000x
+autograd_captures   gmean=0.00x mean=0.000x
+autograd_compiles   gmean=0.00x mean=0.000x
+cudagraph_skips     gmean=0.00x mean=0.000x
+compilation_latency mean=43.189 seconds

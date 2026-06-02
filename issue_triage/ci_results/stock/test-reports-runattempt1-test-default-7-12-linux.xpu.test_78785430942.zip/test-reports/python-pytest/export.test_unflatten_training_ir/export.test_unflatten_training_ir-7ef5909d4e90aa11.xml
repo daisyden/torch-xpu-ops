@@ -1,0 +1,103 @@
+<testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="30" time="27.557" timestamp="2026-06-01T04:49:33.774740" hostname="56eb177b00a9"><testcase classname="TrainingIRUnflattenTestUnflatten" name="test_assert_tensor_metadata_stack_training_ir" time="21.922" file="export/test_unflatten_training_ir.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TrainingIRUnflattenTestUnflatten" name="test_attr_as_submod_input_training_ir" time="0.096" file="export/test_unflatten_training_ir.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TrainingIRUnflattenTestUnflatten" name="test_dedup_sym_size_training_ir" time="0.340" file="export/test_unflatten_training_ir.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/export/unflatten.py:1032: UserWarning: Attempted to insert a get_attr Node with no underlying reference in the owning GraphModule! Call GraphModule.add_submodule to add the necessary submodule, GraphModule.add_parameter to add the necessary Parameter, or nn.Module.register_buffer to add the necessary buffer
+  spec_node = gm.graph.get_attr(name)
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/export/unflatten.py:1040: UserWarning: Attempted to insert a get_attr Node with no underlying reference in the owning GraphModule! Call GraphModule.add_submodule to add the necessary submodule, GraphModule.add_parameter to add the necessary Parameter, or nn.Module.register_buffer to add the necessary buffer
+  spec_node = gm.graph.get_attr(name)
+</system-err></testcase><testcase classname="TrainingIRUnflattenTestUnflatten" name="test_double_nested_submodule_training_ir" time="0.064" file="export/test_unflatten_training_ir.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TrainingIRUnflattenTestUnflatten" name="test_duplicate_placeholder_training_ir" time="0.163" file="export/test_unflatten_training_ir.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TrainingIRUnflattenTestUnflatten" name="test_fx_trace_training_ir" time="0.084" file="export/test_unflatten_training_ir.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TrainingIRUnflattenTestUnflatten" name="test_nested_leaf_non_strict_training_ir" time="0.022" file="export/test_unflatten_training_ir.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/export/unflatten.py:1032: UserWarning: Attempted to insert a get_attr Node with no underlying reference in the owning GraphModule! Call GraphModule.add_submodule to add the necessary submodule, GraphModule.add_parameter to add the necessary Parameter, or nn.Module.register_buffer to add the necessary buffer
+  spec_node = gm.graph.get_attr(name)
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/export/unflatten.py:1040: UserWarning: Attempted to insert a get_attr Node with no underlying reference in the owning GraphModule! Call GraphModule.add_submodule to add the necessary submodule, GraphModule.add_parameter to add the necessary Parameter, or nn.Module.register_buffer to add the necessary buffer
+  spec_node = gm.graph.get_attr(name)
+</system-err></testcase><testcase classname="TrainingIRUnflattenTestUnflatten" name="test_placeholder_and_get_attr_ordering_after_unflattened_training_ir" time="0.122" file="export/test_unflatten_training_ir.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TrainingIRUnflattenTestUnflatten" name="test_simple_alias_training_ir" time="0.149" file="export/test_unflatten_training_ir.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TrainingIRUnflattenTestUnflatten" name="test_unflatten_buffer_mutation_training_ir" time="0.071" file="export/test_unflatten_training_ir.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TrainingIRUnflattenTestUnflatten" name="test_unflatten_constant_obj_training_ir" time="0.026" file="export/test_unflatten_training_ir.py" /><testcase classname="TrainingIRUnflattenTestUnflatten" name="test_unflatten_constant_tensor_training_ir" time="0.067" file="export/test_unflatten_training_ir.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TrainingIRUnflattenTestUnflatten" name="test_unflatten_container_type_training_ir" time="0.180" file="export/test_unflatten_training_ir.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TrainingIRUnflattenTestUnflatten" name="test_unflatten_eager_training_ir" time="1.814" file="export/test_unflatten_training_ir.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TrainingIRUnflattenTestUnflatten" name="test_unflatten_empty_branch_training_ir" time="0.053" file="export/test_unflatten_training_ir.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/export/unflatten.py:1032: UserWarning: Attempted to insert a get_attr Node with no underlying reference in the owning GraphModule! Call GraphModule.add_submodule to add the necessary submodule, GraphModule.add_parameter to add the necessary Parameter, or nn.Module.register_buffer to add the necessary buffer
+  spec_node = gm.graph.get_attr(name)
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/export/unflatten.py:1040: UserWarning: Attempted to insert a get_attr Node with no underlying reference in the owning GraphModule! Call GraphModule.add_submodule to add the necessary submodule, GraphModule.add_parameter to add the necessary Parameter, or nn.Module.register_buffer to add the necessary buffer
+  spec_node = gm.graph.get_attr(name)
+</system-err></testcase><testcase classname="TrainingIRUnflattenTestUnflatten" name="test_unflatten_nested_access_training_ir" time="0.066" file="export/test_unflatten_training_ir.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TrainingIRUnflattenTestUnflatten" name="test_unflatten_nested_training_ir" time="0.086" file="export/test_unflatten_training_ir.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TrainingIRUnflattenTestUnflatten" name="test_unflatten_none_training_ir" time="0.020" file="export/test_unflatten_training_ir.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/export/unflatten.py:1032: UserWarning: Attempted to insert a get_attr Node with no underlying reference in the owning GraphModule! Call GraphModule.add_submodule to add the necessary submodule, GraphModule.add_parameter to add the necessary Parameter, or nn.Module.register_buffer to add the necessary buffer
+  spec_node = gm.graph.get_attr(name)
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/export/unflatten.py:1040: UserWarning: Attempted to insert a get_attr Node with no underlying reference in the owning GraphModule! Call GraphModule.add_submodule to add the necessary submodule, GraphModule.add_parameter to add the necessary Parameter, or nn.Module.register_buffer to add the necessary buffer
+  spec_node = gm.graph.get_attr(name)
+</system-err></testcase><testcase classname="TrainingIRUnflattenTestUnflatten" name="test_unflatten_param_list_dict_training_ir" time="0.094" file="export/test_unflatten_training_ir.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TrainingIRUnflattenTestUnflatten" name="test_unflatten_preserve_signature_training_ir" time="0.503" file="export/test_unflatten_training_ir.py"><system-out>Input treespec does not match with exported module's: 
+Input treespec: TreeSpec(tuple, None, [TreeSpec(tuple, None, [TreeSpec(tuple, None, [*,
+      *,
+      *])]),
+  TreeSpec(dict, [], [])]).  Exported module treespec: TreeSpec(tuple, None, [TreeSpec(tuple, None, [*,
+    *]),
+  TreeSpec(dict, [], [])])
+Adapting flat arg to match exported module's treespec
+Input treespec does not match with exported module's: 
+Input treespec: TreeSpec(tuple, None, [TreeSpec(tuple, None, [*,
+    *,
+    *]),
+  TreeSpec(dict, [], [])]).  Exported module treespec: TreeSpec(tuple, None, [TreeSpec(tuple, None, [*,
+    *]),
+  TreeSpec(dict, [], [])])
+Adapting flat arg to match exported module's treespec
+Input treespec does not match with exported module's: 
+Input treespec: TreeSpec(tuple, None, [TreeSpec(tuple, None, [TreeSpec(tuple, None, [*,
+      *,
+      *])]),
+  TreeSpec(dict, [], [])]).  Exported module treespec: TreeSpec(tuple, None, [TreeSpec(tuple, None, [*,
+    *]),
+  TreeSpec(dict, [], [])])
+Adapting flat arg to match exported module's treespec
+Input treespec does not match with exported module's: 
+Input treespec: TreeSpec(tuple, None, [TreeSpec(tuple, None, [*,
+    *,
+    *]),
+  TreeSpec(dict, [], [])]).  Exported module treespec: TreeSpec(tuple, None, [TreeSpec(tuple, None, [*,
+    *]),
+  TreeSpec(dict, [], [])])
+Adapting flat arg to match exported module's treespec
+</system-out><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/export/unflatten.py:1032: UserWarning: Attempted to insert a get_attr Node with no underlying reference in the owning GraphModule! Call GraphModule.add_submodule to add the necessary submodule, GraphModule.add_parameter to add the necessary Parameter, or nn.Module.register_buffer to add the necessary buffer
+  spec_node = gm.graph.get_attr(name)
+/opt/conda/envs/py_3.10/lib/python3.10/site-packages/torch/export/unflatten.py:1040: UserWarning: Attempted to insert a get_attr Node with no underlying reference in the owning GraphModule! Call GraphModule.add_submodule to add the necessary submodule, GraphModule.add_parameter to add the necessary Parameter, or nn.Module.register_buffer to add the necessary buffer
+  spec_node = gm.graph.get_attr(name)
+</system-err></testcase><testcase classname="TrainingIRUnflattenTestUnflatten" name="test_unflatten_preserve_with_unused_input_training_ir" time="0.028" file="export/test_unflatten_training_ir.py" /><testcase classname="TrainingIRUnflattenTestUnflatten" name="test_unflatten_requires_grad_param_training_ir" time="0.061" file="export/test_unflatten_training_ir.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TrainingIRUnflattenTestUnflatten" name="test_unflatten_root_module_type_training_ir" time="0.013" file="export/test_unflatten_training_ir.py" /><testcase classname="TrainingIRUnflattenTestUnflatten" name="test_unflatten_shared_submodule_reorder_training_ir" time="0.100" file="export/test_unflatten_training_ir.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TrainingIRUnflattenTestUnflatten" name="test_unflatten_shared_submodule_training_ir" time="0.097" file="export/test_unflatten_training_ir.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TrainingIRUnflattenTestUnflatten" name="test_unflatten_skipped_call_module_training_ir" time="0.017" file="export/test_unflatten_training_ir.py" /><testcase classname="TrainingIRUnflattenTestUnflatten" name="test_unflatten_submodule_ordering_training_ir" time="0.093" file="export/test_unflatten_training_ir.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TrainingIRUnflattenTestUnflatten" name="test_unflatten_with_inplace_compile_training_ir" time="0.977" file="export/test_unflatten_training_ir.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TrainingIRUnflattenTestUnflatten" name="test_unflatten_wrong_input_training_ir" time="0.104" file="export/test_unflatten_training_ir.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase><testcase classname="TrainingIRUnflattenTestUnflatten" name="test_unflattened_module_nodes_has_meta_val_training_ir" time="0.067" file="export/test_unflatten_training_ir.py"><system-err>/opt/conda/envs/py_3.10/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+</system-err></testcase></testsuite></testsuites>

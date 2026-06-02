@@ -1,0 +1,44 @@
+======================================
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg      Self XPU    Self XPU %     XPU total  XPU time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                               aten::to         0.08%      30.803us         6.43%       2.470ms     493.919us       0.000us         0.00%       1.068ms     213.664us             5  
+                                         aten::_to_copy         0.10%      37.570us         6.35%       2.439ms     812.931us       0.000us         0.00%       1.068ms     356.107us             3  
+                                            aten::copy_         0.52%     198.332us         6.14%       2.360ms     786.700us       1.068ms        93.06%       1.068ms     356.107us             3  
+                 Memcpy M2D (MEMORY(Unknown) -> DEVICE)         0.00%       0.000us         0.00%       0.000us       0.000us       1.068ms        93.06%       1.068ms     356.107us             3  
+                                     aten::max_unpool2d         0.23%      89.135us         0.92%     353.137us     353.137us      38.240us         3.33%      54.880us      54.880us             1  
+at::native::xpu::MaxUnpooling2dForwardKernelFunctor<...         0.00%       0.000us         0.00%       0.000us       0.000us      38.240us         3.33%      38.240us      38.240us             1  
+autograd::engine::evaluate_function: MaxUnpool2DBack...         0.04%      16.543us         1.04%     401.542us     401.542us       0.000us         0.00%      24.800us      24.800us             1  
+                                   MaxUnpool2DBackward0         0.06%      24.364us         1.00%     384.999us     384.999us       0.000us         0.00%      24.800us      24.800us             1  
+                                           aten::gather         0.71%     274.755us         0.89%     343.925us     343.925us      24.800us         2.16%      24.800us      24.800us             1  
+at::native::xpu::ScatterGatherElementwiseKernelFunct...         0.00%       0.000us         0.00%       0.000us       0.000us      24.800us         2.16%      24.800us      24.800us             1  
+                                            aten::zero_         0.02%       9.028us         0.54%     206.089us     206.089us       0.000us         0.00%      16.640us      16.640us             1  
+                                            aten::fill_         0.23%      90.053us         0.51%     197.061us     197.061us      16.640us         1.45%      16.640us      16.640us             1  
+at::native::xpu::VectorizedElementwiseKernel<4, at::...         0.00%       0.000us         0.00%       0.000us       0.000us      16.640us         1.45%      16.640us      16.640us             1  
+                                            aten::randn         0.10%      39.077us        88.68%      34.085ms      17.042ms       0.000us         0.00%       0.000us       0.000us             2  
+                                            aten::empty         0.09%      33.829us         0.09%      33.829us      11.276us       0.000us         0.00%       0.000us       0.000us             3  
+                                          aten::normal_        88.50%      34.016ms        88.50%      34.016ms      17.008ms       0.000us         0.00%       0.000us       0.000us             2  
+                          aten::max_pool2d_with_indices         2.86%       1.099ms         2.86%       1.099ms       1.099ms       0.000us         0.00%       0.000us       0.000us             1  
+                                    aten::empty_strided         0.11%      41.121us         0.11%      41.121us      13.707us       0.000us         0.00%       0.000us       0.000us             3  
+                                     urEnqueueUSMMemcpy         1.13%     434.124us         3.72%       1.431ms     476.908us       0.000us         0.00%       0.000us       0.000us             3  
+                                zeMemGetAllocProperties         0.01%       4.649us         0.01%       4.649us       1.550us       0.000us         0.00%       0.000us       0.000us             3  
+                                          zeEventCreate         0.03%      11.465us         0.03%      11.465us       3.822us       0.000us         0.00%       0.000us       0.000us             3  
+                          zeCommandListAppendMemoryCopy         2.56%     983.487us         2.56%     983.487us     327.829us       0.000us         0.00%       0.000us       0.000us             3  
+                                 zeEventHostSynchronize         1.92%     737.622us         1.92%     737.622us     184.406us       0.000us         0.00%       0.000us       0.000us             4  
+                                       zeEventHostReset         0.01%       1.936us         0.01%       1.936us       0.645us       0.000us         0.00%       0.000us       0.000us             3  
+                                          aten::resize_         0.03%      11.071us         0.03%      11.071us      11.071us       0.000us         0.00%       0.000us       0.000us             1  
+                       urEnqueueKernelLaunchWithArgsExp         0.30%     116.081us         0.55%     211.880us      70.627us       0.000us         0.00%       0.000us       0.000us             3  
+                               zeKernelSetArgumentValue         0.03%      12.874us         0.03%      12.874us       0.858us       0.000us         0.00%       0.000us       0.000us            15  
+                                   zeKernelSetGroupSize         0.00%       1.150us         0.00%       1.150us       0.383us       0.000us         0.00%       0.000us       0.000us             3  
+                        zeCommandListAppendLaunchKernel         0.20%      76.838us         0.20%      76.838us      25.613us       0.000us         0.00%       0.000us       0.000us             3  
+                                             aten::view         0.04%      16.710us         0.04%      16.710us       5.570us       0.000us         0.00%       0.000us       0.000us             3  
+                                       aten::as_strided         0.01%       4.913us         0.01%       4.913us       2.457us       0.000us         0.00%       0.000us       0.000us             2  
+                                  zeKernelGetProperties         0.01%       2.383us         0.01%       2.383us       2.383us       0.000us         0.00%       0.000us       0.000us             1  
+autograd::engine::evaluate_function: torch::autograd...         0.01%       3.759us         0.05%      20.662us      20.662us       0.000us         0.00%       0.000us       0.000us             1  
+                        torch::autograd::AccumulateGrad         0.03%      11.247us         0.04%      16.903us      16.903us       0.000us         0.00%       0.000us       0.000us             1  
+                                           aten::detach         0.00%       1.298us         0.01%       5.656us       5.656us       0.000us         0.00%       0.000us       0.000us             1  
+                                                 detach         0.01%       4.358us         0.01%       4.358us       4.358us       0.000us         0.00%       0.000us       0.000us             1  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 38.435ms
+Self XPU time total: 1.148ms
+

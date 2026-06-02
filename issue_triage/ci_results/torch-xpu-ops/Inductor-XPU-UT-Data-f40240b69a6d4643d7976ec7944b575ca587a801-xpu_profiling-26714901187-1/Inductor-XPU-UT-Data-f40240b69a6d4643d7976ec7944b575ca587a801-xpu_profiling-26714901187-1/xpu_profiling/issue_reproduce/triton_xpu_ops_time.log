@@ -1,0 +1,23 @@
+[info] finish warm up
+[info] start running
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg      Self XPU    Self XPU %     XPU total  XPU time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                             triton_poi_fused_add_mul_0        20.94%     105.140us        63.86%     320.691us     320.691us       2.720us       100.00%       2.720us       2.720us             1  
+                             triton_poi_fused_add_mul_0         0.00%       0.000us         0.00%       0.000us       0.000us       2.720us       100.00%       2.720us       2.720us             1  
+                               TorchDynamo Cache Lookup         5.35%      26.862us         5.35%      26.862us      26.862us       0.000us         0.00%       0.000us       0.000us             1  
+                             Torch-Compiled Region: 0/0        18.44%      92.619us        94.09%     472.504us     472.504us       0.000us         0.00%       2.720us       2.720us             1  
+                                      Pregraph bytecode         0.88%       4.401us         0.88%       4.401us       4.401us       0.000us         0.00%       0.000us       0.000us             1  
+                 AOTDispatcher Runtime Wrapper Prologue         1.24%       6.240us         1.24%       6.240us       6.240us       0.000us         0.00%       0.000us       0.000us             1  
+## Call CompiledFxGraph fv57hz2tjvv7xlf33rpdlrk6d2x2...         9.67%      48.553us        73.53%     369.244us     369.244us       0.000us         0.00%       2.720us       2.720us             1  
+                                zeMemGetAllocProperties         0.18%       0.920us         0.18%       0.920us       0.460us       0.000us         0.00%       0.000us       0.000us             2  
+                       urEnqueueKernelLaunchWithArgsExp        35.72%     179.398us        42.74%     214.631us     214.631us       0.000us         0.00%       0.000us       0.000us             1  
+                               zeKernelSetArgumentValue         0.36%       1.828us         0.36%       1.828us       0.366us       0.000us         0.00%       0.000us       0.000us             5  
+                                   zeKernelSetGroupSize         0.07%       0.350us         0.07%       0.350us       0.350us       0.000us         0.00%       0.000us       0.000us             1  
+                                       zeEventHostReset         0.13%       0.669us         0.13%       0.669us       0.669us       0.000us         0.00%       0.000us       0.000us             1  
+                        zeCommandListAppendLaunchKernel         6.45%      32.386us         6.45%      32.386us      32.386us       0.000us         0.00%       0.000us       0.000us             1  
+                                 zeEventHostSynchronize         0.56%       2.820us         0.56%       2.820us       2.820us       0.000us         0.00%       0.000us       0.000us             1  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 502.186us
+Self XPU time total: 2.720us
+

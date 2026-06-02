@@ -1,0 +1,44 @@
+++ python benchmarks/dynamo/timm_models.py --performance --float16 -d xpu -n10 --training --total-partitions 9 --partition-id 3 --backend=inductor --cold-start-latency --timeout=10800 --disable-cudagraphs --output=/__w/torch-xpu-ops/torch-xpu-ops/pytorch/inductor_log/timm_models/float16/inductor_timm_models_float16_training_xpu_performance.csv
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:23, ?it/s]
+xpu  train gernet_l                           
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:02,  3.95it/s]running benchmark:  20%|██        | 2/10 [00:00<00:01,  5.19it/s]running benchmark:  30%|███       | 3/10 [00:00<00:01,  5.77it/s]running benchmark:  40%|████      | 4/10 [00:00<00:00,  6.10it/s]running benchmark:  50%|█████     | 5/10 [00:00<00:00,  6.29it/s]running benchmark:  60%|██████    | 6/10 [00:01<00:00,  6.40it/s]running benchmark:  70%|███████   | 7/10 [00:01<00:00,  6.48it/s]running benchmark:  80%|████████  | 8/10 [00:01<00:00,  6.54it/s]running benchmark:  90%|█████████ | 9/10 [00:01<00:00,  6.58it/s]running benchmark: 100%|██████████| 10/10 [00:01<00:00,  6.60it/s]running benchmark: 100%|██████████| 10/10 [00:01<00:00,  6.23it/s]
+1.552x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:13, ?it/s]
+xpu  train ghostnet_100                       
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:08,  1.04it/s]running benchmark:  20%|██        | 2/10 [00:01<00:05,  1.47it/s]running benchmark:  30%|███       | 3/10 [00:01<00:04,  1.68it/s]running benchmark:  40%|████      | 4/10 [00:02<00:03,  1.80it/s]running benchmark:  50%|█████     | 5/10 [00:02<00:02,  1.88it/s]running benchmark:  60%|██████    | 6/10 [00:03<00:02,  1.93it/s]running benchmark:  70%|███████   | 7/10 [00:03<00:01,  1.96it/s]running benchmark:  80%|████████  | 8/10 [00:04<00:01,  1.98it/s]running benchmark:  90%|█████████ | 9/10 [00:04<00:00,  2.00it/s]running benchmark: 100%|██████████| 10/10 [00:05<00:00,  2.01it/s]running benchmark: 100%|██████████| 10/10 [00:05<00:00,  1.86it/s]
+1.925x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:17, ?it/s]
+xpu  train gluon_inception_v3                 
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:01<00:10,  1.13s/it]running benchmark:  20%|██        | 2/10 [00:01<00:06,  1.20it/s]running benchmark:  30%|███       | 3/10 [00:02<00:05,  1.35it/s]running benchmark:  40%|████      | 4/10 [00:03<00:04,  1.44it/s]running benchmark:  50%|█████     | 5/10 [00:03<00:03,  1.49it/s]running benchmark:  60%|██████    | 6/10 [00:04<00:02,  1.52it/s]running benchmark:  70%|███████   | 7/10 [00:04<00:01,  1.55it/s]running benchmark:  80%|████████  | 8/10 [00:05<00:01,  1.54it/s]running benchmark:  90%|█████████ | 9/10 [00:06<00:00,  1.52it/s]running benchmark: 100%|██████████| 10/10 [00:06<00:00,  1.50it/s]running benchmark: 100%|██████████| 10/10 [00:06<00:00,  1.45it/s]
+2.478x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:04, ?it/s]
+xpu  train gmixer_24_224                      
+W0531 14:24:20.975000 25099 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:03,  2.93it/s]running benchmark:  20%|██        | 2/10 [00:00<00:02,  3.87it/s]running benchmark:  30%|███       | 3/10 [00:00<00:01,  4.30it/s]running benchmark:  40%|████      | 4/10 [00:00<00:01,  4.55it/s]running benchmark:  50%|█████     | 5/10 [00:01<00:01,  4.70it/s]running benchmark:  60%|██████    | 6/10 [00:01<00:00,  4.78it/s]running benchmark:  70%|███████   | 7/10 [00:01<00:00,  4.84it/s]running benchmark:  80%|████████  | 8/10 [00:01<00:00,  4.86it/s]running benchmark:  90%|█████████ | 9/10 [00:01<00:00,  4.87it/s]running benchmark: 100%|██████████| 10/10 [00:02<00:00,  4.89it/s]running benchmark: 100%|██████████| 10/10 [00:02<00:00,  4.63it/s]
+1.954x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:03, ?it/s]
+xpu  train gmlp_s16_224                       
+W0531 14:25:20.759000 28196 site-packages/torch/_inductor/utils.py:3128] [2/0_1] get_device_tflops: no Triton fallback available for non-CUDA devices. Returning 0.0; roofline estimates will use memory bandwidth only.
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:04,  1.88it/s]running benchmark:  20%|██        | 2/10 [00:00<00:03,  2.62it/s]running benchmark:  30%|███       | 3/10 [00:01<00:02,  2.99it/s]running benchmark:  40%|████      | 4/10 [00:01<00:01,  3.21it/s]running benchmark:  50%|█████     | 5/10 [00:01<00:01,  3.34it/s]running benchmark:  60%|██████    | 6/10 [00:01<00:01,  3.43it/s]running benchmark:  70%|███████   | 7/10 [00:02<00:00,  3.49it/s]running benchmark:  80%|████████  | 8/10 [00:02<00:00,  3.53it/s]running benchmark:  90%|█████████ | 9/10 [00:02<00:00,  3.55it/s]running benchmark: 100%|██████████| 10/10 [00:03<00:00,  3.56it/s]running benchmark: 100%|██████████| 10/10 [00:03<00:00,  3.30it/s]
+1.734x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:16, ?it/s]
+xpu  train hrnet_w18                          
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:05,  1.57it/s]running benchmark:  20%|██        | 2/10 [00:01<00:04,  1.82it/s]running benchmark:  30%|███       | 3/10 [00:01<00:03,  1.91it/s]running benchmark:  40%|████      | 4/10 [00:02<00:03,  1.96it/s]running benchmark:  50%|█████     | 5/10 [00:02<00:02,  1.99it/s]running benchmark:  60%|██████    | 6/10 [00:03<00:01,  2.01it/s]running benchmark:  70%|███████   | 7/10 [00:03<00:01,  2.02it/s]running benchmark:  80%|████████  | 8/10 [00:04<00:00,  2.02it/s]running benchmark:  90%|█████████ | 9/10 [00:04<00:00,  2.03it/s]running benchmark: 100%|██████████| 10/10 [00:05<00:00,  2.03it/s]running benchmark: 100%|██████████| 10/10 [00:05<00:00,  1.98it/s]
+1.473x
+loading model: 0it [00:00, ?it/s]loading model: 0it [00:17, ?it/s]
+xpu  train inception_v3                       
+running benchmark:   0%|          | 0/10 [00:00<?, ?it/s]running benchmark:  10%|█         | 1/10 [00:00<00:05,  1.69it/s]running benchmark:  20%|██        | 2/10 [00:00<00:03,  2.23it/s]running benchmark:  30%|███       | 3/10 [00:01<00:02,  2.48it/s]running benchmark:  40%|████      | 4/10 [00:01<00:02,  2.62it/s]running benchmark:  50%|█████     | 5/10 [00:01<00:01,  2.71it/s]running benchmark:  60%|██████    | 6/10 [00:02<00:01,  2.77it/s]running benchmark:  70%|███████   | 7/10 [00:02<00:01,  2.79it/s]running benchmark:  80%|████████  | 8/10 [00:03<00:00,  2.81it/s]running benchmark:  90%|█████████ | 9/10 [00:03<00:00,  2.86it/s]running benchmark: 100%|██████████| 10/10 [00:03<00:00,  2.92it/s]running benchmark: 100%|██████████| 10/10 [00:03<00:00,  2.71it/s]
+2.326x
+speedup             gmean=0.00x mean=1.532x
+abs_latency         gmean=0.00x mean=121.449x
+compilation_latency mean=91.469 seconds
+compression_ratio   mean=0.000x
+eager_peak_mem      gmean=0.00x mean=0.000x
+dynamo_peak_mem     gmean=0.00x mean=0.000x
+calls_captured      gmean=0.00x mean=484.698x
+unique_graphs       gmean=0.00x mean=1.111x
+graph_breaks        gmean=0.00x mean=5.921x
+unique_graph_breaks gmean=0.00x mean=4.921x
+autograd_captures   gmean=0.00x mean=0.000x
+autograd_compiles   gmean=0.00x mean=0.000x
+cudagraph_skips     gmean=0.00x mean=0.000x

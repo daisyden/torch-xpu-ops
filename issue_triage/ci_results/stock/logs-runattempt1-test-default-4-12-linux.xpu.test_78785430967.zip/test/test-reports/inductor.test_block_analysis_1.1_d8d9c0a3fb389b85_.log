@@ -1,0 +1,25 @@
+Test results will be stored in test-reports/python-pytest/inductor.test_block_analysis/inductor.test_block_analysis-e9ace373d250ae83.xml
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-7.3.2, pluggy-1.6.0 -- /opt/conda/envs/py_3.10/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'pytorch_ci' -> database=None, max_examples=50, derandomize=True, suppress_health_check=[HealthCheck.too_slow]
+rootdir: /var/lib/jenkins/pytorch
+configfile: pytest.ini
+plugins: rerunfailures-14.0, xdist-3.3.1, hypothesis-6.56.4, subtests-0.13.1, flakefinder-1.1.0, xdoctest-1.3.0, cpp-2.3.0, typeguard-4.3.0
+collecting ... collected 10 items
+stepcurrent: Cannot find last run test, not skipping
+Running 10 items in this shard: test/inductor/test_block_analysis.py::BlockAnalysisTest::test_affine_identity_stride_3_symbol2_expr2, test/inductor/test_block_analysis.py::BlockAnalysisTest::test_affine_identity_stride_4_symbol1_expr1, test/inductor/test_block_analysis.py::BlockAnalysisTest::test_affine_identity_stride_5_symbol0_expr0, test/inductor/test_block_analysis.py::BlockAnalysisTest::test_index_with_dynamic_shapes, test/inductor/test_block_analysis.py::BlockAnalysisTest::test_mod_div_identity_dims0_strides0_symbol0_expr0, test/inductor/test_block_analysis.py::BlockAnalysisTest::test_mod_div_identity_dims1_strides1_symbol1_expr1, test/inductor/test_block_analysis.py::BlockAnalysisTest::test_mod_div_identity_dims2_strides2_symbol2_expr2, test/inductor/test_block_analysis.py::BlockAnalysisTest::test_subexpr_identity_symbol0_expr0_subexpr0, test/inductor/test_block_analysis.py::BlockAnalysisTest::test_subexpr_identity_symbol1_expr1_subexpr1, test/inductor/test_block_analysis.py::BlockAnalysisTest::test_subexpr_identity_symbol2_expr2_subexpr2
+
+inductor/test_block_analysis.py::BlockAnalysisTest::test_affine_identity_stride_3_symbol2_expr2 PASSED [0.0028s] [ 10%]
+inductor/test_block_analysis.py::BlockAnalysisTest::test_affine_identity_stride_4_symbol1_expr1 PASSED [0.0018s] [ 20%]
+inductor/test_block_analysis.py::BlockAnalysisTest::test_affine_identity_stride_5_symbol0_expr0 PASSED [0.0016s] [ 30%]
+inductor/test_block_analysis.py::BlockAnalysisTest::test_index_with_dynamic_shapes PASSED [0.0063s] [ 40%]
+inductor/test_block_analysis.py::BlockAnalysisTest::test_mod_div_identity_dims0_strides0_symbol0_expr0 PASSED [0.0048s] [ 50%]
+inductor/test_block_analysis.py::BlockAnalysisTest::test_mod_div_identity_dims1_strides1_symbol1_expr1 PASSED [0.0039s] [ 60%]
+inductor/test_block_analysis.py::BlockAnalysisTest::test_mod_div_identity_dims2_strides2_symbol2_expr2 PASSED [0.0027s] [ 70%]
+inductor/test_block_analysis.py::BlockAnalysisTest::test_subexpr_identity_symbol0_expr0_subexpr0 PASSED [0.0021s] [ 80%]
+inductor/test_block_analysis.py::BlockAnalysisTest::test_subexpr_identity_symbol1_expr1_subexpr1 PASSED [0.0011s] [ 90%]
+inductor/test_block_analysis.py::BlockAnalysisTest::test_subexpr_identity_symbol2_expr2_subexpr2 PASSED [0.0014s] [100%]
+
+- generated xml file: /var/lib/jenkins/pytorch/test/test-reports/python-pytest/inductor.test_block_analysis/inductor.test_block_analysis-e9ace373d250ae83.xml -
+============================== 10 passed in 0.27s ==============================
