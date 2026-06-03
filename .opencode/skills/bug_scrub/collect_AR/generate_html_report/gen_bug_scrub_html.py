@@ -151,6 +151,12 @@ def summarize_action_tbd(text: str, limit: int = 80) -> str:
     return _truncate_ellipsis(text, limit)
 
 
+def _blank_sycl_dep(dep: str) -> str:
+    # Per-file "SYCL kernel:" entries are internal kernel work, not an external
+    # dependency; blank them so they neither render nor appear in the filter.
+    return "" if dep.strip().lower().startswith("sycl kernel:") else dep
+
+
 def load_issue_metadata(xlsx_path: Path) -> dict[str, dict[str, str]]:
     """Build {issue_id: {category, dependency, priority, assignee, owner_transferred}}.
 
@@ -205,7 +211,7 @@ def load_issue_metadata(xlsx_path: Path) -> dict[str, dict[str, str]]:
                 action_tbd_full = cmt.text.strip()
         out[iid] = {
             "category":          _get(row_vals, "Category"),
-            "dependency":        _get(row_vals, "Dependency"),
+            "dependency":        _blank_sycl_dep(_get(row_vals, "Dependency")),
             "priority":          _get(row_vals, "Priority"),
             "assignee":          _get(row_vals, "Assignee"),
             "owner_transferred": _get(row_vals, "owner_transferred"),

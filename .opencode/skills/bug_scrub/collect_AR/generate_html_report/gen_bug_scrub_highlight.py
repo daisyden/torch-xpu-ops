@@ -34,6 +34,10 @@ from paths import RESULT_DIR, AGENT_SPACE  # type: ignore[reportMissingImports] 
 XLSX_PATH = RESULT_DIR / "torch_xpu_ops_issues.xlsx"
 HTML_PATH = RESULT_DIR / "bug_scrub_highlight.html"
 OPEN_IDS_CACHE = RESULT_DIR / "open_issue_ids.json"
+# Maps issue id -> close timestamp for issues dropped from the visible report.
+# These feed the open-over-time trend (so closures show up) without appearing
+# in the table/filters.
+CLOSED_DATES_CACHE = RESULT_DIR / "closed_issue_dates.json"
 REPO = "intel/torch-xpu-ops"
 TODAY = datetime.now(timezone.utc)
 
@@ -53,6 +57,12 @@ AR_LABELS = [
 ]
 
 PRIO_ORDER = ["P0", "P1", "P2", "P3"]
+
+
+def _blank_sycl_dep(dep: str) -> str:
+    # Per-file "SYCL kernel:" entries are internal kernel work, not an external
+    # dependency; blank them so they neither render nor appear in the filter.
+    return "" if dep.strip().lower().startswith("sycl kernel:") else dep
 
 
 def clean_ar(raw: str) -> str:
@@ -186,9 +196,10 @@ def load_issues(xlsx_path: Path) -> list[dict]:
             "labels": g(row_vals, "Labels"),
             "created": created,
             "created_dt": parse_dt(created),
+            "closed_dt": None,
             "milestone": g(row_vals, "Milestone"),
             "test_module": g(row_vals, "Test Module"),
-            "dependency": g(row_vals, "Dependency"),
+            "dependency": _blank_sycl_dep(g(row_vals, "Dependency")),
             "dependency_reason": g(row_vals, "dependency_reason"),
             "category": g(row_vals, "Category"),
             "priority": g(row_vals, "Priority"),
@@ -209,6 +220,65 @@ def load_issues(xlsx_path: Path) -> list[dict]:
         })
     wb.close()
     return issues
+
+
+def load_closed_trend_issues(xlsx_path: Path) -> list[dict]:
+    """Load issues that were dropped from the visible report because they are
+    now closed, enriched with a close timestamp from CLOSED_DATES_CACHE. These
+    are used only to make the open-over-time trend reflect closures; they are
+    never rendered as table rows."""
+    if not CLOSED_DATES_CACHE.exists():
+        return []
+    closed_at = {int(k): v for k, v in json.loads(CLOSED_DATES_CACHE.read_text()).items()}
+    if not closed_at:
+        return []
+    from openpyxl import load_workbook
+    wb = load_workbook(xlsx_path, read_only=True, data_only=True)
+    ws = wb.active
+    headers = [str(c.value) if c.value is not None else "" for c in ws[1]]
+    col = {h: i for i, h in enumerate(headers)}
+
+    def g(row_vals, key):
+        i = col.get(key)
+        if i is None or i >= len(row_vals):
+            return ""
+        v = row_vals[i]
+        if v is None:
+            return ""
+        s = str(v).strip()
+        return "" if s.lower() == "none" else s
+
+    closed_issues = []
+    for r in range(2, ws.max_row + 1):
+        row_vals = [c.value for c in ws[r]]
+        iid = g(row_vals, "Issue ID")
+        if not iid:
+            continue
+        iid_int = int(iid)
+        if iid_int not in closed_at:
+            continue
+        created = g(row_vals, "Created Time")
+        action_tbd = g(row_vals, "action_TBD")
+        closed_issues.append({
+            "id": iid_int,
+            "title": g(row_vals, "Title"),
+            "assignee": g(row_vals, "Assignee"),
+            "owner_transferred": g(row_vals, "owner_transferred"),
+            "milestone": g(row_vals, "Milestone"),
+            "test_module": g(row_vals, "Test Module"),
+            "dependency": _blank_sycl_dep(g(row_vals, "Dependency")),
+            "category": g(row_vals, "Category"),
+            "priority": g(row_vals, "Priority"),
+            "action_tbd": action_tbd,
+            "created": created,
+            "created_dt": parse_dt(created),
+            "closed_dt": parse_dt(closed_at[iid_int]),
+            "ar": clean_ar(g(row_vals, "AR")),
+            "is_dup": bool(parse_dup_ids(g(row_vals, "duplicated_issue"), action_tbd))
+            or "duplicate of" in action_tbd.lower(),
+        })
+    wb.close()
+    return closed_issues
 
 
 def truncate(s: str, n: int = 80) -> str:
@@ -369,7 +439,8 @@ def _open_cases_at_boundaries(issues: list[dict], boundaries: list[tuple[str, da
                               key: str, top_n: int = 5,
                               exclude_vals: set[str] | None = None,
                               exclude_prefixes: tuple[str, ...] = ()) -> tuple[list[str], dict[str, list[int]], list[str]]:
-    """For each boundary, count open issues (created <= boundary) grouped by key.
+    """For each boundary, count issues open at that time (created <= boundary
+    and not yet closed) grouped by key.
     Returns (labels, {value: [count_per_boundary]}, top_keys)."""
     def _excluded(v: str) -> bool:
         if exclude_vals and v in exclude_vals:
@@ -394,10 +465,11 @@ def _open_cases_at_boundaries(issues: list[dict], boundaries: list[tuple[str, da
         counts: Counter = Counter()
         for i in issues:
             dt = i["created_dt"]
+            cdt = i.get("closed_dt")
             v = i.get(key, "") or "(none)"
             if _excluded(v):
                 continue
-            if dt and dt <= boundary_dt and v in top_keys:
+            if dt and dt <= boundary_dt and (cdt is None or cdt > boundary_dt) and v in top_keys:
                 counts[v] += 1
         for k in top_keys:
             series[k].append(counts.get(k, 0))
@@ -561,34 +633,37 @@ def _line_chart_svg(title: str, labels: list[str], series: dict[str, list[int]],
     return "\n".join(lines)
 
 
-def _build_charts(issues: list[dict], prio_counts, cat_counts, ar_counts) -> str:
+def _build_charts(issues: list[dict], prio_counts, cat_counts, ar_counts,
+                  closed_trend: list[dict] | None = None) -> str:
     parts = []
     parts.append('<div class="charts-section">')
 
     boundaries = _biweekly_boundaries()
     boundary_dates = [dt.strftime("%Y-%m-%d") for _, dt in boundaries]
 
+    trend_issues = issues + (closed_trend or [])
+
     prio_colors = {"P0": "#dc3545", "P1": "#fd7e14", "P2": "#ffc107", "P3": "#28a745"}
-    labels, series, keys = _open_cases_at_boundaries(issues, boundaries, "priority", top_n=4)
+    labels, series, keys = _open_cases_at_boundaries(trend_issues, boundaries, "priority", top_n=4)
     parts.append(_line_chart_svg("Open Cases Trend: Priority", labels, series, keys,
                                  width=800, height=320, fixed_colors=prio_colors,
                                  filter_dim="priority", legend_position="bottom",
                                  boundary_dates=boundary_dates))
 
-    labels, series, keys = _open_cases_at_boundaries(issues, boundaries, "category",
+    labels, series, keys = _open_cases_at_boundaries(trend_issues, boundaries, "category",
                                                      top_n=len(cat_counts))
     parts.append(_line_chart_svg("Open Cases Trend: Category", labels, series, keys,
                                  width=900, height=400, filter_dim="category",
                                  boundary_dates=boundary_dates))
 
-    labels, series, keys = _open_cases_at_boundaries(issues, boundaries, "dependency", top_n=5,
+    labels, series, keys = _open_cases_at_boundaries(trend_issues, boundaries, "dependency", top_n=5,
                                                      exclude_vals={"(none)"},
                                                      exclude_prefixes=("SYCL kernel:",))
     parts.append(_line_chart_svg("Open Cases Trend: Dependency", labels, series, keys,
                                  width=700, height=320, filter_dim="dependency",
                                  boundary_dates=boundary_dates))
 
-    labels, series, keys = _open_cases_at_boundaries(issues, boundaries, "test_module",
+    labels, series, keys = _open_cases_at_boundaries(trend_issues, boundaries, "test_module",
                                                      top_n=5, exclude_vals={"(none)"})
     parts.append(_line_chart_svg("Open Cases Trend: Test Module", labels, series, keys,
                                  width=700, height=320, filter_dim="test_module",
@@ -619,7 +694,7 @@ def _build_charts(issues: list[dict], prio_counts, cat_counts, ar_counts) -> str
     return "\n".join(parts)
 
 
-def build_html(issues: list[dict]) -> str:
+def build_html(issues: list[dict], closed_trend: list[dict] | None = None) -> str:
     by_prio: dict[str, list[dict]] = defaultdict(list)
     for i in issues:
         p = i["priority"] if i["priority"] in PRIO_ORDER else "Other"
@@ -658,7 +733,7 @@ def build_html(issues: list[dict]) -> str:
         )
     body_parts.append("</div>")
 
-    body_parts.append(_build_charts(issues, prio_counts, cat_counts, ar_counts))
+    body_parts.append(_build_charts(issues, prio_counts, cat_counts, ar_counts, closed_trend))
 
     body_parts.append('<h2 id="sec-index">Index</h2>')
     body_parts.append("<ul>")
@@ -1005,6 +1080,10 @@ const FILTER_LABELS = {
 };
 const SELECTED = Object.fromEntries(FILTER_DIMS.map(d => [d, new Set()]));
 
+// Closed issues kept out of the table but folded into the open-over-time trend.
+// Each carries a row-like `dataset` so the same filter predicates apply.
+const TREND_CLOSED = (window.TREND_CLOSED_DATA || []);
+
 function tokensFor(dim, raw) {
   const r = (raw || '').trim();
   if (!r) return [NONE_TOKEN];
@@ -1271,6 +1350,18 @@ function updateBarCharts(rows) {
   });
 }
 
+function closedTrendMatches(obj) {
+  for (const dim of FILTER_DIMS) {
+    if (!rowMatchesDim(obj, dim, SELECTED[dim])) return false;
+  }
+  const search = (document.getElementById('filter-search').value || '').trim().toLowerCase();
+  if (search && !(obj.dataset.search || '').includes(search)) return false;
+  if (showDupsOnly && obj.dataset.isDup !== '1') return false;
+  const dateVal = document.getElementById('filter-date').value;
+  if (dateVal && obj.dataset.created && obj.dataset.created < dateVal) return false;
+  return true;
+}
+
 function updateLineCharts(rows) {
   document.querySelectorAll('svg.line-chart[data-filter-dim]').forEach(svg => {
     const dim = svg.dataset.filterDim;
@@ -1286,10 +1377,21 @@ function updateLineCharts(rows) {
     let maxVal = 1;
     for (const g of seriesGroups) {
       const value = g.dataset.filterValue;
-      const vals = boundaries.map(boundary => rows.filter(tr => {
-        const created = tr.dataset.created || '';
-        return created && created <= boundary && rowValuesForDim(tr, dim).has(value);
-      }).length);
+      const vals = boundaries.map(boundary => {
+        let n = rows.filter(tr => {
+          const created = tr.dataset.created || '';
+          return created && created <= boundary && rowValuesForDim(tr, dim).has(value);
+        }).length;
+        for (const obj of TREND_CLOSED) {
+          const created = obj.dataset.created || '';
+          const closed = obj.dataset.closed || '';
+          if (created && created <= boundary && (!closed || closed > boundary)
+              && closedTrendMatches(obj) && rowValuesForDim(obj, dim).has(value)) {
+            n++;
+          }
+        }
+        return n;
+      });
       series.set(g, vals);
       maxVal = Math.max(maxVal, ...vals);
     }
@@ -1326,7 +1428,11 @@ function updateDynamicReportState() {
   const rows = visibleIssueRows();
   updateVisibleCounts(rows);
   updateBarCharts(rows);
-  updateLineCharts(rows);
+  // Trend is a global open-over-time metric: count every filter-passing row,
+  // including ones paginated behind "show more" (.more-hidden), so the curve
+  // reflects the full population rather than how many rows are expanded.
+  const trendRows = Array.from(document.querySelectorAll('table.ar-table tbody tr[data-issue]:not(.hidden)'));
+  updateLineCharts(trendRows);
 }
 
 // Tokens hidden from the dropdown for a given dim (see collectValues()).
@@ -1717,10 +1823,36 @@ def render_modal_overlay() -> str:
     )
 
 
-def render_page(body_html: str, issues: list[dict]) -> str:
-    title = "torch-xpu-ops Bug Scrub \u2014 Highlight"
+def _closed_trend_payload(closed_trend: list[dict]) -> str:
+    records = []
+    for i in closed_trend:
+        search = (str(i["id"]) + " " + i["title"] + " " + (i.get("action_tbd") or "")).lower()
+        records.append({
+            "dataset": {
+                "ar": i["ar"],
+                "assignee": i["assignee"],
+                "owner_transferred": i["owner_transferred"],
+                "priority": i["priority"],
+                "category": i["category"],
+                "milestone": i["milestone"],
+                "dependency": i["dependency"],
+                "test_module": i["test_module"],
+                "search": search,
+                "isDup": "1" if i["is_dup"] else "0",
+                "created": i["created"][:10] if i["created"] else "",
+                "closed": i["closed_dt"].strftime("%Y-%m-%d") if i["closed_dt"] else "",
+            }
+        })
+    return json.dumps(records)
+
+
+def render_page(body_html: str, issues: list[dict],
+                closed_trend: list[dict] | None = None,
+                title_suffix: str = "") -> str:
+    title = "torch-xpu-ops Bug Scrub \u2014 Highlight" + title_suffix
     md_blocks = render_markdown_blocks(issues)
     modal = render_modal_overlay()
+    closed_data = _closed_trend_payload(closed_trend or [])
     return (
         "<!doctype html>\n"
         '<html lang="en">\n<head>\n'
@@ -1733,23 +1865,63 @@ def render_page(body_html: str, issues: list[dict]) -> str:
         f'<div class="content">\n{body_html}\n</div>\n'
         f"{modal}\n"
         f"{md_blocks}\n"
+        f"<script>window.TREND_CLOSED_DATA = {closed_data};</script>\n"
         f"<script>{JS}</script>\n"
         "</body>\n</html>\n"
     )
 
 
-def main() -> int:
+def _load_subset_ids(path: Path) -> set[int]:
+    return {int(s) for line in path.read_text().splitlines()
+            if (s := line.strip())}
+
+
+def main(argv: list[str] | None = None) -> int:
+    import argparse
+    parser = argparse.ArgumentParser(
+        description="Generate the torch-xpu-ops bug-scrub highlight report.")
+    parser.add_argument(
+        "--issues-file", type=Path, default=None,
+        help="File with one issue id per line; restricts the report to that "
+             "subset while keeping the full highlight format.")
+    parser.add_argument(
+        "--out", type=Path, default=None,
+        help="Output HTML path (defaults to the full-report path, or a custom "
+             "path under result/custom/ when --issues-file is given).")
+    parser.add_argument(
+        "--title-suffix", default=None,
+        help="Appended to the report title (defaults to a subset note when "
+             "--issues-file is given).")
+    args = parser.parse_args(argv)
+
     if not XLSX_PATH.exists():
         print(f"ERROR: missing {XLSX_PATH}", file=sys.stderr)
         return 2
 
     issues = load_issues(XLSX_PATH)
-    print(f"loaded {len(issues)} issues from {XLSX_PATH.name}")
+    closed_trend = load_closed_trend_issues(XLSX_PATH)
 
-    body = build_html(issues)
-    page = render_page(body, issues)
-    HTML_PATH.write_text(page, encoding="utf-8")
-    print(f"wrote {HTML_PATH} ({HTML_PATH.stat().st_size:,} bytes)")
+    out_path = args.out
+    title_suffix = args.title_suffix or ""
+    if args.issues_file is not None:
+        subset = _load_subset_ids(args.issues_file)
+        issues = [i for i in issues if i["id"] in subset]
+        closed_trend = [i for i in closed_trend if i["id"] in subset]
+        if out_path is None:
+            out_path = RESULT_DIR / "custom" / "bug_scrub_custom_highlight.html"
+        if not title_suffix:
+            title_suffix = f" \u2014 custom selection ({len(issues)} issues)"
+    if out_path is None:
+        out_path = HTML_PATH
+
+    print(f"loaded {len(issues)} issues from {XLSX_PATH.name} "
+          f"(+{len(closed_trend)} closed for trend)")
+
+    body = build_html(issues, closed_trend)
+    page = render_page(body, issues, closed_trend, title_suffix=title_suffix)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(page, encoding="utf-8")
+    print(f"wrote {out_path} ({out_path.stat().st_size:,} bytes)")
     return 0
 
 
