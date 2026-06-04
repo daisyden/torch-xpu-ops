@@ -2,6 +2,13 @@
 
 > **Path convention**: `${PYTORCH_REPO_ROOT}` (default `~/upstream/pytorch`) — see [`../../SKILL.md`](../../SKILL.md) for the full convention.
 
+## Execution Constraints
+
+**CRITICAL INSTRUCTION: PARALLEL EXECUTION REQUIRED.** 
+To minimize execution turns and lower latency, you MUST run independent data-gathering commands concurrently using parallel tool calls. 
+In your very first turn, execute `gh issue view` along with initial file reading or codebase searches (e.g. `ast_grep_search` or `bash` grep) in parallel. 
+Do NOT run them sequentially.
+
 ## Overview
 This skill provides a structured approach to triage GitHub issues from the Intel torch-xpu-ops repository. It emphasizes deep root cause analysis over simple pattern matching, environment verification, and version-aware triage.
 
