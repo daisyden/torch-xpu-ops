@@ -15,6 +15,16 @@ You are executing Phase 4b `get_AR_from_issue` of the bug_scrub workflow for ONE
 
 ## Steps (execute in order)
 
+### CRITICAL: PARALLEL EXECUTION REQUIRED
+To minimize execution turns, you MUST run independent data-gathering commands concurrently using parallel tool calls.
+In your VERY FIRST turn, execute all of the following `gh` commands in parallel:
+1. `gh issue view` (for STEP 0 and PART 2 comment fetching)
+2. `gh api graphql` (for V0)
+3. `gh api .../timeline` (for VA)
+4. `gh pr list ...` (for VC and VD)
+Do NOT run these sequentially. Gather all baseline data in one step using the parallel tool call format.
+
+
 ### STEP 0 — NOT-TARGET CHECK
 ```
 gh issue view <N> --repo intel/torch-xpu-ops --json body,comments,labels,author,assignees
