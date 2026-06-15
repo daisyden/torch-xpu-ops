@@ -109,7 +109,11 @@ Goal: remove CUDA-only assumptions without adding XPU. After this step the file 
 
 3. **`torch.accelerator` API** swaps where the test uses `torch.cuda.is_available()` / `torch.cuda.current_stream()` / etc. purely for plumbing (see the API reference below).
 
-4. **Imports** that are accelerator-agnostic (e.g. `subtest` from `torch.testing._internal.common_utils`) if needed for Phase 2 per-cell skipping. Importing is fine; **using** `skipIfXpu` inside it is Phase 2.
+4. **Decorators**: Replace `@onlyCUDA` with `@onlyAccelerator` to allow tests to run on any accelerator (CUDA, XPU, etc.) without hardcoding specific backends.
+
+5. **Method Signatures**: Add `device` parameter to test methods that previously used hardcoded `device="cuda"` internally, and pass it to tensor creation functions.
+
+6. **Imports** that are accelerator-agnostic (e.g. `subtest`, `onlyAccelerator` from `torch.testing._internal.common_device_type`) if needed. Importing is fine; **using** `skipIfXpu` inside it is Phase 2.
 
 **Forbidden in Phase 1:**
 
@@ -211,6 +215,16 @@ if accelerator.is_available():
     device = accelerator.current_accelerator()
 else:
     device = "cpu"
+```
+
+```python
+# BEFORE - Hardcoded device string check (limiting to CUDA)
+if device == "cuda":
+
+# AFTER (Phase 1) - Generalize to any accelerator (or robust device type check)
+if torch.device(device).type != "cpu":  # If logic applies to all GPUs/accelerators
+# OR if backend-specific logic is strictly unavoidable:
+if torch.device(device).type == "cuda":
 ```
 
 ```python
@@ -659,5 +673,7 @@ Before declaring the port complete:
 | `torch.cuda.Stream()` | `torch.xpu.Stream()` | Equivalent available |
 | `torch.cuda.ipc_collect()` | NOT portable | No XPU IPC - skip |
 | `_share_cuda_()` | NOT portable | No XPU IPC - skip |
-| `device="cuda"` | Runtime selection | Current accelerator selection |
+| `device="cuda"` | Runtime selection | Current accelerator selection or `device=device` |
 | `.cuda()` method | `.to(accelerator.current_accelerator())` | Device selection |
+| `@onlyCUDA` | `@onlyAccelerator` | Decorator update |
+| `@onlyOn(["cuda"])` | `@onlyAccelerator` | Decorator update |
