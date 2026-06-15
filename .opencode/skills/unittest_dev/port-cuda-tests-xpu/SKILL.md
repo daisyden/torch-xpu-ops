@@ -111,7 +111,7 @@ Goal: remove CUDA-only assumptions without adding XPU. After this step the file 
 
 4. **Decorators**: Replace `@onlyCUDA` with `@onlyAccelerator` to allow tests to run on any accelerator (CUDA, XPU, etc.) without hardcoding specific backends.
 
-5. **Method Signatures**: Add `device` parameter to test methods that previously used hardcoded `device="cuda"` internally, and pass it to tensor creation functions.
+5. **Method Signatures**: Add `device` parameter to test methods that previously used hardcoded `device="cuda"` internally, and pass it to tensor creation functions. **Do NOT add the `device` parameter to test methods if the method body does not actually use or need a device (e.g., pure logic/math tests).**
 
 6. **Imports** that are accelerator-agnostic (e.g. `subtest`, `onlyAccelerator` from `torch.testing._internal.common_device_type`) if needed. Importing is fine; **using** `skipIfXpu` inside it is Phase 2.
 
