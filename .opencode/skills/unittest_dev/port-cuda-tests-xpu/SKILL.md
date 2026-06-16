@@ -541,6 +541,8 @@ All methods verified in PyTorch nightly (`pytorch_opencode_env`):
 
 ## Constraints
 
+- **CUDA-specific components without XPU equivalents**: Do NOT generalize tests or code blocks that explicitly target CUDA-specific libraries or features (e.g., `cudnn`, `cublas`, `nvfuser`, CUDA IPC). Leave these as `@onlyCUDA` or `if self.device_type == "cuda":` and do not attempt to port them to XPU. Only generalize tests that are inherently device-agnostic but happen to be hardcoded to CUDA.
+
 - **CUDA IPC tests**: Do NOT port - XPU has no IPC equivalent
   - `test_rebuild_cuda_tensor`, IPC handle functions
   - Any test using `_share_cuda_()`, `ipc_collect()`

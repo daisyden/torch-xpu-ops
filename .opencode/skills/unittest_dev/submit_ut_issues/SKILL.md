@@ -1,3 +1,8 @@
+---
+name: submit-ut-issues
+description: Submit well-documented XPU unit test failure issues to intel/torch-xpu-ops. Use when analyzing XPU test failures, grouping failures by error pattern (oclock/IGC, stream API, autocast dtype, record_stream CPU, import/module), fixing test-code bugs (import paths, CUDA→XPU generalization, skip logic), or submitting issues with proper Cases sections, tracebacks, labels, and Context sections cross-linking to the originating PR.
+---
+
 # Submit XPU UT Issues to Intel/torch-xpu-ops
 
 ## Overview
