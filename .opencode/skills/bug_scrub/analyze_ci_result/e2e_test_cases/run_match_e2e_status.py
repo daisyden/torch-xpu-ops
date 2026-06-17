@@ -90,7 +90,8 @@ def fetch_torchbench_models_from_github():
                 if model_name and not model_name.startswith('.'):
                     models[normalize_key_value(model_name)] = 'torchbench'
             
-            print(f"    Fetched {len([m for m in result.stdout.strip().split('\n') if m.strip()])} models from {directory}")
+            model_lines = [m for m in result.stdout.strip().split('\n') if m.strip()]
+            print(f"    Fetched {len(model_lines)} models from {directory}")
         except subprocess.TimeoutExpired:
             print(f"    Warning: Timeout fetching {directory} from GitHub")
         except FileNotFoundError:

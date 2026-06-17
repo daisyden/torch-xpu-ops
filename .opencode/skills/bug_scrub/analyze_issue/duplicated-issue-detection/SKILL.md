@@ -12,7 +12,7 @@ Detects duplicate issues in the Test_Cases sheet based on Test Class + Test Case
 
 ## Usage
 ```bash
-cd /home/daisydeng/ai_for_validation/opencode/issue_triage/issue_analysis/duplicated
+cd ${BUG_SCRUB_SKILL_ROOT}/../../issue_analysis/duplicated
 python3 duplicated_issue_detector.py [--excel EXCEL_FILE]
 ```
 

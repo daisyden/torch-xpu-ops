@@ -1,3 +1,7 @@
+---
+name: bug-scrub
+description: Comprehensive workflow for triaging torch-xpu-ops issues through 5 phases.
+---
 # Bug Scrub Workflow
 
 > **Path conventions**:
@@ -116,7 +120,7 @@ For each Issue/Case:
 ## Phase 1: Prepare Data
 
 ### 1.0 Test Environment Setup (PREREQUISITE)
-- **Skill**: documented in `prepare_data/issue-basic-info-extraction/SKILL.md` §"Phase 1.0 — Test Environment Setup"
+- **Skill**: `prepare_data/test-environment-setup/`
 - **Steps**:
   1. Activate conda env (`pytorch_opencode_env`)
   2. `git pull --ff-only` in `${PYTORCH_REPO_ROOT}` and `${PYTORCH_REPO_ROOT}/third_party/torch-xpu-ops`
@@ -256,7 +260,7 @@ For each Issue in ['Issues' sheet]:
 
     Step 0 (Details Fast Path - two published-data sources, Incremental Mode):
         Source A: Highlight HTML
-            Fetch (once per run, cached) https://raw.githubusercontent.com/daisyden/ai_for_validation/main/opencode/issue_triage/result/bug_scrub_highlight.html
+            Fetch (once per run, cached) https://raw.githubusercontent.com/daisyden/torch-xpu-ops/refs/heads/opencode/bug_scrub/issue_triage/result/bug_scrub_highlight.html
             Find <tr data-issue="<id>"> for this issue.
             If found:
                 If Category cell blank: write data-category attribute
@@ -265,7 +269,7 @@ For each Issue in ['Issues' sheet]:
             (If not found, fall through to live classification for those columns.)
 
         Source B: Per-issue detail markdown
-            Fetch https://raw.githubusercontent.com/daisyden/ai_for_validation/main/opencode/issue_triage/result/details/<issue_id>.md
+            Fetch https://raw.githubusercontent.com/daisyden/torch-xpu-ops/refs/heads/opencode/bug_scrub/issue_triage/result/details/<issue_id>.md
             If the file exists and parses cleanly:
                 If Root Cause cell blank: copy `## Root Cause` section -> Root Cause
                 If Fix Approach cell blank: copy `## Fix Approach` section -> Fix Approach
@@ -838,6 +842,7 @@ about D1/D2/D3 directly; it only needs to recognise the new verbs.
 ---
 
 ## Version
+v4.32 - June 15, 2026 - Extracted Phase 1.0 (test environment setup) out of `prepare_data/issue-basic-info-extraction/SKILL.md` into a new standalone skill at `prepare_data/test-environment-setup/SKILL.md`. The content (conda env activation, `git pull` PyTorch + torch-xpu-ops, nightly XPU torch + pytorch-triton-xpu install, source-repo commit sync, version recording, and the PVC + Linux trust rule) is unchanged; only its location moved. All in-folder references were refreshed: this file's Phase 1.0 pointer, `analyze_ci_result/local-case-verification/SKILL.md` (4 pointers) and its `run_local_verification.py` (2 pointers). `issue-basic-info-extraction/SKILL.md` now carries a one-line prerequisite breadcrumb to the new skill.
 v4.31 - May 26, 2026 - Phase 4b **owner_transferred=Reporter invariant strengthened**. The prior invariant in `run_phase4b_merge.py` only cleared `owner_transferred==Reporter` for `"No action — investigate further"` rows where `Assignee` was empty. It missed 27 rows where `owner_transferred==Reporter` despite a non-empty `Assignee≠Reporter` and a non-carve-out verb (e.g. Land PR, Address CI, Wait for fix PR, Resolve review, @<user> response, Submit issue, reassess fix path). New invariant: when `owner==Reporter`, `Assignee≠Reporter` (non-empty), and the verb-token set is NOT purely carve-out (`Verify fix from merged PR`, `Close the fixed issue`, `label_not_target_and_close`, `close_as_not_planned`, `Confirm fix and close`, `Reporter to verify the fix`, `Reporter to re-investigate`) → overwrite with Assignee; if Assignee empty → clear. The legitimate case `Assignee==Reporter` is preserved untouched (the value is sourced from Assignee, not Reporter). Applied as one-shot cleanup: 27 rows reassigned to Assignee (#2888 Stonepia, #2783 daisyden, #1171 xuhancn/chunhuanMeng, ...), 2 rows cleared (#2605, #1996 — no Assignee), 40 rows left untouched (Assignee==Reporter). Phase 5 + 5b re-rendered.
 v4.30 - May 26, 2026 - Phase 1 **GitHub native `issueType` ingestion + Task exclusion**. Added `fetch_all_issue_types()` + `populate_issue_types()` to `generate_excel.py` (uses `gh api graphql` because REST does not expose `issueType`). New `GitHub Type` column (column L, between `Summary`/`Type` and `Module`) records the native value verbatim. Issues with `github_type == "Task"` are dropped at Phase 1 before row append, so they never appear in xlsx / md / html / details. Existing heuristic `Type` column (populated by `classify_issue_type`) is unchanged. Applied as one-shot cleanup: 12 Task issues removed (#3503, #3266, #3189, #3150, #2766, #2327, #2207, #2199, #2140, #2128, #2127, #2063), corresponding `result/details/*.md` deleted. xlsx 300→288 rows; md 281 open issues; html 281 cards. Phase 4d untouched (no AR redistribution needed — Task rows simply gone).
 v4.29 - May 26, 2026 - Phase 4e Dependency Audit **internal-tracker prefix extension**. Extended `INTERNAL_TRACKER_PREFIXES` map and `INTERNAL_TRACKER_RE` in `run_phase4e_dependency.py` with four `oneAPI` prefixes: `CMPLRLLVM` (Intel oneAPI DPC++/LLVM compiler), `CMPLRTOOLS` (oneAPI compiler tools), `LLVMSPIRV` (LLVM SPIR-V translator), `CMPLR` (generic). Regex alternation orders longer prefixes first so `CMPLRLLVM` is never partially matched as `CMPLR`. Applied as one-shot cleanup: 1 row (#3142) reclassifies from `Submit issue` to `Wait for dependency fix CMPLRLLVM-72057`. Phase 4d + 5 + 5b re-run.

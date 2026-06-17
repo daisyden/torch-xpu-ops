@@ -1,101 +1,8 @@
 # Issue Basic Info Extraction (Deep-Analysis Pipeline)
 
-## Phase 1.0 — Test Environment Setup (PREREQUISITE for the entire bug-scrub pipeline)
-
-Run this **once at the start of every bug-scrub session**, before any other
-phase touches the workbook. The same conda env + synced source repo are
-consumed by every later phase that imports `torch` or runs tests
-(notably Phase 2.5 local-case-verification).
-
-Skip with `SKIP_ENV_UPDATE=1` if a prior session in the same day already
-performed the update (`git pull` shows no upstream advance and
-`torch.__version__` is unchanged).
-
-### 1.0.1 — Activate conda env
-
-```bash
-source "${CONDA_ACTIVATE:-$HOME/miniforge3/bin/activate}" "${PYTORCH_ENV:-pytorch_opencode_env}"
-```
-
-### 1.0.2 — Refresh pytorch + torch-xpu-ops sources
-
-```bash
-cd "${PYTORCH_REPO_ROOT:-$HOME/upstream/pytorch}"
-git pull --ff-only
-
-cd "${PYTORCH_REPO_ROOT:-$HOME/upstream/pytorch}/third_party/torch-xpu-ops"
-git pull --ff-only
-```
-
-### 1.0.3 — Install latest XPU nightly torch
-
-```bash
-pip3 install --pre torch \
-    --index-url https://download.pytorch.org/whl/nightly/xpu
-```
-
-### 1.0.4 — Install latest XPU nightly triton
-
-Downloaded separately so pip's dependency resolver does not pin torch:
-
-```bash
-pip download --no-deps \
-    --index-url https://download.pytorch.org/whl/nightly/xpu \
-    --pre pytorch-triton-xpu \
-    --dest triton_whl
-pip install --root-user-action=ignore triton_whl/pytorch_triton_xpu-*.whl
-```
-
-### 1.0.5 — Sync source repo to installed torch's git commit
-
-The pytorch source tree at `${PYTORCH_REPO_ROOT}` and the installed `torch`
-package must point at the **same git commit**. If the source HEAD has advanced
-past the installed package's build commit, in-tree test files will silently
-import newer symbols absent from the installed `torch.testing._internal.*`
-modules, and every collection will fail with `ImportError`.
-
-```python
-target = torch.version.git_version
-head   = git rev-parse HEAD     (in ${PYTORCH_REPO_ROOT})
-
-if target == head:               # already in sync, no-op
-    return
-if worktree has uncommitted tracked changes:
-    abort  # refuses to clobber user work; user must stash/commit
-if target not present locally:
-    git fetch origin <target>
-git branch bug_scrub_pre_commit_sync_<UTC_timestamp> <head>   # safety branch
-git checkout <target>            # detached HEAD on target
-```
-
-The previous HEAD is preserved on `bug_scrub_pre_commit_sync_<YYYYMMDD_HHMMSS>`;
-the resulting HEAD is detached on the target commit. Untracked files (e.g.
-the `third_party/torch-xpu-ops/` clone) are not touched.
-
-### 1.0.6 — Record versions for reproducibility
-
-```bash
-python -c "import torch; print('torch', torch.__version__, 'xpu', torch.xpu.is_available())"
-python -c "import pytorch_triton_xpu; print('triton-xpu', pytorch_triton_xpu.__version__)" 2>/dev/null || true
-```
-
-These commands run in the order shown. **Failure of any step aborts the
-session** with an explicit error — do not silently continue, because every
-downstream verdict (CI matching, local verification, triage) would be
-against a stale environment.
-
-### Trust rule (downstream consumers of test results)
-
-Phase 3.3 (`triage_skills`) and Phase 4a (`close_or_skip`) **may treat any
-locally-produced test verdict as authoritative evidence iff**:
-
-- Issue body / labels indicate the platform is **PVC (Ponte Vecchio)**, AND
-- Issue body / labels indicate the OS is **Linux**.
-
-Otherwise local results are informational only. The PVC + Linux check is
-performed by the consuming phase, not by Phase 1.0.
-
----
+> **Prerequisite**: Phase 1.0 test environment setup (conda env + nightly XPU
+> torch/triton + source-repo commit sync) must run once at session start, before
+> this phase. See [`../test-environment-setup/SKILL.md`](../test-environment-setup/SKILL.md).
 
 ## Base Path Reference
 
@@ -119,7 +26,7 @@ Produces `result/torch_xpu_ops_issues.xlsx` from **BOTH open AND closed issues**
 The pipeline is **script-first, LLM-fallback**:
 
 1. Deterministic regex/heuristic extractors run first — they handle issues
-   with `Cases:` blocks, structured E2E benchmark commands, and similar
+   with `Cases:` or `test_cases:` blocks, structured E2E benchmark commands, and similar
    "well-formed" formats authored by the issue reporter.
 2. The LLM extraction is consulted **only for issues the script extractors
    could not handle** (prose-only reproducers, cross-paragraph test
@@ -142,8 +49,11 @@ augments a successful script match.
 
 Pure regex handles well-formatted issues but fails on the long tail of
 unstructured reports. The LLM fallback handles those. Concrete failure modes
-the LLM must catch (every example below is illustrative — never hard-code
-these issue numbers):
+the LLM must catch are below.
+
+> **Caveat (applies to every example and table in this skill):** all issue
+> numbers and model/test names are illustrative. Never hard-code them — the
+> skill must work on any new issue exhibiting these patterns.
 
 | Failure mode | What regex sees | What deep analysis must see |
 |---|---|---|
@@ -152,9 +62,6 @@ these issue numbers):
 | Embedded repro script | `python repro.py` only | The full Python source in the fenced code block IS the canonical reproducer |
 | Prose model list | none | "Timm: convnext_base, jx_nest_base" → 2 rows in E2E sheet with `benchmark=Timm` |
 | `[E2E]` title bait | classified e2e | If body only describes a kernel bug, this is `other` regardless of title prefix |
-
-The examples used during this skill's development are non-binding.
-The skill must work on any new issue exhibiting these patterns.
 
 ## Inputs
 
@@ -235,37 +142,14 @@ Skip the fetch (e.g. to re-render from cached JSON) with `SKIP_PHASE_1_1=1`.
 
 ## LLM Extraction
 
-### Schema (the LLM MUST emit exactly this shape, ASCII-only)
+The LLM is a **fallback** extractor — consulted only for issues the script
+extractors could not handle (see §Routing for the exact gates).
 
-```json
-{
-  "issue_id":      <int>,
-  "body_hash":     "<16-char prefix of sha256(body)>",
-  "kind":          "unittest" | "e2e" | "other",
-  "test_cases": [
-    {"test_file":   "<path as referenced, e.g. test/dynamo/test_x.py>",
-     "test_class":  "<class name OR benchmark suite for e2e>",
-     "test_method": "<method name OR model name for e2e>"}
-  ],
-  "reproducer":    "<verbatim — see rules below>",
-  "error_message": "<first user-visible error sentence>",
-  "traceback":     "<full traceback if present>",
-  "notes":         "<1-sentence semantic summary>"
-}
-```
-
-### Mandatory extraction rules (must appear in the prompt)
-
-1. **`reproducer` is verbatim**. Every URL (repo / gist / branch / dataset / docs / instruction link) is **MANDATORY** — never paraphrased, never dropped. If a URL appears anywhere in the issue's reproduction steps, it stays.
-2. **`test_cases` is empty unless the issue actually points at runnable tests**. A `[E2E]` title prefix alone is not enough.
-3. **For unittest issues**: `test_file` is the path as the issue quotes it (e.g. `test/dynamo/test_higher_order_ops.py`); `test_class` is the class; `test_method` is the method. If only the file is named, leave class/method empty.
-4. **For e2e issues**: `test_class = benchmark suite` (Timm / Torchbench / Huggingface / etc.); `test_method = model name`. Each `(suite, model)` pair becomes one row.
-5. **`kind` reflects what the issue is about, not labels alone**:
-   - `unittest` → a fix landing in `pytorch/test/**` or `torch-xpu-ops/test/**`
-   - `e2e`     → benchmark accuracy / model perf / model run
-   - `other`   → infra, build, runtime API, kernel-perf without an enumerable test, etc.
-6. **No fabrication.** If the issue contains no reproducer, leave the field empty. Never invent a benchmark or test name.
-7. **ASCII output only.**
+**Canonical contract — single source of truth: [`LLM_PROMPT.md`](./LLM_PROMPT.md).**
+That file owns the output schema, the MANDATORY extraction rules, and the
+example record. Do not restate or fork them here; edit `LLM_PROMPT.md` instead,
+then force a re-extraction (§Cache invalidation). The only field the routing
+tree keys on is `kind ∈ {unittest, e2e, other}`.
 
 ### Sub-agent workflow (parallel, off-line)
 
@@ -278,42 +162,29 @@ data/llm_results/batch_NN.json   ← per-shard extraction output
 data/llm_extracted.json          ← merged cache (keyed by str(issue_id))
 ```
 
-Launch one sub-agent per batch (parallel, `run_in_background=true`).
-Each sub-agent:
-
-1. Reads `data/llm_batches/batch_NN.json` (a list of `{issue_id, title, labels, body, body_hash}`).
-2. Performs the schema extraction per issue (deep reasoning — not regex).
-3. Writes `data/llm_results/batch_NN.json` (a list of schema-conforming objects).
-
-When all batches complete:
+Launch one background sub-agent per batch (orchestration in `LLM_PROMPT.md`
+§Spawning sub-agents). When all batches complete:
 
 ```bash
-python merge_llm_results.py   # merges results/*.json → data/llm_extracted.json
+python merge_llm_results.py   # merges data/llm_results/*.json → data/llm_extracted.json
 ```
 
 ### Cache invalidation
 
 `get_llm_extraction(issue_id, body)` compares `entry.body_hash` to
-`sha256(body)[:16]`. A body edit drops the entry → re-extraction needed.
+`sha256(body)[:16]`. A body edit drops that entry → the issue is re-extracted.
 
-When the **prompt** changes (e.g. new MANDATORY rule), force a full
-re-extraction:
-
-```bash
-mv data/llm_extracted.json data/llm_extracted.json.bak.$(date +%Y%m%d_%H%M%S)
-rm -f data/llm_results/*.json
-# rebuild data/llm_batches/, then relaunch sub-agents
-```
+A **prompt** change (e.g. a new MANDATORY rule in `LLM_PROMPT.md`) leaves body
+hashes unchanged, so force a full re-extraction with the recipe in
+§Usage → "Re-extract with a new prompt".
 
 ## Routing (Decision Tree)
 
 Executed inside `generate_excel.py` per issue, in this exact order.
 
-**LLM is a strict fallback at every gate**: the LLM cache is consulted ONLY
-when the deterministic script extractors produce no result for the relevant
-slot. Once a script extractor has matched, the LLM is not merged in. This
-keeps the script output authoritative when it succeeds and prevents the LLM
-from inflating or contradicting it.
+**LLM is a strict fallback at every gate**: the cache is consulted ONLY when the
+deterministic script extractors produce no result for that slot. Once a script
+extractor has matched, the LLM is not merged in (rationale in §Why fallback).
 
 ```
 Issue
@@ -366,16 +237,12 @@ Issue
 
 ### Why fallback (not augment)
 
-- The script extractors (`parse_test_cases_from_body`, `parse_e2e_info`) are
-  high-precision when they match: they read `Cases:` blocks, fenced benchmark
-  commands, and structured fixture references that the issue author wrote
-  deliberately.
-- Merging LLM-extracted cases on top of a successful script match inflates the
-  Test Cases sheet with paraphrased duplicates and risks contradicting the
-  authoritative source.
-- The LLM's value is in handling issues the scripts cannot parse — prose
-  references, cross-paragraph synthesis, embedded scripts, URL-bearing
-  reproducers. That is exactly the fallback role.
+Script extractors (`parse_test_cases_from_body`, `parse_e2e_info`) are
+high-precision on author-written `Cases:` / `test_cases:` blocks and fenced benchmark commands.
+Merging LLM cases on top of a successful match would inflate the sheets with
+paraphrased duplicates and risk contradicting that authoritative source — so the
+LLM only fills the gaps scripts cannot parse (prose references, cross-paragraph
+synthesis, embedded scripts, URL-bearing reproducers).
 
 ### File-existence verification
 
@@ -390,8 +257,9 @@ even when the LLM fallback kicks in, only verifiable cases make it through.
 
 ## Post-Pass (alignment)
 
-After all sheets are populated, rewrite the `Test Module` column (col 14) of the Issues
-sheet so it equals the sheet the issue is actually in:
+After all sheets are populated, rewrite the Issues sheet's `Test Module` column
+so it equals the sheet the issue actually landed in. The column is addressed by
+header name via `write_by_name()`, never a hardcoded index:
 
 ```python
 others_ids = {row[0] for row in ws_others.iter_rows(min_row=2, values_only=True)
@@ -399,9 +267,9 @@ others_ids = {row[0] for row in ws_others.iter_rows(min_row=2, values_only=True)
 
 for row_idx in range(2, ws_issues.max_row + 1):
     num = ws_issues.cell(row=row_idx, column=1).value
-    if   num in others_ids:        ws_issues.cell(row_idx, 13, "others")
-    elif num in issues_with_e2e:   ws_issues.cell(row_idx, 13, "e2e")
-    elif num in issues_with_ut:    ws_issues.cell(row_idx, 13, "ut")
+    if   num in others_ids:        write_by_name(ws_issues, row_idx, "Test Module", "others")
+    elif num in issues_with_e2e:   write_by_name(ws_issues, row_idx, "Test Module", "e2e")
+    elif num in issues_with_ut:    write_by_name(ws_issues, row_idx, "Test Module", "ut")
     # Not applicable rows are written by create-not-applicable-sheet
 ```
 
@@ -435,7 +303,9 @@ assert not (ut & e2e),  ut & e2e
 assert not (ut & oth),  ut & oth
 assert not (e2e & oth), e2e & oth
 
-tm = {r[0]: r[12] for r in wb['Issues'].iter_rows(min_row=2, values_only=True)
+ws = wb['Issues']
+tm_col = [c.value for c in ws[1]].index('Test Module')   # resolve by header, not a fixed index
+tm = {r[0]: r[tm_col] for r in ws.iter_rows(min_row=2, values_only=True)
       if r and r[0] is not None}
 assert all(tm[i] == 'ut'     for i in ut)
 assert all(tm[i] == 'e2e'    for i in e2e)
@@ -495,21 +365,9 @@ SKIP_PHASE_1_1=1 python generate_excel.py
 
 ### Restore Not applicable sheet after regeneration
 
-```python
-from openpyxl import load_workbook
-src = load_workbook('../../../result/torch_xpu_ops_issues_bk_<latest>.xlsx')
-dst = load_workbook('../../../result/torch_xpu_ops_issues.xlsx')
-if 'Not applicable' in dst.sheetnames:
-    del dst['Not applicable']
-src_ws = src['Not applicable']
-new_ws = dst.create_sheet('Not applicable')
-for row in src_ws.iter_rows():
-    for cell in row:
-        new_ws.cell(row=cell.row, column=cell.column, value=cell.value)
-dst.save('../../../result/torch_xpu_ops_issues.xlsx')
-```
-
-(Or use the `create-not-applicable-sheet` skill in carry-forward mode.)
+The `Not applicable` sheet is owned by the `create-not-applicable-sheet` skill —
+run it in carry-forward mode to repopulate the sheet from the latest backup.
+This skill never writes that sheet itself.
 
 ## Prerequisites
 
@@ -518,11 +376,11 @@ dst.save('../../../result/torch_xpu_ops_issues.xlsx')
 - Python ≥ 3.10 with: `openpyxl`, `requests`.
 - `gh` CLI authenticated.
 
-## Spot-Check Acceptance (illustrative — not normative)
+## Spot-Check Acceptance
 
 Before declaring the run good, verify a small set of issues hand-picked to
-cover each routing path. The exact issue numbers will change run-to-run;
-use the **patterns** below as the acceptance criterion, not specific IDs:
+cover each routing path (illustrative — see the caveat under §Why Deep Analysis;
+match the **patterns** below, not specific issue IDs):
 
 | Pattern | Expected sheet | Property to verify |
 |---|---|---|
@@ -534,14 +392,13 @@ use the **patterns** below as the acceptance criterion, not specific IDs:
 
 ## Notes
 
-- The LLM is the **primary** signal; regex fallbacks exist only because some
-  issues do not need an LLM round-trip (e.g. classic `Cases:` blocks).
+- **Script extractors are authoritative; the LLM is a fallback** (see §Routing /
+  §Why fallback). Regex handles author-structured issues that need no LLM
+  round-trip; the LLM only covers what regex cannot parse.
 - Never edit `Test Module` outside the post-pass — that column is regenerated
   every run.
 - Never write to `Not applicable` from this skill; that sheet is owned by
-  `create-not-applicable-sheet`.
-- Hard-coded issue numbers from any prior conversation are NOT part of the
-  contract. The skill must work on any new set of open issues.
+  `create-not-applicable-sheet` (this is the canonical statement of that rule).
 
 ## Next Step
 

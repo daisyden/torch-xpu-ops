@@ -161,7 +161,7 @@ When this definition treats a cell as blank, the runner MUST also normalize it o
    Fetch once per Phase 3.3 run and cache:
 
    ```
-   https://raw.githubusercontent.com/daisyden/ai_for_validation/main/opencode/issue_triage/result/bug_scrub_highlight.html
+    https://raw.githubusercontent.com/daisyden/torch-xpu-ops/refs/heads/opencode/bug_scrub/issue_triage/result/bug_scrub_highlight.html
    ```
 
    Each issue appears as a `<tr>` carrying authoritative attributes:
@@ -180,7 +180,7 @@ When this definition treats a cell as blank, the runner MUST also normalize it o
    **Source B — Per-issue detail markdown (`Root Cause` / `Fix Approach`)**
 
    ```
-   https://raw.githubusercontent.com/daisyden/ai_for_validation/main/opencode/issue_triage/result/details/<issue_id>.md
+    https://raw.githubusercontent.com/daisyden/torch-xpu-ops/refs/heads/opencode/bug_scrub/issue_triage/result/details/<issue_id>.md
    ```
 
    Use `webfetch(url=..., format="markdown")`. If the fetch returns a 200 with a real document (HTTP 404 / "not found" / empty body → file does not exist, proceed to Step 1):
@@ -208,11 +208,11 @@ When this definition treats a cell as blank, the runner MUST also normalize it o
 | torch-xpu-ops source | `${PYTORCH_REPO_ROOT}/third_party/torch-xpu-ops/` |
 | PyTorch source | `${PYTORCH_REPO_ROOT}/` |
 | Operator → dependency lookup | `${BUG_SCRUB_SKILL_ROOT}/prepare_data/pytorch_xpu_backend_analysis/xpu_supported_operators_complete_list.md` |
-| CI op_ut XML logs | `/home/daisyden/opencode/ai_for_validation/opencode/issue_triage/ci_results/torch-xpu-ops/Inductor-XPU-UT-Data-*/op_ut/*.xml` |
-| Tracking Excel | `/home/daisyden/opencode/ai_for_validation/opencode/issue_triage/result/torch_xpu_ops_issues.xlsx` |
+| CI op_ut XML logs | `${BUG_SCRUB_SKILL_ROOT}/../../ci_results/torch-xpu-ops/Inductor-XPU-UT-Data-*/op_ut/*.xml` |
+| Tracking Excel | `${BUG_SCRUB_SKILL_ROOT}/../../result/torch_xpu_ops_issues.xlsx` |
 | Agent workspace (scratch) | `${PYTORCH_REPO_ROOT}/agent_space/phase3_triage/` |
-| Published per-issue details (Step 0 Source B: Root Cause / Fix Approach) | `https://raw.githubusercontent.com/daisyden/ai_for_validation/main/opencode/issue_triage/result/details/<issue_id>.md` |
-| Published highlight HTML (Step 0 Source A: Category / Priority / Dependency) | `https://raw.githubusercontent.com/daisyden/ai_for_validation/main/opencode/issue_triage/result/bug_scrub_highlight.html` |
+| Published per-issue details (Step 0 Source B: Root Cause / Fix Approach) | `https://raw.githubusercontent.com/daisyden/torch-xpu-ops/refs/heads/opencode/bug_scrub/issue_triage/result/details/<issue_id>.md` |
+| Published highlight HTML (Step 0 Source A: Category / Priority / Dependency) | `https://raw.githubusercontent.com/daisyden/torch-xpu-ops/refs/heads/opencode/bug_scrub/issue_triage/result/bug_scrub_highlight.html` |
 
 ### For large-scale triage (many issues)
 

@@ -115,7 +115,7 @@ For accessing local skill files:
 
 ```python
 # Access triage skills
-read(filePath="~/ai_for_validation/opencode/issue_triage/.claude/skills/triage_skills/SKILL.md")
+read(filePath="${BUG_SCRUB_SKILL_ROOT}/analyze_issue/triage_skills/SKILL.md")
 ```
 
 ---

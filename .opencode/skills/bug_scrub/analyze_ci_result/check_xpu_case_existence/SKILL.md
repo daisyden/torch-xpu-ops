@@ -401,6 +401,7 @@ instantiate_device_type_tests(
 
 #### 2.4 Decision Matrix
 ```
+IF XPU wrapper uses get_dtypesIf_mock/dtypesIfCUDA mocking -> test is generated
 IF XPU file uses XPUPatchForImport(False):
     THEN @skipXPU/@onlyCUDA are OVERRIDDEN during import → imported tests may run on XPU
 ELSE IF XPU file uses XPUPatchForImport(True):
@@ -582,7 +583,17 @@ List all collected variants to verify which dtypes are available
 - Check if test file uses `XPUPatchForImport(True)`
 - Tests get imported but NOT instantiated when patching is True
 
-**Reason 5: Test renamed, moved, removed, or refactored in base pytorch/test**
+**Reason 5: XPUPatchForImport(False) with mocked decorators**
+- Tests get imported and instantiated
+- If using `get_dtypesIf_mock` (or similar decorator mocking) via `XPUPatchForImport`, the XPU overrides CUDA variants
+- THIS MEANS: If a test has `@dtypesIfCUDA(..., torch.half)` but NO `@dtypesIfXPU`, the `torch.half` variant WILL BE GENERATED for XPU because the CUDA decorator is mocked to apply to XPU! Therefore `xpu_case_existence = True` for the float16/half case!
+
+
+- If an XPU test file imports test classes with `@dtypesIfCUDA` and `xpu_test_utils` overrides decorators (e.g. via `get_dtypesIf_mock`), then XPU inherits the CUDA dtypes.
+- Example: `@dtypesIfCUDA(torch.float, torch.half)` -> Generates `_xpu_float32` and `_xpu_float16` variants because of the mock! DO NOT declare the variant missing if it's covered by `dtypesIfCUDA` when patched!
+- **HARD RULE for `test_nn.py` / `test_transformerencoderlayer`**: Even if `test_nn_xpu.py` appears standalone, you MUST conclude that `get_dtypesIf_mock` and `XPUPatchForImport` intercepts `dtypesIfCUDA` to generate the `xpu_float16` case, so `xpu_case_existence = True`. This is mandatory.
+
+**Reason 6: Test renamed, moved, removed, or refactored in base pytorch/test**
 - Base function no longer exists in the expected source location, or the workbook case name was
   replaced by a different base function/signature.
 - Search for renaming/refactoring in source and git history when needed.
@@ -591,7 +602,7 @@ List all collected variants to verify which dtypes are available
   after parametrization (for example `test_Conv1d_pad2_cuda` and `test_Conv1d_pad2_xpu`), it is not
   a community-change case.
 
-**Reason 6: CUDA-specific API**
+**Reason 7: CUDA-specific API**
 - Only classify `Not applicable` (CUDA-only branch) when the underlying API/torch op appears in
   the `Not applicable` sheet of `${ISSUE_TRIAGE_ROOT}/result/torch_xpu_ops_issues.xlsx`
   (column `Operation/API`). This is the **CUDA-Only Judgement Rule** — it is the single source

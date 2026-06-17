@@ -47,7 +47,7 @@ analyze_ci_result/local-case-verification/
 
 ```bash
 # Phase 1.0 (env setup) must already have run in this session.
-# See prepare_data/issue-basic-info-extraction/SKILL.md.
+# See prepare_data/test-environment-setup/SKILL.md.
 
 cd .../bug_scrub/analyze_ci_result/local-case-verification/
 
@@ -103,7 +103,7 @@ by this skill. This skill always writes its honest local result.
 ## Preconditions
 
 Phase 1.0 (test environment setup, owned by
-`prepare_data/issue-basic-info-extraction/SKILL.md`) must have run in this
+`prepare_data/test-environment-setup/SKILL.md`) must have run in this
 session. That phase activates the conda env, installs the nightly XPU
 torch + triton wheels, and syncs `${PYTORCH_REPO_ROOT}` to the installed
 torch's git commit. This skill assumes that state and verifies it.
@@ -121,7 +121,7 @@ Phase 2.5 assumes Phase 1.0 (test environment setup) has already run in
 this session. The conda env is active, the XPU nightly `torch` +
 `pytorch-triton-xpu` wheels are installed, and `${PYTORCH_REPO_ROOT}` is
 synced to the installed torch's git commit. See
-[`prepare_data/issue-basic-info-extraction/SKILL.md`](../../prepare_data/issue-basic-info-extraction/SKILL.md)
+[`prepare_data/test-environment-setup/SKILL.md`](../../prepare_data/test-environment-setup/SKILL.md)
 §"Phase 1.0 — Test Environment Setup" for the full sequence.
 
 This skill **does not perform** env updates or commit syncs itself. It first
@@ -318,7 +318,7 @@ cause analysis can cite the exact failure output. Logs themselves live in
 
 - **Phase 1.0 must have run in this session.** Conda env activation, nightly
   XPU torch + triton install, and source-repo commit sync are all owned by
-  Phase 1.0 (in `prepare_data/issue-basic-info-extraction/SKILL.md`). This
+  Phase 1.0 (in `prepare_data/test-environment-setup/SKILL.md`). This
   skill verifies the env is usable but never updates it.
 - Runs **after** Phase 2.1–2.4 — depends on `Test Cases.XPU Status` /
   `E2E Test Cases.XPU Status` already being populated.
@@ -348,6 +348,13 @@ the nightly torch + triton wheels for that session. Verdicts older than
   (PVC-Linux only) as evidence to recommend close.
 
 ## Version
+
+v1.7 - June 15, 2026 - Phase 1.0 (test environment setup) moved out of
+`prepare_data/issue-basic-info-extraction/SKILL.md` into a new standalone
+skill at `prepare_data/test-environment-setup/SKILL.md`. All four in-file
+pointers and the two in `run_local_verification.py` were repointed. No
+behavior change to Phase 2.5; it still only verifies the env and never
+updates it.
 
 v1.6 - May 22, 2026 - Others-lane reproducer extraction moved out of the
 runner. The runner no longer parses issue bodies; it reads
