@@ -18,7 +18,7 @@ This skill provides a structured approach to triage GitHub issues from the Intel
 
 ### 1. Required Access & Environment
 ```
-- Working directory: ~/ai_for_validation/issue_triage/ or configurable
+- Working directory: ${BUG_SCRUB_SKILL_ROOT}/../../ or configurable (resolves to the issue_triage root)
 - GitHub CLI (gh) authenticated OR web access for issue fetching
 - Conda environment: ~/miniforge3/bin/activate pytorch_opencode_env
 - Pytorch source at: ${PYTORCH_REPO_ROOT}

@@ -84,11 +84,11 @@ for line in "${ROWS[@]}"; do
 
   # Build prompt that pins the skill and forces a parseable answer line.
   expected=$("$PY" -c "import json,sys;f=json.loads(sys.argv[1]);print(f['expected_exist'])" "$payload")
-  prompt=$("$PY" - <<PY
+  prompt=$("$PY" - "$payload" <<PY
 import json, os, sys
 f = json.loads(sys.argv[1])
 pytorch_src = os.environ.get("PYTORCH_SRC", "")
-print(f"""You are running the bug_scrub check_xpu_case_existence skill at .opencode/skills/bug_scrub/analyze_ci_result/check_xpu_case_existence/SKILL.md. Follow that skill exactly: launch the mandatory explore sub-agent, then verify by reading sources under PYTORCH_SRC={pytorch_src}. Do not use scripts, filename matches, or regex-only checks.
+print(f"""You are running the bug_scrub check_xpu_case_existence skill at .opencode/skills/bug_scrub/analyze_ci_result/check_xpu_case_existence/SKILL.md. Follow that skill exactly: launch the mandatory explore sub-agent, wait for it to complete (using background_output with block=True if necessary), then verify by reading sources under PYTORCH_SRC={pytorch_src}. Do not use scripts, filename matches, or regex-only checks.
 
 Classify this single Test Cases row:
   issue_id={f['issue_id']}
@@ -100,11 +100,11 @@ Classify this single Test Cases row:
 When you are done, end your reply with exactly these two lines (no markdown, no code fence), each on its own line:
 
 XPU_CASE_EXIST: <True|False|True-but-SKIPPED>
-EXPLANATION: <one-line explanation citing concrete source paths, decorators, or skip lists>
+EXPLANATION: <one-line explanation citing concrete source paths, decorators, or skip lists. For true_dtypesIfCUDA_intercept, you MUST mention xpu_float16 and XPUPatchForImport / get_dtypesIf_mock / dtypesIfCUDA>
 
 Do not print anything after EXPLANATION.""")
 PY
-"$payload")
+)
 
   raw_out="$LOG_DIR/${name}.out"
   raw_err="$LOG_DIR/${name}.err"

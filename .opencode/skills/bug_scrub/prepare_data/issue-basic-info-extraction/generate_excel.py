@@ -910,6 +910,52 @@ def parse_test_cases_from_body(body):
                 'module_level': module_level,
             })
 
+    if 'test_cases:' in body:
+        idx = body.lower().find('test_cases:')
+        cases_section = body[idx + len('test_cases:'):]
+        end_markers = ['\n###', '\n## ', '\nVersions', '\n```']
+        min_end = len(cases_section)
+        for em in end_markers:
+            ei = cases_section.find(em)
+            if ei > 0 and ei < min_end:
+                min_end = ei
+        cases_section = cases_section[:min_end]
+        for line in cases_section.split('\n'):
+            stripped = line.strip()
+            if not stripped or not stripped.startswith('- '):
+                continue
+            csv_part = stripped[2:].strip()
+            parts = csv_part.split(',')
+            if len(parts) < 3:
+                continue
+            test_type = parts[0].strip()
+            if test_type not in KNOWN_TEST_TYPES:
+                continue
+            field1 = parts[1].strip()
+            field2 = parts[2].strip()
+            if field1:
+                test_path, test_method = field1, field2
+                module_level = False
+            else:
+                test_path, test_method = field2, ''
+                module_level = True
+            if not test_path:
+                continue
+            if not module_level:
+                if not test_method or len(test_method) < 3 or ' ' in test_method:
+                    continue
+            test_file, class_suffix, origin_file = resolve_test_file(test_path)
+            test_class = class_suffix
+            if not module_level and not test_class and '.' in test_method:
+                head, _, tail = test_method.rpartition('.')
+                if head and tail:
+                    test_class, test_method = head, tail
+            cases.append({
+                'test_type': test_type, 'test_file': test_file,
+                'origin_test_file': origin_file, 'test_class': test_class,
+                'test_case': test_method, 'module_level': module_level,
+            })
+
     # Extract from pytest code blocks (format: pytest -v test/test_ops.py -k test_name)
     if '```' in body:
         code_blocks = body.split('```')
@@ -1730,6 +1776,8 @@ def _merge_incremental_from_prior(new_wb, prior_xlsx_path):
         "Others": others_headers + ["Local Status"],
     }
 
+    MERGE_EXCLUDE_COLUMNS = {"XPU Accuracy Status"}
+
     def _headers(ws):
         return list(header_index(ws))
 
@@ -1746,7 +1794,7 @@ def _merge_incremental_from_prior(new_wb, prior_xlsx_path):
         _ensure_canonical(new_ws, sheet_name)
         prior_headers = _headers(prior_ws)
         new_headers = _headers(new_ws)
-        preserved = [h for h in prior_headers if h is not None]
+        preserved = [h for h in prior_headers if h is not None and h not in MERGE_EXCLUDE_COLUMNS]
         for hdr in preserved:
             if hdr not in new_headers:
                 ensure_col(new_ws, hdr)

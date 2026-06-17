@@ -25,7 +25,7 @@ _DEFAULT_TRIAGE_ROOT = _TORCH_XPU_OPS / "issue_triage"
 
 # Fallback to legacy location if new location doesn't exist
 _LEGACY_BASE = Path(
-    "/home/daisyden/opencode/bug_scrub_verify/ai_for_validation"
+    "/home/daisyden/opencode/bug_scrub_verify/pytorch/third_party/torch-xpu-ops"
 )
 _LEGACY_TRIAGE = _LEGACY_BASE / "opencode" / "issue_triage"
 

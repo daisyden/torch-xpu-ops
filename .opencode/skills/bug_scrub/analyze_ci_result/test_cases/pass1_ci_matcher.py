@@ -255,7 +255,7 @@ def collect_torch_xpu_ops_test_cases():
                 if not os.path.exists(folder_path):
                     continue
                 for f in os.listdir(folder_path):
-                    if f.endswith('.xml') and (f.startswith('op_ut_with_all') or f.startswith('op_ut_with_skip') or f == 'op_extended.xml'):
+                    if f.endswith('.xml') and (f.startswith('op_ut_with_all') or f.startswith('op_ut_with_skip') or f.startswith('op_ut_with_exe') or f == 'op_extended.xml'):
                         xml_path = os.path.join(folder_path, f)
                         try:
                             tree = ET.parse(xml_path)

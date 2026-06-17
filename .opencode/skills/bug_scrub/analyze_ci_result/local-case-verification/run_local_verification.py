@@ -7,7 +7,7 @@ for every Others-sheet issue, run the test locally and aggregate a single
 verdict written to `Issues.Local status`.
 
 Phase 1.0 (env setup) must have run in this session — see
-prepare_data/issue-basic-info-extraction/SKILL.md. This runner verifies the
+prepare_data/test-environment-setup/SKILL.md. This runner verifies the
 env is usable but does not update it.
 
 This is the executable counterpart of
@@ -172,7 +172,7 @@ class Driver:
     # ------------------------------------------------------------------
     # Step 1: verify Phase 1.0 prerequisites
     #
-    # Phase 1.0 (in prepare_data/issue-basic-info-extraction/SKILL.md) owns
+    # Phase 1.0 (in prepare_data/test-environment-setup/SKILL.md) owns
     # conda env activation, nightly XPU torch+triton install, and source-
     # repo commit sync. This skill verifies the env is usable but never
     # updates it.

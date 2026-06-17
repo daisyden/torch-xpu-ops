@@ -18,10 +18,12 @@ flowchart TD
     GH[(GitHub API<br/>intel/torch-xpu-ops)]:::ext
     CI[(CI artifacts<br/>torch-xpu-ops + stock pytorch)]:::ext
     PT[(pytorch/pytorch repo)]:::ext
+    NIGHTLY[(PyTorch nightly XPU index<br/>download.pytorch.org/whl/nightly/xpu)]:::ext
 
     %% ========== PHASE 1: PREPARE DATA ==========
     subgraph P1["Phase 1 — Prepare Data"]
         direction TB
+        S10["1.0 test-environment-setup<br/><i>conda env + nightly torch/triton<br/>+ source-tree sync (prerequisite)</i>"]:::prereq
         S11["1.1 issue-basic-info-extraction<br/><i>fetch + parse issues</i>"]:::skill
         S12["1.2 download_ci_result<br/><i>download CI artifacts</i>"]:::skill
         S13["1.3 create-not-applicable-sheet<br/><i>wontfix / not_target filter</i>"]:::skill
@@ -75,6 +77,9 @@ flowchart TD
     HTML[(result/bug_scrub.html<br/><i>self-contained, on demand</i>)]:::out
 
     %% ========== FLOWS ==========
+    PT --> S10
+    NIGHTLY --> S10
+    S10 -.env ready.-> S11
     GH --> S11
     CI --> S12
     PT --> S14
@@ -133,6 +138,7 @@ flowchart TD
     %% ========== STYLES ==========
     classDef ext fill:#f4e8d8,stroke:#8b6f47,stroke-width:2px,color:#000
     classDef skill fill:#d8e8f4,stroke:#2c5f8a,stroke-width:1px,color:#000
+    classDef prereq fill:#d8f4f0,stroke:#2c8a7c,stroke-width:2px,color:#000
     classDef script fill:#e8d8f4,stroke:#5a2c8a,stroke-width:1px,color:#000
     classDef art fill:#fff4d8,stroke:#8a7c2c,stroke-width:1px,color:#000
     classDef out fill:#d8f4d8,stroke:#2c8a2c,stroke-width:2px,color:#000
@@ -144,6 +150,7 @@ flowchart TD
 |---|---|
 | 🟤 Cylinder (tan) | External data source (GitHub API, CI system, pytorch repo) |
 | 🟦 Rectangle (blue) | Skill (LLM-driven, `SKILL.md`-governed) |
+| Rectangle (teal) | Prerequisite environment step (Phase 1.0; no Excel write) |
 | 🟪 Rectangle (purple) | Deterministic Python script |
 | 🟨 Cylinder (yellow) | Intermediate artifact (Excel, CI dumps, analysis doc) |
 | 🟩 Cylinder (green) | Final deliverable (markdown report) |
@@ -159,6 +166,7 @@ Each skill's contract, in the order the columns appear in the Excel:
 
 | Phase | Skill | Reads | Writes (Issues sheet) | Writes (Test Cases sheet) |
 |---|---|---|---|---|
+| 1.0 | test-environment-setup | pytorch + torch-xpu-ops repos, PyTorch nightly XPU index | — *(session prerequisite: installs nightly `torch` + `pytorch-triton-xpu`, syncs repo HEAD to `torch.version.git_version`; no Excel write)* | — |
 | 1.1 | issue-basic-info-extraction | GitHub API + PyTorchXPU Project (GraphQL) | Issue ID, Title, Status, Assignee, Reporter, Labels, Created Time, Body, Priority, **PyTorchXPU Status**, **PyTorchXPU Estimate**, **PyTorchXPU Depending**, **PyTorchXPU Short Comments**; also writes **Others** sheet (issues with no UT/E2E case) | Test Case, Test File, Error Message, Traceback |
 | 1.2 | download_ci_result | CI artifacts URL | — (produces `ci_results/`) | — |
 | 1.3 | create-not-applicable-sheet | Issue labels | *(writes "Not Applicable" sheet)* | — |
@@ -183,7 +191,8 @@ Each skill's contract, in the order the columns appear in the Excel:
 ```mermaid
 flowchart LR
     subgraph Prep["Phase 1 — Prepare Data"]
-        A1["1.1 issue-basic-info-extraction"] --> A2["1.2 download_ci_result"]
+        A0["1.0 test-environment-setup<br/><i>session prerequisite</i>"] --> A1["1.1 issue-basic-info-extraction"]
+        A1 --> A2["1.2 download_ci_result"]
         A1 --> A3["1.3 create-not-applicable-sheet"]
         A1 --> A4["1.4 pytorch_xpu_backend_analysis"]
     end
@@ -207,6 +216,7 @@ flowchart LR
 
 **Invariants**
 
+- Phase 1.0 (`test-environment-setup`) is a one-time **session prerequisite** that runs before any step imports `torch`: it activates the conda env, installs the nightly XPU `torch` / `pytorch-triton-xpu`, and syncs the source tree to `torch.version.git_version`. Skippable via `SKIP_ENV_UPDATE=1`. It writes no Excel column.
 - Phases are strictly sequential; later phases append columns to the shared Excel.
 - Within a phase, sub-steps labeled N.1 → N.2 → N.3 → N.4 are also strictly sequential.
 - Phase 4 sub-steps 4a → 4b → 4c are sequential because each may **append** to `action_TBD` / `action_reason`.
@@ -446,6 +456,8 @@ flowchart TD
 ---
 
 ## Version
+
+v2.2 — 2026-06-15 — Added Phase 1.0 `test-environment-setup` (the session prerequisite: conda env activation + nightly XPU `torch`/`pytorch-triton-xpu` install + source-tree sync to `torch.version.git_version`) to §1 master diagram (new `S10` teal prereq node, `PyTorch nightly XPU index` external input, dashed "env ready" edge into 1.1, plus legend row), §2 Skill→Column Matrix (new 1.0 row — no Excel write), and §3 Execution Order (new `A0 → A1` prerequisite edge + leading invariant). Mirrors `SKILL.md` Phase 1 step 1.0, now extracted into its own skill at `prepare_data/test-environment-setup/`. This step produces no Excel columns or `result/` artifacts, so §4 is unchanged.
 
 v2.1 — 2026-05-23 — Collapsed TRACK_PR action_Type into LAND_PR. Phase 4b agent now emits `"Land PR <ref>"` for ALL OPEN VERIFIED `fixes`/`supersedes` PRs (regardless of CI state); gate verbs (`Address CI failures on PR <ref>` / `Resolve unresolved review comments on PR <ref>`) are still emitted in parallel when applicable. PR-state downgrade matrix R3 row (OPEN+red/pending CI) updated accordingly. Classifier `run_action_type.py` renamed bucket `TRACK_PR → LAND_PR` and dropped legacy `track .* to merge` regex variants. Spec edits in: `analyze_issue/get_AR_from_issue/{AGENT_INSTRUCTIONS.md, SKILL.md}`, `bug_scrub/SKILL.md`, `collect_AR/case_existence_check/SKILL.md`, `examples/phase4b_real_example.md`. Note: the v1.6 entry below still references `TRACK_PR` verbatim as historical record — that text is intentionally preserved.
 
