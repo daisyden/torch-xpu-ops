@@ -31,6 +31,12 @@ _COMMON_DIR = THIS.parents[2] / "_common"
 if str(_COMMON_DIR) not in sys.path:
     sys.path.insert(0, str(_COMMON_DIR))
 from paths import RESULT_DIR, AGENT_SPACE  # type: ignore[reportMissingImports] # noqa: E402
+
+_MARKED_LIB_SRC = THIS.parent / "marked.min.js"
+_MARKED_LIB: str = ""
+if _MARKED_LIB_SRC.exists():
+    _MARKED_LIB = _MARKED_LIB_SRC.read_text(encoding="utf-8")
+
 XLSX_PATH = RESULT_DIR / "torch_xpu_ops_issues.xlsx"
 HTML_PATH = RESULT_DIR / "bug_scrub_highlight.html"
 OPEN_IDS_CACHE = RESULT_DIR / "open_issue_ids.json"
@@ -1860,7 +1866,8 @@ def render_page(body_html: str, issues: list[dict],
         f"<title>{html.escape(title)}</title>\n"
         '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
         f"<style>{CSS}</style>\n"
-        '<script src="marked.min.js"></script>\n'
+        '<script>/* marked.min.js - inlined */'
+        f"{_MARKED_LIB}</script>\n"
         "</head>\n<body>\n"
         f'<div class="content">\n{body_html}\n</div>\n'
         f"{modal}\n"
