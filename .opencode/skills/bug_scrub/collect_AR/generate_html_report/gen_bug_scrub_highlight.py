@@ -326,8 +326,10 @@ def render_issue_row(issue: dict, show_done: bool = True) -> str:
     """Render a single <tr> for an issue."""
     i = issue
     iid = i["id"]
-    pr = esc(i["priority_reason"])
-    cr = esc(i["category_reason"])
+    # Use action_reason for priority tooltip, root_cause for category tooltip
+    # (Priority Reason / Category Reason columns don't exist in workbook)
+    pr = esc(i.get("action_reason") or "")
+    cr = esc(i.get("root_cause") or "")
 
     attrs = [
         f'data-issue="{iid}"',
@@ -356,11 +358,13 @@ def render_issue_row(issue: dict, show_done: bool = True) -> str:
         f'target="_blank" rel="noopener noreferrer">#{iid}</a></td>'
     )
     cells.append(f"<td>{esc(truncate(i['title'], 80))}</td>")
+    prio_tip = f' title="{pr}"' if pr else ''
     cells.append(
-        f'<td class="tip-cell" title="{pr}">{esc(i["priority"])}</td>'
+        f'<td class="tip-cell{"" if pr else " tip-cell-empty"}"{prio_tip}>{esc(i["priority"])}</td>'
     )
+    cat_tip = f' title="{cr}"' if cr else ''
     cells.append(
-        f'<td class="tip-cell" title="{cr}">{esc(i["category"])}</td>'
+        f'<td class="tip-cell{"" if cr else " tip-cell-empty"}"{cat_tip}>{esc(i["category"])}</td>'
     )
     cells.append(f"<td>{esc(i['ar'])}</td>")
     owner = i["assignee"] or i["owner_transferred"]
@@ -906,6 +910,8 @@ table.ar-table tr.more-shown.hidden { display: none; }
 /* Tooltip for priority/category cells */
 .tip-cell { cursor: help; }
 .tip-cell[title]:hover { background: var(--hl) !important; }
+.tip-cell-empty { cursor: default; }
+.tip-cell-empty:hover { background: inherit !important; }
 
 /* More link */
 .more-link { display: inline-block; margin: 0 0 1em 0.5em; font-size: 12px; color: var(--accent); cursor: pointer; }
