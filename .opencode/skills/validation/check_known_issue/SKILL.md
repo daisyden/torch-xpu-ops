@@ -181,9 +181,62 @@ If `has_known_issue == True`, select the highest relevance match and apply this 
 | OPEN | no `module: xpu` label | `Failures (stock broken)` | `"Known upstream bug (no XPU label) in pytorch/pytorch#<number> (OPEN) — <Title>. <URL>"` |
 | OPEN | `feature` / `enhancement`, no `module: xpu` | `Feature gap` | `"Missing upstream feature: <Title> - <URL>"` |
 | CLOSED | `not_target` / `wontfix` | `Not Applicable` | `"Not applicable per closed issue: <Title> - <URL>"` |
+| CLOSED | title starts with `DISABLED` | *(see DISABLED issue resolution below)* | *(see DISABLED issue resolution below)* |
 | CLOSED | other or no relevant label | `To be enabled` | `"Issue closed, awaiting enablement: <Title> - <URL>"` |
 
 > **Key rule**: A `pytorch/pytorch` issue is only `Failures (xpu broken)` when it carries the `module: xpu` label. Without that label it is a stock/upstream failure that happens to affect XPU — use `Failures (stock broken)` so the two failure modes are clearly distinguished.
+
+#### DISABLED Issue Resolution (Closed `pytorch/pytorch` Issues)
+
+`pytorch/pytorch` uses a bot-managed system where flaky or broken tests are temporarily disabled by filing issues with the title format `DISABLED test_name (ClassName)`. When such an issue is **closed**, it means the bot re-enabled the test — but the test source code may still have an explicit skip decorator referencing a **different, still-active** issue.
+
+When you encounter a **closed** `pytorch/pytorch` issue whose title starts with `DISABLED`, apply this resolution procedure **before** returning the result:
+
+**Step 1 — Identify the base test name and class.**
+
+The DISABLED issue title format is: `DISABLED <test_name> (<module>.<ClassName>)`.
+
+- Extract `test_name` and `ClassName` from the title.
+- The `test_name` in the title is the **base name** (device/dtype suffixes are stripped). For example, a DISABLED issue for `test_bitwise_ops` covers all parametrized variants: `test_bitwise_ops_xpu`, `test_bitwise_ops_xpu_float32`, etc.
+- Use the input `test_name` to identify the matching method name in the test file. Strip device/dtype suffixes (e.g., `_xpu`, `_xpu_bfloat16`, `_xpu_float32`) to recover the base method name used in source.
+
+**Step 2 — Search the test source file for skip decorators.**
+
+Locate the relevant test file using the input `test_file` (e.g., `test/test_ops.py`, `test/test_decomp.py`). Then search that file for the base test method and any skip decorators applied to it:
+
+```bash
+# Find the test method definition and surrounding decorators
+grep -n "def <base_test_name>\|unittest\.skip\|skipIf\|skipUnless\|skip_but_pass_in_sandcastle\|skipIfXpu\|skipIfRocm\|skipIfTorchDynamo\|expectedFailure" \
+    /path/to/<test_file>.py | head -60
+
+# Also search for issue URLs near the test method
+grep -n "github\.com/[^/]*/[^/]*/issues/[0-9]" /path/to/<test_file>.py | head -40
+```
+
+Because `instantiate_device_type_tests` generates device-specific subclasses (e.g., `TestCommonXPU` from `TestCommon`), the skip decorator for an XPU test may be on the **base class method** in the upstream test file, not in the XPU-specific wrapper. Check both locations:
+1. The XPU test wrapper file referenced by `test_file` (e.g., `test/xpu/test_ops_xpu.py`)
+2. The upstream test file that the XPU wrapper imports (e.g., `test/test_ops.py`)
+
+**Step 3 — Evaluate the skip decorator.**
+
+After finding the test method's skip decorators, check whether any embed a GitHub issue URL:
+
+- **Skip decorator found with an issue URL**: Extract the issue URL (regex: `https://github\.com/[^/]+/[^/]+/issues/\d+`). Look up that issue with `gh issue view <number> --repo=<repo> --json title,state,labels,url`. Then classify using the **state and labels of that extracted issue**, not the original closed DISABLED issue.
+  - Return `issue_url` = the extracted issue's URL.
+  - Apply the standard `pytorch/pytorch` or `intel/torch-xpu-ops` classification table rows to the extracted issue.
+
+- **Skip decorator found with no issue URL** (e.g., `@unittest.skip("TODO: broken")`): The test is still explicitly skipped but there is no active tracking issue. Treat as `has_known_issue = False` — set `Reason = "Submit Issue"` and note in `DetailReason` that the test has a skip decorator without a linked issue.
+
+- **No skip decorator found on the test method**: The DISABLED issue is closed and the test code has no override skip — the fix landed and the test is active. Treat as `has_known_issue = False`, `Reason = "Submit Issue"`, `DetailReason = "DISABLED issue pytorch/pytorch#<number> is closed and no skip decorator found in source — test is active."`.
+
+**Summary table for closed DISABLED issues:**
+
+| Skip decorator in source? | Issue URL in decorator? | Extracted issue state | `has_known_issue` | `issue_url` | `Reason` / `DetailReason` |
+|---|---|---|---|---|---|
+| Yes | Yes | OPEN | `true` | Extracted issue URL | Classify by extracted issue's labels (standard table) |
+| Yes | Yes | CLOSED | `false` | — | `"Submit Issue"` / `"DISABLED issue closed; skip decorator references closed issue <URL> — test is blocked with no active tracker."` |
+| Yes | No | — | `false` | — | `"Submit Issue"` / `"Skip decorator present but no issue URL found; submit new issue."` |
+| No | — | — | `false` | — | `"Submit Issue"` / `"DISABLED issue pytorch/pytorch#<number> is closed and no skip decorator found — test is active."` |
 
 If `has_known_issue == False`:
 - `classification.Reason` = `"Submit Issue"`

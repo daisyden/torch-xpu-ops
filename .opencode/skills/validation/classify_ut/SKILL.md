@@ -162,7 +162,7 @@ Check whether the test is a not-target feature for XPU.
 ```python
 task(
     subagent_type="explore",
-    load_skills=["check_not_target_feature"],
+    load_skills=["check-not-target-feature"],
     description=f"Not-target check: {name_xpu}",
     prompt=f"Check if {name_xpu} in {classname_xpu} ({testfile_xpu}) is not-target for XPU. "
            f"Error message: {message_xpu}. "
@@ -188,7 +188,7 @@ The `check_community_change` skill requires a `PYTORCH_SRC` path (PyTorch source
 ```python
 task(
     subagent_type="explore",
-    load_skills=["check_community_change"],
+    load_skills=["check-community-change"],
     description=f"Community change check: {name_cuda}",
     prompt=f"Check community change for {name_cuda} in {class_name} (device=cuda). "
            f"Test file: {test_file}. "
@@ -226,7 +226,7 @@ Check whether a known issue exists for this test.
 ```python
 task(
     subagent_type="explore",
-    load_skills=["check_known_issue"],
+    load_skills=["check-known-issue"],
     description=f"Known issue check: {name_xpu}",
     prompt=f"Search known issues for {name_xpu} in {classname_xpu} ({testfile_xpu}). "
            f"CUDA source: {name_cuda} in {classname_cuda} ({testfile_cuda}). "
@@ -256,7 +256,7 @@ Delegate to the `check_enablement_feasibility` subskill to perform deep source c
 ```python
 task(
     subagent_type="explore",
-    load_skills=["check_enablement_feasibility"],
+    load_skills=["check-enablement-feasibility"],
     description=f"Enablement analysis: {name_xpu}",
     prompt=f"Analyze enablement feasibility for {name_xpu} in {classname_xpu} ({testfile_xpu}). "
            f"CUDA source: {name_cuda} in {classname_cuda} ({testfile_cuda}). "
@@ -354,8 +354,8 @@ Every step of the classification pipeline MUST produce persistent logs. No silen
    ```
    Example entries:
    ```
-   [2026-06-25 10:30:00] Gate 4 known-issue check | subagent: check_known_issue | task: test_comprehensive_nn_functional_adaptive_max_pool1d_xpu_bfloat16 | file_refs: test_decomp_xpu.py, intel/torch-xpu-ops#3890
-   [2026-06-25 10:35:00] Gate 1 not-target check | subagent: check_not_target_feature | task: test_streams_xpu | file_refs: test_streams_xpu.py
+   [2026-06-25 10:30:00] Gate 4 known-issue check | subagent: check-known-issue | task: test_comprehensive_nn_functional_adaptive_max_pool1d_xpu_bfloat16 | file_refs: test_decomp_xpu.py, intel/torch-xpu-ops#3890
+   [2026-06-25 10:35:00] Gate 1 not-target check | subagent: check-not-target-feature | task: test_streams_xpu | file_refs: test_streams_xpu.py
    [2026-06-25 11:00:00] Gate 0 local test run | subagent: N/A (script) | task: run_blank_test.py --output results.json | file_refs: test_logs/test_decomp_xpu.log
    [2026-06-25 11:30:00] Phase 4 write results | subagent: N/A (script) | task: write_results.py --merge | file_refs: agent_results.xlsx
    ```
@@ -429,7 +429,7 @@ Every step of the classification pipeline MUST produce persistent logs. No silen
 ## See Also
 
 - `run_blank_test.py` — Gate 0: runs blank `status_xpu` tests locally, marks passing tests as `Local Passed`
-- `check_not_target_feature` — Gate 1: determines if a test is CUDA-only / not applicable for XPU
-- `check_community_change` — Gate 2: determines if a test was removed/renamed upstream
-- `check_known_issue` — Gate 4: searches for known issues in pytorch/pytorch and intel/torch-xpu-ops
-- `check_enablement_feasibility` — Gate 5: deep source code analysis for skip mechanism and XPU enablement feasibility
+- `check-not-target-feature` — Gate 1: determines if a test is CUDA-only / not applicable for XPU
+- `check-community-change` — Gate 2: determines if a test was removed/renamed upstream
+- `check-known-issue` — Gate 4: searches for known issues in pytorch/pytorch and intel/torch-xpu-ops
+- `check-enablement-feasibility` — Gate 5: deep source code analysis for skip mechanism and XPU enablement feasibility
