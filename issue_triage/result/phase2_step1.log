@@ -1,7 +1,0 @@
-Traceback (most recent call last):
-  File "/home/daisyden/opencode/bug_scrub_verify/pytorch/third_party/torch-xpu-ops/.opencode/skills/bug_scrub/analyze_ci_result/test_cases/run_processor_steps.py", line 44, in <module>
-    _DEFAULT_ROOT = find_issue_triage_root(SCRIPT_DIR)
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/daisyden/opencode/bug_scrub_verify/pytorch/third_party/torch-xpu-ops/.opencode/skills/bug_scrub/analyze_ci_result/test_cases/run_processor_steps.py", line 40, in find_issue_triage_root
-    raise RuntimeError(f'Could not locate issue_triage root from {start}')
-RuntimeError: Could not locate issue_triage root from /home/daisyden/opencode/bug_scrub_verify/pytorch/third_party/torch-xpu-ops/.opencode/skills/bug_scrub/analyze_ci_result/test_cases
