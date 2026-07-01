@@ -93,7 +93,7 @@ for row in ws.iter_rows(min_row=2):
         continue
     write_by_name(ws, row_idx, "action_TBD", join_dedup(acts))
     write_by_name(ws, row_idx, "action_reason", join_dedup(rsns))
-    write_by_name(ws, row_idx, "owner_transferred", join_dedup(owns))
+    cell_by_name(ws, row_idx, "owner_transferred").value = join_dedup(owns)
     updated += 1
 
 # Any result not matched to an Excel row?
@@ -115,11 +115,37 @@ CARVE_OUT_VERB_FRAGMENTS = (
     "Verify fix from merged PR",
     "Close the fixed issue",
     "label_not_target_and_close",
+    "label not_target and close",
     "close_as_not_planned",
     "Confirm fix and close",
     "Reporter to verify the fix",
     "Reporter to re-investigate",
 )
+
+def _is_pure_carveout(act_value):
+    tokens = [t.strip() for t in (act_value or "").split("|") if t.strip()]
+    return bool(tokens) and all(
+        any(frag in tok for frag in CARVE_OUT_VERB_FRAGMENTS) for tok in tokens
+    )
+
+# INVARIANT (AGENT_INSTRUCTIONS.md v4.17): pure close/verify carve-out rows are
+# Reporter-owned even when an Assignee exists. Merge is authoritative here.
+carveout_reporter = []
+for row in ws.iter_rows(min_row=2):
+    row_idx = row[0].row
+    act = (cell_by_name(ws, row_idx, "action_TBD").value or "")
+    if not _is_pure_carveout(act):
+        continue
+    rep = (cell_by_name(ws, row_idx, "Reporter").value or "").strip()
+    if not rep:
+        continue
+    own = (cell_by_name(ws, row_idx, "owner_transferred").value or "").strip()
+    if own != rep:
+        write_by_name(ws, row_idx, "owner_transferred", rep)
+        carveout_reporter.append(cell_by_name(ws, row_idx, "Issue ID").value)
+if carveout_reporter:
+    print(f"invariant: set owner_transferred=Reporter on {len(carveout_reporter)} pure carve-out rows")
+    print(f"  IDs: {carveout_reporter[:20]}{'...' if len(carveout_reporter) > 20 else ''}")
 cleared = []
 reassigned = []
 for row in ws.iter_rows(min_row=2):
@@ -140,7 +166,7 @@ for row in ws.iter_rows(min_row=2):
         write_by_name(ws, row_idx, "owner_transferred", asg)
         reassigned.append(issue_id)
     else:
-        write_by_name(ws, row_idx, "owner_transferred", None)
+        cell_by_name(ws, row_idx, "owner_transferred").value = None
         cleared.append(issue_id)
 if reassigned:
     print(f"invariant: reassigned owner_transferred=Reporter -> Assignee on {len(reassigned)} non-carve-out rows")

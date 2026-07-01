@@ -1,5 +1,7 @@
 # Check XPU Test Case Existence Skill
 
+> **Base constraints**: This subskill is governed by [`../../base-constraints.md`](../../base-constraints.md) (C1 logs->agent_space, C2 ask-on-blocker, C3 background status, C4 no over-skip). They apply even when not restated here.
+
 ## Purpose
 Deep analysis of PyTorch XPU test case existence by tracing through code execution, comparing pytorch/test vs torch-xpu-ops/test/xpu, checking the daisyden/pytorch release/2.12 branch for distributed tests only, and examining parametrization infrastructure. Uses mandatory explore-agent assisted investigation and direct source/collection evidence, not scripts, filename patterns, or regex-only matching.
 

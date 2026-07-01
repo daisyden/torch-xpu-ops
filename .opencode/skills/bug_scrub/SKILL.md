@@ -10,6 +10,60 @@ description: Comprehensive workflow for triaging torch-xpu-ops issues through 5 
 >
 > All path examples in this document and its sub-skills use these variables; expand them before passing literal paths to shell commands.
 
+## Session Start (MANDATORY Prerequisites)
+
+Run these steps **once at the very beginning of every bug-scrub session**,
+before Phase 1.0 and before any phase reads or writes the workbook. They
+guarantee a clean, reproducible starting state.
+
+> Path note: `${TRIAGE_ROOT}` is `third_party/torch-xpu-ops/issue_triage`.
+> `agent_space` resolves to `${TRIAGE_ROOT}/../agent_space`
+> (i.e. `third_party/torch-xpu-ops/agent_space`); confirm at runtime via
+> `_common/paths.py` (`AGENT_SPACE`). `${TRIAGE_ROOT}/result` is git-tracked
+> by the `torch-xpu-ops` repo.
+
+1. **Clean `agent_space`.** Remove all scratch / phase working dirs so no
+   stale cache (phase4b/4d/4e PR-state caches, phase3 triage scratch,
+   `processor_output.txt`, etc.) leaks into the new run:
+
+   ```bash
+   rm -rf "${AGENT_SPACE:?}"/* 2>/dev/null || true
+   mkdir -p "${AGENT_SPACE}"
+   ```
+
+   Never carry an `agent_space` forward across sessions — stale 24h-TTL
+   caches there cause wrong PR/dependency verdicts.
+
+2. **Checkout a fresh `issue_triage/result`.** The `result/` folder is
+   git-tracked; restore it to its committed baseline so the session starts
+   from a known-good workbook + reports rather than a half-finished prior run:
+
+   ```bash
+   cd "$(git -C "${TRIAGE_ROOT}" rev-parse --show-toplevel)"
+   git checkout -- issue_triage/result
+   git clean -fd issue_triage/result   # drop untracked scratch backups
+   ```
+
+   This discards local modifications and untracked files under `result/`.
+   If a prior in-progress workbook must be kept, back it up **outside**
+   `result/` first. After this checkout, Phase 1 proceeds against the
+   committed baseline; the incremental-merge in Phase 1.1 still preserves
+   analysis columns from that baseline workbook.
+
+These two steps are non-negotiable: skipping them risks mixing stale
+analysis/caches into a fresh triage run.
+
+## Base Constraints (apply to ALL skills/subskills)
+
+[`base-constraints.md`](./base-constraints.md) defines constraints binding on
+this workflow **and every subskill** under it. Read it before running any
+phase. Summary:
+
+- **C1** - Save all command/test output to `${AGENT_SPACE}/logs/` (local tests must `tee`).
+- **C2** - Stop and ask the user on any critical blocker (broken test env, provider unreachable, missing inputs) - never silently skip.
+- **C3** - Any background session must report status to `${AGENT_SPACE}/logs/background_status.log`.
+- **C4** - Do not over-skip deep analysis or subagents; skipping is allowed ONLY via the explicit Incremental Mode skip rules or a documented flag.
+
 ## Overview
 Comprehensive workflow for triaging torch-xpu-ops issues through 5 phases,
 collecting AR (Action Required) data for each issue with deep analysis.
@@ -120,6 +174,9 @@ For each Issue/Case:
 ## Phase 1: Prepare Data
 
 ### 1.0 Test Environment Setup (PREREQUISITE)
+- **Precondition**: The [Session Start](#session-start-mandatory-prerequisites)
+  steps (clean `agent_space`, checkout fresh `issue_triage/result`) MUST have
+  run first.
 - **Skill**: `prepare_data/test-environment-setup/`
 - **Steps**:
   1. Activate conda env (`pytorch_opencode_env`)
@@ -441,6 +498,14 @@ canonical bucket-priority order: `Close/Skip`, `Need Owner`, `Land PR`,
 `Wait for PR`, `Need Response`, `Need check case existence`, `Verify`, plus an
 `UNCLASSIFIED` section for rows whose AR is empty (Phase 4 produced a
 verb but no bucket fired). Closed issues are excluded from Phase 5 reports.
+
+**Open-status source (v4.35)**: Phase 5 and Phase 5b determine which issues
+are open SOLELY from the workbook `Status` column (refreshed by Phase 1
+against live GitHub). They do NOT read any cached open-id list. A prior
+`result/open_issue_ids.json` cache was removed because a stale snapshot
+silently dropped every newly-opened issue (e.g. #4170 and ~120 others in one
+run) from the report even though the workbook `Status` was correct. If you
+find an `open_issue_ids.json` on disk, it is a leftover and is ignored.
 
 `AR` is multi-value (`; `-delimited), so an issue with `Need Owner;
 Need Response` appears in BOTH the `Need Owner` and `Need Response`
@@ -842,6 +907,10 @@ about D1/D2/D3 directly; it only needs to recognise the new verbs.
 ---
 
 ## Version
+v4.36 - July 1, 2026 - Phase 5b highlight generator now actually refreshes the markdown detail pages before embedding them. `gen_bug_scrub_highlight.py` embeds each `result/details/<id>.md` verbatim into a `<script id="md-{id}">` block, but it did NOT regenerate those files first — so it shipped whatever `details/*.md` happened to be on disk. After the v4.33 Session-Start `git checkout -- issue_triage/result`, those were the committed baseline detail pages containing shallow placeholder Root Cause / Fix Approach text (e.g. "Test case for test_ops_gradients_xpu is skipped due to XPU incompatibility or known failure" for 17 issues incl. #4102), even though the workbook and a fresh `gen_bug_scrub_md.py` run both had the detailed analysis. SKILL.md already claimed Phase 5b "re-runs gen_bug_scrub_md.py internally" but the code never did. Fix: added `_refresh_markdown_from_workbook()` to `main()` which subprocess-invokes `gen_bug_scrub_md.py` (it executes at import time, so it cannot be imported) before `load_issues`/`render_markdown_blocks`, regenerating `bug_scrub.md` + `details/*.md` from the current workbook. Re-rendered: shallow-phrase occurrences 17 -> 0; #4102 and the other 16 issues now show their real Root Cause/Fix Approach. This was a rendering-layer staleness bug, NOT a Phase 3 analysis defect (Phase 3 output in the workbook was correct throughout).
+v4.35 - July 1, 2026 - Phase 5 / 5b report generators no longer read a cached open-id list (`result/open_issue_ids.json`). Both `gen_bug_scrub_md.py` and `gen_bug_scrub_highlight.py` now derive open status SOLELY from the workbook `Status` column (the authoritative source refreshed by Phase 1). Root cause: the git-tracked `result/open_issue_ids.json` restored by the v4.33 Session-Start `git checkout -- issue_triage/result` step was a stale snapshot (267 ids, max #3810); because the generators prioritized that cache over the sheet `Status`, every issue opened after the snapshot (e.g. #4170 plus ~120 others, mostly #3811+) was silently dropped from the report even though `Status==open` was correct — the report showed 213 of ~330 open issues. Fix: removed `OPEN_IDS_CACHE`/`open_ids` gating from both generators (they now filter on `Status.lower()=="open"`), deleted the stale cache file, dropped the now-orphaned top-level `import json` in the md generator. Report re-rendered: 330 open issues (was 213), #4170 present; 3 sheet-open-but-now-closed issues (#2285/#2531/#2952) correctly excluded via the live Status. Also recreated the missing `agent_space/linkify_action_tbd.py` helper (bare `#N` -> `intel/torch-xpu-ops` per the PR-hyperlink spec) that both generators import.
+v4.34 - June 30, 2026 - Added `base-constraints.md` at the skill root: four constraints (C1 save all command/test output to `${AGENT_SPACE}/logs/` with local tests `tee`-ing; C2 stop-and-ask on any critical blocker - broken test env, unreachable provider, missing inputs - never silently skip; C3 background sessions report status to `${AGENT_SPACE}/logs/background_status.log`; C4 do not over-skip deep analysis/subagents, skipping allowed only via explicit Incremental Mode skip rules or documented flags). The main `SKILL.md` summarizes them in a new "Base Constraints" section, and all 16 subskills (`prepare_data/*`, `analyze_ci_result/*`, `analyze_issue/*`, `collect_AR/*`) carry a one-line breadcrumb to `../../base-constraints.md` right after their H1.
+v4.33 - June 30, 2026 - Added a mandatory "Session Start (MANDATORY Prerequisites)" block at the top of `SKILL.md` (before Overview): (1) clean `agent_space` (`rm -rf "${AGENT_SPACE}"/*` then recreate) so stale phase4b/4d/4e PR-state caches, phase3 triage scratch, and `processor_output.txt` never leak into a fresh run; (2) checkout a fresh git-tracked `issue_triage/result` (`git checkout -- issue_triage/result` + `git clean -fd`) so the session starts from a known-good committed baseline. Phase 1.0 now carries a precondition breadcrumb pointing to these steps. Rationale: prior sessions could mix stale 24h-TTL caches / half-finished workbooks into a new triage run.
 v4.32 - June 15, 2026 - Extracted Phase 1.0 (test environment setup) out of `prepare_data/issue-basic-info-extraction/SKILL.md` into a new standalone skill at `prepare_data/test-environment-setup/SKILL.md`. The content (conda env activation, `git pull` PyTorch + torch-xpu-ops, nightly XPU torch + pytorch-triton-xpu install, source-repo commit sync, version recording, and the PVC + Linux trust rule) is unchanged; only its location moved. All in-folder references were refreshed: this file's Phase 1.0 pointer, `analyze_ci_result/local-case-verification/SKILL.md` (4 pointers) and its `run_local_verification.py` (2 pointers). `issue-basic-info-extraction/SKILL.md` now carries a one-line prerequisite breadcrumb to the new skill.
 v4.31 - May 26, 2026 - Phase 4b **owner_transferred=Reporter invariant strengthened**. The prior invariant in `run_phase4b_merge.py` only cleared `owner_transferred==Reporter` for `"No action — investigate further"` rows where `Assignee` was empty. It missed 27 rows where `owner_transferred==Reporter` despite a non-empty `Assignee≠Reporter` and a non-carve-out verb (e.g. Land PR, Address CI, Wait for fix PR, Resolve review, @<user> response, Submit issue, reassess fix path). New invariant: when `owner==Reporter`, `Assignee≠Reporter` (non-empty), and the verb-token set is NOT purely carve-out (`Verify fix from merged PR`, `Close the fixed issue`, `label_not_target_and_close`, `close_as_not_planned`, `Confirm fix and close`, `Reporter to verify the fix`, `Reporter to re-investigate`) → overwrite with Assignee; if Assignee empty → clear. The legitimate case `Assignee==Reporter` is preserved untouched (the value is sourced from Assignee, not Reporter). Applied as one-shot cleanup: 27 rows reassigned to Assignee (#2888 Stonepia, #2783 daisyden, #1171 xuhancn/chunhuanMeng, ...), 2 rows cleared (#2605, #1996 — no Assignee), 40 rows left untouched (Assignee==Reporter). Phase 5 + 5b re-rendered.
 v4.30 - May 26, 2026 - Phase 1 **GitHub native `issueType` ingestion + Task exclusion**. Added `fetch_all_issue_types()` + `populate_issue_types()` to `generate_excel.py` (uses `gh api graphql` because REST does not expose `issueType`). New `GitHub Type` column (column L, between `Summary`/`Type` and `Module`) records the native value verbatim. Issues with `github_type == "Task"` are dropped at Phase 1 before row append, so they never appear in xlsx / md / html / details. Existing heuristic `Type` column (populated by `classify_issue_type`) is unchanged. Applied as one-shot cleanup: 12 Task issues removed (#3503, #3266, #3189, #3150, #2766, #2327, #2207, #2199, #2140, #2128, #2127, #2063), corresponding `result/details/*.md` deleted. xlsx 300→288 rows; md 281 open issues; html 281 cards. Phase 4d untouched (no AR redistribution needed — Task rows simply gone).

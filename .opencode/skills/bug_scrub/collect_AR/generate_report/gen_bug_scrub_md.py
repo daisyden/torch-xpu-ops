@@ -30,7 +30,6 @@ Usage:
 from __future__ import annotations
 
 import argparse
-import json
 import re
 import sys
 import textwrap
@@ -188,19 +187,17 @@ for iid, entries in tc_by_issue.items():
 rows = [row_dict(ws, row_idx) for row_idx in range(2, ws.max_row + 1)]
 print(f"loaded {len(rows)} rows")
 
-OPEN_IDS_CACHE = RESULT_DIR / "open_issue_ids.json"
-
 def _clean_pre(v) -> str:
     if v is None:
         return ""
     s = str(v).strip()
     return "" if s.lower() == "none" else s
 
-if OPEN_IDS_CACHE.exists():
-    open_ids = {int(x) for x in json.loads(OPEN_IDS_CACHE.read_text())}
-else:
-    open_ids = {int(r[C["Issue ID"]]) for r in rows
-                if _clean_pre(r[C["Status"]]).lower() == "open"}
+# Open status is derived ONLY from the workbook Status column (the
+# authoritative source refreshed by Phase 1). Never read a cached open-id
+# list: a stale cache silently drops newly-opened issues from the report.
+open_ids = {int(r[C["Issue ID"]]) for r in rows
+            if _clean_pre(r[C["Status"]]).lower() == "open"}
 rows = [r for r in rows if r[C["Issue ID"]] is not None
         and int(r[C["Issue ID"]]) in open_ids]
 print(f"filtered to {len(rows)} open issues")
