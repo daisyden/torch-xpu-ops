@@ -9,7 +9,14 @@ description: Deep analysis to determine if an upstream community change (removal
 Determine if a test failure is due to an upstream **community change** in `pytorch/pytorch` (e.g., base function deleted, renamed, or refactored) vs a local device gap.
 
 ## Inputs
-- `test_file`, `class_name`, `test_name`, `device` (default `"cuda"`), `PYTORCH_SRC`
+- `test_file`, `class_name`, `test_name`, `device` (default `"cuda"`), `PYTORCH_SRC`, `conda_env`
+
+`PYTORCH_SRC` is the `pytorch_folder` the calling agent already prepared; use it
+as given. **Do NOT set up or activate any environment** (no `setup_env.sh`).
+`conda_env` is the environment the caller established; the Step 3 Path A
+(`import torch` device check and `pytest --collect-only`) MUST run through it via
+`conda run -n "${conda_env}" ...`. If `conda_env` is not provided, skip Path A
+and use Path B (source inspection) directly.
 
 ## Output Format
 Return this JSON object:
@@ -31,6 +38,20 @@ Return this JSON object:
 ```
 
 ## Deep Analysis Workflow
+
+### 0. Export `PYTORCH_SRC`
+
+Before running any command below, export the caller-provided path so every
+`$PYTORCH_SRC` reference (and every `cd "$PYTORCH_SRC"`) resolves correctly. Do
+NOT set up or activate any environment:
+
+```bash
+export PYTORCH_SRC="<pytorch_folder the caller provided>"
+```
+
+If `PYTORCH_SRC` is unset when a command runs, `$PYTORCH_SRC/...` expands to an
+absolute path from filesystem root and silently matches nothing, and
+`cd "$PYTORCH_SRC"` would `cd` to `/`.
 
 ### 1. Mandatory Input Scrubbing
 - **Ignore** any pre-existing `Reason` or `DetailReason` from the input task. Do not carry them forward. Base your verdict strictly on local source and git history.
@@ -102,15 +123,18 @@ task(
   If merged, inspect `git show <commit_hash>`. Record the rename/removal. Verdict: **Community Change**.
 
 ### 3. Device Case Generation
-If the base function exists, does it generate the target device case? Check device availability:
+If the base function exists, does it generate the target device case? Check device availability (through the caller's env):
 ```bash
-python3 -c "import torch; print(torch.<device>.is_available())"
+conda run -n "${conda_env}" python3 -c "import torch; print(torch.<device>.is_available())"
 ```
+
+If `conda_env` is unavailable or `import torch` fails, skip Path A and go
+straight to Path B (source inspection).
 
 #### Path A: Device Available (`pytest --collect-only`)
 Authoritative ground truth. Run:
 ```bash
-cd "$PYTORCH_SRC" && python3 -m pytest "$test_file" --collect-only -q 2>/dev/null | grep "::${class_name}::"
+cd "$PYTORCH_SRC" && conda run -n "${conda_env}" python3 -m pytest "$test_file" --collect-only -q 2>/dev/null | grep "::${class_name}::"
 ```
 - **Exact match found:** Not a community change.
 - **Similar name found:** Renamed -> **Community Change**.

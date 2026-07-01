@@ -20,7 +20,7 @@ When the target device (like CUDA or XPU) is unavailable on the local machine, `
 | `class_name` | str | **Yes** | The test class name (e.g., `TestFoo`). |
 | `target_device` | str | **Yes** | The device suffix to check (e.g., `"cuda"`, `"xpu"`). |
 | `test_name` | str | **Yes** | The full expected test name (e.g., `test_foo_cuda_float32`). |
-| `PYTORCH_SRC` | str | **Yes** | Absolute path to the `pytorch/pytorch` checkout. |
+| `PYTORCH_SRC` | str | **Yes** | Absolute path to the `pytorch/pytorch` checkout. This is the `pytorch_folder` the calling agent already prepared; use it as given. Do NOT set up or activate any environment. |
 
 ## Output
 
@@ -42,6 +42,19 @@ Return a JSON object containing the reconstructed generation state:
 ```
 
 ## Workflow
+
+### B.0 Export `PYTORCH_SRC`
+
+Before running any command below, export the caller-provided path so the
+`$PYTORCH_SRC` references in the subsequent `grep`/`sed` commands expand
+correctly. Do NOT set up or activate any environment:
+
+```bash
+export PYTORCH_SRC="<pytorch_folder the caller provided>"
+```
+
+If `PYTORCH_SRC` is unset when a command runs, `$PYTORCH_SRC/...` expands to an
+absolute path from filesystem root and silently matches nothing.
 
 ### B.1 Check `instantiate_device_type_tests`
 

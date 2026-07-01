@@ -15,10 +15,16 @@ Results written to results.json can be fed into write_results.py for Excel outpu
 Usage:
     python3 run_blank_test.py <tasks.json> [--output results.json] [--log-dir test_logs]
                              [--timeout SECONDS] [--env CONDA_ENV_NAME]
+                             [--pytorch-root DIR]
+
+    --pytorch-root DIR  Directory that relative test files are resolved against
+                        and that pytest runs in. Defaults to the PYTORCH_FOLDER
+                        environment variable, or the current directory if unset.
 
 Examples:
     python3 run_blank_test.py tasks.json --output results.json
     python3 run_blank_test.py tasks.json --output results.json --timeout 300
+    python3 run_blank_test.py tasks.json --pytorch-root "$HOME/daisy_pytorch"
 """
 
 import json
@@ -131,6 +137,7 @@ def main():
     log_dir = "test_logs"
     test_timeout = 300
     conda_env = None
+    pytorch_root = os.environ.get("PYTORCH_FOLDER") or os.getcwd()
 
     i = 2
     while i < len(sys.argv):
@@ -146,9 +153,18 @@ def main():
         elif sys.argv[i] == "--env" and i + 1 < len(sys.argv):
             conda_env = sys.argv[i + 1]
             i += 2
+        elif sys.argv[i] == "--pytorch-root" and i + 1 < len(sys.argv):
+            pytorch_root = sys.argv[i + 1]
+            i += 2
         else:
             print(f"Unknown flag: {sys.argv[i]}", file=sys.stderr)
             sys.exit(1)
+
+    pytorch_root = os.path.abspath(pytorch_root)
+    if not os.path.isdir(pytorch_root):
+        print(f"[error] --pytorch-root not a directory: {pytorch_root}", file=sys.stderr)
+        sys.exit(1)
+    print(f"PyTorch root: {pytorch_root}")
 
     with open(tasks_path) as f:
         data = json.load(f)
@@ -242,14 +258,18 @@ def main():
             # Use XPU names for the -k filter (tests are _xpu not _cuda)
             filter_name = t.get("name_xpu", name)
             filter_cls = t.get("classname_xpu", cls_name)
-            test_path = os.path.abspath(tf) if os.path.isabs(tf) else os.path.join(os.getcwd(), tf)
+            test_path = os.path.abspath(tf) if os.path.isabs(tf) else os.path.join(pytorch_root, tf)
 
             if not os.path.exists(test_path):
                 print(f"  SKIP {name} - file not found: {test_path}")
                 results_per_test[name] = {"passed": False, "reason": "file_not_found"}
                 continue
 
-            pypath = f"PYTHONPATH={os.getcwd()}" if os.getenv("PYTHONPATH") else ""
+            run_env = os.environ.copy()
+            existing_pp = run_env.get("PYTHONPATH", "")
+            run_env["PYTHONPATH"] = (
+                pytorch_root + os.pathsep + existing_pp if existing_pp else pytorch_root
+            )
 
             base = [sys.executable]
             if conda_env:
@@ -286,7 +306,7 @@ def main():
                 try:
                     r = subprocess.run(
                         cmd_list, capture_output=True, text=True,
-                        timeout=test_timeout, cwd=os.getcwd()
+                        timeout=test_timeout, cwd=pytorch_root, env=run_env
                     )
                 except subprocess.TimeoutExpired:
                     elapsed = time.time() - start

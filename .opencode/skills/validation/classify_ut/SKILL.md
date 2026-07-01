@@ -19,7 +19,7 @@ If the spreadsheet already contains `testfile_xpu`, `classname_xpu`, `name_xpu` 
 The workflow reuses already-analyzed results when possible (same class + similar error message), avoiding redundant work. For new rows, it runs a decision cascade:
 
 0. **Local test run** (for `status_xpu` blank only)? → `Local Passed` (if test passes locally)
-1. Is it a **not-target feature**? → `Not Applicable`
+1. Is it a **not-target feature**? → `Not Applicable` (the not-target check returns `false` for any missing file/method so the row falls through to Gate 2; it also deterministically backfills a tracking issue link into the evidence when one exists)
 2. Does it have a **community change**? → `Community Change`
 3. Is `status_xpu` blank? → `To be enabled`
 4. Is there a **known issue**? → `Failures (xpu broken)` / `Feature gap` / `To be enabled`
@@ -43,7 +43,7 @@ The script writes a new sheet (default name `"agent"`) to a standalone Excel fil
 | Column | Description |
 |--------|-------------|
 | `Analyzed` | `TRUE` / `FALSE`. Whether the row was classified. |
-| `Reason` | Classification result: `Not Applicable`, `Community Change`, `To be enabled`, `Failures (xpu broken)`, `Feature gap`, or `Submit Issue`. |
+| `Reason` | Classification result: `Not Applicable`, `Community Change`, `To be enabled`, `Failures (xpu broken)`, `Feature gap`, `Submit Issue`, or `Submit PR`. `Submit PR` is set in Phase 4 when the submit-ut-issues agent fixes a test-code bug and submits a PR; `Submit Issue` when an issue is filed (or submission was skipped). |
 | `DetailReason` | Evidence string explaining the classification. |
 | `ReuseSource` | If the result was reused from another row, the `name_cuda` of the source row. Else `""`. |
 | `Confidence` | `High` if `DetailReason` contains exact evidence (commit hash, issue/PR URL), otherwise `Medium`. Auto-computed by the write script. |
@@ -64,9 +64,10 @@ This skill uses three companion scripts, all located in the sibling `scripts/` d
 
 | Script | Purpose | Workspace-relative path |
 |--------|---------|------------------------|
-| `extract_tasks.py` | Reads the Excel, deduplicates rows, outputs `tasks.json` | `.opencode/skills/torch-xpu-ops-validation/scripts/extract_tasks.py` |
-| `run_blank_test.py` | Runs `status_xpu` blank test cases locally; marks passing tests as `Local Passed` | `.opencode/skills/torch-xpu-ops-validation/scripts/run_blank_test.py` |
-| `write_results.py` | Takes classification results and writes the `"agent"` sheet | `.opencode/skills/torch-xpu-ops-validation/scripts/write_results.py` |
+| `extract_tasks.py` | Reads the Excel, deduplicates rows, outputs `tasks.json` | `.opencode/skills/validation/scripts/extract_tasks.py` |
+| `run_blank_test.py` | Runs `status_xpu` blank test cases locally; marks passing tests as `Local Passed` | `.opencode/skills/validation/scripts/run_blank_test.py` |
+| `attach_not_target_evidence.py` | Deterministic bounded lookup that finds a tracking issue (closed `not_target` / open `skipped`) for a `Not Applicable` test and returns its link | `.opencode/skills/validation/scripts/attach_not_target_evidence.py` |
+| `write_results.py` | Takes classification results and writes the `"agent"` sheet | `.opencode/skills/validation/scripts/write_results.py` |
 
 Run all script commands from the **workspace root** (the repository checkout directory). Do not `cd` into subdirectories.
 
@@ -79,7 +80,7 @@ The classification proceeds in three phases using the scripts for Excel I/O and 
 Run `extract_tasks.py` to read the Excel, deduplicate, and output `tasks.json`:
 
 ```bash
-python3 .opencode/skills/torch-xpu-ops-validation/scripts/extract_tasks.py <excel_path> [sheet_name] > tasks.json
+python3 .opencode/skills/validation/scripts/extract_tasks.py <excel_path> [sheet_name] > tasks.json
 ```
 
 The script outputs a JSON object with:
@@ -101,10 +102,13 @@ The script outputs a JSON object with:
 Before running the cascade, run blank `status_xpu` test cases locally. If a test passes locally, it is `Local Passed` and skips all further classification.
 
 ```bash
-# Run from workspace root with a conda environment that has PyTorch installed
+# Run from workspace root with a conda environment that has PyTorch installed.
+# --pytorch-root points at the pytorch checkout the tests live in (the folder
+# prepared by setup_env.sh); it defaults to $PYTORCH_FOLDER or the cwd.
 mkdir -p agent_space/test_logs
-python3 .opencode/skills/torch-xpu-ops-validation/scripts/run_blank_test.py tasks.json \
-    --output results.json --log-dir agent_space/test_logs --env <conda_env_name> --timeout 300
+python3 .opencode/skills/validation/scripts/run_blank_test.py tasks.json \
+    --output results.json --log-dir agent_space/test_logs --env <conda_env_name> --timeout 300 \
+    --pytorch-root <pytorch_folder>
 ```
 
 **Behavior**:
@@ -128,13 +132,7 @@ python3 .opencode/skills/torch-xpu-ops-validation/scripts/run_blank_test.py task
 
 For each row not yet classified (not `Local Passed`), run the decision cascade. Each check is a **hard gate** — if the condition is met, classification stops and the result is recorded.
 
-> **IMPORTANT — Cascade is mandatory for every unclassified task**: Tasks not marked `Local Passed` must still run the cascade. The `Reason` and `DetailReason` fields in the `tasks.json` input may contain pre-populated values from a prior run. **These are NOT valid classification results.** The orchestrator MUST run the full cascade (Gates 1-4 via subagents) for every task in the `tasks` array. Only rows in `already_resolved` (Analyzed=TRUE or deduplicated) may bypass the cascade via Step 0 reuse.
-
-> **IMPORTANT — `--filter-*` flags are post-hoc only**: The `--filter-reason` and `--filter-detailreason` flags on `extract_tasks.py` exist for extracting a subset of already-classified rows for review. They MUST NOT be used as a classification shortcut. If you use them to select rows, you MUST still run the full cascade on those rows. "I already know the result" is not valid — the subagents determine the result.
-
-> **IMPORTANT — Cascade is mandatory for every task**: The `Reason` and `DetailReason` fields in the `tasks.json` input may contain pre-populated values from a prior run. **These are NOT valid classification results.** The orchestrator MUST run the full cascade (Gates 1-4 via subagents) for every task in the `tasks` array. Only rows in `already_resolved` (Analyzed=TRUE or deduplicated) may bypass the cascade via Step 0 reuse.
-
-> **IMPORTANT — `--filter-*` flags are post-hoc only**: The `--filter-reason` and `--filter-detailreason` flags on `extract_tasks.py` exist for extracting a subset of already-classified rows for review. They MUST NOT be used as a classification shortcut. If you use them to select rows, you MUST still run the full cascade on those rows. "I already know the result" is not valid — the subagents determine the result.
+> **IMPORTANT — Cascade is mandatory for every unclassified task**: Tasks not marked `Local Passed` must still run the cascade. The `Reason` and `DetailReason` fields in the `tasks.json` input may contain pre-populated values from a prior run. **These are NOT valid classification results.** The orchestrator MUST run the full cascade (Gates 1-4 via subagents) for every task in the `tasks` array. Only rows in `already_resolved` (Analyzed=TRUE or deduplicated) may bypass the cascade via Step 0 reuse. The `--filter-reason`/`--filter-detailreason` flags on `extract_tasks.py` are post-hoc row-selection only — never a classification shortcut; rows they select still require the full cascade.
 
 > **Confidence**: `Confidence` is auto-computed by `write_results.py` based on whether `DetailReason` contains exact evidence (commit hash, issue/PR URL, PR reference). To produce `High` confidence, include specific, verifiable evidence in every `DetailReason`. Vague statements without references result in `Medium`.
 
@@ -155,141 +153,136 @@ This catches cases where `Phase 1` deduplication did not fire (messages were sim
 
 ---
 
-#### Gate 1: Not Target
+#### Gates 1, 2, 4, 5: Delegated Checks
 
-Check whether the test is a not-target feature for XPU.
+Gates 1, 2, 4, and 5 each delegate to a subskill via a common template, then map
+its verdict to a `Reason`/`DetailReason`. **Gate 3 is a direct check (no
+delegation) — see below.** Run the gates in strict order; each is a hard gate
+(stop the cascade the moment one fires). Gate 5 is entered only from Gate 4.
 
-```python
-task(
-    subagent_type="explore",
-    load_skills=["check-not-target-feature"],
-    description=f"Not-target check: {name_xpu}",
-    prompt=f"Check if {name_xpu} in {classname_xpu} ({testfile_xpu}) is not-target for XPU. "
-           f"Error message: {message_xpu}. "
-           f"Return verdict, evidence, and confidence."
-)
-```
-
-**If `is_not_target == True`**:
-- `Reason = "Not Applicable"`
-- `DetailReason = "<reasoning> (Evidence: <evidence joined>)"`
-- Stop cascade for this row.
-
-**If `is_not_target == False`** → proceed to Gate 2.
-
----
-
-#### Gate 2: Community Change
-
-Check whether the test has a community change (upstream removal/rename).
-
-The `check_community_change` skill requires a `PYTORCH_SRC` path (PyTorch source checkout) to inspect test files and git history. Provide it when available; if omitted, the skill may fall back to less authoritative checks.
+**Canonical delegation template** (fill in the per-gate `load_skills`, `identifiers`, and `extra prompt` from the table):
 
 ```python
 task(
     subagent_type="explore",
-    load_skills=["check-community-change"],
-    description=f"Community change check: {name_cuda}",
-    prompt=f"Check community change for {name_cuda} in {class_name} (device=cuda). "
-           f"Test file: {test_file}. "
-           f"First check if CUDA is available. If yes, use --collect-only (Path A). "
-           f"If not, use source inspection (Path B)."
+    load_skills=[<skill>],
+    description=f"<gate> check: {name_xpu}",
+    prompt=f"<identifiers>. Error message: {message_xpu}. <extra prompt> "
+           f"Return the subskill's verdict JSON."
 )
 ```
 
-**If `community_change == True`**:
-- `Reason = "Community Change"`
-- `DetailReason = classification.detail_reason` (from check_community_change output)
-- Stop cascade for this row.
+| Gate | `load_skills` | Identifiers to pass | Extra prompt |
+|------|---------------|---------------------|--------------|
+| 1 Not Target | `check-not-target-feature` | `{name_xpu}` in `{classname_xpu}` (`{testfile_xpu}`) | `PYTORCH_SRC={pytorch_folder}.` |
+| 2 Community Change | `check-community-change` | `{name_cuda}` in `{classname_cuda}` (`{testfile_cuda}`), device=cuda | `PYTORCH_SRC={pytorch_folder}. conda_env={conda_env}. If CUDA is available use --collect-only (Path A, via conda run -n {conda_env}); else use source inspection (Path B).` |
+| 4 Known Issue | `check-known-issue` | `{name_xpu}` in `{classname_xpu}` (`{testfile_xpu}`), CUDA source `{name_cuda}` in `{classname_cuda}` (`{testfile_cuda}`) | (none) |
+| 5 Enablement | `check-enablement-feasibility` | `{name_xpu}` in `{classname_xpu}` (`{testfile_xpu}`), CUDA source `{name_cuda}` in `{classname_cuda}` (`{testfile_cuda}`) | `PYTORCH_SRC={pytorch_folder}. conda_env={conda_env}. status_xpu: {status_xpu}. Return enablement verdict, skip mechanism, and required changes.` |
 
-**If `community_change == False`** → proceed to Gate 3.
+Gates 1 and 4 do no environment-dependent execution (static source/git
+inspection and `gh` issue search only), so they are not passed `conda_env`.
+Gates 2 and 5 may run `pytest`/`import torch` in the caller's env, so they
+receive `conda_env={conda_env}` and must invoke Python via
+`conda run -n {conda_env} ...` rather than a bare `python3`.
+
+**Verdict mapping** (on the flagged verdict, set `Reason`/`DetailReason` and STOP the cascade; otherwise fall through as shown):
+
+| Gate | Verdict field | On TRUE → `Reason` / `DetailReason` | On FALSE → next |
+|------|---------------|--------------------------------------|-----------------|
+| 1 | `is_not_target` | `Not Applicable` / `"<reasoning> (Evidence: <evidence joined>)"` | Gate 2 |
+| 2 | `community_change` | `Community Change` / `classification.detail_reason` | Gate 3 |
+| 4 | `has_known_issue` | use subskill's `classification.Reason` and `classification.DetailReason` verbatim | see Gate 4 note |
+| 5 | `enablement_feasible` | `To be enabled` / `classification.DetailReason` | `Submit Issue` / `classification.DetailReason` |
+
+**Gate 1 note**: the `check-not-target-feature` skill's Step 6 deterministically backfills a tracking issue link (e.g. `intel/torch-xpu-ops#4179`) into `evidence` when one exists, so `Not Applicable` verdicts carry a supporting link without a separate orchestrator step.
+
+**Gate 4 — MANDATORY, no shortcut**: Every row that reaches Gate 4 (`not_target == False`, `community_change == False`, `status_xpu` non-blank) MUST have the `check-known-issue` delegation actually executed and its output recorded in `agent_space/gate4_known_issue.json`. You may NOT infer `has_known_issue = False` from an earlier gate's reasoning, prior triage text, or "it looks like a failure" — the only valid source is a real `check-known-issue` result for that row. Applying the `has_known_issue == False` default without a delegation is a hard violation. Before Phase 5, assert every such row has an entry in `gate4_known_issue.json`; if any is missing, run Gate 4 for it before writing. When `has_known_issue == False`: if `status_xpu == "skipped"` → proceed to **Gate 5**; otherwise (`"failed"`/other non-blank) → `Reason = "Submit Issue"`, `DetailReason = "No known issue found in pytorch/pytorch or intel/torch-xpu-ops for this test. Submit a new issue with the error details."`, stop.
+
+**Gate 5 — entry, nuance, logging**: Enter only when `has_known_issue == False` AND `status_xpu == "skipped"`. If the subskill output contains verification evidence (e.g. "Verified: test passes on XPU after removing @skipXPU"), include it in `DetailReason`. **"Verified passing" does NOT make it `Local Passed`** — `Local Passed` is only for tests that pass with NO code changes; any test needing a change (removing a skip, editing the harness) to pass is `To be enabled` with the verification documented in `DetailReason`. Save the subskill output to `agent_space/gate5_enablement.json` (appended per batch) and log the delegation to `agent_space/session_log.txt`.
 
 ---
 
-#### Gate 3: status_xpu Blank
+#### Gate 3: status_xpu Blank (direct check, no delegation)
 
-Check the `status_xpu` value for this row.
-
-**If `status_xpu` is blank/empty**:
-- `Reason = "To be enabled"`
-- `DetailReason = "status_xpu is blank — no known status. Awaiting enablement."`
-- Stop cascade for this row.
-
-**If `status_xpu` is NOT blank** → proceed to Gate 4.
+- **If `status_xpu` is blank/empty**: `Reason = "To be enabled"`, `DetailReason = "status_xpu is blank — no known status. Awaiting enablement."`, stop.
+- **If `status_xpu` is NOT blank** → proceed to Gate 4.
 
 ---
 
-#### Gate 4: Known Issue
+### Phase 4: Hand Off `Submit Issue` Rows to the submit-ut-issues Agent
 
-Check whether a known issue exists for this test.
+Run this **before** the Excel write (Phase 5) so any returned PR/issue links
+are written into `results.json` and land in the output in a single pass.
+
+Collect every classified row whose `Reason == "Submit Issue"`. If there are
+none, skip this phase and go to Phase 5.
+
+If there is at least one, invoke the dedicated `submit-ut-issues` agent. The
+agent attempts a test-code fix (submitted as a **PR**) or files an **issue**,
+and **requires explicit user confirmation before creating any PR or issue** —
+classify-ut never files anything itself and never approves on the user's behalf.
 
 ```python
 task(
-    subagent_type="explore",
-    load_skills=["check-known-issue"],
-    description=f"Known issue check: {name_xpu}",
-    prompt=f"Search known issues for {name_xpu} in {classname_xpu} ({testfile_xpu}). "
-           f"CUDA source: {name_cuda} in {classname_cuda} ({testfile_cuda}). "
-           f"Error message: {message_xpu}."
+    subagent_type="submit-ut-issues",
+    description=f"Submit handoff for {len(submit_rows)} Submit Issue rows",
+    prompt=(
+        "Input mode: from classify-ut. "
+        f"Reuse this session's environment (do NOT bootstrap): "
+        f"conda_env={conda_env}, pytorch_folder={pytorch_folder}. "
+        "The following rows were classified as "
+        "'Submit Issue' (no known issue, not enablable). For each row, either "
+        "(a) fix a genuine test-code bug and submit the fix as a PR, or "
+        "(b) file an issue to intel/torch-xpu-ops for an infra/backend failure. "
+        "Group rows that share an error signature; cross-reference existing "
+        "issues/PRs to avoid duplicates; present every PR/issue draft for the "
+        "user's per-item approval and do NOT submit without it. "
+        "Return the JSON array defined by the Return Contract (one entry per "
+        "row with outcome=pr|issue|skipped and the url).\n\n"
+        f"Rows (JSON): {submit_rows_json}"
+    )
 )
 ```
 
-**If `has_known_issue == True`**:
-- Use the `Reason` and `DetailReason` provided directly in the subskill's output (`classification.Reason` and `classification.DetailReason`).
-- Stop cascade for this row.
+`conda_env` and `pytorch_folder` are the session values established in the
+Execution preamble (Step 0); passing them lets the submit-ut-issues agent reuse
+the exact same environment and checkout instead of bootstrapping its own.
 
-**If `has_known_issue == False`**:
-- If `status_xpu == "skipped"`, proceed to **Gate 5 (Enablement Analysis)** below.
-- Otherwise (`status_xpu` is `"failed"` or another non-blank value):
-  - `Reason = "Submit Issue"`
-  - `DetailReason = "No known issue found in pytorch/pytorch or intel/torch-xpu-ops for this test. Submit a new issue with the error details."`
-  - Stop cascade for this row.
+`submit_rows_json` is the list of Submit Issue rows, each carrying
+`name_cuda`, `classname_cuda`, `testfile_cuda`, `name_xpu`, `classname_xpu`,
+`testfile_xpu`, `message_xpu`, and `status_xpu`. The CUDA identity fields are
+included so the agent can key its return entries back to the exact rows.
 
----
+**Apply the returned results to `results.json`** (matched by CUDA identity):
 
-#### Gate 5: Enablement Analysis for Skipped Tests
+| Agent `outcome` | `Reason` | `DetailReason` |
+|---|---|---|
+| `pr` | `Submit PR` | `"Fix submitted: <url>"` (the PR link) |
+| `issue` | `Submit Issue` | `"Issue submitted: <url>"` (the issue link) |
+| `skipped` | `Submit Issue` (unchanged) | keep prior DetailReason; append `"(submission skipped: <summary>)"` |
 
-Enter this gate only when `has_known_issue == False` AND `status_xpu == "skipped"`.
+`write_results.py` auto-computes `Confidence = High` when `DetailReason`
+contains a GitHub issue/PR URL, so filed rows are upgraded automatically.
 
-Delegate to the `check_enablement_feasibility` subskill to perform deep source code analysis:
+**Logging**: Append the handoff to `agent_space/session_log.txt`
+(`subagent: submit-ut-issues | task: submit N rows | file_refs: <urls>`) and
+save the agent's returned JSON array to
+`agent_space/phase5_submit_issues.json`.
 
-```python
-task(
-    subagent_type="explore",
-    load_skills=["check-enablement-feasibility"],
-    description=f"Enablement analysis: {name_xpu}",
-    prompt=f"Analyze enablement feasibility for {name_xpu} in {classname_xpu} ({testfile_xpu}). "
-           f"CUDA source: {name_cuda} in {classname_cuda} ({testfile_cuda}). "
-           f"Error message: {message_xpu}. "
-           f"status_xpu: {status_xpu}. "
-           f"Return JSON with enablement verdict, skip mechanism, and required changes."
-)
-```
-
-**If `enablement_feasible == True`**:
-- `Reason = "To be enabled"`
-- `DetailReason = classification.DetailReason` (from the subskill output)
-- If the subskill output contains verification evidence (e.g., "Verified: test passes on XPU after removing @skipXPU"), include it in the DetailReason.
-- **Important**: "Verified passing" does NOT make it `Local Passed`. `Local Passed` is only for tests that pass WITH NO code changes. If a test requires any code change (removing a skip, modifying the test harness, etc.) to pass, it is `To be enabled` — with the verification result documented in `DetailReason`.
-- Stop cascade for this row.
-
-**If `enablement_feasible == False`**:
-- `Reason = "Submit Issue"`
-- `DetailReason = classification.DetailReason` (from the subskill output)
-- Stop cascade for this row.
-
-**Logging**: Save the subskill output to `agent_space/gate5_enablement.json` (appended per batch). Log the delegation to `agent_space/session_log.txt`.
+This phase is **draft-and-confirm only**: the agent must not create any PR or
+issue without the user approving each draft. classify-ut's role ends at routing
+the rows, recording the outcome links, and updating `Reason`/`DetailReason`.
 
 ---
 
-### Phase 4: Write Results to Excel
+## Phase 5: Write Results to Excel
 
 `write_results.py` has two modes. Choose based on whether the output file already exists.
 
 **BUILD (first run — output file does not exist yet):**
 
 ```bash
-python3 .opencode/skills/torch-xpu-ops-validation/scripts/write_results.py <excel_path> results.json [sheet_name] --output_sheet=agent --output-excel=agent_results.xlsx
+python3 .opencode/skills/validation/scripts/write_results.py <excel_path> results.json [sheet_name] --output_sheet=agent --output-excel=agent_results.xlsx
 ```
 
 Reads the original input sheet, appends columns `Analyzed`, `Reason`, `DetailReason`, `ReuseSource`, `Confidence`, and writes a fresh `agent` sheet to the standalone `--output-excel` file. Per row: classified rows get `Analyzed = TRUE` with their `Reason`/`DetailReason`/`ReuseSource`; rows already `Analyzed = TRUE` in the *input* sheet are carried over; everything else gets `Analyzed = FALSE`.
@@ -297,7 +290,7 @@ Reads the original input sheet, appends columns `Analyzed`, `Reason`, `DetailRea
 **MERGE (incremental run — output file already exists, e.g. an accumulator):**
 
 ```bash
-python3 .opencode/skills/torch-xpu-ops-validation/scripts/write_results.py --merge results.json --output_sheet=agent --output-excel=agent_results.xlsx
+python3 .opencode/skills/validation/scripts/write_results.py --merge results.json --output_sheet=agent --output-excel=agent_results.xlsx
 ```
 
 Updates the existing `--output-excel` file in place, touching ONLY the rows present in `results.json` (matched by CUDA identity: `testfile_cuda`/`classname_cuda`/`name_cuda`, falling back to `name_cuda` alone). Every other row — including rows analyzed by previous runs — is left untouched. Rows already `Analyzed = TRUE` are skipped unless `--force` is passed.
@@ -312,35 +305,27 @@ Both modes **auto-compute `Confidence`** (`High` if `DetailReason` matches exact
 
 ## Execution
 
-Load this skill to orchestrate the full classification. The agent follows this workflow directly:
+Load this skill to orchestrate the full classification. Run the phases in order;
+each command and its details live in the referenced Workflow/Phase section above
+(do not duplicate them here).
 
-1. Run Phase 1:
-   ```
-   python3 .opencode/skills/torch-xpu-ops-validation/scripts/extract_tasks.py <excel_path> [sheet_name] > tasks.json
-   ```
-2. **(New) Run Phase 2 — Local Test (Gate 0)**:
-   ```
-   mkdir -p agent_space/test_logs
-   python3 .opencode/skills/torch-xpu-ops-validation/scripts/run_blank_test.py tasks.json \
-       --output results.json --log-dir agent_space/test_logs --env <conda_env>
-   ```
-   This runs all `status_xpu` blank tests locally. Passing tests get `Reason = "Local Passed"` and skip the cascade.
-3. For each remaining task (not `Local Passed`) in `results.json`, run the decision cascade:
-   - **Gate 1**: Pass XPU identifiers (`name_xpu`, `classname_xpu`, `testfile_xpu`). Determine if the XPU test is a not-target feature.
-   - **Gate 2**: Pass CUDA identifiers (`name_cuda`, `classname_cuda`, `testfile_cuda`). Check if the upstream CUDA test was removed/renamed (which also affects the XPU variant).
-   - **Gate 3**: Check `status_xpu` value directly from the task data.
-       - **Gate 4**: Pass XPU identifiers (`name_xpu`, `classname_xpu`, `testfile_xpu`) plus the CUDA source references. Search for known issues related to the XPU failure.
-    - **Gate 5** (only if `has_known_issue == False` AND `status_xpu == "skipped"`): Deep source code analysis to check XPU enablement feasibility. If feasible → `To be enabled` with enablement method; if not → `Submit Issue`.
-4. Accumulate all results (already_resolved + Local Passed + newly classified tasks) into `results.json`.
-5. Run Phase 4. If the `--output-excel` accumulator does not exist yet, BUILD it:
-   ```
-   python3 .opencode/skills/torch-xpu-ops-validation/scripts/write_results.py <excel_path> results.json [sheet_name] --output_sheet=agent --output-excel=agent_results.xlsx
-   ```
-   If it already exists (incremental run adding to a prior accumulator), MERGE in place so earlier rows are preserved:
-   ```
-   python3 .opencode/skills/torch-xpu-ops-validation/scripts/write_results.py --merge results.json --output_sheet=agent --output-excel=agent_results.xlsx
-   ```
-6. Report summary statistics: rows total, deduplicated, local passed, classified per Reason category.
+0. **Session setup — establish `conda_env` and `pytorch_folder` once.** Read them
+   from the request; default to `pytorch_opencode_env` and `$HOME/daisy_pytorch`.
+   Verify the conda env imports torch with XPU and that `<pytorch_folder>/.git`
+   exists. If either is missing/broken — whether or not it was explicitly
+   provided — bootstrap it once via
+   `bash .opencode/skills/validation/scripts/setup_env.sh nightly <conda_env> <pytorch_folder>`
+   (creates the env with `python=3.10` and clones pytorch when absent). Create
+   exactly the requested names; do NOT abort or switch. Then
+   `export PYTORCH_FOLDER=<pytorch_folder>`, reuse both values for every step, and
+   pass them to the submit-ut-issues agent in Phase 4.
+1. **Phase 1** — `extract_tasks.py` → `tasks.json` (see Phase 1).
+2. **Phase 2 / Gate 0** — `run_blank_test.py --env <conda_env> --pytorch-root <pytorch_folder>`; passing tests get `Local Passed` and skip the cascade (see Phase 2).
+3. **Phase 3 cascade** — for each non-`Local Passed` row, run Step 0 reuse then Gates 1→2→3→4→5 in strict order (see Phase 3). Pass XPU identifiers to Gates 1/4/5 (with `PYTORCH_SRC=<pytorch_folder>` for Gates 1/2/5) and CUDA identifiers to Gate 2. Also pass `conda_env=<conda_env>` to Gates 2 and 5 (they may run `import torch` / `pytest`); Gates 1 and 4 need no env (static inspection / `gh` only).
+4. Accumulate all results (already_resolved + Local Passed + newly classified) into `results.json`.
+5. **Phase 4 — Submit handoff (BEFORE the Excel write)** — route any `Reason == "Submit Issue"` rows to the `submit-ut-issues` agent and map returned outcomes back into `results.json` (see Phase 4).
+6. **Phase 5 — Write Results** — BUILD if the `--output-excel` accumulator does not exist yet, else MERGE in place (see Phase 5).
+7. Report summary statistics: rows total, deduplicated, local passed, classified per Reason category (including `Submit PR` and `Submit Issue`).
 
 ## Constraints
 
@@ -367,8 +352,10 @@ Every step of the classification pipeline MUST produce persistent logs. No silen
    - `agent_space/gate2_community_change.json` — combined results of all community change checks
    - `agent_space/gate4_known_issue.json` — combined results of all known issue searches
    - `agent_space/gate5_enablement.json` — combined results of all enablement analyses
+   - `agent_space/na_evidence_backfill.json` — tracking-issue link lookups performed by the `check-not-target-feature` skill's Step 6 backfill for `Not Applicable` verdicts (matched issue link per row, or empty result)
    - `agent_space/phase1_dedup.json` — output of `extract_tasks.py`
    - `agent_space/phase4_write.log` — output of `write_results.py`
+   - `agent_space/phase5_submit_issues.json` — submit-ut-issues agent return array (per-row `outcome`=`pr`/`issue`/`skipped` with PR/issue URLs) for `Submit Issue` rows
 
 2. **Detailed pytest logs for local tests (Gate 0)**: When running `run_blank_test.py`, ensure `--log-dir` points to `agent_space/test_logs/`. Every pytest run MUST produce a per-file log saved to this directory. These logs are the sole evidence for `Local Passed` classification. A `run_summary.log` MUST also be written.
 
@@ -400,31 +387,37 @@ Every step of the classification pipeline MUST produce persistent logs. No silen
 ### Classification Constraints
 
 8. **Gate 0 (Local Test) runs before the cascade**: Always run `run_blank_test.py` before Gate 1. Tests that pass locally (`Local Passed`) skip Gates 1–5 entirely. Only tests that fail/skip/time out locally proceed to the cascade. This saves classification effort for working tests.
-9. **Gate order is strict**: Always check `not_target` before `community_change`, and `community_change` before `status_xpu`. Breaking the order can produce wrong classifications.
+9. **Gate order is strict**: Always check `not_target` before `community_change`, and `community_change` before `status_xpu`. Breaking the order can produce wrong classifications. A removed test file/method is handled by Gate 1 returning `false` (never `Not Applicable`) so the row falls through to Gate 2, whose deterministic file-existence fast path classifies it as `Community Change`.
 10. **Deduplication is a speed optimization, not a classification shortcut**: Only reuse results from rows with the same class AND similar error message. Do not reuse across unrelated tests.
-11. **Scripts handle all Excel I/O**: The agent should never manipulate Excel cells directly. Always use `.opencode/skills/torch-xpu-ops-validation/scripts/extract_tasks.py` and `.opencode/skills/torch-xpu-ops-validation/scripts/write_results.py`.
+11. **Scripts handle all Excel I/O**: The agent should never manipulate Excel cells directly. Always use `.opencode/skills/validation/scripts/extract_tasks.py` and `.opencode/skills/validation/scripts/write_results.py`.
 12. **Open issues with `skipped` label are treated as failures**: A skipped test is a broken test — classify as `Failures (xpu broken)`, not `To be enabled`.
-13. **Closed issues with `not_target`/`wontfix` override Gate 1**: If Gate 1 said "not not-target" but Gate 4 finds a CLOSED `not_target` issue, the `not_target` label is authoritative. Reclassify as `Not Applicable`.
-14. **`Submit Issue` means manual intervention**: These rows require a human to file a new issue. The agent should not auto-file.
+13. **Closed issues with `not_target`/`wontfix` override Gate 1**: If Gate 1 said "not not-target" but Gate 4 finds a CLOSED `not_target` issue, the `not_target` label is authoritative. Reclassify as `Not Applicable`. Conversely, every `Not Applicable` verdict MUST carry a supporting GitHub issue link when one exists — the `check-not-target-feature` skill's Step 6 backfills this deterministically (via `attach_not_target_evidence.py`). Do not leave a `Not Applicable` row for a `skipped`/`failed` test without an issue link unless that deterministic `not_target`/`skipped` body search genuinely returned no match.
+14. **`Submit Issue` rows are routed to the submit-ut-issues agent (Phase 4), which may resolve them as a PR or an issue, confirm-gated**: classify-ut hands all `Submit Issue` rows to the `submit-ut-issues` agent BEFORE the Excel write. The agent fixes test-code bugs as a **PR** or files an **issue**, and returns a link per row. classify-ut records the link in `DetailReason` and sets `Reason = "Submit PR"` (PR returned) or `Reason = "Submit Issue"` (issue returned, or submission skipped). classify-ut itself MUST NOT file anything, and the agent MUST NOT create any PR/issue without explicit per-item user approval. No silent auto-filing.
 15. **Never modify the original sheet**: Always write to the output sheet name (default `"agent"`).
-16. **All commands run from workspace root**: All script invocations use absolute (workspace-relative) paths. Do not `cd` into subdirectories before running scripts.
-17. **`--filter-reason` and `--filter-detailreason` are post-hoc only**: These flags select rows by their OUTPUT classification columns. They MUST NOT be used as a classification shortcut. If you use them for subset extraction, you MUST still run the cascade via subagents on those rows. The pre-populated Reason/DetailReason values are from a prior run — cascade results override them.
-18. **Ignore pre-populated Reason/DetailReason in task data**: The `tasks` array entries may contain `Reason` and `DetailReason` from a previous run. Do not copy them to the output. Always run the cascade gates (via subagents for Gates 1, 2, 4; directly for Gate 3). The `already_resolved` array handles all legitimate reuses.
-19. **Task data fields not to be read during classification**: During Phase 2 cascade processing, treat `Reason` and `DetailReason` as write-only outputs. Read `testfile_cuda`, `classname_cuda`, `name_cuda`, `testfile_xpu`, `classname_xpu`, `name_xpu`, `message_xpu`, and `status_xpu`. Ignore all other fields. Use XPU fields for Gate 1 and Gate 4; use CUDA fields for Gate 2.
-20. **Mandatory Evidence in DetailReason**: The `DetailReason` MUST contain explicit evidence to support the classification. For `check_known_issue`, this means a valid GitHub Issue URL or number. For `check_community_change`, this means a commit hash or PR number where the change occurred. For `check_not_target_feature`, list the corresponding `intel/torch-xpu-ops` `not_target`/`wontfix` issue number (e.g., `intel/torch-xpu-ops#3127`) whenever one exists; otherwise cite a specific code snippet (e.g., an `@onlyCUDA` decorator at `file:line`) or API documentation reference. Vague statements without evidence are invalid.
-21. **Never rebuild over an existing accumulator**: When `--output-excel` already contains analyzed rows from prior runs, use `--merge` (not a plain BUILD) so those rows are preserved. A plain BUILD is only for creating the file the first time. The script enforces this (BUILD aborts rather than discarding prior `Analyzed = TRUE` rows), but choose the correct mode up front. For unambiguous merge matching, every `results.json` entry MUST carry `testfile_cuda`, `classname_cuda`, and `name_cuda`.
-22. **Gate 5 (Enablement Analysis) is only for skipped tests**: Only enter Gate 5 when `has_known_issue == False` AND `status_xpu == "skipped"`. Non-skipped tests (e.g. `status_xpu == "failed"`) without a known issue go directly to `Submit Issue` — do NOT run Gate 5 on them.
+16. **All commands run from workspace root**: All script invocations use absolute (workspace-relative) paths. Do not `cd` into subdirectories before running scripts. Note: `run_blank_test.py` still runs pytest inside the pytorch checkout internally via `--pytorch-root` — you pass that folder as a flag, you do not `cd` into it.
+17. **Ignore pre-populated Reason/DetailReason; `--filter-*` is post-hoc only**: The `tasks` array entries may carry `Reason`/`DetailReason` from a prior run — these are NOT valid results. Do not copy them to the output; always run the cascade gates (subagents for Gates 1, 2, 4; directly for Gate 3). `already_resolved` handles all legitimate reuses. The `--filter-reason`/`--filter-detailreason` flags select rows by their OUTPUT columns for subset extraction only; rows they select still require the full cascade.
+18. **Task data fields not to be read during classification**: During Phase 2 cascade processing, treat `Reason` and `DetailReason` as write-only outputs. Read `testfile_cuda`, `classname_cuda`, `name_cuda`, `testfile_xpu`, `classname_xpu`, `name_xpu`, `message_xpu`, and `status_xpu`. Ignore all other fields. Use XPU fields for Gate 1 and Gate 4; use CUDA fields for Gate 2.
+19. **Mandatory Evidence in DetailReason**: Every `DetailReason` MUST contain explicit, verifiable evidence (GitHub issue/PR URL or number, commit hash, or a specific `file:line` code citation) as required by each gate's own section. Vague statements without evidence are invalid.
+20. **Never rebuild over an existing accumulator**: When `--output-excel` already contains analyzed rows from prior runs, use `--merge` (not a plain BUILD) so those rows are preserved. A plain BUILD is only for creating the file the first time. The script enforces this (BUILD aborts rather than discarding prior `Analyzed = TRUE` rows), but choose the correct mode up front. For unambiguous merge matching, every `results.json` entry MUST carry `testfile_cuda`, `classname_cuda`, and `name_cuda`.
+21. **Gate 5 (Enablement Analysis) is only for skipped tests**: Only enter Gate 5 when `has_known_issue == False` AND `status_xpu == "skipped"`. Non-skipped tests (e.g. `status_xpu == "failed"`) without a known issue go directly to `Submit Issue` — do NOT run Gate 5 on them.
 
 ## Version
 
+- v3.5.5 - 2026-07-01 - Aligned the `PYTORCH_SRC` and `conda_env` contracts across the cascade (no logic change to gate order/verdicts). **PYTORCH_SRC**: Gate 5 now passes `PYTORCH_SRC={pytorch_folder}` (previously omitted, so enablement ran against cwd); downstream skills referencing `$PYTORCH_SRC` in shell (`check-not-target-feature`, `check-community-change`, `check-community-change-source-inspection`) each begin with an explicit `export PYTORCH_SRC=...` step so the variable expands; `check-enablement-feasibility` input renamed `pytorch_src` → `PYTORCH_SRC` and given an export/path-resolution step. **conda_env**: the delegated-checks table now passes `conda_env={conda_env}` to Gates 2 and 5 (the only gates that run `import torch`/`pytest`); Gate 2's Step 3 Path A device check and `pytest --collect-only` now run via `conda run -n {conda_env}` instead of a bare `python3` (a missing env previously made Path A silently fall through to Path B source inspection). Gates 1 and 4 remain env-free (static inspection / `gh` only).
+- v3.5.4 - 2026-07-01 - Documentation-only slimming (no logic change): consolidated the four near-identical delegated-gate sections (Gates 1, 2, 4, 5) into a single "Delegated Checks" section with one canonical `task(...)` template plus a per-gate delegation table (skill, identifiers, extra prompt) and a verdict-mapping table; kept the non-templatable rules as callouts (Gate 1 Step-6 backfill, Gate 4 MANDATORY-no-shortcut + fallthrough, Gate 5 entry/nuance/logging). Gate 3 (direct check) split into its own short section. Normalized Gate 2's prompt identifiers to `{classname_cuda}`/`{testfile_cuda}` and added the `PYTORCH_SRC` the skill already required. Gate order, identifiers, verdict fields, and all Reason/DetailReason mappings are unchanged.
+- v3.5.3 - 2026-07-01 - Documentation-only slimming (no logic change): removed duplicated Phase 3 IMPORTANT callouts and merged the `--filter-*` rule into the cascade callout; shrank the Execution section to an ordered checklist that points to the Workflow phases instead of re-listing every bash command; merged Constraints 17+18 (pre-populated Reason / `--filter-*`) into one and trimmed Constraint 20 (Mandatory Evidence) to a pointer, renumbering the trailing constraints; removed a duplicate v2.1.0 version entry.
+- v3.5.2 - 2026-07-01 - Removed Gate 0.7 (deterministic bash existence pre-check). The missing-test → Community Change decision is now handled purely by the cascade: `check-not-target-feature` returns `is_not_target=false` for any missing file/method (enforced by its strengthened Missing-Test Guard), so the row falls through to Gate 2, whose Step 1.5 file-existence fast path classifies it as `Community Change`. Removed the Gate 0.7 section, Gate 1 precondition, Execution bullet, `gate07_existence.json` log entry, and reverted Constraint 9.
+- v3.5.1 - 2026-07-01 - Moved the "Not Applicable Evidence Backfill" logic out of the orchestrator and into the `check-not-target-feature` skill's Step 6, so the tracking-issue link (`attach_not_target_evidence.py`) is attached inside Gate 1 whenever it returns `Not Applicable`. Removed the standalone backfill subsection and Execution bullet; Gate 1 handling, Purpose cascade, and Constraint 13 now reference the skill-owned backfill.
+- v3.5.0 - 2026-07-01 - Added the non-terminal "Not Applicable Evidence Backfill" (via new `attach_not_target_evidence.py`) that appends a tracking-issue link (e.g. `intel/torch-xpu-ops#4179`) to `Not Applicable` verdicts lacking one, without changing the verdict. (Note: this version also added a Gate 0.7 existence pre-check that was subsequently removed in v3.5.2.)
+- v3.4.0 - 2026-06-30 - Submit handoff now runs as Phase 4 (BEFORE the Excel write, which becomes Phase 5) so returned links land in `results.json` in one pass. The `submit-ut-issues` agent returns a per-row outcome (`pr`/`issue`/`skipped`) with a link; classify-ut records the link in `DetailReason` and sets `Reason = "Submit PR"` (test-code fix submitted as a PR) or `Reason = "Submit Issue"` (issue filed). Updated Constraint 14, Execution steps 5-7, and See Also.
+- v3.3.0 - 2026-06-30 - Added Phase 5: `Submit Issue` rows are routed to the `submit-ut-issues` agent to prepare confirm-gated GitHub issue drafts. Reworded Constraint 14 from "no auto-file" to "agent-assisted, confirm-gated filing" (classify-ut never files; agent never POSTs without per-issue user approval). Added `phase5_submit_issues.json` log and `submit-ut-issues` See Also entry.
 - v3.2.0 - 2026-06-25 - Extracted Gate 5 into standalone `check_enablement_feasibility` subskill with JSON output. Gate 5 now delegates to subagent instead of inline analysis. Added logging & audit trail constraints (0-3), fatal error handling constraints (4-7). Added `check_enablement_feasibility` to See Also. Renumbered constraints 0-15 → 8-22.
 - v3.1.0 - 2026-06-25 - Added Gate 5 (Enablement Analysis for Skipped Tests). Skipped tests (`status_xpu = "skipped"`) without a known issue now undergo deep source code analysis to determine XPU enablement feasibility. Feasible tests get `Reason = "To be enabled"` with the enablement method; infeasible tests get `Reason = "Submit Issue"`. Updated description, Purpose cascade, Gate 4, Execution workflow, Constraints 0 and 15.
 - v3.0.0 - 2026-06-17 - Added Gate 0 (Local Test) via `run_blank_test.py`. Blank `status_xpu` tests are run locally before the cascade. Passing tests get `Reason = "Local Passed"` and skip further classification. Added `run_blank_test.py` script and updated workflow Phases (2→local test, 3→cascade, 4→write results). New Constraint 0.
 - v2.3.0 - 2026-06-14 - `check_not_target_feature`: require listing the corresponding `intel/torch-xpu-ops` `not_target`/`wontfix` issue number in `evidence` whenever one exists (new Step 6 "Attach Issue Number" + Strict Constraint 6), even for verdicts reached via the Not-Applicable sheet (Step 3) or implementation analysis (Step 5). Updated Constraint 13 to prefer issue numbers for not_target evidence.
 - v2.2.0 - 2026-06-14 - Added incremental `--merge` mode to `write_results.py` for safely updating an existing accumulator in place (only touches rows in `results.json`, preserves all prior rows). Added a destructive-rebuild guard (BUILD aborts rather than discarding prior `Analyzed = TRUE` rows; override with `--force`), automatic `.bak` backup on in-place writes, and ambiguity detection. Documented BUILD vs MERGE in Phase 3 and added Constraint 14.
 - v2.1.0 - 2026-06-10 - Added Constraint 10-12: explicit rules against using `--filter-reason`/`--filter-detailreason` as classification shortcut, ignoring pre-populated Reason/DetailReason in tasks, and restricting readable task fields. Added IMPORTANT callouts at Phase 2 entry. Added WARNING stderr messages in `extract_tasks.py` for `--filter-reason`/`--filter-detailreason` to discourage misuse.
-- v2.1.0 - 2026-06-10 - Added Constraint 10-12: explicit rules against using `--filter-reason`/`--filter-detailreason` as classification shortcut, ignoring pre-populated Reason/DetailReason in tasks, and restricting readable task fields. Added IMPORTANT callouts at Phase 2 entry.
-- v2.0.0 - 2026-06-10 - Rewritten: fixed script paths to `.opencode/skills/torch-xpu-ops-validation/scripts/`, removed Phase 0 conda setup (Intel-specific infra), removed `PYTORCH_SRC` default, removed local system dependencies.
+- v2.0.0 - 2026-06-10 - Rewritten: adjusted script paths, removed Phase 0 conda setup (Intel-specific infra), removed `PYTORCH_SRC` default, removed local system dependencies.
 
 ## See Also
 
@@ -433,3 +426,4 @@ Every step of the classification pipeline MUST produce persistent logs. No silen
 - `check-community-change` — Gate 2: determines if a test was removed/renamed upstream
 - `check-known-issue` — Gate 4: searches for known issues in pytorch/pytorch and intel/torch-xpu-ops
 - `check-enablement-feasibility` — Gate 5: deep source code analysis for skip mechanism and XPU enablement feasibility
+- `submit-ut-issues` (agent) — Phase 4: fixes test-code bugs as a confirm-gated PR or files a confirm-gated issue for `Submit Issue` rows, returning the link recorded in `DetailReason` (`Reason` becomes `Submit PR` or `Submit Issue`)

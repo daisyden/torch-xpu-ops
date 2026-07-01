@@ -16,7 +16,14 @@ Determine whether a skipped test (`status_xpu = "skipped"`) can be enabled on XP
 - `class_name_cuda` — CUDA test class name (e.g. `TestDecompCUDA`)
 - `error_message` — The XPU error message or traceback (if available)
 - `status_xpu` — Must be `"skipped"`
-- `pytorch_src` — Path to pytorch source root (optional; if not provided, fall back to searching the local checkout)
+- `PYTORCH_SRC` — Absolute path to the pytorch source root. This is the
+  `pytorch_folder` the calling agent already prepared; use it as given. **Do NOT
+  set up or activate any environment** (no `setup_env.sh`). If omitted, fall back
+  to the caller's checkout / current directory. All `test_file` / `test_file_cuda`
+  inputs are relative to this root; export it and resolve paths against it before
+  running the commands below.
+- `conda_env` — The env the calling agent established; use it (e.g. via
+  `conda run -n "${conda_env}" pytest ...`) for any verification run.
 
 ## Output Format
 Return this JSON object:
@@ -50,6 +57,21 @@ Return this JSON object:
 ```
 
 ## Deep Analysis Workflow
+
+### 0. Export `PYTORCH_SRC` and resolve paths
+
+Export the caller-provided path once so path resolution is unambiguous, then
+resolve the (relative) `test_file` / `test_file_cuda` inputs against it. Do NOT
+set up or activate any environment:
+
+```bash
+export PYTORCH_SRC="<pytorch_folder the caller provided>"   # falls back to cwd if unset
+test_file="$PYTORCH_SRC/${test_file}"
+test_file_cuda="$PYTORCH_SRC/${test_file_cuda}"
+```
+
+All `grep`/search commands below assume `${test_file}` / `${test_file_cuda}`
+have been resolved to absolute paths under `$PYTORCH_SRC`.
 
 ### 1. Mandatory Input Scrubbing
 - **Ignore** any pre-existing `Reason` or `DetailReason` from the task input. Do not carry them forward.

@@ -41,7 +41,46 @@ Return this JSON object:
 - **Ignore** any pre-existing `Reason` or `DetailReason` from the task input. Do not carry them forward.
 - Base your search strictly on the provided test metadata and error message.
 
-### 2. Primary Path: Parallel Issue Search via `gh search issues`
+### 1.5. MANDATORY Deterministic Pass (run FIRST, before any heuristic search)
+
+Empirically, GitHub's `gh search issues` does NOT tokenize compound identifiers:
+searching an operator substring like `adaptive_max_pool1d` returns nothing, while
+searching the FULL test name or the class name reliably finds the issue. Skip-tracking
+issues (`label:skipped`) list their covered cases verbatim in the issue BODY in the form
+`op_ut,<dotted.module.path>.<ClassName>,<full_test_name>`. This pass matches that body
+text deterministically so detection does not depend on query phrasing or ranking.
+
+Run ALL of the following unconditionally (do NOT skip based on earlier hits):
+
+```bash
+# A) Full-test-name search — the most reliable gh query (matches body verbatim).
+gh search issues "<full_test_name> is:issue" --repo=intel/torch-xpu-ops --limit=20 --json=number,title,state,labels,url
+gh search issues "<full_test_name> is:issue" --repo=pytorch/pytorch --limit=20 --json=number,title,state,labels,url
+
+# B) Class-name search — reliable when the exact test name is body-only.
+gh search issues "<class_name> is:issue" --repo=intel/torch-xpu-ops --limit=20 --json=number,title,state,labels,url
+
+# C) Unconditional label:skipped body scan on intel/torch-xpu-ops.
+#    Dump ALL open skipped issues WITH BODIES, then string-match locally for the
+#    full test name AND the class name. This is the deterministic anchor.
+gh issue list --repo=intel/torch-xpu-ops --label skipped --state open --limit 200 \
+    --json number,title,state,labels,url,body
+```
+
+**Deterministic match rule (no judgment):** For every issue body returned by (A), (B),
+or (C), test whether it contains the literal `<full_test_name>` string (case-insensitive),
+OR a line matching `,<class_name>,<full_test_name>` (the `op_ut,...` skip-list format).
+If EITHER matches:
+- Set `has_known_issue = True`, `relevance = "HIGH"`.
+- `match_evidence = "Deterministic body match: issue body contains literal '<full_test_name>'"`.
+- Proceed directly to **Step 5 (Classification Synthesis)** using that issue's state/labels.
+- Do NOT run the heuristic fallback — the deterministic match wins.
+
+If NONE of (A), (B), (C) yields a literal match, fall through to the heuristic search
+(Steps 2-4) below, which uses agent judgment for fuzzier matches (error snippets,
+related operators, DISABLED-issue resolution).
+
+### 2. Fallback Path: Parallel Issue Search via `gh search issues` (heuristic + agent judgment)
 Extract precise keywords from the inputs (e.g., test name, operator name, class name, error snippet).
 Launch parallel `gh search issues` commands across **both** repos.
 
@@ -80,9 +119,9 @@ wait
 - Did the command exit with code 0? (check `$?` or whether output is valid JSON)
 - Is the output an empty array `[]` (no results found)?
 
-If ANY of the `gh search issues` commands returned empty (zero results) or HTTP error, do NOT conclude "no issue exists". The GH search API has poor body-text indexing and may miss issues where the test name only appears in the body. Proceed to the **Fallback Path** below for deeper search.
+If ANY of the `gh search issues` commands returned empty (zero results) or HTTP error, do NOT conclude "no issue exists". The GH search API has poor body-text indexing and may miss issues where the test name only appears in the body. Proceed to the **Web-Fetch Fallback** below for deeper search.
 
-### 3. Fallback Path: Web-Fetch Direct Issue Listing
+### 3. Web-Fetch Fallback: Direct Issue Listing
 
 If the primary search returned empty results (or HTTP error), you MUST use `webfetch` as a fallback. GitHub's issue search is index-based; direct URL queries can still find issues that the search API missed.
 
@@ -142,7 +181,7 @@ For each page fetched, carefully scan the issue titles listed. If none match, mo
 **IMPORTANT**: `webfetch` returns rendered HTML as text. Search the returned text for the test name, class name, and key error terms using Python string matching or regex. If the page lists issue entries (which it will when results are found), each entry typically contains the issue title, labels, and a snippet.
 
 ### 4. Deep Context Matching
-For the most promising search results (from either primary or fallback path), fetch the full issue body to verify context:
+For the most promising search results (from the deterministic pass or either heuristic path), fetch the full issue body to verify context:
 
 Primary path:
 ```bash
@@ -242,7 +281,7 @@ If `has_known_issue == False`:
 - `classification.Reason` = `"Submit Issue"`
 - `classification.DetailReason` = `"No known issue found in pytorch/pytorch or intel/torch-xpu-ops for this test. Submit a new issue with the error details."`
 
-**IMPORTANT**: After exhausting all search strategies (primary + fallback A/B/C), if you genuinely found no matching issue, set `has_known_issue = False`. Be thorough — the goal is to avoid duplicate issue reporting.
+**IMPORTANT**: After exhausting all search strategies (deterministic pass 1.5 + heuristic fallback A/B/C), if you genuinely found no matching issue, set `has_known_issue = False`. Be thorough — the goal is to avoid duplicate issue reporting.
 
 ## Strict Constraints (ZERO TOLERANCE)
 
@@ -251,5 +290,6 @@ If `has_known_issue == False`:
 3. **Tool Preference**: Use `bash` (with `gh` CLI) as your primary tool. Prefer `webfetch` over `websearch` for fallback because `webfetch` retrieves a specific known URL with deterministic results, whereas `websearch` uses opaque search indexing that may miss body-level content.
 4. **No Blind Copies**: Output `DetailReason` MUST NOT simply repeat the input's `DetailReason`.
 5. **No Excel Reads**: Never read the input Excel file directly. Rely only on the passed task parameters.
-6. **Search Must Actually Succeed Before Concluding 'No Results'**: If both primary and fallback paths fail or produce no parseable output, the skill MUST report an error rather than returning `has_known_issue = False` with certainty. Use `has_known_issue = False` with `confidence = "Low"` and note in `DetailReason` which search methods failed.
+6. **Search Must Actually Succeed Before Concluding 'No Results'**: If both the deterministic pass and heuristic fallback fail or produce no parseable output, the skill MUST report an error rather than returning `has_known_issue = False` with certainty. Use `has_known_issue = False` with `confidence = "Low"` and note in `DetailReason` which search methods failed.
 7. **Extract Inline Issue URLs from Error Messages**: Before running any search, scan the `error_message` input for GitHub issue URLs matching `github.com/([^/]+)/([^/]+)/issues/(\d+)`. If found, look them up with `gh issue view` and verify relevance. This is the FASTEST and most reliable signal — the error message itself may contain the exact issue URL. Do NOT skip this step even if search results are empty.
+8. **Deterministic Pass Is Mandatory**: You MUST execute Step 1.5 (full-test-name search, class-name search, and the unconditional `label:skipped` body dump) on EVERY invocation. Never emit `has_known_issue = False` for a `failed`/`skipped` test without having run the Step 1.5 `gh issue list --label skipped --state open ... --json ...,body` dump and locally string-matched the full test name and class name against every returned body. Returning "Submit Issue / no known issue" without this deterministic pass is a hard violation.
