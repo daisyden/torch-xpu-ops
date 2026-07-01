@@ -1,5 +1,7 @@
 # Download CI Results Skill
 
+> **Base constraints**: This subskill is governed by [`../../base-constraints.md`](../../base-constraints.md) (C1 logs->agent_space, C2 ask-on-blocker, C3 background status, C4 no over-skip). They apply even when not restated here.
+
 Downloads latest completed CI artifacts from torch-xpu-ops and stock pytorch xpu workflows.
 
 ## Base Path Reference

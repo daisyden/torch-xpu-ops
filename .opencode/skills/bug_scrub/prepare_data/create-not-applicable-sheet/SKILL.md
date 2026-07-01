@@ -1,5 +1,7 @@
 # Create Not Applicable Sheet
 
+> **Base constraints**: This subskill is governed by [`../../base-constraints.md`](../../base-constraints.md) (C1 logs->agent_space, C2 ask-on-blocker, C3 background status, C4 no over-skip). They apply even when not restated here.
+
 ## Base Path Reference
 
 Relative paths from this file location

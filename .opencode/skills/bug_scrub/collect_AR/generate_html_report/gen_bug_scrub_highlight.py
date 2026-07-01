@@ -21,6 +21,7 @@ from __future__ import annotations
 import html
 import json
 import re
+import subprocess
 import sys
 from collections import Counter, defaultdict
 from datetime import datetime, timezone, timedelta
@@ -39,7 +40,6 @@ if _MARKED_LIB_SRC.exists():
 
 XLSX_PATH = RESULT_DIR / "torch_xpu_ops_issues.xlsx"
 HTML_PATH = RESULT_DIR / "bug_scrub_highlight.html"
-OPEN_IDS_CACHE = RESULT_DIR / "open_issue_ids.json"
 # Maps issue id -> close timestamp for issues dropped from the visible report.
 # These feed the open-over-time trend (so closures show up) without appearing
 # in the table/filters.
@@ -162,9 +162,9 @@ def load_issues(xlsx_path: Path) -> list[dict]:
         s = str(v).strip()
         return "" if s.lower() == "none" else s
 
-    open_ids: set[int] | None = None
-    if OPEN_IDS_CACHE.exists():
-        open_ids = {int(x) for x in json.loads(OPEN_IDS_CACHE.read_text())}
+    # Open status is derived ONLY from the workbook Status column (the
+    # authoritative source refreshed by Phase 1). Never read a cached open-id
+    # list: a stale cache silently drops newly-opened issues from the report.
 
     issues = []
     for r in range(2, ws.max_row + 1):
@@ -174,9 +174,7 @@ def load_issues(xlsx_path: Path) -> list[dict]:
         if not iid:
             continue
         iid_int = int(iid)
-        if open_ids is not None and iid_int not in open_ids:
-            continue
-        if open_ids is None and g(row_vals, "Status").lower() != "open":
+        if g(row_vals, "Status").lower() != "open":
             continue
         action_tbd = g(row_vals, "action_TBD")
         # Full untruncated text lives in the openpyxl Comment on the
@@ -1883,6 +1881,29 @@ def _load_subset_ids(path: Path) -> set[int]:
             if (s := line.strip())}
 
 
+def _refresh_markdown_from_workbook() -> None:
+    # Regenerate result/bug_scrub.md + result/details/*.md from the current
+    # workbook before embedding them, so the HTML never ships stale detail
+    # pages (e.g. shallow Root Cause / Fix Approach left over from an earlier
+    # committed baseline). gen_bug_scrub_md.py runs at import time, so it must
+    # be invoked as a subprocess rather than imported.
+    md_gen = THIS.parents[1] / "generate_report" / "gen_bug_scrub_md.py"
+    if not md_gen.exists():
+        print(f"WARN: md generator not found at {md_gen}; "
+              f"embedding existing details/*.md", file=sys.stderr)
+        return
+    result = subprocess.run(
+        [sys.executable, str(md_gen)],
+        capture_output=True, text=True, check=False,
+    )
+    if result.returncode != 0:
+        print(f"WARN: md refresh failed (rc={result.returncode}); "
+              f"embedding existing details/*.md\n{result.stderr[-500:]}",
+              file=sys.stderr)
+    else:
+        print("refreshed bug_scrub.md + details/*.md from workbook")
+
+
 def main(argv: list[str] | None = None) -> int:
     import argparse
     parser = argparse.ArgumentParser(
@@ -1904,6 +1925,8 @@ def main(argv: list[str] | None = None) -> int:
     if not XLSX_PATH.exists():
         print(f"ERROR: missing {XLSX_PATH}", file=sys.stderr)
         return 2
+
+    _refresh_markdown_from_workbook()
 
     issues = load_issues(XLSX_PATH)
     closed_trend = load_closed_trend_issues(XLSX_PATH)

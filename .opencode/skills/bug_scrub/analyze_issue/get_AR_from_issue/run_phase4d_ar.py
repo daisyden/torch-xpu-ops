@@ -228,7 +228,12 @@ def rule1_audit(issue_id, tc_status):
 
 def fires_close_skip(actions):
     for a in actions:
-        if a in {"Close the fixed issue", "label_not_target_and_close", "Skip issue"}:
+        if a in {
+            "Close the fixed issue",
+            "label_not_target_and_close",
+            "label not_target and close",
+            "Skip issue",
+        }:
             return True
         if a.startswith("Skip issue"):
             return True
@@ -386,12 +391,21 @@ def fires_verify(issue_id, reporter, owner_t, pr_cache, actions, live_cache):
 
 _PR_URL_RE = re.compile(r"https://github\.com/[\w.-]+/[\w.-]+/pull/\d+")
 _PR_SHORT_RE = re.compile(r"\b([\w.-]+/[\w.-]+)#(\d+)\b")
+# Bare "#N" or "PR #N" with no owner/repo prefix defaults to intel/torch-xpu-ops
+# per SKILL.md PR-hyperlink rendering rule.
+_PR_BARE_RE = re.compile(r"(?<![\w/])(?:PR\s*)?#(\d+)\b")
 
 
 def _extract_pr_urls(text):
     urls = list(_PR_URL_RE.findall(text))
+    consumed = set()
     for repo, num in _PR_SHORT_RE.findall(text):
         urls.append(f"https://github.com/{repo}/pull/{num}")
+        consumed.add(num)
+    for num in _PR_BARE_RE.findall(text):
+        if num in consumed:
+            continue
+        urls.append(f"https://github.com/intel/torch-xpu-ops/pull/{num}")
     return urls
 
 

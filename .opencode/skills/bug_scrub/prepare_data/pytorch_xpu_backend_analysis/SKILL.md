@@ -1,5 +1,7 @@
 # PyTorch XPU Backend Operator Registration and Dependency Library Analysis
 
+> **Base constraints**: This subskill is governed by [`../../base-constraints.md`](../../base-constraints.md) (C1 logs->agent_space, C2 ask-on-blocker, C3 background status, C4 no over-skip). They apply even when not restated here.
+
 > **Path convention**: `${PYTORCH_REPO_ROOT}` (default `~/upstream/pytorch`) — see [`../../SKILL.md`](../../SKILL.md) for the full convention.
 
 > Comprehensive Technical Analysis of torch-xpu-ops Code Implementation and Dependency Architecture

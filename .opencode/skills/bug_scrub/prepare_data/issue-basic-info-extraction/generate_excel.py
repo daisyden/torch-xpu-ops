@@ -266,21 +266,22 @@ if args.issues:
             except ValueError:
                 pass
 
-# Load data - try to load from JSON, or fetch from GitHub if not exists
+# Load data - fetch fresh from GitHub by default; reuse the JSON cache only
+# when SKIP_PHASE_1_1=1 (the documented Phase 1.1 skip flag). A present cache
+# is NOT treated as fresh: re-running Phase 1.1 is meant to pull current issue
+# metadata, so fetch unless explicitly told to skip.
 issues_json_path = os.path.join(DATA_DIR, "torch_xpu_ops_issues.json")
 comments_json_path = os.path.join(DATA_DIR, "torch_xpu_ops_comments.json")
 
-if os.path.exists(issues_json_path):
-    with open(issues_json_path) as f:
-        issues = json.load(f)
-else:
-    print("Fetching issues from GitHub...")
-    issues = []
-    
+
+def fetch_issues_from_github():
+    """Fetch open issues + closed wontfix/not_target issues from the GitHub REST API."""
+    fetched = []
+
     # Fetch open issues
     page = 1
     print("Fetching OPEN issues...")
-    while len(issues) < 500:
+    while len(fetched) < 500:
         url = f"https://api.github.com/repos/intel/torch-xpu-ops/issues?state=open&per_page=100&page={page}"
         response = requests.get(url, headers=GITHUB_HEADERS, timeout=30)
         if response.status_code != 200:
@@ -288,10 +289,10 @@ else:
         batch = response.json()
         if not batch:
             break
-        issues.extend([i for i in batch if 'pull_request' not in i])
-        print(f"Fetched {len(issues)} open issues...")
+        fetched.extend([i for i in batch if 'pull_request' not in i])
+        print(f"Fetched {len(fetched)} open issues...")
         page += 1
-    
+
     # Fetch closed issues with wontfix/not_target labels for Not Applicable sheet population
     print("Fetching CLOSED issues with wontfix/not_target labels...")
     closed_issues = []
@@ -311,16 +312,29 @@ else:
             closed_issues.extend([i for i in batch if 'pull_request' not in i])
             print(f"    Fetched {len(closed_issues)} closed issues so far...")
             page += 1
-    
+
     # Merge closed issues (dedup by issue number)
-    existing_numbers = {i['number'] for i in issues}
+    existing_numbers = {i['number'] for i in fetched}
     for issue in closed_issues:
         if issue['number'] not in existing_numbers:
-            issues.append(issue)
+            fetched.append(issue)
             existing_numbers.add(issue['number'])
-    
-    print(f"Total issues (open + closed with wontfix/not_target): {len(issues)}")
-    
+
+    print(f"Total issues (open + closed with wontfix/not_target): {len(fetched)}")
+    return fetched
+
+
+SKIP_PHASE_1_1 = os.environ.get("SKIP_PHASE_1_1", "").strip() not in ("", "0", "false", "False")
+
+if SKIP_PHASE_1_1 and os.path.exists(issues_json_path):
+    print(f"SKIP_PHASE_1_1 set; reusing cached issues from {issues_json_path}")
+    with open(issues_json_path) as f:
+        issues = json.load(f)
+else:
+    if SKIP_PHASE_1_1:
+        print(f"SKIP_PHASE_1_1 set but no cache at {issues_json_path}; fetching from GitHub anyway")
+    print("Fetching issues from GitHub...")
+    issues = fetch_issues_from_github()
     with open(issues_json_path, 'w') as f:
         json.dump(issues, f)
 
@@ -1508,6 +1522,35 @@ others_row = 2
 issues_with_ut = set()
 issues_with_e2e = set()
 
+
+def _load_na_carry_forward_ids():
+    """Issue IDs in the prior workbook's 'Not applicable' sheet.
+
+    The incremental merge restores these rows verbatim into NA, so the routing
+    gates must skip them; otherwise they also land in Test Cases / E2E / Others
+    and break the NA-disjoint invariant.
+    """
+    prior_path = os.path.join(RESULT_DIR, "torch_xpu_ops_issues.xlsx")
+    if not os.path.exists(prior_path):
+        return set()
+    try:
+        prior = openpyxl.load_workbook(prior_path, read_only=True)
+    except Exception:
+        return set()
+    if "Not applicable" not in prior.sheetnames:
+        return set()
+    out = set()
+    for r in prior["Not applicable"].iter_rows(min_row=2, values_only=True):
+        if r and r[0] is not None:
+            try:
+                out.add(int(r[0]))
+            except (TypeError, ValueError):
+                continue
+    return out
+
+
+na_carry_forward_ids = _load_na_carry_forward_ids()
+
 # Track test case duplicates: (test_file, test_class, test_case) per issue
 # Also skip cases where test_case or test_class cannot be extracted
 seen_test_cases = set()
@@ -1557,7 +1600,14 @@ for issue in issues:
     write_by_name(ws_issues, issue_row, "PyTorchXPU Estimate", sanitize_cell(issue.get('project_estimate', '')))
     write_by_name(ws_issues, issue_row, "PyTorchXPU Depending", sanitize_cell(issue.get('project_depending', '')))
     write_by_name(ws_issues, issue_row, "PyTorchXPU Short Comments", sanitize_cell(issue.get('project_short_comments', '')))
-    
+
+    if num in na_carry_forward_ids:
+        write_by_name(ws_issues, issue_row, "Test Module", 'not_applicable')
+        issue_row += 1
+        if issue_row % 50 == 0:
+            print(f"Processed {issue_row-1} issues...")
+        continue
+
     # Parse test cases and e2e info
     test_cases = parse_test_cases_from_body(body)
 
@@ -1687,7 +1737,7 @@ print(f"Total e2e case rows: {e2e_row-2}")
 
 for issue in issues:
     num = issue['number']
-    if num in issues_with_ut or num in issues_with_e2e:
+    if num in issues_with_ut or num in issues_with_e2e or num in na_carry_forward_ids:
         continue
     title = issue['title']
     body = issue.get('body', '') or ''
@@ -1776,7 +1826,11 @@ def _merge_incremental_from_prior(new_wb, prior_xlsx_path):
         "Others": others_headers + ["Local Status"],
     }
 
-    MERGE_EXCLUDE_COLUMNS = {"XPU Accuracy Status"}
+    # "Test Module" is authoritatively recomputed by the routing post-pass on
+    # every run; preserving the prior value would clobber the fresh routing when
+    # an issue moves between the ut/e2e/others sheets, breaking the
+    # Issues.Test Module == actual-sheet invariant.
+    MERGE_EXCLUDE_COLUMNS = {"XPU Accuracy Status", "Test Module"}
 
     def _headers(ws):
         return list(header_index(ws))

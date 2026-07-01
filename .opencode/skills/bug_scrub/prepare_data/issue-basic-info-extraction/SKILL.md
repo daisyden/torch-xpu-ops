@@ -1,5 +1,7 @@
 # Issue Basic Info Extraction (Deep-Analysis Pipeline)
 
+> **Base constraints**: This subskill is governed by [`../../base-constraints.md`](../../base-constraints.md) (C1 logs->agent_space, C2 ask-on-blocker, C3 background status, C4 no over-skip). They apply even when not restated here.
+
 > **Prerequisite**: Phase 1.0 test environment setup (conda env + nightly XPU
 > torch/triton + source-repo commit sync) must run once at session start, before
 > this phase. See [`../test-environment-setup/SKILL.md`](../test-environment-setup/SKILL.md).

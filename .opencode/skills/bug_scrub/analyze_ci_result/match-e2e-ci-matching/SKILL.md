@@ -1,5 +1,7 @@
 # Match E2E Test Status from Inductor Reports
 
+> **Base constraints**: This subskill is governed by [`../../base-constraints.md`](../../base-constraints.md) (C1 logs->agent_space, C2 ask-on-blocker, C3 background status, C4 no over-skip). They apply even when not restated here.
+
 ## Base Path Reference
 
 Relative paths from `${BUG_SCRUB_SKILL_ROOT}`:
