@@ -107,13 +107,14 @@ Before running the cascade, run blank `status_xpu` test cases locally. If a test
 # prepared by setup_env.sh); it defaults to $PYTORCH_FOLDER or the cwd.
 mkdir -p agent_space/test_logs
 python3 .opencode/skills/validation/scripts/run_blank_test.py tasks.json \
-    --output results.json --log-dir agent_space/test_logs --env <conda_env_name> --timeout 300 \
+    --output results.json --log-dir agent_space/test_logs --env <conda_env_name> --timeout 600 \
     --pytorch-root <pytorch_folder>
 ```
 
 **Behavior**:
 - Only tasks with blank `status_xpu` are run.
 - Tests are grouped by file and run via `pytest`.
+- **Per-case timeout**: each pytest invocation runs with `--timeout 600 --timeout_method=thread` (the `pytest-timeout` plugin, matching CI's own convention - see AGENTS.md), so a single hanging test is interrupted by pytest itself rather than relying solely on an external process kill. The outer subprocess watchdog (`--timeout` + a small buffer) is a safety net only. Requires `pytest-timeout` to be installed in the target env (installed by `setup_env.sh`); if missing, the script fails fast with an install instruction rather than installing it itself.
 - A test is `Local Passed` only if `pytest` reports `1 passed` with no `FAILED` output.
 - `DetailReason` is set to the local PyTorch version (e.g. `"Local test PASSED (torch 2.13.0+xpu)"`).
 - Full pytest output is dumped to `agent_space/test_logs/<testfile_safe_name>.log`.
@@ -309,16 +310,36 @@ Load this skill to orchestrate the full classification. Run the phases in order;
 each command and its details live in the referenced Workflow/Phase section above
 (do not duplicate them here).
 
-0. **Session setup — establish `conda_env` and `pytorch_folder` once.** Read them
-   from the request; default to `pytorch_opencode_env` and `$HOME/daisy_pytorch`.
-   Verify the conda env imports torch with XPU and that `<pytorch_folder>/.git`
-   exists. If either is missing/broken — whether or not it was explicitly
-   provided — bootstrap it once via
-   `bash .opencode/skills/validation/scripts/setup_env.sh nightly <conda_env> <pytorch_folder>`
-   (creates the env with `python=3.10` and clones pytorch when absent). Create
-   exactly the requested names; do NOT abort or switch. Then
-   `export PYTORCH_FOLDER=<pytorch_folder>`, reuse both values for every step, and
-   pass them to the submit-ut-issues agent in Phase 4.
+0. **Session setup — delegate to the `prepare-env` skill (run once).** Establish
+   `conda_env` and `pytorch_folder` by dispatching the `prepare-env` skill as a
+   subagent; do NOT inline the bootstrap here. It resolves the two values
+   (defaults `pytorch_opencode_env` and `$HOME/daisy_pytorch`), verifies the
+   conda env imports torch with XPU and that `<pytorch_folder>/.git` exists, and
+   bootstraps once via `setup_env.sh` when either is missing/broken.
+
+   ```python
+   task(
+       subagent_type="explore",
+       load_skills=["prepare-env"],
+       description="Session setup: establish conda env + pytorch checkout",
+       prompt=(
+           "Prepare the XPU UT classification environment. "
+           f"conda_env={conda_env}, pytorch_folder={pytorch_folder}. "
+           "Verify the conda env imports torch with XPU and that the pytorch "
+           "folder is a git checkout; bootstrap via setup_env.sh if either is "
+           "missing or broken. Return the prepare-env output JSON "
+           "(conda_env, pytorch_folder, torch_version, xpu_available, "
+           "bootstrapped, status)."
+       )
+   )
+   ```
+
+   Read `conda_env` and `pytorch_folder` from the request first, then pass them
+   in the prompt above (or omit for the defaults). If the returned `status` is
+   `fatal`, log `[FATAL]` to `agent_space/session_log.txt` and stop the session.
+   Otherwise take the returned `conda_env`/`pytorch_folder` as the session
+   values, `export PYTORCH_FOLDER=<pytorch_folder>`, reuse both for every step,
+   and pass them to the submit-ut-issues agent in Phase 4.
 1. **Phase 1** — `extract_tasks.py` → `tasks.json` (see Phase 1).
 2. **Phase 2 / Gate 0** — `run_blank_test.py --env <conda_env> --pytorch-root <pytorch_folder>`; passing tests get `Local Passed` and skip the cascade (see Phase 2).
 3. **Phase 3 cascade** — for each non-`Local Passed` row, run Step 0 reuse then Gates 1→2→3→4→5 in strict order (see Phase 3). Pass XPU identifiers to Gates 1/4/5 (with `PYTORCH_SRC=<pytorch_folder>` for Gates 1/2/5) and CUDA identifiers to Gate 2. Also pass `conda_env=<conda_env>` to Gates 2 and 5 (they may run `import torch` / `pytest`); Gates 1 and 4 need no env (static inspection / `gh` only).
@@ -347,6 +368,7 @@ Every step of the classification pipeline MUST produce persistent logs. No silen
    **Every subagent invocation MUST be logged** — this is the audit trail for what was called and why.
 
 1. **Gate-specific log files**: Each gate MUST save results to a separate file:
+   - `agent_space/prepare_env.json` — the `prepare-env` skill's returned output JSON (`conda_env`, `pytorch_folder`, `torch_version`, `xpu_available`, `bootstrapped`, `status`) for Session setup (Step 0)
    - `agent_space/gate0_local_test.log` — pytest output for Gate 0 local test runs (appended per batch)
    - `agent_space/gate1_not_target.json` — combined results of all not-target checks
    - `agent_space/gate2_community_change.json` — combined results of all community change checks
@@ -364,6 +386,18 @@ Every step of the classification pipeline MUST produce persistent logs. No silen
    Delegated: <gate_name> | subagent_type: <type> | load_skills: [<skills>] | task_count: <N> | batch_key: <class_name or file_name>
    ```
    This is distinct from the session log — it's a real-time call log to track what was launched in parallel.
+
+3a. **Session setup (`prepare-env`) MUST be logged**: The Step 0 `prepare-env`
+   delegation is a subagent invocation and MUST be logged like any other. Before
+   any pipeline work:
+   - Append a `session_log.txt` entry, e.g.
+     `[YYYY-MM-DD HH:MM:SS] Session setup | subagent: prepare-env | task: establish conda_env=<conda_env>, pytorch_folder=<pytorch_folder> (bootstrapped=<bool>) | file_refs: prepare_env.json`
+   - Add the matching real-time delegation-log line:
+     `Delegated: session-setup | subagent_type: explore | load_skills: [prepare-env] | task_count: 1 | batch_key: <conda_env>`
+   - Save the skill's returned output JSON to `agent_space/prepare_env.json`.
+   A `status = "fatal"` return MUST additionally be logged as
+   `[FATAL] prepare-env: environment bootstrap failed — halting session` before
+   stopping.
 
 ### Error Handling — Fatal Conditions
 
@@ -403,6 +437,8 @@ Every step of the classification pipeline MUST produce persistent logs. No silen
 
 ## Version
 
+- v3.7.0 - 2026-07-05 - `run_blank_test.py` Gate 0 now enforces a per-test-case timeout via the `pytest-timeout` plugin (`--timeout <SECONDS> --timeout_method=thread`, matching CI's own convention per AGENTS.md) instead of relying solely on the outer `subprocess.run` watchdog. The outer watchdog is kept as a safety net (`--timeout` value + 60s buffer) so pytest-timeout's own thread-based timeout gets a chance to report gracefully first. `check_environment()` now fails fast with an install instruction if `pytest-timeout` is missing (does not auto-install, per this project's fail-fast dependency policy). Default `--timeout` changed 300 -> 600 to match CI. Updated the Phase 2 example command and behavior notes.
+- v3.6.0 - 2026-07-05 - Extracted Session setup (conda env + pytorch checkout bootstrap via `setup_env.sh`) into a standalone `prepare-env` skill. Execution Step 0 now delegates to `prepare-env` as a subagent (`task(load_skills=["prepare-env"])`) which returns the resolved `conda_env`/`pytorch_folder` for the session, instead of running the bootstrap inline. Added `prepare-env` to See Also. No change to gate order, cascade, or verdict mappings.
 - v3.5.5 - 2026-07-01 - Aligned the `PYTORCH_SRC` and `conda_env` contracts across the cascade (no logic change to gate order/verdicts). **PYTORCH_SRC**: Gate 5 now passes `PYTORCH_SRC={pytorch_folder}` (previously omitted, so enablement ran against cwd); downstream skills referencing `$PYTORCH_SRC` in shell (`check-not-target-feature`, `check-community-change`, `check-community-change-source-inspection`) each begin with an explicit `export PYTORCH_SRC=...` step so the variable expands; `check-enablement-feasibility` input renamed `pytorch_src` → `PYTORCH_SRC` and given an export/path-resolution step. **conda_env**: the delegated-checks table now passes `conda_env={conda_env}` to Gates 2 and 5 (the only gates that run `import torch`/`pytest`); Gate 2's Step 3 Path A device check and `pytest --collect-only` now run via `conda run -n {conda_env}` instead of a bare `python3` (a missing env previously made Path A silently fall through to Path B source inspection). Gates 1 and 4 remain env-free (static inspection / `gh` only).
 - v3.5.4 - 2026-07-01 - Documentation-only slimming (no logic change): consolidated the four near-identical delegated-gate sections (Gates 1, 2, 4, 5) into a single "Delegated Checks" section with one canonical `task(...)` template plus a per-gate delegation table (skill, identifiers, extra prompt) and a verdict-mapping table; kept the non-templatable rules as callouts (Gate 1 Step-6 backfill, Gate 4 MANDATORY-no-shortcut + fallthrough, Gate 5 entry/nuance/logging). Gate 3 (direct check) split into its own short section. Normalized Gate 2's prompt identifiers to `{classname_cuda}`/`{testfile_cuda}` and added the `PYTORCH_SRC` the skill already required. Gate order, identifiers, verdict fields, and all Reason/DetailReason mappings are unchanged.
 - v3.5.3 - 2026-07-01 - Documentation-only slimming (no logic change): removed duplicated Phase 3 IMPORTANT callouts and merged the `--filter-*` rule into the cascade callout; shrank the Execution section to an ordered checklist that points to the Workflow phases instead of re-listing every bash command; merged Constraints 17+18 (pre-populated Reason / `--filter-*`) into one and trimmed Constraint 20 (Mandatory Evidence) to a pointer, renumbering the trailing constraints; removed a duplicate v2.1.0 version entry.
@@ -421,6 +457,7 @@ Every step of the classification pipeline MUST produce persistent logs. No silen
 
 ## See Also
 
+- `prepare-env` — Session setup: establishes/bootstraps the conda env and pytorch checkout (via `setup_env.sh`) and returns `conda_env`/`pytorch_folder`
 - `run_blank_test.py` — Gate 0: runs blank `status_xpu` tests locally, marks passing tests as `Local Passed`
 - `check-not-target-feature` — Gate 1: determines if a test is CUDA-only / not applicable for XPU
 - `check-community-change` — Gate 2: determines if a test was removed/renamed upstream

@@ -10,6 +10,19 @@ Gate 0 of classify_ut workflow:
 5. Dumps test logs to test_logs/ directory
 6. Outputs results.json (Local Passed tasks + remaining tasks for cascade)
 
+Per-case timeout: each pytest invocation is run with the `pytest-timeout` plugin
+(`--timeout <SECONDS> --timeout_method=thread`, matching CI's own convention -
+see AGENTS.md), so a single hanging test is interrupted by pytest itself
+(thread-based, so it can interrupt C-extension calls a signal-based timeout
+cannot) rather than relying solely on an external process kill. The outer
+`subprocess.run(..., timeout=...)` watchdog is kept as a safety-net kill-switch
+(SECONDS + a small buffer) in case pytest-timeout cannot intervene (e.g. a hang
+during collection, before any test has started).
+
+Requires the `pytest-timeout` plugin to be installed in the target environment
+(installed by setup_env.sh; if missing, this script fails fast with a clear
+message rather than installing it).
+
 Results written to results.json can be fed into write_results.py for Excel output.
 
 Usage:
@@ -20,10 +33,12 @@ Usage:
     --pytorch-root DIR  Directory that relative test files are resolved against
                         and that pytest runs in. Defaults to the PYTORCH_FOLDER
                         environment variable, or the current directory if unset.
+    --timeout SECONDS   Per-test-case timeout enforced by pytest-timeout
+                        (--timeout_method=thread). Default: 600 (matches CI).
 
 Examples:
     python3 run_blank_test.py tasks.json --output results.json
-    python3 run_blank_test.py tasks.json --output results.json --timeout 300
+    python3 run_blank_test.py tasks.json --output results.json --timeout 600
     python3 run_blank_test.py tasks.json --pytorch-root "$HOME/daisy_pytorch"
 """
 
@@ -36,6 +51,12 @@ import time
 from collections import defaultdict
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Safety-net buffer added on top of the per-case pytest-timeout value when
+# setting the outer subprocess.run() watchdog, so pytest-timeout's own
+# thread-based timeout gets a chance to fire and report gracefully before the
+# harder external kill (which loses any in-flight pytest-timeout traceback).
+WATCHDOG_BUFFER_SECONDS = 60
 
 
 def _isolated(base_cmd):
@@ -121,6 +142,30 @@ def check_environment(conda_env=None):
         return False, info
 
     print(f"[ENV CHECK] torch {info['torch_version']} available, CUDA={info['cuda_available']}, XPU={info['xpu_available']}")
+
+    # Check pytest-timeout plugin (required for the per-case timeout below).
+    # Fail fast rather than silently installing it, per this project's
+    # fail-fast dependency policy (setup_env.sh owns environment bootstrap).
+    base_pt = [sys.executable]
+    if conda_env:
+        base_pt = ["conda", "run", "-n", conda_env, "python3"]
+    pt_cmd = _isolated_cmd(base_pt, "import pytest_timeout")
+    try:
+        r = subprocess.run(pt_cmd, capture_output=True, text=True, timeout=15)
+        info["pytest_timeout_available"] = r.returncode == 0
+    except Exception:
+        info["pytest_timeout_available"] = False
+    if not info["pytest_timeout_available"]:
+        print(
+            "[ENV CHECK] pytest-timeout plugin NOT installed in this environment. "
+            "Per-case timeout enforcement requires it. Install with: "
+            f"{'conda run -n ' + conda_env + ' ' if conda_env else ''}"
+            "pip install pytest-timeout",
+            file=sys.stderr,
+        )
+        return False, info
+    print("[ENV CHECK] pytest-timeout plugin available")
+
     return True, info
 
 
@@ -135,7 +180,7 @@ def main():
     tasks_path = sys.argv[1]
     output_path = "results.json"
     log_dir = "test_logs"
-    test_timeout = 300
+    test_timeout = 600
     conda_env = None
     pytorch_root = os.environ.get("PYTORCH_FOLDER") or os.getcwd()
 
@@ -234,7 +279,7 @@ def main():
     summary_path = os.path.join(log_dir, "run_summary.log")
     with open(summary_path, "w") as summary:
         summary.write(f"Torch version: {torch_ver}\n")
-        summary.write(f"Test timeout: {test_timeout}s\n\n")
+        summary.write(f"Test timeout: {test_timeout}s (pytest-timeout, --timeout_method=thread)\n\n")
 
     passed_count = 0
     failed_count = 0
@@ -275,7 +320,8 @@ def main():
             if conda_env:
                 base = ["conda", "run", "-n", conda_env, "python3"]
             base_cmd = _isolated(base) + ["-m", "pytest", test_path,
-                         "-v", "--no-header", "--tb=short"]
+                         "-v", "--no-header", "--tb=short",
+                         "--timeout", str(test_timeout), "--timeout_method=thread"]
 
             k_exprs = [f"{filter_cls} and {filter_name}"]
             k_exprs.append(filter_name)
@@ -306,7 +352,7 @@ def main():
                 try:
                     r = subprocess.run(
                         cmd_list, capture_output=True, text=True,
-                        timeout=test_timeout, cwd=pytorch_root, env=run_env
+                        timeout=test_timeout + WATCHDOG_BUFFER_SECONDS, cwd=pytorch_root, env=run_env
                     )
                 except subprocess.TimeoutExpired:
                     elapsed = time.time() - start

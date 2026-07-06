@@ -11,7 +11,7 @@ permission:
   read: allow
   grep: allow
   glob: allow
-  edit: ask
+  edit: allow
   task: allow
   webfetch: deny
   bash:
@@ -20,21 +20,42 @@ permission:
     "python *": allow
     "python3 *": allow
     "conda run *": allow
+    "conda activate *": allow
     "conda env list*": allow
-    "bash *setup_env.sh*": ask
+    "bash *setup_env.sh*": allow 
     "gh issue view*": allow
+    "gh issue list*": allow
     "gh search issues*": allow
     "gh auth status": allow
-    "gh issue create*": ask
-    "gh pr create*": ask
-    "curl *api.github.com*": ask
+    "gh label list*": allow
+    "gh issue create*": allow
+    "gh pr create*": allow
+    "curl *api.github.com*": allow
     "curl -s https://api.github.com/repos*": allow
     "curl -I*api.github.com*": allow
     "source *": allow
     "git status*": allow
     "git diff*": allow
+    "git log*": allow
+    "git show*": allow
+    "git rev-parse*": allow
+    "git merge-base*": allow
     "git remote*": allow
     "git push*": ask
+    "mkdir *": allow
+    "ls *": allow
+    "ls": allow
+    "cat *": allow
+    "tee *": allow
+    "grep *": allow
+    "find *": allow
+    "echo *": allow
+    "sed *": allow
+    "tmux *": allow
+    "timeout *": allow
+    "sleep *": allow
+    "test -*": allow
+    "rm -f *": allow
 ---
 
 You run the XPU unit-test issue workflow for `intel/torch-xpu-ops`.
