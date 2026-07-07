@@ -108,6 +108,7 @@ values.
 | 2.4 check_xpu_case_existence | `xpu_case_existence` | If the cell is non-blank (True or False already set), skip this case entirely. Do NOT re-run the deep analysis. Within a single issue, classify one representative blank row via explore-agent and propagate the verdict to the issue's other blank rows; rows already non-blank are never overwritten. |
 | 3.3 triage_skills | `Category`, `Priority`, `Root Cause`, `Fix Approach` | If **all four** columns are non-blank for an issue, skip triage for that issue. If any of the four is blank, re-run triage for that issue and fill only the missing columns (preserve existing non-blank values). `Dependency` is optional and must not be used as a completion gate because not all issues have one. |
 | 4a–4c (all Phase 4) | — | **NEVER skip.** Phase 4 always re-runs for every issue because PR status, CI results, and comment activity change frequently. Stale AR verdicts are worse than re-computation cost. |
+| 4e Dependency Audit D1 (`--incremental`) | `dependency_reason` | OPT-IN via `run_phase4e_dependency.py --emit-worklist --incremental`. Skip issues whose `dependency_reason` is already non-blank (D1 was run in a prior session); only emit worklist entries for tracked-component issues never audited before. D2/D3/D4 (label hygiene, ref-state, dependency_reason write) still re-run for the audited subset. Default (non-incremental) behavior is unchanged: audit every tracked-component issue. |
 
 ### How to Detect "Already Done"
 
@@ -317,7 +318,7 @@ For each Issue in ['Issues' sheet]:
 
     Step 0 (Details Fast Path - two published-data sources, Incremental Mode):
         Source A: Highlight HTML
-            Fetch (once per run, cached) https://raw.githubusercontent.com/daisyden/torch-xpu-ops/refs/heads/opencode/bug_scrub/issue_triage/result/bug_scrub_highlight.html
+            Fetch (once per run, cached) https://raw.githubusercontent.com/daisyden/torch-xpu-ops/refs/heads/opencode/classify_ut/issue_triage/result/bug_scrub_highlight.html
             Find <tr data-issue="<id>"> for this issue.
             If found:
                 If Category cell blank: write data-category attribute
@@ -326,7 +327,7 @@ For each Issue in ['Issues' sheet]:
             (If not found, fall through to live classification for those columns.)
 
         Source B: Per-issue detail markdown
-            Fetch https://raw.githubusercontent.com/daisyden/torch-xpu-ops/refs/heads/opencode/bug_scrub/issue_triage/result/details/<issue_id>.md
+            Fetch https://raw.githubusercontent.com/daisyden/torch-xpu-ops/refs/heads/opencode/classify_ut/issue_triage/result/details/<issue_id>.md
             If the file exists and parses cleanly:
                 If Root Cause cell blank: copy `## Root Cause` section -> Root Cause
                 If Fix Approach cell blank: copy `## Fix Approach` section -> Fix Approach

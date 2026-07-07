@@ -12,7 +12,8 @@ Two-stage flow:
     agent_space/phase4e/worklist.json. Each entry holds the inputs an
     explore agent needs to render a D1 verdict (true_dep / false_dep)
     plus a one-line reason. Stage 1 makes no network calls and no
-    workbook writes.
+    workbook writes. With --incremental, issues whose dependency_reason
+    is already non-blank (audited in a prior run) are skipped.
 
   Stage 2 (--merge):
     Reads agent_space/phase4e/results/<issue_id>.json (one per audited
@@ -135,10 +136,22 @@ def scan_refs_for_repos(text: str, repos: list[str]) -> list[tuple[str, int]]:
 
 # ---------------- Stage 1: emit worklist -------------------------------------
 
-def emit_worklist(only_with_dep: bool) -> int:
+def _is_blank_reason(v) -> bool:
+    """Incremental Mode blank definition for dependency_reason (mirrors
+    Phase 3.3 blank rule: None / "" / whitespace / literal 'None')."""
+    if v is None:
+        return True
+    if isinstance(v, str):
+        s = v.strip()
+        return s == "" or s.lower() == "none"
+    return False
+
+
+def emit_worklist(only_with_dep: bool, incremental: bool = False) -> int:
     wb = load_workbook(XLSX_PATH, read_only=False)
     ws = wb["Issues"]
     worklist = []
+    skipped_incremental = 0
     for r in range(2, ws.max_row + 1):
         iid = cell_by_name(ws, r, "Issue ID").value
         if iid is None:
@@ -147,6 +160,16 @@ def emit_worklist(only_with_dep: bool) -> int:
         comps = detect_components(dep_cell)
         if only_with_dep and not comps:
             continue
+        # Incremental Mode: skip issues whose dependency was already audited
+        # (non-blank dependency_reason). Rows never audited are re-run.
+        if incremental:
+            try:
+                dep_reason = cell_by_name(ws, r, "dependency_reason").value
+            except KeyError:
+                dep_reason = None
+            if not _is_blank_reason(dep_reason):
+                skipped_incremental += 1
+                continue
         if not comps:
             pool = " ".join([
                 (cell_by_name(ws, r, "Title").value or ""),
@@ -179,6 +202,8 @@ def emit_worklist(only_with_dep: bool) -> int:
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     WORKLIST_PATH.write_text(json.dumps(worklist, indent=2))
     print(f"wrote worklist: {WORKLIST_PATH} ({len(worklist)} issues)")
+    if incremental:
+        print(f"incremental mode: skipped {skipped_incremental} already-audited issue(s)")
     return len(worklist)
 
 
@@ -512,6 +537,8 @@ def main():
                     help="Stage 2: read agent result JSONs and apply D2/D3 to xlsx")
     ap.add_argument("--all-issues", action="store_true",
                     help="Scope: include issues whose Dependency column is blank (rule definition: applies to all 300)")
+    ap.add_argument("--incremental", action="store_true",
+                    help="Stage 1: skip issues whose dependency_reason is already non-blank (audited before)")
     ap.add_argument("--dry-run", action="store_true",
                     help="Stage 2 only: do not write workbook or cache")
     args = ap.parse_args()
@@ -521,7 +548,7 @@ def main():
         ap.error("--emit-worklist and --merge are mutually exclusive")
     only_with_dep = not args.all_issues
     if args.emit_worklist:
-        n = emit_worklist(only_with_dep)
+        n = emit_worklist(only_with_dep, args.incremental)
         print(f"Stage 1 complete: {n} issues in worklist")
     else:
         merge_results(only_with_dep, args.dry_run)
