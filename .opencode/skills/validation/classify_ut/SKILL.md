@@ -43,7 +43,7 @@ The script writes a new sheet (default name `"agent"`) to a standalone Excel fil
 | Column | Description |
 |--------|-------------|
 | `Analyzed` | `TRUE` / `FALSE`. Whether the row was classified. |
-| `Reason` | Classification result: `Not Applicable`, `Community Change`, `To be enabled`, `Failures (xpu broken)`, `Feature gap`, `Submit Issue`, or `Submit PR`. `Submit PR` is set in Phase 4 when the submit-ut-issues agent fixes a test-code bug and submits a PR; `Submit Issue` when an issue is filed (or submission was skipped). |
+| `Reason` | Classification result: `Not Applicable`, `Community Change`, `To be enabled`, `Failures (xpu broken)`, `Feature gap`, `Submit Issue`, or `Submit PR`. `Submit PR` is set in Phase 4 when the ut-follow-up agent fixes a test-code bug and submits a PR; `Submit Issue` when an issue is filed (or submission was skipped). |
 | `DetailReason` | Evidence string explaining the classification. |
 | `ReuseSource` | If the result was reused from another row, the `name_cuda` of the source row. Else `""`. |
 | `Confidence` | `High` if `DetailReason` contains exact evidence (commit hash, issue/PR URL), otherwise `Medium`. Auto-computed by the write script. |
@@ -210,7 +210,7 @@ receive `conda_env={conda_env}` and must invoke Python via
 
 ---
 
-### Phase 4: Hand Off `Submit Issue` Rows to the submit-ut-issues Agent
+### Phase 4: Hand Off `Submit Issue` Rows to the ut-follow-up Agent
 
 Run this **before** the Excel write (Phase 5) so any returned PR/issue links
 are written into `results.json` and land in the output in a single pass.
@@ -218,14 +218,14 @@ are written into `results.json` and land in the output in a single pass.
 Collect every classified row whose `Reason == "Submit Issue"`. If there are
 none, skip this phase and go to Phase 5.
 
-If there is at least one, invoke the dedicated `submit-ut-issues` agent. The
+If there is at least one, invoke the dedicated `ut-follow-up` agent. The
 agent attempts a test-code fix (submitted as a **PR**) or files an **issue**,
 and **requires explicit user confirmation before creating any PR or issue** —
 classify-ut never files anything itself and never approves on the user's behalf.
 
 ```python
 task(
-    subagent_type="submit-ut-issues",
+    subagent_type="ut-follow-up",
     description=f"Submit handoff for {len(submit_rows)} Submit Issue rows",
     prompt=(
         "Input mode: from classify-ut. "
@@ -246,7 +246,7 @@ task(
 ```
 
 `conda_env` and `pytorch_folder` are the session values established in the
-Execution preamble (Step 0); passing them lets the submit-ut-issues agent reuse
+Execution preamble (Step 0); passing them lets the ut-follow-up agent reuse
 the exact same environment and checkout instead of bootstrapping its own.
 
 `submit_rows_json` is the list of Submit Issue rows, each carrying
@@ -266,7 +266,7 @@ included so the agent can key its return entries back to the exact rows.
 contains a GitHub issue/PR URL, so filed rows are upgraded automatically.
 
 **Logging**: Append the handoff to `agent_space/session_log.txt`
-(`subagent: submit-ut-issues | task: submit N rows | file_refs: <urls>`) and
+(`subagent: ut-follow-up | task: submit N rows | file_refs: <urls>`) and
 save the agent's returned JSON array to
 `agent_space/phase5_submit_issues.json`.
 
@@ -339,12 +339,12 @@ each command and its details live in the referenced Workflow/Phase section above
    `fatal`, log `[FATAL]` to `agent_space/session_log.txt` and stop the session.
    Otherwise take the returned `conda_env`/`pytorch_folder` as the session
    values, `export PYTORCH_FOLDER=<pytorch_folder>`, reuse both for every step,
-   and pass them to the submit-ut-issues agent in Phase 4.
+   and pass them to the ut-follow-up agent in Phase 4.
 1. **Phase 1** — `extract_tasks.py` → `tasks.json` (see Phase 1).
 2. **Phase 2 / Gate 0** — `run_blank_test.py --env <conda_env> --pytorch-root <pytorch_folder>`; passing tests get `Local Passed` and skip the cascade (see Phase 2).
 3. **Phase 3 cascade** — for each non-`Local Passed` row, run Step 0 reuse then Gates 1→2→3→4→5 in strict order (see Phase 3). Pass XPU identifiers to Gates 1/4/5 (with `PYTORCH_SRC=<pytorch_folder>` for Gates 1/2/5) and CUDA identifiers to Gate 2. Also pass `conda_env=<conda_env>` to Gates 2 and 5 (they may run `import torch` / `pytest`); Gates 1 and 4 need no env (static inspection / `gh` only).
 4. Accumulate all results (already_resolved + Local Passed + newly classified) into `results.json`.
-5. **Phase 4 — Submit handoff (BEFORE the Excel write)** — route any `Reason == "Submit Issue"` rows to the `submit-ut-issues` agent and map returned outcomes back into `results.json` (see Phase 4).
+5. **Phase 4 — Submit handoff (BEFORE the Excel write)** — route any `Reason == "Submit Issue"` rows to the `ut-follow-up` agent and map returned outcomes back into `results.json` (see Phase 4).
 6. **Phase 5 — Write Results** — BUILD if the `--output-excel` accumulator does not exist yet, else MERGE in place (see Phase 5).
 7. Report summary statistics: rows total, deduplicated, local passed, classified per Reason category (including `Submit PR` and `Submit Issue`).
 
@@ -377,7 +377,7 @@ Every step of the classification pipeline MUST produce persistent logs. No silen
    - `agent_space/na_evidence_backfill.json` — tracking-issue link lookups performed by the `check-not-target-feature` skill's Step 6 backfill for `Not Applicable` verdicts (matched issue link per row, or empty result)
    - `agent_space/phase1_dedup.json` — output of `extract_tasks.py`
    - `agent_space/phase4_write.log` — output of `write_results.py`
-   - `agent_space/phase5_submit_issues.json` — submit-ut-issues agent return array (per-row `outcome`=`pr`/`issue`/`skipped` with PR/issue URLs) for `Submit Issue` rows
+   - `agent_space/phase5_submit_issues.json` — ut-follow-up agent return array (per-row `outcome`=`pr`/`issue`/`skipped` with PR/issue URLs) for `Submit Issue` rows
 
 2. **Detailed pytest logs for local tests (Gate 0)**: When running `run_blank_test.py`, ensure `--log-dir` points to `agent_space/test_logs/`. Every pytest run MUST produce a per-file log saved to this directory. These logs are the sole evidence for `Local Passed` classification. A `run_summary.log` MUST also be written.
 
@@ -426,7 +426,7 @@ Every step of the classification pipeline MUST produce persistent logs. No silen
 11. **Scripts handle all Excel I/O**: The agent should never manipulate Excel cells directly. Always use `.opencode/skills/validation/scripts/extract_tasks.py` and `.opencode/skills/validation/scripts/write_results.py`.
 12. **Open issues with `skipped` label are treated as failures**: A skipped test is a broken test — classify as `Failures (xpu broken)`, not `To be enabled`.
 13. **Closed issues with `not_target`/`wontfix` override Gate 1**: If Gate 1 said "not not-target" but Gate 4 finds a CLOSED `not_target` issue, the `not_target` label is authoritative. Reclassify as `Not Applicable`. Conversely, every `Not Applicable` verdict MUST carry a supporting GitHub issue link when one exists — the `check-not-target-feature` skill's Step 6 backfills this deterministically (via `attach_not_target_evidence.py`). Do not leave a `Not Applicable` row for a `skipped`/`failed` test without an issue link unless that deterministic `not_target`/`skipped` body search genuinely returned no match.
-14. **`Submit Issue` rows are routed to the submit-ut-issues agent (Phase 4), which may resolve them as a PR or an issue, confirm-gated**: classify-ut hands all `Submit Issue` rows to the `submit-ut-issues` agent BEFORE the Excel write. The agent fixes test-code bugs as a **PR** or files an **issue**, and returns a link per row. classify-ut records the link in `DetailReason` and sets `Reason = "Submit PR"` (PR returned) or `Reason = "Submit Issue"` (issue returned, or submission skipped). classify-ut itself MUST NOT file anything, and the agent MUST NOT create any PR/issue without explicit per-item user approval. No silent auto-filing.
+14. **`Submit Issue` rows are routed to the ut-follow-up agent (Phase 4), which may resolve them as a PR or an issue, confirm-gated**: classify-ut hands all `Submit Issue` rows to the `ut-follow-up` agent BEFORE the Excel write. The agent fixes test-code bugs as a **PR** or files an **issue**, and returns a link per row. classify-ut records the link in `DetailReason` and sets `Reason = "Submit PR"` (PR returned) or `Reason = "Submit Issue"` (issue returned, or submission skipped). classify-ut itself MUST NOT file anything, and the agent MUST NOT create any PR/issue without explicit per-item user approval. No silent auto-filing.
 15. **Never modify the original sheet**: Always write to the output sheet name (default `"agent"`).
 16. **All commands run from workspace root**: All script invocations use absolute (workspace-relative) paths. Do not `cd` into subdirectories before running scripts. Note: `run_blank_test.py` still runs pytest inside the pytorch checkout internally via `--pytorch-root` — you pass that folder as a flag, you do not `cd` into it.
 17. **Ignore pre-populated Reason/DetailReason; `--filter-*` is post-hoc only**: The `tasks` array entries may carry `Reason`/`DetailReason` from a prior run — these are NOT valid results. Do not copy them to the output; always run the cascade gates (subagents for Gates 1, 2, 4; directly for Gate 3). `already_resolved` handles all legitimate reuses. The `--filter-reason`/`--filter-detailreason` flags select rows by their OUTPUT columns for subset extraction only; rows they select still require the full cascade.
@@ -445,8 +445,8 @@ Every step of the classification pipeline MUST produce persistent logs. No silen
 - v3.5.2 - 2026-07-01 - Removed Gate 0.7 (deterministic bash existence pre-check). The missing-test → Community Change decision is now handled purely by the cascade: `check-not-target-feature` returns `is_not_target=false` for any missing file/method (enforced by its strengthened Missing-Test Guard), so the row falls through to Gate 2, whose Step 1.5 file-existence fast path classifies it as `Community Change`. Removed the Gate 0.7 section, Gate 1 precondition, Execution bullet, `gate07_existence.json` log entry, and reverted Constraint 9.
 - v3.5.1 - 2026-07-01 - Moved the "Not Applicable Evidence Backfill" logic out of the orchestrator and into the `check-not-target-feature` skill's Step 6, so the tracking-issue link (`attach_not_target_evidence.py`) is attached inside Gate 1 whenever it returns `Not Applicable`. Removed the standalone backfill subsection and Execution bullet; Gate 1 handling, Purpose cascade, and Constraint 13 now reference the skill-owned backfill.
 - v3.5.0 - 2026-07-01 - Added the non-terminal "Not Applicable Evidence Backfill" (via new `attach_not_target_evidence.py`) that appends a tracking-issue link (e.g. `intel/torch-xpu-ops#4179`) to `Not Applicable` verdicts lacking one, without changing the verdict. (Note: this version also added a Gate 0.7 existence pre-check that was subsequently removed in v3.5.2.)
-- v3.4.0 - 2026-06-30 - Submit handoff now runs as Phase 4 (BEFORE the Excel write, which becomes Phase 5) so returned links land in `results.json` in one pass. The `submit-ut-issues` agent returns a per-row outcome (`pr`/`issue`/`skipped`) with a link; classify-ut records the link in `DetailReason` and sets `Reason = "Submit PR"` (test-code fix submitted as a PR) or `Reason = "Submit Issue"` (issue filed). Updated Constraint 14, Execution steps 5-7, and See Also.
-- v3.3.0 - 2026-06-30 - Added Phase 5: `Submit Issue` rows are routed to the `submit-ut-issues` agent to prepare confirm-gated GitHub issue drafts. Reworded Constraint 14 from "no auto-file" to "agent-assisted, confirm-gated filing" (classify-ut never files; agent never POSTs without per-issue user approval). Added `phase5_submit_issues.json` log and `submit-ut-issues` See Also entry.
+- v3.4.0 - 2026-06-30 - Submit handoff now runs as Phase 4 (BEFORE the Excel write, which becomes Phase 5) so returned links land in `results.json` in one pass. The `ut-follow-up` agent returns a per-row outcome (`pr`/`issue`/`skipped`) with a link; classify-ut records the link in `DetailReason` and sets `Reason = "Submit PR"` (test-code fix submitted as a PR) or `Reason = "Submit Issue"` (issue filed). Updated Constraint 14, Execution steps 5-7, and See Also.
+- v3.3.0 - 2026-06-30 - Added Phase 5: `Submit Issue` rows are routed to the `ut-follow-up` agent to prepare confirm-gated GitHub issue drafts. Reworded Constraint 14 from "no auto-file" to "agent-assisted, confirm-gated filing" (classify-ut never files; agent never POSTs without per-issue user approval). Added `phase5_submit_issues.json` log and `ut-follow-up` See Also entry.
 - v3.2.0 - 2026-06-25 - Extracted Gate 5 into standalone `check_enablement_feasibility` subskill with JSON output. Gate 5 now delegates to subagent instead of inline analysis. Added logging & audit trail constraints (0-3), fatal error handling constraints (4-7). Added `check_enablement_feasibility` to See Also. Renumbered constraints 0-15 → 8-22.
 - v3.1.0 - 2026-06-25 - Added Gate 5 (Enablement Analysis for Skipped Tests). Skipped tests (`status_xpu = "skipped"`) without a known issue now undergo deep source code analysis to determine XPU enablement feasibility. Feasible tests get `Reason = "To be enabled"` with the enablement method; infeasible tests get `Reason = "Submit Issue"`. Updated description, Purpose cascade, Gate 4, Execution workflow, Constraints 0 and 15.
 - v3.0.0 - 2026-06-17 - Added Gate 0 (Local Test) via `run_blank_test.py`. Blank `status_xpu` tests are run locally before the cascade. Passing tests get `Reason = "Local Passed"` and skip further classification. Added `run_blank_test.py` script and updated workflow Phases (2→local test, 3→cascade, 4→write results). New Constraint 0.
@@ -463,4 +463,4 @@ Every step of the classification pipeline MUST produce persistent logs. No silen
 - `check-community-change` — Gate 2: determines if a test was removed/renamed upstream
 - `check-known-issue` — Gate 4: searches for known issues in pytorch/pytorch and intel/torch-xpu-ops
 - `check-enablement-feasibility` — Gate 5: deep source code analysis for skip mechanism and XPU enablement feasibility
-- `submit-ut-issues` (agent) — Phase 4: fixes test-code bugs as a confirm-gated PR or files a confirm-gated issue for `Submit Issue` rows, returning the link recorded in `DetailReason` (`Reason` becomes `Submit PR` or `Submit Issue`)
+- `ut-follow-up` (agent) — Phase 4: fixes test-code bugs as a confirm-gated PR or files a confirm-gated issue for `Submit Issue` rows, returning the link recorded in `DetailReason` (`Reason` becomes `Submit PR` or `Submit Issue`)

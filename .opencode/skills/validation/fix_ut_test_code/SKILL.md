@@ -7,14 +7,14 @@ description: Apply allowed test-code fixes to a failing XPU unit test (sys.path 
 
 ## Purpose
 
-Given a failing test group classified as `test-code` by `analyze-ut-failures`,
+Given a failing test group classified as `test-code` by `analyze-ut-results`,
 apply the minimal allowed fix and rerun. Confirm the fix resolves the failure,
 or conclude the root cause is NOT test code and hand off to `create-xpu-issue`.
 
 ## Input
 
 - `tests`: failing `TestClass.test_name` entries and their file paths.
-- `root_cause`: the hypothesis from `analyze-ut-failures`.
+- `root_cause`: the hypothesis from `analyze-ut-results`.
 - `conda_env`, `pytorch_root`: the environment and checkout established by the
   calling agent.
 

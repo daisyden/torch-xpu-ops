@@ -1,9 +1,9 @@
 ---
-name: analyze-ut-failures
-description: Run XPU unit tests, collect JUnit XML results, group failures by error pattern, and cross-reference known pytorch/pytorch and intel/torch-xpu-ops issues. Returns categorized failures with root-cause hypotheses and a fixable-vs-infrastructure verdict for downstream fixing or issue submission.
+name: analyze-ut-results
+description: Run XPU unit tests, collect JUnit XML results, group failures by error pattern, and cross-reference known pytorch/pytorch and intel/torch-xpu-ops issues. Returns categorized failures with root-cause hypotheses and a fixable-vs-infrastructure verdict for downstream fixing or issue submission, plus a top-level passed verdict when all cases pass.
 ---
 
-# `analyze-ut-failures`
+# `analyze-ut-results`
 
 ## Purpose
 
@@ -45,7 +45,9 @@ Accepts any one of these forms:
    `python3 -c "import csv,sys; ..."` (do not hand-split lines — fields may be
    quoted). Run only these specific tests (see Workflow step 1). Group by
    `test_file` so each file is one pytest invocation.
-2. **Test files** — one or more `test/xpu/**/*_xpu.py` files (run the whole file).
+2. **Test files** — one or more test files (run the whole file), including:
+   - `test/xpu/**/*_xpu.py` (torch-xpu-ops wrapped XPU tests)
+   - files under `pytorch/test/**` (upstream PyTorch tests)
 3. **Existing XML results** — a directory (or list) of already-produced
    `test_*.xml` JUnit files. In this case **do NOT run any test locally**: the
    XML already contains the outcomes and tracebacks. Skip Workflow step 1
@@ -61,7 +63,7 @@ to the exact rows.
 
 ## Environment
 
-The calling agent (submit-ut-issues / classify-ut) has already established the
+The calling agent (ut-follow-up / classify-ut) has already established the
 conda env and pytorch checkout. **Do NOT run `setup_env.sh` or create/activate
 any environment here.** Just use the `conda_env` and `pytorch_root` passed in.
 
@@ -88,16 +90,33 @@ For forms 1 and 2, run pytest in the provided env/checkout to produce the XML:
 cd "${pytorch_root}/third_party/torch-xpu-ops/test/xpu"
 ```
 
+Before each pytest invocation, resolve the run root from `test_file`:
+
+- If `test_file` ends with `_xpu.py` -> run from
+  `${pytorch_root}/third_party/torch-xpu-ops/test/xpu`.
+- If `test_file` does **not** end with `_xpu.py` -> run from `${pytorch_root}`
+  (this covers files under `pytorch/test/**`).
+
+Path handling rule:
+- For `_xpu.py` files, use the path relative to
+  `${pytorch_root}/third_party/torch-xpu-ops/test/xpu`.
+- For non-`_xpu.py` files, use the path relative to `${pytorch_root}`
+  (typically `test/...`).
+
 **Targeted mode** (input is a list of `{test_file, test_class, test_name}`):
 group the targets by `test_file`, then run one pytest invocation per file that
 selects only the listed tests. Prefer exact node ids; fall back to `-k` when a
 class/name is ambiguous.
 
 ```bash
-# One file, its selected tests as node ids (paths are relative to the pytorch root):
+# One _xpu file, selected tests as node ids (run root: third_party/torch-xpu-ops/test/xpu):
 pytest -v --timeout=120 --junit-xml=test_streams_xpu.xml \
   "dynamo/test_streams_xpu.py::TestStreamsXPU::test_record_stream_xpu" \
   "dynamo/test_streams_xpu.py::TestStreamsXPU::test_wait_stream_xpu"
+
+# One upstream pytorch/test file (no _xpu postfix; run root: ${pytorch_root}):
+pytest -v --timeout=120 --junit-xml=test_view_ops.xml \
+  "test/test_view_ops.py::TestViewOps::test_view_copy_xpu"
 
 # Or select by name/class within a file when node ids are awkward:
 pytest -v --timeout=120 --junit-xml=test_ops_xpu.xml test_ops_xpu.py \
@@ -108,6 +127,13 @@ pytest -v --timeout=120 --junit-xml=test_ops_xpu.xml test_ops_xpu.py \
 
 ```bash
 pytest -v --timeout=120 --junit-xml=test_<name>_xpu.xml dynamo/test_<name>_xpu.py
+```
+
+For non-`_xpu.py` files, run from `${pytorch_root}` with the `test/...` path,
+for example:
+
+```bash
+pytest -v --timeout=120 --junit-xml=test_<name>.xml test/<subdir>/test_<name>.py
 ```
 
 Run each test file in a separate pytest invocation for isolation (avoid state
@@ -186,6 +212,7 @@ Return JSON:
 
 ```json
 {
+  "verdict": "passed|has-failures",
   "groups": [
     {
       "signature": "...",
@@ -204,6 +231,11 @@ Return JSON:
 }
 ```
 
+Top-level verdict rules:
+- `"passed"`: all executed cases are passed/skipped/xfailed and there are no
+  failure groups to fix/submit.
+- `"has-failures"`: at least one failure group exists in `groups`.
+
 ## Constraints
 
 - **Tools**: `bash` (`pytest`, `curl`, `gh`, python), `read`, `grep`. No web tools.
@@ -211,6 +243,10 @@ Return JSON:
   splitting — fields may be quoted or contain commas.
 - **Existing XML input runs NO local tests**: for form 3, skip Workflow step 1
   and the env activation; read outcomes/tracebacks straight from the XML.
+- **Run-root selection is mandatory**: choose pytest working directory from
+  `test_file` postfix — `_xpu.py` runs under
+  `${pytorch_root}/third_party/torch-xpu-ops/test/xpu`; non-`_xpu.py` runs
+  under `${pytorch_root}`.
 - `gh search issues` MUST include `is:issue` to exclude PRs.
 - Timeout each test at 120s. Max 2-3 concurrent pytest/agent runs.
 - Never invent issue numbers; only cite issues verified via `gh issue view`.

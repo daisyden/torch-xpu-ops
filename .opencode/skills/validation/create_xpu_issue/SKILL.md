@@ -7,7 +7,7 @@ description: Build and submit a well-structured XPU UT failure issue to intel/to
 
 ## Purpose
 
-Given a root-cause report for an unfixable failure (from `analyze-ut-failures`
+Given a root-cause report for an unfixable failure (from `analyze-ut-results`
 or escalated by `fix-ut-test-code`), produce a complete issue body, submit it to
 `intel/torch-xpu-ops`, and return the cross-linking actions for the porting PR.
 

@@ -1,9 +1,9 @@
 ---
-name: submit-ut-issues
-description: Analyze XPU unit test failures, classify root causes, fix test code issues, and submit well-documented issues to intel/torch-xpu-ops using structured issue templates, proper labels, and Context sections cross-linking porting PRs. Use when analyzing XPU test failures, filing issues on intel/torch-xpu-ops, or when user mentions submitting UT issues, XPU test failures, or filing XPU bug reports.
+name: ut-follow-up
+description: Analyze XPU unit test failures, classify root causes, fix test code issues, and submit well-documented issues to intel/torch-xpu-ops using structured issue templates, proper labels, and Context sections cross-linking porting PRs. Use when analyzing XPU test failures, filing issues on intel/torch-xpu-ops, or when user mentions UT follow-up, submitting UT issues, XPU test failures, or filing XPU bug reports.
 ---
 
-# Submit XPU UT Issues to intel/torch-xpu-ops
+# XPU UT Follow-up for intel/torch-xpu-ops
 
 ## Overview
 
@@ -20,13 +20,13 @@ cross-linking the PR (enforced by `create-xpu-issue`).
 
 | Stage | Subskill | Responsibility |
 |---|---|---|
-| Analyze | `analyze-ut-failures` | Run tests, group failures, cross-ref known issues, verdict per group |
+| Analyze | `analyze-ut-results` | Run tests, group failures, cross-ref known issues, verdict per group |
 | Fix | `fix-ut-test-code` | Apply allowed test-code fixes and rerun, or escalate |
 | Submit | `create-xpu-issue` | Build + submit the structured issue, return cross-link actions |
 
 ## Input Modes
 
-This skill handles two entry points:
+This skill handles three entry points:
 
 1. **From scratch** — given test file(s). Run Phase 1 (analyze) -> Phase 2
    (fix) -> Phase 3 (submit).
@@ -34,10 +34,27 @@ This skill handles two entry points:
    (each with `name_xpu`, `classname_xpu`, `testfile_xpu`, `message_xpu`,
    `status_xpu`). **Skip Phase 1's pytest run**: treat each row's
    `message_xpu` as the failure signature, group rows that share a signature,
-   run only the known-issue cross-reference step of `analyze-ut-failures` to
-   avoid duplicates. Each row then resolves to a **PR** (if it is a test-code
-   bug fixed via Phase 2) or an **issue** (Phase 3), and is reported back per
-   the Return Contract.
+   run only the known-issue cross-reference step of `analyze-ut-results` to
+    avoid duplicates. Each row then resolves to a **PR** (if it is a test-code
+    bug fixed via Phase 2) or an **issue** (Phase 3), and is reported back per
+    the Return Contract.
+3. **Targeted tuple mode** — given explicit `test_file`, `test_class`, and
+   `test_cases` (list of test method names). Convert this input to the
+   `analyze-ut-results` target list format:
+
+   ```json
+   [
+     {
+       "test_file": "<test_file>",
+       "test_class": "<test_class>",
+       "test_name": "<one entry from test_cases>"
+     }
+   ]
+   ```
+
+   then run the same pipeline (Phase 1 -> Phase 2 -> Phase 3). Keep
+   `test_file`/`test_class`/`test_name` identity through all phases so outputs
+   map back 1:1 to the requested `test_cases`.
 
 ## Confirm Before Filing (MANDATORY)
 
@@ -86,14 +103,21 @@ For each failing test group, in order:
 Delegate analysis of the target test file(s). The subskill runs tests, groups
 failures, cross-references known issues, and returns a verdict per group.
 
+For targeted tuple mode (`test_file`, `test_class`, `test_cases`), expand into a
+list of `{test_file, test_class, test_name}` entries (one per `test_cases`
+item), then pass that list to `analyze-ut-results`.
+
 ```python
 task(
     subagent_type="explore",
-    load_skills=["analyze-ut-failures"],
+    load_skills=["analyze-ut-results"],
     description=f"Analyze failures: {test_file}",
-    prompt=f"Run and analyze {test_file} on XPU. Group failures by error pattern, "
-           f"cross-reference pytorch/pytorch and intel/torch-xpu-ops known issues, "
-           f"and return JSON groups with category, root_cause, known_issues, and verdict."
+    prompt=f"Run and analyze the provided target(s) on XPU. "
+           f"If targeted tuple mode was provided, use this explicit list of "
+           f"{{test_file,test_class,test_name}} entries: {targets_json}. "
+           f"Group failures by error pattern, cross-reference pytorch/pytorch "
+           f"and intel/torch-xpu-ops known issues, and return JSON groups with "
+           f"category, root_cause, known_issues, and verdict."
 )
 ```
 
@@ -168,6 +192,11 @@ entry by the test's CUDA identity:
   `url` is null (cite the existing link in `summary`).
 
 Include every handed-off row, even skipped ones.
+
+For targeted tuple mode input, map identities as:
+- `testfile_cuda` <- input `test_file`
+- `classname_cuda` <- input `test_class`
+- `name_cuda` <- each entry from input `test_cases`
 
 ## Constraints
 

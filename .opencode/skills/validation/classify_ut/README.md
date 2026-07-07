@@ -88,7 +88,7 @@ explicit per-item approval before anything is created on GitHub.
   `../check_known_issue/`, `../check_enablement_feasibility/` - the four
   cascade-gate sub-skills.
 - `../prepare_env/` - session environment setup.
-- `../submit_ut_issues/` - the confirm-gated PR/issue filing agent for
+- `../ut_follow_up/` - the confirm-gated PR/issue filing agent for
   `Submit Issue` rows.
 
 Note: the classify-ut workflow lives entirely under
