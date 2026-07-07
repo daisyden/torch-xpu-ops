@@ -20,7 +20,16 @@ differently positioned target column use "SRC:TGT", e.g.:
         --columns V:X        # source col V -> target col X
         --columns V          # source col V -> target col V
 
-The rows are matched by the value in Column A (first column) of each sheet.
+The rows are matched by the value in Column A (first column) of each sheet by
+default. When one or more --match-key SRC:TGT is given, rows are joined SOLELY
+on those column pairs (column A is ignored), e.g.:
+        --match-key C:J --match-key D:K
+            # join a source row to a target row only when source col C == target
+            # col J AND source col D == target col K
+
+To restrict merging to rows whose source column has a specific value, use
+--merge-only COL='value' (repeatable), e.g.:
+        --merge-only V='xxx' # only update rows where source col V equals 'xxx'
 """
 
 import argparse
@@ -71,15 +80,105 @@ def parse_column_specs(specs):
     return parsed
 
 
-def load_source_map(ws, header_row, key_col, src_cols):
+def parse_match_keys(specs):
     """
-    Build a dict mapping key_value -> tuple of source column values
-    (in the same order as src_cols), skipping the header row.
+    Parse --match-key SRC:TGT specs into a list of
+    (source_col_index, target_col_index, source_letter, target_letter) tuples.
+    """
+    parsed = []
+    for spec in specs or []:
+        spec = spec.strip()
+        if not spec:
+            continue
+        if ":" not in spec:
+            print(f"ERROR: invalid --match-key {spec!r}. Use 'A:B'.")
+            sys.exit(1)
+        src_letter, tgt_letter = (part.strip() for part in spec.split(":", 1))
+        if not src_letter or not tgt_letter:
+            print(f"ERROR: invalid --match-key {spec!r}. Use 'A:B'.")
+            sys.exit(1)
+        try:
+            src_idx = column_index_from_string(src_letter.upper())
+            tgt_idx = column_index_from_string(tgt_letter.upper())
+        except ValueError:
+            print(f"ERROR: invalid column letter in --match-key {spec!r}.")
+            sys.exit(1)
+        parsed.append((src_idx, tgt_idx, src_letter.upper(), tgt_letter.upper()))
+    return parsed
+
+
+def parse_merge_only(specs):
+    """
+    Parse --merge-only COL='value' specs into a list of
+    (source_col_index, expected_value, source_letter) tuples.
+    """
+    parsed = []
+    for spec in specs or []:
+        spec = spec.strip()
+        if "=" not in spec:
+            print(f"ERROR: invalid --merge-only {spec!r}. Use \"V='xxx'\".")
+            sys.exit(1)
+        col_letter, raw_value = (part.strip() for part in spec.split("=", 1))
+        if (len(raw_value) >= 2 and raw_value[0] == raw_value[-1]
+                and raw_value[0] in ("'", '"')):
+            value = raw_value[1:-1]
+        else:
+            value = raw_value
+        try:
+            col_idx = column_index_from_string(col_letter.upper())
+        except ValueError:
+            print(f"ERROR: invalid column letter in --merge-only {spec!r}.")
+            sys.exit(1)
+        parsed.append((col_idx, value, col_letter.upper()))
+    return parsed
+
+
+def _norm(value):
+    return "" if value is None else str(value).strip()
+
+
+def _merge_only_ok(merge_only, row):
+    for col_idx, expected, _ in merge_only:
+        cell = row[col_idx - 1] if len(row) >= col_idx else None
+        if _norm(cell) != _norm(expected):
+            return False
+    return True
+
+
+def load_source_map_by_column_a(ws, header_row, src_cols, merge_only):
+    """
+    Build a dict mapping column-A value -> tuple of merged source column values
+    (used when no --match-key is given). Rows failing --merge-only are dropped.
     """
     mapping = {}
     for row in ws.iter_rows(min_row=header_row + 1, values_only=True):
-        key = row[key_col - 1] if len(row) >= key_col else None
+        key = row[0] if len(row) >= 1 else None
         if key is None:
+            continue
+        if not _merge_only_ok(merge_only, row):
+            continue
+        values = tuple(
+            row[c - 1] if len(row) >= c else None for c in src_cols
+        )
+        mapping[key] = values
+    return mapping
+
+
+def load_source_map_by_match_keys(ws, header_row, src_cols, match_keys, merge_only):
+    """
+    Build a dict mapping a normalized match-key tuple (from the source columns of
+    each --match-key spec) -> tuple of merged source column values. Rows failing
+    --merge-only are dropped. Later duplicate keys overwrite earlier ones.
+    """
+    mapping = {}
+    src_key_cols = [mk[0] for mk in match_keys]
+    for row in ws.iter_rows(min_row=header_row + 1, values_only=True):
+        if not _merge_only_ok(merge_only, row):
+            continue
+        key = tuple(
+            _norm(row[c - 1] if len(row) >= c else None) for c in src_key_cols
+        )
+        if all(k == "" for k in key):
             continue
         values = tuple(
             row[c - 1] if len(row) >= c else None for c in src_cols
@@ -96,6 +195,8 @@ def merge(
     output_path,
     column_specs,
     overwrite,
+    match_keys,
+    merge_only,
 ):
     print(f"Loading source:  {source_path!r}  sheet={source_sheet!r}")
     src_wb = openpyxl.load_workbook(source_path, data_only=True)
@@ -124,20 +225,34 @@ def merge(
     )
     print(f"Mode: {mode}")
     print(f"Columns: {mapping_desc}")
+    if match_keys:
+        mk_desc = ", ".join(
+            f"{src_l}=={tgt_l}" for _, _, src_l, tgt_l in match_keys
+        )
+        print(f"Match keys: {mk_desc}")
+    if merge_only:
+        mo_desc = ", ".join(f"{col_l}={val!r}" for _, val, col_l in merge_only)
+        print(f"Merge-only filters: {mo_desc}")
 
-    # --- Locate header and key column in source ---
+    # --- Locate header in source and build lookup ---
     src_header_row = find_header_row(src_ws)
-    src_key_col = 1  # Column A
-    print(f"Source header row={src_header_row}, key=col {src_key_col}(A)")
-
-    # --- Build source lookup ---
-    source_map = load_source_map(src_ws, src_header_row, src_key_col, src_cols)
-    print(f"Source rows loaded: {len(source_map)}")
+    if match_keys:
+        join_desc = " + ".join(f"{src_l}=={tgt_l}" for _, _, src_l, tgt_l in match_keys)
+        print(f"Source header row={src_header_row}, join on {join_desc} (column A ignored)")
+        source_map = load_source_map_by_match_keys(
+            src_ws, src_header_row, src_cols, match_keys, merge_only
+        )
+    else:
+        print(f"Source header row={src_header_row}, join on col 1(A)")
+        source_map = load_source_map_by_column_a(
+            src_ws, src_header_row, src_cols, merge_only
+        )
+    print(f"Source keys loaded: {len(source_map)}")
 
     # --- Locate header in target ---
     tgt_header_row = find_header_row(tgt_ws)
     tgt_key_col = 1
-    print(f"Target header row={tgt_header_row}, key=col {tgt_key_col}(A)")
+    tgt_key_cols = [mk[1] for mk in match_keys]
 
     # --- Add "Updated" column header to target (next free column) ---
     max_col = tgt_ws.max_column
@@ -153,10 +268,17 @@ def merge(
     skipped_already_filled = 0
 
     for row_idx in range(tgt_header_row + 1, tgt_ws.max_row + 1):
-        key_cell = tgt_ws.cell(row=row_idx, column=tgt_key_col)
-        key = key_cell.value
-        if key is None:
-            continue
+        if match_keys:
+            key = tuple(
+                _norm(tgt_ws.cell(row=row_idx, column=c).value)
+                for c in tgt_key_cols
+            )
+            if all(k == "" for k in key):
+                continue
+        else:
+            key = tgt_ws.cell(row=row_idx, column=tgt_key_col).value
+            if key is None:
+                continue
 
         if key not in source_map:
             skipped_no_match += 1
@@ -246,11 +368,34 @@ def main():
         action="store_true",
         help="Overwrite target cells even if they already have a value.",
     )
+    parser.add_argument(
+        "--match-key",
+        action="append",
+        default=None,
+        metavar="SRC:TGT",
+        help=(
+            "Require source column SRC to equal target column TGT before "
+            "merging a row (in addition to the column A key). Repeatable, "
+            "e.g. --match-key A:B --match-key C:D."
+        ),
+    )
+    parser.add_argument(
+        "--merge-only",
+        action="append",
+        default=None,
+        metavar="COL='value'",
+        help=(
+            "Only merge rows whose source column COL equals the given value. "
+            "Repeatable, e.g. --merge-only \"V='xxx'\"."
+        ),
+    )
     parser.set_defaults(overwrite=False)
     args = parser.parse_args()
 
     specs = args.columns if args.columns else ["V", "W"]
     column_specs = parse_column_specs(specs)
+    match_keys = parse_match_keys(args.match_key)
+    merge_only = parse_merge_only(args.merge_only)
 
     merge(
         source_path=args.source,
@@ -260,6 +405,8 @@ def main():
         output_path=args.output,
         column_specs=column_specs,
         overwrite=args.overwrite,
+        match_keys=match_keys,
+        merge_only=merge_only,
     )
 
 
