@@ -43,6 +43,53 @@ recommends is applied by the caller (`develop-xpu-test`) or the user.
 
 ## Workflow
 
+### Step 0: Diff scope check — no unrelated code touched (HARD GATE)
+
+Before running any test, inspect the pending diff and confirm it is limited to
+the target test class. Enablement for one test class must never modify op_db
+entries (or any other code) that belong to a *different* test class or test name.
+
+```bash
+cd <repo>
+git diff --stat
+git diff -- torch/testing/_internal/common_methods_invocations.py
+git diff -- test/<file>.py
+```
+
+Checks:
+
+1. **Enumerate the target class's generic test names.** Read the target test
+   class body and list its test methods (the `@ops(...)`-decorated methods and
+   any plain `test_*` methods). Use the base class name (e.g. `TestComplexTensor`),
+   not the device-suffixed instantiated name.
+
+2. **Every changed `DecorateInfo` must be in scope.** For each `+`/`-` line in
+   the `common_methods_invocations.py` diff, confirm the enclosing `DecorateInfo`
+   references the **target class name** AND one of its **generic test names**.
+   Any changed `DecorateInfo` that references a different test class
+   (`TestForeach`, `TestUnaryUfuncs`, `TestInductorOpInfo`, `TestSparseCSR`,
+   `TestCommon`, `TestConsistency`, ...) or a test name the target class does not
+   run is **out of scope**.
+
+3. **No unrelated files.** The diff should touch only the target test file and
+   (optionally) `common_methods_invocations.py`. Any other changed source file is
+   out of scope unless the user explicitly asked for it. Ignore untracked
+   dev-only paths such as `third_party/torch-xpu-ops/`.
+
+**Decision:**
+
+- **In-scope only** (or op_db unchanged) → proceed to Step 1.
+- **Any out-of-scope change found** → set overall verdict to **out-of-scope
+  changes** (a failing verdict). Do NOT proceed to run tests as if verified.
+  Report the exact out-of-scope `DecorateInfo` lines / files and instruct the
+  caller (`develop-xpu-test`) to revert them so the diff is limited to the
+  target class. Only after the diff is re-scoped should verification continue.
+
+Rationale: enabling `TestComplexTensor` must not widen `TestForeach` /
+`TestUnaryUfuncs` / etc. op_db entries. If the target class has no matching
+op_db entries at all, the correct diff has `common_methods_invocations.py`
+unchanged.
+
 ### Step 1: Sanity — confirm XPU is available
 
 ```bash
@@ -127,6 +174,9 @@ unexpectedly-passes on XPU.
 
 Return a concise verification report:
 
+- Diff scope check: **in scope** (only target class touched / op_db unchanged) or
+  **out-of-scope changes** — list any changed `DecorateInfo`/file that references
+  a different test class or test name.
 - XPU rows exercised: yes/no (with a count).
 - New XPU failures/errors: list any (test id + short reason), or "none".
 - Decorator parity checks: pass/fail for `largeTensorTest`, dtype parity, and
@@ -134,18 +184,24 @@ Return a concise verification report:
 - Widened `expectedFailure` entries that unexpectedly pass on XPU (must revert):
   list `(op, test_class, test_name)`, or "none".
 - CUDA-only cells: "unchanged (skipped on XPU host)" or list any regressions.
-- Overall verdict: **verified** / **needs revert** / **enablement not effective**.
+- Overall verdict: **verified** / **out-of-scope changes** / **needs revert** /
+  **enablement not effective**.
 
 ## Constraints
 
 1. **Read-only on source.** This skill runs tests only; it does not edit the
    test file or `common_methods_invocations.py`. Recommend reverts; the caller
    applies them.
-2. **Run from `/tmp`** to avoid a local pytorch checkout shadowing the conda
+2. **Diff scope is a hard gate.** If the diff touches any `DecorateInfo` for a
+   test class/name outside the target class, or any unrelated source file, the
+   verdict is **out-of-scope changes** and the enablement is not verified until
+   the diff is re-scoped to the target class (op_db unchanged when no entry
+   matches).
+3. **Run from `/tmp`** to avoid a local pytorch checkout shadowing the conda
    env's installed torch.
-3. **Do not install packages.** If `torch` is not importable, report the broken
+4. **Do not install packages.** If `torch` is not importable, report the broken
    env and stop — do not attempt to install or work around it.
-4. **CUDA numerics are CI's job.** The XPU host has no CUDA; CUDA-only cells
+5. **CUDA numerics are CI's job.** The XPU host has no CUDA; CUDA-only cells
    skipping is expected and is not a failure. This gate proves XPU enablement
    works and did not break CUDA-cell skip predicates — not CUDA correctness.
 
