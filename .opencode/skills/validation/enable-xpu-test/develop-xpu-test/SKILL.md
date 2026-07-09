@@ -1,6 +1,6 @@
 ---
 name: develop-xpu-test
-description: Enable Intel XPU coverage for an already device-generic PyTorch test file. Use after a test has been refactored to be accelerator-agnostic and you now need to add XPU to its device instantiation and register XPU xfails/skips in op_db. Gates on review-test-refactoring first (hard stop if not clean), then extends instantiate_device_type_tests to include "xpu"/adds a HAS_GPU guard, mirrors largeTensorTest and dtype decorators for XPU, and widens DecorateInfo device_type entries in common_methods_invocations.py ONLY for entries referencing the target class/its generic test names (untouched when no match). Never touches unrelated classes/names, never adds new XPU skip decorators or inline device-conditionals, never touches existing XPU skips, and never edits test method body logic even to fix an obvious bug (reports it instead). Never cites a closed GitHub issue to justify a gate. Hands off to verify-xpu-test after edits.
+description: Enable Intel XPU coverage for an already device-generic PyTorch test file. Use after a test has been refactored to be accelerator-agnostic and you now need to add XPU to its device instantiation and register XPU xfails/skips in op_db. Gates on review-test-refactoring first (hard stop if not clean), then extends instantiate_device_type_tests to include "xpu"/adds a HAS_GPU guard (always inline the tuple, never a separate variable), mirrors largeTensorTest and dtype decorators for XPU, and widens DecorateInfo device_type entries in common_methods_invocations.py ONLY for entries referencing the target class/its generic test names (untouched when no match). Never touches unrelated classes/names or inline device-conditionals, never edits test method body logic even to fix an obvious bug (reports it instead), and never adds skips (handled by enable-xpu-test orchestrator). Hands off to verify-xpu-test after edits.
 ---
 
 # Develop XPU Test
@@ -77,6 +77,7 @@ instantiate_device_type_tests(
 - `only_for=("cpu",)` → no change needed.
 - No `only_for=` but missing `allow_xpu=True` → add `allow_xpu=True`.
 - Keep any existing `except_for=`/`allow_mps=` intact.
+- **Always inline the tuple directly** (`only_for=("cpu", "cuda", "xpu")`). Never introduce a separate named variable (e.g. `only_for_xpu`). This keeps the diff minimal and avoids clutter in the test file.
 
 #### 2.2 Pattern B — `HAS_GPU` guard
 
@@ -160,27 +161,27 @@ past linter width, matching surrounding style.
 ## Constraints
 
 1. **Review gate is a hard stop.** Any Blocker ⇒ zero edits, report, stop.
-2. **Never add a new skip — decorator OR inline.** No `@skipIfXpu`,
-   `@skipXPU`, `subtest(..., decorators=[skipIfXpu(...)])`,
-   `self.skipTest("xpu", ...)`, and no inline device-conditional written as a
-   skip substitute (e.g. `if dtype is torch.float and device in ("cpu", "cuda"):`
-   guarding code that would otherwise run on XPU). Both are "adding a new way
-   to skip XPU" — one via decorator, one via control flow. Prohibited either
-   way, even if it would make the class pass cleanly.
+2. **This skill never adds skips.** Adding `@skipIfXpu` is handled by the
+   `enable-xpu-test` orchestrator in its Phase 5B, after `check-known-issue`.
+   This skill only performs three edit types: instantiation, decorator parity,
+   and op_db widening. Prohibited under all circumstances: `@skipXPU`,
+   `@skipXPUIf`, `@skipIfXpu`, `subtest(..., decorators=[skipIfXpu(...)])`,
+   `self.skipTest("xpu", ...)`, and inline device-conditionals written as skip
+   substitutes (e.g. `if dtype is torch.float and device in ("cpu", "cuda"):`).
 3. **Never touch existing XPU skips/decorators** (`@skipIfXpu`, `skipXPU`,
    `@skipXPUIf`, pre-existing `device_type='xpu'` entries not part of a
    Transform 2 merge) — leave exactly as-is.
 4. **Never edit test method body logic**, even for an obviously-correct
-   one-token fix. Step 2/3/4 are the only edits in scope. If enabling XPU
+   one-token fix. Steps 2-4 are the only edits in scope. If enabling XPU
    surfaces (or is expected to surface) a body-level bug — e.g. a
    `torch.randint(...)` call missing `device=`, previously masked by a
    device-specific early-return that never fired for XPU — do not patch it
-   and do not add a skip to route around it (violates Constraint 2). Proceed
-   with Step 2 normally; report the bug (file, line, current code, suggested
-   one-line fix labeled "not applied by this skill") alongside the summary,
-   and let `verify-xpu-test`'s resulting failure route it to a dedicated fix
-   (`fix-ut-test-code` skill, or explicit user request) — never bundle it
-   into this skill's edits.
+   and do not add a skip to route around it (this is a test-code bug, not a
+   backend gap). Proceed with Step 2 normally; report the bug (file, line,
+   current code, suggested one-line fix labeled "not applied by this skill")
+   alongside the summary, and let `verify-xpu-test`'s resulting failure route
+   it to a dedicated fix (`fix-ut-test-code` skill, or explicit user request)
+   — never bundle it into this skill's edits.
 5. **Only widen in-scope op_db entries** (Step 4.0); no cherry-picking within
    scope, no touching entries for other classes/names even if `cuda`-typed.
    Zero matches ⇒ zero edits to `common_methods_invocations.py` — this is the
@@ -234,6 +235,9 @@ Do not: add `device=device` yourself, or gate `test_bar` with a skip.
 
 ## See Also
 
+- `enable-xpu-test` — orchestrator that consumes these edits, verifies them,
+  and handles failure follow-up (including `@skipIfXpu` addition for known
+  backend gaps via `check-known-issue`).
 - `verify-xpu-test` — local XPU verification of these edits.
 - `submit-xpu-test-pr` — packages verified edits into a confirm-gated draft PR.
 - `review-test-refactoring` — the Step 1 gate.

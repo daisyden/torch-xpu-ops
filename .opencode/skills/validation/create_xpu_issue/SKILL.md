@@ -121,23 +121,104 @@ pattern. Search existing issues before creating to avoid duplicates.
 
 ## Submit and update
 
-```bash
-export GITHUB_TOKEN="<token>"
+### Preferred: `gh issue create` with a markdown body file
 
-curl -s -X POST "https://api.github.com/repos/intel/torch-xpu-ops/issues" \
-  -H "Accept: application/vnd.github+json" \
-  -H "Authorization: Bearer $GITHUB_TOKEN" \
-  -H "X-GitHub-Api-Version: 2022-11-28" \
-  -d '{"title":"[Bug Skip] <Title>","body":"<full body>","labels":["skipped","module: ut"]}'
+Write the issue body as raw markdown to a temp file, then submit with `gh`.
+This avoids JSON escaping pitfalls (quotes, newlines, backticks in markdown).
+
+**Correct** — write ONLY the markdown body to the file, then reference it:
+
+```bash
+# Write the markdown body (just the text, NO JSON wrapper)
+cat > /tmp/issue_body.md << 'ISSUE_BODY'
+## Bug Description
+
+<Brief description of the issue>
+
+## Affected Tests
+
+Cases:
+op_ut,<module_path>,<TestClass.test_name>
+
+[... full issue body per template ...]
+ISSUE_BODY
+
+# Submit — passes the markdown file as raw body text
+gh issue create \
+  --repo intel/torch-xpu-ops \
+  --title "[Bug Skip] <Title>" \
+  --label "skipped,module: ut" \
+  --body-file /tmp/issue_body.md
 ```
 
-To add missing detail after creation:
+**CRITICAL**: `--body-file` reads the file content as raw text. The file MUST contain
+only the markdown body — do NOT wrap it in `{"body": "..."}` JSON. Wrapping in JSON
+will cause the entire JSON structure (including `title`, `labels`, and escaped
+newlines) to appear verbatim as the issue body on GitHub.
+
+### Alternative: `gh issue create` with inline body
+
+For short bodies, inline body works (bash heredoc preserves newlines):
 
 ```bash
+gh issue create \
+  --repo intel/torch-xpu-ops \
+  --title "[Bug Skip] <Title>" \
+  --label "skipped,module: ut" \
+  --body "$(cat <<'BODY'
+## Bug Description
+...
+BODY
+)"
+```
+
+### Update an existing issue
+
+```bash
+# Option A: update with gh (preferred)
+gh issue edit <N> --repo intel/torch-xpu-ops --body-file /tmp/updated_body.md
+
+# Option B: via API
 curl -s -X PATCH "https://api.github.com/repos/intel/torch-xpu-ops/issues/<n>" \
   -H "Authorization: Bearer $GITHUB_TOKEN" \
-  -H "X-GitHub-Api-Version: 2022-11-28" \
-  -d '{"body":"<updated body>"}'
+  -H "Accept: application/vnd.github+json" \
+  -d "{\"body\": $(cat /tmp/body.md | jq -Rs .)}"
+```
+
+### Worked example (correct)
+
+```bash
+# 1. Assemble the markdown body
+cat > /tmp/nan_propagation.md << 'EOF'
+## Bug Description
+
+`torch.nanmean` produces incorrect results on XPU for float16 input.
+
+## Affected Tests
+
+Cases:
+op_ut,test/test_reductions.py,TestReductions.test_nanmean_xpu_float16
+
+## Error Message
+
+```
+AssertionError: Tensor-likes are not close!
+...
+```
+
+## Root Cause Analysis
+
+The XPU kernel for nanmean does not handle float16 accumulation correctly...
+EOF
+
+# 2. Submit
+gh issue create --repo intel/torch-xpu-ops \
+  --title "[Bug Skip] nanmean produces incorrect results on XPU for float16" \
+  --label "skipped,module: ut" \
+  --body-file /tmp/nan_propagation.md
+
+# 3. Clean up
+rm /tmp/nan_propagation.md
 ```
 
 ## After filing (when Context section was used)

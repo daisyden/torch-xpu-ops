@@ -8,9 +8,11 @@ description: End-to-end orchestrator for XPU test enablement. Takes one or more 
 Coordinate subskills to enable XPU on one or more test targets, then open ONE
 combined draft PR. This skill orchestrates; it does not replace the subskills.
 
-Phases: 0 provision -> 1 review -> 2 develop -> 3 verify -> 4 analyze
-(only-on-failure) -> 5 submit. Phases 1-4 run once per `test_file` group;
-Phase 5 runs once at the end.
+Phases: 0 provision -> 1 review -> 2 develop -> 2.5 remove-skips -> 3 verify
+-> 4 analyze (only-on-failure) -> 5 submit. Phases 1-4 run once per
+`test_file` group; Phase 5 runs once at the end. Phase 2.5 is optional — run
+it only when you want to probe and remove stale method-level skips after
+enablement.
 
 ## Inputs
 
@@ -28,6 +30,7 @@ Phase 5 runs once at the end.
 |---|---|---|
 | 1 Review | `review-test-refactoring` | Quality gate before enablement |
 | 2 Develop | `develop-xpu-test` | Apply XPU-enable source edits (per-class op_db scoping) |
+| 2.5 Remove skips | `remove-xpu-skips` | Probe and remove stale method-level XPU skips (issue-gated, one skip at a time) |
 | 3 Verify | `verify-xpu-test` | Local XPU verification |
 | 4 Analyze | `analyze-ut-failures` | Group failures, return verdict (only on failure) |
 | 5B Known issue | `check-known-issue` | Is a failing case already tracked? |
@@ -40,8 +43,8 @@ Group `test_targets` by `test_file`. Run Phases 1-4 **once per file group** for
 all its classes (each subskill returns **per-class** results). This avoids
 re-reading the file and re-grepping `common_methods_invocations.py` per class.
 
-- **Session reuse:** within a file group, chain develop -> verify (-> analyze)
-  via `task_id` so the file is read once.
+- **Session reuse:** within a file group, chain develop -> remove-skips ->
+  verify (-> analyze) via `task_id` so the file is read once.
 - **Analyze only on failure:** skip `analyze-ut-failures` for classes that
   verified all-pass (use verify counts as verdict `passed`); spawn it only for
   classes with failures/xpass.
@@ -53,9 +56,10 @@ re-reading the file and re-grepping `common_methods_invocations.py` per class.
 
 Spawn budget: ~3-4 calls per file + one final PR call (vs 4 per class).
 
-Accumulators: `passed_classes` (edits kept, `git add`ed), `followup_classes`
-(edits reverted, routed to 5B). Common params below: `E={conda_env}`,
-`P={pytorch_folder}`.
+Accumulators: `passed_classes` (edits kept, `git add`ed), `pending_classes`
+(edits kept pending Phase 5B resolution — backend-gap failures that may get
+`@skipIfXpu`), `followup_classes` (edits reverted, routed to 5B for issue
+filing only). Common params below: `E={conda_env}`, `P={pytorch_folder}`.
 
 ## Logging (MANDATORY, all under `agent_space/`)
 
@@ -91,10 +95,12 @@ error (hard-stop). Log to `session_log.txt` and `phase0_5_setup_env.json`.
 ## Phase Loop (per file group)
 
 Working-tree discipline: after a class PASSES, `git add` its file(s). If a class
-FAILS, revert only its hunks — never `git checkout --` a whole file shared with
-other classes (`test_file` or `common_methods_invocations.py`); restore then
-re-apply sibling hunks (`git checkout -p` / saved per-class patch). Reverting one
-class must never discard a sibling's accumulated edits.
+has failures, keep its edits in the tree and route to Phase 5B. Revert only
+when Phase 5B determines the failure is a test-code bug or has no known issue —
+never `git checkout --` a whole file shared with other classes (`test_file` or
+`common_methods_invocations.py`); restore then re-apply sibling hunks (`git checkout -p` /
+saved per-class patch). Reverting one class must never discard a sibling's
+accumulated edits.
 
 For each `file_group = (test_file, [classes])`:
 
@@ -117,6 +123,36 @@ independently (only widen `DecorateInfo` entries belonging to that class's own
 generic test names; leave op_db untouched for a class with no matching entries);
 report edits grouped per class. Keep `dev.task_id` for Phase 3.
 
+### Phase 2.5: Remove Stale Skips (optional)
+
+Run only when you want to clean up method-level `@skipIfXpu`, `@skipXPU`,
+`@skipXPUIf`, or inline device-type guards that may no longer be needed.
+This phase uses `remove-xpu-skips` to probe each skip individually.
+
+```python
+rem = task(
+    load_skills=["remove-xpu-skips"],
+    run_in_background=False,
+    prompt="Run remove-xpu-skips on <test_file> for classes: <eligible_classes>. "
+           "Conda env: <E>. Pytorch folder: <P>. For each skip found, check issue "
+           "state (if applicable), try removal, run pytest on XPU, and keep or revert. "
+           "Return per-skip results."
+)
+```
+
+Each skip is handled one at a time:
+- P1-P4 (`@skipIfXpu`, `@skipXPU`, `@skipXPUIf`): issue-gated — only probed
+  when the referenced issue is CLOSED (verified via `gh issue view`).
+- P5-P6 (inline guards, `@unittest.skipIf(not TEST_CUDA, ...)`): always probed
+  — try widening to include XPU, test, keep/revert.
+
+Removals that pass verification stay in the working tree (stacked on Phase 2's
+edits). Removals that fail are reverted individually without discarding sibling
+changes. Logs go to `agent_space/remove_xpu_skips/`.
+
+After Phase 2.5 is complete, proceed to Phase 3 with the accumulated edits
+(Phase 2 enablement + any kept skip removals).
+
 ### Phase 3: Verify Enablement (reuse session)
 
 `ver = task(task_id=dev.task_id, load_skills=["verify-xpu-test"], run_in_background=False)`
@@ -135,11 +171,13 @@ spawn). Only for classes with failures/xpass:
 
 `task(task_id=ver.task_id, load_skills=["analyze-ut-failures"], run_in_background=False)`
 — analyze the failing classes (`test_file`, failing classes, `test_cases`,
-`E`/`P`); return JSON with per-class verdict + groups.
+`E`/`P`); return JSON with per-class verdict + per-test-case failure groups
+(including root-cause classification).
 
 Per class: `passed` -> `git add` its files, append to `passed_classes`.
-`has-failures` -> surgically revert, append to `followup_classes` (carry failing
-groups for 5B).
+`has-failures` -> **keep edits in the tree**, move to `pending_classes` (to be
+resolved in Phase 5B). Do NOT revert yet — the edits may be kept with
+`@skipIfXpu` if the failures are known backend gaps.
 
 After all groups processed, go to Phase 5 ONCE.
 
@@ -148,17 +186,40 @@ After all groups processed, go to Phase 5 ONCE.
 Do 5B first so issue links can go in the PR body. If `passed_classes` is empty,
 open NO PR; report per-class outcomes + any 5B issue links.
 
-### Phase 5B: Failure Follow-up (`followup_classes`)
+### Phase 5B: Failure Follow-up (`pending_classes` + `followup_classes`)
 
-For each failing case/group:
-1. `task(load_skills=["check-known-issue"], run_in_background=False)` — check
-   `test_file`/`class`/`test_name`/`error`/device=xpu; collect existing issue URLs.
-2. If none, `task(load_skills=["create-xpu-issue"], run_in_background=False)` —
-   file one (signature, tests, root_cause, pr=<pending>, enablement Context);
-   collect URL.
+For each class in `pending_classes` (edits still in the tree, has failures):
 
-Gather all URLs into `followup_issue_urls`. Review-blocked classes (no runnable
-failure signature) need no issue unless the user asks.
+1. **Classify failures**: from `analyze-ut-failures` output, determine if each
+   failing test case is a genuine backend gap or a test-code bug.
+   - **Test-code bug**: revert the class's hunks, move to `followup_classes`.
+     No issue filed (the bug is in test code, not the backend).
+   - **Backend gap**: proceed to known-issue check.
+
+2. **check-known-issue**: for each backend-gap failure, run
+   `task(load_skills=["check-known-issue"], run_in_background=False)` —
+   check `test_file`/`class`/`test_name`/`error`/device=xpu; collect existing
+   issue URLs.
+
+3. **Decision per failing test case**:
+   - **Known issue EXISTS** → add `@skipIfXpu(msg="See <issue_url>")` on that
+     individual test method (not class-wide). Import `skipIfXpu` from
+     `torch.testing._internal.common_utils` if not already present.
+   - **No known issue** → `task(load_skills=["create-xpu-issue"], run_in_background=False)`
+     — file a tracking issue (signature, tests, root_cause, pr=<pending>,
+     enablement Context). Do NOT add a `@skipIfXpu` (no issue URL to reference).
+
+4. **Class outcome**:
+   - At least one `@skipIfXpu` added → moves to `passed_classes` (enabled
+     with per-method skips; passing siblings still run on XPU).
+   - No skips added (all failures were new issues with no prior tracker) →
+     revert the class's hunks, move to `followup_classes`.
+
+5. **Gather all issue URLs** (both known and newly created) into
+   `followup_issue_urls` for the PR body / cross-referencing.
+
+Review-blocked classes (no runnable failure signature) need no issue unless
+the user asks.
 
 ### Phase 5A: Submit ONE Combined PR (>=1 passing class)
 
@@ -239,5 +300,6 @@ follow-up; `issue-follow-up` none enabled, only issues (no PR);
 
 ## See Also
 
-`develop-xpu-test`, `verify-xpu-test`, `submit-xpu-test-pr`,
-`analyze-ut-failures`, `check-known-issue`, `create-xpu-issue`.
+`develop-xpu-test`, `remove-xpu-skips`, `verify-xpu-test`,
+`submit-xpu-test-pr`, `analyze-ut-failures`, `check-known-issue`,
+`create-xpu-issue`.

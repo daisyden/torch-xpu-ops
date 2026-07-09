@@ -6,15 +6,17 @@ device-generic (accelerator-agnostic), then open a single draft PR against
 
 ## What It Does
 
-The orchestrator runs 5 phases for each `test_file` group:
+The orchestrator runs these phases for each `test_file` group:
 
 ```
 Phase 0.5:  Provision conda env + pytorch checkout (if missing)
 Phase 1:    Review gate — is the test class ready for XPU?
 Phase 2:    Develop — apply the enablement edits
+Phase 2.5:  Remove skips — probe and remove stale method-level XPU skips (optional)
 Phase 3:    Verify — run the enabled tests on XPU
 Phase 4:    Analyze — only if tests had failures (else skip)
-Phase 5:    Submit — open ONE combined draft PR for all passing classes
+Phase 5A:   Submit — open ONE combined draft PR for all passing classes
+Phase 5B:   Follow-up — resolve failing classes: known-issue → `@skipIfXpu`; else file new issue → revert
 ```
 
 Classes that fail review or verification are **isolated** — they don't block
@@ -119,21 +121,43 @@ Output artifact: `agent_space/enable_xpu_orchestrator/phase1_review.json`
 
 #### Phase 2 — Develop Enablement
 
-The `develop-xpu-test` skill applies **exactly three possible edit types**:
+The `develop-xpu-test` skill applies up to **three possible edit types**:
 
-1. **Instantiation enablement** — the only change needed here
-2. **Decorator parity** — mirror CUDA-only decorators to XPU (none needed)
+1. **Instantiation enablement** — always inline `only_for=("cpu", "cuda", "xpu")`, never a separate variable.
+2. **Decorator parity** — mirror CUDA-only decorators to XPU (none needed).
 3. **op_db widening** — extend `DecorateInfo` entries in
-   `common_methods_invocations.py` (none matched → no change)
+   `common_methods_invocations.py` (none matched → no change).
 
-The edit is a single line in `test/nn/test_dropout.py`:
+For a simple case like `TestDropoutNNDeviceType`, only edit type 1 is needed:
 
 ```diff
 -instantiate_device_type_tests(TestDropoutNNDeviceType, globals(), allow_mps=True)
 +instantiate_device_type_tests(TestDropoutNNDeviceType, globals(), allow_mps=True, allow_xpu=True)
 ```
 
-That's it — only 1 insertion, no test code touched, no new skips added.
+That's it — 1 insertion, no test code touched, no skips needed.
+
+#### Phase 2.5 — Remove Stale Skips (optional)
+
+After enablement, some methods may still be skipped by individual decorators
+(`@skipIfXpu`, `@skipXPU`, `@skipXPUIf`) or inline device-type guards
+(`if self.device_type not in ("cpu", "cuda"): self.skipTest(...)`). The
+`remove-xpu-skips` skill probes these one at a time:
+
+1. **Discover** all skips in the enabled class.
+2. **Check issue** (for decorators with a GitHub issue URL): skip removal if
+   the referenced issue is OPEN; proceed only if CLOSED.
+3. **Try removal**: remove the decorator or widen the guard.
+4. **Run the test** on XPU.
+5. **Keep or revert**: pass → keep; fail → revert.
+
+For `TestChebyshevNanPropagation`, `remove-xpu-skips` found one P5 guard
+(`"cpu", "cuda"`) and attempted to widen it to include `"xpu"`. The test had
+a pre-existing NaN propagation subfailure, so the change was **reverted** —
+the guard stays as-is. The class-level enablement (Phase 2) was kept.
+
+Output artifacts: `agent_space/remove_xpu_skips/` (per-skip report + raw
+pytest logs).
 
 #### Phase 3 — Verify on XPU
 
@@ -163,8 +187,13 @@ Verdict: **verified** — 5 CPU + 5 XPU tests, all passed.
 
 #### Phase 4 — Analyze (only on failure)
 
-Since all tests passed, this phase is skipped. The verify counts are used
-directly as the verdict.
+For all-pass classes, `verify-xpu-test` counts are used directly as the verdict
+(`passed`). These classes advance to the PR.
+
+For classes with failures, `analyze-ut-failures` groups each failure by root
+cause. The class's edits are **kept in the tree** (not reverted yet) and moved
+to Phase 5B for resolution: known-issue check → optional `@skipIfXpu` addition
+or new issue filing.
 
 #### Phase 5 — Submit PR
 
@@ -190,8 +219,14 @@ PR: https://github.com/pytorch/pytorch/pull/189254
 | Fork | `daisyden/pytorch` |
 
 If a class had failures instead, Phase 5B would:
-1. `check-known-issue` — is it already tracked?
-2. `create-xpu-issue` — if not, file a structured issue with cross-link
+1. **Classify**: test-code bug → revert; backend gap → proceed.
+2. **`check-known-issue`** — is each failure already tracked?
+3. **Known issue → `@skipIfXpu`**: add the decorator on individual failing
+   methods with the existing issue URL. Class stays enabled (skipped methods
+   don't run, passing siblings do).
+4. **No known issue → `create-xpu-issue`**: file a structured issue. No skip
+   added (no URL to reference). Class is reverted.
+5. **Gather issue URLs** for PR body cross-linking.
 
 ## Input Reference
 
@@ -226,7 +261,8 @@ The orchestrator returns a JSON summary:
   "pytorch_folder": "/home/daisyden/daisy_pytorch",
   "pr_url": "https://github.com/pytorch/pytorch/pull/189254",
   "passed_targets": ["nn/test_dropout.py::TestDropoutNNDeviceType"],
-  "followup_targets": [],
+  "pending_targets": [],        # Failures pending Phase 5B resolution
+  "followup_targets": [],       # Reverted + new issues filed (5B dead end)
   "known_issue_urls": [],
   "created_issue_urls": [],
   "per_target": [
@@ -247,7 +283,7 @@ The orchestrator returns a JSON summary:
 | Status | Meaning |
 |--------|---------|
 | `passed` | All classes enabled, PR opened |
-| `partial` | Some enabled (PR opened), rest routed to follow-up |
+| `partial` | Some enabled (PR opened), rest in `pending_targets` → Phase 5B resolved (skipped or reverted) |
 | `issue-follow-up` | None enabled, only issues filed (no PR) |
 | `failed-hard-stop` | Batch-wide critical error (env, auth, missing inputs) |
 
@@ -260,6 +296,11 @@ agent_space/
 ├── session_log.txt                          # Human-readable timeline
 ├── logs/
 │   └── background_status.log                # Subagent status
+├── remove_xpu_skips/                        # Phase 2.5 skip-removal artifacts
+│   ├── <test_slug>__<class>__discovery.json
+│   ├── <test_slug>__<class>.json
+│   └── logs/
+│       └── <test_slug>__<class>__<method>__xpu.txt
 └── enable_xpu_orchestrator/
     ├── phase1_review.json
     ├── phase2_develop.json
@@ -284,11 +325,15 @@ Each phase JSON is keyed by file-group slug with a `per-class` results array.
 
 ### Scenario B: Some Tests Fail (Partial Enablement)
 
-If `TestA` passes but `TestB` fails:
+If `TestA` passes but `TestB` fails with a backend gap:
 
 - `TestA` → verified → PR
-- `TestB` → reverted → checked against known issues → filed if new
-- PR body includes links to the filed issues
+- `TestB` → Phase 5B resolves:
+  - **Known issue already tracked** → `@skipIfXpu` on failing methods only,
+    class stays enabled — passing siblings still run on XPU
+  - **No known issue** → `create-xpu-issue` filed, class **reverted**,
+    moved to `followup_targets`
+- PR body links to known issue URLs and/or filed issues
 
 ### Scenario C: Review Gate Blocks a Class
 
@@ -319,16 +364,18 @@ with a fatal error.
 User command
     │
     ▼
-┌─────────────────────────────────────────────────────┐
-│              enable-xpu-test (orchestrator)          │
-│  Phases: provision → review → develop → verify → PR │
-│  Group-by-file, batch per phase, one PR at end       │
-└──┬───┬───┬───┬───┬───┬──────────────────────────────┘
-   │   │   │   │   │   │
-   ▼   ▼   ▼   ▼   ▼   ▼
-   │   │   │   │   │   │
+┌───────────────────────────────────────────────────────────┐
+│              enable-xpu-test (orchestrator)                │
+│  Phases: provision → review → develop → remove-skips →    │
+│          verify → analyze → 5A: submit PR / 5B: follow-up │
+│  Group-by-file, batch per phase, one PR at end             │
+└──┬───┬───┬───┬───┬───┬───┬────────────────────────────────┘
+   │   │   │   │   │   │   │
+   ▼   ▼   ▼   ▼   ▼   ▼   ▼
+   │   │   │   │   │   │   │
    ├── review-test-refactoring    (Phase 1)
    ├── develop-xpu-test           (Phase 2)
+   ├── remove-xpu-skips           (Phase 2.5, optional)
    ├── verify-xpu-test            (Phase 3)
    ├── analyze-ut-failures        (Phase 4, only if needed)
    ├── check-known-issue          (Phase 5B)
@@ -336,15 +383,21 @@ User command
    └── submit-xpu-test-pr         (Phase 5A)
 ```
 
+`remove-xpu-skips` is an optional Phase 2.5 subskill. Use it after develop
+enablement to clean up stale method-level skips whose tracking issues have
+been resolved. Each skip is probed individually: issue check → removal →
+pytest → keep/revert. Kept removals stay in the working tree alongside
+Phase 2's enablement edits and proceed together to Phase 3 verification.
+
 Each subskill is a focused agent that handles one concern. The orchestrator
 reuses subagent sessions via `task_id` within a file group to avoid redundant
 file reads.
 
 ## Constraints (Non-Negotiable)
 
-1. **Never add a new XPU skip.** No `@skipIfXpu`, `@skipXPU`, or inline
-   `if device == "xpu": return`. If a test has a latent bug, report it — don't
-   gate around it.
+1. **`@skipIfXpu` is allowed only when backed by a tracking issue.** Added by
+   Phase 5B after `check-known-issue` returns a match. No `@skipXPU`,
+   `@skipXPUIf`, `self.skipTest("xpu", ...)`, or inline device-conditionals.
 2. **Never edit test method body logic.** Even a one-token fix is out of scope.
 3. **No op_db changes for other classes.** Only widen `DecorateInfo` entries
    belonging to the target class and its generic test names.
@@ -352,5 +405,6 @@ file reads.
    counts.
 5. **Never skip verification.** Every enabled class must run on XPU first.
 6. **Surgical revert only.** A failing class's edits are reverted without
-   discarding passing siblings' changes.
+   discarding passing siblings' changes (applies to test-code bugs; backend
+   gaps use Phase 5B `@skipIfXpu` instead).
 7. **PR is always a draft.** Confirm-gated — never publishes without approval.
