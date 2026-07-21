@@ -29,7 +29,7 @@ Every test falls into one of three categories. Classification is hierarchical: *
 | **Accelerator-agnostic (S2)** | Uses a device but only generic accelerator APIs | `instantiate_device_type_tests()` |
 | **Accelerator-specific (S3)** | Requires a particular accelerator's unique features | `instantiate_device_type_tests(..., only_for=...)` when `@dtypes`-style decorators exist; otherwise plain `TestCase` |
 
-### Device API Categories (consult `../reference/device_api_catalog.yaml`)
+### Device API Categories (consult `../../../backend-knowledge/reference/device_api_catalog.yaml`)
 
 | Category | Examples | Strategy |
 |----------|---------|----------|

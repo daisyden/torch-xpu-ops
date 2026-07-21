@@ -35,12 +35,12 @@ This skill supports two review modes. Determine which applies:
 1. **Read the entire test file.** Load the full file — you are auditing every
    class and test method, not just a diff.
 
-2. **Read `../reference/device_api_catalog.yaml`.** This catalog is the
+2. **Read `../../../backend-knowledge/reference/device_api_catalog.yaml`.** This catalog is the
    authoritative reference for whether a device API is Category A (has
    `torch.accelerator` equivalent), Category B (general cross-backend concept),
    or Category C (truly device-specific). Every API classification decision in
    the review must be grounded in this catalog. See
-   `../reference/classification_guide.md` for lookup instructions.
+   `../../../backend-knowledge/reference/classification_guide.md` for lookup instructions.
 
 3. Run through the full checklist below, applying every check to every class
    and test method in the file. There is no "before" version to compare against
@@ -51,7 +51,7 @@ This skill supports two review modes. Determine which applies:
 1. Identify the changes to review. If the user provides a PR URL, fetch it with
    `gh`. Otherwise, use `git diff` against the base branch (usually `origin/main`).
 
-2. **Read `../reference/device_api_catalog.yaml`** (same as above).
+2. **Read `../../../backend-knowledge/reference/device_api_catalog.yaml`** (same as above).
 
 3. For each changed test file, run through the checklist below. Focus on the
    diff — you are reviewing what changed, not re-auditing the entire file.
@@ -71,7 +71,7 @@ Report findings organized by severity:
 
 ## Reference: The Device API Catalog
 
-`../reference/device_api_catalog.yaml` classifies every PyTorch device API into three categories. Always consult it when reviewing classifications — never rely on memory or heuristics.
+`../../../backend-knowledge/reference/device_api_catalog.yaml` classifies every PyTorch device API into three categories. Always consult it when reviewing classifications — never rely on memory or heuristics.
 
 | Category | Description | Strategy Implication |
 |----------|-------------|---------------------|
@@ -99,7 +99,7 @@ For every test classified as Strategy 3 (`TestFooCUDA`) or using
 > report), or is it just using CUDA as a device for generic computation?
 
 **How to check**: Look up each `torch.cuda.*` API the test uses in
-`../reference/device_api_catalog.yaml`. If every API it uses is Category A or B,
+`../../../backend-knowledge/reference/device_api_catalog.yaml`. If every API it uses is Category A or B,
 the test is misclassified — it should be Strategy 2 with `@onlyAccelerator`.
 
 **Red flags** (signals the test is wrongly classified as CUDA-specific):
@@ -115,7 +115,7 @@ the test is misclassified — it should be Strategy 2 with `@onlyAccelerator`.
 #### 1b. Over-generalization Detection
 
 Conversely, check that tests using Category C APIs were NOT incorrectly
-generalized to Strategy 2. Consult `../reference/device_api_catalog.yaml` → `category_c` for the full per-backend lists. Key examples:
+generalized to Strategy 2. Consult `../../../backend-knowledge/reference/device_api_catalog.yaml` → `category_c` for the full per-backend lists. Key examples:
 
 | Code Pattern | What It Means | Severity |
 |-------------|---------------|----------|
@@ -236,7 +236,7 @@ collisions.
 ### 4. API Replacement Correctness
 
 For Strategy 2 tests, verify device-specific APIs were replaced with their
-device-agnostic equivalents. **Consult `../../../reference/device_api_catalog.yaml` → `category_a` for the authoritative mapping.** The catalog defines every `torch.<device>.<api>` → `torch.accelerator.<api>` replacement.
+device-agnostic equivalents. **Consult `../../../backend-knowledge/reference/device_api_catalog.yaml` → `category_a` for the authoritative mapping.** The catalog defines every `torch.<device>.<api>` → `torch.accelerator.<api>` replacement.
 
 **Key checks:**
 
@@ -354,4 +354,4 @@ The refactoring standards this review checks against are defined in the
 decision tree, blacklist vs. whitelist rules, instantiation mechanism
 comparison, and Strategy 1/2/3 patterns.
 
-**`../reference/device_api_catalog.yaml`** is the single authoritative source for API classification. It categorizes every device API as A (accelerator equivalent), B (general concept), or C (truly device-specific). All classification decisions in the review must be grounded in this catalog — never hard-code or guess which APIs belong to which category.
+**`../../../backend-knowledge/reference/device_api_catalog.yaml`** is the single authoritative source for API classification. It categorizes every device API as A (accelerator equivalent), B (general concept), or C (truly device-specific). All classification decisions in the review must be grounded in this catalog — never hard-code or guess which APIs belong to which category.

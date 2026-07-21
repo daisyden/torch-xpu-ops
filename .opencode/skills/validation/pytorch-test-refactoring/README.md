@@ -234,9 +234,9 @@ A full S1/S2/S3 refactoring across two files, demonstrating all three strategies
 | `instantiate_device_type_tests` for S1 | Creates wasteful per-device variants |
 | Forgetting to check `dynamo_skips/` after rename | Stale entries cause silent CI failures |
 | Forgetting to update `DecorateInfo` after rename | Previously-skipped tests start running and failing |
-| Category A/B APIs treated as CUDA-specific | Check `reference/device_api_catalog.yaml` |
+| Category A/B APIs treated as CUDA-specific | Check `../../backend-knowledge/reference/device_api_catalog.yaml` |
 
 ## Reference Material
 
-- `reference/device_api_catalog.yaml` — Classifies every device API as Category A (accelerator-equivalent), B (general concept), or C (device-specific). **Always consult this for classification decisions.**
+- `../../backend-knowledge/reference/device_api_catalog.yaml` — Classifies every device API as Category A (accelerator-equivalent), B (general concept), or C (device-specific). **Always consult this for classification decisions.**
 - `examples/` — Worked examples of test file refactoring (see `TEST_BENCHMARK_UTILS_REFACTORING.md` for a walkthrough).

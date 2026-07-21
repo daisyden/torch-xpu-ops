@@ -197,7 +197,7 @@ For each class in `pending_classes` (edits still in the tree, has failures):
    - **Backend gap**: proceed to known-issue check.
 
 2. **check-known-issue**: for each backend-gap failure, run
-   `task(load_skills=["check-known-issue"], run_in_background=False)` —
+   `task(load_skills=["validation/check-known-issue"], run_in_background=False)` —
    check `test_file`/`class`/`test_name`/`error`/device=xpu; collect existing
    issue URLs.
 
