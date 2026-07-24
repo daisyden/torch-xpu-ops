@@ -28,12 +28,12 @@ before dispatch**; never guess a default.
 
 ## Results Folder & Logging
 
-Each issue gets its own isolated directory via the single-issue skill's
-existing convention. The batch orchestrator adds a top-level batch folder:
+Each issue gets its own isolated directory with a per-issue `steps.log`.
+The batch orchestrator adds a top-level batch folder for batch-level
+artifacts only:
 
 ```
 agent_space/
-├── session_log.txt                                    # appended by both batch + per-issue
 └── issue_triage_orchestrator/
     ├── batch_<timestamp>/
     │   ├── batch_config.json                          # inputs, concurrency, timestamp
@@ -41,13 +41,23 @@ agent_space/
     │   ├── batch_summary.md                           # final human-readable summary table
     │   └── batch_report.json                          # final structured output
     ├── intel_torch-xpu-ops_issue_1234/                # per-issue (written by issue-triage subagent)
-    │   └── ...
+    │   ├── steps.log                                  # per-step log for THIS issue
+    │   ├── step1_extract.json
+    │   ├── step2_reproduce.json
+    │   ├── step3_triage.json
+    │   ├── triage/                                    # triage-issue subskill's working files
+    │   │   ├── step1_duplication.json
+    │   │   └── ...
+    │   ├── summary.md
+    │   └── final_output.json
     ├── intel_torch-xpu-ops_issue_5678/
     │   └── ...
     └── ...
 ```
 
-The `batch_<timestamp>` folder uses format `batch_YYYYMMDD_HHMMSS`.
+**No shared `session_log.txt`.** All per-step logging is local to each
+issue's `steps.log`. The batch orchestrator reads these files when
+building the batch report's timing section.
 
 ## Workflow
 
@@ -74,7 +84,26 @@ for issue_link in issue_links:
         prompt=f"""issue_link={issue_link}
 conda_env={conda_env}
 pytorch_folder={pytorch_folder}
-Follow the issue-triage skill exactly. Return the full final_output.json content."""
+
+Follow the issue-triage skill exactly. Additional MANDATORY requirements:
+
+1. COMMENT FORMAT (Step 5b): The GitHub comment MUST use the exact 4-column
+   GFM table format: `| Field | Value | Reason | Evidence |`. Every row must
+   have all 4 cells populated. Do NOT use 2-column tables. Do NOT use free-form
+   markdown sections (Root Cause, Verdict, etc.) as a substitute for the table.
+   The first line of the comment MUST be exactly:
+   `[agent-issue-triage]: Automated triage result`
+
+2. LOGGING: Write ALL per-step logs to `{{issue_dir}}/steps.log` (one line per
+   step, appended immediately on completion). Format:
+   `[YYYY-MM-DDTHH:MM:SSZ] <step> | skill: <name> | result: <ok|hard-stop|skipped> | duration_s: <N> | file: <filename>`
+   Do NOT write to any shared session_log.txt.
+
+3. STEP DURATIONS: Include step_durations in final_output.json with real
+   timestamps (use `date -u +%s` before/after each step to compute seconds).
+   The `logs` field in final_output.json = full content of steps.log as string array.
+
+Return the full final_output.json content at the end."""
     )
 ```
 
@@ -92,14 +121,16 @@ As each background task completes (signaled by `<system-reminder>`):
 
 1. Collect output via `background_output(task_id=...)`.
 2. Parse the subagent's final output (the `final_output.json` structure
-   from issue-triage).
-3. Update `batch_status.json`: mark the issue as `"completed"` or
+   from issue-triage). Extract `step_durations` if present.
+3. If `step_durations` is missing, compute `total_seconds` from the
+   background task's reported `Duration` (available in the task result
+   header). Set individual step durations to `null`.
+4. Update `batch_status.json`: mark the issue as `"completed"` or
    `"failed"` with the hard-stop reason.
-4. Log to `session_log.txt`:
-   ```
-   [YYYY-MM-DD HH:MM:SS] batch | issue: <link> | task_id: <id> | result: <completed|failed-hard-stop> | issue_dir: <path>
-   ```
-5. If concurrency slots freed and pending issues remain, dispatch next.
+5. **OPTIONAL**: Read `{issue_dir}/steps.log` to extract per-step timing
+   for the batch report. If the file is missing, fall back to `Duration`
+   from the background task header.
+6. If concurrency slots freed and pending issues remain, dispatch next.
 
 Continue until all issues are resolved (completed or failed).
 
@@ -133,6 +164,13 @@ After all issues are collected, build two artifacts:
             "labeled": bool | None,        # was agent:fix_feasible applied?
             "comment_url": str | None,
             "issue_dir": str,
+            "step_durations": {
+                "step1_extract_seconds": float | None,
+                "step2_reproduce_seconds": float | None,
+                "step3_triage_seconds": float | None,
+                "step5_notify_seconds": float | None,
+                "total_seconds": float | None,
+            } | None,
         }
     ]
 }
@@ -173,6 +211,13 @@ After all issues are collected, build two artifacts:
 | Needs human review | D |
 | Duplicates found | E |
 | Labels applied | F |
+
+## Step Timing
+
+| Issue | Total | Extract | Reproduce | Triage | Notify |
+|---|---|---|---|---|---|
+| repo#id | 6m 13s | 14s | 1m 30s | 4m 00s | 2s |
+| repo#id | 5m 40s | 10s | 0s (skipped) | 5m 00s | 3s |
 ```
 
 ### Step 4 - Report to User
@@ -207,11 +252,10 @@ The reproduce step runs pytest locally. Contention occurs when:
   outcome (not a hard-stop), and the issue still completes triage via
   Steps 3-5 without reproduction data.
 
-### Session Log Contention
+### No Log Contention
 
-`session_log.txt` is append-only. Parallel appends from multiple subagents
-may interleave lines but each line is atomic (single write). This is
-acceptable for a human-readable log.
+Each issue writes to its own `{issue_dir}/steps.log`. No shared log file
+exists, so parallel issues never interleave or contend on writes.
 
 ## Critical Error Handling
 
@@ -241,7 +285,7 @@ The skill returns:
     "duration_seconds": float,
     "report_path": str,         # path to batch_report.json
     "summary_path": str,        # path to batch_summary.md
-    "issues": [...]             # same as batch_report.json.issues
+    "issues": [...]             # same as batch_report.json.issues (includes step_durations)
 }
 ```
 

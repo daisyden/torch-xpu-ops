@@ -22,7 +22,7 @@ inside the given `pytorch_folder` for Steps 1/4 — Step 2's tracing
 
 | Input | Required | Notes |
 |---|---|---|
-| Issue JSON | yes | `extract-basic-info` output, or `reproduce-issue` output (top-level object + `results[]`). Pull `title`, `labels`, `traceback`, `test_file`/`test_class`/`test_case` (or each `test_cases[]` entry), `module`, `type`. For `reproduce-issue` output also pull each `results[]` entry's `result`, `actual_error`, `raw_tail`. |
+| Issue JSON | yes | `extract-basic-info` output, or `reproduce-issue` output (top-level object + `results[]`). Pull `title`, `labels`, `traceback`, `test_file`/`test_class`/`test_case` (or each `test_cases[]` entry), `module`, `type`. For `reproduce-issue` output also pull each `results[]` entry's `result`, `actual_error`, `raw_tail`. **Read from the file path specified in the prompt** (e.g. `agent_space/triage_issue/step3_input.json`) — never expect the full JSON inline in the prompt. |
 | `pytorch_folder` | yes | Local `pytorch` checkout, or standalone `torch-xpu-ops` checkout. Used for read-only tracing (CodeGraph/LSP/grep). |
 | `conda_env` | no | Only needed if a subagent must probe the installed `torch` (e.g. to confirm a symbol's dispatch); not required for pure source tracing. |
 

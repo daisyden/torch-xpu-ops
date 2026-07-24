@@ -39,11 +39,51 @@ fields) — every leaf skill here is read-only/analysis-only, and so is
 this orchestrator. `NEED_HUMAN`/`NO_NEED_FIX` are reported in the output
 only, never acted on by this skill.
 
+## Context Budget Management (CRITICAL)
+
+This skill runs 5 sequential sub-steps, each spawning subagents. Without
+discipline, the accumulated prompts and results fill context quickly.
+
+### Rule 1: File-based input/output
+
+- Read your input from the file path given in the prompt (e.g.
+  `{issue_dir}/step3_triage_input.json`). Never ask the caller to repeat
+  the JSON inline.
+- Write each step's result to `{issue_dir}/triage/stepN_*.json`.
+- Pass file paths (not verbatim JSON) to sub-step prompts when the JSON
+  exceeds 50 lines.
+
+### Rule 2: Slim payloads per sub-step
+
+Each sub-step receives ONLY the fields it needs:
+
+| Sub-step | Required fields |
+|---|---|
+| issue-duplication | `issue_id`, `repo`, `title`, `test_file`, `test_class`, `test_case`, `test_cases[]` (identity fields only), `traceback` (last 15 lines), `reproduce_summary` |
+| check-not-target-feature | `test_file`, `test_class`, `test_case`, `traceback` (last 15 lines), `pytorch_folder` |
+| issue-target-component | `issue_id`, `repo`, `title`, `labels`, `traceback` (last 20 lines), `test_file`, `test_class`, `test_case`, `reproduce_summary`, `conda_env`, `pytorch_folder` |
+| issue-priority | `issue_id`, `repo`, `title`, `labels`, `priority` (existing if any), `root_cause_result` (synthesized) |
+| issue-category | `issue_id`, `repo`, `title`, `labels`, `module`, `root_cause_result` (synthesized) |
+
+Never pass `raw_tail`, full `reproduce_steps`, or unneeded `test_cases[]`
+detail to steps that don't use them.
+
+### Rule 3: Background isolation for ALL subagent steps
+
+ALL subagent invocations (Steps 1-5) run as `run_in_background=true` for
+**context isolation** — their internal reasoning (tool calls, multi-turn
+conversations with their own sub-subagents) stays in their own session.
+This skill only collects the file-based result.
+
+- Steps 1→2→3 are sequential (each depends on the previous result), but
+  still fire as background for isolation — wait for each before proceeding.
+- Steps 4+5 are independent — fire both in parallel, then collect both.
+
 ## Inputs
 
 | Input | Required | Notes |
 |---|---|---|
-| Issue JSON | yes | Output of `extract-basic-info`, optionally enriched with `results[]` from `reproduce-issue`. Needs `issue_id`, `repo`, `title`, `labels`, plus `traceback`/`test_file`/`test_class`/`test_case` (or `test_cases[]`) for a real analysis — else accepted as-is for an early `NEED_HUMAN` stop. |
+| Issue JSON | yes | Output of `extract-basic-info`, optionally enriched with `results[]` from `reproduce-issue`. Needs `issue_id`, `repo`, `title`, `labels`, plus `traceback`/`test_file`/`test_class`/`test_case` (or `test_cases[]`) for a real analysis — else accepted as-is for an early `NEED_HUMAN` stop. Read from the file path provided by the caller. |
 | `conda_env` | yes | Passed to Step 3's optional installed-`torch` probing. |
 | `pytorch_folder` | yes | Local `pytorch`/`torch-xpu-ops` checkout; passed to Step 2 (as `PYTORCH_SRC`) and Step 3 for read-only code tracing. |
 
@@ -97,15 +137,24 @@ and go straight to Step 6 — `duplication`/`not_target`/`target_component`/
 short-circuit fired above (a `preliminary_verdict` of `NEED_HUMAN` does
 NOT skip this).
 
+Build a slim duplication input with ONLY: `issue_id`, `repo`, `title`,
+`test_file`, `test_class`, `test_case`, `test_cases[]` (identity fields
+per entry: `test_file`, `test_class`, `test_case`, `source`), `traceback`
+(last 15 lines), and `reproduce_summary` (if available). Write to
+`{issue_dir}/triage/step1_input.json`.
+
 ```
-task(subagent_type="general", run_in_background=false,
+task(subagent_type="general", run_in_background=true,
      load_skills=["validation/issue-triage/triage-issue/issue-duplication"],
-     prompt="Issue <issue_id> (<repo>): <title>. INPUT=<issue_json
-     verbatim>. Follow issue-duplication exactly; return its JSON verbatim
-     (source_issue, has_duplicate, duplicates[], confidence).")
+     prompt="Issue <issue_id> (<repo>): <title>. Read input from
+     {issue_dir}/triage/step1_input.json. Follow issue-duplication
+     exactly; return its JSON verbatim (source_issue, has_duplicate,
+     duplicates[], confidence). Write result to
+     {issue_dir}/triage/step1_duplication.json.")
 ```
 
-Write `step1_duplication.json`, log (see Logging below).
+Wait for completion notification, then read
+`{issue_dir}/triage/step1_duplication.json`. Log.
 
 **Step 2 — Not-target (scope) check (conditional skip).** Skip when the
 Issue JSON has no usable test identity (`test_file` blank/absent AND
@@ -117,23 +166,27 @@ primary `test_file`/`test_class`/`test_case` from the top-level fields
 (fall back to `test_cases[0]`); `device = "xpu"` always.
 
 ```
-task(subagent_type="explore", run_in_background=false,
+task(subagent_type="explore", run_in_background=true,
      load_skills=["validation/check_not_target_feature"],
      prompt="Issue <issue_id> (<repo>): <title>. Is <test_class>::
      <test_case> in <test_file> out-of-scope for XPU (CUDA-only, no XPU
      equivalent -> 'Not applicable') or a genuine enablement gap (-> 'Not
      not-target'/'CPU Case')? INPUT: test_file=<test_file>,
      class_name=<test_class>, test_name=<test_case>, device=xpu,
-     error_message=<traceback or title>, test_code_block=<if available>,
-     traceback=<if present>, PYTORCH_SRC=<pytorch_folder>. Follow
-     check-not-target-feature exactly (export PYTORCH_SRC first, run its
-     Step 1.5 existence pre-check before anything else); return its JSON
-     verbatim (is_not_target, verdict, evidence, reasoning).")
+     error_message=<traceback_last_15_lines>,
+     PYTORCH_SRC=<pytorch_folder>. Follow check-not-target-feature exactly
+     (export PYTORCH_SRC first, run its Step 1.5 existence pre-check before
+     anything else); return its JSON verbatim (is_not_target, verdict,
+     evidence, reasoning). Write result to
+     {issue_dir}/triage/step2_not_target.json.")
 ```
 
+Wait for completion notification, then read
+`{issue_dir}/triage/step2_not_target.json`.
+
 Set `not_target_result` = its output, `not_target_source = "computed"`.
-Write `step2_not_target.json` (or `{"skipped": true, "reason":
-"skipped-no-test-case"}` if skipped), log.
+Write `{"skipped": true, "reason": "skipped-no-test-case"}` to
+`step2_not_target.json` if Step 2 was skipped. Log.
 
 **Short-circuit on `Not applicable` (mandatory).** Immediately after Step
 2 actually runs (never on a skip), check its verdict:
@@ -162,20 +215,34 @@ close or label the issue here.
 | Otherwise | **Run Step 3.** |
 
 ```
-task(subagent_type="deep", run_in_background=false,
+task(subagent_type="deep", run_in_background=true,
      load_skills=["validation/issue-triage/triage-issue/issue-target-component"],
      prompt="Issue <issue_id> (<repo>): <title>. conda_env=<conda_env>,
-     pytorch_folder=<pytorch_folder>. INPUT=<issue_json verbatim>. Follow
-     issue-target-component exactly; return its JSON verbatim
-     (source_issue, verified, failure_signature, codegraph_used,
+     pytorch_folder=<pytorch_folder>. Read input from
+     {issue_dir}/triage/step3_input.json (contains issue_id, repo,
+     title, labels, traceback (truncated), test_file, test_class, test_case,
+     reproduce_summary). Follow issue-target-component exactly; return its
+     JSON verbatim (source_issue, verified, failure_signature, codegraph_used,
      root_cause, evidence, target_component, third_party_dependency,
-     verdict, reason).")
+     verdict, reason). Write result to
+     {issue_dir}/triage/step3_target_component.json.")
 ```
 
+Wait for completion notification, then read
+`{issue_dir}/triage/step3_target_component.json`.
+
+Before invoking, write `{issue_dir}/triage/step3_input.json` with
+ONLY: `issue_id`, `repo`, `title`, `labels`, `traceback` (last 20 lines),
+`test_file`, `test_class`, `test_case`, `module`, and `reproduce_summary`
+(per case: `result`, `reproduced`, `matched_error`, `actual_error` first
+5 lines). Do NOT include `raw_tail` or full `reproduce_steps`.
+
+Wait for completion notification, then read
+`{issue_dir}/triage/step3_target_component.json`.
+
 Set `target_component_result` = its output, `target_component_source =
-"computed"`. Write `step3_target_component.json` (or `{"skipped": true,
-"reason": "skipped-duplicate-triaged", "inherited_from": <url>}` if
-skipped), log.
+"computed"`. Write `{"skipped": true, "reason": "skipped-duplicate-triaged",
+"inherited_from": <url>}` to `step3_target_component.json` if skipped. Log.
 
 *Building `root_cause_result` when Step 3 is skipped.* Steps 4/5 expect a
 `root_cause_result`-shaped object. Synthesize one from what's actually
@@ -218,33 +285,41 @@ output) as `root_cause_result` to Steps 4 and 5.
 
 **Step 4 — Priority assignment.** Runs unless Step 2 short-circuited.
 
-```
-task(subagent_type="quick", run_in_background=false,
-     load_skills=["validation/issue-triage/triage-issue/issue-priority"],
-     prompt="Issue <issue_id> (<repo>): <title>. root_cause_result=
-     <synthesized object>, issue_info=<issue_json verbatim, incl. existing
-     'priority' if present>. Follow issue-priority exactly; return its
-     JSON verbatim (source_issue, priority, priority_source,
-     priority_reason, evidence, confidence).")
-```
-
-Write `step4_priority.json`, log.
+Build a slim priority input with ONLY: `issue_id`, `repo`, `title`,
+`labels`, existing `priority` field (if present in issue_info), and the
+synthesized `root_cause_result`. Write to
+`{issue_dir}/triage/step4_input.json`.
 
 **Step 5 — Category assignment.** Runs unless Step 2 short-circuited.
-Independent of Step 4 (both read the same `root_cause_result`, neither
-mutates shared state) — MAY fire both as parallel `run_in_background=true`
-calls, collecting both before Step 6.
+
+Build a slim category input with ONLY: `issue_id`, `repo`, `title`,
+`labels`, `module`, and the same synthesized `root_cause_result`. Write to
+`{issue_dir}/triage/step5_input.json`.
+
+**Steps 4+5 fire in PARALLEL as background tasks** (they are independent —
+both read the same `root_cause_result`, neither mutates shared state):
 
 ```
-task(subagent_type="quick", run_in_background=false,
+task_4 = task(subagent_type="quick", run_in_background=true,
+     load_skills=["validation/issue-triage/triage-issue/issue-priority"],
+     prompt="Issue <issue_id> (<repo>): <title>. Read input from
+     {issue_dir}/triage/step4_input.json. Follow issue-priority
+     exactly; return its JSON verbatim (source_issue, priority,
+     priority_source, priority_reason, evidence, confidence). Write result
+     to {issue_dir}/triage/step4_priority.json.")
+
+task_5 = task(subagent_type="quick", run_in_background=true,
      load_skills=["validation/issue-triage/triage-issue/issue-category"],
-     prompt="Issue <issue_id> (<repo>): <title>. root_cause_result=<same
-     object passed to Step 4>, issue_info=<issue_json verbatim>. Follow
-     issue-category exactly; return its JSON verbatim (source_issue,
-     category, subcategory, category_reason, evidence, confidence).")
+     prompt="Issue <issue_id> (<repo>): <title>. Read input from
+     {issue_dir}/triage/step5_input.json. Follow issue-category
+     exactly; return its JSON verbatim (source_issue, category, subcategory,
+     category_reason, evidence, confidence). Write result to
+     {issue_dir}/triage/step5_category.json.")
 ```
 
-Write `step5_category.json`, log.
+Wait for both completion notifications, then read
+`{issue_dir}/triage/step4_priority.json` and
+`{issue_dir}/triage/step5_category.json`. Log both.
 
 **Step 6 — Merge.** Combine Steps 0-5 into one JSON (see Output below).
 Never re-derive or second-guess a leaf skill's verdict — merge verbatim,
@@ -259,26 +334,34 @@ adding only orchestrator bookkeeping (`preliminary_verdict`,
 | Otherwise, a `preliminary_verdict` was set in Step 0 (task/feature-gap/NotImplemented/Windows/perf/e2e) | Carry it through as `verdict = preliminary_verdict` (i.e. `"NEED_HUMAN"`) — but `duplication`/`not_target`/`target_component`/`priority`/`category` are all POPULATED from Steps 1-5's real results, since none of them were skipped. |
 | No short-circuit and no preliminary verdict | `verdict = None` — Steps 1-5's own leaf verdicts (e.g. `target_component.result.verdict`) speak for themselves in the merged output. |
 
-Write `output.json`, append the closing log line.
+Write `{issue_dir}/triage/output.json`, append the closing log line to
+`{issue_dir}/steps.log`.
 
-## Logging (MANDATORY, under `agent_space/`)
+## Logging (MANDATORY, under `{issue_dir}/triage/`)
+
+The caller (issue-triage orchestrator) passes the `issue_dir` path. This
+skill writes ALL its working files under `{issue_dir}/triage/` — NOT a
+shared `agent_space/triage_issue/` directory. This ensures parallel issues
+never clobber each other's intermediate files.
 
 ```
-agent_space/
-├── session_log.txt                 # one line per step
-└── triage_issue/
-    ├── step1_duplication.json / step2_not_target.json / step3_target_component.json
-    ├── step4_priority.json / step5_category.json    # all absent ONLY when the not_target/wontfix-label short-circuit or Step 2's dynamic short-circuit fired
-    └── output.json                 # this skill's merged Output
+{issue_dir}/triage/
+├── step1_input.json / step1_duplication.json
+├── step2_not_target.json
+├── step3_input.json / step3_target_component.json
+├── step4_input.json / step4_priority.json
+├── step5_input.json / step5_category.json
+└── output.json                 # this skill's merged Output
 ```
 
-Log line: `[YYYY-MM-DD HH:MM:SS] triage-issue:<step> | subagent: <skill> |
-task_id: <id> | result: <ok|skipped|short-circuited> | file_refs: <path>`.
-Write each step's JSON + log line immediately after it completes — never
-batch to the end. A Step 0 `preliminary_verdict` (without a
-short-circuit) logs as `result: ok` with the reason noted in
-`file_refs`/the log line text, NOT as `short-circuited` — the pipeline
-did not actually stop.
+Log line format (append to `{issue_dir}/steps.log`):
+`[YYYY-MM-DD HH:MM:SS] triage:<sub-step> | skill: <leaf-skill> |
+result: <ok|skipped|short-circuited> | duration_s: <N> | file: triage/<filename>`.
+
+Write each sub-step's JSON + log line immediately after it completes —
+never batch to the end. A Step 0 `preliminary_verdict` (without a
+short-circuit) logs as `result: ok` with the reason noted in the log line
+text, NOT as `short-circuited` — the pipeline did not actually stop.
 
 ## Output
 
@@ -359,7 +442,7 @@ because Step 0 set a `preliminary_verdict`.
    mutation (including never applying `agent:triaged`). `NEED_HUMAN`/
    `NO_NEED_FIX` are reported only, never acted on by this skill.
 9. One issue per invocation; batch sweeps invoke once per issue. Log
-   every step's raw JSON + a `session_log.txt` line as it completes —
+   every step's raw JSON + a `{issue_dir}/steps.log` line as it completes —
    never deferred. Only the two real short-circuits log as `result:
    short-circuited`; a Step 0 `preliminary_verdict` alone logs as
    `result: ok`.
