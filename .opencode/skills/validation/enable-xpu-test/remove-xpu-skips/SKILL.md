@@ -441,4 +441,35 @@ removed in-memory).
 - `issue-triage/reproduce-issue` — invokes this skill's skip-removal loop
   (including the P7 override fallback) when a UT case comes back
   `SKIPPED`.
+
+## Integration with reproduce-issue (issue-triage context)
+
+When `reproduce-issue` encounters a SKIPPED test case, it hands off to this
+skill to determine if the skip can be removed and whether the underlying
+test passes or fails. The caller (`reproduce-issue`) passes
+`skip_removal_request` params: `test_file`, `test_class`, `target_method`,
+`conda_env`, `pytorch_folder`.
+
+**The agent MUST invoke this skill for every SKIPPED UT case.** A SKIPPED
+result without skip-removal attempted is NEVER acceptable as a final
+verdict — it provides zero information about whether the original bug still
+exists.
+
+The flow is:
+
+1. `reproduce-issue` runs the test → observes `SKIPPED` →
+   sets `needs_skip_removal=true`.
+2. Agent invokes `remove-xpu-skips` with the request params.
+3. `remove-xpu-skips` probes the skip (issue check → removal → verify →
+   keep/revert).
+4. Agent re-runs the single case via `reproduce-issue --rerun` with the
+   skip-removal outcome.
+5. The re-run's result (PASSED/FAILED/still-SKIPPED with
+   `reason=skip_maintained`) becomes the FINAL verdict for that case.
+
+If `remove-xpu-skips` determines the skip should stay (OPEN issue, or test
+still fails after removal), the case's final result is `SKIPPED` with
+`reason="skip_maintained"` — this is the only legitimate way to return a
+SKIPPED result from `reproduce-issue`. Even then, this case does NOT
+qualify for early termination in the `issue-triage` orchestrator.
 </content>

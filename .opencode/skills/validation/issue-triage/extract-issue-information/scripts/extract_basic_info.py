@@ -525,16 +525,36 @@ _PLATFORM_KEYWORDS = [
 ]
 
 
-def extract_platform(body):
-    """Return canonical platform code from the whole body, most specific first."""
-    if not body:
+def extract_platform(body, title="", labels=None):
+    """Return canonical platform code from labels, title, and body (most specific first).
+
+    Priority order:
+    1. Labels matching 'hw: <CODE>' (e.g. 'hw: BMG', 'hw: PVC')
+    2. Title text (keyword/regex match)
+    3. Body text (keyword/regex match)
+    """
+    # 1. Check labels for 'hw: <CODE>' pattern
+    if labels:
+        for label in labels:
+            ln = label.get('name', '') if isinstance(label, dict) else str(label)
+            m = re.match(r'hw:\s*(\w+)', ln, re.IGNORECASE)
+            if m:
+                candidate = m.group(1).upper()
+                # Validate it's a known platform code
+                for code, _ in _PLATFORM_KEYWORDS:
+                    if candidate == code:
+                        return code
+
+    # 2. Check title + body text
+    text = f"{title}\n{body}" if title else (body or "")
+    if not text:
         return ""
     for code, keywords in _PLATFORM_KEYWORDS:
         for kw in keywords:
             if kw.startswith(r'\b') or kw.endswith(r'\b'):
-                if re.search(kw, body, re.IGNORECASE):
+                if re.search(kw, text, re.IGNORECASE):
                     return code
-            elif kw in body.lower():
+            elif kw in text.lower():
                 return code
     return ""
 
@@ -1420,7 +1440,7 @@ def main(argv=None):
     reproduce_steps = extract_reproduce_steps(body, title)
     traceback = extract_traceback(body)
     os_name = extract_os(body)
-    platform = extract_platform(body)
+    platform = extract_platform(body, title, labels)
 
     # Primary unit-test case: first UT-shape case (dict without a "benchmark"
     # key). Top-level test_file/test_class/test_case mirror it for convenience;

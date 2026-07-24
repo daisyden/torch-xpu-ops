@@ -162,8 +162,11 @@ Two best-effort fields describe the reporting environment:
 
 - `os`: `"Linux"` | `"Windows"` | `""`. Detected from OS keywords in the body
   and from a collect_env `OS:` line when present.
-- `platform`: canonical Intel GPU code inferred from device names/aliases:
-  Data Center GPU Max / Ponte Vecchio -> PVC; Battlemage / B580 -> BMG;
+- `platform`: canonical Intel GPU code inferred in priority order:
+  1. Labels matching `hw: <CODE>` (e.g. `hw: BMG`, `hw: PVC`).
+  2. Device names/aliases in the title.
+  3. Device names/aliases in the body.
+  Mappings: Data Center GPU Max / Ponte Vecchio -> PVC; Battlemage / B580 -> BMG;
   Alchemist / A770 -> ARC; Arrow Lake -> ARL; Lunar Lake -> LNL;
   Meteor Lake -> MTL; Crescent Island -> CRI. A single value is chosen,
   most-specific first; `""` if none matches.
