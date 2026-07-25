@@ -112,6 +112,7 @@ The script prints a single JSON object with these fields.
 | test_class | classifier (regex) | Primary unit-test class; "" if none. |
 | test_case | classifier (regex) | Primary unit-test case/method; "" if none. |
 | test_cases | classifier (regex) | Array of all test cases found in the issue (de-duplicated). Empty array if none. See Test cases below. |
+| pr_context | classifier (regex+LLM) | PR or branch context if the issue is tied to a specific PR/branch. See PR/branch context below. |
 | low_confidence | classifier | Array of field names the script could not confidently classify. |
 
 ## Classification reference
@@ -158,6 +159,50 @@ Notes:
   for the same test file.
 - `test_cases` uses string-only path mapping; there is no on-disk verification.
 
+## PR/branch context
+
+`pr_context` captures when an issue is tied to a specific PR or branch (e.g., a
+CI failure on a PR, not on main/nightly). Structure:
+
+```json
+{
+  "has_pr_context": true,
+  "repo": "pytorch/pytorch",
+  "pr_number": 12345,
+  "branch": "feature-branch-name",
+  "source": "regex|llm"
+}
+```
+
+- `has_pr_context`: `true` when a PR or branch reference is detected, `false` otherwise.
+- `repo`: repository of the PR/branch (`pytorch/pytorch` or `intel/torch-xpu-ops`).
+- `pr_number`: integer PR number, or `null` if only a branch is referenced.
+- `branch`: branch name string, or `null` if only a PR number is referenced.
+- `source`: `"regex"` when extracted via URL/pattern matching, `"llm"` when
+  determined by LLM fallback.
+
+When `has_pr_context` is `false`, the value is simply:
+```json
+{"has_pr_context": false, "repo": null, "pr_number": null, "branch": null, "source": null}
+```
+
+### Regex extraction (first pass)
+
+Look for these patterns in the issue title and body:
+
+- GitHub PR URLs: `https://github.com/<owner>/<repo>/pull/<number>`
+- PR references: `#<number>` in context of "PR", "pull request", "merge"
+- Branch references: `branch: <name>`, `on branch <name>`, `refs/heads/<name>`
+- CI log URLs containing `/pull/<number>/` or `/tree/<branch>`
+
+### LLM fallback
+
+When regex extraction finds nothing but the issue body contains signals that
+it occurred on a non-main branch or PR (e.g., mentions "this PR", "my branch",
+"cherry-pick", "backport", CI failure context referencing a specific change),
+the calling agent MUST read the issue body and determine the PR/branch context.
+Add `pr_context` to `low_confidence` when regex finds nothing but signals exist.
+
 ## OS and platform
 
 Two best-effort fields describe the reporting environment:
@@ -193,12 +238,15 @@ is not flagged in `low_confidence`.
 ## Inline LLM fallback
 
 The script populates `low_confidence` with the names of fields it could not
-confidently extract. It contains ONLY these two field names:
+confidently extract. It contains ONLY these field names:
 
 - `reproduce_steps` - listed when NO shell command was found AND the issue is
   NOT a unit test (a unit test's test id is its own reproducer).
 - `test_cases` - listed when no test case parsed but the issue looks
   test-related (`test_module` is `ut` or `e2e`).
+- `pr_context` - listed when regex found no PR/branch but the issue body
+  contains signals of a non-main context (mentions "this PR", "my branch",
+  CI log URLs, etc.).
 
 `dependency` and `traceback` ARE output fields, but they are NEVER flagged in
 `low_confidence`. The `os` and `platform` fields are best-effort and are also
@@ -210,8 +258,10 @@ When `low_confidence` is non-empty, the calling agent MUST:
 2. For `reproduce_steps`, extract the real shell commands that reproduce the
    issue.
 3. For `test_cases`, read the body and fill in the real test cases.
-4. Overwrite those fields in the JSON with the determined values.
-5. Remove each resolved field name from `low_confidence`.
+4. For `pr_context`, determine the PR number/branch from context and populate
+   the `pr_context` object (set `source: "llm"`).
+5. Overwrite those fields in the JSON with the determined values.
+6. Remove each resolved field name from `low_confidence`.
 
 This fallback is inline: no disk queue, no sub-agent, no batch processing.
 

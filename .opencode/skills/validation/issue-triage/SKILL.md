@@ -109,7 +109,13 @@ task(load_skills=["validation/issue-triage/extract-issue-information"], ...)
 Exit 0 -> write result to `{issue_dir}/step1_extract.json`, proceed.
 Exit 1/2 -> HARD STOP.
 
-**Step 2** — Reproduce locally. Skip when `test_cases` is empty.
+**Step 2** — Reproduce locally. Skip when `test_cases` is empty OR when
+`extract_result.pr_context.has_pr_context == true` (the issue is tied to a
+specific PR/branch — reproduction on main/nightly is not meaningful).
+
+When skipped due to PR/branch context, log with
+`result: skipped-pr-context` and set `reproduce_result = null`. Proceed
+directly to Step 2.5/3.
 
 Build a slim input for the reproduce subagent containing ONLY:
 `issue_id`, `repo`, `test_cases`, `traceback` (last 20 lines), `conda_env`,
@@ -146,11 +152,15 @@ AND `result=="PASSED"`. No other result qualifies:
 | `CANNOT_VERIFY` | ❌ No |
 | `FAILED`/`ERROR` | ❌ No |
 
-If all PASSED, check platform:
+If all PASSED, check platform and CI context:
 - **Platform-specific** (issue platform != PVC and != ""): Do NOT early-terminate.
   Proceed to Step 2.5/3. Note `platform_specific = true`.
-- **Not platform-specific**: Early-terminate. Set `need_action = "N/A"`,
-  skip Step 3, proceed to Step 5 with all triage fields as `"N/A"`.
+- **PyTorch CI failure** (labels contain `pytorch-ci-failure` OR title starts
+  with `[PyTorch CI]`): Do NOT early-terminate. Local pass does not prove a
+  CI-environment-specific bug is resolved. Proceed to Step 2.5/3.
+- **Not platform-specific and not CI failure**: Early-terminate. Set
+  `need_action = "N/A"`, skip Step 3, proceed to Step 5 with all triage
+  fields as `"N/A"`.
 
 **Step 2.5** — Build combined issue JSON and write slim triage input.
 
@@ -273,7 +283,8 @@ On hard stop: write `logs/<step>_fatal.log`, set `status="failed-hard-stop"`,
 never run Step 5.
 
 Normal outcomes (not hard stops): `CANNOT_VERIFY`, `SKIPPED`, `NO_TEST_FOUND`,
-`NEED_HUMAN`. Platform-specific passes trigger full triage, not early termination.
+`NEED_HUMAN`. Platform-specific passes and pytorch-ci-failure passes trigger
+full triage, not early termination.
 
 ## Output
 

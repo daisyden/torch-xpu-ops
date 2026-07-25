@@ -46,8 +46,23 @@ Timeout -> SIGKILL -> `CANNOT_VERIFY` with reason `timeout`.
 ## Output schema
 
 Top-level: `torch_version`, `torch_commit`, `xpu_available`, `conda_env`,
-`pytorch_folder`, `summary.{total, reproduced, not_reproduced, cannot_verify, needs_skip_removal}`,
+`pytorch_folder`, `test_time`, `summary.{total, reproduced, not_reproduced, cannot_verify, needs_skip_removal}`,
 `results[]`.
+
+**Mandatory top-level fields** (agent MUST populate these):
+
+| Field | Source | Example |
+|---|---|---|
+| `torch_version` | `torch.__version__` via conda env | `"2.8.0a0+gitabc1234"` |
+| `torch_commit` | `torch.version.git_version` via conda env | `"abc1234def5678..."` |
+| `xpu_available` | `torch.xpu.is_available()` via conda env | `true` |
+| `test_time` | ISO 8601 UTC timestamp when the reproduce run started | `"2026-07-25T09:00:00Z"` |
+
+These fields are collected via a probe command before running tests:
+```bash
+conda run --no-capture-output -n <env> python -c \
+  "import torch, json, datetime; print(json.dumps({'torch_version': torch.__version__, 'torch_commit': torch.version.git_version, 'xpu_available': torch.xpu.is_available(), 'test_time': datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds')}))"
+```
 
 Per-case: `test_file`, `test_case`, `test_class`, `test_repo`, `resolved_test_path`,
 `result`, `reproduced`, `matched_error`, `reason`, `command`, `exit_code`,
