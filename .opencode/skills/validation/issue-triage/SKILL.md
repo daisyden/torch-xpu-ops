@@ -186,6 +186,13 @@ conversation — only the file-based result matters.
 
 **Step 4** — Build `final_output.json`.
 
+Populate `triage_result.root_cause` as follows:
+- If `triage_result.target_component.result` exists and has a `root_cause` field:
+  copy it verbatim (a 2-3 sentence string).
+- If triage short-circuited (not_target/wontfix label): set to `null`.
+- If early-terminated (all cases passed, no triage ran): set to `null`.
+- If `triage_result` itself is `null`: the field is absent (outer object is null).
+
 **Step 5** — Summarize and notify (upsert comment + label).
 
 *5a.* Find existing comment:
@@ -206,9 +213,24 @@ First line MUST be exactly: `[agent-issue-triage]: Automated triage result`
 - The only allowed content outside the table is `### Duplicates` sub-table
   (if `has_duplicate`) AFTER the main table.
 
-Rows: Priority, Category, Need action, Target component, Duplicate, Not target,
-Third-party dependency, OS, Platform, [Platform specific if true], [Reproduction if Step 2 ran],
+Rows: Type, Priority, Category, Need action, Target component, Root cause,
+Duplicate, Not target, Third-party dependency, OS, Platform,
+[Platform specific if true], [Reproduction if Step 2 ran],
 Overall confidence. Add `### Duplicates` sub-table if `has_duplicate`.
+
+**Type row derivation:**
+- Value = `extract_result.issue_type` (one of: Bug, Task, Feature, Epic).
+- Reason = source of the classification (e.g. "github_type", "label", "inferred from description").
+- Evidence = `extract_result.github_type` if non-empty, else `extract_result.type`.
+
+**Root cause row derivation:**
+- If `triage_result.target_component.result.root_cause` exists: use it verbatim
+  as Value; Evidence = `triage_result.target_component.result.evidence.call_path`
+  (truncated to first 80 chars) or traced symbols.
+- If triage short-circuited (not_target/wontfix): Value = `"N/A (short-circuited)"`,
+  Reason = short-circuit reason.
+- If early-terminated (all passed): Value = `"N/A (not reproduced)"`.
+- If `triage_result` is null: Value = `"—"`, Reason = `"—"`.
 
 `Need action` derivation:
 
@@ -252,9 +274,15 @@ Normal outcomes (not hard stops): `CANNOT_VERIFY`, `SKIPPED`, `NO_TEST_FOUND`,
     "status": "completed" | "failed-hard-stop",
     "hard_stop": {"step": str, "reason": str} | None,
     "issue_dir": str,
-    "extract_result": {...},
+    "extract_result": {
+        ...,
+        "issue_type": str,  # Bug | Task | Feature | Epic (canonical type from extract-issue-information)
+    },
     "reproduce_result": {...} | None,
-    "triage_result": {...} | None,
+    "triage_result": {
+        ...,
+        "root_cause": str | None,  # from target_component.result.root_cause; None when triage skipped/short-circuited
+    } | None,
     "notification": {
         "summary_path": str, "commented": bool, "comment_url": str | None,
         "comment_error": str | None, "comment_action": "created"|"updated"|None,

@@ -15,6 +15,46 @@ def generate_summary(body, title):
     return title[:150]
 
 
+def classify_issue_type_canonical(github_type, classifier_type, labels):
+    """Map to canonical issue type: Bug, Task, Feature, Epic.
+
+    Priority: github_type (native GitHub issue type from Projects) > labels > classifier heuristic.
+    """
+    # 1. GitHub native issue type (authoritative when set)
+    if github_type:
+        gt = github_type.strip().lower()
+        if gt in ('bug',):
+            return 'Bug'
+        if gt in ('task',):
+            return 'Task'
+        if gt in ('feature', 'feature request'):
+            return 'Feature'
+        if gt in ('epic',):
+            return 'Epic'
+
+    # 2. Labels
+    for label in labels:
+        ln = (label.get('name', '') if isinstance(label, dict) else str(label)).lower()
+        if ln == 'bug':
+            return 'Bug'
+        if ln in ('task', 'internal task'):
+            return 'Task'
+        if ln in ('feature', 'feature request', 'enhancement'):
+            return 'Feature'
+        if ln == 'epic':
+            return 'Epic'
+
+    # 3. Infer from classifier_type
+    type_map = {
+        'functionality bug': 'Bug',
+        'accuracy issue': 'Bug',
+        'performance issue': 'Bug',
+        'feature request': 'Feature',
+        'internal task': 'Task',
+    }
+    return type_map.get(classifier_type, 'Bug')
+
+
 def classify_issue_type(body, title, labels):
     text = f"{title} {body}".lower()
     
@@ -1422,6 +1462,8 @@ def main(argv=None):
 
     pt = fetch_project_and_type(owner, repo, number)
 
+    issue_type = classify_issue_type_canonical(pt["github_type"], itype, labels)
+
     # Build the test_cases list (all cases in the issue). For e2e issues use
     # the benchmark/model extractor; otherwise use the unit-test parser.
     if test_module == "e2e":
@@ -1468,6 +1510,7 @@ def main(argv=None):
         "milestone": core["milestone"],
         "summary": summary,
         "type": itype,
+        "issue_type": issue_type,
         "github_type": pt["github_type"],
         "module": module,
         "test_module": test_module,

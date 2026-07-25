@@ -94,6 +94,7 @@ The script prints a single JSON object with these fields.
 | milestone | gh REST | Milestone title, or "". |
 | summary | classifier | Issue title truncated to 150 chars. |
 | type | classifier | See Classification reference. |
+| issue_type | classifier | Canonical type: Bug, Task, Feature, or Epic. Derived from github_type > labels > classifier heuristic. |
 | github_type | gh GraphQL issueType | Native GitHub issue type name, or "". |
 | module | classifier | See Classification reference. |
 | test_module | classifier | See Classification reference. |
@@ -117,6 +118,7 @@ The script prints a single JSON object with these fields.
 
 Enum outputs for the rule-based classifier fields:
 
+- `issue_type`: Bug | Task | Feature | Epic (canonical; priority: github_type > labels > type heuristic)
 - `type`: feature request | performance issue | accuracy issue | functionality bug | internal task | unknown
 - `module`: distributed | inductor | dynamo | aten_ops | AO | low_precision | profiling | optimizer | fx | export | autograd | unknown
 - `test_module`: ut | e2e | build | infrastructure
