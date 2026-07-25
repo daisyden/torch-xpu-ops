@@ -13,13 +13,14 @@ allowed (Step 5 only): upsert one `[agent-issue-triage]:` comment + apply
 
 ## Inputs
 
-| Input | Required | Notes |
-|---|---|---|
-| `issue_link` | yes | URL or bare number (defaults to `intel/torch-xpu-ops`). |
-| `conda_env` | yes | Conda env with XPU-enabled `torch`. |
-| `pytorch_folder` | yes | Local pytorch/torch-xpu-ops checkout. |
+| Input | Required | Default | Notes |
+|---|---|---|---|
+| `issue_link` | yes | — | URL or bare number (defaults to `intel/torch-xpu-ops`). |
+| `conda_env` | yes | — | Conda env with XPU-enabled `torch`. |
+| `pytorch_folder` | yes | — | Local pytorch/torch-xpu-ops checkout. |
+| `upload` | no | `false` | When `false`, skip GitHub comment upsert and label application in Step 5 (still writes `summary.md` locally). When `true`, upsert comment and apply labels as before. |
 
-Missing any -> **hard-stop**; never guess.
+Missing any required input -> **hard-stop**; never guess.
 
 ## Results Folder
 
@@ -194,6 +195,14 @@ Populate `triage_result.root_cause` as follows:
 - If `triage_result` itself is `null`: the field is absent (outer object is null).
 
 **Step 5** — Summarize and notify (upsert comment + label).
+
+**If `upload == false` (default):** Build `summary.md` (step 5b below), write it
+to `{issue_dir}/summary.md`, then skip steps 5a/5c/5d entirely. Set
+`notification.commented = false`, `notification.comment_action = null`,
+`notification.labeled = false`, `notification.apply_label_reason = "upload=false; skipped"`.
+Proceed to Step 6.
+
+**If `upload == true`:** Execute all sub-steps (5a–5d) as described below.
 
 *5a.* Find existing comment:
 ```bash
