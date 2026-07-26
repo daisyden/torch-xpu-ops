@@ -109,9 +109,14 @@ task(load_skills=["validation/issue-triage/extract-issue-information"], ...)
 Exit 0 -> write result to `{issue_dir}/step1_extract.json`, proceed.
 Exit 1/2 -> HARD STOP.
 
-**Step 2** — Reproduce locally. Skip when `test_cases` is empty OR when
-`extract_result.pr_context.has_pr_context == true` (the issue is tied to a
-specific PR/branch — reproduction on main/nightly is not meaningful).
+**Step 2** — Reproduce locally. Skip when:
+- `test_cases` is empty, OR
+- `extract_result.pr_context.has_pr_context == true` (tied to a PR/branch), OR
+- issue is a task/feature (extract_result labels contain `task`/`[Task]`/`[Feature]`,
+  or `issue_type` is "Task"/"Feature").
+
+When skipped due to task/feature, log with `result: skipped-task-feature` and
+set `reproduce_result = null`. Proceed directly to Step 2.5/3.
 
 When skipped due to PR/branch context, log with
 `result: skipped-pr-context` and set `reproduce_result = null`. Proceed
@@ -161,8 +166,13 @@ Write to `{issue_dir}/step3_triage_input.json`.
 
 **Step 3** — Full triage (BACKGROUND — context isolation).
 
-Fire as a background subagent to keep its internal multi-step reasoning
-(5 sub-steps with their own subagents) out of THIS session's context:
+Skip when issue is a task/feature (same condition as Step 2 skip). When
+skipped, log with `result: skipped-task-feature` and set `triage_result`
+to `{"verdict": "NEED_HUMAN", "short_circuit_reason": "task/feature issue",
+"priority": null, "category": null}`. Proceed to Step 4.
+
+Otherwise, fire as a background subagent to keep its internal multi-step
+reasoning (5 sub-steps with their own subagents) out of THIS session's context:
 
 ```
 task(load_skills=["validation/issue-triage/triage-issue"],

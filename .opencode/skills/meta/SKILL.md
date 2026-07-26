@@ -69,6 +69,16 @@ structured output to `agent_space/`), the agent MUST follow them exactly.
 - Do not invent alternative logging formats or locations.
 - If a skill says "log to `{issue_dir}/steps.log`", write there — not to stdout only.
 
+## Rule 6 — Do Not Modify Conda Environments
+
+Never uninstall, reinstall, or upgrade `torch`, `triton`, or their variants
+(`triton-xpu`, `intel-extension-for-pytorch`, etc.) in any conda environment.
+
+**Constraints:**
+- Do not run `pip install torch`, `pip uninstall torch`, `pip install triton`, or equivalent.
+- If a package is broken or missing, report the issue and hard-stop.
+- Installing non-core dependencies (e.g., `timm`, `transformers`) is allowed.
+
 ## Enforcement
 
 These rules are enforced by including `"meta"` in `load_skills` for every

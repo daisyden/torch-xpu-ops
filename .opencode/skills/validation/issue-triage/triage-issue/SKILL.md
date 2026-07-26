@@ -1,6 +1,6 @@
 ---
 name: triage-issue
-description: End-to-end triage orchestrator for one GitHub issue (pytorch or torch-xpu-ops), given the JSON output of extract-basic-info plus conda_env and pytorch_folder. Step 0 classifies task/feature-gap/NotImplemented/Windows-platform/perf-issue/e2e-benchmark-accuracy issues as a preliminary NEED_HUMAN verdict without skipping the rest of the pipeline; an issue already labeled not_target or wontfix short-circuits immediately with NO_NEED_FIX instead. Then sequences issue-duplication, check-not-target-feature (short-circuits target-component with NO_NEED_FIX on a dynamic "Not applicable" verdict but still runs priority and category), issue-target-component (skipped when a duplicate carries agent:triaged, or when not-target short-circuited), issue-priority, and issue-category as subagents, merging all verdicts into one JSON. Use when you need the full Priority/Category/Target-Component/Duplicate/Not-Target columns for an issue in one pass instead of calling each leaf triage skill separately.
+description: End-to-end triage orchestrator for one GitHub issue (pytorch or torch-xpu-ops), given the JSON output of extract-basic-info plus conda_env and pytorch_folder. Step 0 classifies task/feature-gap/NotImplemented/Windows-platform/PR-or-private-branch/perf-issue/e2e-benchmark-accuracy issues as a preliminary NEED_HUMAN verdict without skipping the rest of the pipeline; an issue already labeled not_target or wontfix short-circuits immediately with NO_NEED_FIX instead. Then sequences issue-duplication, check-not-target-feature (short-circuits target-component with NO_NEED_FIX on a dynamic "Not applicable" verdict but still runs priority and category), issue-target-component (skipped when a duplicate carries agent:triaged, or when not-target short-circuited), issue-priority, and issue-category as subagents, merging all verdicts into one JSON. Use when you need the full Priority/Category/Target-Component/Duplicate/Not-Target columns for an issue in one pass instead of calling each leaf triage skill separately.
 ---
 
 # Issue Triage Orchestrator
@@ -114,9 +114,17 @@ wins:
 | Labeled `task`/`[Task]`/`[Feature]`, or broad alignment/tracking issue | `preliminary_verdict = "NEED_HUMAN"`, reason "Umbrella/task issue". **Continue to Step 1.** |
 | Feature gap / `NotImplementedError` with no concrete failing test | `preliminary_verdict = "NEED_HUMAN"`, reason "Feature gap". **Continue to Step 1.** |
 | Platform is Windows (or simulator) | `preliminary_verdict = "NEED_HUMAN"`, reason "Non-Linux platform". **Continue to Step 1.** |
+| Issue is tied to a PR or private branch (`pr_context.has_pr_context == true`) | `preliminary_verdict = "NEED_HUMAN"`, reason "Tied to PR/private branch". **Continue to Step 1.** |
 | Perf issue with no specific failing test | `preliminary_verdict = "NEED_HUMAN"`, reason "Perf issue, no test". **Continue to Step 1.** |
 | E2E benchmark accuracy issue | `preliminary_verdict = "NEED_HUMAN"`, reason "E2E/benchmark". **Continue to Step 1.** |
 | None of the above | Continue to Step 1 with no `preliminary_verdict`. |
+
+**Labels that do NOT trigger any short-circuit or preliminary verdict:**
+`skipped`, `op_*`, `module: *`, priority labels (`P0`–`P3`), category labels,
+any label not listed in the table above. In particular, the `skipped` label
+means the test is currently skipped in CI — it does NOT mean the issue should
+be skipped by triage. These issues require full triage including reproduction
+(which will attempt skip removal via `remove-xpu-skips`).
 
 On short-circuit (A): `duplication`/`not_target`/`target_component`/
 `priority`/`category` are all `None` in the merged output.

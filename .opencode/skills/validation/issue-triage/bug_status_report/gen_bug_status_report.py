@@ -18,6 +18,8 @@ import re
 import sys
 from pathlib import Path
 
+import shutil
+
 # ---- paths ---------------------------------------------------------------
 
 THIS = Path(__file__).resolve()
@@ -53,8 +55,15 @@ _CATEGORY_MAP = {
     "sparse": "Sparse",
     "torch ops": "Torch Ops - others",
     "torch operations": "Torch Ops - others",
+    "op-implementation": "Torch Ops - others",
+    "op_implementation": "Torch Ops - others",
     "torch runtime": "Torch Runtime",
     "runtime": "Torch Runtime",
+    "driver": "Torch Runtime",
+    "e2e": "E2E Benchmark",
+    "e2e benchmark": "E2E Benchmark",
+    "benchmark": "E2E Benchmark",
+    "torchbench": "E2E Benchmark",
     "others": "Others",
 }
 
@@ -92,12 +101,36 @@ def repo_to_folder_prefix(repo: str) -> str:
     return repo.replace("/", "_") + "_issue_"
 
 
+def _validate_all_outputs(agent_space: Path, prefix: str):
+    """Backup and validate/fix all final_output.json before loading."""
+    from validate_triage_output import validate_and_fix
+
+    for folder in sorted(agent_space.iterdir()):
+        if not folder.is_dir() or not folder.name.startswith(prefix):
+            continue
+        final_output = folder / "final_output.json"
+        if not final_output.exists():
+            continue
+
+        backup = folder / "final_output.json.bak"
+        if not backup.exists():
+            shutil.copy2(final_output, backup)
+
+        try:
+            fixes, _ = validate_and_fix(folder)
+            if fixes:
+                print(f"  [validate] {folder.name}: {len(fixes)} fix(es) applied")
+        except Exception as e:
+            print(f"  [validate] {folder.name}: error - {e}")
+
 def load_issue_data(agent_space: Path, repo: str) -> list[dict]:
     prefix = repo_to_folder_prefix(repo)
     issues = []
 
     if not agent_space.exists():
         return issues
+
+    _validate_all_outputs(agent_space, prefix)
 
     for folder in sorted(agent_space.iterdir()):
         if not folder.is_dir():
@@ -208,23 +241,44 @@ def extract_row(data: dict) -> dict:
 
     priority = (get_nested(triage, "priority", "priority")
                 or get_nested(triage, "priority", "value")
+                or get_nested(triage, "priority", "level")
+                or get_nested(triage, "priority_analysis", "value")
                 or get_nested(verdicts, "priority", "priority")
-                or get_nested(verdicts, "priority", "value"))
+                or get_nested(verdicts, "priority", "value")
+                or get_nested(verdicts, "priority", "level")
+                or data.get("priority") or "")
 
     raw_category = (get_nested(triage, "category", "category")
                     or get_nested(triage, "category", "value")
+                    or get_nested(triage, "category", "name")
+                    or get_nested(triage, "category_analysis", "value")
                     or get_nested(verdicts, "category", "category")
-                    or get_nested(verdicts, "category", "value"))
+                    or get_nested(verdicts, "category", "value")
+                    or get_nested(verdicts, "category", "name")
+                    or data.get("category") or "")
     raw_subcategory = (get_nested(triage, "category", "subcategory")
+                       or get_nested(triage, "category_analysis", "subcategory")
                        or get_nested(verdicts, "category", "subcategory"))
     category_display = normalize_category(raw_category, raw_subcategory)
 
-    verdict = (get_nested(triage, "target_component", "verdict")
+    priority_reason = (get_nested(triage, "priority", "priority_reason")
+                       or get_nested(triage, "priority", "reason")
+                       or get_nested(triage, "priority_analysis", "reason")
+                       or get_nested(verdicts, "priority", "reason") or "")
+    category_reason = (get_nested(triage, "category", "category_reason")
+                       or get_nested(triage, "category", "reason")
+                       or get_nested(triage, "category_analysis", "reason")
+                       or get_nested(verdicts, "category", "reason") or "")
+
+    verdict = (get_nested(triage, "target_component", "result", "verdict")
+               or get_nested(triage, "target_component", "verdict")
                or get_nested(verdicts, "target_component", "verdict")
                or triage.get("verdict", "")
                or triage.get("overall_verdict", "")
                or data.get("overall_verdict", ""))
-    target_component = (get_nested(triage, "target_component", "component")
+    target_component = (get_nested(triage, "target_component", "result", "target_component")
+                        or get_nested(triage, "target_component", "result", "component")
+                        or get_nested(triage, "target_component", "component")
                         or get_nested(triage, "target_component", "target_component")
                         or get_nested(verdicts, "target_component", "component")
                         or get_nested(verdicts, "target_component", "target_component"))
@@ -245,8 +299,16 @@ def extract_row(data: dict) -> dict:
             repro_status = "Cannot Verify"
         else:
             repro_status = "Failed"
-    elif reproduce.get("status"):
-        repro_status = reproduce["status"]
+    elif reproduce.get("result") or reproduce.get("status"):
+        raw = (reproduce.get("result") or reproduce.get("status") or "").lower()
+        if raw in ("cannot_verify", "cannot verify"):
+            repro_status = "Cannot Verify"
+        elif raw in ("reproduced", "partially_reproduced"):
+            repro_status = "Reproduced"
+        elif raw == "passed":
+            repro_status = "Not Reproduced"
+        else:
+            repro_status = raw.replace("_", " ").title()
     else:
         repro_status = "N/A"
 
@@ -262,15 +324,33 @@ def extract_row(data: dict) -> dict:
 
     gh_commands = _build_gh_commands(issue_id, url, label_actions, data)
 
-    dependency = (get_nested(triage, "target_component", "third_party_dependency")
+    dependency = (get_nested(triage, "target_component", "result", "third_party_dependency")
+                  or get_nested(triage, "target_component", "third_party_dependency")
                   or get_nested(verdicts, "target_component", "third_party_dependency"))
     if not dependency:
         dependency = get_nested(extract, "dependency") or ""
     if isinstance(dependency, dict):
         dependency = str(dependency)
 
-    opens_ar = collect_opens.get("AR", "")
-    opens_reason = collect_opens.get("AR_REASON", "")
+    opens_ar = collect_opens.get("AR", "") or collect_opens.get("ar_code", "")
+    opens_reason = collect_opens.get("AR_REASON", "") or collect_opens.get("reason", "")
+    if opens_ar == "NO_OPENS":
+        opens_ar = ""
+        opens_reason = ""
+
+    assignees = extract.get("assignees", []) or []
+    reporter = extract.get("author", "") or extract.get("reporter", "") or ""
+    ar_people = []
+    for req in collect_opens.get("open_requests", []):
+        if isinstance(req, dict):
+            person = req.get("from") or req.get("user") or req.get("assignee") or ""
+            if person and person not in ar_people:
+                ar_people.append(person)
+    all_assignees = list(assignees)
+    for p in ar_people:
+        if p not in all_assignees:
+            all_assignees.append(p)
+    assignee_display = ", ".join(all_assignees)
 
     raw_platform = extract.get("platform", "") or ""
     if isinstance(raw_platform, dict):
@@ -300,7 +380,9 @@ def extract_row(data: dict) -> dict:
         "issue_type": issue_type,
         "test_type": test_type,
         "priority": priority,
+        "priority_reason": priority_reason,
         "category": category_display,
+        "category_reason": category_reason,
         "root_cause": root_cause,
         "target_component": target_component,
         "repro_status": repro_status,
@@ -313,6 +395,8 @@ def extract_row(data: dict) -> dict:
         "dependency": dependency,
         "opens_ar": opens_ar,
         "opens_reason": opens_reason,
+        "assignee": assignee_display,
+        "reporter": reporter,
         "platform_specific": platform_specific,
         "os": os_val,
         "pytorch_ci": pytorch_ci,
@@ -339,12 +423,16 @@ def _extract_root_cause(triage: dict) -> str:
     if not rc:
         rc = triage.get("summary", "")
     if not rc:
-        rc = (get_nested(triage, "target_component", "root_cause")
+        rc = (get_nested(triage, "target_component", "result", "root_cause")
+              or get_nested(triage, "target_component", "root_cause")
+              or get_nested(triage, "target_component", "result", "root_cause_hypothesis")
               or get_nested(triage, "target_component", "root_cause_hypothesis")
               or get_nested(verdicts, "target_component", "root_cause_hypothesis")
               or get_nested(verdicts, "target_component", "evidence"))
     if not rc:
-        rc = (get_nested(triage, "target_component", "reason")
+        rc = (get_nested(triage, "target_component", "result", "reason")
+              or get_nested(triage, "target_component", "reason")
+              or get_nested(triage, "target_component", "result", "evidence")
               or get_nested(triage, "target_component", "evidence")
               or get_nested(verdicts, "target_component", "evidence"))
     if not rc:
@@ -362,7 +450,8 @@ def _build_verdict_tooltip(triage: dict, data: dict) -> str:
     verdicts = triage.get("verdicts", {}) or {}
     parts = []
 
-    verdict = (get_nested(triage, "target_component", "verdict")
+    verdict = (get_nested(triage, "target_component", "result", "verdict")
+               or get_nested(triage, "target_component", "verdict")
                or get_nested(verdicts, "target_component", "verdict")
                or triage.get("verdict", "")
                or triage.get("overall_verdict", "")
@@ -376,12 +465,15 @@ def _build_verdict_tooltip(triage: dict, data: dict) -> str:
             parts.append(f"Reason: {reason}")
         return "\n".join(parts)
 
-    component = (get_nested(triage, "target_component", "component")
+    component = (get_nested(triage, "target_component", "result", "target_component")
+                 or get_nested(triage, "target_component", "result", "component")
+                 or get_nested(triage, "target_component", "component")
                  or get_nested(verdicts, "target_component", "component"))
     if component:
         parts.append(f"Component: {component}")
 
-    dep = (get_nested(triage, "target_component", "third_party_dependency")
+    dep = (get_nested(triage, "target_component", "result", "third_party_dependency")
+           or get_nested(triage, "target_component", "third_party_dependency")
            or get_nested(verdicts, "target_component", "third_party_dependency"))
     if dep:
         parts.append(f"Dependency: {dep}")
@@ -399,6 +491,12 @@ def _build_reproduce_tooltip(reproduce: dict) -> str:
         return ""
 
     parts = []
+
+    if reproduce.get("skipped"):
+        reason = reproduce.get("skip_reason", "skipped")
+        parts.append(f"Skipped: {reason}")
+        return "\n".join(parts)
+
     torch_ver = reproduce.get("torch_version", "")
     if torch_ver:
         commit = reproduce.get("torch_commit", "")
@@ -437,7 +535,8 @@ def _build_gh_commands(issue_id, url: str, label_actions: list, data: dict) -> s
     for ar in label_actions:
         ar_type = ar.get("AR", "")
         if ar_type == "label_dependency":
-            dep = get_nested(data, "triage_result", "target_component", "third_party_dependency")
+            dep = (get_nested(data, "triage_result", "target_component", "result", "third_party_dependency")
+                   or get_nested(data, "triage_result", "target_component", "third_party_dependency"))
             if dep:
                 labels_to_add.append(f"dependency: {dep}")
         elif ar_type == "label_priority":
@@ -483,7 +582,15 @@ def _render_body(rows: list[dict], repo: str, conda_env: str, pytorch_folder: st
     parts.append(_render_summary(rows))
 
     parts.append('<h2>Issues</h2>')
-    parts.append(_render_table(rows))
+    for prio in ["P0", "P1", "P2", "P3"]:
+        prio_rows = [r for r in rows if r["priority"] == prio]
+        if prio_rows:
+            parts.append(f'<h3>{prio} ({len(prio_rows)})</h3>')
+            parts.append(_render_table(prio_rows))
+    no_prio = [r for r in rows if not r["priority"]]
+    if no_prio:
+        parts.append(f'<h3>Unset ({len(no_prio)})</h3>')
+        parts.append(_render_table(no_prio))
 
     return "\n".join(parts)
 
@@ -579,10 +686,10 @@ def _category_color(cat: str) -> str:
 def _render_table(rows: list[dict]) -> str:
     headers = [
         "Done", "Issue", "Title", "Type", "Test Type",
-        "Platform Specific", "OS", "PyTorch CI",
+        "Platform Specific", "OS",
         "Priority", "Category", "Root Cause",
         "Reproduce", "Need Action", "Target Component",
-        "Other Opens", "Label Refresh", "Update"
+        "Opens", "Assignee", "Reporter", "Label Refresh", "Update"
     ]
 
     thead = ['<thead><tr>']
@@ -602,7 +709,8 @@ def _render_table(rows: list[dict]) -> str:
             f'data-dependency="{html.escape(row["dependency"], quote=True)}" '
             f'data-opens="{html.escape(row["opens_ar"], quote=True)}" '
             f'data-platform="{html.escape(row["platform_specific"], quote=True)}" '
-            f'data-pytorchci="{html.escape(row["pytorch_ci"], quote=True)}" '
+            f'data-assignee="{html.escape(row["assignee"], quote=True)}" '
+            f'data-reporter="{html.escape(row["reporter"], quote=True)}" '
             f'data-type="{html.escape(row["issue_type"], quote=True)}" '
             f'data-testtype="{html.escape(row["test_type"], quote=True)}" '
             f'data-search="{html.escape((row["title"] + " " + row["root_cause"]).lower(), quote=True)}"'
@@ -637,13 +745,18 @@ def _render_table(rows: list[dict]) -> str:
 
         tbody.append(f'<td>{html.escape(row["os"])}</td>')
 
-        ci_cls = "ci-yes" if row["pytorch_ci"] else ""
-        tbody.append(f'<td class="{ci_cls}">{html.escape(row["pytorch_ci"])}</td>')
-
         prio_cls = f'prio-{row["priority"].lower()}' if row["priority"] else ""
-        tbody.append(f'<td class="{prio_cls}">{html.escape(row["priority"])}</td>')
+        tbody.append(
+            f'<td class="tip-cell {prio_cls}" '
+            f'data-tip="{html.escape(row["priority_reason"], quote=True)}">'
+            f'{html.escape(row["priority"])}</td>'
+        )
 
-        tbody.append(f'<td>{html.escape(row["category"])}</td>')
+        tbody.append(
+            f'<td class="tip-cell" '
+            f'data-tip="{html.escape(row["category_reason"], quote=True)}">'
+            f'{html.escape(row["category"])}</td>'
+        )
 
         rc_short = _truncate(row["root_cause"], 100)
         tbody.append(
@@ -672,6 +785,10 @@ def _render_table(rows: list[dict]) -> str:
             f'<td class="tip-cell" data-tip="{html.escape(row["opens_reason"], quote=True)}">'
             f'{html.escape(opens_short)}</td>'
         )
+
+        tbody.append(f'<td>{html.escape(row["assignee"])}</td>')
+
+        tbody.append(f'<td>{html.escape(row["reporter"])}</td>')
 
         tbody.append(
             f'<td class="tip-cell" data-tip="{html.escape(row["label_tooltip"], quote=True)}">'
@@ -779,8 +896,8 @@ code { background: #f1f3f5; padding: 1px 4px; border-radius: 3px; font-size: .9e
 .filter-bar button:hover { background: #f1f3f5; }
 .filter-bar .stats { margin-left: auto; color: var(--muted); font-size: 12px; }
 
-table.ar-table { border-collapse: collapse; width: 100%; margin: .5em 0 1em; font-size: 12px; }
-table.ar-table th, table.ar-table td { border: 1px solid var(--border); padding: 4px 6px; vertical-align: top; text-align: left; }
+table.ar-table { border-collapse: collapse; width: 100%; margin: .5em 0 1em; font-size: 13px; color: var(--fg); }
+table.ar-table th, table.ar-table td { border: 1px solid var(--border); padding: 5px 8px; vertical-align: top; text-align: left; font-size: 13px; }
 table.ar-table thead th { background: #e7eaf0; position: sticky; top: 56px; z-index: 50; white-space: nowrap; }
 table.ar-table td.done-col, table.ar-table th.done-col { width: 40px; text-align: center; }
 table.ar-table tr:nth-child(even) td { background: #fafbfc; }
@@ -810,14 +927,14 @@ table.ar-table tr.hidden { display: none; }
 .prio-p1 { background: #fff3cd !important; font-weight: 600; }
 .prio-p2 { background: #e2e3f1 !important; }
 .prio-p3 { color: var(--muted); }
-.repro-yes { color: #dc3545; font-weight: 600; }
-.repro-no { color: #198754; }
-.repro-unknown { color: #fd7e14; }
-.repro-na { color: var(--muted); }
-.verdict-fix { color: #dc3545; font-weight: 600; }
-.verdict-3rd { color: #6f42c1; }
-.verdict-human { color: #d63384; }
-.verdict-ok { color: #198754; }
+.repro-yes { }
+.repro-no { }
+.repro-unknown { }
+.repro-na { }
+.verdict-fix { }
+.verdict-3rd { }
+.verdict-human { }
+.verdict-ok { }
 
 .update-btn {
   font-size: 11px; padding: 2px 8px; border: 1px solid var(--accent);
@@ -939,12 +1056,12 @@ function initUpdateButtons() {
   });
 }
 
-const FILTER_DIMS = ['type', 'testtype', 'priority', 'category', 'needaction', 'repro', 'dependency', 'platform', 'pytorchci', 'opens'];
+const FILTER_DIMS = ['type', 'testtype', 'priority', 'category', 'needaction', 'repro', 'dependency', 'platform', 'assignee', 'reporter', 'opens'];
 const FILTER_LABELS = {
   type: 'Type', testtype: 'Test Type',
   priority: 'Priority', category: 'Category', needaction: 'Need Action',
   repro: 'Reproduce', dependency: 'Dependency', platform: 'Platform',
-  pytorchci: 'PyTorch CI', opens: 'Opens'
+  assignee: 'Assignee', reporter: 'Reporter', opens: 'Opens'
 };
 const NONE_TOKEN = '(none)';
 const SELECTED = Object.fromEntries(FILTER_DIMS.map(d => [d, new Set()]));
