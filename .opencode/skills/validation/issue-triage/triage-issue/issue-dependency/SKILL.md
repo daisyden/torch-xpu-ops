@@ -96,7 +96,7 @@ Delegate to `check-known-issue` with `test_file`/`class_name`/`test_name`
 to `pytorch/pytorch`:
 
 ```
-task(subagent_type="explore", run_in_background=false, load_skills=["check-known-issue"],
+task(subagent_type="explore", run_in_background=false, load_skills=["validation/check-known-issue"],
      prompt="Search pytorch/pytorch only for an existing issue matching
      <operator_name>/<test_name> with error signature: <failure_signature>.
      Return has_known_issue, matches[] with state and issue_url.")

@@ -106,6 +106,7 @@ The script prints a single JSON object with these fields.
 | pytorchxpu_short_comments | gh GraphQL project | PyTorchXPU project Short Comment field, or "". |
 | os | classifier (regex) | "Linux" or "Windows" detected from the issue body; "" if not found. |
 | platform | classifier (regex) | Canonical Intel GPU platform code (PVC, BMG, ARC, ARL, LNL, MTL, CRI); "" if not found. |
+| platform_specific | classifier (runtime) | `true` if issue platform differs from the local GPU family, `false` otherwise. Empty platform → `false`. Local detection failure → `true` (conservative). |
 | traceback | classifier (regex) | Full Python traceback (call stack frames + error/exception message) if present, else "". |
 | reproduce_steps | classifier (regex) | Shell command lines (cd/export/git/bash/pytest/python/etc.) extracted from the body, newline-joined; "" if none found. |
 | test_file | classifier (regex) | Primary unit-test file (first parsed unit-test case); "" if none. |

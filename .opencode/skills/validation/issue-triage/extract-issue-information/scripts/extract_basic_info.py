@@ -554,8 +554,10 @@ def extract_os(body):
 _PLATFORM_KEYWORDS = [
     ('PVC', ['ponte vecchio', 'data center gpu max', 'gpu max 1550',
              'gpu max 1100', 'max 1550', 'max 1100', r'\bpvc\b',
-             r'\b1550\b', r'\b1100\b']),
-    ('BMG', ['battlemage', r'\bb580\b', r'\bb570\b', r'\bbmg\b']),
+             r'\b1550\b', r'\b1100\b',
+             '0x0bd5', '0x0bd6', '0x0bd9', '0x0bda', '0x0bdb']),
+    ('BMG', ['battlemage', r'\bb580\b', r'\bb570\b', r'\bbmg\b',
+             '0xe20b', '0xe20c', '0xe223']),
     ('ARC', ['alchemist', r'\ba770\b', r'\ba750\b', r'\ba380\b',
              r'\barc\b', 'arc a', 'arc graphics']),
     ('ARL', ['arrow lake', r'\barl\b']),
@@ -597,6 +599,153 @@ def extract_platform(body, title="", labels=None):
             elif kw in text.lower():
                 return code
     return ""
+
+
+def detect_local_platform_code():
+    """Detect local GPU and return its canonical platform code, or ""."""
+    local_str = None
+    try:
+        result = subprocess.run(
+            ["sycl-ls"], capture_output=True, text=True, timeout=10
+        )
+        if result.returncode == 0:
+            for line in result.stdout.splitlines():
+                if "gpu" in line.lower() and "intel" in line.lower():
+                    local_str = line.strip()
+                    break
+    except (FileNotFoundError, subprocess.TimeoutExpired):
+        pass
+
+    if not local_str:
+        try:
+            result = subprocess.run(
+                ["xpu-smi", "discovery"], capture_output=True, text=True, timeout=10
+            )
+            if result.returncode == 0:
+                for line in result.stdout.splitlines():
+                    if "device name" in line.lower():
+                        parts = line.split(":", 1)
+                        if len(parts) == 2:
+                            local_str = parts[1].strip()
+                            break
+        except (FileNotFoundError, subprocess.TimeoutExpired):
+            pass
+
+    if not local_str:
+        return ""
+
+    for code, keywords in _PLATFORM_KEYWORDS:
+        for kw in keywords:
+            if kw.startswith(r'\b') or kw.endswith(r'\b'):
+                if re.search(kw, local_str, re.IGNORECASE):
+                    return code
+            elif kw in local_str.lower():
+                return code
+    return ""
+
+
+def check_platform_specific(issue_platform_code):
+    """Return True if issue platform differs from local GPU, False otherwise.
+
+    Empty issue_platform_code -> False (no constraint).
+    Local detection failure -> True (conservative: assume mismatch).
+    """
+    if not issue_platform_code:
+        return False
+    local_code = detect_local_platform_code()
+    if not local_code:
+        return True
+    return issue_platform_code != local_code
+
+
+def extract_pr_context(body, title):
+    """Extract PR/branch context from the issue title and body.
+
+    Scans for GitHub PR URLs and shorthand references (owner/repo#N) in the
+    combined title+body text. Returns a dict with:
+      - has_pr_context: bool
+      - prs: list of {repo, number, url} dicts (de-duplicated)
+      - branch: str or None
+      - source: "regex" | None
+
+    Only regex extraction is done here; the calling agent handles LLM fallback
+    when low_confidence includes "pr_context".
+    """
+    empty = {
+        "has_pr_context": False,
+        "prs": [],
+        "branch": None,
+        "source": None,
+    }
+    if not body and not title:
+        return empty
+
+    text = f"{title}\n{body}" if title else (body or "")
+
+    # Match full GitHub PR URLs:
+    # https://github.com/<owner>/<repo>/pull/<number>
+    url_re = re.compile(
+        r'https?://github\.com/([A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)/pull/(\d+)'
+    )
+    # Match shorthand cross-repo PR refs: owner/repo#number
+    # Avoid matching bare #number (issue refs within same repo) — require owner/repo prefix.
+    shorthand_re = re.compile(
+        r'(?<![/\w])([A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)#(\d+)'
+    )
+    # Match branch references
+    branch_re = re.compile(
+        r'(?:branch[:\s]+|on branch\s+|refs/heads/)([A-Za-z0-9_./-]+)',
+        re.IGNORECASE,
+    )
+
+    seen = set()
+    prs = []
+
+    for m in url_re.finditer(text):
+        repo_name = m.group(1)
+        pr_num = int(m.group(2))
+        key = (repo_name, pr_num)
+        if key not in seen:
+            seen.add(key)
+            prs.append({
+                "repo": repo_name,
+                "number": pr_num,
+                "url": f"https://github.com/{repo_name}/pull/{pr_num}",
+            })
+
+    for m in shorthand_re.finditer(text):
+        repo_name = m.group(1)
+        pr_num = int(m.group(2))
+        key = (repo_name, pr_num)
+        if key not in seen:
+            seen.add(key)
+            prs.append({
+                "repo": repo_name,
+                "number": pr_num,
+                "url": f"https://github.com/{repo_name}/pull/{pr_num}",
+            })
+
+    branch = None
+    bm = branch_re.search(text)
+    if bm:
+        branch = bm.group(1).rstrip('.')
+
+    if prs or branch:
+        return {
+            "has_pr_context": True,
+            "prs": prs,
+            "branch": branch,
+            "source": "regex",
+        }
+    return empty
+
+
+# Signals that an issue is PR/branch-related even when no explicit PR URL is
+# found. Used for low_confidence flagging.
+_PR_CONTEXT_SIGNALS_RE = re.compile(
+    r'this PR|my branch|cherry.?pick|backport|/actions/runs/|CI failure on',
+    re.IGNORECASE,
+)
 
 
 def test_case_source(test_file):
@@ -1483,6 +1632,8 @@ def main(argv=None):
     traceback = extract_traceback(body)
     os_name = extract_os(body)
     platform = extract_platform(body, title, labels)
+    platform_specific = check_platform_specific(platform)
+    pr_context = extract_pr_context(body, title)
 
     # Primary unit-test case: first UT-shape case (dict without a "benchmark"
     # key). Top-level test_file/test_class/test_case mirror it for convenience;
@@ -1522,12 +1673,14 @@ def main(argv=None):
         "pytorchxpu_short_comments": pt["project_short_comments"],
         "os": os_name,
         "platform": platform,
+        "platform_specific": platform_specific,
         "traceback": traceback,
         "reproduce_steps": reproduce_steps,
         "test_file": primary_tf,
         "test_class": primary_tc_class,
         "test_case": primary_tc_case,
         "test_cases": test_cases,
+        "pr_context": pr_context,
     }
 
     low_confidence = []
@@ -1538,6 +1691,9 @@ def main(argv=None):
     # test_cases: flag when none parsed but the issue looks test-related.
     if not test_cases and test_module in ("ut", "e2e"):
         low_confidence.append("test_cases")
+    # pr_context: flag when regex found no PRs but body has PR/branch signals.
+    if not pr_context["has_pr_context"] and _PR_CONTEXT_SIGNALS_RE.search(body or ""):
+        low_confidence.append("pr_context")
     result["low_confidence"] = low_confidence
 
     text = json.dumps(result, ensure_ascii=False, indent=2)

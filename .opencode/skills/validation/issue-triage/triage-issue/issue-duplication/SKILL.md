@@ -41,7 +41,7 @@ If it exits non-zero, report the failure; do not guess at issue content.
 
 ```
 task(subagent_type="explore", run_in_background=false,
-     load_skills=["check-known-issue"],
+     load_skills=["validation/check-known-issue"],
      description="Check known issue for <issue_id>",
      prompt="[CONTEXT] Checking for duplicates of GitHub issue <issue_id>
      (<repo>): <title>. [GOAL] Search both intel/torch-xpu-ops and

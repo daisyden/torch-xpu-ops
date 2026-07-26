@@ -58,7 +58,7 @@ If `ar_source == "pending_llm_step3"` (script did not resolve AR):
 1. Read `comments_for_llm` from the script output.
 2. Parse for actionable requests (see Step 3 below).
 3. If unresolved requests found: set `AR = "NEED_REPLY"`.
-4. If NO unresolved requests AND no linked PR found: set `AR = "NO_PR"`.
+4. If NO unresolved requests AND no linked PR found: check the issue's triage verdict (from `agent:fix_feasible` label or prior triage output). Set `AR = "NO_PR"` ONLY if the verdict is `NEED_FIX`, `NEED_FIX_CASE`, or `NEED_HUMAN` (i.e., a fix or human review is required but no PR exists). Otherwise set `AR = "NO_OPENS"`.
 5. If NO unresolved requests AND linked PRs exist but none matched step 4 rules: set `AR = "NO_OPENS"`.
 
 If `ar_source == "step4_pr_analysis"` (script already resolved AR):
@@ -116,7 +116,21 @@ If ANY request has `resolved == false`:
 
 ### Step 4 — Linked PR analysis (SCRIPT)
 
-The script finds linked PRs and evaluates them in order:
+The script finds linked PRs, classifies their **intent**, and evaluates
+only fix-intent PRs:
+
+#### 4.0 — PR Intent Classification
+
+Each linked PR is classified as one of:
+- **fix**: PR intends to fix the issue (title has "fix"/"skip"/"disable"/etc,
+  body has "Fixes #N", or default assumption).
+- **reproducer**: PR only demonstrates the failure (title has "repro"/
+  "reproduce"/"reproducer", or PR only adds test files).
+- **reference**: PR is in a different repo or just mentioned as context.
+
+Only PRs with `intent == "fix"` proceed to steps 4.1–4.5. Reproducer and
+reference PRs are listed in `linked_prs` for informational purposes but do
+NOT generate ARs (CI failures on a reproducer PR are expected, not actionable).
 
 #### 4.1 — CI failure
 - **AR = `FIX_CI`**, **AR_REASON = `"#<pr_number> has CI failure"`**
@@ -184,7 +198,7 @@ Final JSON schema:
 | `N/A` | Issue closed, no action needed. |
 | `ADD_SKIPLIST` | Issue labeled not_target/wontfix, add to skip list. |
 | `NEED_REPLY` | Unresolved request in comments awaiting response. |
-| `NO_PR` | No linked PR found for an open issue. |
+| `NO_PR` | No linked PR found for an issue that needs a fix or human review (verdict is NEED_FIX/NEED_FIX_CASE/NEED_HUMAN). |
 | `FIX_CI` | Linked PR has CI failures. |
 | `NEED_REPLY_REVIEW` | Linked PR has unresolved review comments. |
 | `ADD_REVIEWER` | Linked PR passed CI but has no reviewer. |

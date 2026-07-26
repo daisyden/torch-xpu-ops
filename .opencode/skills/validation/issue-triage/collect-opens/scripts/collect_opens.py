@@ -127,6 +127,59 @@ def find_linked_prs(repo: str, issue_id: int, body: str, comments: list[dict]) -
     return confirmed_prs
 
 
+def classify_pr_intent(repo: str, pr_number: int) -> str:
+    """Classify whether a PR is a fix attempt or just a reference/reproducer.
+
+    Returns: "fix", "reproducer", or "reference".
+
+    Heuristics (in order):
+    - Title contains "repro", "reproduce", "reproducer", "wip repro" -> "reproducer"
+    - Title contains "fix", "resolve", "patch", "skip", "disable" -> "fix"
+    - PR body contains "Fixes #", "Closes #", "Resolves #" -> "fix"
+    - PR has 0 changed files or only test files added -> "reproducer"
+    - PR is in a different repo than the issue -> "reference"
+    - Default -> "fix" (benefit of the doubt)
+    """
+    try:
+        pr_data = json.loads(
+            run_gh(["pr", "view", str(pr_number), "--repo", repo,
+                    "--json", "title,body,files"], check=False)
+        )
+    except Exception:
+        return "fix"
+
+    if not pr_data:
+        return "fix"
+
+    title = (pr_data.get("title") or "").lower()
+    body = (pr_data.get("body") or "").lower()
+    files = pr_data.get("files") or []
+
+    reproducer_signals = ["repro", "reproduce", "reproducer", "wip repro", "failure demo"]
+    for signal in reproducer_signals:
+        if signal in title:
+            return "reproducer"
+
+    fix_signals = ["fix", "resolve", "patch", "skip", "disable", "workaround", "address"]
+    for signal in fix_signals:
+        if signal in title:
+            return "fix"
+
+    if re.search(r"(fix(es)?|close[sd]?|resolve[sd]?)\s+#\d+", body, re.IGNORECASE):
+        return "fix"
+
+    if files:
+        file_paths = [f.get("path", "") for f in files]
+        all_test_files = all(
+            "test" in p.lower() or p.endswith("_test.py") or p.startswith("test/")
+            for p in file_paths if p
+        )
+        if all_test_files and len(file_paths) <= 3:
+            return "reproducer"
+
+    return "fix"
+
+
 def step4_analyze_pr(repo: str, pr_number: int) -> dict:
     """Step 4: Analyze a linked PR for CI, reviews, approvals."""
     pr_data = json.loads(
@@ -137,10 +190,13 @@ def step4_analyze_pr(repo: str, pr_number: int) -> dict:
     state = pr_data.get("state", "").upper()
     pr_url = pr_data.get("url", f"https://github.com/{repo}/pull/{pr_number}")
 
+    intent = classify_pr_intent(repo, pr_number)
+
     result = {
         "pr_number": pr_number,
         "pr_url": pr_url,
         "state": state.lower(),
+        "intent": intent,
         "ci_passed": None,
         "has_reviewer": False,
         "approved": False,
@@ -149,9 +205,11 @@ def step4_analyze_pr(repo: str, pr_number: int) -> dict:
         "reviewers": [],
     }
 
-    # Skip merged/closed PRs
+    # Skip merged/closed PRs and non-fix PRs (reproducers/references)
     if state in ("MERGED", "CLOSED"):
         result["ci_passed"] = None
+        return result
+    if intent != "fix":
         return result
 
     # 4.1: CI status
@@ -210,13 +268,11 @@ def step4_analyze_pr(repo: str, pr_number: int) -> dict:
 
 def step4_determine_ar(repo: str, pr_results: list[dict]) -> dict | None:
     """Apply step 4 decision logic across linked PRs."""
-    # Find the most recent open PR
-    open_prs = [p for p in pr_results if p["state"] == "open"]
-    if not open_prs:
+    open_fix_prs = [p for p in pr_results if p["state"] == "open" and p.get("intent") == "fix"]
+    if not open_fix_prs:
         return None
 
-    # Evaluate most recent (highest number) first
-    for pr in sorted(open_prs, key=lambda x: x["pr_number"], reverse=True):
+    for pr in sorted(open_fix_prs, key=lambda x: x["pr_number"], reverse=True):
         pr_num = pr["pr_number"]
 
         # 4.1: CI failure

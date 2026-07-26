@@ -1,6 +1,6 @@
 ---
 name: triage-issue
-description: End-to-end triage orchestrator for one GitHub issue (pytorch or torch-xpu-ops), given the JSON output of extract-basic-info plus conda_env and pytorch_folder. Step 0 classifies task/feature-gap/NotImplemented/Windows-platform/perf-issue/e2e-benchmark-accuracy issues as a preliminary NEED_HUMAN verdict without skipping the rest of the pipeline; an issue already labeled not_target or wontfix short-circuits immediately with NO_NEED_FIX instead. Then sequences issue-duplication, check-not-target-feature (short-circuits with NO_NEED_FIX on a dynamic "Not applicable" verdict), issue-target-component (skipped when a duplicate carries agent:triaged, or when not-target short-circuited), issue-priority, and issue-category as subagents, merging all verdicts into one JSON. Use when you need the full Priority/Category/Target-Component/Duplicate/Not-Target columns for an issue in one pass instead of calling each leaf triage skill separately.
+description: End-to-end triage orchestrator for one GitHub issue (pytorch or torch-xpu-ops), given the JSON output of extract-basic-info plus conda_env and pytorch_folder. Step 0 classifies task/feature-gap/NotImplemented/Windows-platform/perf-issue/e2e-benchmark-accuracy issues as a preliminary NEED_HUMAN verdict without skipping the rest of the pipeline; an issue already labeled not_target or wontfix short-circuits immediately with NO_NEED_FIX instead. Then sequences issue-duplication, check-not-target-feature (short-circuits target-component with NO_NEED_FIX on a dynamic "Not applicable" verdict but still runs priority and category), issue-target-component (skipped when a duplicate carries agent:triaged, or when not-target short-circuited), issue-priority, and issue-category as subagents, merging all verdicts into one JSON. Use when you need the full Priority/Category/Target-Component/Duplicate/Not-Target columns for an issue in one pass instead of calling each leaf triage skill separately.
 ---
 
 # Issue Triage Orchestrator
@@ -21,7 +21,7 @@ it does not reimplement any leaf skill's analysis logic.
    - **(A)** Step 0 finds `not_target`/`wontfix` label → `verdict = "NO_NEED_FIX"`,
      skip Steps 1-5 entirely, go to Step 6.
    - **(B)** Step 2 returns `is_not_target == true` AND `verdict == "Not applicable"`
-     → `verdict = "NO_NEED_FIX"`, skip Steps 3-5, go to Step 6.
+     → `verdict = "NO_NEED_FIX"`, skip Step 3, go to Steps 4+5.
 
    **Nothing else skips steps.** In particular, Step 0's `preliminary_verdict
    = "NEED_HUMAN"` (task/feature-gap/NotImplemented/Windows/perf/e2e) is
@@ -146,7 +146,7 @@ primary test identity; `device = "xpu"` always.
 
 ```
 task(subagent_type="explore", run_in_background=true,
-     load_skills=["validation/check_not_target_feature"],
+     load_skills=["validation/check-not-target-feature"],
      prompt="Issue <issue_id> (<repo>): <title>. Is <test_class>::
      <test_case> in <test_file> out-of-scope for XPU (CUDA-only, no XPU
      equivalent -> 'Not applicable') or a genuine enablement gap (-> 'Not
@@ -172,13 +172,17 @@ actually runs (never on a skip):
 
 | Condition | Action |
 |---|---|
-| `is_not_target == true` AND `verdict == "Not applicable"` | **Short-circuit (B).** `merged_verdict = "NO_NEED_FIX"`. Log `result: short-circuited`. Go to Step 6. |
+| `is_not_target == true` AND `verdict == "Not applicable"` | **Short-circuit (B).** `merged_verdict = "NO_NEED_FIX"`. Log `result: short-circuited`. Skip Step 3, go to Steps 4+5. |
 | Otherwise | Continue to Step 3. |
 
-On short-circuit (B): `target_component`/`priority`/`category` are `None`.
+On short-circuit (B): `target_component` is `None`. Steps 4+5 still run
+using a synthesized `root_cause_result` with `confidence = "Low"` (same
+pattern as the duplicate-triaged skip).
 
 **Step 3 — Target-component routing.** Skip conditions:
-- Short-circuit (A) or (B) fired → already at Step 6.
+- Short-circuit (A) fired → already at Step 6.
+- Short-circuit (B) fired → skip Step 3, proceed to Steps 4/5 with
+  synthesized `root_cause_result`.
 - Constraint 3 applies (duplicate with `agent:triaged`) → skip Step 3
   only, proceed to Steps 4/5 with synthesized `root_cause_result`.
 
@@ -213,7 +217,7 @@ Set `target_component_result` = its output, `target_component_source =
 
 **Building `root_cause_result` for Steps 4/5:**
 
-*When Step 3 is skipped (duplicate-triaged):*
+*When Step 3 is skipped (duplicate-triaged or short-circuit (B)):*
 
 ```python
 root_cause_result = {
@@ -277,7 +281,7 @@ Decide the final `verdict`:
 | Condition | `verdict` |
 |---|---|
 | Short-circuit (A) fired | `"NO_NEED_FIX"` |
-| Short-circuit (B) fired | `"NO_NEED_FIX"` |
+| Short-circuit (B) fired | `"NO_NEED_FIX"` (Steps 4/5 results are populated) |
 | `preliminary_verdict` was set (no short-circuit) | `"NEED_HUMAN"` (Steps 1-5 results are all populated) |
 | No short-circuit and no preliminary verdict | `None` (leaf verdicts speak for themselves) |
 
@@ -333,8 +337,10 @@ Write each sub-step's JSON + log line immediately after it completes.
 }
 ```
 
-Fields are `None` ONLY when their step was actually skipped by a
-short-circuit. `overall_confidence` = lowest among subskills that ran.
+Fields are `None` ONLY when their step was actually skipped by
+short-circuit (A). On short-circuit (B), only `target_component` is `None`;
+`priority` and `category` are populated. `overall_confidence` = lowest
+among subskills that ran.
 
 ## Example
 
