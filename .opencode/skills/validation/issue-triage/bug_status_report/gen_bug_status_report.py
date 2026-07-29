@@ -339,6 +339,9 @@ def extract_row(data: dict) -> dict:
         opens_reason = ""
 
     assignees = extract.get("assignees", []) or []
+    # Also handle singular "assignee" field (string) from extract script
+    if not assignees and extract.get("assignee"):
+        assignees = [extract["assignee"]]
     reporter = extract.get("author", "") or extract.get("reporter", "") or ""
     ar_people = []
     for req in collect_opens.get("open_requests", []):

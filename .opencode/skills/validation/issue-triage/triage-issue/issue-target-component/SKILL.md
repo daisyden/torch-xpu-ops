@@ -49,6 +49,7 @@ exists:
 | `reproduce-issue` `results[]` entry shows `reproduced=false`, but has `actual_error`/`raw_tail` from the attempt | Use that as the failure signature. Set `"verified": false`. Proceed — do not stop just because it didn't reproduce. |
 | Only `extract-basic-info` output, no reproduce data | Use the issue's own `traceback` field (or, if absent, the title/body error description) as the failure signature. Set `"verified": false`. |
 | No `traceback`, no `actual_error`, no error description anywhere in the input | **Stop.** `verdict = "NEED_HUMAN"`, reason "No failure signature available to analyze". |
+| Root cause analysis reveals the issue is a **performance issue**, **feature request**, or **task** (not a functional bug) | **Stop.** `verdict = "NEED_HUMAN"`, reason "Issue is a performance/feature/task — requires human planning, not a code-path fix". |
 
 Whatever signature you use, it must come **verbatim** from the input —
 never fabricate or paraphrase an error that isn't actually present.

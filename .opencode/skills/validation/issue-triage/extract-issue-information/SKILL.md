@@ -156,6 +156,18 @@ E2E entries do NOT have a `source` field.
 Notes:
 
 - Entries are de-duplicated per issue.
+- The `benchmark` field (huggingface | timm | torchbench) and e2e model
+  detection use the authoritative model lists in
+  `intel/torch-xpu-ops/.ci/benchmarks/{huggingface,timm,torchbench}_models_list.txt`.
+  The script loads these from a local checkout at runtime (pass `--pytorch-folder`,
+  set `PYTORCH_FOLDER`, or rely on the `~/ai4ee` default; it searches
+   `third_party/torch-xpu-ops/.ci/benchmarks` and `.ci/benchmarks`). Hardcoded
+   lists in the script are only a fallback when no checkout is found.
+- E2E classification (`test_module` = `e2e`) triggers on an `e2e` label, a
+  `benchmarks/{dynamo,timm,huggingface,torchbench}/` or `run_benchmark.py` path,
+  or any authoritative-list model name (torchbench names like `alexnet` /
+  `BERT_pytorch` and huggingface class names, not just `hf_`/`timm_` prefixes)
+  mentioned together with an explicit benchmark-framework context.
 - For unit-test entries, an empty-case row is dropped when a real case exists
   for the same test file.
 - `test_cases` uses string-only path mapping; there is no on-disk verification.

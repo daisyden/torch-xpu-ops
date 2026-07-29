@@ -109,6 +109,11 @@ task(load_skills=["validation/issue-triage/extract-issue-information"], ...)
 Exit 0 -> write result to `{issue_dir}/step1_extract.json`, proceed.
 Exit 1/2 -> HARD STOP.
 
+**IMPORTANT**: Store the FULL JSON output from the script as `extract_result`
+in `final_output.json`. Do NOT drop fields — especially `assignee`, `reporter`,
+`created_time`, `updated_time`, `milestone`, `priority`, and all `pytorchxpu_*`
+fields must be preserved verbatim.
+
 **Step 2** — Reproduce locally. Skip when:
 - `test_cases` is empty, OR
 - `extract_result.pr_context.has_pr_context == true` (tied to a PR/branch), OR
@@ -286,6 +291,8 @@ Normal outcomes (not hard stops): `CANNOT_VERIFY`, `SKIPPED`, `NO_TEST_FOUND`,
     "extract_result": {
         ...,
         "issue_type": str,  # Bug | Task | Feature | Epic (canonical type from extract-issue-information)
+        "assignee": str,    # First assignee login, or "" — MUST preserve from script output
+        "reporter": str,    # Issue author login — MUST preserve from script output
     },
     "reproduce_result": {...} | None,
     "triage_result": {

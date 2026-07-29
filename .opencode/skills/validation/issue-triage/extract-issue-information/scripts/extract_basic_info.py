@@ -4,6 +4,7 @@
 # pyright: reportUnusedImport=false, reportUnusedParameter=false, reportUnknownParameterType=false, reportMissingParameterType=false, reportUnknownVariableType=false, reportUnknownMemberType=false, reportUnknownArgumentType=false, reportUnusedVariable=false, reportImplicitStringConcatenation=false
 
 import re
+import os
 import json
 import sys
 import argparse
@@ -148,7 +149,10 @@ def is_e2e_issue(body, title, labels):
         if prefix in text:
             has_model = True
             break
-    
+
+    if not has_model and mentions_benchmark_model(text):
+        has_model = True
+
     # Must have explicit benchmark framework mention (as test framework)
     if has_model:
         benchmark_paths = ['benchmarks/dynamo', 'run_benchmark', 'torchbenchmark', 'benchmark.py']
@@ -762,8 +766,10 @@ def test_case_source(test_file):
 # Known test types accepted in Cases:/test_cases: strategies.
 KNOWN_TEST_TYPES = ['op_ut', 'op_extend', 'op_extended', 'e2e', 'benchmark', 'ut', 'test_xpu']
 
-# Model lists from benchmarks
-HUGGINGFACE_MODELS = [
+# Fallback model lists. Authoritative source is intel/torch-xpu-ops
+# .ci/benchmarks/{huggingface,timm,torchbench}_models_list.txt, loaded from a
+# local checkout at runtime when available; these are used only when it is not.
+_FALLBACK_HUGGINGFACE_MODELS = [
     'AlbertForMaskedLM', 'AlbertForQuestionAnswering', 'AllenaiLongformerBase',
     'BartForCausalLM', 'BartForConditionalGeneration', 'BertForMaskedLM',
     'BertForQuestionAnswering', 'BlenderbotForCausalLM', 'BlenderbotForConditionalGeneration',
@@ -783,7 +789,7 @@ HUGGINGFACE_MODELS = [
     'XLNetLMHeadModel', 'YituTechConvBert'
 ]
 
-TIMM_MODELS = [
+_FALLBACK_TIMM_MODELS = [
     'adv_inception_v3', 'beit_base_patch16_224', 'botnet26t_256', 'cait_m36_384',
     'coat_lite_mini', 'convit_base', 'convmixer_768_32', 'convnext_base',
     'convnextv2_nano.fcmae_ft_in22k_in1k', 'crossvit_9_240', 'cspdarknet53', 'deit_base_distilled_patch16_224',
@@ -801,7 +807,7 @@ TIMM_MODELS = [
     'volo_d1_224', 'xcit_large_24_p8_224'
 ]
 
-TORCHBENCH_MODELS = [
+_FALLBACK_TORCHBENCH_MODELS = [
     'alexnet', 'Background_Matting', 'basic_gnn_edgecnn', 'basic_gnn_gcn', 'basic_gnn_gin',
     'basic_gnn_sage', 'BERT_pytorch', 'cm3leon_generate', 'dcgan', 'demucs', 'densenet121',
     'detectron2_fasterrcnn_r_101_c4', 'detectron2_fasterrcnn_r_101_dc5', 'detectron2_fasterrcnn_r_101_fpn',
@@ -828,6 +834,81 @@ TORCHBENCH_MODELS = [
     'lit_llama_generate', 'lit_llama_lora', 'llama_v2_13b', 'llama_v2_70b', 'llama_v31_8b',
     'mistral_7b_instruct', 'orca_2', 'phi_1_5', 'phi_2', 'sage', 'stable_diffusion_xl', 'torchrec_dlrm'
 ]
+
+
+_BENCHMARK_LIST_FILES = {
+    'huggingface': 'huggingface_models_list.txt',
+    'timm': 'timm_models_list.txt',
+    'torchbench': 'torchbench_models_list.txt',
+}
+
+
+def _benchmark_dir_candidates(pytorch_folder=None):
+    roots = []
+    if pytorch_folder:
+        roots.append(pytorch_folder)
+    env_pf = os.environ.get('PYTORCH_FOLDER')
+    if env_pf:
+        roots.append(env_pf)
+    roots.append(os.path.expanduser('~/ai4ee'))
+    seen = set()
+    for root in roots:
+        for rel in ('third_party/torch-xpu-ops/.ci/benchmarks', '.ci/benchmarks'):
+            path = os.path.join(os.path.expanduser(root), rel)
+            if path not in seen:
+                seen.add(path)
+                yield path
+
+
+def _parse_model_list_file(path):
+    models = []
+    with open(path, 'r', encoding='utf-8') as fh:
+        for line in fh:
+            # Lines are "ModelName,batch" or "ModelName batch"; take the name only.
+            name = re.split(r'[,\s]', line.strip(), maxsplit=1)[0]
+            if name:
+                models.append(name)
+    return models
+
+
+def _load_benchmark_models(pytorch_folder=None):
+    result = {}
+    for bench, filename in _BENCHMARK_LIST_FILES.items():
+        for bench_dir in _benchmark_dir_candidates(pytorch_folder):
+            path = os.path.join(bench_dir, filename)
+            if os.path.isfile(path):
+                try:
+                    models = _parse_model_list_file(path)
+                except OSError:
+                    models = []
+                if models:
+                    result[bench] = models
+                    break
+    return result
+
+
+_loaded_models = _load_benchmark_models()
+HUGGINGFACE_MODELS = _loaded_models.get('huggingface', _FALLBACK_HUGGINGFACE_MODELS)
+TIMM_MODELS = _loaded_models.get('timm', _FALLBACK_TIMM_MODELS)
+TORCHBENCH_MODELS = _loaded_models.get('torchbench', _FALLBACK_TORCHBENCH_MODELS)
+
+
+def _build_benchmark_model_regex():
+    names = {m.lower() for m in HUGGINGFACE_MODELS + TIMM_MODELS + TORCHBENCH_MODELS}
+    names = sorted(names, key=len, reverse=True)
+    if not names:
+        return None
+    alternation = '|'.join(re.escape(n) for n in names)
+    # (?<![\w-]) / (?![\w-]) give whole-token matching so short names like
+    # 'sage' or 'moco' don't match inside unrelated words.
+    return re.compile(r'(?<![\w-])(?:' + alternation + r')(?![\w-])')
+
+
+_BENCHMARK_MODEL_RE = _build_benchmark_model_regex()
+
+
+def mentions_benchmark_model(text):
+    return bool(_BENCHMARK_MODEL_RE and _BENCHMARK_MODEL_RE.search(text))
 
 
 def identify_benchmark(model_name):
@@ -1573,7 +1654,15 @@ def main(argv=None):
     parser.add_argument("issue", help="Issue number or GitHub issue URL")
     parser.add_argument("--repo", help="owner/name for a bare issue number (default intel/torch-xpu-ops); ignored when a full URL is given")
     parser.add_argument("--output", help="Optional path to also write the JSON output")
+    parser.add_argument("--pytorch-folder", help="Local pytorch checkout root; used to load authoritative .ci/benchmarks model lists")
     args = parser.parse_args(argv)
+
+    if args.pytorch_folder:
+        global HUGGINGFACE_MODELS, TIMM_MODELS, TORCHBENCH_MODELS
+        reloaded = _load_benchmark_models(args.pytorch_folder)
+        HUGGINGFACE_MODELS = reloaded.get('huggingface', HUGGINGFACE_MODELS)
+        TIMM_MODELS = reloaded.get('timm', TIMM_MODELS)
+        TORCHBENCH_MODELS = reloaded.get('torchbench', TORCHBENCH_MODELS)
 
     default_owner, default_repo = "intel", "torch-xpu-ops"
     if args.repo:

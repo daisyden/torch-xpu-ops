@@ -705,6 +705,85 @@ def run_non_ut_case(case, pytorch_folder, conda_env, timeout):
     }
 
 
+# Top-level key in final_output.json holding the reproduce report.
+REPRODUCE_RESULT_KEY = "reproduce_result"
+
+
+def _backup_file(path):
+    """Copy path to path + '.bak' (best effort); ignore failures."""
+    try:
+        with open(path, "r", encoding="utf-8") as src:
+            data = src.read()
+        with open(path + ".bak", "w", encoding="utf-8") as dst:
+            dst.write(data)
+    except OSError:
+        pass
+
+
+def resolve_agent_space_dir(agent_space_dir, agent_space_root, repo, issue_id):
+    """Resolve the per-issue agent_space directory to update, or None.
+
+    An explicit --agent-space-dir wins. Otherwise, when both a root and an
+    issue id are given, the conventional folder name
+    '<repo_with_slashes_as_underscores>_issue_<id>' is joined onto the root.
+    Returns the directory path (which may not exist) or None when unresolvable.
+    """
+    if agent_space_dir:
+        return agent_space_dir
+    if agent_space_root and issue_id:
+        slug = str(repo or "").replace("/", "_")
+        name = "{}_issue_{}".format(slug, issue_id) if slug else "issue_{}".format(issue_id)
+        return os.path.join(agent_space_root, name)
+    return None
+
+
+def update_agent_space_json(agent_space_dir, report):
+    """Update reproduce info in existing agent_space JSON files, in place.
+
+    Only touches files that already exist; never creates them. Each modified
+    file is first copied to a '.bak' sibling.
+
+      - step2_reproduce.json: the reproduce report IS the whole file, so it is
+        overwritten with `report`.
+      - final_output.json: only the top-level REPRODUCE_RESULT_KEY is replaced
+        with `report`; every other key is left byte-for-byte untouched.
+
+    Returns a list of (path, action) tuples describing what was done.
+    """
+    actions = []
+    if not agent_space_dir or not os.path.isdir(agent_space_dir):
+        if agent_space_dir:
+            actions.append((agent_space_dir, "skipped (directory not found)"))
+        return actions
+
+    step2_path = os.path.join(agent_space_dir, "step2_reproduce.json")
+    if os.path.isfile(step2_path):
+        _backup_file(step2_path)
+        with open(step2_path, "w", encoding="utf-8") as fh:
+            fh.write(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
+        actions.append((step2_path, "overwrote reproduce report"))
+
+    final_path = os.path.join(agent_space_dir, "final_output.json")
+    if os.path.isfile(final_path):
+        try:
+            with open(final_path, "r", encoding="utf-8") as fh:
+                data = json.load(fh)
+        except (json.JSONDecodeError, OSError):
+            data = None
+        if isinstance(data, dict):
+            _backup_file(final_path)
+            data[REPRODUCE_RESULT_KEY] = report
+            with open(final_path, "w", encoding="utf-8") as fh:
+                fh.write(json.dumps(data, ensure_ascii=False, indent=2) + "\n")
+            actions.append((final_path, "updated {}".format(REPRODUCE_RESULT_KEY)))
+        else:
+            actions.append(
+                (final_path, "skipped (not a JSON object / unparseable)")
+            )
+
+    return actions
+
+
 def normalize_cases(input_obj):
     """Normalize a polymorphic input object to a list of case dicts.
 
@@ -916,6 +995,27 @@ def main(argv=None):
         help="re-run a single case after skip removal; suppresses further "
         "skip-removal handoff.",
     )
+    parser.add_argument(
+        "--agent-space-dir",
+        help="If set, update reproduce info in existing JSON files in this "
+        "per-issue agent_space directory (never creates files).",
+    )
+    parser.add_argument(
+        "--agent-space-root",
+        help="Root holding per-issue agent_space folders; combined with "
+        "--issue-id/--repo to locate the folder when --agent-space-dir is "
+        "omitted.",
+    )
+    parser.add_argument(
+        "--issue-id",
+        help="Issue id used to derive the agent_space folder name under "
+        "--agent-space-root.",
+    )
+    parser.add_argument(
+        "--repo",
+        default="intel/torch-xpu-ops",
+        help="Repo slug used to derive the agent_space folder name.",
+    )
     args = parser.parse_args(argv)
 
     conda_env = args.conda_env
@@ -1005,6 +1105,13 @@ def main(argv=None):
     if args.output:
         with open(args.output, "w", encoding="utf-8") as fh:
             fh.write(text + "\n")
+
+    agent_space_dir = resolve_agent_space_dir(
+        args.agent_space_dir, args.agent_space_root, args.repo, args.issue_id
+    )
+    if agent_space_dir:
+        for path, action in update_agent_space_json(agent_space_dir, report):
+            print("agent_space: {}: {}".format(action, path), file=sys.stderr)
 
     sys.exit(0)
 

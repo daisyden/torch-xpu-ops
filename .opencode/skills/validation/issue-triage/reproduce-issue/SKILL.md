@@ -13,7 +13,8 @@ environment is already in place.
 
 ```
 python3 scripts/reproduce_issue.py --input <JSON> --conda-env <env> \
-    --pytorch-folder <dir> [--timeout 600] [--output PATH] [--rerun]
+    --pytorch-folder <dir> [--timeout 600] [--output PATH] [--rerun] \
+    [--agent-space-dir DIR | --agent-space-root DIR --issue-id ID [--repo SLUG]]
 ```
 
 | Flag | Required | Meaning |
@@ -24,6 +25,10 @@ python3 scripts/reproduce_issue.py --input <JSON> --conda-env <env> \
 | `--timeout` | No | Per-case timeout seconds (default 600). |
 | `--output` | No | Also write JSON report to this path. |
 | `--rerun` | No | Re-run after skip removal; suppresses further skip-removal handoff. |
+| `--agent-space-dir` | No | Update reproduce info in existing JSON files in this per-issue agent_space dir. Only edits existing files (never creates); backs up each to `.bak` first. `step2_reproduce.json` is overwritten with the report; in `final_output.json` only the top-level `reproduce_result` key is replaced. |
+| `--agent-space-root` | No | Root holding per-issue folders; used with `--issue-id`/`--repo` to derive the folder `<repo_underscored>_issue_<id>` when `--agent-space-dir` is omitted. |
+| `--issue-id` | No | Issue id for deriving the agent_space folder name. |
+| `--repo` | No | Repo slug for the folder name (default `intel/torch-xpu-ops`). |
 
 Per-case fields: `test_file`, `test_class`, `test_case`, `test_type`, `source`,
 `traceback`, `reproduce_steps`, `op_db_override_plugin_dir`/`_module` (rerun only).
