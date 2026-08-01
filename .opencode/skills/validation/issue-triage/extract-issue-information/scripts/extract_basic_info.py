@@ -1741,6 +1741,7 @@ def main(argv=None):
         "issue_id": core["issue_id"],
         "repo": f"{owner}/{repo}",
         "title": core["title"],
+        "body": body,
         "status": core["status"],
         "assignee": core["assignee"],
         "reporter": core["reporter"],

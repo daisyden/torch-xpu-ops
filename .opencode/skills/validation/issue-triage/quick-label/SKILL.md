@@ -34,9 +34,11 @@ or test failure description. Never invent or paraphrase a failure signature.
    metadata completion or start tracing until `low_confidence` is empty. If the
    title/body cannot resolve a field required for usable failure evidence,
    hard-stop.
-3. Preserve the full `$extract_json` result. Build a failure signature
-   from its extracted test file, test case or cases, error message, and
-   traceback. If none is usable, hard-stop.
+3. Preserve the required extracted classification fields unchanged. Build a
+   failure signature from the extracted test file, test case or cases, error
+   message, and traceback. Preserve `issue_type`, `type`, `module`,
+   `test_module`, and `dependency` unchanged in the final output. If none is
+   usable, hard-stop.
 4. Delegate deep root-cause tracing to an `explore` subagent. Pass
    `pytorch_folder`, the preserved extraction fields, and the failure
    signature. The tracing phase must consume `$extract_json`; it must not
@@ -44,16 +46,26 @@ or test failure description. Never invent or paraphrase a failure signature.
    Require cited file and line references, symbols, and a concrete call path.
    The subagent may use read-only source inspection, CodeGraph, LSP, `grep`,
    `read`, and local `git log` only.
-5. Require the trace to check `git log` for an upstream or local fix. Record a
-   verified fix commit when found. A skip or xfail is never a fix and must not
-   justify an already-fixed conclusion.
-6. Determine ownership from the location that must change, using
+5. Require the trace to check local `git log --since="7 days ago"` for an
+   upstream or local fix from the past week. Record a verified fix commit when
+   found. A skip or xfail is never a fix and must not justify an already-fixed
+   conclusion.
+6. Classify `traced_dependency` from the traced root cause using
+   [dependnecy.md](../reference/dependnecy.md). Use exactly one taxonomy value,
+   `none`, or `null`. Require direct traceback, source, or operator evidence;
+   use `null` for missing or equally ambiguous evidence, and do not infer a
+   dependency from incidental issue prose or an operator name alone.
+7. Classify `priority` using [priority.md](../reference/priority.md). Apply its
+   conditions in highest-severity order: P0, then P1, then P2, then P3. Use
+   only evidence in the extracted issue, including extracted body and comments
+   when available, and the traced root cause.
+8. Determine ownership from the location that must change, using
    [target_component.md](../reference/target_component.md). Do not infer it
    from labels, domains, or where the failure surfaces.
-7. Apply [need_action.md](../reference/need_action.md). Preserve the canonical
+9. Apply [need_action.md](../reference/need_action.md). Preserve the canonical
    tracing verdict in `verdict`; emit the requested user-facing value in
    `need_action`.
-8. Write the result only to:
+10. Write the result only to:
    `agent_space/quick_label/<repo_slug>_issue_<id>/output.json`.
    Derive `repo_slug` from the extracted `repo` by replacing `/` with `_`.
    Remove `$extract_json` after the final result is written or on a hard-stop.
@@ -63,7 +75,14 @@ or test failure description. Never invent or paraphrase a failure signature.
 ```json
 {
   "source_issue": {"issue_id": 0, "repo": "owner/repo", "title": ""},
+  "issue_type": "Bug | Task | Feature | Epic",
+  "type": "feature request | performance issue | accuracy issue | functionality bug | internal task | unknown",
+  "module": "distributed | inductor | dynamo | aten_ops | AO | low_precision | profiling | optimizer | fx | export | autograd | unknown",
+  "test_module": "ut | e2e | build | infrastructure",
+  "dependency": "oneDNN | oneMKL | Triton | AO | transformers | oneAPI | driver | oneCCL | \"\"",
   "failure_signature": "verbatim extracted error or traceback",
+  "traced_dependency": "driver | IGC | Level Zero | oneMKL | oneDNN | oneCCL | oneAPI | MSVC | Triton | community | third_party_packages | none | null",
+  "priority": "P0 | P1 | P2 | P3",
   "target_component": "test-case | pytorch | torch-xpu-ops | third-party | N/A",
   "verdict": "NEED_FIX | NEED_FIX_CASE | NEED_FIX_3RDPARTY | NEED_HUMAN",
   "need_action": "NEED_FIX | NEED_3RPARTY_FIX | NEED_HUMAN",
@@ -91,8 +110,11 @@ the issue labels contain `not_target` or `wontfix`.
 - [ ] The issue was extracted first and is the requested repository.
 - [ ] Any `low_confidence` fields were resolved inline before tracing.
 - [ ] `pytorch_folder` and usable failure evidence were present.
+- [ ] `issue_type`, `type`, `module`, `test_module`, and extracted `dependency` were preserved.
 - [ ] Root-cause tracing cites files, symbols, and a call path.
-- [ ] `git log` was checked; skip and xfail were not treated as fixes.
+- [ ] The past week's `git log` was checked; skip and xfail were not treated as fixes.
+- [ ] `traced_dependency` uses direct evidence and the reference taxonomy; ambiguous evidence is `null`.
+- [ ] Priority follows the reference rules in P0-to-P3 severity order.
 - [ ] Ownership follows the fix location table.
 - [ ] `output.json` is valid JSON and contains every required field.
 - [ ] This `SKILL.md` has fewer than 200 lines.

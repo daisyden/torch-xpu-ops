@@ -45,25 +45,25 @@ Run from the repository root.
 By issue number (defaults to intel/torch-xpu-ops):
 
 ```bash
-python3 .claude/skills/validation/issue-triage/extract-issue-information/scripts/extract_basic_info.py 4344
+python3 .opencode/skills/validation/issue-triage/extract-issue-information/scripts/extract_basic_info.py 4344
 ```
 
 By issue URL for any repo:
 
 ```bash
-python3 .claude/skills/validation/issue-triage/extract-issue-information/scripts/extract_basic_info.py https://github.com/CuiYifeng/torch-xpu-ops-sandbox/issues/8
+python3 .opencode/skills/validation/issue-triage/extract-issue-information/scripts/extract_basic_info.py https://github.com/CuiYifeng/torch-xpu-ops-sandbox/issues/8
 ```
 
 By intel/torch-xpu-ops issue URL:
 
 ```bash
-python3 .claude/skills/validation/issue-triage/extract-issue-information/scripts/extract_basic_info.py https://github.com/intel/torch-xpu-ops/issues/4344
+python3 .opencode/skills/validation/issue-triage/extract-issue-information/scripts/extract_basic_info.py https://github.com/intel/torch-xpu-ops/issues/4344
 ```
 
 Override the repo for a bare issue number with `--repo owner/name`:
 
 ```bash
-python3 .claude/skills/validation/issue-triage/extract-issue-information/scripts/extract_basic_info.py 8 --repo CuiYifeng/torch-xpu-ops-sandbox
+python3 .opencode/skills/validation/issue-triage/extract-issue-information/scripts/extract_basic_info.py 8 --repo CuiYifeng/torch-xpu-ops-sandbox
 ```
 
 The `--repo owner/name` flag sets the repository for a bare issue number. It is
@@ -73,7 +73,7 @@ default is `intel/torch-xpu-ops`.
 Also write the JSON to a file (still printed to stdout):
 
 ```bash
-python3 .claude/skills/validation/issue-triage/extract-issue-information/scripts/extract_basic_info.py 4344 --output out.json
+python3 .opencode/skills/validation/issue-triage/extract-issue-information/scripts/extract_basic_info.py 4344 --output out.json
 ```
 
 ## Output schema
@@ -85,6 +85,7 @@ The script prints a single JSON object with these fields.
 | issue_id | gh REST | Issue number (integer). |
 | repo | gh REST (input) | The issue's repository as "owner/name" (from the URL, or --repo/default for a bare number). |
 | title | gh REST | Issue title. |
+| body | gh REST | Raw issue body. Included so callers can resolve `low_confidence` fields without another remote fetch. |
 | status | gh REST | Issue state, "open" or "closed". |
 | assignee | gh REST | First assignee login, or "". |
 | reporter | gh REST | Issue author login. |
@@ -267,7 +268,7 @@ never flagged.
 
 When `low_confidence` is non-empty, the calling agent MUST:
 
-1. Read the issue body and title.
+1. Read the `body` and `title` fields in the extracted JSON.
 2. For `reproduce_steps`, extract the real shell commands that reproduce the
    issue.
 3. For `test_cases`, read the body and fill in the real test cases.
@@ -297,4 +298,6 @@ This script does exactly one thing: emit JSON metadata for a single issue. It do
 - process batches or multiple issues,
 - verify test files on disk (test_cases uses string-only path mapping),
 - generate a Not-applicable sheet,
-- accept a `pytorch_folder` or `conda_env` argument.
+- accept a `conda_env` argument. It accepts optional `--pytorch-folder` only
+  to load authoritative benchmark model lists; it does not validate or modify
+  that checkout.
