@@ -55,6 +55,8 @@ def _gates(r):
        Community only counts once internal review has also passed."""
     prs=[PRLOOK_S.get(str(n)) for n in (r['prs']+r['comm_prs'])]
     prs=[p for p in prs if p]
+    # discount PRs that are closed but never merged (abandoned) - they carry no progress
+    prs=[p for p in prs if not (p['state']=='CLOSED' and not p['merged'])]
     open_prs=[p for p in prs if p['state']=='OPEN']
     if open_prs:
         i=all(p['internal_ok'] for p in open_prs)
@@ -160,15 +162,18 @@ def pr_item(r):
 DETAILS['ci']={}
 DETAILS['gates']={}
 DETAILS['gates_pending']={}
-for r in recs:
+# discount PRs closed but never merged (abandoned) from all PR-level stats/charts
+def _abandoned(r): return r['state']=='CLOSED' and not r['merged']
+recs_active=[r for r in recs if not _abandoned(r)]
+for r in recs_active:
     DETAILS['ci'].setdefault(r['ci_state'],[]).append(pr_item(r))
     if r['internal_ok']: DETAILS['gates'].setdefault('Internal review',[]).append(pr_item(r))
     if r['ci_state']=='passed': DETAILS['gates'].setdefault('CI passed',[]).append(pr_item(r))
     if r['community_ok']: DETAILS['gates'].setdefault('Community review',[]).append(pr_item(r))
     if r['internal_ok'] and r['community_ok'] and r['ci_state']=='passed':
         DETAILS['gates'].setdefault('All 3 gates',[]).append(pr_item(r))
-    # pending gates: only open (non-merged) PRs still need work
-    if not r['merged']:
+    # pending gates: only OPEN PRs still need work (abandoned already excluded)
+    if r['state']=='OPEN':
         if not r['internal_ok']: DETAILS['gates_pending'].setdefault('Internal review',[]).append(pr_item(r))
         if r['ci_state']!='passed': DETAILS['gates_pending'].setdefault('CI',[]).append(pr_item(r))
         if not r['community_ok']: DETAILS['gates_pending'].setdefault('Community review',[]).append(pr_item(r))
@@ -194,24 +199,25 @@ for r in rows:
     status_all[sl]+=1
     DETAILS['statt_all'].setdefault(sl,[]).append(file_item(r))
 
-# ---- PR stats ----
-nPR=len(recs)
-internal_ok=sum(1 for r in recs if r['internal_ok'])
-community_ok=sum(1 for r in recs if r['community_ok'])
-ci_state=Counter(r['ci_state'] for r in recs)
-merged=sum(1 for r in recs if r['merged'])
-all3=sum(1 for r in recs if r['internal_ok'] and r['community_ok'] and r['ci_state']=='passed')
-# pending (needs work) counts among OPEN (non-merged) PRs
-nOpen=sum(1 for r in recs if not r['merged'])
-pend_int=sum(1 for r in recs if not r['merged'] and not r['internal_ok'])
-pend_ci =sum(1 for r in recs if not r['merged'] and r['ci_state']!='passed')
-pend_com=sum(1 for r in recs if not r['merged'] and not r['community_ok'])
-pend_any=sum(1 for r in recs if not r['merged'] and not (r['internal_ok'] and r['community_ok'] and r['ci_state']=='passed'))
+# ---- PR stats (abandoned = closed-not-merged PRs are discounted) ----
+nPR=len(recs_active)
+nAbandoned=len(recs)-nPR
+internal_ok=sum(1 for r in recs_active if r['internal_ok'])
+community_ok=sum(1 for r in recs_active if r['community_ok'])
+ci_state=Counter(r['ci_state'] for r in recs_active)
+merged=sum(1 for r in recs_active if r['merged'])
+all3=sum(1 for r in recs_active if r['internal_ok'] and r['community_ok'] and r['ci_state']=='passed')
+# pending (needs work) counts among OPEN PRs
+nOpen=sum(1 for r in recs_active if r['state']=='OPEN')
+pend_int=sum(1 for r in recs_active if r['state']=='OPEN' and not r['internal_ok'])
+pend_ci =sum(1 for r in recs_active if r['state']=='OPEN' and r['ci_state']!='passed')
+pend_com=sum(1 for r in recs_active if r['state']=='OPEN' and not r['community_ok'])
+pend_any=sum(1 for r in recs_active if r['state']=='OPEN' and not (r['internal_ok'] and r['community_ok'] and r['ci_state']=='passed'))
 
 def dist_days(key):
     buckets=['<1d','1-3d','3-7d','1-2w','2-4w','>4w']
     b=Counter()
-    for r in recs:
+    for r in recs_active:
         h=r[key]
         if h is None: continue
         days=h/24.0
@@ -224,7 +230,7 @@ def dist_days(key):
     return [b[x] for x in buckets], buckets
 
 def stat(key):
-    v=[r[key] for r in recs if r[key] is not None]
+    v=[r[key] for r in recs_active if r[key] is not None]
     if not v: return None
     return {'n':len(v),'median_d':round(st.median(v)/24,1),'mean_d':round(st.mean(v)/24,1),'p90_d':round(sorted(v)[int(len(v)*0.9)-1]/24,1),'max_d':round(max(v)/24,1)}
 
@@ -243,7 +249,7 @@ def bucket_of(h):
 DETAILS['timing']={}          # main chart: milestone label -> PRs that reached it
 _HIST={'hint':'t_internal_h','hci':'t_ci_h','hcom':'t_community_h','hmg':'t_merge_h'}
 for g in _HIST: DETAILS[g]={}  # histograms: milestone group -> bucket -> PRs
-for r in recs:
+for r in recs_active:
     for key in ('t_internal_h','t_community_h','t_ci_h','t_merge_h'):
         if r[key] is None: continue
         DETAILS['timing'].setdefault(tlabels[key],[]).append(pr_item(r))
@@ -298,11 +304,11 @@ def _units(files):
     tot=len(existing)+new_spec+len(agn_teams)+ind_u+dist_u
     return {'tot':tot,'ex':len(existing),'ns':new_spec,'at':len(agn_teams),
             'ind_f':ind_f,'ind_u':ind_u,'dist_f':dist_f,'dist_u':dist_u}
-def _mtimes(h): return sorted(_p(r['created'])+timedelta(hours=r[h]) for r in recs if r[h] is not None and r['created'])
+def _mtimes(h): return sorted(_p(r['created'])+timedelta(hours=r[h]) for r in recs_active if r[h] is not None and r['created'])
 def _rate4(ts): return (sum(1 for t in ts if t>=ts[-1]-timedelta(weeks=4))/4.0) if ts else 0.0
 def _date(wk): return (now+timedelta(weeks=wk)).date().isoformat() if wk is not None else 'n/a'
 # PR creation rate (last 4 weeks) from PR createdAt
-_ctimes=sorted(_p(r['created']) for r in recs if r['created'])
+_ctimes=sorted(_p(r['created']) for r in recs_active if r['created'])
 rate_create=_rate4(_ctimes)
 # files still needing a NEW PR (no existing PR); gate-passed files already have one
 rem_new=[r for r in active if not (r['prs']+r['comm_prs'])]
@@ -339,7 +345,7 @@ burn_mrg=_burn(fc_rows[3]['units'],fc_rows[3]['eff'])
 rc0,rc1,rc2,rc3=(fc_rows[i]['eff'] for i in range(4))
 # per-PR milestone timing stats (median/mean/p90 days from PR open)
 def _mstat(key):
-    v=[r[key]/24.0 for r in recs if r[key] is not None]
+    v=[r[key]/24.0 for r in recs_active if r[key] is not None]
     if not v: return {'median':0,'mean':0,'p90':0,'n':0}
     return {'median':round(st.median(v),1),'mean':round(st.mean(v),1),
             'p90':round(sorted(v)[max(int(len(v)*0.9)-1,0)],1),'n':len(v)}
@@ -508,6 +514,7 @@ canvas{{cursor:pointer}}
 </div>
 
 <h2>3. PR status &mdash; the three gates</h2>
+<div class=note>{nAbandoned} closed-but-never-merged (abandoned) PR(s) are discounted; charts below cover {nPR} active PRs.</div>
 {flag_html}
 <div class=cgrid>
 <div class=panel><h3>Gate pass counts (of {nPR} PRs)</h3><div class=ch><canvas id=gates></canvas></div></div>
