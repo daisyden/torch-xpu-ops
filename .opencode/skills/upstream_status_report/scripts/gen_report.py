@@ -176,7 +176,9 @@ for r in recs_active:
     if r['state']=='OPEN':
         if not r['internal_ok']: DETAILS['gates_pending'].setdefault('Internal review',[]).append(pr_item(r))
         if r['ci_state']!='passed': DETAILS['gates_pending'].setdefault('CI',[]).append(pr_item(r))
-        if not r['community_ok']: DETAILS['gates_pending'].setdefault('Community review',[]).append(pr_item(r))
+        # community review is only pending once internal review AND CI have passed
+        if r['internal_ok'] and r['ci_state']=='passed' and not r['community_ok']:
+            DETAILS['gates_pending'].setdefault('Community review',[]).append(pr_item(r))
         if not (r['internal_ok'] and r['community_ok'] and r['ci_state']=='passed'):
             DETAILS['gates_pending'].setdefault('Any gate',[]).append(pr_item(r))
 
@@ -211,7 +213,7 @@ all3=sum(1 for r in recs_active if r['internal_ok'] and r['community_ok'] and r[
 nOpen=sum(1 for r in recs_active if r['state']=='OPEN')
 pend_int=sum(1 for r in recs_active if r['state']=='OPEN' and not r['internal_ok'])
 pend_ci =sum(1 for r in recs_active if r['state']=='OPEN' and r['ci_state']!='passed')
-pend_com=sum(1 for r in recs_active if r['state']=='OPEN' and not r['community_ok'])
+pend_com=sum(1 for r in recs_active if r['state']=='OPEN' and r['internal_ok'] and r['ci_state']=='passed' and not r['community_ok'])
 pend_any=sum(1 for r in recs_active if r['state']=='OPEN' and not (r['internal_ok'] and r['community_ok'] and r['ci_state']=='passed'))
 
 def dist_days(key):
