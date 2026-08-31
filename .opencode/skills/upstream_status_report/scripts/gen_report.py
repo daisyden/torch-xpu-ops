@@ -2,7 +2,12 @@ import json, statistics as st
 from collections import Counter
 from datetime import datetime
 
-recs=json.load(open('/tmp/pr_analysis.json'))
+recs_all=json.load(open('/tmp/pr_analysis.json'))
+# Drop abandoned PRs (closed but never merged) from ALL data: they carry no
+# progress, so files whose only PR was abandoned correctly fall back to TBD.
+def _abandoned(r): return r['state']=='CLOSED' and not r['merged']
+recs=[r for r in recs_all if not _abandoned(r)]
+nAbandoned=len(recs_all)-len(recs)
 owned=json.load(open('/tmp/owned.json'))
 rows=owned['rows']
 # community test-refactor tracker (path -> {status,owner,ready_prs,merged_prs,...})
@@ -162,9 +167,8 @@ def pr_item(r):
 DETAILS['ci']={}
 DETAILS['gates']={}
 DETAILS['gates_pending']={}
-# discount PRs closed but never merged (abandoned) from all PR-level stats/charts
-def _abandoned(r): return r['state']=='CLOSED' and not r['merged']
-recs_active=[r for r in recs if not _abandoned(r)]
+# abandoned PRs were already dropped from recs at load time
+recs_active=recs
 for r in recs_active:
     DETAILS['ci'].setdefault(r['ci_state'],[]).append(pr_item(r))
     if r['internal_ok']: DETAILS['gates'].setdefault('Internal review',[]).append(pr_item(r))
@@ -201,9 +205,8 @@ for r in rows:
     status_all[sl]+=1
     DETAILS['statt_all'].setdefault(sl,[]).append(file_item(r))
 
-# ---- PR stats (abandoned = closed-not-merged PRs are discounted) ----
+# ---- PR stats (abandoned closed-not-merged PRs already dropped at load) ----
 nPR=len(recs_active)
-nAbandoned=len(recs)-nPR
 internal_ok=sum(1 for r in recs_active if r['internal_ok'])
 community_ok=sum(1 for r in recs_active if r['community_ok'])
 ci_state=Counter(r['ci_state'] for r in recs_active)
@@ -516,7 +519,7 @@ canvas{{cursor:pointer}}
 </div>
 
 <h2>3. PR status &mdash; the three gates</h2>
-<div class=note>{nAbandoned} closed-but-never-merged (abandoned) PR(s) are discounted; charts below cover {nPR} active PRs.</div>
+<div class=note>{nAbandoned} abandoned (closed-but-never-merged) PR(s) dropped; files whose only PR was abandoned show as TBD. Charts below cover {nPR} active PRs.</div>
 {flag_html}
 <div class=cgrid>
 <div class=panel><h3>Gate pass counts (of {nPR} PRs)</h3><div class=ch><canvas id=gates></canvas></div></div>
