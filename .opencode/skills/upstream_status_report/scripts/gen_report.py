@@ -157,6 +157,7 @@ def pr_item(r):
             'state':'merged' if r['merged'] else r['state'].lower()}
 DETAILS['ci']={}
 DETAILS['gates']={}
+DETAILS['gates_pending']={}
 for r in recs:
     DETAILS['ci'].setdefault(r['ci_state'],[]).append(pr_item(r))
     if r['internal_ok']: DETAILS['gates'].setdefault('Internal review',[]).append(pr_item(r))
@@ -164,6 +165,13 @@ for r in recs:
     if r['community_ok']: DETAILS['gates'].setdefault('Community review',[]).append(pr_item(r))
     if r['internal_ok'] and r['community_ok'] and r['ci_state']=='passed':
         DETAILS['gates'].setdefault('All 3 gates',[]).append(pr_item(r))
+    # pending gates: only open (non-merged) PRs still need work
+    if not r['merged']:
+        if not r['internal_ok']: DETAILS['gates_pending'].setdefault('Internal review',[]).append(pr_item(r))
+        if r['ci_state']!='passed': DETAILS['gates_pending'].setdefault('CI',[]).append(pr_item(r))
+        if not r['community_ok']: DETAILS['gates_pending'].setdefault('Community review',[]).append(pr_item(r))
+        if not (r['internal_ok'] and r['community_ok'] and r['ci_state']=='passed'):
+            DETAILS['gates_pending'].setdefault('Any gate',[]).append(pr_item(r))
 
 # per-team test-file status detail groups (statt_<i>)
 STATUS_ORDER=[s for s in CAT_ORDER if status_c.get(s)]
@@ -191,6 +199,12 @@ community_ok=sum(1 for r in recs if r['community_ok'])
 ci_state=Counter(r['ci_state'] for r in recs)
 merged=sum(1 for r in recs if r['merged'])
 all3=sum(1 for r in recs if r['internal_ok'] and r['community_ok'] and r['ci_state']=='passed')
+# pending (needs work) counts among OPEN (non-merged) PRs
+nOpen=sum(1 for r in recs if not r['merged'])
+pend_int=sum(1 for r in recs if not r['merged'] and not r['internal_ok'])
+pend_ci =sum(1 for r in recs if not r['merged'] and r['ci_state']!='passed')
+pend_com=sum(1 for r in recs if not r['merged'] and not r['community_ok'])
+pend_any=sum(1 for r in recs if not r['merged'] and not (r['internal_ok'] and r['community_ok'] and r['ci_state']=='passed'))
 
 def dist_days(key):
     buckets=['<1d','1-3d','3-7d','1-2w','2-4w','>4w']
@@ -495,6 +509,7 @@ canvas{{cursor:pointer}}
 {flag_html}
 <div class=cgrid>
 <div class=panel><h3>Gate pass counts (of {nPR} PRs)</h3><div class=ch><canvas id=gates></canvas></div></div>
+<div class=panel><h3>Gate pending / needs work ({nOpen} open PRs)</h3><div class=ch><canvas id=gates_pending></canvas></div></div>
 <div class=panel><h3>CI state breakdown</h3><div class=ch><canvas id=ci></canvas></div></div>
 </div>
 
@@ -687,6 +702,7 @@ PIE('dev',{js([str(k) for k in devrel.keys()])},{js(list(devrel.values()))},C,'d
 PIE('status',{js(list(OSTAT_ORDER))},{js([ostatus_c[k] for k in OSTAT_ORDER])},cols({js(list(OSTAT_ORDER))}),'ostatus');
 {statpies_js}
 BAR('gates',['Internal review','CI passed','Community review','All 3 gates'],[{internal_ok},{ci_state['passed']},{community_ok},{all3}],'#0b3d91',false,'gates');
+BAR('gates_pending',['Internal review','CI','Community review','Any gate'],[{pend_int},{pend_ci},{pend_com},{pend_any}],'#ea4335',false,'gates_pending');
 PIE('ci',{js(list(ci_state.keys()))},{js(list(ci_state.values()))},['#34a853','#ea4335','#fbbc04','#9aa0a6'],'ci');
 new Chart(document.getElementById('timing'),{{type:'bar',data:{{labels:{js([tlabels[k] for k in timing])},
  datasets:[
