@@ -124,7 +124,9 @@ def status_label(r):
     s=classify(r)
     if s in ('Done','Not Applicable','WIP','TBD'): return s
     rs=real_stage(r)
-    return rs if rs is not None else s
+    # No fallback to the sheet's in-flight status: if there is no PR data the
+    # file has no real progress, so it is TBD (can't be CI/Review without a PR).
+    return rs if rs is not None else 'TBD'
 for r in rows:
     DETAILS['team'].setdefault(r['team'],[]).append(file_item(r))
     xl={True:'xpu-enabled=True',False:'xpu-enabled=False',None:'xpu-enabled=blank'}.get(r['xpu'],str(r['xpu']))
