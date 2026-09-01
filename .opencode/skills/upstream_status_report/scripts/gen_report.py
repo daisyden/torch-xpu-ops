@@ -514,7 +514,7 @@ canvas{{cursor:pointer}}
 
 <div class=cards>
 <div class=card><div class=v>{tot_owned}</div><div class=l>Owned test files</div></div>
-<div class=card><div class=v>{status_done}</div><div class=l>Status = Done</div></div>
+<div class=card><div class=v>{status_c['Done']}</div><div class=l>Status = Done</div></div>
 <div class=card><div class=v>{with_pr}</div><div class=l>Files with a PR</div></div>
 <div class=card><div class=v>{nPR}</div><div class=l>Unique PRs</div></div>
 <div class=card><div class=v>{all3}</div><div class=l>PRs passing all 3 gates</div></div>
