@@ -24,6 +24,15 @@ try:
 except FileNotFoundError:
     REFACTOR={}
 
+def gdoc_prs(path):
+    """Set of PR numbers recorded in the Google-doc refactor tracker for a file."""
+    t=REFACTOR.get(path) or {}
+    s=set()
+    for k in ('ready_prs','merged_prs'):
+        for p in (t.get(k) or []):
+            s.add(str(p[0]) if isinstance(p,(list,tuple)) else str(p))
+    return s
+
 # ---- Test file (owned, col L) stats ----
 tot_owned=len(rows)
 team=Counter(r['team'] for r in rows)
@@ -58,6 +67,8 @@ def fmt(h): return '' if h is None else (f'{h/24:.1f}d')
 # pr-number -> analysis record lookup (for enriching file rows with PR detail)
 PRLOOK={int(r['pr']):r for r in recs}
 PRLOOK_S={str(r['pr']):r for r in recs}
+# full lookup incl. discounted (refactor/abandoned) PRs, for rendering any fetched PR
+PRALL={int(r['pr']):r for r in recs_all}
 
 # ---- real pipeline stage from PR data (source of truth for display) ----
 # order: PRed -> CI -> Internal Review (guangyey/etaf) -> Community Review -> Done
@@ -92,16 +103,16 @@ def real_stage(r):
     if not c: return 'CI'
     if not i: return 'Internal Review'
     return 'Community Review'   # community pending or passed-but-not-merged
-def pr_detail_list(row):
+def pr_detail_list(nums_src):
     nums=[]
-    for n in (row.get('prs') or [])+(row.get('comm_prs') or []):
+    for n in (nums_src or []):
         try: nums.append(int(n))
         except (TypeError,ValueError): pass
     seen=set(); out=[]
     for n in nums:
         if n in seen: continue
         seen.add(n)
-        r=PRLOOK.get(n)
+        r=PRALL.get(n)
         if r:
             out.append({'pr':r['pr'],'title':r['title'] or '','author':r['author'] or '',
                 'dist':'yes' if r['distributed'] else '',
@@ -119,7 +130,7 @@ def file_item(r):
     d={'type':'file','k':r['file'] or r['path'],'sub':(r['path'] or ''),
        'team':r['team'] or '','extra':status_label(r),
         'owner':(str(r['assignee']) if r.get('assignee') not in (None,'') else ''),  # Author = Assignee col only (no fallback)
-       'prs':pr_detail_list(r)}
+       'prs':pr_detail_list(r.get('prs'))}    # PR column: Intel PRs (col F) only
     # community refactor tracker join (only for To Do / not-yet-Done files)
     if status_label(r)!='Done':
         t=REFACTOR.get(r['path'])
@@ -128,6 +139,10 @@ def file_item(r):
             d['rpr']=prs           # list of [num,url]
             d['rowner']=t.get('owner') or ''
             d['rstatus']=t.get('status') or ''
+    # "PR not recorded": col O community PRs that are NOT in the Google-doc tracker
+    gp=gdoc_prs(r['path'])
+    notrec=[str(n) for n in (r.get('comm_prs') or []) if str(n) not in gp]
+    if notrec: d['notrec']=notrec
     return d
 DETAILS={'team':{},'xpu':{},'dev':{},'status':{}}
 def status_label(r):
@@ -602,14 +617,21 @@ const PR_HEAD=['PR','Title','Author'];
 const PR_TAIL=['dist','req CI','Int','CI','Com','t.int','t.CI','t.com','t.mrg','state'];
 const REFAC_COLS=['Refactor PR','R.Owner','R.Status'];
 const PR_COLS=PR_HEAD.concat(PR_TAIL);
-// refactor columns placed right after the Author column
-const FILE_COLS=['Path','Team','Status'].concat(PR_HEAD).concat(REFAC_COLS).concat(PR_TAIL);
+// refactor columns + "PR not recorded" placed right after the Author column
+const FILE_COLS=['Path','Team','Status'].concat(PR_HEAD).concat(REFAC_COLS).concat(['PR not recorded']).concat(PR_TAIL);
 function refactorCells(it){{
   const prs=it.rpr||[];
   const links=prs.length
     ? prs.map(p=>`<a href='${{p[1]}}' target=_blank>#${{p[0]}}</a>`).join(' ')
     : '';
   return `<td>${{links}}</td><td>${{esc(it.rowner||'')}}</td><td class=c>${{esc(it.rstatus||'')}}</td>`;
+}}
+function notRecCell(it){{
+  const ns=it.notrec||[];
+  const links=ns.length
+    ? ns.map(n=>`<a href='https://github.com/pytorch/pytorch/pull/${{n}}' target=_blank>#${{n}}</a>`).join(' ')
+    : '';
+  return `<td>${{links}}</td>`;
 }}
 function showDetail(group,label){{
   const items=(DETAILS[group]||{{}})[label]||[];
@@ -629,14 +651,15 @@ function showDetail(group,label){{
       const prs=it.prs||[];
       const fc=`<td title="${{esc(it.sub)}}"><b>${{it.sub||it.k}}</b></td><td>${{it.team}}</td><td>${{it.extra||''}}</td>`;
       const rc=refactorCells(it);
-      const ownerCell=`<td>${{esc(it.owner||'')}}</td>`;  // Author col = excel owner
+      const nrc=notRecCell(it);
+      const ownerCell=`<td>${{esc(it.owner||'')}}</td>`;  // Author col = excel Assignee
       if(!prs.length){{
-        h+=`<tr>`+fc+`<td colspan=2 class=g>&mdash; no PR &mdash;</td>`+ownerCell+rc+`<td colspan=10 class=g></td></tr>`;
+        h+=`<tr>`+fc+`<td colspan=2 class=g>&mdash; no PR &mdash;</td>`+ownerCell+rc+nrc+`<td colspan=10 class=g></td></tr>`;
       }} else {{
         prs.forEach(p=>{{
           const head=`<td><a href='https://github.com/pytorch/pytorch/pull/${{p.pr}}' target=_blank>#${{p.pr}}</a></td>`
             +`<td class=tt title="${{esc(p.title)}}">${{(p.title||'').slice(0,50)}}</td>`+ownerCell;
-          h+='<tr>'+fc+head+rc+prTailCells(p)+'</tr>';
+          h+='<tr>'+fc+head+rc+nrc+prTailCells(p)+'</tr>';
         }});
       }}
     }});
