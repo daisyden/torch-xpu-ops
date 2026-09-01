@@ -3,11 +3,16 @@ from collections import Counter
 from datetime import datetime
 
 recs_all=json.load(open('/tmp/pr_analysis.json'))
+# Section 3 (PR status / three gates) tracks INTEL PRs only. Community/refactor
+# PRs from the Google doc (col O) are discounted here - they are surfaced
+# separately in the Refactor PR/Owner/Status columns.
+recs_intel=[r for r in recs_all if not r.get('is_refactor')]
+nRefactor=len(recs_all)-len(recs_intel)
 # Drop abandoned PRs (closed but never merged) from ALL data: they carry no
 # progress, so files whose only PR was abandoned correctly fall back to TBD.
 def _abandoned(r): return r['state']=='CLOSED' and not r['merged']
-recs=[r for r in recs_all if not _abandoned(r)]
-nAbandoned=len(recs_all)-len(recs)
+recs=[r for r in recs_intel if not _abandoned(r)]
+nAbandoned=len(recs_intel)-len(recs)
 owned=json.load(open('/tmp/owned.json'))
 rows=owned['rows']
 # community test-refactor tracker (path -> {status,owner,ready_prs,merged_prs,...})
@@ -519,7 +524,7 @@ canvas{{cursor:pointer}}
 </div>
 
 <h2>3. PR status &mdash; the three gates</h2>
-<div class=note>{nAbandoned} abandoned (closed-but-never-merged) PR(s) dropped; files whose only PR was abandoned show as TBD. Charts below cover {nPR} active PRs.</div>
+<div class=note>Intel PRs only: {nRefactor} community/refactor PR(s) from the Google doc are discounted (tracked in the Refactor columns). {nAbandoned} abandoned (closed-but-never-merged) PR(s) dropped; files whose only PR was abandoned show as TBD. Charts below cover {nPR} active Intel PRs.</div>
 {flag_html}
 <div class=cgrid>
 <div class=panel><h3>Gate pass counts (of {nPR} PRs)</h3><div class=ch><canvas id=gates></canvas></div></div>

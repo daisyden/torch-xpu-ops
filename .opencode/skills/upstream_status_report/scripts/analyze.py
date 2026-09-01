@@ -31,10 +31,16 @@ INTEL_ALL = authors | INTERNAL | INTEL_EXTRA
 # map PR -> is distributed (from any owned row referencing it)
 pr_dist={}
 pr_team={}
+intel_prs=set()   # col F: Intel-authored port PRs
+comm_only=set()   # col O: community / Google-doc refactor PRs
 for r in rows:
+    for n in r['prs']: intel_prs.add(n)
+    for n in r['comm_prs']: comm_only.add(n)
     for n in r['prs']+r['comm_prs']:
         pr_dist[n]=pr_dist.get(n,False) or r['distributed']
         if r['team']: pr_team.setdefault(n,set()).add(r['team'])
+# a PR listed in col F is treated as Intel even if it also appears in col O
+comm_only-=intel_prs
 
 def hours(a,b):
     if not a or not b: return None
@@ -90,6 +96,7 @@ for n in owned['prs']:
         'created':d['createdAt'],'closed':d.get('closedAt'),
         'labels':sorted(l for l in labels if l.startswith('ciflow/')),
         'req_labels':req_labels,'distributed':pr_dist.get(n,False),
+        'is_refactor':n in comm_only,   # community/refactor PR from Google doc (col O)
         'internal_ok':internal_t is not None,
         'community_ok':community_t is not None,'community_by':community_by,
         'ci_state':ci_state,
