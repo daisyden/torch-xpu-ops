@@ -654,7 +654,8 @@ function showDetail(group,label){{
       const nrc=notRecCell(it);
       const ownerCell=`<td>${{esc(it.owner||'')}}</td>`;  // Author col = excel Assignee
       if(!prs.length){{
-        h+=`<tr>`+fc+`<td colspan=2 class=g>&mdash; no PR &mdash;</td>`+ownerCell+rc+nrc+`<td colspan=10 class=g></td></tr>`;
+        // one <td> per column (no colspans) so per-column filters stay aligned
+        h+=`<tr>`+fc+`<td class=g>&mdash; no PR &mdash;</td><td></td>`+ownerCell+rc+nrc+'<td></td>'.repeat(10)+`</tr>`;
       }} else {{
         prs.forEach(p=>{{
           const head=`<td><a href='https://github.com/pytorch/pytorch/pull/${{p.pr}}' target=_blank>#${{p.pr}}</a></td>`
