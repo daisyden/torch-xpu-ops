@@ -1,9 +1,12 @@
-import json, statistics as st
+import json, statistics as st, glob, os
 from collections import Counter
-from datetime import datetime
+from datetime import datetime, timezone
 
 recs_all=json.load(open('/tmp/pr_analysis.json'))
-# Section 3 (PR status / three gates) tracks INTEL PRs only. Community/refactor
+# "data updated" = when PR data was last fetched (newest pr_cache file), UTC
+_cache=glob.glob('pr_cache/*.json')
+data_updated=(datetime.fromtimestamp(max(os.path.getmtime(f) for f in _cache), timezone.utc)
+              if _cache else datetime.now(timezone.utc))# Section 3 (PR status / three gates) tracks INTEL PRs only. Community/refactor
 # PRs from the Google doc (col O) are discounted here - they are surfaced
 # separately in the Refactor PR/Owner/Status columns.
 recs_intel=[r for r in recs_all if not r.get('is_refactor')]
@@ -491,7 +494,7 @@ canvas{{cursor:pointer}}
 #dbody .hint{{padding:18px;color:#888;font-size:13px}}
 </style></head><body>
 <header><h1>XPU Upstream &mdash; Test-File &amp; PR Status Report</h1>
-<p>Scope: owned test files (Owner/team column set) &bull; {nPR} unique pytorch/pytorch PRs &bull; generated {datetime.now():%Y-%m-%d %H:%M}</p></header>
+<p>Scope: owned test files (Owner/team column set) &bull; {nPR} unique pytorch/pytorch PRs &bull; PR data updated {data_updated:%Y-%m-%d %H:%M} UTC &bull; report generated {now:%Y-%m-%d %H:%M} UTC</p></header>
 <div class=wrap>
 
 <div class=cards>
