@@ -118,7 +118,7 @@ def pr_detail_list(row):
 def file_item(r):
     d={'type':'file','k':r['file'] or r['path'],'sub':(r['path'] or ''),
        'team':r['team'] or '','extra':status_label(r),
-       'owner':(str(r['assignee']) if r.get('assignee') not in (None,'') else (str(r['person']) if r.get('person') not in (None,'') else '')),
+        'owner':(str(r['assignee']) if r.get('assignee') not in (None,'') else ''),  # Author = Assignee col only (no fallback)
        'prs':pr_detail_list(r)}
     # community refactor tracker join (only for To Do / not-yet-Done files)
     if status_label(r)!='Done':
