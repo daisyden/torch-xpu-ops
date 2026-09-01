@@ -51,7 +51,24 @@ Output: `report.html` in the data directory.
 | 4b | `fetch_refactor_tracker.py` | Google Sheet → `/tmp/refactor_tracker.json` (community test-refactor PRs: status, owner, PR links, keyed by file path) |
 | 5 | `gen_report.py` | `/tmp/*.json` → `report.html` |
 
-The community refactor tracker (`fetch_refactor_tracker.py`) pulls the public "Test Class Refactoring Tracker" sheet (ID `1cDNiLW4KvPcGYPlA3KCDm0zV5PLPUWubno1OyCznKBw`, tabs Core/Tensor/Distributed/Graph/Math/Quantization/Utils) via the gviz CSV endpoint. `gen_report.py` joins it onto **not-yet-Done** (To Do) files and, in the detail-panel file tables, adds three columns right after the **Author** column: **Refactor PR** (links), **R.Owner** (assignee), **R.Status** (🔵 Todo / 🟡 In Progress / 🟢 Done). If the JSON is missing the columns are simply blank.
+The community refactor tracker (`fetch_refactor_tracker.py`) pulls the public "Test Class Refactoring Tracker" sheet (ID `1cDNiLW4KvPcGYPlA3KCDm0zV5PLPUWubno1OyCznKBw`, tabs Core/Tensor/Distributed/Graph/Math/Quantization/Utils) via the gviz CSV endpoint. `gen_report.py` joins it onto **not-yet-Done** (To Do) files and, in the detail-panel file tables, adds columns right after the **Author** column: **Refactor PR** (links), **R.Owner** (assignee), **R.Status** (🔵 Todo / 🟡 In Progress / 🟢 Done), then **PR not recorded** (see below). If the JSON is missing the refactor columns are simply blank.
+
+### Detail-table PR columns (what each column means)
+
+In the detail-panel file tables, PRs are split into three separate buckets so
+Intel port progress is never mixed with community/refactor work:
+
+- **PR** column — **Intel PRs only** (xlsx col F, the Excel assignee's port PRs).
+  Rendered from the full PR cache, so any fetched Intel PR (even a discounted
+  one) shows its real data rather than a placeholder.
+- **Refactor PR / R.Owner / R.Status** — community refactor PRs **recorded in the
+  Google-doc tracker** for that file.
+- **PR not recorded** — community PRs listed in the xlsx **Community PRs** column
+  (col O) that are **not** found in the Google-doc tracker for that file. These
+  are surfaced as links so untracked community work can be triaged.
+
+The **Author** column of the file tables is the Excel **Assignee** (col P) **only**
+— no fallback to the `owner` column. Unassigned files show a blank Author.
 
 `write_refactor_cols.py` writes the same tracker info back into the **xlsx** for To Do files (Status ≠ Done): cols **T** Refactor PR, **U** Refactor Owner, **V** Refactor Status (backs up first). Run `fetch_refactor_tracker.py` before it. It runs automatically in `build_report.sh --refac-cols` (which re-extracts afterward).
 
@@ -123,15 +140,24 @@ python3 gen_report.py             # -> report.html
   (`etaf`/`guangyey`) must pass **before community review** — community only
   counts once internal has passed. **CI is independent** of the review pipeline
   (a PR can be community-approved while CI never ran due to a missing ciflow
-  label).
+  label). In the **Gate pending** chart, the **Community review** bar counts only
+  open PRs that have **already passed internal review AND CI** but still lack
+  community approval (a PR isn't "pending community" until it's otherwise ready).
+- **Sections 3/4/5 track Intel PRs only.** `analyze.py` tags each PR with
+  `is_refactor` = true when it comes **only** from the xlsx Community PRs column
+  (col O) and is not also an Intel PR (col F). `gen_report.py` **discounts these
+  community/refactor PRs** from the PR gates (Section 3), timing (Section 4) and
+  forecast (Section 5). They remain visible in the **Refactor** / **PR not
+  recorded** columns. The Section-3 note reports how many were discounted.
 - **File-level gates** (`_gates()` in gen_report.py) are derived from real PR
   data, not the spreadsheet status ordering:
   - Open PRs govern the file: a gate passes only if **every open PR** passes it.
   - Community review only counts when internal review has also passed.
   - A merged PR completes the file only when **no open PR is still pending**.
-  - **Closed-but-never-merged (abandoned) PRs are discounted** everywhere: they
-    are dropped in `_gates()` and excluded from the PR-level charts/timing
-    (`recs_active`). A file whose only PRs are abandoned has no PR data.
+  - **Closed-but-never-merged (abandoned) PRs are dropped** everywhere: they are
+    removed from `recs` at load time in `gen_report.py`, so they never appear in
+    gates, charts, timing, or the detail tables. A file whose only PR was
+    abandoned has no PR data and falls back to **TBD**.
   - No fallback to the spreadsheet's in-flight status: if a file has **no PR
     data**, its in-flight stage can't be trusted, so it is shown as **TBD**
     (only `Done`/`Not Applicable`/`WIP`/`TBD` human statuses are authoritative).
@@ -174,9 +200,22 @@ python3 gen_report.py             # -> report.html
 
 ## Notes
 
+- The report **header** shows two timestamps: **PR data updated** (newest
+  `pr_cache/*.json` mtime — when PR data was actually fetched) and **report
+  generated** (when `gen_report.py` ran), both UTC. The header **"Status = Done"**
+  card uses the **effective** status count (same as the Section-1 chart), so it
+  includes files whose Intel PR is merged even if the sheet's Status cell wasn't
+  updated to "Done" — it can be higher than the raw spreadsheet "done" count.
+- **xlsx columns used** (1-indexed): C Path, D File Name, E `owner` (lead),
+  F PR (Intel PRs), G device_relevance, H xpu-enabled, L `Owner` (team code
+  SH/PL/US), O Community PRs, P Assignee (drives the report **Author**),
+  Q Status, T/U/V Refactor PR/Owner/Status (written by `write_refactor_cols.py`).
 - `mark_done.py` edits the source xlsx and writes a timestamped `.bak.xlsx`
   backup — only run it when the user wants to update spreadsheet status.
 - `report.html` is self-contained (loads Chart.js + datalabels from CDN) and
-  ~1.6 MB; open it directly in a browser.
+  ~2 MB; open it directly in a browser.
 - To tweak charts/sections, edit `gen_report.py` (f-string HTML; JS braces are
-  doubled `{{ }}`; `DETAILS` is embedded JSON parsed client-side).
+  doubled `{{ }}`; `DETAILS` is embedded JSON parsed client-side). **After
+  editing, always validate the embedded JS**: extract the `<script>` block and
+  run `node --check` on it, because a stray un-doubled `\n`/`{`/`}` in a JS
+  string silently breaks the whole script (the report renders "no data").
