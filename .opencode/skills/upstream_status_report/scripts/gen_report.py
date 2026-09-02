@@ -892,9 +892,9 @@ new Chart(document.getElementById('pred'),{{type:'bar',data:{{labels:{js(pred_la
 const STACK=(id,labels,series)=>new Chart(document.getElementById(id),{{type:'line',
  data:{{labels:labels,datasets:series.map(s=>({{label:s.label,data:s.data,borderColor:s.color,backgroundColor:s.color,fill:true,tension:.2,pointRadius:0,borderWidth:1}}))}},
  options:{{...BASE,plugins:{{datalabels:{{display:false}},legend:{{position:'bottom',labels:{{boxWidth:12,font:{{size:11}}}}}}}},scales:{{x:{{ticks:{{maxTicksLimit:8,font:{{size:9}}}}}},y:{{stacked:true,beginAtZero:true}}}}}}}});
-const MLINE=(id,labels,series)=>new Chart(document.getElementById(id),{{type:'line',
- data:{{labels:labels,datasets:series.map(s=>({{label:s.label,data:s.data,borderColor:s.color,backgroundColor:s.color,tension:.2,pointRadius:0,borderWidth:1.5}}))}},
- options:{{...BASE,plugins:{{datalabels:{{display:false}},legend:{{position:'bottom',labels:{{boxWidth:12,font:{{size:11}}}}}}}},scales:{{x:{{ticks:{{maxTicksLimit:10,font:{{size:9}}}}}},y:{{beginAtZero:true}}}}}}}});
+const MLINE=(id,labels,series)=>new Chart(document.getElementById(id),{{type:'bar',
+ data:{{labels:labels,datasets:series.map(s=>({{label:s.label,data:s.data,backgroundColor:s.color,borderWidth:0,stack:'f'}}))}},
+ options:{{...BASE,plugins:{{datalabels:{{display:false}},legend:{{position:'bottom',labels:{{boxWidth:12,font:{{size:11}}}}}}}},scales:{{x:{{stacked:true,ticks:{{maxTicksLimit:10,font:{{size:9}}}}}},y:{{stacked:true,beginAtZero:true}}}}}}}});
 STACK('trend_pr',{js(trend_labels)},[{pr_series_js}]);
 STACK('trend_file',{js(trend_labels)},[{file_series_js}]);
 MLINE('trend_flow',{js(flow_labels)},[{flow_series_js}]);
