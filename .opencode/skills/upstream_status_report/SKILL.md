@@ -6,9 +6,11 @@ description: Build the interactive XPU upstream test-file status report (report.
 # XPU Upstream Test-file Status Report
 
 Generates `report.html` — a self-contained, interactive (Chart.js) dashboard of
-owned XPU upstream test-file status and PyTorch PR progress. It covers five
+owned XPU upstream test-file status and PyTorch PR progress. It covers six
 sections: (1) test-file status, (2) status by team, (3) PR gates, (4) PR timing,
-(5) forecast (when all files pass, with burn-down + throughput rate formulas).
+(5) forecast (when all files pass, with burn-down + throughput rate formulas),
+(6) trends — historical PR/file stock-by-stage per day, last-30-day flow of
+milestone events, and a 30-day-rate forecast table.
 
 ## Data directory
 

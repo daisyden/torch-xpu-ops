@@ -408,7 +408,102 @@ fc_table=("<table class=dt><thead><tr><th>Milestone</th><th>Files left</th><th>P
 mstat_rows=''.join(f"<tr><td>{lab}</td><td>{s['median']}</td><td>{s['mean']}</td><td>{s['p90']}</td><td>{s['n']}</td></tr>"
                    for s,lab in pred_stats)
 fc_mtable=(f"<table class=dt><thead><tr><th>Milestone (days from PR open)</th><th>median</th><th>mean</th>"
-           f"<th>p90</th><th>n</th></tr></thead><tbody>{mstat_rows}</tbody></table>")
+            f"<th>p90</th><th>n</th></tr></thead><tbody>{mstat_rows}</tbody></table>")
+
+# ---- Section 6: Trends (historical stock/flow + 30-day-rate forecast) ----
+STAGES=['created','internal','ci','community','merged']
+SCOL={'created':'#00acc1','internal':'#a142f4','ci':'#fbbc04','community':'#1a73e8','merged':'#137333'}
+SLAB={'created':'Open (no milestone)','internal':'Internal reviewed','ci':'CI passed',
+      'community':'Community reviewed','merged':'Merged'}
+_intel_prs={int(r['pr']) for r in recs_active}
+def _ev(r):
+    """PR milestone event datetimes keyed by stage (from created + t_*_h)."""
+    c=_p(r['created'])
+    if not c: return {}
+    d={'created':c}
+    for k,key in (('internal','t_internal_h'),('ci','t_ci_h'),
+                  ('community','t_community_h'),('merged','t_merge_h')):
+        h=r.get(key)
+        if h is not None: d[k]=c+timedelta(hours=h)
+    return d
+_evs=[e for e in (_ev(r) for r in recs_active) if e]
+_start=min(e['created'] for e in _evs); _end=now
+_span=(_end-_start).days+1
+def _stage_at(e,d):
+    """furthest pipeline stage (index) reached by datetime d, or None if not created."""
+    if e['created']>d: return None
+    best=0
+    for i,s in enumerate(STAGES):
+        if s in e and e[s]<=d: best=max(best,i)
+    return best
+_step=max(1,_span//150)
+_days=[_start+timedelta(days=i) for i in range(0,_span,_step)]
+trend_labels=[d.date().isoformat() for d in _days]
+pr_stock={s:[] for s in STAGES}
+for d in _days:
+    cnt=[0]*len(STAGES)
+    for e in _evs:
+        st=_stage_at(e,d)
+        if st is not None: cnt[st]+=1
+    for i,s in enumerate(STAGES): pr_stock[s].append(cnt[i])
+# per-file events: file advances a stage only when all its (Intel, non-abandoned) PRs pass
+def _fev(fr):
+    nums=[]
+    for n in (fr['prs']+fr['comm_prs']):
+        try: nums.append(int(n))
+        except (TypeError,ValueError): pass
+    prs=[PRALL.get(n) for n in nums if n in _intel_prs]
+    prs=[p for p in prs if p and not (p['state']=='CLOSED' and not p['merged'])]
+    if not prs: return None
+    evs=[_ev(p) for p in prs]; evs=[x for x in evs if x]
+    if not evs: return None
+    e={'created':min(x['created'] for x in evs)}
+    for s in STAGES[1:]:
+        if all(s in x for x in evs): e[s]=max(x[s] for x in evs)
+    return e
+_fevs=[e for e in (_fev(r) for r in rows) if e]
+file_stock={s:[] for s in STAGES}
+for d in _days:
+    cnt=[0]*len(STAGES)
+    for e in _fevs:
+        st=_stage_at(e,d)
+        if st is not None: cnt[st]+=1
+    for i,s in enumerate(STAGES): file_stock[s].append(cnt[i])
+# flow: events per day over the last 30 days
+_flow_days=[(now-timedelta(days=i)).date() for i in range(29,-1,-1)]
+flow_labels=[d.isoformat() for d in _flow_days]
+_fidx={d:i for i,d in enumerate(_flow_days)}
+flow={s:[0]*30 for s in STAGES}
+for e in _evs:
+    for s in STAGES:
+        if s in e:
+            dd=e[s].date()
+            if dd in _fidx: flow[s][_fidx[dd]]+=1
+def _rate30(s): return sum(flow[s])/30.0
+TR_MILE=[('PR created','created',rem_new),('Internal review','internal',rem_int),
+         ('CI pass','ci',rem_ci),('Community review','community',[r for r in active if not _gates(r)[2]]),
+         ('Merge','merged',active)]
+tr_rows=[]
+for lab,s,rem in TR_MILE:
+    u=_units(rem)['tot']; rate=_rate30(s)
+    days=(u/rate) if rate>0 else None
+    dt=(now+timedelta(days=days)).date().isoformat() if days else 'n/a'
+    tr_rows.append({'lab':lab,'files':len(rem),'units':u,'rate':rate,'date':dt})
+span_txt=f"{_start.date().isoformat()} \u2192 {_end.date().isoformat()} ({_span} days)"
+nfile_pr=len(_fevs)
+tr_note=("Historical <b>stock</b> shows how PRs and PR-backed files have accumulated through the "
+         "pipeline; <b>flow</b> shows the last 30 days of milestone activity; the forecast uses the "
+         "recent 30-day rate (a shorter, more current window than Section&nbsp;5's 4-week PR-unit model).")
+tr_table=("<table class=dt><thead><tr><th>Milestone</th><th>Files left</th><th>PR units</th>"
+          "<th>30-day rate (units/day)</th><th>Finish date</th></tr></thead><tbody>"
+          + ''.join(f"<tr><td>{x['lab']}</td><td>{x['files']}</td><td><b>{x['units']}</b></td>"
+                    f"<td>{x['rate']:.2f}</td><td><b>{x['date']}</b></td></tr>" for x in tr_rows)
+          + "</tbody></table>")
+def _tseries(stock,order):
+    return ','.join("{label:%s,data:%s,color:'%s'}"%(js(SLAB[s]),js(stock[s]),SCOL[s]) for s in order)
+pr_series_js=_tseries(pr_stock,STAGES)
+file_series_js=_tseries(file_stock,STAGES)
+flow_series_js=_tseries(flow,STAGES)
 
 # ---- missing-ciflow flag + full status audit (sheet stage vs real PR stage) ----
 # files whose OPEN PR(s) can't run CI because no required ciflow label is set
@@ -573,6 +668,21 @@ canvas{{cursor:pointer}}
 <div class=panel><h3>Per-PR milestone timing</h3>{fc_mtable}
 <div class=note>Assumes 1 file = 1 PR following the historical distribution independently; p90(community) &gt; p90(CI) is a small-sample artifact.</div></div>
 <div class=panel><h3>Completion scenarios</h3>{fc_table}</div>
+</div>
+
+<h2>6. Trends &mdash; historical progress &amp; flow</h2>
+<div class=insight>{tr_note}</div>
+<div class=cgrid>
+<div class=panel><h3>PR stock by stage (per day)</h3><div class=ch tall><canvas id=trend_pr></canvas></div>
+<div class=note>Each PR counted once at its furthest stage reached that day. Span {span_txt}.</div></div>
+<div class=panel><h3>File stock by stage (per day)</h3><div class=ch tall><canvas id=trend_file></canvas></div>
+<div class=note>{nfile_pr} PR-backed files; a file advances only when all its PRs pass a gate.</div></div>
+</div>
+<div class=cgrid style=margin-top:16px>
+<div class=panel><h3>Flow &mdash; events per day (last 30 days)</h3><div class=ch tall><canvas id=trend_flow></canvas></div>
+<div class=note>Daily count of PRs reaching each milestone.</div></div>
+<div class=panel><h3>Forecast (30-day rate)</h3>{tr_table}
+<div class=note>Finish = today + remaining PR units &divide; recent 30-day rate.</div></div>
 </div>
 
 </div><!-- /left -->
@@ -772,8 +882,17 @@ new Chart(document.getElementById('burn'),{{type:'line',data:{{datasets:[
 new Chart(document.getElementById('pred'),{{type:'bar',data:{{labels:{js(pred_labels)},datasets:[
  {{label:'median',data:{js(pred_median)},backgroundColor:'#1a73e8'}},
  {{label:'mean',data:{js(pred_mean)},backgroundColor:'#34a853'}},
- {{label:'p90',data:{js(pred_p90)},backgroundColor:'#fbbc04'}}
- ]}},options:{{...BASE,...fcClick,scales:{{y:{{beginAtZero:true,title:{{display:true,text:'days'}}}}}}}}}});
+  {{label:'p90',data:{js(pred_p90)},backgroundColor:'#fbbc04'}}
+  ]}},options:{{...BASE,...fcClick,scales:{{y:{{beginAtZero:true,title:{{display:true,text:'days'}}}}}}}}}});
+const STACK=(id,labels,series)=>new Chart(document.getElementById(id),{{type:'line',
+ data:{{labels:labels,datasets:series.map(s=>({{label:s.label,data:s.data,borderColor:s.color,backgroundColor:s.color,fill:true,tension:.2,pointRadius:0,borderWidth:1}}))}},
+ options:{{...BASE,plugins:{{datalabels:{{display:false}},legend:{{position:'bottom',labels:{{boxWidth:12,font:{{size:11}}}}}}}},scales:{{x:{{ticks:{{maxTicksLimit:8,font:{{size:9}}}}}},y:{{stacked:true,beginAtZero:true}}}}}}}});
+const MLINE=(id,labels,series)=>new Chart(document.getElementById(id),{{type:'line',
+ data:{{labels:labels,datasets:series.map(s=>({{label:s.label,data:s.data,borderColor:s.color,backgroundColor:s.color,tension:.2,pointRadius:0,borderWidth:1.5}}))}},
+ options:{{...BASE,plugins:{{datalabels:{{display:false}},legend:{{position:'bottom',labels:{{boxWidth:12,font:{{size:11}}}}}}}},scales:{{x:{{ticks:{{maxTicksLimit:10,font:{{size:9}}}}}},y:{{beginAtZero:true}}}}}}}});
+STACK('trend_pr',{js(trend_labels)},[{pr_series_js}]);
+STACK('trend_file',{js(trend_labels)},[{file_series_js}]);
+MLINE('trend_flow',{js(flow_labels)},[{flow_series_js}]);
 </script></body></html>"""
 open('report.html','w').write(html)
 print('wrote report.html', len(html),'bytes')
