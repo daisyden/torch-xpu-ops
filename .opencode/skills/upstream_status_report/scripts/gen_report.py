@@ -427,7 +427,9 @@ def _ev(r):
         if h is not None: d[k]=c+timedelta(hours=h)
     return d
 _evs=[e for e in (_ev(r) for r in recs_active) if e]
-_start=min(e['created'] for e in _evs); _end=now
+# stock charts span a fixed window (2026-07-01 -> today); PRs created earlier are
+# still counted in the stock at each day, they just predate the visible x-axis.
+_start=datetime(2026,7,1,tzinfo=timezone.utc); _end=now
 _span=(_end-_start).days+1
 def _stage_at(e,d):
     """furthest pipeline stage (index) reached by datetime d, or None if not created."""
