@@ -412,8 +412,8 @@ fc_mtable=(f"<table class=dt><thead><tr><th>Milestone (days from PR open)</th><t
 
 # ---- Section 6: Trends (historical stock/flow + 30-day-rate forecast) ----
 STAGES=['created','internal','ci','community','merged']
-SCOL={'created':'#00acc1','internal':'#a142f4','ci':'#fbbc04','community':'#1a73e8','merged':'#137333'}
-SLAB={'created':'Open (no milestone)','internal':'Internal reviewed','ci':'CI passed',
+SCOL={'TBD':'#dadce0','created':'#00acc1','internal':'#a142f4','ci':'#fbbc04','community':'#1a73e8','merged':'#137333'}
+SLAB={'TBD':'TBD (no PR yet)','created':'Open PR, no gate passed','internal':'Internal reviewed','ci':'CI passed',
       'community':'Community reviewed','merged':'Merged'}
 _intel_prs={int(r['pr']) for r in recs_active}
 def _ev(r):
@@ -464,13 +464,23 @@ def _fev(fr):
         if all(s in x for x in evs): e[s]=max(x[s] for x in evs)
     return e
 _fevs=[e for e in (_fev(r) for r in rows) if e]
-file_stock={s:[] for s in STAGES}
+# file universe for the stock chart: every active (not Done / not N-A) file plus any
+# PR-backed file (incl. now-merged). Each file is paired with its event set (or None).
+_file_univ=[]
+for r in rows:
+    fev=_fev(r)
+    if fev is not None or status_label(r) not in ('Done','Not Applicable'):
+        _file_univ.append((r,fev))
+FSTAGES=['TBD']+STAGES     # TBD = no PR created yet by that day
+file_stock={s:[] for s in FSTAGES}
 for d in _days:
-    cnt=[0]*len(STAGES)
-    for e in _fevs:
-        st=_stage_at(e,d)
-        if st is not None: cnt[st]+=1
-    for i,s in enumerate(STAGES): file_stock[s].append(cnt[i])
+    cnt={k:0 for k in FSTAGES}
+    for r,fev in _file_univ:
+        if fev is None or fev['created']>d:
+            cnt['TBD']+=1
+        else:
+            cnt[STAGES[_stage_at(fev,d)]]+=1
+    for k in FSTAGES: file_stock[k].append(cnt[k])
 # flow: events per day over the last 30 days
 _flow_days=[(now-timedelta(days=i)).date() for i in range(29,-1,-1)]
 flow_labels=[d.isoformat() for d in _flow_days]
@@ -505,7 +515,7 @@ def _tseries(stock,order,labmap=None):
     lm=labmap or SLAB
     return ','.join("{label:%s,data:%s,color:'%s'}"%(js(lm[s]),js(stock[s]),SCOL[s]) for s in order)
 pr_series_js=_tseries(pr_stock,STAGES)
-file_series_js=_tseries(file_stock,STAGES)
+file_series_js=_tseries(file_stock,FSTAGES)
 # flow shows events (not stock), so 'created' means "PRs created that day"
 FLAB=dict(SLAB,created='PRs created')
 flow_series_js=_tseries(flow,STAGES,FLAB)
@@ -681,7 +691,7 @@ canvas{{cursor:pointer}}
 <div class=panel><h3>PR stock by stage (per day)</h3><div class=ch tall><canvas id=trend_pr></canvas></div>
 <div class=note>Each PR counted once at its furthest stage reached that day. Span {span_txt}.</div></div>
 <div class=panel><h3>File stock by stage (per day)</h3><div class=ch tall><canvas id=trend_file></canvas></div>
-<div class=note>{nfile_pr} PR-backed files; a file advances only when all its PRs pass a gate.</div></div>
+<div class=note>Active + PR-backed files; <b>TBD</b> = no PR created yet by that day; a file advances only when all its PRs pass a gate.</div></div>
 </div>
 <div class=cgrid style=margin-top:16px>
 <div class=panel><h3>Flow &mdash; events per day (last 30 days)</h3><div class=ch tall><canvas id=trend_flow></canvas></div>
