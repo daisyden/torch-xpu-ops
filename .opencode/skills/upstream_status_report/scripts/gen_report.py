@@ -511,35 +511,6 @@ tr_table=("<table class=dt><thead><tr><th>Milestone</th><th>Files left</th><th>P
           + ''.join(f"<tr><td>{x['lab']}</td><td>{x['files']}</td><td><b>{x['units']}</b></td>"
                     f"<td>{x['rate']:.2f}</td><td><b>{x['date']}</b></td></tr>" for x in tr_rows)
           + "</tbody></table>")
-# forecast as a projected trend: cumulative files reaching each milestone from 2026-09-01,
-# rising at the 30-day rate until every file reaches it (finish = the table's finish date).
-LAB2STAGE={'PR created':'created','Internal review':'internal','CI pass':'ci',
-           'Community review':'community','Merge':'merged'}
-_fc_start=datetime(2026,9,1,tzinfo=timezone.utc)
-_tot_univ=len(_file_univ)
-_fc_proj={}; _max_days=30.0
-for x in tr_rows:
-    fin=(x['units']/x['rate']) if x['rate']>0 else None
-    _fc_proj[x['lab']]={'done0':_tot_univ-x['files'],'left':x['files'],'fin':fin}
-    if fin: _max_days=max(_max_days,fin)
-_fc_horizon=now+timedelta(days=_max_days)
-_fc_span=(_fc_horizon-_fc_start).days
-_fc_step=max(1,_fc_span//40)
-_fc_days=[_fc_start+timedelta(days=i) for i in range(0,_fc_span+_fc_step,_fc_step)]
-fc_trend_labels=[d.date().isoformat() for d in _fc_days]
-fc_trend={}
-for lab,p in _fc_proj.items():
-    ser=[]
-    for d in _fc_days:
-        if p['fin'] is None: ser.append(round(p['done0'],1))
-        else:
-            frac=min(1.0,max(0.0,(d-now).total_seconds()/86400.0)/p['fin'])
-            ser.append(round(p['done0']+p['left']*frac,1))
-    fc_trend[lab]=ser
-fc_series_js=','.join("{label:%s,data:%s,color:'%s'}"
-                      %(js(SLAB[LAB2STAGE[x['lab']]]),js(fc_trend[x['lab']]),SCOL[LAB2STAGE[x['lab']]])
-                      for x in tr_rows)
-fc_dates_note=" &middot; ".join(f"{x['lab']} ~<b>{x['date']}</b>" for x in tr_rows)
 def _tseries(stock,order,labmap=None):
     lm=labmap or SLAB
     return ','.join("{label:%s,data:%s,color:'%s'}"%(js(lm[s]),js(stock[s]),SCOL[s]) for s in order)
@@ -725,8 +696,6 @@ canvas{{cursor:pointer}}
 <div class=cgrid style=margin-top:16px>
 <div class=panel><h3>Flow &mdash; events per day (last 30 days)</h3><div class=ch tall><canvas id=trend_flow></canvas></div>
 <div class=note>Daily count of PRs reaching each milestone.</div></div>
-<div class=panel><h3>Forecast trend (30-day rate)</h3><div class=ch tall><canvas id=trend_fc></canvas></div>
-<div class=note>Projected cumulative files reaching each milestone from 2026-09-01, rising at the recent 30-day rate. Finish: {fc_dates_note}.</div></div>
 </div>
 
 </div><!-- /left -->
@@ -934,13 +903,9 @@ const STACK=(id,labels,series)=>new Chart(document.getElementById(id),{{type:'li
 const MLINE=(id,labels,series)=>new Chart(document.getElementById(id),{{type:'bar',
  data:{{labels:labels,datasets:series.map(s=>({{label:s.label,data:s.data,backgroundColor:s.color,borderWidth:0,stack:'f'}}))}},
  options:{{...BASE,plugins:{{datalabels:{{display:false}},legend:{{position:'bottom',labels:{{boxWidth:12,font:{{size:11}}}}}}}},scales:{{x:{{stacked:true,ticks:{{maxTicksLimit:10,font:{{size:9}}}}}},y:{{stacked:true,beginAtZero:true}}}}}}}});
-const LINES=(id,labels,series)=>new Chart(document.getElementById(id),{{type:'line',
- data:{{labels:labels,datasets:series.map(s=>({{label:s.label,data:s.data,borderColor:s.color,backgroundColor:s.color,tension:.2,pointRadius:0,borderWidth:1.5}}))}},
- options:{{...BASE,plugins:{{datalabels:{{display:false}},legend:{{position:'bottom',labels:{{boxWidth:12,font:{{size:11}}}}}}}},scales:{{x:{{ticks:{{maxTicksLimit:10,font:{{size:9}}}}}},y:{{beginAtZero:true}}}}}}}});
 STACK('trend_pr',{js(trend_labels)},[{pr_series_js}]);
 STACK('trend_file',{js(trend_labels)},[{file_series_js}]);
 MLINE('trend_flow',{js(flow_labels)},[{flow_series_js}]);
-LINES('trend_fc',{js(fc_trend_labels)},[{fc_series_js}]);
 </script></body></html>"""
 open('report.html','w').write(html)
 print('wrote report.html', len(html),'bytes')
