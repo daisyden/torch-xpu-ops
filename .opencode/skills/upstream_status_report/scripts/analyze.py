@@ -93,6 +93,7 @@ for n in owned['prs']:
         'author':d['author']['login'],
         'team':','.join(sorted(pr_team.get(n,[]))),
         'merged':is_merged,
+        'is_draft':bool(d.get('isDraft')),
         'created':d['createdAt'],'closed':d.get('closedAt'),
         'labels':sorted(l for l in labels if l.startswith('ciflow/')),
         'req_labels':req_labels,'distributed':pr_dist.get(n,False),

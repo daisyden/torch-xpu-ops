@@ -72,6 +72,11 @@ Intel port progress is never mixed with community/refactor work:
 The **Author** column of the file tables is the Excel **Assignee** (col P) **only**
 — no fallback to the `owner` column. Unassigned files show a blank Author.
 
+Each PR row ends with a **state** column (open/merged/closed) and a **Ready**
+column showing the PR's ready-for-review status: `ready` (green) when the PR is
+not a draft, `draft` (grey) when it is still a GitHub draft. Sourced from the
+`isDraft` field (`analyze.py` → `is_draft` in `pr_analysis.json`).
+
 `write_refactor_cols.py` writes the same tracker info back into the **xlsx** for To Do files (Status ≠ Done): cols **T** Refactor PR, **U** Refactor Owner, **V** Refactor Status (backs up first). Run `fetch_refactor_tracker.py` before it. It runs automatically in `build_report.sh --refac-cols` (which re-extracts afterward).
 
 If `--mark-done` is used, the xlsx changes, so step 1 is re-run before analyze.

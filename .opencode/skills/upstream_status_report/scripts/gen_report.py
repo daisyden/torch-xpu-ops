@@ -121,10 +121,11 @@ def pr_detail_list(nums_src):
                 'community':'Y' if r['community_ok'] else '-',
                 't_int':fmt(r['t_internal_h']),'t_ci':fmt(r['t_ci_h']),
                 't_com':fmt(r['t_community_h']),'t_mrg':fmt(r['t_merge_h']),
+                'ready':'draft' if r.get('is_draft') else 'Y',
                 'state':'merged' if r['merged'] else r['state'].lower()})
         else:
             out.append({'pr':n,'title':'(PR not in cache)','author':'','dist':'','reqci':'',
-                'internal':'-','ci':'','community':'-','t_int':'','t_ci':'','t_com':'','t_mrg':'','state':''})
+                'internal':'-','ci':'','community':'-','t_int':'','t_ci':'','t_com':'','t_mrg':'','ready':'','state':''})
     return out
 def file_item(r):
     d={'type':'file','k':r['file'] or r['path'],'sub':(r['path'] or ''),
@@ -186,6 +187,7 @@ def pr_item(r):
             'community':'Y' if r['community_ok'] else '-',
             't_int':fmt(r['t_internal_h']),'t_ci':fmt(r['t_ci_h']),
             't_com':fmt(r['t_community_h']),'t_mrg':fmt(r['t_merge_h']),
+            'ready':'draft' if r.get('is_draft') else 'Y',
             'state':'merged' if r['merged'] else r['state'].lower()}
 DETAILS['ci']={}
 DETAILS['gates']={}
@@ -727,7 +729,8 @@ function prTailCells(it){{
   return `<td class=c>${{it.dist||''}}</td><td>${{it.reqci||''}}</td>`
     +`<td class=c>${{badge(it.internal)}}</td><td class=c>${{cistate(it.ci)}}</td><td class=c>${{badge(it.community)}}</td>`
     +`<td class=r>${{it.t_int||''}}</td><td class=r>${{it.t_ci||''}}</td><td class=r>${{it.t_com||''}}</td><td class=r>${{it.t_mrg||''}}</td>`
-    +`<td class=c>${{it.state||''}}</td>`;
+    +`<td class=c>${{it.state||''}}</td>`
+    +`<td class=c>${{it.ready==='Y'?'<span class=y>ready</span>':(it.ready==='draft'?'<span class=g>draft</span>':'')}}</td>`;
 }}
 function prCells(it){{ return prHeadCells(it)+prTailCells(it); }}
 function colFilterRow(cols){{
@@ -737,7 +740,7 @@ function headWith(cols){{
   return '<thead><tr>'+cols.map(c=>`<th>${{c}}</th>`).join('')+'</tr>'+colFilterRow(cols)+'</thead>';
 }}
 const PR_HEAD=['PR','Title','Author'];
-const PR_TAIL=['dist','req CI','Int','CI','Com','t.int','t.CI','t.com','t.mrg','state'];
+const PR_TAIL=['dist','req CI','Int','CI','Com','t.int','t.CI','t.com','t.mrg','state','Ready'];
 const REFAC_COLS=['Refactor PR','R.Owner','R.Status'];
 const PR_COLS=PR_HEAD.concat(PR_TAIL);
 // refactor columns + "PR not recorded" placed right after the Author column
@@ -778,7 +781,7 @@ function showDetail(group,label){{
       const ownerCell=`<td>${{esc(it.owner||'')}}</td>`;  // Author col = excel Assignee
       if(!prs.length){{
         // one <td> per column (no colspans) so per-column filters stay aligned
-        h+=`<tr>`+fc+`<td class=g>&mdash; no PR &mdash;</td><td></td>`+ownerCell+rc+nrc+'<td></td>'.repeat(10)+`</tr>`;
+        h+=`<tr>`+fc+`<td class=g>&mdash; no PR &mdash;</td><td></td>`+ownerCell+rc+nrc+'<td></td>'.repeat(11)+`</tr>`;
       }} else {{
         prs.forEach(p=>{{
           const head=`<td><a href='https://github.com/pytorch/pytorch/pull/${{p.pr}}' target=_blank>#${{p.pr}}</a></td>`
