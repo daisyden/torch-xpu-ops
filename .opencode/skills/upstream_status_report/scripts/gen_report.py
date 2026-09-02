@@ -501,11 +501,14 @@ tr_table=("<table class=dt><thead><tr><th>Milestone</th><th>Files left</th><th>P
           + ''.join(f"<tr><td>{x['lab']}</td><td>{x['files']}</td><td><b>{x['units']}</b></td>"
                     f"<td>{x['rate']:.2f}</td><td><b>{x['date']}</b></td></tr>" for x in tr_rows)
           + "</tbody></table>")
-def _tseries(stock,order):
-    return ','.join("{label:%s,data:%s,color:'%s'}"%(js(SLAB[s]),js(stock[s]),SCOL[s]) for s in order)
+def _tseries(stock,order,labmap=None):
+    lm=labmap or SLAB
+    return ','.join("{label:%s,data:%s,color:'%s'}"%(js(lm[s]),js(stock[s]),SCOL[s]) for s in order)
 pr_series_js=_tseries(pr_stock,STAGES)
 file_series_js=_tseries(file_stock,STAGES)
-flow_series_js=_tseries(flow,STAGES)
+# flow shows events (not stock), so 'created' means "PRs created that day"
+FLAB=dict(SLAB,created='PRs created')
+flow_series_js=_tseries(flow,STAGES,FLAB)
 
 # ---- missing-ciflow flag + full status audit (sheet stage vs real PR stage) ----
 # files whose OPEN PR(s) can't run CI because no required ciflow label is set
