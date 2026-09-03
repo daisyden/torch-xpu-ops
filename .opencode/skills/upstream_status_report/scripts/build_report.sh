@@ -10,13 +10,19 @@
 #   4b.fetch_refactor_tracker.py -> /tmp/refactor_tracker.json (community refactor PRs)
 #   5. gen_report.py            -> report.html          (interactive report)
 #
+# The Google-doc refactor tracker (step 4b) is ALWAYS refreshed on every run.
+# The two data sources that need a flag are the SharePoint xlsx and the PR cache.
+#
 # Usage:
 #   ./build_report.sh              # incremental: fetch only missing PRs
+#   ./build_report.sh --all        # FULL refresh: SharePoint xlsx + all PRs + new PRs + Google doc
 #   ./build_report.sh --pull-xlsx  # first pull latest xlsx from SharePoint (rclone)
 #   ./build_report.sh --refresh    # re-fetch every PR (realtime state)
 #   ./build_report.sh --discover   # also find new owner PRs not yet in the xlsx
 #   ./build_report.sh --mark-done  # realtime check + mark merged files Done in xlsx
 #   ./build_report.sh --pull-xlsx --refresh --discover --mark-done
+#
+# --all == --pull-xlsx --refresh --discover  (the everyday "refresh everything" command)
 set -euo pipefail
 cd "$(dirname "$0")"
 
@@ -32,6 +38,7 @@ for a in "$@"; do
     --refac-cols) REFAC_COLS=1 ;;
     --discover)  DISCOVER=1 ;;
     --pull-xlsx) PULL_XLSX=1 ;;
+    --all)       PULL_XLSX=1; REFRESH="--refresh"; DISCOVER=1 ;;
     *) echo "unknown option: $a" >&2; exit 2 ;;
   esac
 done

@@ -35,6 +35,7 @@ Run the whole pipeline from the data directory:
 ```bash
 cd /home/daisyden/opencode/upstream_status
 ./build_report.sh                 # incremental: fetch only missing PRs
+./build_report.sh --all           # FULL refresh: SharePoint xlsx + all PRs + new PRs + Google doc
 ./build_report.sh --pull-xlsx     # first pull latest xlsx from SharePoint (rclone)
 ./build_report.sh --refresh       # re-fetch every PR (realtime state)
 ./build_report.sh --discover      # also find new owner PRs not yet in the xlsx
@@ -42,9 +43,18 @@ cd /home/daisyden/opencode/upstream_status
 ./build_report.sh --pull-xlsx --refresh --discover --mark-done
 ```
 
+**To refresh the report from all three sources, use `--all`.** It is shorthand for
+`--pull-xlsx --refresh --discover`, which:
+1. pulls the latest **SharePoint xlsx** (`pull_xlsx.sh`, rclone),
+2. re-fetches **every PR** from GitHub and **discovers new owner PRs**, and
+3. re-fetches the **Google-doc refactor tracker**.
+
+The **Google-doc refactor tracker is always refreshed on every run** (step 4b),
+regardless of flags — no flag is needed for it.
+
 Note: a plain `--refresh` only re-fetches PRs **already recorded** in the xlsx; it
-does **not** find new owner PRs. Use `--discover` (or run `discover_prs.py`, see
-below) to pull in newly submitted owner PRs that aren't in the table yet.
+does **not** find new owner PRs. Use `--discover` (included in `--all`) to pull in
+newly submitted owner PRs that aren't in the table yet.
 
 ### Pulling the source xlsx from SharePoint (`--pull-xlsx` / `pull_xlsx.sh`)
 
