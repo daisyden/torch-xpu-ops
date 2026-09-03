@@ -127,11 +127,11 @@ def pr_detail_list(nums_src):
             out.append({'pr':n,'title':'(PR not in cache)','author':'','dist':'','reqci':'',
                 'internal':'-','ci':'','community':'-','t_int':'','t_ci':'','t_com':'','t_mrg':'','ready':'','state':''})
     return out
-def file_item(r):
+def file_item(r,prs_override=None):
     d={'type':'file','k':r['file'] or r['path'],'sub':(r['path'] or ''),
        'team':r['team'] or '','extra':status_label(r),
         'owner':(str(r['assignee']) if r.get('assignee') not in (None,'') else ''),  # Author = Assignee col only (no fallback)
-       'prs':pr_detail_list(r.get('prs'))}    # PR column: Intel PRs (col F) only
+       'prs':pr_detail_list(r.get('prs') if prs_override is None else prs_override)}    # PR column: Intel PRs (col F) only, unless a subset is forced
     # community refactor tracker join (only for To Do / not-yet-Done files)
     if status_label(r)!='Done':
         t=REFACTOR.get(r['path'])
@@ -532,7 +532,9 @@ for r in rows:
     if bad: noflow_files.append((r,bad))
 DETAILS['no_ciflow']={}
 for r,bad in noflow_files:
-    DETAILS['no_ciflow'].setdefault('Missing ciflow label',[]).append(file_item(r))
+    # list only the offending PR(s) (open + no ciflow label), not every PR of the file
+    DETAILS['no_ciflow'].setdefault('Missing ciflow label',[]).append(
+        file_item(r,prs_override=[p['pr'] for p in bad]))
 n_noflow=len(noflow_files)
 NOFLOW_KEY='Missing ciflow label'
 
