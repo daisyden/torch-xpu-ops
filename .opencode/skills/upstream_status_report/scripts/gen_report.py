@@ -531,10 +531,14 @@ for r in rows:
     bad=[p for p in bad if p and p['state']=='OPEN' and p['ci_state']=='no_required_label']
     if bad: noflow_files.append((r,bad))
 DETAILS['no_ciflow']={}
+_pl={str(r['pr']):r.get('labels') or [] for r in recs_all}   # present ciflow/* labels per PR
 for r,bad in noflow_files:
-    # list only the offending PR(s) (open + no ciflow label), not every PR of the file
-    DETAILS['no_ciflow'].setdefault('Missing ciflow label',[]).append(
-        file_item(r,prs_override=[p['pr'] for p in bad]))
+    # list only the offending PR(s) (open + no required ciflow label), not every PR of the file
+    it=file_item(r,prs_override=[p['pr'] for p in bad])
+    for p in it['prs']:
+        has=[l.replace('ciflow/','') for l in _pl.get(str(p['pr']),[])]
+        p['reqci']=('has: '+', '.join(has)) if has else 'none'   # show present-but-insufficient label
+    DETAILS['no_ciflow'].setdefault('Missing ciflow label',[]).append(it)
 n_noflow=len(noflow_files)
 NOFLOW_KEY='Missing ciflow label'
 
@@ -565,8 +569,9 @@ for r in rows:
 flag_html=''
 _parts=[]
 if n_noflow:
-    _parts.append(f"<b>{n_noflow}</b> active file(s) have open PR(s) with <b>no ciflow label</b> "
-                  f"&mdash; CI cannot run until a label is added "
+    _parts.append(f"<b>{n_noflow}</b> active file(s) have open PR(s) with <b>no required ciflow label</b> "
+                  f"(ciflow/trunk, ciflow/xpu or ciflow/h100-distributed) "
+                  f"&mdash; CI cannot run until a required label is added "
                   f"(<a href=\"#\" onclick=\"showDetail('no_ciflow','{NOFLOW_KEY}');return false\">list</a>).")
 if n_ahead:
     _parts.append(f"<b>{n_ahead}</b> file(s) have a spreadsheet status <b>ahead of</b> real PR stage "
