@@ -35,15 +35,36 @@ Run the whole pipeline from the data directory:
 ```bash
 cd /home/daisyden/opencode/upstream_status
 ./build_report.sh                 # incremental: fetch only missing PRs
+./build_report.sh --pull-xlsx     # first pull latest xlsx from SharePoint (rclone)
 ./build_report.sh --refresh       # re-fetch every PR (realtime state)
 ./build_report.sh --discover      # also find new owner PRs not yet in the xlsx
 ./build_report.sh --mark-done     # realtime check + mark merged files Done in xlsx
-./build_report.sh --refresh --discover --mark-done
+./build_report.sh --pull-xlsx --refresh --discover --mark-done
 ```
 
 Note: a plain `--refresh` only re-fetches PRs **already recorded** in the xlsx; it
 does **not** find new owner PRs. Use `--discover` (or run `discover_prs.py`, see
 below) to pull in newly submitted owner PRs that aren't in the table yet.
+
+### Pulling the source xlsx from SharePoint (`--pull-xlsx` / `pull_xlsx.sh`)
+
+The spreadsheet lives on the Intel "DLFT dGPU" SharePoint site
+(`.../sites/MLTSHdGPU`, path `PyTorch GPU/Upstream/UT/UT_Upstream/`). It is **not**
+anonymously downloadable, so `pull_xlsx.sh` fetches it through an `rclone` OneDrive
+remote named `mlts` (`drive_type=documentLibrary`, the site's "Documents" library
+`drive_id`). rclone stores the OAuth refresh token and auto-renews the short-lived
+access token, so no re-auth is needed for routine pulls.
+
+```bash
+./pull_xlsx.sh                    # backs up current xlsx, then rclone copy latest
+```
+
+One-time / re-auth setup (only if the refresh token is lost or revoked):
+
+```bash
+rclone authorize "onedrive"                       # produces a token JSON
+rclone config update mlts token '<new-json>'      # or `config create mlts ...`
+```
 
 Output: `report.html` in the data directory.
 

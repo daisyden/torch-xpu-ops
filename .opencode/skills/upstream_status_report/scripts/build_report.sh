@@ -12,10 +12,11 @@
 #
 # Usage:
 #   ./build_report.sh              # incremental: fetch only missing PRs
+#   ./build_report.sh --pull-xlsx  # first pull latest xlsx from SharePoint (rclone)
 #   ./build_report.sh --refresh    # re-fetch every PR (realtime state)
 #   ./build_report.sh --discover   # also find new owner PRs not yet in the xlsx
 #   ./build_report.sh --mark-done  # realtime check + mark merged files Done in xlsx
-#   ./build_report.sh --refresh --discover --mark-done
+#   ./build_report.sh --pull-xlsx --refresh --discover --mark-done
 set -euo pipefail
 cd "$(dirname "$0")"
 
@@ -23,15 +24,22 @@ REFRESH=""
 MARK_DONE=0
 REFAC_COLS=0
 DISCOVER=0
+PULL_XLSX=0
 for a in "$@"; do
   case "$a" in
     --refresh)   REFRESH="--refresh" ;;
     --mark-done) MARK_DONE=1 ;;
     --refac-cols) REFAC_COLS=1 ;;
     --discover)  DISCOVER=1 ;;
+    --pull-xlsx) PULL_XLSX=1 ;;
     *) echo "unknown option: $a" >&2; exit 2 ;;
   esac
 done
+
+if [ "$PULL_XLSX" -eq 1 ]; then
+  echo "== 0/5 pull latest xlsx from SharePoint =="
+  ./pull_xlsx.sh
+fi
 
 echo "== 1/5 extract owned files from xlsx =="
 python3 extract_owned.py
