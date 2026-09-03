@@ -4,6 +4,7 @@
 # Pipeline:
 #   1. extract_owned.py   xlsx  -> /tmp/owned.json      (owned rows + PR list)
 #   2. fetch_prs.py       gh    -> pr_cache/*.json      (PR metadata)
+#   2b.discover_prs.py    gh    -> xlsx (optional)      (new owner PRs -> PR column)
 #   3. mark_done.py       gh    -> xlsx (optional)      (merged PRs -> Status=Done)
 #   4. analyze.py         cache -> /tmp/pr_analysis.json(per-PR gate + timing)
 #   4b.fetch_refactor_tracker.py -> /tmp/refactor_tracker.json (community refactor PRs)
@@ -12,19 +13,22 @@
 # Usage:
 #   ./build_report.sh              # incremental: fetch only missing PRs
 #   ./build_report.sh --refresh    # re-fetch every PR (realtime state)
+#   ./build_report.sh --discover   # also find new owner PRs not yet in the xlsx
 #   ./build_report.sh --mark-done  # realtime check + mark merged files Done in xlsx
-#   ./build_report.sh --refresh --mark-done
+#   ./build_report.sh --refresh --discover --mark-done
 set -euo pipefail
 cd "$(dirname "$0")"
 
 REFRESH=""
 MARK_DONE=0
 REFAC_COLS=0
+DISCOVER=0
 for a in "$@"; do
   case "$a" in
     --refresh)   REFRESH="--refresh" ;;
     --mark-done) MARK_DONE=1 ;;
     --refac-cols) REFAC_COLS=1 ;;
+    --discover)  DISCOVER=1 ;;
     *) echo "unknown option: $a" >&2; exit 2 ;;
   esac
 done
@@ -39,6 +43,16 @@ if [ "$MARK_DONE" -eq 1 ]; then
   python3 extract_owned.py
 else
   echo "== 2/5 fetch PR metadata =="
+  python3 fetch_prs.py $REFRESH
+fi
+
+if [ "$DISCOVER" -eq 1 ]; then
+  echo "== 2b/5 discover new owner PRs and add to xlsx =="
+  # needs the PR cache populated above (derives authors + cutoff from it)
+  python3 discover_prs.py --apply
+  echo "== re-extract after discovery =="
+  python3 extract_owned.py
+  echo "== fetch newly discovered PRs =="
   python3 fetch_prs.py $REFRESH
 fi
 

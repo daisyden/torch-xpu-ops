@@ -36,9 +36,14 @@ Run the whole pipeline from the data directory:
 cd /home/daisyden/opencode/upstream_status
 ./build_report.sh                 # incremental: fetch only missing PRs
 ./build_report.sh --refresh       # re-fetch every PR (realtime state)
+./build_report.sh --discover      # also find new owner PRs not yet in the xlsx
 ./build_report.sh --mark-done     # realtime check + mark merged files Done in xlsx
-./build_report.sh --refresh --mark-done
+./build_report.sh --refresh --discover --mark-done
 ```
+
+Note: a plain `--refresh` only re-fetches PRs **already recorded** in the xlsx; it
+does **not** find new owner PRs. Use `--discover` (or run `discover_prs.py`, see
+below) to pull in newly submitted owner PRs that aren't in the table yet.
 
 Output: `report.html` in the data directory.
 
@@ -48,6 +53,7 @@ Output: `report.html` in the data directory.
 |------|--------|----------|
 | 1 | `extract_owned.py` | xlsx → `/tmp/owned.json` (owned rows where team col L set, + referenced PR numbers) |
 | 2 | `fetch_prs.py [--refresh]` | `gh` → `pr_cache/*.json` (fetch missing, or all with `--refresh`) |
+| 2b | `discover_prs.py --apply` *(only with --discover)* | realtime `gh` → xlsx: finds new owner PRs touching tracked files and appends links (backs up xlsx first), then re-extracts + re-fetches |
 | 3 | `mark_done.py` *(only with --mark-done)* | realtime `gh` → xlsx: sets `Status=Done` for files whose PR(s) are **all merged** (backs up xlsx first) |
 | 4 | `analyze.py` | `pr_cache/` → `/tmp/pr_analysis.json` (per-PR gates: internal/community review, CI state; timing to each milestone) |
 | 4b | `fetch_refactor_tracker.py` | Google Sheet → `/tmp/refactor_tracker.json` (community test-refactor PRs: status, owner, PR links, keyed by file path) |
