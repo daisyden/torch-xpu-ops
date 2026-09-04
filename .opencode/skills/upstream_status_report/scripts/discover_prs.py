@@ -80,14 +80,27 @@ def main():
     recorded = set(owned['prs'])
 
     # ---- 1. authors + 2. cutoff from recorded (cached) PRs -----------------
-    authors = set(); cutoff = None
+    # Scope authors to Excel ASSIGNEES only (+ madhumitha0102): we only want to
+    # discover PRs written by our own assignees, not arbitrary community authors
+    # who happen to have touched a tracked file. An assignee's GitHub login is
+    # derived from the author of a PR recorded in an assignee-row's Intel-PR
+    # column (col F -> row['prs']).
+    assignee_prs = set()
+    for r in owned['rows']:
+        if r.get('assignee') in (None, ''):
+            continue
+        for n in (r.get('prs') or []):
+            assignee_prs.add(str(n))
+
+    authors = {'madhumitha0102'}
+    cutoff = None
     for n in owned['prs']:
         f = os.path.join(CACHE, f'{n}.json')
         if not os.path.exists(f):
             continue
         d = json.load(open(f))
         a = (d.get('author') or {}).get('login')
-        if a:
+        if a and str(n) in assignee_prs:
             authors.add(a)
         c = d.get('createdAt')
         if c and (cutoff is None or c > cutoff):
@@ -95,31 +108,39 @@ def main():
     since = arg('--since') or (cutoff or '')[:10]
     if not since:
         sys.exit('could not determine cutoff date; pass --since YYYY-MM-DD')
-    print(f'{len(authors)} authors, cutoff (PRs created after) = {since}')
+    print(f'{len(authors)} assignee authors (+madhumitha0102), cutoff (PRs created after) = {since}')
 
     # ---- owned file paths -> set (for matching) ----------------------------
     owned_paths = {r['path'] for r in owned['rows'] if r.get('path')}
     print(f'{len(owned_paths)} tracked file paths')
 
     # ---- 3. per-author candidate PRs ---------------------------------------
+    # Two searches per author, unioned:
+    #   (a) PRs created after the cutoff (new activity), and
+    #   (b) ALL currently-open PRs regardless of date — so older still-open PRs
+    #       (including drafts) that were never linked still get discovered.
     candidates = {}   # pr number(str) -> {url,title,author,createdAt}
     for i, a in enumerate(sorted(authors), 1):
-        res = gh_json(['gh', 'search', 'prs', '--repo', 'pytorch/pytorch',
-                       '--author', a, '--created', f'>{since}',
-                       '--limit', str(limit),
-                       '--json', 'number,title,url,createdAt,author'])
+        queries = [
+            ['--author', a, '--created', f'>{since}'],
+            ['--author', a, '--state', 'open'],
+        ]
         found = 0
-        for pr in (res or []):
-            n = str(pr['number'])
-            if n in recorded:
-                continue
-            candidates[n] = {
-                'url': pr.get('url') or f'https://github.com/pytorch/pytorch/pull/{n}',
-                'title': pr.get('title', ''),
-                'author': (pr.get('author') or {}).get('login', a),
-                'createdAt': pr.get('createdAt', ''),
-            }
-            found += 1
+        for q in queries:
+            res = gh_json(['gh', 'search', 'prs', '--repo', 'pytorch/pytorch',
+                           *q, '--limit', str(limit),
+                           '--json', 'number,title,url,createdAt,author'])
+            for pr in (res or []):
+                n = str(pr['number'])
+                if n in recorded or n in candidates:
+                    continue
+                candidates[n] = {
+                    'url': pr.get('url') or f'https://github.com/pytorch/pytorch/pull/{n}',
+                    'title': pr.get('title', ''),
+                    'author': (pr.get('author') or {}).get('login', a),
+                    'createdAt': pr.get('createdAt', ''),
+                }
+                found += 1
         print(f'[{i}/{len(authors)}] {a}: {found} new candidate PR(s)')
     print(f'total unique new candidate PRs: {len(candidates)}')
 
