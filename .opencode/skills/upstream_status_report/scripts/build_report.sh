@@ -22,9 +22,10 @@
 #   ./build_report.sh --mark-done  # realtime check + mark merged files Done in xlsx
 #   ./build_report.sh --assign     # after build, print internal-reviewer assignment plan (dry-run)
 #   ./build_report.sh --assign-apply  # after build, LIVE-request reviewers / post @mention comments (idempotent)
+#   ./build_report.sh --update-issue  # after build, update intel/torch-xpu-ops#5205 Done/Not-Applicable file lists
 #   ./build_report.sh --pull-xlsx --refresh --discover --mark-done
 #
-# --all == --pull-xlsx --refresh --discover  (the everyday "refresh everything" command)
+# --all == --pull-xlsx --refresh --discover --update-issue  (the everyday "refresh everything" command)
 set -euo pipefail
 cd "$(dirname "$0")"
 
@@ -35,6 +36,7 @@ DISCOVER=0
 ASSIGN=0
 ASSIGN_APPLY=0
 PULL_XLSX=0
+UPDATE_ISSUE=0
 for a in "$@"; do
   case "$a" in
     --refresh)   REFRESH="--refresh" ;;
@@ -42,9 +44,10 @@ for a in "$@"; do
     --refac-cols) REFAC_COLS=1 ;;
     --discover)  DISCOVER=1 ;;
     --pull-xlsx) PULL_XLSX=1 ;;
-    --all)       PULL_XLSX=1; REFRESH="--refresh"; DISCOVER=1 ;;
+    --all)       PULL_XLSX=1; REFRESH="--refresh"; DISCOVER=1; UPDATE_ISSUE=1 ;;
     --assign)    ASSIGN=1 ;;
     --assign-apply) ASSIGN=1; ASSIGN_APPLY=1 ;;
+    --update-issue) UPDATE_ISSUE=1 ;;
     *) echo "unknown option: $a" >&2; exit 2 ;;
   esac
 done
@@ -96,6 +99,11 @@ echo "== 5/5 generate report.html =="
 python3 gen_report.py
 
 echo "done -> $(pwd)/report.html"
+
+if [ "$UPDATE_ISSUE" -eq 1 ]; then
+  echo "== update intel/torch-xpu-ops#5205 Done / Not Applicable file lists =="
+  python3 update_issue.py --apply
+fi
 
 if [ "$ASSIGN" -eq 1 ]; then
   if [ "$ASSIGN_APPLY" -eq 1 ]; then

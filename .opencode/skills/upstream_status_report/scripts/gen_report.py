@@ -165,6 +165,12 @@ for r in rows:
     DETAILS['dev'].setdefault(str(r['device_relevance']),[]).append(file_item(r))
     DETAILS['status'].setdefault(status_label(r),[]).append(file_item(r))
 status_c=Counter(status_label(r) for r in rows)
+# export Done / Not Applicable file lists (Status - All teams) for issue #5205 sync
+try:
+    _exp={k:DETAILS['status'].get(k,[]) for k in ('Done','Not Applicable')}
+    json.dump(_exp,open('/tmp/status_all.json','w'),indent=1)
+except Exception as _e:
+    print('  (status_all export failed:',_e,')')
 # collapsed status for section-1 chart: PR-in-flight stages -> "Open PR"
 OPEN_SET={'Community Review','Internal Review','CI','PRed'}
 def collapse_status(r):
