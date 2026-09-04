@@ -633,6 +633,9 @@ header h1{{margin:0;font-size:22px}} header p{{margin:6px 0 0;opacity:.8;font-si
 .toc a{{color:#fff;background:rgba(255,255,255,.15);padding:4px 10px;border-radius:12px;font-size:12px;text-decoration:none}}
 .toc a:hover{{background:rgba(255,255,255,.3)}}
 h2{{scroll-margin-top:16px}}
+h2 .anchor{{color:#9db4e0;text-decoration:none;font-weight:400;opacity:0;transition:opacity .15s;margin-left:4px}}
+h2:hover .anchor{{opacity:1}}
+h2 .anchor:hover{{color:#0b3d91}}
 .wrap{{max-width:1680px;margin:0 auto;padding:24px}}
 .cards{{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:22px}}
 .card{{background:#fff;border-radius:10px;padding:16px 20px;flex:1;min-width:150px;box-shadow:0 1px 3px rgba(0,0,0,.08)}}
@@ -694,7 +697,7 @@ canvas{{cursor:pointer}}
 <div class=split>
 <div class=left>
 
-<h2 id="sec1">1. Test-file status</h2>
+<h2 id="sec1">1. Test-file status <a class=anchor href="#sec1" title="Link to this section">#</a></h2>
 <div class=cgrid>
 <div class=panel><h3>Owned files by team</h3><div class=ch><canvas id=team></canvas></div></div>
 <div class=panel><h3>xpu-enabled status</h3><div class=ch><canvas id=xpu></canvas></div></div>
@@ -702,12 +705,12 @@ canvas{{cursor:pointer}}
 <div class=panel><h3>Test-file Status</h3><div class=ch><canvas id=status></canvas></div></div>
 </div>
 
-<h2 id="sec2">2. Test-file Status by team</h2>
+<h2 id="sec2">2. Test-file Status by team <a class=anchor href="#sec2" title="Link to this section">#</a></h2>
 <div class=cgrid>
 {statpies_html}
 </div>
 
-<h2 id="sec3">3. PR status &mdash; the three gates</h2>
+<h2 id="sec3">3. PR status &mdash; the three gates <a class=anchor href="#sec3" title="Link to this section">#</a></h2>
 <div class=note>Intel PRs only: {nRefactor} community/refactor PR(s) from the Google doc are discounted (tracked in the Refactor columns). {nAbandoned} abandoned (closed-but-never-merged) PR(s) dropped; files whose only PR was abandoned show as TBD. Charts below cover {nPR} active Intel PRs.</div>
 {flag_html}
 <div class=cgrid>
@@ -716,7 +719,7 @@ canvas{{cursor:pointer}}
 <div class=panel><h3>CI state breakdown</h3><div class=ch><canvas id=ci></canvas></div></div>
 </div>
 
-<h2 id="sec4">4. PR Timing &mdash; creation to each milestone</h2>
+<h2 id="sec4">4. PR Timing &mdash; creation to each milestone <a class=anchor href="#sec4" title="Link to this section">#</a></h2>
 <div class=panel><h3>Median / mean / p90 / max (days)</h3><div class=ch tall><canvas id=timing></canvas></div>
 <div class=note>Lower is better. n = number of PRs that reached that milestone.</div></div>
 <div class=cgrid style=margin-top:16px>
@@ -726,7 +729,7 @@ canvas{{cursor:pointer}}
 <div class=panel><h3>Creation &rarr; Merge (dist.)</h3><div class=ch><canvas id=hmg></canvas></div></div>
 </div>
 
-<h2 id="sec5">5. Forecast &mdash; when will all files pass?</h2>
+<h2 id="sec5">5. Forecast &mdash; when will all files pass? <a class=anchor href="#sec5" title="Link to this section">#</a></h2>
 <div class=insight>{fc_formula}</div>
 <div class=insight>{fc_note}</div>
 <div class=cgrid>
@@ -741,7 +744,7 @@ canvas{{cursor:pointer}}
 <div class=panel><h3>Completion scenarios</h3>{fc_table}</div>
 </div>
 
-<h2 id="sec6">6. Trends &mdash; historical progress &amp; flow</h2>
+<h2 id="sec6">6. Trends &mdash; historical progress &amp; flow <a class=anchor href="#sec6" title="Link to this section">#</a></h2>
 <div class=insight>{tr_note}</div>
 <div class=cgrid>
 <div class=panel><h3>PR stock by stage (per day)</h3><div class=ch tall><canvas id=trend_pr></canvas></div>
@@ -754,7 +757,7 @@ canvas{{cursor:pointer}}
 <div class=note>Daily count of PRs reaching each milestone.</div></div>
 </div>
 
-<h2 id="sec7">7. Internal review workload &mdash; by reviewer</h2>
+<h2 id="sec7">7. Internal review workload &mdash; by reviewer <a class=anchor href="#sec7" title="Link to this section">#</a></h2>
 <div class=note>Internal reviewers &amp; expertise: guangyey=runtime, etaf=inductor, CuiYifeng=ops, liangan1=sdpa, newtdms=distributed, astachowiczhabana &amp; pbielak=test refactor/other. &ldquo;Under review&rdquo; = an open PR where the reviewer is requested or has reviewed but has not yet approved. Click a bar to list the PRs.</div>
 <div class=cgrid>
 <div class=panel><h3>Open PRs waiting for internal review (under each reviewer)</h3><div class=ch tall><canvas id=ir_review></canvas></div>
