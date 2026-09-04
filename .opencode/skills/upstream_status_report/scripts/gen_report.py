@@ -246,11 +246,14 @@ for r in recs_active:
             if who in ir_under:
                 ir_under[who]+=1
                 DETAILS['ir_under'].setdefault(who,[]).append(pr_item(r))
-                # "waiting" is per-reviewer: this reviewer hasn't approved yet
-                # (still in `pending`), even if ANOTHER internal reviewer has
-                # already approved the PR. So it stays under the pending reviewer.
-                ir_waiting[who]+=1
-                DETAILS['ir_review'].setdefault(who,[]).append(pr_item(r))
+                # "waiting" per reviewer: include this reviewer while the PR has
+                # no internal approval yet. Once ANOTHER internal reviewer has
+                # already approved, only keep it under a 2nd reviewer who has
+                # actually engaged (left a comment / change request), not one
+                # who was merely requested and never reviewed.
+                if (not r['internal_ok']) or (who in rev):
+                    ir_waiting[who]+=1
+                    DETAILS['ir_review'].setdefault(who,[]).append(pr_item(r))
 ir_labels=[f'{r} ({IR_EXPERT[r]})' for r in IR_REVIEWERS]
 
 # per-team test-file status detail groups (statt_<i>)
@@ -769,7 +772,7 @@ canvas{{cursor:pointer}}
 <div class=note>Internal reviewers &amp; expertise: guangyey=runtime, etaf=inductor, CuiYifeng=ops, liangan1=sdpa, newtdms=distributed, astachowiczhabana &amp; pbielak=test refactor/other. &ldquo;Under review&rdquo; = an open PR where the reviewer is requested or has reviewed but has not yet approved. Click a bar to list the PRs.</div>
 <div class=cgrid>
 <div class=panel><h3>Open PRs waiting for internal review (under each reviewer)</h3><div class=ch tall><canvas id=ir_review></canvas></div>
-<div class=note>Open PRs where this reviewer is requested/engaged but has not approved yet &mdash; shown even if another internal reviewer already approved the PR.</div></div>
+<div class=note>Open PRs this reviewer is requested/engaged on but hasn&rsquo;t approved. If the PR is already approved by another internal reviewer, it is only kept here when this reviewer has actually commented or requested changes (not merely requested).</div></div>
 <div class=panel><h3>All PRs &mdash; open under review vs. approved (per reviewer)</h3><div class=ch tall><canvas id=ir_all></canvas></div>
 <div class=note>Blue = open PRs under review; green = PRs approved (any state).</div></div>
 </div>
