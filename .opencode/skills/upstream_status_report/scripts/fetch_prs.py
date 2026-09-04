@@ -14,7 +14,7 @@ import json, os, sys, subprocess
 HERE = os.path.dirname(os.path.abspath(__file__))
 CACHE = os.path.join(HERE, 'pr_cache')
 FIELDS = ('number,title,state,createdAt,mergedAt,closedAt,labels,author,'
-          'reviews,statusCheckRollup,isDraft')
+          'reviews,comments,statusCheckRollup,isDraft')
 
 def fetch(n):
     try:

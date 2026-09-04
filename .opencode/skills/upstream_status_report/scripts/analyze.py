@@ -7,6 +7,12 @@ def parse(t):
 
 INTERNAL = {'guangyey','etaf','CuiYifeng','liangan1','newtdms',
             'astachowiczhabana','pbielak'}  # internal reviewers
+# Non-collaborators who cannot always cast a formal "Approve" review; for them an
+# approval expressed in a review body or a plain PR comment (e.g. "LGTM"/"approved"
+# /"looks good") is accepted as an internal approval.
+INFORMAL_INTERNAL = {'CuiYifeng','newtdms'}
+import re
+APPROVE_RE = re.compile(r'\b(lgtm|approve[ds]?|looks good(?: to me)?|ok to merge)\b', re.I)
 # Intel org members (authors + intel reviewers) -> excluded from "community"
 INTEL_EXTRA = {'CuiYifeng','chuanqi129','xuyun44','EikanWang','LuFinch',
                'NayanNagabhushana-28','Niran814804102','mansiag05','xuhancn','LuFinch'}
@@ -59,15 +65,25 @@ for n in owned['prs']:
     merged=parse(d.get('mergedAt')) or (parse(d.get('closedAt')) if is_merged else None)
     # reviews
     internal_t=None; community_t=None; community_by=None
+    def _earlier(cur,t):
+        return t if (t and (cur is None or t<cur)) else cur
     for rv in d.get('reviews') or []:
-        if rv['state']!='APPROVED': continue
         lg=rv['author']['login'] if rv.get('author') else None
         t=parse(rv.get('submittedAt'))
-        if lg in INTERNAL:
-            if internal_t is None or (t and t<internal_t): internal_t=t
-        elif lg and lg not in INTEL_ALL:  # community = any external approver
-            if community_t is None or (t and t<community_t):
-                community_t=t; community_by=lg
+        if rv['state']=='APPROVED':
+            if lg in INTERNAL:
+                internal_t=_earlier(internal_t,t)
+            elif lg and lg not in INTEL_ALL:  # community = any external approver
+                if community_t is None or (t and t<community_t):
+                    community_t=t; community_by=lg
+        # informal internal approval via review body text (non-collaborators)
+        elif lg in INFORMAL_INTERNAL and APPROVE_RE.search(rv.get('body') or ''):
+            internal_t=_earlier(internal_t,t)
+    # informal internal approval via a plain PR comment (non-collaborators)
+    for cm in d.get('comments') or []:
+        lg=cm['author']['login'] if cm.get('author') else None
+        if lg in INFORMAL_INTERNAL and APPROVE_RE.search(cm.get('body') or ''):
+            internal_t=_earlier(internal_t,parse(cm.get('createdAt')))
     # required workflows from labels
     req_labels=[l for l in LABEL_WF if l in labels]
     req_wfs={LABEL_WF[l] for l in req_labels}
