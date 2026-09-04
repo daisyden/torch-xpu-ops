@@ -90,6 +90,13 @@ for n in owned['prs']:
             internal_approved_by.add(lg); internal_reviewed_by.add(lg)
     # currently-requested internal reviewers
     req_r={(x or {}).get('login') for x in (d.get('reviewRequests') or [])}
+    # also treat our auto-request @mention comments as a pending internal
+    # request (non-collaborators can't be added to the formal reviewer field)
+    for cm in d.get('comments') or []:
+        b=cm.get('body') or ''
+        if '<!-- xpu-auto-review-request -->' in b:
+            for r in INTERNAL:
+                if f'@{r}' in b: req_r.add(r)
     internal_requested=sorted(r for r in req_r if r in INTERNAL)
     # required workflows from labels
     req_labels=[l for l in LABEL_WF if l in labels]
