@@ -629,6 +629,10 @@ html=f"""<!DOCTYPE html><html><head><meta charset=utf-8>
 body{{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;margin:0;background:#f4f6f8;color:#1a1f26}}
 header{{background:#0b3d91;color:#fff;padding:22px 32px}}
 header h1{{margin:0;font-size:22px}} header p{{margin:6px 0 0;opacity:.8;font-size:13px}}
+.toc{{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}}
+.toc a{{color:#fff;background:rgba(255,255,255,.15);padding:4px 10px;border-radius:12px;font-size:12px;text-decoration:none}}
+.toc a:hover{{background:rgba(255,255,255,.3)}}
+h2{{scroll-margin-top:16px}}
 .wrap{{max-width:1680px;margin:0 auto;padding:24px}}
 .cards{{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:22px}}
 .card{{background:#fff;border-radius:10px;padding:16px 20px;flex:1;min-width:150px;box-shadow:0 1px 3px rgba(0,0,0,.08)}}
@@ -662,7 +666,16 @@ canvas{{cursor:pointer}}
 #dbody .hint{{padding:18px;color:#888;font-size:13px}}
 </style></head><body>
 <header><h1>XPU Upstream &mdash; Test-File &amp; PR Status Report</h1>
-<p>Scope: owned test files (Owner/team column set) &bull; {nPR} unique pytorch/pytorch PRs &bull; PR data updated {data_updated:%Y-%m-%d %H:%M} UTC &bull; report generated {now:%Y-%m-%d %H:%M} UTC</p></header>
+<p>Scope: owned test files (Owner/team column set) &bull; {nPR} unique pytorch/pytorch PRs &bull; PR data updated {data_updated:%Y-%m-%d %H:%M} UTC &bull; report generated {now:%Y-%m-%d %H:%M} UTC</p>
+<nav class=toc>
+<a href="#sec1">1. Status</a>
+<a href="#sec2">2. Status by team</a>
+<a href="#sec3">3. PR gates</a>
+<a href="#sec4">4. Timing</a>
+<a href="#sec5">5. Forecast</a>
+<a href="#sec6">6. Trends</a>
+<a href="#sec7">7. Review workload</a>
+</nav></header>
 <div class=wrap>
 
 <div class=cards>
@@ -681,7 +694,7 @@ canvas{{cursor:pointer}}
 <div class=split>
 <div class=left>
 
-<h2>1. Test-file status</h2>
+<h2 id="sec1">1. Test-file status</h2>
 <div class=cgrid>
 <div class=panel><h3>Owned files by team</h3><div class=ch><canvas id=team></canvas></div></div>
 <div class=panel><h3>xpu-enabled status</h3><div class=ch><canvas id=xpu></canvas></div></div>
@@ -689,12 +702,12 @@ canvas{{cursor:pointer}}
 <div class=panel><h3>Test-file Status</h3><div class=ch><canvas id=status></canvas></div></div>
 </div>
 
-<h2>2. Test-file Status by team</h2>
+<h2 id="sec2">2. Test-file Status by team</h2>
 <div class=cgrid>
 {statpies_html}
 </div>
 
-<h2>3. PR status &mdash; the three gates</h2>
+<h2 id="sec3">3. PR status &mdash; the three gates</h2>
 <div class=note>Intel PRs only: {nRefactor} community/refactor PR(s) from the Google doc are discounted (tracked in the Refactor columns). {nAbandoned} abandoned (closed-but-never-merged) PR(s) dropped; files whose only PR was abandoned show as TBD. Charts below cover {nPR} active Intel PRs.</div>
 {flag_html}
 <div class=cgrid>
@@ -703,7 +716,7 @@ canvas{{cursor:pointer}}
 <div class=panel><h3>CI state breakdown</h3><div class=ch><canvas id=ci></canvas></div></div>
 </div>
 
-<h2>4. PR Timing &mdash; creation to each milestone</h2>
+<h2 id="sec4">4. PR Timing &mdash; creation to each milestone</h2>
 <div class=panel><h3>Median / mean / p90 / max (days)</h3><div class=ch tall><canvas id=timing></canvas></div>
 <div class=note>Lower is better. n = number of PRs that reached that milestone.</div></div>
 <div class=cgrid style=margin-top:16px>
@@ -713,7 +726,7 @@ canvas{{cursor:pointer}}
 <div class=panel><h3>Creation &rarr; Merge (dist.)</h3><div class=ch><canvas id=hmg></canvas></div></div>
 </div>
 
-<h2>5. Forecast &mdash; when will all files pass?</h2>
+<h2 id="sec5">5. Forecast &mdash; when will all files pass?</h2>
 <div class=insight>{fc_formula}</div>
 <div class=insight>{fc_note}</div>
 <div class=cgrid>
@@ -728,7 +741,7 @@ canvas{{cursor:pointer}}
 <div class=panel><h3>Completion scenarios</h3>{fc_table}</div>
 </div>
 
-<h2>6. Trends &mdash; historical progress &amp; flow</h2>
+<h2 id="sec6">6. Trends &mdash; historical progress &amp; flow</h2>
 <div class=insight>{tr_note}</div>
 <div class=cgrid>
 <div class=panel><h3>PR stock by stage (per day)</h3><div class=ch tall><canvas id=trend_pr></canvas></div>
@@ -741,7 +754,7 @@ canvas{{cursor:pointer}}
 <div class=note>Daily count of PRs reaching each milestone.</div></div>
 </div>
 
-<h2>7. Internal review workload &mdash; by reviewer</h2>
+<h2 id="sec7">7. Internal review workload &mdash; by reviewer</h2>
 <div class=note>Internal reviewers &amp; expertise: guangyey=runtime, etaf=inductor, CuiYifeng=ops, liangan1=sdpa, newtdms=distributed, astachowiczhabana &amp; pbielak=test refactor/other. &ldquo;Under review&rdquo; = an open PR where the reviewer is requested or has reviewed but has not yet approved. Click a bar to list the PRs.</div>
 <div class=cgrid>
 <div class=panel><h3>Open PRs waiting for internal review (under each reviewer)</h3><div class=ch tall><canvas id=ir_review></canvas></div>
