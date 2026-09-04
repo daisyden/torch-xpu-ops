@@ -55,7 +55,8 @@ MARKER='<!-- xpu-auto-review-request -->'
 
 INTERNAL = ['guangyey','etaf','CuiYifeng','liangan1','newtdms',
             'astachowiczhabana','pbielak']
-INFORMAL = {'CuiYifeng','newtdms'}          # deliver via @mention comment
+INFORMAL = {'CuiYifeng','liangan1','newtdms'}   # not pytorch collaborators ->
+                                                # deliver via @mention comment
 EXPERTISE = {'guangyey':'runtime','etaf':'inductor','CuiYifeng':'ops',
              'liangan1':'sdpa','newtdms':'distributed',
              'astachowiczhabana':'others','pbielak':'others'}

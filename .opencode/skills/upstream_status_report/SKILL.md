@@ -157,7 +157,7 @@ a row whose assignee col P is set — plus known assignee logins such as
   pure balancing; higher values weight expertise more (default 2). An overloaded
   expert therefore spills over to lighter-loaded reviewers.
 - **Delivery**: collaborators get `method=request` (formal review request);
-  `CuiYifeng`/`newtdms` (non-collaborators) get `method=comment` with a ready-to-
+  `CuiYifeng`/`liangan1`/`newtdms` (non-collaborators) get `method=comment` with a ready-to-
   paste `@mention` comment. **No GitHub calls are made** — apply mode only writes
   a file for manual action.
 
@@ -185,7 +185,8 @@ guaranteed by three layers:
   requested; an `@mention` comment is skipped when a prior auto-request comment
   (hidden marker `<!-- xpu-auto-review-request -->`) for that reviewer exists.
   Anything found live is folded back into the ledger.
-- Collaborators get a formal reviewer request; non-collaborators (`CuiYifeng`,
+- Collaborators (`guangyey`, `etaf`, `astachowiczhabana`, `pbielak`) get a
+  formal reviewer request; non-collaborators (`CuiYifeng`, `liangan1`,
   `newtdms`) get the `@mention` comment.
 
 Section 7 of the report ("Internal review workload") charts the current state:
@@ -233,11 +234,13 @@ python3 gen_report.py             # -> report.html
 - **Internal reviewers** (7): `guangyey`, `etaf`, `CuiYifeng`, `liangan1`,
   `newtdms`, `astachowiczhabana`, `pbielak`. **Community** = any external
   (non-Intel) approver (e.g. `jansel`, `fffrog`).
-- **Informal approvals**: `CuiYifeng` and `newtdms` are **not formal
-  collaborators**, so they may not be able to cast a formal *Approve* review. For
-  these two, an approval expressed in a **review body** or a **plain PR comment**
-  (matching `lgtm|approved?|looks good|ok to merge`) is accepted as an internal
-  approval (`fetch_prs.py` pulls `comments`; logic in `analyze.py`).
+- **Non-collaborators**: `CuiYifeng`, `liangan1`, `newtdms` are **not formal
+  pytorch collaborators**, so they cannot be added as a formal requested reviewer
+  (GitHub returns "Reviews may only be requested from collaborators"). For these,
+  an approval expressed in a **review body** or a **plain PR comment** (matching
+  `lgtm|approved?|looks good|ok to merge`) is accepted as an internal approval
+  (`fetch_prs.py` pulls `comments`; logic in `analyze.py`), and reviewer
+  assignment is delivered as an `@mention` comment instead of a formal request.
 - **CI required labels**: refactor→`ciflow/trunk`, XPU→`ciflow/xpu`,
   distributed→`ciflow/h100-distributed`. A PR with **no** required ciflow label
   cannot run CI (`ci_state == 'no_required_label'`).
