@@ -5,7 +5,8 @@ def parse(t):
     if not t: return None
     return datetime.fromisoformat(t.replace('Z','+00:00'))
 
-INTERNAL = {'etaf','guangyey'}  # Guangye or etaf
+INTERNAL = {'guangyey','etaf','CuiYifeng','liangan1','newtdms',
+            'astachowiczhabana','pbielak'}  # internal reviewers
 # Intel org members (authors + intel reviewers) -> excluded from "community"
 INTEL_EXTRA = {'CuiYifeng','chuanqi129','xuyun44','EikanWang','LuFinch',
                'NayanNagabhushana-28','Niran814804102','mansiag05','xuhancn','LuFinch'}

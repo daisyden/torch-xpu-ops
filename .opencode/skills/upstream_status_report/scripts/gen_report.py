@@ -71,7 +71,7 @@ PRLOOK_S={str(r['pr']):r for r in recs}
 PRALL={int(r['pr']):r for r in recs_all}
 
 # ---- real pipeline stage from PR data (source of truth for display) ----
-# order: PRed -> CI -> Internal Review (guangyey/etaf) -> Community Review -> Done
+# order: PRed -> CI -> Internal Review (internal reviewers) -> Community Review -> Done
 def _gates(r):
     """(internal, ci, community, merged) from real PR data.
        Open PRs govern the file (every open PR must pass a gate).
@@ -717,7 +717,7 @@ canvas{{cursor:pointer}}
 </div>
 <div id=dbody><div class=hint>Click a chart segment or bar on the left to list the matching files or PRs here.</div></div>
 </div>
-<div class=note>Internal = approval by etaf/guangyey. Community = approval by any external maintainer (jansel, fffrog, albanD, ...). CI = required ciflow workflow(s) green: refactor&rarr;ciflow/trunk, XPU&rarr;ciflow/xpu, distributed&rarr;ciflow/h100-distributed.</div>
+<div class=note>Internal = approval by an internal reviewer (guangyey, etaf, CuiYifeng, liangan1, newtdms, astachowiczhabana, pbielak). Community = approval by any external maintainer (jansel, fffrog, albanD, ...). CI = required ciflow workflow(s) green: refactor&rarr;ciflow/trunk, XPU&rarr;ciflow/xpu, distributed&rarr;ciflow/h100-distributed.</div>
 </div>
 
 </div><!-- /split -->
