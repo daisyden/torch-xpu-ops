@@ -25,8 +25,10 @@ Modes:
     python3 assign_reviewers.py                 # DRY-RUN: print plan, write nothing
     python3 assign_reviewers.py --apply         # write /tmp/reviewer_assignments.{json,csv}
     python3 assign_reviewers.py --github-apply   # LIVE: request reviewers / post @mention
-                                                 # comments on GitHub (idempotent)
+                                                 # comments on GitHub (idempotent; prompts
+                                                 # for confirmation unless --yes is given)
 Options:
+    --yes, -y       skip the interactive confirmation prompt (for --github-apply)
     --penalty N     expertise preference strength (default 2; higher = stricter
                     domain match, lower = purer load balancing)
     --skip-drafts   do not assign reviewers to draft PRs
@@ -257,7 +259,19 @@ def main():
         print("\n(dry-run: no files written; re-run with --apply to save assignments)")
 
     if github_apply:
-        print("\n== posting reviewer requests to GitHub (idempotent) ==")
+        print(f"\n== about to post {len(assignments)} reviewer request(s)/comment(s) "
+              f"to GitHub ({REPO}) ==")
+        assume_yes='--yes' in sys.argv or '-y' in sys.argv
+        if not assume_yes:
+            try:
+                ans=input("Proceed with LIVE GitHub updates? type 'yes' to confirm: ").strip().lower()
+            except EOFError:
+                ans=''
+            if ans!='yes':
+                print("aborted -- no GitHub changes made "
+                      "(re-run with --yes to skip this prompt).")
+                return
+        print("== posting reviewer requests to GitHub (idempotent) ==")
         done=skipped=failed=0
         for a in assignments:
             n,who,method=a['pr'],a['assignee'],a['method']

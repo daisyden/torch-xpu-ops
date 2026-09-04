@@ -173,7 +173,9 @@ python3 assign_reviewers.py --all-open      # consider every open PR, not just a
 ```
 
 **Live apply (`--github-apply` / `build_report.sh --assign-apply`)** actually
-writes to GitHub and is **idempotent**:
+writes to GitHub. It first prints the plan and **prompts for confirmation**
+(type `yes`) before posting anything — pass `--yes`/`-y` to skip the prompt in
+non-interactive runs. It is **idempotent**:
 - Collaborators get a formal reviewer request (`gh api ... /requested_reviewers`);
   skipped if the reviewer is already requested (live check).
 - Non-collaborators (`CuiYifeng`, `newtdms`) get an `@mention` comment
