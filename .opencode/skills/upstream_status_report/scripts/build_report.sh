@@ -21,6 +21,7 @@
 #   ./build_report.sh --discover   # also find new owner PRs not yet in the xlsx
 #   ./build_report.sh --mark-done  # realtime check + mark merged files Done in xlsx
 #   ./build_report.sh --assign     # after build, print internal-reviewer assignment plan (dry-run)
+#   ./build_report.sh --assign-apply  # after build, LIVE-request reviewers / post @mention comments (idempotent)
 #   ./build_report.sh --pull-xlsx --refresh --discover --mark-done
 #
 # --all == --pull-xlsx --refresh --discover  (the everyday "refresh everything" command)
@@ -32,6 +33,7 @@ MARK_DONE=0
 REFAC_COLS=0
 DISCOVER=0
 ASSIGN=0
+ASSIGN_APPLY=0
 PULL_XLSX=0
 for a in "$@"; do
   case "$a" in
@@ -42,6 +44,7 @@ for a in "$@"; do
     --pull-xlsx) PULL_XLSX=1 ;;
     --all)       PULL_XLSX=1; REFRESH="--refresh"; DISCOVER=1 ;;
     --assign)    ASSIGN=1 ;;
+    --assign-apply) ASSIGN=1; ASSIGN_APPLY=1 ;;
     *) echo "unknown option: $a" >&2; exit 2 ;;
   esac
 done
@@ -95,7 +98,12 @@ python3 gen_report.py
 echo "done -> $(pwd)/report.html"
 
 if [ "$ASSIGN" -eq 1 ]; then
-  echo "== internal reviewer assignment (dry-run) =="
-  python3 assign_reviewers.py
-  echo "(run 'python3 assign_reviewers.py --apply' to write /tmp/reviewer_assignments.{json,csv})"
+  if [ "$ASSIGN_APPLY" -eq 1 ]; then
+    echo "== internal reviewer assignment (LIVE: posting to GitHub) =="
+    python3 assign_reviewers.py --github-apply
+  else
+    echo "== internal reviewer assignment (dry-run) =="
+    python3 assign_reviewers.py
+    echo "(run './build_report.sh --assign-apply' to actually request reviewers / post comments on GitHub)"
+  fi
 fi

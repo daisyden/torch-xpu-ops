@@ -164,11 +164,22 @@ a row whose assignee col P is set — plus known assignee logins such as
 ```bash
 python3 assign_reviewers.py                 # DRY-RUN: print plan + resulting loads
 python3 assign_reviewers.py --apply         # write /tmp/reviewer_assignments.{json,csv}
+python3 assign_reviewers.py --github-apply   # LIVE: request reviewers / post @mention comments
 python3 assign_reviewers.py --penalty 0     # pure load-balancing (ignore expertise)
 python3 assign_reviewers.py --skip-drafts   # don't assign draft PRs
 python3 assign_reviewers.py --all-open      # consider every open PR, not just assignee PRs
 ./build_report.sh --assign                  # run a build then print the dry-run plan
+./build_report.sh --assign-apply            # run a build then LIVE-post requests/comments
 ```
+
+**Live apply (`--github-apply` / `build_report.sh --assign-apply`)** actually
+writes to GitHub and is **idempotent**:
+- Collaborators get a formal reviewer request (`gh api ... /requested_reviewers`);
+  skipped if the reviewer is already requested (live check).
+- Non-collaborators (`CuiYifeng`, `newtdms`) get an `@mention` comment
+  (`gh pr comment`) tagged with a hidden marker `<!-- xpu-auto-review-request -->`;
+  skipped if a prior auto-request comment for that reviewer already exists.
+- Scope is the same Excel-assignee default (drafts included) unless `--all-open`.
 
 Section 7 of the report ("Internal review workload") charts the current state:
 open PRs waiting for internal review per reviewer, and (all PRs) open-under-review

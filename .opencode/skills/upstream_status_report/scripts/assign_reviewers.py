@@ -24,15 +24,28 @@ column of a row that has an assignee, plus known assignee logins). Pass
 Modes:
     python3 assign_reviewers.py                 # DRY-RUN: print plan, write nothing
     python3 assign_reviewers.py --apply         # write /tmp/reviewer_assignments.{json,csv}
+    python3 assign_reviewers.py --github-apply   # LIVE: request reviewers / post @mention
+                                                 # comments on GitHub (idempotent)
 Options:
     --penalty N     expertise preference strength (default 2; higher = stricter
                     domain match, lower = purer load balancing)
     --skip-drafts   do not assign reviewers to draft PRs
     --all-open      consider all open PRs, not just Excel-assignee PRs
     --include-approved   also (re)assign open PRs already reviewed internally
+
+--github-apply is idempotent: a formal request is skipped when the reviewer is
+already requested; an @mention comment is skipped when a prior auto-request
+comment (tagged with a hidden marker) for that reviewer already exists.
+Collaborators get a formal reviewer request; non-collaborators (CuiYifeng,
+newtdms) get an @mention comment instead.
 """
-import json, os, sys, csv
+import json, os, sys, csv, subprocess
 from collections import Counter, defaultdict
+
+REPO='pytorch/pytorch'
+CACHE=os.path.join(os.path.dirname(os.path.abspath(__file__)),'pr_cache')
+# hidden marker so we never post a duplicate @mention review request
+MARKER='<!-- xpu-auto-review-request -->'
 
 INTERNAL = ['guangyey','etaf','CuiYifeng','liangan1','newtdms',
             'astachowiczhabana','pbielak']
@@ -77,8 +90,57 @@ def pr_domain(paths, distributed):
         if c.get(d,0)==best: return d
     return 'others'
 
+def _raw(n):
+    p=os.path.join(CACHE,f'{n}.json')
+    return json.load(open(p)) if os.path.exists(p) else {}
+
+def already_requested(n, login):
+    """True if login is currently a requested reviewer on the PR (live check)."""
+    try:
+        out=subprocess.run(['gh','api',f'repos/{REPO}/pulls/{n}/requested_reviewers'],
+                           capture_output=True,text=True,timeout=30)
+        if out.returncode==0:
+            d=json.loads(out.stdout)
+            return any((u.get('login')==login) for u in d.get('users',[]))
+    except Exception:
+        pass
+    # fall back to cached reviewRequests
+    return any((x.get('login') or x.get('name'))==login
+               for x in _raw(n).get('reviewRequests',[]))
+
+def already_commented(n, login):
+    """True if an auto review-request comment for login already exists."""
+    for cm in _raw(n).get('comments',[]):
+        b=cm.get('body') or ''
+        if MARKER in b and f'@{login}' in b:
+            return True
+    # live re-check (cache may be stale)
+    try:
+        out=subprocess.run(['gh','api',f'repos/{REPO}/issues/{n}/comments','--paginate'],
+                           capture_output=True,text=True,timeout=30)
+        if out.returncode==0:
+            for cm in json.loads(out.stdout):
+                b=cm.get('body') or ''
+                if MARKER in b and f'@{login}' in b:
+                    return True
+    except Exception:
+        pass
+    return False
+
+def gh_request_reviewer(n, login):
+    r=subprocess.run(['gh','api','--method','POST',
+                      f'repos/{REPO}/pulls/{n}/requested_reviewers',
+                      '-f',f'reviewers[]={login}'],capture_output=True,text=True,timeout=30)
+    return r.returncode==0, (r.stderr.strip() or r.stdout.strip())
+
+def gh_post_comment(n, body):
+    r=subprocess.run(['gh','pr','comment',str(n),'--repo',REPO,'--body',body],
+                     capture_output=True,text=True,timeout=30)
+    return r.returncode==0, (r.stderr.strip() or r.stdout.strip())
+
 def main():
     apply='--apply' in sys.argv
+    github_apply='--github-apply' in sys.argv
     skip_drafts='--skip-drafts' in sys.argv
     include_approved='--include-approved' in sys.argv
     penalty=2.0
@@ -157,8 +219,8 @@ def main():
         pick=min(INTERNAL, key=lambda r:(cost(r), load[r], r not in experts, r))
         load[pick]+=1
         method='comment' if pick in INFORMAL else 'request'
-        comment=(f"@{pick} could you please help review this internal port PR? Thanks!"
-                 if method=='comment' else '')
+        comment=(f"{MARKER}\n@{pick} could you please help review this internal "
+                 f"test port / refactor PR? Thanks!" if method=='comment' else '')
         assignments.append({
             'pr':n,'url':f'https://github.com/pytorch/pytorch/pull/{n}',
             'title':rec.get('title'),'domain':dom,
@@ -170,7 +232,9 @@ def main():
         })
 
     # ---- report ----
-    print(f"internal reviewer assignment  ({'APPLY' if apply else 'DRY-RUN'}, penalty={penalty})")
+    print(f"internal reviewer assignment  "
+          f"({'GITHUB-APPLY' if github_apply else 'APPLY' if apply else 'DRY-RUN'}, "
+          f"penalty={penalty})")
     print(f"open PRs: {sum(1 for r in recs.values() if r['state']=='OPEN')}  "
           f"needing assignment: {len(todo)}\n")
     for a in assignments:
@@ -191,6 +255,25 @@ def main():
         print("\nwrote /tmp/reviewer_assignments.json and /tmp/reviewer_assignments.csv")
     else:
         print("\n(dry-run: no files written; re-run with --apply to save assignments)")
+
+    if github_apply:
+        print("\n== posting reviewer requests to GitHub (idempotent) ==")
+        done=skipped=failed=0
+        for a in assignments:
+            n,who,method=a['pr'],a['assignee'],a['method']
+            if method=='request':
+                if already_requested(n,who):
+                    print(f"  PR {n}: {who} already requested -- skip"); skipped+=1; continue
+                ok,msg=gh_request_reviewer(n,who)
+            else:  # informal @mention comment
+                if already_commented(n,who):
+                    print(f"  PR {n}: {who} already @mentioned -- skip"); skipped+=1; continue
+                ok,msg=gh_post_comment(n,a['comment'])
+            if ok:
+                print(f"  PR {n}: {method} -> {who}  OK"); done+=1
+            else:
+                print(f"  PR {n}: {method} -> {who}  FAILED: {msg[:120]}"); failed+=1
+        print(f"\napplied: {done}  skipped(existing): {skipped}  failed: {failed}")
 
 if __name__=='__main__':
     main()
