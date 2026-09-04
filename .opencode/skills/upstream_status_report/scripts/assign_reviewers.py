@@ -14,8 +14,12 @@ CuiYifeng and newtdms are NOT formal collaborators, so they cannot be added as a
 formal requested reviewer; for them the assignment is delivered as an @mention
 comment (the text is included in the output file).
 
-"Already has a reviewer" (skipped) = an internal reviewer is currently REQUESTED
-or has ALREADY REVIEWED the PR.
+"Already has a reviewer" (skipped) = an internal reviewer has ALREADY REVIEWED
+the PR. A stalled reviewer *request* that nobody acted on still needs assignment.
+
+Scope: only PRs authored by an Excel assignee (recorded in a file's Intel-PR
+column of a row that has an assignee, plus known assignee logins). Pass
+--all-open to consider every open PR instead.
 
 Modes:
     python3 assign_reviewers.py                 # DRY-RUN: print plan, write nothing
@@ -24,7 +28,8 @@ Options:
     --penalty N     expertise preference strength (default 2; higher = stricter
                     domain match, lower = purer load balancing)
     --skip-drafts   do not assign reviewers to draft PRs
-    --include-approved   also (re)assign open PRs that already have a reviewer
+    --all-open      consider all open PRs, not just Excel-assignee PRs
+    --include-approved   also (re)assign open PRs already reviewed internally
 """
 import json, os, sys, csv
 from collections import Counter, defaultdict
@@ -80,15 +85,42 @@ def main():
     if '--penalty' in sys.argv:
         penalty=float(sys.argv[sys.argv.index('--penalty')+1])
 
+    all_open='--all-open' in sys.argv
+
     owned=json.load(open('/tmp/owned.json'))
     rows=owned['rows']
     recs={int(r['pr']):r for r in json.load(open('/tmp/pr_analysis.json'))}
 
+    import re
+    def _nums(v):
+        out=set()
+        for x in (v or []):
+            m=re.search(r'(\d{5,7})', str(x))
+            if m: out.add(int(m.group(1)))
+        return out
+
     # PR -> set(file paths)
     pr_paths=defaultdict(set)
     for r in rows:
-        for n in (r.get('prs') or [])+(r.get('comm_prs') or []):
-            if r.get('path'): pr_paths[int(n)].add(r['path'])
+        for n in _nums(r.get('prs'))|_nums(r.get('comm_prs')):
+            if r.get('path'): pr_paths[n].add(r['path'])
+
+    # PRs created by an Excel assignee = recorded in a file's Intel-PR column
+    # (col F -> row['prs']) whose row has an assignee set. Community PRs
+    # (comm_prs) are NOT authored by our assignees, so they are excluded.
+    pr_assignee=defaultdict(set)
+    for r in rows:
+        a=r.get('assignee')
+        if not a: continue
+        for n in _nums(r.get('prs')):
+            pr_assignee[n].add(a)
+
+    # GitHub logins of our Excel assignees, derived from the authors of the
+    # assignee-tied PRs, plus explicit additions.
+    ASSIGNEE_AUTHORS={'madhumitha0102'}
+    for n in pr_assignee:
+        a=(recs.get(n) or {}).get('author')
+        if a: ASSIGNEE_AUTHORS.add(a)
 
     # existing load = pending open PRs per reviewer: requested or reviewing but
     # NOT yet approved by them (an already-approved PR is not pending work).
@@ -100,13 +132,18 @@ def main():
         for who in pending:
             if who in EXPERTISE: load[who]+=1
 
-    # PRs needing assignment
+    # PRs needing assignment. Scope: PRs authored by an Excel assignee (unless
+    # --all-open). A PR needs (re)assignment when no internal reviewer has
+    # actually ENGAGED yet (reviewed) -- a stalled request that nobody acted on
+    # still counts as needing a reviewer.
     todo=[]
     for n,rec in sorted(recs.items()):
         if rec['state']!='OPEN': continue
+        if not all_open and n not in pr_assignee and rec.get('author') not in ASSIGNEE_AUTHORS:
+            continue
         if skip_drafts and rec.get('is_draft'): continue
-        has=set(rec.get('internal_requested',[]))|set(rec.get('internal_reviewed_by',[]))
-        if has and not include_approved:
+        reviewed=set(rec.get('internal_reviewed_by',[]))
+        if reviewed and not include_approved:
             continue
         todo.append(n)
 
@@ -127,6 +164,8 @@ def main():
             'title':rec.get('title'),'domain':dom,
             'assignee':pick,'method':method,'comment':comment,
             'is_draft':rec.get('is_draft',False),
+            'author':rec.get('author'),
+            'excel_assignee':','.join(sorted(pr_assignee.get(n,{'?'}))),
             'files':sorted(pr_paths.get(n,set()))[:6],
         })
 
@@ -136,7 +175,8 @@ def main():
           f"needing assignment: {len(todo)}\n")
     for a in assignments:
         d=' [draft]' if a['is_draft'] else ''
-        print(f"  PR {a['pr']:<7} {a['domain']:<11} -> {a['assignee']:<18} ({a['method']}){d}  {a['title'][:50]}")
+        print(f"  PR {a['pr']:<7} {a['domain']:<11} -> {a['assignee']:<18} ({a['method']})"
+              f"  excel:{a['excel_assignee']:<10}{d}  {a['title'][:42]}")
     print("\nresulting open-PR load per reviewer (existing + new):")
     for r in INTERNAL:
         print(f"  {r:<18} {load[r]}  [{EXPERTISE[r]}]")

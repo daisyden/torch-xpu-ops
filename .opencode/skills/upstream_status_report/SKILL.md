@@ -140,9 +140,12 @@ Note: `--rebuild` runs `build_report.sh --refresh` which re-fetches every PR and
 ## Assigning internal reviewers (`assign_reviewers.py`)
 
 Proposes an internal reviewer for every **open** PR that doesn't have one yet
-(none of the 7 internal reviewers is currently requested **and** none has already
-reviewed it). Needs `/tmp/owned.json` and `/tmp/pr_analysis.json` (produced by a
-normal build).
+(no internal reviewer has actually *reviewed* it — a stalled reviewer *request*
+that nobody acted on still counts as needing one). **Scope by default: only PRs
+authored by an Excel assignee** (a PR recorded in the Intel-PR column, col F, of
+a row whose assignee col P is set — plus known assignee logins such as
+`madhumitha0102`). Pass `--all-open` to consider every open PR. Needs
+`/tmp/owned.json` and `/tmp/pr_analysis.json` (produced by a normal build).
 
 - **Domain** is inferred from the PR's test-file paths (sdpa/attention,
   distributed, inductor/dynamo, runtime, ops, else refactor/other).
@@ -163,6 +166,7 @@ python3 assign_reviewers.py                 # DRY-RUN: print plan + resulting lo
 python3 assign_reviewers.py --apply         # write /tmp/reviewer_assignments.{json,csv}
 python3 assign_reviewers.py --penalty 0     # pure load-balancing (ignore expertise)
 python3 assign_reviewers.py --skip-drafts   # don't assign draft PRs
+python3 assign_reviewers.py --all-open      # consider every open PR, not just assignee PRs
 ./build_report.sh --assign                  # run a build then print the dry-run plan
 ```
 
