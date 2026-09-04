@@ -114,6 +114,11 @@ column showing the PR's ready-for-review status: `ready` (green) when the PR is
 not a draft, `draft` (grey) when it is still a GitHub draft. Sourced from the
 `isDraft` field (`analyze.py` → `is_draft` in `pr_analysis.json`).
 
+The **Int.Rev** column lists the internal reviewer name(s) on each PR: those who
+**approved** are shown with a `\u2713` (checkmark), those still pending (requested
+or reviewing but not yet approved) are shown plain. Built in `pr_item()` from
+`internal_approved_by` / `internal_requested` / `internal_reviewed_by`.
+
 `write_refactor_cols.py` writes the same tracker info back into the **xlsx** for To Do files (Status ≠ Done): cols **T** Refactor PR, **U** Refactor Owner, **V** Refactor Status (backs up first). Run `fetch_refactor_tracker.py` before it. It runs automatically in `build_report.sh --refac-cols` (which re-extracts afterward).
 
 If `--mark-done` is used, the xlsx changes, so step 1 is re-run before analyze.

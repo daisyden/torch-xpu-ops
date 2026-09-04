@@ -178,11 +178,15 @@ for r in rows:
     DETAILS['ostatus'].setdefault(collapse_status(r),[]).append(file_item(r))
 
 def pr_item(r):
+    _app=set(r.get('internal_approved_by') or [])
+    _pend=(set(r.get('internal_requested') or [])|set(r.get('internal_reviewed_by') or []))-_app
+    _revs=[f'{w}\u2713' for w in sorted(_app)]+sorted(_pend)
     return {'type':'pr','pr':r['pr'],'title':(r['title'] or ''),
             'team':r['team'] or '','author':r['author'] or '',
             'dist':'yes' if r['distributed'] else '',
             'reqci':' '.join(l.replace('ciflow/','') for l in r['req_labels']),
             'internal':'Y' if r['internal_ok'] else '-',
+            'reviewers':', '.join(_revs),
             'ci':r['ci_state'],
             'community':'Y' if r['community_ok'] else '-',
             't_int':fmt(r['t_internal_h']),'t_ci':fmt(r['t_ci_h']),
@@ -773,7 +777,7 @@ function prHeadCells(it){{
 }}
 function prTailCells(it){{
   return `<td class=c>${{it.dist||''}}</td><td>${{it.reqci||''}}</td>`
-    +`<td class=c>${{badge(it.internal)}}</td><td class=c>${{cistate(it.ci)}}</td><td class=c>${{badge(it.community)}}</td>`
+    +`<td class=c>${{badge(it.internal)}}</td><td class=tt title="${{esc(it.reviewers)}}">${{it.reviewers||''}}</td><td class=c>${{cistate(it.ci)}}</td><td class=c>${{badge(it.community)}}</td>`
     +`<td class=r>${{it.t_int||''}}</td><td class=r>${{it.t_ci||''}}</td><td class=r>${{it.t_com||''}}</td><td class=r>${{it.t_mrg||''}}</td>`
     +`<td class=c>${{it.state||''}}</td>`
     +`<td class=c>${{it.ready==='Y'?'<span class=y>ready</span>':(it.ready==='draft'?'<span class=g>draft</span>':'')}}</td>`;
@@ -786,7 +790,7 @@ function headWith(cols){{
   return '<thead><tr>'+cols.map(c=>`<th>${{c}}</th>`).join('')+'</tr>'+colFilterRow(cols)+'</thead>';
 }}
 const PR_HEAD=['PR','Title','Author'];
-const PR_TAIL=['dist','req CI','Int','CI','Com','t.int','t.CI','t.com','t.mrg','state','Ready'];
+const PR_TAIL=['dist','req CI','Int','Int.Rev','CI','Com','t.int','t.CI','t.com','t.mrg','state','Ready'];
 const REFAC_COLS=['Refactor PR','R.Owner','R.Status'];
 const PR_COLS=PR_HEAD.concat(PR_TAIL);
 // refactor columns + "PR not recorded" placed right after the Author column
