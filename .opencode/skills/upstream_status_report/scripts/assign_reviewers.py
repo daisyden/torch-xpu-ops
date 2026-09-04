@@ -235,7 +235,7 @@ def main():
         pick=min(INTERNAL, key=lambda r:(cost(r), load[r], r not in experts, r))
         load[pick]+=1
         method='comment' if pick in INFORMAL else 'request'
-        comment=(f"{MARKER}\n@{pick} could you please help review this internal "
+        comment=(f"{MARKER}\n@{pick} could you please help review this "
                  f"test port / refactor PR? Thanks!" if method=='comment' else '')
         assignments.append({
             'pr':n,'url':f'https://github.com/pytorch/pytorch/pull/{n}',
