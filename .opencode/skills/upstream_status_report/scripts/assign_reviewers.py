@@ -45,7 +45,11 @@ import json, os, sys, csv, subprocess
 from collections import Counter, defaultdict
 
 REPO='pytorch/pytorch'
-CACHE=os.path.join(os.path.dirname(os.path.abspath(__file__)),'pr_cache')
+HERE=os.path.dirname(os.path.abspath(__file__))
+CACHE=os.path.join(HERE,'pr_cache')
+# persistent ledger of everything we've already posted, so repeated refreshes
+# never create a duplicate request/comment even if the live/cache check misses.
+LEDGER=os.path.join(HERE,'.assign_applied.json')
 # hidden marker so we never post a duplicate @mention review request
 MARKER='<!-- xpu-auto-review-request -->'
 
@@ -95,6 +99,15 @@ def pr_domain(paths, distributed):
 def _raw(n):
     p=os.path.join(CACHE,f'{n}.json')
     return json.load(open(p)) if os.path.exists(p) else {}
+
+def load_ledger():
+    try:
+        return set(tuple(x) for x in json.load(open(LEDGER)))
+    except Exception:
+        return set()
+
+def save_ledger(ledger):
+    json.dump(sorted(list(ledger)), open(LEDGER,'w'), indent=1)
 
 def already_requested(n, login):
     """True if login is currently a requested reviewer on the PR (live check)."""
@@ -272,22 +285,37 @@ def main():
                       "(re-run with --yes to skip this prompt).")
                 return
         print("== posting reviewer requests to GitHub (idempotent) ==")
+        ledger=load_ledger()
+        # PRs we've already auto-assigned in any prior run: never touch again,
+        # even if load-balancing would now pick a different reviewer.
+        actioned_prs={n for (n,_who,_m) in ledger}
         done=skipped=failed=0
         for a in assignments:
             n,who,method=a['pr'],a['assignee'],a['method']
+            key=(n,who,method)
+            # PR-level guard: an auto-assignment already exists for this PR
+            if n in actioned_prs and key not in ledger:
+                print(f"  PR {n}: already auto-assigned earlier -- skip"); skipped+=1; continue
+            # exact (pr,reviewer,method) already actioned -> never repeat
+            if key in ledger:
+                print(f"  PR {n}: {method} -> {who} already done (ledger) -- skip"); skipped+=1; continue
             if method=='request':
                 if already_requested(n,who):
+                    ledger.add(key); save_ledger(ledger)
                     print(f"  PR {n}: {who} already requested -- skip"); skipped+=1; continue
                 ok,msg=gh_request_reviewer(n,who)
             else:  # informal @mention comment
                 if already_commented(n,who):
+                    ledger.add(key); save_ledger(ledger)
                     print(f"  PR {n}: {who} already @mentioned -- skip"); skipped+=1; continue
                 ok,msg=gh_post_comment(n,a['comment'])
             if ok:
+                ledger.add(key); save_ledger(ledger)
                 print(f"  PR {n}: {method} -> {who}  OK"); done+=1
             else:
                 print(f"  PR {n}: {method} -> {who}  FAILED: {msg[:120]}"); failed+=1
         print(f"\napplied: {done}  skipped(existing): {skipped}  failed: {failed}")
+        print(f"ledger: {LEDGER} ({len(ledger)} entries)")
 
 if __name__=='__main__':
     main()

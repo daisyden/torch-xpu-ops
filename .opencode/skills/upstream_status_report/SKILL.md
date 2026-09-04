@@ -175,13 +175,18 @@ python3 assign_reviewers.py --all-open      # consider every open PR, not just a
 **Live apply (`--github-apply` / `build_report.sh --assign-apply`)** actually
 writes to GitHub. It first prints the plan and **prompts for confirmation**
 (type `yes`) before posting anything — pass `--yes`/`-y` to skip the prompt in
-non-interactive runs. It is **idempotent**:
-- Collaborators get a formal reviewer request (`gh api ... /requested_reviewers`);
-  skipped if the reviewer is already requested (live check).
-- Non-collaborators (`CuiYifeng`, `newtdms`) get an `@mention` comment
-  (`gh pr comment`) tagged with a hidden marker `<!-- xpu-auto-review-request -->`;
-  skipped if a prior auto-request comment for that reviewer already exists.
-- Scope is the same Excel-assignee default (drafts included) unless `--all-open`.
+non-interactive runs. It is **idempotent** — nothing is ever posted twice across repeated refreshes,
+guaranteed by three layers:
+- **Persistent ledger** `.assign_applied.json` (in the working dir): once any
+  reviewer has been auto-assigned to a PR, that PR is skipped on every later run
+  (even if load-balancing would now pick a different reviewer); the exact
+  (PR, reviewer, method) tuple is also recorded and never repeated.
+- **Live GitHub check**: a formal request is skipped when the reviewer is already
+  requested; an `@mention` comment is skipped when a prior auto-request comment
+  (hidden marker `<!-- xpu-auto-review-request -->`) for that reviewer exists.
+  Anything found live is folded back into the ledger.
+- Collaborators get a formal reviewer request; non-collaborators (`CuiYifeng`,
+  `newtdms`) get the `@mention` comment.
 
 Section 7 of the report ("Internal review workload") charts the current state:
 open PRs waiting for internal review per reviewer, and (all PRs) open-under-review
