@@ -211,6 +211,36 @@ for r in recs_active:
         if not (r['internal_ok'] and r['community_ok'] and r['ci_state']=='passed'):
             DETAILS['gates_pending'].setdefault('Any gate',[]).append(pr_item(r))
 
+# ---- internal reviewer workload (Section 7) ----
+IR_REVIEWERS=['guangyey','etaf','CuiYifeng','liangan1','newtdms',
+              'astachowiczhabana','pbielak']
+IR_EXPERT={'guangyey':'runtime','etaf':'inductor','CuiYifeng':'ops','liangan1':'sdpa',
+           'newtdms':'distributed','astachowiczhabana':'refactor/other','pbielak':'refactor/other'}
+DETAILS['ir_review']={}   # open PRs waiting for internal review, per reviewer
+DETAILS['ir_under']={}    # open PRs under review, per reviewer
+DETAILS['ir_approved']={} # PRs approved, per reviewer
+ir_waiting={r:0 for r in IR_REVIEWERS}
+ir_under={r:0 for r in IR_REVIEWERS}
+ir_approved={r:0 for r in IR_REVIEWERS}
+for r in recs_active:
+    req=set(r.get('internal_requested') or [])
+    rev=set(r.get('internal_reviewed_by') or [])
+    app=set(r.get('internal_approved_by') or [])
+    pending=(req|rev)-app                       # engaged but not yet approved
+    for who in app:
+        if who in ir_approved:
+            ir_approved[who]+=1
+            DETAILS['ir_approved'].setdefault(who,[]).append(pr_item(r))
+    if r['state']=='OPEN':
+        for who in pending:
+            if who in ir_under:
+                ir_under[who]+=1
+                DETAILS['ir_under'].setdefault(who,[]).append(pr_item(r))
+                if not r['internal_ok']:
+                    ir_waiting[who]+=1
+                    DETAILS['ir_review'].setdefault(who,[]).append(pr_item(r))
+ir_labels=[f'{r} ({IR_EXPERT[r]})' for r in IR_REVIEWERS]
+
 # per-team test-file status detail groups (statt_<i>)
 STATUS_ORDER=[s for s in CAT_ORDER if status_c.get(s)]
 status_by_team={t:Counter() for t in teams_order}
@@ -707,6 +737,15 @@ canvas{{cursor:pointer}}
 <div class=note>Daily count of PRs reaching each milestone.</div></div>
 </div>
 
+<h2>7. Internal review workload &mdash; by reviewer</h2>
+<div class=note>Internal reviewers &amp; expertise: guangyey=runtime, etaf=inductor, CuiYifeng=ops, liangan1=sdpa, newtdms=distributed, astachowiczhabana &amp; pbielak=test refactor/other. &ldquo;Under review&rdquo; = an open PR where the reviewer is requested or has reviewed but has not yet approved. Click a bar to list the PRs.</div>
+<div class=cgrid>
+<div class=panel><h3>Open PRs waiting for internal review (under each reviewer)</h3><div class=ch tall><canvas id=ir_review></canvas></div>
+<div class=note>Open PRs not yet internally approved, by the reviewer currently on them.</div></div>
+<div class=panel><h3>All PRs &mdash; open under review vs. approved (per reviewer)</h3><div class=ch tall><canvas id=ir_all></canvas></div>
+<div class=note>Blue = open PRs under review; green = PRs approved (any state).</div></div>
+</div>
+
 </div><!-- /left -->
 
 <div class=right>
@@ -916,6 +955,22 @@ const MLINE=(id,labels,series)=>new Chart(document.getElementById(id),{{type:'ba
 STACK('trend_pr',{js(trend_labels)},[{pr_series_js}]);
 STACK('trend_file',{js(trend_labels)},[{file_series_js}]);
 MLINE('trend_flow',{js(flow_labels)},[{flow_series_js}]);
+// ---- Section 7: internal reviewer workload ----
+const IRLOGINS={js(IR_REVIEWERS)};
+const IRLABELS={js(ir_labels)};
+new Chart(document.getElementById('ir_review'),{{type:'bar',
+  data:{{labels:IRLABELS,datasets:[{{data:{js([ir_waiting[r] for r in IR_REVIEWERS])},backgroundColor:'#a142f4'}}]}},
+  options:{{...BASE,indexAxis:'y',plugins:{{legend:{{display:false}}}},
+    onClick:(e,els)=>{{ if(els.length) showDetail('ir_review',IRLOGINS[els[0].index]); }},
+    scales:{{x:{{beginAtZero:true}}}}}}}});
+new Chart(document.getElementById('ir_all'),{{type:'bar',
+  data:{{labels:IRLABELS,datasets:[
+    {{label:'open under review',data:{js([ir_under[r] for r in IR_REVIEWERS])},backgroundColor:'#1a73e8'}},
+    {{label:'approved',data:{js([ir_approved[r] for r in IR_REVIEWERS])},backgroundColor:'#34a853'}}
+  ]}},
+  options:{{...BASE,plugins:{{legend:{{position:'bottom',labels:{{boxWidth:12,font:{{size:11}}}}}}}},
+    onClick:(e,els)=>{{ if(els.length){{ const g=els[0].datasetIndex===0?'ir_under':'ir_approved'; showDetail(g,IRLOGINS[els[0].index]); }} }},
+    scales:{{y:{{beginAtZero:true}}}}}}}});
 </script></body></html>"""
 open('report.html','w').write(html)
 print('wrote report.html', len(html),'bytes')

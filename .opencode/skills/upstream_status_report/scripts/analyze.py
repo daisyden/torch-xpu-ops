@@ -65,25 +65,32 @@ for n in owned['prs']:
     merged=parse(d.get('mergedAt')) or (parse(d.get('closedAt')) if is_merged else None)
     # reviews
     internal_t=None; community_t=None; community_by=None
+    internal_approved_by=set()   # internal reviewers who approved (formal or informal)
+    internal_reviewed_by=set()   # internal reviewers who left any review
     def _earlier(cur,t):
         return t if (t and (cur is None or t<cur)) else cur
     for rv in d.get('reviews') or []:
         lg=rv['author']['login'] if rv.get('author') else None
         t=parse(rv.get('submittedAt'))
+        if lg in INTERNAL: internal_reviewed_by.add(lg)
         if rv['state']=='APPROVED':
             if lg in INTERNAL:
-                internal_t=_earlier(internal_t,t)
+                internal_t=_earlier(internal_t,t); internal_approved_by.add(lg)
             elif lg and lg not in INTEL_ALL:  # community = any external approver
                 if community_t is None or (t and t<community_t):
                     community_t=t; community_by=lg
         # informal internal approval via review body text (non-collaborators)
         elif lg in INFORMAL_INTERNAL and APPROVE_RE.search(rv.get('body') or ''):
-            internal_t=_earlier(internal_t,t)
+            internal_t=_earlier(internal_t,t); internal_approved_by.add(lg)
     # informal internal approval via a plain PR comment (non-collaborators)
     for cm in d.get('comments') or []:
         lg=cm['author']['login'] if cm.get('author') else None
         if lg in INFORMAL_INTERNAL and APPROVE_RE.search(cm.get('body') or ''):
             internal_t=_earlier(internal_t,parse(cm.get('createdAt')))
+            internal_approved_by.add(lg); internal_reviewed_by.add(lg)
+    # currently-requested internal reviewers
+    req_r={(x or {}).get('login') for x in (d.get('reviewRequests') or [])}
+    internal_requested=sorted(r for r in req_r if r in INTERNAL)
     # required workflows from labels
     req_labels=[l for l in LABEL_WF if l in labels]
     req_wfs={LABEL_WF[l] for l in req_labels}
@@ -116,6 +123,9 @@ for n in owned['prs']:
         'req_labels':req_labels,'distributed':pr_dist.get(n,False),
         'is_refactor':n in comm_only,   # community/refactor PR from Google doc (col O)
         'internal_ok':internal_t is not None,
+        'internal_requested':internal_requested,
+        'internal_reviewed_by':sorted(internal_reviewed_by),
+        'internal_approved_by':sorted(internal_approved_by),
         'community_ok':community_t is not None,'community_by':community_by,
         'ci_state':ci_state,
         't_internal_h':hours(created,internal_t),

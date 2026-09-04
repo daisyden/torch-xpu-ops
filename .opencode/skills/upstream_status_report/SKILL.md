@@ -137,6 +137,39 @@ python3 discover_prs.py --since 2026-08-01 --limit 200
 
 Note: `--rebuild` runs `build_report.sh --refresh` which re-fetches every PR and can take several minutes.
 
+## Assigning internal reviewers (`assign_reviewers.py`)
+
+Proposes an internal reviewer for every **open** PR that doesn't have one yet
+(none of the 7 internal reviewers is currently requested **and** none has already
+reviewed it). Needs `/tmp/owned.json` and `/tmp/pr_analysis.json` (produced by a
+normal build).
+
+- **Domain** is inferred from the PR's test-file paths (sdpa/attention,
+  distributed, inductor/dynamo, runtime, ops, else refactor/other).
+- **Expertise preference** (a *soft* preference, not a hard rule): guangyey=runtime,
+  etaf=inductor, CuiYifeng=ops, liangan1=sdpa, newtdms=distributed,
+  astachowiczhabana & pbielak=test refactor/other.
+- **Load balancing**: each reviewer's current pending open-PR load is counted;
+  the assignee minimizes `load + penalty·(not-expert)`. A `--penalty` of 0 gives
+  pure balancing; higher values weight expertise more (default 2). An overloaded
+  expert therefore spills over to lighter-loaded reviewers.
+- **Delivery**: collaborators get `method=request` (formal review request);
+  `CuiYifeng`/`newtdms` (non-collaborators) get `method=comment` with a ready-to-
+  paste `@mention` comment. **No GitHub calls are made** — apply mode only writes
+  a file for manual action.
+
+```bash
+python3 assign_reviewers.py                 # DRY-RUN: print plan + resulting loads
+python3 assign_reviewers.py --apply         # write /tmp/reviewer_assignments.{json,csv}
+python3 assign_reviewers.py --penalty 0     # pure load-balancing (ignore expertise)
+python3 assign_reviewers.py --skip-drafts   # don't assign draft PRs
+./build_report.sh --assign                  # run a build then print the dry-run plan
+```
+
+Section 7 of the report ("Internal review workload") charts the current state:
+open PRs waiting for internal review per reviewer, and (all PRs) open-under-review
+vs. approved per reviewer. Both are click-through to the PR lists.
+
 ## Sharing the report with others
 
 Serve `report.html` over HTTP so others can open it in a browser:
@@ -175,8 +208,14 @@ python3 gen_report.py             # -> report.html
 - **Owned** = spreadsheet rows with team/owner column L (SH/PL/US) set.
 - **Merged** detection = PR `state == MERGED`, or `Merged` label + `closedAt`
   (ghstack closes without MERGED state).
-- **Internal reviewers**: `etaf`, `guangyey`. **Community** = any external
+- **Internal reviewers** (7): `guangyey`, `etaf`, `CuiYifeng`, `liangan1`,
+  `newtdms`, `astachowiczhabana`, `pbielak`. **Community** = any external
   (non-Intel) approver (e.g. `jansel`, `fffrog`).
+- **Informal approvals**: `CuiYifeng` and `newtdms` are **not formal
+  collaborators**, so they may not be able to cast a formal *Approve* review. For
+  these two, an approval expressed in a **review body** or a **plain PR comment**
+  (matching `lgtm|approved?|looks good|ok to merge`) is accepted as an internal
+  approval (`fetch_prs.py` pulls `comments`; logic in `analyze.py`).
 - **CI required labels**: refactor→`ciflow/trunk`, XPU→`ciflow/xpu`,
   distributed→`ciflow/h100-distributed`. A PR with **no** required ciflow label
   cannot run CI (`ci_state == 'no_required_label'`).
