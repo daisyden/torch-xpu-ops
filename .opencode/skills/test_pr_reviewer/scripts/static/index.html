@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PyTorch test-refactor review</title>
+<link rel="stylesheet" href="/app.css">
+</head>
+<body>
+
+<header id="top">
+  <div class="brand">test-refactor review</div>
+  <input id="prInput" type="text" placeholder="PR number or URL, e.g. 189250" spellcheck="false">
+  <button id="loadBtn">Load</button>
+  <button id="refreshBtn" class="ghost" title="Re-fetch from GitHub">&#x21bb;</button>
+  <select id="fileSelect" title="Changed files"></select>
+  <span id="prTitle"></span>
+  <a id="prLink" href="#" target="_blank" rel="noopener" hidden>on GitHub &#8599;</a>
+  <span class="spacer"></span>
+  <label class="chk"><input type="checkbox" id="hideBenign"> hide benign diff lines</label>
+  <label class="chk"><input type="checkbox" id="onlyNew"> only new code (+)</label>
+  <label class="chk"><input type="checkbox" id="lockScroll"> link scroll</label>
+  <button id="summaryBtn" class="ghost">Refactor map</button>
+  <span id="status"></span>
+</header>
+
+<div id="layout">
+
+  <section class="pane" id="paneDiff">
+    <div class="pane-head">
+      <span class="pane-title">1 &middot; PR diff</span>
+      <span class="pane-sub" id="diffSub"></span>
+      <span class="legend">
+        <i class="sw moved"></i>moved
+        <i class="sw devicechg"></i>device-only
+        <i class="sw realchg"></i>new / deleted
+      </span>
+    </div>
+    <div class="pane-nav">
+      <span class="nav-group">
+        <button id="prevChangeBtn" class="ghost nav" title="previous changed line (Shift+K)">&#9650;</button>
+        <span class="nav-label">change</span>
+        <button id="nextChangeBtn" class="ghost nav" title="next changed line (Shift+J)">&#9660;</button>
+        <span class="nav-count" id="changeCount"></span>
+      </span>
+      <span class="nav-sep"></span>
+      <span class="nav-group real">
+        <button id="prevRealBtn" class="ghost nav" title="previous real change \u2014 skips pure moves and device-only edits (P)">&#9650;</button>
+        <span class="nav-label">real change</span>
+        <button id="nextRealBtn" class="ghost nav" title="next real change \u2014 skips pure moves and device-only edits (N)">&#9660;</button>
+        <span class="nav-count" id="realCount"></span>
+      </span>
+    </div>
+    <div class="pane-body" id="diffBody">
+      <div class="placeholder">Load a PR, pick a file, then click any <b>&minus;</b> or <b>+</b> line.</div>
+    </div>
+  </section>
+
+  <div class="gutter" data-resize="1"></div>
+
+  <section class="pane" id="paneBase">
+    <div class="pane-head">
+      <span class="pane-title">2 &middot; base</span>
+      <span class="pane-cls" id="baseCls"></span>
+      <span class="pane-sub" id="baseSub"></span>
+    </div>
+    <div class="pane-nav">
+      <span class="nav-group">
+        <button id="basePrevChangeBtn" class="ghost nav" title="previous changed line in this file">&#9650;</button>
+        <span class="nav-label">change</span>
+        <button id="baseNextChangeBtn" class="ghost nav" title="next changed line in this file">&#9660;</button>
+        <span class="nav-count" id="baseChangeCount"></span>
+      </span>
+      <span class="nav-sep"></span>
+      <span class="nav-group real">
+        <button id="basePrevRealBtn" class="ghost nav" title="previous real change in this file">&#9650;</button>
+        <span class="nav-label">real change</span>
+        <button id="baseNextRealBtn" class="ghost nav" title="next real change in this file">&#9660;</button>
+        <span class="nav-count" id="baseRealCount"></span>
+      </span>
+    </div>
+    <div class="pane-body" id="baseBody">
+      <div class="placeholder">base-revision file appears here</div>
+    </div>
+  </section>
+
+  <div class="gutter" data-resize="2"></div>
+
+  <section class="pane" id="paneHead">
+    <div class="pane-head">
+      <span class="pane-title">3 &middot; PR (head)</span>
+      <span class="pane-cls" id="headCls"></span>
+      <span class="pane-sub" id="headSub"></span>
+    </div>
+    <div class="pane-nav">
+      <span class="nav-group">
+        <button id="headPrevChangeBtn" class="ghost nav" title="previous changed line in this file">&#9650;</button>
+        <span class="nav-label">change</span>
+        <button id="headNextChangeBtn" class="ghost nav" title="next changed line in this file">&#9660;</button>
+        <span class="nav-count" id="headChangeCount"></span>
+      </span>
+      <span class="nav-sep"></span>
+      <span class="nav-group real">
+        <button id="headPrevRealBtn" class="ghost nav" title="previous real change in this file">&#9650;</button>
+        <span class="nav-label">real change</span>
+        <button id="headNextRealBtn" class="ghost nav" title="next real change in this file">&#9660;</button>
+        <span class="nav-count" id="headRealCount"></span>
+      </span>
+    </div>
+    <div class="pane-body" id="headBody">
+      <div class="placeholder">PR-revision file appears here</div>
+    </div>
+  </section>
+
+</div>
+
+<div id="matchbar" hidden>
+  <span class="mb-label">counterpart</span>
+  <span id="mbInfo"></span>
+  <span class="spacer"></span>
+  <label class="mb-label" for="candSelect">alternatives</label>
+  <select id="candSelect"></select>
+  <button id="prevDiffBtn" class="ghost" title="previous reviewable difference">&#9650;</button>
+  <button id="nextDiffBtn" class="ghost" title="next reviewable difference">&#9660;</button>
+</div>
+
+<div id="overlay" hidden>
+  <div id="overlayCard">
+    <div id="overlayHead">
+      <b>Refactor map</b>
+      <span class="dim" id="overlayHint">click a row to jump to it &middot; Esc or click outside to close</span>
+      <span class="spacer"></span>
+      <button id="overlayClose" class="ghost" title="close (Esc)">&#10005; close</button>
+    </div>
+    <div id="overlayBody"></div>
+  </div>
+</div>
+
+<script src="/app.js"></script>
+</body>
+</html>
