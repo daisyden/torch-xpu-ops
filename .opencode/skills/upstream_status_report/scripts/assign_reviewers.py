@@ -230,9 +230,15 @@ def main():
         rec=recs[n]
         dom=pr_domain(pr_paths.get(n,set()), rec.get('distributed',False))
         experts=set(DOMAIN_REVIEWERS[dom])
-        # cost = current load + penalty if not a domain expert; pick min
-        def cost(r): return load[r]+(0.0 if r in experts else penalty)
-        pick=min(INTERNAL, key=lambda r:(cost(r), load[r], r not in experts, r))
+        # newtdms is the dedicated distributed reviewer: every distributed PR
+        # goes to newtdms, and newtdms is never assigned a non-distributed PR.
+        if dom=='distributed':
+            pick='newtdms'
+        else:
+            cands=[r for r in INTERNAL if r!='newtdms']
+            # cost = current load + penalty if not a domain expert; pick min
+            def cost(r): return load[r]+(0.0 if r in experts else penalty)
+            pick=min(cands, key=lambda r:(cost(r), load[r], r not in experts, r))
         load[pick]+=1
         method='comment' if pick in INFORMAL else 'request'
         comment=(f"{MARKER}\n@{pick} could you please help review this "
