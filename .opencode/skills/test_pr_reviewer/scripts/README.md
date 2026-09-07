@@ -188,6 +188,37 @@ What makes that hold:
   is a benefit (one fetch serves everyone) but means one user's `↻` refresh
   re-fetches for everyone.
 
+## Which base commit is used
+
+The base side is the PR's **merge base** — the commit the PR was branched from —
+not the current tip of the target branch.
+
+This matters more than it sounds. GitHub's `pull_request.base.sha` is a *moving
+pointer* at the tip of `main`, so it advances as main moves on. For
+pytorch#192506 it was **83 commits ahead** of the true base, and 2 of that PR's
+10 files had also been modified upstream in that window — so reading base files
+at `.base.sha` mixed unrelated upstream edits into the review.
+
+Worse, GitHub's `pulls` *diff* endpoint already uses the merge base, so the diff
+and the base file contents disagreed: 88 of 88 context lines in one file failed
+to match, silently corrupting every line number, colour and match in panes 2/3.
+
+```
+PR 192506  merge base   b021fb47391e   <- what the tool now uses
+           .base.sha    3b2f1d3455b4   (83 commits ahead)
+```
+
+`prdata.load_pr` resolves it via
+`gh api repos/<repo>/compare/<base.sha>...<head.sha>` and reads
+`.merge_base_commit.sha`; the branch tip is kept as `branch_tip_sha` for
+reference, and `behind_by` records how far main has moved. Both are shown in the
+UI tooltips, and each pane header states the short SHA it is displaying.
+
+`dev/_validate_base.py` guards this: it asserts the base is the merge base *and*
+that every context/deleted line in the diff matches the base file byte for byte
+(and every context/added line matches the head file). Reverting the fix makes it
+fail with `88 mismatched, first at [30, 31, 32]`.
+
 ## How matching works
 
 Class names are **not** used as the key. A survey of 46 real refactor PRs shows
@@ -349,6 +380,7 @@ cd dev
 # matcher accuracy against ground truth computed independently
 PYTHONPATH=.. python3 -W ignore _validate2.py 189250 195730 195840
 PYTHONPATH=.. python3 -W ignore _validate_cls.py 189250
+PYTHONPATH=.. python3 -W ignore _validate_base.py 192506 189250
 PYTHONPATH=.. python3 -W ignore _validate_linemap.py 189250 195155
 PYTHONPATH=.. python3 -W ignore _validate_added.py 189250
 

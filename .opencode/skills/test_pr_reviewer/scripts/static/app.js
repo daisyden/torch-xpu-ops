@@ -758,8 +758,20 @@ function renderFileViews() {
   buildFileView('headBody', lm.head, 'right');
   const bn = lm.base.path.split('/').pop();
   const hn = lm.head.path.split('/').pop();
-  $('baseSub').textContent = `${bn} @ base \u00b7 ${lm.base.text.length} lines`;
-  $('headSub').textContent = `${hn} @ PR \u00b7 ${lm.head.text.length} lines`;
+  // Show which commit each side is, so it is obvious the base is the PR's
+  // merge base (the commit it was branched from) and not the current tip of
+  // main -- comparing against the tip would attribute unrelated upstream
+  // commits to this PR.
+  const bsha = (S.data && S.data.base_sha) ? S.data.base_sha.slice(0, 9) : '';
+  const hsha = (S.data && S.data.head_sha) ? S.data.head_sha.slice(0, 9) : '';
+  $('baseSub').textContent =
+    `${bn} @ base ${bsha} \u00b7 ${lm.base.text.length} lines`;
+  $('headSub').textContent =
+    `${hn} @ PR ${hsha} \u00b7 ${lm.head.text.length} lines`;
+  $('baseSub').title = S.data && S.data.base_sha
+    ? `merge base (the commit this PR branched from): ${S.data.base_sha}`
+    : '';
+  $('headSub').title = S.data && S.data.head_sha ? `PR head: ${S.data.head_sha}` : '';
   setBreadcrumb('base', null);
   setBreadcrumb('head', null);
   linkPaneScroll();
@@ -1092,6 +1104,17 @@ async function loadPR(ref, refresh) {
   S.ref = ref;
   S.meta = await api('pr', { ref, refresh: refresh ? 1 : 0 });
   $('prTitle').textContent = `#${S.meta.number} ${S.meta.title}`;
+  // State the base explicitly. Reviewers need to know the comparison is against
+  // the commit the PR branched from, not today's main; `behind_by` says how far
+  // main has moved since, which is useful context for stale PRs.
+  if (S.meta.base_sha) {
+    const behind = S.meta.behind_by
+      ? `, main is ${S.meta.behind_by} commit${S.meta.behind_by === 1 ? '' : 's'} ahead`
+      : '';
+    $('prTitle').title =
+      `base = merge base ${S.meta.base_sha} (the commit this PR branched from)${behind}\n` +
+      `head = ${S.meta.head_sha}`;
+  }
   const link = $('prLink');
   link.href = S.meta.url; link.hidden = false;
 

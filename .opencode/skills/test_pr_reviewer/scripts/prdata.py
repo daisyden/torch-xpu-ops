@@ -153,7 +153,15 @@ def parse_unified_diff(diff_text: str) -> list[FileDiff]:
     cur: FileDiff | None = None
     base_no = head_no = 0
 
-    for raw in diff_text.split("\n"):
+    # `split("\n")` yields a trailing "" for the final newline.  A genuine
+    # context line for a blank source line is " " (a single space), so a bare ""
+    # is never real content -- treating it as context used to append a phantom
+    # line and shift every subsequent line number for that file.
+    raw_lines = diff_text.split("\n")
+    if raw_lines and raw_lines[-1] == "":
+        raw_lines.pop()
+
+    for raw in raw_lines:
         if raw.startswith("diff --git "):
             m = re.match(r"diff --git a/(.*) b/(.*)$", raw)
             old_p, new_p = (m.group(1), m.group(2)) if m else ("", "")
@@ -198,10 +206,13 @@ def parse_unified_diff(diff_text: str) -> list[FileDiff]:
             head_no += 1
             cur.additions += 1
         elif raw.startswith(" ") or raw == "":
-            if raw == "" and not cur.lines:
+            # A blank context line is " " in a unified diff.  Anything that is
+            # exactly "" here is diff padding, not source, so it must not
+            # consume a line number.
+            if raw == "":
                 continue
             cur.lines.append(
-                DiffLine("ctx", raw[1:] if raw else "", base_no=base_no, head_no=head_no)
+                DiffLine("ctx", raw[1:], base_no=base_no, head_no=head_no)
             )
             base_no += 1
             head_no += 1
@@ -383,6 +394,10 @@ class PullRequest:
     head_repo: str
     files: list[FileDiff]
     repo_access: RepoAccess
+    # `.base.sha` as GitHub reports it: a moving pointer at the *current* tip of
+    # the target branch, kept only for reference/debugging.
+    branch_tip_sha: str = ""
+    behind_by: int = 0
 
     def meta_json(self) -> dict[str, Any]:
         return {
@@ -395,6 +410,8 @@ class PullRequest:
             "base_sha": self.base_sha,
             "head_sha": self.head_sha,
             "head_repo": self.head_repo,
+            "branch_tip_sha": self.branch_tip_sha,
+            "behind_by": self.behind_by,
             "clone": str(self.repo_access.clone) if self.repo_access.clone else None,
             "files": [
                 {
@@ -501,7 +518,7 @@ def load_pr(ref: str, refresh: bool = False, default_repo: str = "pytorch/pytorc
     if refresh or not meta_c.exists():
         jq = (
             "{title:.title,author:.user.login,state:.state,url:.html_url,"
-            "base_sha:.base.sha,head_sha:.head.sha,"
+            "branch_tip_sha:.base.sha,head_sha:.head.sha,base_ref:.base.ref,"
             'head_repo:(.head.repo.full_name // "")}'
         )
         meta_raw = _run(
@@ -509,6 +526,47 @@ def load_pr(ref: str, refresh: bool = False, default_repo: str = "pytorch/pytorc
         )
         _atomic_write(meta_c, meta_raw)
     meta = json.loads(meta_c.read_text(encoding="utf-8"))
+    # Migrate caches written by an older version, which stored the branch tip
+    # under "base_sha" and had no "branch_tip_sha".
+    if "branch_tip_sha" not in meta:
+        if "base_sha" in meta:
+            meta["branch_tip_sha"] = meta["base_sha"]
+        else:
+            meta_c.unlink(missing_ok=True)
+            return load_pr(ref, refresh=True, default_repo=default_repo)
+
+    # Resolve the real base: the commit the PR was branched from.
+    #
+    # `.base.sha` is NOT that commit -- it is a moving pointer at the current tip
+    # of the target branch, so it advances as main moves on.  Diffing against it
+    # attributes unrelated upstream commits to the PR: for pytorch#192506,
+    # `.base.sha` was 83 commits ahead of the true base, and 2 of the PR's 10
+    # files had also been modified upstream in that window.
+    #
+    # The merge base is what `gh pr diff` and the GitHub "Files changed" tab use.
+    meta_c2 = _cache_path(repo, number, "mergebase.json")
+    if refresh or not meta_c2.exists():
+        mb_raw = _run(
+            [
+                "gh",
+                "api",
+                f"repos/{repo}/compare/{meta['branch_tip_sha']}...{meta['head_sha']}",
+                "--jq",
+                "{merge_base:.merge_base_commit.sha,behind_by:.behind_by,"
+                "ahead_by:.ahead_by,status:.status}",
+            ],
+            check=False,
+        )
+        if not mb_raw.strip():
+            # comparison unavailable (e.g. a deleted fork): fall back to the
+            # branch tip, which is better than failing outright
+            mb_raw = json.dumps(
+                {"merge_base": meta["branch_tip_sha"], "behind_by": 0,
+                 "ahead_by": 0, "status": "unavailable"}
+            )
+        _atomic_write(meta_c2, mb_raw)
+    mb = json.loads(meta_c2.read_text(encoding="utf-8"))
+    base_sha = mb.get("merge_base") or meta["branch_tip_sha"]
 
     if refresh or not diff_c.exists():
         diff_text = _run(
@@ -533,9 +591,11 @@ def load_pr(ref: str, refresh: bool = False, default_repo: str = "pytorch/pytorc
         author=meta.get("author", ""),
         state=meta.get("state", ""),
         url=meta.get("url", f"https://github.com/{repo}/pull/{number}"),
-        base_sha=meta["base_sha"],
+        base_sha=base_sha,
         head_sha=meta["head_sha"],
         head_repo=meta.get("head_repo") or repo,
+        branch_tip_sha=meta["branch_tip_sha"],
+        behind_by=int(mb.get("behind_by") or 0),
         files=files,
         repo_access=access,
     )

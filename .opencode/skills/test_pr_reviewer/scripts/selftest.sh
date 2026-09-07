@@ -38,6 +38,13 @@ else
   fails=$((fails+1))
 fi
 
+step "base commit: merge base + diff/file line agreement"
+if python3 -W ignore dev/_validate_base.py $PRS 2>&1 | tail -3 | tee /tmp/st_base.log; then
+  grep -q "ALL BASE-COMMIT CHECKS PASS" /tmp/st_base.log || fails=$((fails+1))
+else
+  fails=$((fails+1))
+fi
+
 step "matcher: whole-file line map consistency"
 if python3 -W ignore dev/_validate_linemap.py $PRS 2>&1 | tail -3 | tee /tmp/st_lm.log; then
   grep -q "^OK" /tmp/st_lm.log || fails=$((fails+1))

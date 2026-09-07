@@ -83,6 +83,33 @@ pane 3   TestDictDataLoaderDevice . test_pin_memory
 Press `m` for the **Refactor map**: the derived class mapping, the list of methods
 needing attention, and the verbatim moves that are safe to skim.
 
+## Which base commit is compared
+
+The base side is the PR's **merge base** — the commit the PR was branched from —
+not the current tip of the target branch.
+
+GitHub's `pull_request.base.sha` is a moving pointer at the tip of `main`, so it
+advances as main moves on. For pytorch#192506 it was 83 commits ahead of the true
+base and 2 of the PR's 10 files had also been changed upstream in that window.
+Since GitHub's `pulls` diff endpoint *already* uses the merge base, using
+`.base.sha` for file contents made the diff and the files disagree — 88 of 88
+context lines mismatched in one file, corrupting every line number in panes 2/3.
+
+```
+PR 192506   merge base  b021fb47391e   <- used by the tool
+            .base.sha   3b2f1d3455b4   (83 commits ahead of it)
+```
+
+Each pane header shows the short SHA it is displaying, and the PR title tooltip
+gives the full base/head SHAs plus how far main has moved since. Verify with:
+
+```bash
+python3 dev/_validate_base.py 192506 189250
+```
+
+It asserts the base is the merge base *and* that every context/deleted line in
+the diff matches the base file byte for byte.
+
 ## How the matching works (and why not by name)
 
 Class names are **not** used as the key. A survey of 46 real PRs shows they are
