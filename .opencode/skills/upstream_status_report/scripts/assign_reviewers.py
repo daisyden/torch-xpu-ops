@@ -165,6 +165,11 @@ def main():
 
     all_open='--all-open' in sys.argv
 
+    # --only 186332,189564,...  restrict assignment to these PR numbers.
+    only=None
+    if '--only' in sys.argv:
+        only=set(int(x) for x in sys.argv[sys.argv.index('--only')+1].replace(',',' ').split())
+
     owned=json.load(open('/tmp/owned.json'))
     rows=owned['rows']
     recs={int(r['pr']):r for r in json.load(open('/tmp/pr_analysis.json'))}
@@ -216,6 +221,7 @@ def main():
     # request is left alone; use --include-approved to reconsider).
     todo=[]
     for n,rec in sorted(recs.items()):
+        if only is not None and n not in only: continue
         if rec['state']!='OPEN': continue
         if not all_open and rec.get('author') not in ASSIGNEE_AUTHORS:
             continue
