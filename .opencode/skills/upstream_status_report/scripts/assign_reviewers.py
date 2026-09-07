@@ -183,22 +183,18 @@ def main():
         for n in _nums(r.get('prs'))|_nums(r.get('comm_prs')):
             if r.get('path'): pr_paths[n].add(r['path'])
 
-    # PRs created by an Excel assignee = recorded in a file's Intel-PR column
-    # (col F -> row['prs']) whose row has an assignee set. Community PRs
-    # (comm_prs) are NOT authored by our assignees, so they are excluded.
-    pr_assignee=defaultdict(set)
-    for r in rows:
-        a=r.get('assignee')
-        if not a: continue
-        for n in _nums(r.get('prs')):
-            pr_assignee[n].add(a)
-
-    # GitHub logins of our Excel assignees, derived from the authors of the
-    # assignee-tied PRs, plus explicit additions.
-    ASSIGNEE_AUTHORS={'madhumitha0102'}
-    for n in pr_assignee:
-        a=(recs.get(n) or {}).get('author')
-        if a: ASSIGNEE_AUTHORS.add(a)
+    # GitHub logins of our Excel assignees (Assignee column name -> GitHub login).
+    # Scope is based purely on PR AUTHORSHIP: a PR is only assignable if it was
+    # authored by one of these people. We do NOT infer scope from which file row
+    # a PR is linked to (a PR can touch a file owned by a different assignee).
+    ASSIGNEE_LOGINS={
+        'Artur':'AKloniecki', 'Benedykt':'BBBela', 'Daisy':'daisyden',
+        'Erxin':'shangerxin', 'Grzegorz':'gplutop7', 'Jakub':'jkosnox',
+        'Libo':'libohao1201', 'Madhu':'madhumitha0102', 'Piotr':'pbielak',
+        'Tomek':'tszulist-hbn', 'Xiangdong':'zxd1997066',
+    }
+    ASSIGNEE_AUTHORS=set(ASSIGNEE_LOGINS.values())
+    LOGIN2NAME={v:k for k,v in ASSIGNEE_LOGINS.items()}
 
     # existing load = pending open PRs per reviewer: requested or reviewing but
     # NOT yet approved by them (an already-approved PR is not pending work).
@@ -210,14 +206,14 @@ def main():
         for who in pending:
             if who in EXPERTISE: load[who]+=1
 
-    # PRs needing assignment. Scope: PRs authored by an Excel assignee (unless
+    # PRs needing assignment. Scope: PRs AUTHORED by an Excel assignee (unless
     # --all-open). A PR needs (re)assignment when no internal reviewer has
     # actually ENGAGED yet (reviewed) -- a stalled request that nobody acted on
     # still counts as needing a reviewer.
     todo=[]
     for n,rec in sorted(recs.items()):
         if rec['state']!='OPEN': continue
-        if not all_open and n not in pr_assignee and rec.get('author') not in ASSIGNEE_AUTHORS:
+        if not all_open and rec.get('author') not in ASSIGNEE_AUTHORS:
             continue
         if skip_drafts and rec.get('is_draft'): continue
         reviewed=set(rec.get('internal_reviewed_by',[]))
@@ -243,7 +239,7 @@ def main():
             'assignee':pick,'method':method,'comment':comment,
             'is_draft':rec.get('is_draft',False),
             'author':rec.get('author'),
-            'excel_assignee':','.join(sorted(pr_assignee.get(n,{'?'}))),
+            'excel_assignee':LOGIN2NAME.get(rec.get('author'),'?'),
             'files':sorted(pr_paths.get(n,set()))[:6],
         })
 
