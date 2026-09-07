@@ -210,14 +210,18 @@ def main():
     # --all-open). A PR needs (re)assignment when no internal reviewer has
     # actually ENGAGED yet (reviewed) -- a stalled request that nobody acted on
     # still counts as needing a reviewer.
+    # A PR needs assignment only when it has NO internal reviewer yet -- neither
+    # formally requested nor @mention-commented nor reviewed. If any internal
+    # reviewer is already assigned (requested/engaged), skip it (a stalled
+    # request is left alone; use --include-approved to reconsider).
     todo=[]
     for n,rec in sorted(recs.items()):
         if rec['state']!='OPEN': continue
         if not all_open and rec.get('author') not in ASSIGNEE_AUTHORS:
             continue
         if skip_drafts and rec.get('is_draft'): continue
-        reviewed=set(rec.get('internal_reviewed_by',[]))
-        if reviewed and not include_approved:
+        assigned=set(rec.get('internal_requested',[]))|set(rec.get('internal_reviewed_by',[]))
+        if assigned and not include_approved:
             continue
         todo.append(n)
 
