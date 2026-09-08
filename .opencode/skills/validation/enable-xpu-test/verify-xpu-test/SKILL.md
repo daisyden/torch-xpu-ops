@@ -40,6 +40,8 @@ recommends is applied by the caller (`develop-xpu-test`) or the user.
 
 - **bash**: activate the XPU conda env and run pytest.
 - **grep / Read**: inspect pytest output for XPU rows and outcomes.
+- **`review_xpu_test_coverage.md`**: the CUDA -> XPU decorator parity checklist
+  applied in Step 5 for the XPU test coverage check.
 
 ## Workflow
 
@@ -136,30 +138,19 @@ Pass criteria:
   `torch.cuda.is_available()` is False there — that is expected, not a
   regression.
 
-### Step 5: Verify decorator parity edits in the test file
+### Step 5: Verify XPU test coverage (decorator parity)
 
-Check that requested XPU decorator parity edits are present in the modified test
-file.
+Confirm that every CUDA-conditional decorator was mirrored to XPU with the
+correct scope, and that the class is actually instantiated for XPU. Do **not**
+re-derive the rules here — apply the full checklist in
+[`review_xpu_test_coverage.md`](./review_xpu_test_coverage.md), which is the
+single source of truth for CUDA -> XPU decorator parity (large-tensor gating,
+dtype overrides, device-only restrictions, conditional skips, expected failures,
+tolerance overrides, TF32 modes, stacked decorators, and XPU instantiation).
 
-1. **`largeTensorTest` parity check**
-   - If the file has `@largeTensorTest("20GB", "cuda")`, it must also have
-     `@largeTensorTest("20GB", "xpu")`.
-   - More generally, for each CUDA large-tensor decorator that was mirrored by
-     develop-xpu-test, confirm the XPU version exists with the same size scope.
-
-2. **dtype decorator parity check**
-   - If a CUDA dtype decorator is present (`@dtypeIfCuda(...)` or
-     `@dtypesIfCUDA(...)`) and was mirrored for XPU by develop-xpu-test,
-     confirm the XPU counterpart exists with the same dtype scope.
-
-3. **Import check for XPU dtype decorator**
-   - Confirm the test file includes the requested import:
-
-   ```python
-   from torch.testing._internal.common_device_type import dtypeIfXpu
-   ```
-
-   (or an equivalent grouped import line that includes `dtypeIfXpu`).
+Review the modified test file against that checklist and record each finding
+(Rule / Location / CUDA decorator / XPU counterpart / Status / Severity) as
+defined there. Any **Blocker** or **Major** parity gap fails this gate.
 
 ### Step 6: Flag entries to revert
 
@@ -179,8 +170,8 @@ Return a concise verification report:
   a different test class or test name.
 - XPU rows exercised: yes/no (with a count).
 - New XPU failures/errors: list any (test id + short reason), or "none".
-- Decorator parity checks: pass/fail for `largeTensorTest`, dtype parity, and
-  `dtypeIfXpu` import.
+- XPU test coverage (decorator parity per `review_xpu_test_coverage.md`):
+  pass/fail, listing any Blocker/Major finding (Rule / Location / Status).
 - Widened `expectedFailure` entries that unexpectedly pass on XPU (must revert):
   list `(op, test_class, test_name)`, or "none".
 - CUDA-only cells: "unchanged (skipped on XPU host)" or list any regressions.
@@ -207,6 +198,8 @@ Return a concise verification report:
 
 ## See Also
 
+- [`review_xpu_test_coverage.md`](./review_xpu_test_coverage.md) — the CUDA -> XPU
+  decorator parity checklist used by Step 5 (XPU test coverage check).
 - `develop-xpu-test` — produces the enablement edits this skill verifies, and
   applies any revert this skill recommends.
 - `submit-xpu-test-pr` — packages the verified edits into a confirm-gated draft PR.
