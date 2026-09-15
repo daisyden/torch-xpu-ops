@@ -4,7 +4,7 @@ XLSX = os.path.join(os.path.dirname(__file__), 'test_files_by_category_20260723.
 
 # column map (1-indexed) on 'Test Files' sheet
 C_PATH=3; C_FILE=4; C_PERSON=5; C_PR=6; C_DEVREL=7; C_XPU=8
-C_TEAM=12; C_COMMPR=15; C_ASSIGNEE=16; C_STATUS=17
+C_TEAM=12; C_COMMPR=15; C_ASSIGNEE=16; C_STATUS=17; C_COMMENT=19
 
 PULL_RE=re.compile(r'pytorch/pytorch/pull/(\d+)')
 HASH_RE=re.compile(r'#(\d+)')
@@ -55,6 +55,7 @@ for ri in range(2, ws.max_row+1):
         'device_relevance':ws.cell(ri,C_DEVREL).value,
         'xpu':norm_xpu(ws.cell(ri,C_XPU).value),
         'status':ws.cell(ri,C_STATUS).value,
+        'comment':ws.cell(ri,C_COMMENT).value,
         'prs':prs,
         'comm_prs':comm_prs,
         'distributed':'distributed' in str(path),

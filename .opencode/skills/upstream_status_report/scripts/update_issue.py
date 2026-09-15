@@ -29,10 +29,29 @@ def table(title, items):
     return (f'<details>\n<summary><b>{title}</b> ({len(paths)} files)</summary>\n\n'
             f'{body}\n\n</details>')
 
+def _md(s):
+    # make a value safe inside a markdown table cell
+    return str(s or '').replace('|','\\|').replace('\r',' ').replace('\n','<br>').strip()
+
+def na_table(title, items):
+    # Not Applicable list: file + Owner (col L) + Comments (col S) from the xlsx
+    seen={}
+    for it in items:
+        p=it.get('sub') or it.get('k') or ''
+        if p and p not in seen:
+            seen[p]={'owner':it.get('team',''),'comment':it.get('comment','')}
+    lines=[f'| # | Test file | Owner | Comments |', '|---:|---|---|---|']
+    for i,p in enumerate(sorted(seen)):
+        r=seen[p]
+        lines.append(f'| {i+1} | `{p}` | {_md(r["owner"])} | {_md(r["comment"])} |')
+    body='\n'.join(lines)
+    return (f'<details>\n<summary><b>{title}</b> ({len(seen)} files)</summary>\n\n'
+            f'{body}\n\n</details>')
+
 def block(data):
     ts=datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%d %H:%M UTC')
     done=table('Done test files &mdash; compare with CUDA one by one', data.get('Done',[]))
-    na  =table('Not Applicable test files &mdash; can be skipped', data.get('Not Applicable',[]))
+    na  =na_table('Not Applicable test files &mdash; can be skipped', data.get('Not Applicable',[]))
     return (f'{BEG}\n'
             f'_File lists auto-generated from the status report &bull; last updated {ts}._\n\n'
             f'{done}\n\n{na}\n'

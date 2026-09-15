@@ -130,6 +130,7 @@ def pr_detail_list(nums_src):
 def file_item(r,prs_override=None):
     d={'type':'file','k':r['file'] or r['path'],'sub':(r['path'] or ''),
        'team':r['team'] or '','extra':status_label(r),
+       'comment':(str(r.get('comment')).strip() if r.get('comment') not in (None,'') else ''),
         'owner':(str(r['assignee']) if r.get('assignee') not in (None,'') else ''),  # Author = Assignee col only (no fallback)
        'prs':pr_detail_list(r.get('prs') if prs_override is None else prs_override)}    # PR column: Intel PRs (col F) only, unless a subset is forced
     # community refactor tracker join (only for To Do / not-yet-Done files)
