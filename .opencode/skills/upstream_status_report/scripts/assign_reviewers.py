@@ -170,6 +170,12 @@ def main():
     if '--only' in sys.argv:
         only=set(int(x) for x in sys.argv[sys.argv.index('--only')+1].replace(',',' ').split())
 
+    # --force <login>  force every assigned PR to this reviewer (e.g. to keep a
+    # whole ghstack with one reviewer). Combine with --only to scope it.
+    force=None
+    if '--force' in sys.argv:
+        force=sys.argv[sys.argv.index('--force')+1]
+
     owned=json.load(open('/tmp/owned.json'))
     rows=owned['rows']
     recs={int(r['pr']):r for r in json.load(open('/tmp/pr_analysis.json'))}
@@ -236,12 +242,16 @@ def main():
         rec=recs[n]
         dom=pr_domain(pr_paths.get(n,set()), rec.get('distributed',False))
         experts=set(DOMAIN_REVIEWERS[dom])
+        if force:
+            pick=force
         # newtdms is the dedicated distributed reviewer: every distributed PR
         # goes to newtdms, and newtdms is never assigned a non-distributed PR.
-        if dom=='distributed':
+        elif dom=='distributed':
             pick='newtdms'
         else:
-            cands=[r for r in INTERNAL if r!='newtdms']
+            # exclude newtdms (distributed-only) and the PR author (GitHub
+            # rejects requesting a review from the author).
+            cands=[r for r in INTERNAL if r!='newtdms' and r!=rec.get('author')]
             # cost = current load + penalty if not a domain expert; pick min
             def cost(r): return load[r]+(0.0 if r in experts else penalty)
             pick=min(cands, key=lambda r:(cost(r), load[r], r not in experts, r))
