@@ -160,7 +160,16 @@ a row whose assignee col P is set — plus known assignee logins such as
 - **Load balancing**: each reviewer's current pending open-PR load is counted;
   the assignee minimizes `load + penalty·(not-expert)`. A `--penalty` of 0 gives
   pure balancing; higher values weight expertise more (default 2). An overloaded
-  expert therefore spills over to lighter-loaded reviewers.
+  expert therefore spills over to lighter-loaded reviewers. PRs that already have
+  an internal approval contribute **no** load (the review work is done).
+- **Never the author**: a PR's own author is always excluded from the candidate
+  pool (GitHub rejects requesting a review from the author). This holds in every
+  branch — load-balancing, the `newtdms` distributed shortcut (if newtdms authored
+  the distributed PR it falls back to load balancing), and `--force` (a `--force`
+  target equal to the author is skipped).
+- **Already approved / engaged PRs are skipped**: a PR is not (re)assigned if it
+  already has any internal approval, or already has a non-author internal reviewer
+  requested/engaged (use `--include-approved` to reconsider).
 - **Delivery**: collaborators get `method=request` (formal review request);
   `CuiYifeng`/`liangan1`/`newtdms` (non-collaborators) get `method=comment` with a ready-to-
   paste `@mention` comment. **No GitHub calls are made** — apply mode only writes
@@ -196,7 +205,10 @@ guaranteed by three layers:
 
 Section 7 of the report ("Internal review workload") charts the current state:
 open PRs waiting for internal review per reviewer, and (all PRs) open-under-review
-vs. approved per reviewer. Both are click-through to the PR lists.
+vs. approved per reviewer. Both are click-through to the PR lists. PRs already
+approved by any internal reviewer are **excluded** from the waiting/under-review
+workload (they no longer need review effort), and an author is **never** counted
+as a reviewer of their own PR.
 
 ## Sharing the report with others
 

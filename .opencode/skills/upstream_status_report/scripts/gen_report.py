@@ -234,27 +234,27 @@ ir_waiting={r:0 for r in IR_REVIEWERS}
 ir_under={r:0 for r in IR_REVIEWERS}
 ir_approved={r:0 for r in IR_REVIEWERS}
 for r in recs_active:
-    req=set(r.get('internal_requested') or [])
-    rev=set(r.get('internal_reviewed_by') or [])
-    app=set(r.get('internal_approved_by') or [])
+    # A reviewer is never counted against their own PR: an author cannot review
+    # their own change, so exclude the author from all reviewer sets.
+    author=r.get('author')
+    req=set(r.get('internal_requested') or [])-{author}
+    rev=set(r.get('internal_reviewed_by') or [])-{author}
+    app=set(r.get('internal_approved_by') or [])-{author}
     pending=(req|rev)-app                       # engaged but not yet approved
     for who in app:
         if who in ir_approved:
             ir_approved[who]+=1
             DETAILS['ir_approved'].setdefault(who,[]).append(pr_item(r))
-    if r['state']=='OPEN':
+    # Workload only counts PRs that still NEED internal review. Once a PR has
+    # any internal approval (internal_ok), it is done from a review-workload
+    # standpoint and is excluded from "waiting" and "under review".
+    if r['state']=='OPEN' and not r['internal_ok']:
         for who in pending:
             if who in ir_under:
                 ir_under[who]+=1
                 DETAILS['ir_under'].setdefault(who,[]).append(pr_item(r))
-                # "waiting" per reviewer: include this reviewer while the PR has
-                # no internal approval yet. Once ANOTHER internal reviewer has
-                # already approved, only keep it under a 2nd reviewer who has
-                # actually engaged (left a comment / change request), not one
-                # who was merely requested and never reviewed.
-                if (not r['internal_ok']) or (who in rev):
-                    ir_waiting[who]+=1
-                    DETAILS['ir_review'].setdefault(who,[]).append(pr_item(r))
+                ir_waiting[who]+=1
+                DETAILS['ir_review'].setdefault(who,[]).append(pr_item(r))
 ir_labels=[f'{r} ({IR_EXPERT[r]})' for r in IR_REVIEWERS]
 
 # per-team test-file status detail groups (statt_<i>)
@@ -770,10 +770,10 @@ canvas{{cursor:pointer}}
 </div>
 
 <h2 id="sec7">7. Internal review workload &mdash; by reviewer <a class=anchor href="#sec7" title="Link to this section">#</a></h2>
-<div class=note>Internal reviewers &amp; expertise: guangyey=runtime, etaf=inductor, CuiYifeng=ops, liangan1=sdpa, newtdms=distributed, astachowiczhabana &amp; pbielak=test refactor/other. &ldquo;Under review&rdquo; = an open PR where the reviewer is requested or has reviewed but has not yet approved. Click a bar to list the PRs.</div>
+<div class=note>Internal reviewers &amp; expertise: guangyey=runtime, etaf=inductor, CuiYifeng=ops, liangan1=sdpa, newtdms=distributed, astachowiczhabana &amp; pbielak=test refactor/other. &ldquo;Under review&rdquo; = an open PR where the reviewer is requested or has reviewed but has not yet approved. PRs already approved by any internal reviewer are excluded from the workload, and an author is never counted as a reviewer of their own PR. Click a bar to list the PRs.</div>
 <div class=cgrid>
 <div class=panel><h3>Open PRs waiting for internal review (under each reviewer)</h3><div class=ch tall><canvas id=ir_review></canvas></div>
-<div class=note>Open PRs this reviewer is requested/engaged on but hasn&rsquo;t approved. If the PR is already approved by another internal reviewer, it is only kept here when this reviewer has actually commented or requested changes (not merely requested).</div></div>
+<div class=note>Open PRs this reviewer is requested/engaged on that still need internal review. PRs already approved by any internal reviewer are excluded, and the PR author is never counted here.</div></div>
 <div class=panel><h3>All PRs &mdash; open under review vs. approved (per reviewer)</h3><div class=ch tall><canvas id=ir_all></canvas></div>
 <div class=note>Blue = open PRs under review; green = PRs approved (any state).</div></div>
 </div>

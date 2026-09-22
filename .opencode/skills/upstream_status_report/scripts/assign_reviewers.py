@@ -209,11 +209,16 @@ def main():
 
     # existing load = pending open PRs per reviewer: requested or reviewing but
     # NOT yet approved by them (an already-approved PR is not pending work).
+    # A PR that already has ANY internal approval is done from a review-workload
+    # standpoint, so it contributes no load. The PR author is never counted as a
+    # reviewer of their own PR.
     load=Counter()
     for n,rec in recs.items():
         if rec['state']!='OPEN': continue
         approved=set(rec.get('internal_approved_by',[]))
-        pending=(set(rec.get('internal_requested',[]))|set(rec.get('internal_reviewed_by',[])))-approved
+        if approved: continue          # already internally approved -> no load
+        author=rec.get('author')
+        pending=(set(rec.get('internal_requested',[]))|set(rec.get('internal_reviewed_by',[])))-approved-{author}
         for who in pending:
             if who in EXPERTISE: load[who]+=1
 
@@ -232,7 +237,11 @@ def main():
         if not all_open and rec.get('author') not in ASSIGNEE_AUTHORS:
             continue
         if skip_drafts and rec.get('is_draft'): continue
-        assigned=set(rec.get('internal_requested',[]))|set(rec.get('internal_reviewed_by',[]))
+        # already internally approved -> no reviewer needed
+        if set(rec.get('internal_approved_by',[])) and not include_approved:
+            continue
+        # engaged internal reviewers (excluding the author reviewing their own PR)
+        assigned=(set(rec.get('internal_requested',[]))|set(rec.get('internal_reviewed_by',[])))-{rec.get('author')}
         if assigned and not include_approved:
             continue
         todo.append(n)
@@ -240,18 +249,27 @@ def main():
     assignments=[]
     for n in todo:
         rec=recs[n]
+        author=rec.get('author')
         dom=pr_domain(pr_paths.get(n,set()), rec.get('distributed',False))
         experts=set(DOMAIN_REVIEWERS[dom])
+        # candidate pool always excludes the PR author: GitHub rejects requesting
+        # a review from the author, and an @mention to oneself is pointless.
         if force:
+            if force==author:
+                print(f"  ! PR {n}: --force target {force} is the PR author; skipping")
+                continue
             pick=force
         # newtdms is the dedicated distributed reviewer: every distributed PR
         # goes to newtdms, and newtdms is never assigned a non-distributed PR.
-        elif dom=='distributed':
+        # (If newtdms authored the distributed PR, fall back to load balancing.)
+        elif dom=='distributed' and author!='newtdms':
             pick='newtdms'
         else:
-            # exclude newtdms (distributed-only) and the PR author (GitHub
-            # rejects requesting a review from the author).
-            cands=[r for r in INTERNAL if r!='newtdms' and r!=rec.get('author')]
+            # exclude newtdms (distributed-only) and the PR author.
+            cands=[r for r in INTERNAL if r!='newtdms' and r!=author]
+            if not cands:
+                print(f"  ! PR {n}: no eligible reviewer (author={author}); skipping")
+                continue
             # cost = current load + penalty if not a domain expert; pick min
             def cost(r): return load[r]+(0.0 if r in experts else penalty)
             pick=min(cands, key=lambda r:(cost(r), load[r], r not in experts, r))
