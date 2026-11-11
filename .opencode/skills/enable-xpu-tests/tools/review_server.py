@@ -1,340 +1,423 @@
 #!/usr/bin/env python3
-"""Serve an XPU-enablement report tree and file approved draft issues.
+"""Review server: serves tools/ui/ and a JSON API over the report tree.
 
-Static report pages (from report_gen.py) cannot call `gh` directly. This server
-serves the report tree over HTTP and exposes POST /api/submit_issue, which the
-"Submit to intel/torch-xpu-ops" button on each file's report.html calls once the
-reviewer has approved a draft. On submit it:
+  review_server.py --csv NEW.csv [--port 8100] [--bind 0.0.0.0] [--dry-run]
 
-  1. files the issue with `gh issue create --repo <repo>`,
-  2. backfills the real issue number into:
-       - the drafted issue entry in the manifest (adds "number"),
-       - the file's committed patch (.../issues/PLACEHOLDER -> real number),
-       - the source test file in the working tree (same replacement),
-       - the CSV rows for the draft's cases (PLACEHOLDER in portability reason).
+All data is read live from $XPU_ENABLE_WS/xpu_enable_report on every request; the
+input CSV is only read (to join display columns such as xpu_message) and to build
+the exported CSV, which is written as a NEW file next to it.
 
-Only the Submit button files issues; nothing is posted automatically.
-
-Usage:
-  review_server.py --root xpu_enable_report/<branch> --csv BATCH.csv \
-      --manifest manifest.json [--repo intel/torch-xpu-ops] [--port 8000] \
-      [--src-root test] [--dry-run]
+GET  /api/data                      index: files, summaries, bundles
+GET  /api/file?slug=S               one file: cases (+CSV columns, latest result,
+                                    evidence problems), drafts, patch, prompt, reviews
+GET  /api/text?slug=S&kind=source|log&path=P
+POST /api/set_review        {slug, case_ids, value?, comment?}
+POST /api/set_file_prompt   {slug, prompt}
+POST /api/set_case_fields   {slug, case_ids, field, value}
+POST /api/save_patch        {slug, text}            re-applies onto the agent branch
+POST /api/submit_issue      {slug, id, title, body, labels}
+POST /api/backfill_issue    {slug, id, issue}
+POST /api/match_issue       {title}
+POST /api/reject_draft      {slug, id}
+POST /api/export_csv        {}
+POST /api/pr/preflight      {files}
+POST /api/pr/create         {files, target, title, force}
+POST /api/pr/update|refresh|delete {id}
+POST /api/pr/remove_file    {id, files}
+POST /api/pr/save_description {id, text}
+POST /api/pr/set_number     {id, ref, confirm_head}
+POST /api/pr/file_save      {slug, title, text}     per-file PR title/description
+POST /api/pr/file_submit    {slug, title, text}     push to fork, return the prefilled PR page URL
+POST /api/pr/submit         {id}                    same for a multi-file bundle
+POST /api/pr/file_link      {slug}                  find the PR the human created, fill Fix PR
+POST /api/pr/link           {id}                    same for a bundle
+POST /api/pr/file_set_number {slug, ref, confirm_head}  per-file PR number -> Fix PR
 """
-from __future__ import annotations
-
 import argparse
-import csv
 import json
 import os
-import subprocess
-import tempfile
+import re
+import socket
+import urllib.parse
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 
+import export
+import gitops
+import issues
+import pr_bundle
+import rework_queue
+import store
+import verify_evidence
+from common import ISSUE_REPO, PORTABILITY, REVIEW_CHOICES, parse_ref
+
+UI_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ui")
+CSV_COLS = ["xpu_status", "cuda_status", "xpu_message", "detail_reason", "issue_number", "fix_pr"]
+CFG: dict = {}
+
+
+# ---- read side -------------------------------------------------------------
+
+def _csv_index() -> dict[str, dict]:
+    path = CFG["csv"]
+    st = os.stat(path)
+    if CFG.get("_csv_mtime") != st.st_mtime:
+        CFG["_csv_rows"] = {str(r.get("case_id")): r for r in store.read_csv(path)}
+        CFG["_csv_mtime"] = st.st_mtime
+    return CFG["_csv_rows"]
+
+
+def _counts(values) -> dict[str, int]:
+    out: dict[str, int] = {}
+    for v in values:
+        out[v] = out.get(v, 0) + 1
+    return out
+
+
+def data() -> dict:
+    bundles = store.list_bundles()
+    files = []
+    for s in store.list_slugs():
+        f = store.load_file(s)
+        cases = store.load_cases(s)
+        rv = store.load_reviews(s)
+        link = review = ""
+        if f.get("commit"):
+            try:
+                sb = pr_bundle.single_bundle(s)
+                link, review = pr_bundle.compare_url(sb), pr_bundle.review_url(sb)
+            except Exception:  # noqa: BLE001
+                pass
+        files.append({**f, "pr_body": "", "n_cases": len(cases), "pr_link": link, "review_link": review,
+                      "portability": _counts((c.get("portability") or "") for c in cases.values()),
+                      "review": _counts(rv["verdicts"].get(c, "") for c in cases),
+                      "n_comments": len(rv["comments"])})
+    for b in bundles:
+        try:
+            b["pending"] = pr_bundle.pending_commits(b)
+            b.update(pr_bundle.links(b))
+            if b.get("kind") != "external" and b.get("status") == "picked":
+                b["push_state"] = pr_bundle.push_state(b["target_branch"])
+            b["submit"] = [b["push"], b["gh"]]
+            b["log"] = pr_bundle.log(b)
+        except Exception as e:  # noqa: BLE001
+            b["log"] = f"(git error: {e})"
+    return {"repo": ISSUE_REPO, "csv": CFG["csv"], "portability_order": PORTABILITY,
+            "review_choices": REVIEW_CHOICES, "files": files, "bundles": bundles,
+            "rework": len(rework_queue.queue())}
+
+
+def file_detail(s: str) -> dict:
+    f = store.load_file(s)
+    cases = store.load_cases(s)
+    rv = store.load_reviews(s)
+    res = store.load_results(s)
+    csv_rows = _csv_index()
+    probs = verify_evidence.summary(verify_evidence.check_file(s, use_gh=False)).get(f["test_file"], {})
+    out = []
+    for cid, c in cases.items():
+        row = csv_rows.get(cid, {})
+        last = store.latest([e for e in res.get(cid, []) if e.get("run") != "precheck"])
+        pre = store.latest(res.get(cid, []), ["precheck"])
+        msg = ""
+        if last and last["status"] in ("FAILED", "ERROR"):
+            msg = next((ln[2:].strip() for ln in (last.get("error_excerpt") or "").splitlines()
+                        if ln[2:].strip()), last.get("reason", ""))
+        elif last:
+            msg = last.get("reason") or last["status"]
+        out.append({"case_id": cid, **c, **{f"csv_{k}": row.get(k, "") for k in CSV_COLS},
+                    "message": msg or row.get("xpu_message", ""),
+                    "review": rv["verdicts"].get(cid, ""), "comment": rv["comments"].get(cid, ""),
+                    "last": last, "runs": res.get(cid, []), "precheck": pre,
+                    "evidence": probs.get(cid, [])})
+    patch = store.patch_path(s)
+    pr = None
+    if f.get("commit"):
+        b = pr_bundle.single_bundle(s)
+        bundled = store.load_bundle(f["bundle"]) if f.get("bundle") else {}
+        pr = {"bundle": b, **pr_bundle.links(b), "push_state": pr_bundle.push_state(b["target_branch"]),
+              "in_multi": bundled.get("id") if bundled and bundled.get("kind") != "single" else ""}
+        ext = [x for x in store.list_bundles() if x.get("kind") == "external"
+               and any(fe["slug"] == s for fe in x.get("files", []))]
+        if ext:
+            pr["external"] = [{"number": x["pr"]["number"], "url": x["pr"]["url"], "state": x["pr"].get("state", ""),
+                               "title": x["title"]} for x in ext]
+    return {"file": f, "cases": out, "drafts": store.load_drafts(s), "pr": pr,
+            "patch": open(patch, encoding="utf-8").read() if os.path.exists(patch) else "",
+            "history": rv["history"]}
+
+
+def text(s: str, kind: str, path: str) -> str:
+    f = store.load_file(s)
+    if kind == "source":
+        if f["agent_branch"] and gitops.branch_exists(f["agent_branch"]):
+            return gitops.git("show", f"{f['agent_branch']}:{f['source']}", check=False)
+        return gitops.git("show", f"{f['base_sha']}:{f['source']}", check=False)
+    full = os.path.realpath(os.path.join(store.fdir(s), path))
+    if not full.startswith(os.path.realpath(store.fdir(s))) or not os.path.isfile(full):
+        raise ValueError("bad path")
+    return open(full, encoding="utf-8", errors="replace").read()
+
+
+# ---- write side ------------------------------------------------------------
+
+def set_review(p):
+    n = store.set_reviews(p["slug"], p["case_ids"], p.get("value"), p.get("comment"))
+    return {"ok": True, "updated": n}
+
+
+def set_file_prompt(p):
+    store.update_file(p["slug"], file_prompt=p.get("prompt", ""))
+    rework_queue.save_notes(rework_queue.queue([store.load_file(p["slug"])["test_file"]]))
+    return {"ok": True}
+
+
+def set_case_fields(p):
+    field, value = p["field"], p.get("value", "")
+    if field == "issue":
+        if value.strip():
+            num, url = parse_ref(value, ISSUE_REPO)
+            upd = {"issue_number": str(num), "issue_url": url}
+        else:
+            upd = {"issue_number": "", "issue_url": ""}
+    elif field in ("portability", "reason", "fix_pr"):
+        upd = {field: value}
+    else:
+        return {"ok": False, "error": f"field {field!r} not editable"}
+    store.update_cases(p["slug"], {cid: upd for cid in p["case_ids"]})
+    return {"ok": True, "updated": len(p["case_ids"])}
+
+
+def save_patch(p):
+    s = p["slug"]
+    f = store.load_file(s)
+    if not f["agent_branch"]:
+        return {"ok": False, "error": "file has no agent branch"}
+    old = gitops.commits(f["base_sha"], f["agent_branch"])
+    msg = gitops.commit_message(old[0]) if old else f"Enable {f['test_file']} on XPU"
+    msg = msg.rstrip() + "\n\n(patch edited in review)\n"
+    try:
+        gitops.reapply_patch(f["agent_branch"], f["base_sha"], p["text"], msg)
+    except gitops.GitError as e:
+        return {"ok": False, "error": f"patch did not apply; branch unchanged: {e}"}
+    import file_branch
+    f = file_branch.regen_patch(f["test_file"])
+    return {"ok": True, "commit": f["commit"], "bytes": len(p["text"])}
+
+
+def _replace_token_in_branch(f: dict, token: str, number: int) -> str | None:
+    def edit(cwd):
+        changed = []
+        for rel in gitops.changed_files(f["base_sha"], "HEAD", cwd):
+            path = os.path.join(cwd, rel)
+            if not os.path.isfile(path):
+                continue
+            t = open(path, encoding="utf-8").read()
+            n = t.replace(f"issues/{token}", f"issues/{number}")
+            if n != t:
+                open(path, "w", encoding="utf-8").write(n)
+                changed.append(rel)
+        return changed
+    return gitops.edit_on_branch(f["agent_branch"], f["base_sha"], edit, f"Backfill issue #{number} in {f['test_file']}")
+
+
+def _backfill(s: str, draft_id: str, number: int, url: str) -> dict:
+    drafts = store.load_drafts(s)
+    d = next((x for x in drafts if x.get("id") == draft_id), None)
+    if not d:
+        return {"ok": False, "error": f"no draft {draft_id}"}
+    d.update(number=number, url=url)
+    store.save_drafts(s, drafts)
+    token = d.get("placeholder") or "PLACEHOLDER"
+    cases = store.load_cases(s)
+    upd, kept = {}, []
+    for cid in map(str, d.get("cases", [])):
+        c = cases.get(cid, {})
+        old = str(c.get("issue_number") or "")
+        if old and old != str(number) and issues.citable(issues.meta(old)) != "stale":
+            kept.append(cid)
+            continue
+        upd[cid] = {"issue_number": str(number), "issue_url": url,
+                    "reason": (c.get("reason") or "").replace(f"issues/{token}", f"issues/{number}")
+                                                      .replace(token, str(number))}
+        if d.get("verdict") and not c.get("portability"):
+            upd[cid]["portability"] = d["verdict"]
+    store.update_cases(s, upd)
+    f = store.load_file(s)
+    sha = None
+    if f["agent_branch"] and gitops.branch_exists(f["agent_branch"]):
+        sha = _replace_token_in_branch(f, token, number)
+        import file_branch
+        file_branch.regen_patch(f["test_file"])
+    return {"ok": True, "number": number, "url": url, "backfilled": list(upd), "kept_existing": kept,
+            "commit": sha}
+
+
+def submit_issue(p):
+    s = p["slug"]
+    drafts = store.load_drafts(s)
+    d = next((x for x in drafts if x.get("id") == p["id"]), None)
+    if not d:
+        return {"ok": False, "error": "no such draft"}
+    if d.get("number"):
+        return {"ok": False, "error": f"already filed as #{d['number']}"}
+    d.update(title=p["title"], body=p["body"], labels=p.get("labels", d.get("labels", [])))
+    store.save_drafts(s, drafts)
+    if CFG.get("dry_run"):
+        return {"ok": True, "dry_run": True}
+    try:
+        num, url = issues.create(d["title"], d["body"], d["labels"])
+    except RuntimeError as e:
+        q = urllib.parse.urlencode({"title": d["title"], "body": d["body"], "labels": ",".join(d["labels"])},
+                                   quote_via=urllib.parse.quote)
+        return {"ok": False, "error": str(e), "new_issue_url": f"https://github.com/{ISSUE_REPO}/issues/new?{q}"}
+    return _backfill(s, d["id"], num, url)
+
+
+def backfill_issue(p):
+    num, url = parse_ref(p["issue"], ISSUE_REPO)
+    return _backfill(p["slug"], p["id"], num, url)
+
+
+def match_issue(p):
+    h = issues.find_by_title(p.get("title", ""))
+    return {"ok": True, "found": bool(h), **(h or {})}
+
+
+def reject_draft(p):
+    s = p["slug"]
+    d = next((x for x in store.load_drafts(s) if x.get("id") == p["id"]), None)
+    if not d:
+        return {"ok": False, "error": "no such draft"}
+    store.set_reviews(s, d.get("cases", []), "Needs work")
+    token = d.get("placeholder")
+    removed = 0
+    f = store.load_file(s)
+    if token and token != "PLACEHOLDER" and f["agent_branch"]:
+        def edit(cwd):
+            nonlocal removed
+            changed = []
+            for rel in gitops.changed_files(f["base_sha"], "HEAD", cwd):
+                path = os.path.join(cwd, rel)
+                if not os.path.isfile(path):
+                    continue
+                lines = open(path, encoding="utf-8").read().splitlines(keepends=True)
+                keep = [ln for ln in lines if f"issues/{token}" not in ln]
+                if len(keep) != len(lines):
+                    removed += len(lines) - len(keep)
+                    open(path, "w", encoding="utf-8").write("".join(keep))
+                    changed.append(rel)
+            return changed
+        gitops.edit_on_branch(f["agent_branch"], f["base_sha"], edit, f"Revert draft {token} gate")
+        import file_branch
+        file_branch.regen_patch(f["test_file"])
+    return {"ok": True, "updated": len(d.get("cases", [])), "reverted_lines": removed}
+
+
+def export_csv(_p):
+    return export.export_csv(CFG["csv"])
+
+
+PR_ROUTES = {
+    "preflight": lambda p: {"ok": True, **pr_bundle.preflight([s for s in p["files"]])},
+    "create": lambda p: pr_bundle.create(p["target"], p["title"],
+                                         [store.load_file(s)["test_file"] for s in p["files"]],
+                                         bool(p.get("force"))),
+    "update": lambda p: pr_bundle.update(p["id"]),
+    "refresh": lambda p: pr_bundle.refresh(p["id"]),
+    "delete": lambda p: pr_bundle.delete(p["id"]),
+    "remove_file": lambda p: pr_bundle.remove(p["id"], [store.load_file(s)["test_file"] for s in p["files"]]),
+    "save_description": lambda p: pr_bundle.save_description(p["id"], p["text"]),
+    "set_number": lambda p: pr_bundle.set_pr(p["id"], p["ref"], bool(p.get("confirm_head"))),
+    "file_save": lambda p: pr_bundle.save_file_pr(p["slug"], p["title"], p["text"]),
+    "file_regen": lambda p: pr_bundle.regenerate_file_pr(p["slug"]),
+    "file_submit": lambda p: pr_bundle.submit_file(p["slug"], p.get("title", ""), p.get("text", ""),
+                                                   CFG.get("dry_run", False)),
+    "submit": lambda p: pr_bundle.submit_bundle(p["id"], CFG.get("dry_run", False)),
+    "file_link": lambda p: pr_bundle.link_file_pr(p["slug"]),
+    "link": lambda p: pr_bundle.link_pr(store.load_bundle(p["id"])),
+    "file_set_number": lambda p: pr_bundle.set_file_pr(p["slug"], p["ref"], bool(p.get("confirm_head"))),
+}
+ROUTES = {"set_review": set_review, "set_file_prompt": set_file_prompt,
+          "set_case_fields": set_case_fields, "save_patch": save_patch,
+          "submit_issue": submit_issue, "backfill_issue": backfill_issue,
+          "match_issue": match_issue, "reject_draft": reject_draft, "export_csv": export_csv}
+
 
 class Handler(SimpleHTTPRequestHandler):
-    cfg: dict = {}
+    def end_headers(self):
+        # the UI changes with the skill; never let the browser keep a stale app.js
+        self.send_header("Cache-Control", "no-store")
+        super().end_headers()
+
+    def log_message(self, fmt, *args):
+        if "/api/" in (args[0] if args else ""):
+            super().log_message(fmt, *args)
 
     def _json(self, code, obj):
-        data = json.dumps(obj).encode()
+        body = json.dumps(obj).encode()
         self.send_response(code)
         self.send_header("Content-Type", "application/json")
-        self.send_header("Content-Length", str(len(data)))
+        self.send_header("Content-Length", str(len(body)))
         self.end_headers()
-        self.wfile.write(data)
+        self.wfile.write(body)
+
+    def do_GET(self):
+        u = urllib.parse.urlparse(self.path)
+        q = {k: v[0] for k, v in urllib.parse.parse_qs(u.query).items()}
+        try:
+            if u.path == "/api/data":
+                return self._json(200, data())
+            if u.path == "/api/file":
+                return self._json(200, file_detail(q["slug"]))
+            if u.path == "/api/text":
+                return self._json(200, {"text": text(q["slug"], q.get("kind", "log"), q.get("path", ""))})
+        except Exception as e:  # noqa: BLE001
+            return self._json(500, {"ok": False, "error": f"{type(e).__name__}: {e}"})
+        if u.path in ("/", ""):
+            self.path = "/index.html"
+        elif not os.path.isfile(os.path.join(UI_DIR, u.path.lstrip("/"))):
+            return self._json(404, {"ok": False, "error": f"not found: {u.path}"})
+        return super().do_GET()
 
     def do_POST(self):
-        if self.path != "/api/submit_issue":
-            self._json(404, {"ok": False, "error": "unknown endpoint"})
-            return
+        path = urllib.parse.urlparse(self.path).path
+        n = int(self.headers.get("Content-Length") or 0)
+        payload = json.loads(self.rfile.read(n) or b"{}")
+        m = re.match(r"^/api/pr/(\w+)$", path)
+        fn = PR_ROUTES.get(m.group(1)) if m else ROUTES.get(path.removeprefix("/api/"))
+        if not fn:
+            return self._json(404, {"ok": False, "error": "unknown endpoint"})
         try:
-            n = int(self.headers.get("Content-Length", 0))
-            payload = json.loads(self.rfile.read(n) or b"{}")
-            result = submit_issue(self.cfg, payload)
-            self._json(200, result)
+            return self._json(200, fn(payload))
+        except gitops.GitError as e:
+            return self._json(200, {"ok": False, "error": f"git: {e}"})
         except Exception as e:  # noqa: BLE001
-            self._json(500, {"ok": False, "error": str(e)})
-
-
-def _run(cmd: list[str]) -> str:
-    return subprocess.check_output(cmd, text=True).strip()
-
-
-def _amend_backfilled_commit(cfg: dict, info: dict, tf: str) -> str | None:
-    """Amend the enablement commit so its committed source carries the real
-    issue number, then refresh the patch, manifest commit field and report.
-
-    Only runs when the server is started with --amend. Guarded: the file's
-    worktree change must be exactly the PLACEHOLDER->number backfill, HEAD must
-    already touch this source file, and HEAD must be unpushed. Returns the new
-    short hash, or None if skipped.
-    """
-    src = info.get("source") or os.path.join(cfg["src_root"], tf)
-    if not os.path.exists(src):
-        return None
-    # Only amend if HEAD actually modified this source file.
-    changed = _run(["git", "diff", "--name-only", "HEAD~1", "HEAD"]).splitlines()
-    if not any(os.path.basename(src) == os.path.basename(c) for c in changed):
-        return None
-    _run(["git", "add", "--", src])
-    _run(["git", "commit", "--amend", "--no-edit"])
-    new_hash = _run(["git", "rev-parse", "--short", "HEAD"])
-    # Refresh the canonical patch from the amended commit.
-    patch = info.get("patch")
-    if patch:
-        with open(patch, "w") as fh:
-            fh.write(_run(["git", "show", "HEAD"]) + "\n")
-    # Update the manifest commit field so regenerated reports show the new hash.
-    manifest = json.load(open(cfg["manifest"]))
-    for f in manifest.get("files", []):
-        if f.get("test_file") == tf:
-            f["commit"] = new_hash
-    json.dump(manifest, open(cfg["manifest"], "w"), indent=2)
-    return new_hash
-
-
-def _regenerate_report(cfg: dict) -> bool:
-    """Re-run report_gen.py so the served tree reflects backfilled files."""
-    gen = os.path.join(os.path.dirname(os.path.abspath(__file__)), "report_gen.py")
-    if not (cfg.get("branch") and os.path.exists(gen)):
-        return False
-    cmd = ["python", gen, "--csv", cfg["csv"], "--manifest", cfg["manifest"],
-           "--branch", cfg["branch"], "--out", cfg["root"],
-           "--src-root", cfg["src_root"], "--files-with-manifest-only"]
-    subprocess.check_call(cmd)
-    return True
-
-
-def file_issue(repo: str, title: str, body: str, labels: list[str]) -> tuple[int, str]:
-    with tempfile.NamedTemporaryFile("w", suffix=".md", delete=False) as fh:
-        fh.write(body)
-        body_path = fh.name
-    try:
-        cmd = ["gh", "issue", "create", "--repo", repo, "--title", title,
-               "--body-file", body_path]
-        for lab in labels:
-            cmd += ["--label", lab]
-        url = _run(cmd)
-    finally:
-        os.unlink(body_path)
-    number = int(url.rstrip("/").rsplit("/", 1)[-1])
-    return number, url
-
-
-def _backfill_text(path: str, number: int) -> bool:
-    if not path or not os.path.exists(path):
-        return False
-    text = open(path).read()
-    if "issues/PLACEHOLDER" not in text:
-        return False
-    open(path, "w").write(text.replace("issues/PLACEHOLDER", f"issues/{number}"))
-    return True
-
-
-def _backfill_csv(csv_path: str, cases: list[str], number: int, url: str = "") -> int:
-    with open(csv_path, newline="") as fh:
-        reader = csv.DictReader(fh)
-        rows = list(reader)
-        fields = list(reader.fieldnames or [])
-    want = {str(c) for c in cases}
-    n = 0
-    for r in rows:
-        if r.get("case_id", "") in want:
-            for col in ("portability reason", "portability_reason"):
-                if col in r and "PLACEHOLDER" in (r[col] or ""):
-                    r[col] = r[col].replace("PLACEHOLDER", str(number))
-                    n += 1
-            if "issue_number" in r and not (r.get("issue_number") or "").strip():
-                r["issue_number"] = str(number)
-                n += 1
-            if url and "issue_url" in r and not (r.get("issue_url") or "").strip():
-                r["issue_url"] = url
-                n += 1
-    if n:
-        with open(csv_path, "w", newline="") as fh:
-            w = csv.DictWriter(fh, fieldnames=fields, lineterminator="\n")
-            w.writeheader()
-            w.writerows(rows)
-    return n
-
-
-def _backfill_island(path: str, number: int, url: str,
-                     cases: list[str], commit: str = "") -> bool:
-    """Backfill the embedded JSON data island in a report.html.
-
-    Updates drafts (number/url), the drafted cases' issue_number/issue_url and
-    PLACEHOLDER in their portability reason, mirrored patch/log text, and
-    optionally the commit hash. Returns True if anything changed.
-    """
-    import re
-    text = open(path).read()
-    m = re.search(r'(<script[^>]*id="report-data"[^>]*>)(.*?)(</script>)',
-                  text, re.S)
-    if not m:
-        return False
-    data = json.loads(m.group(2).replace("<\\/", "</"))
-    want = {str(c) for c in cases}
-    changed = False
-    for d in data.get("drafts", []):
-        dc = {str(c) for c in d.get("cases", [])}
-        if dc & want and not d.get("number"):
-            d["number"], d["url"] = number, url
-            changed = True
-    for c in data.get("cases", []):
-        if str(c.get("case_id")) not in want:
-            continue
-        if "issue_number" in c and not str(c.get("issue_number") or "").strip():
-            c["issue_number"] = str(number); changed = True
-        if "issue_url" in c and not str(c.get("issue_url") or "").strip():
-            c["issue_url"] = url; changed = True
-        pr = c.get("portability reason")
-        if pr and "PLACEHOLDER" in pr:
-            c["portability reason"] = pr.replace("PLACEHOLDER", str(number))
-            changed = True
-    for art in ("patch", "log"):
-        t = (data.get(art) or {}).get("text", "")
-        if "issues/PLACEHOLDER" in t:
-            data[art]["text"] = t.replace("issues/PLACEHOLDER", f"issues/{number}")
-            changed = True
-    if commit and data.get("commit") != commit:
-        data["commit"] = commit
-        changed = True
-    if not changed:
-        return False
-    island = json.dumps(data).replace("</", "<\\/")
-    open(path, "w").write(text[:m.start(2)] + island + text[m.end(2):])
-    return True
-
-
-def _backfill_served_tree(root: str, tf: str, number: int,
-                          url: str = "", cases: list[str] | None = None) -> int:
-    """Backfill PLACEHOLDER in the served report copies for a test file.
-
-    report.html carries a JSON data island and is backfilled structurally via
-    _backfill_island. Sibling .patch/.log artifacts are plain-text rewrites of
-    the URL token (issues/PLACEHOLDER) and bare ref (#PLACEHOLDER). Matches any
-    file under a folder named <tf>.
-    """
-    n = 0
-    cases = cases or []
-    if not root or not os.path.isdir(root):
-        return n
-    for dirpath, _dirs, names in os.walk(root):
-        if os.path.basename(dirpath) != tf:
-            continue
-        for name in names:
-            path = os.path.join(dirpath, name)
-            if name.endswith(".html"):
-                if _backfill_island(path, number, url, cases):
-                    n += 1
-                continue
-            if not name.endswith((".patch", ".log")):
-                continue
-            text = open(path).read()
-            new = text.replace("issues/PLACEHOLDER", f"issues/{number}") \
-                      .replace("#PLACEHOLDER", f"#{number}")
-            if new != text:
-                open(path, "w").write(new)
-                n += 1
-    return n
-
-
-def submit_issue(cfg: dict, payload: dict) -> dict:
-    manifest = json.load(open(cfg["manifest"]))
-    files = {f.get("test_file"): f for f in manifest.get("files", [])}
-    tf = payload.get("file")
-    idx = payload.get("idx")
-    info = files.get(tf)
-    if info is None:
-        return {"ok": False, "error": f"no manifest entry for {tf}"}
-    drafts = info.get("issue_drafts", [])
-    if not (0 <= idx < len(drafts)):
-        return {"ok": False, "error": f"draft index {idx} out of range"}
-    draft = drafts[idx]
-    if draft.get("number"):
-        return {"ok": False, "error": f"already filed as #{draft['number']}"}
-
-    title = payload.get("title") or draft.get("title", "")
-    body = payload.get("body") or draft.get("body", "")
-    labels = payload.get("labels") or draft.get("labels", [])
-    cases = [str(c) for c in draft.get("cases", [])]
-
-    if cfg.get("dry_run"):
-        number, url = 0, "(dry-run, not filed)"
-    else:
-        number, url = file_issue(cfg["repo"], title, body, labels)
-
-    draft["number"] = number
-    draft["url"] = url
-    draft["title"] = title
-    draft["body"] = body
-    draft["labels"] = labels
-    json.dump(manifest, open(cfg["manifest"], "w"), indent=2)
-
-    backfilled = []
-    if number:
-        if info.get("patch") and _backfill_text(info["patch"], number):
-            backfilled.append("patch")
-        src = info.get("source") or os.path.join(cfg["src_root"], tf)
-        if _backfill_text(src, number):
-            backfilled.append("source")
-        if info.get("log") and _backfill_text(info["log"], number):
-            backfilled.append("log")
-        if _backfill_csv(cfg["csv"], cases, number, url):
-            backfilled.append("csv")
-        if _backfill_served_tree(cfg.get("root", ""), tf, number, url, cases):
-            backfilled.append("served")
-        if cfg.get("amend"):
-            new_hash = _amend_backfilled_commit(cfg, info, tf)
-            if new_hash:
-                backfilled.append(f"amended@{new_hash}")
-        if cfg.get("regen") and _regenerate_report(cfg):
-            backfilled.append("regenerated")
-
-    return {"ok": True, "number": number, "url": url, "backfilled": backfilled}
+            return self._json(500, {"ok": False, "error": f"{type(e).__name__}: {e}"})
 
 
 def main():
-    ap = argparse.ArgumentParser(
-        description=__doc__,
-        formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--root", required=True, help="report dir to serve")
-    ap.add_argument("--csv", required=True)
-    ap.add_argument("--manifest", required=True)
-    ap.add_argument("--repo", default="intel/torch-xpu-ops")
-    ap.add_argument("--src-root", default="test")
-    ap.add_argument("--port", type=int, default=8000)
-    ap.add_argument("--bind", default="127.0.0.1",
-                    help="address to bind (e.g. 0.0.0.0 to allow LAN access)")
-    ap.add_argument("--dry-run", action="store_true",
-                    help="do everything except actually calling gh")
-    ap.add_argument("--branch", default=None,
-                    help="branch slug for report regeneration (enables --regen)")
-    ap.add_argument("--amend", action="store_true",
-                    help="after backfill, amend the enablement commit so its "
-                         "committed source carries the real issue number, and "
-                         "refresh the patch + manifest commit field")
-    ap.add_argument("--regen", action="store_true",
-                    help="after backfill, re-run report_gen.py so the served "
-                         "report reflects the backfilled files (needs --branch)")
-    args = ap.parse_args()
-
-    Handler.cfg = {
-        "csv": os.path.abspath(args.csv),
-        "manifest": os.path.abspath(args.manifest),
-        "repo": args.repo,
-        "src_root": args.src_root,
-        "dry_run": args.dry_run,
-        "root": os.path.abspath(args.root),
-        "branch": args.branch,
-        "amend": args.amend,
-        "regen": args.regen,
-    }
-    handler = partial(Handler, directory=os.path.abspath(args.root))
-    srv = ThreadingHTTPServer((args.bind, args.port), handler)
-    print(f"Serving {args.root} at http://{args.bind}:{args.port}/index.html")
-    print(f"Submitting issues to {args.repo}"
-          + (" (dry-run)" if args.dry_run else ""))
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--csv", required=True, help="input CSV (read-only)")
+    ap.add_argument("--port", type=int, default=8100,
+                    help="first port to try; the next free one is used if it is busy")
+    ap.add_argument("--bind", default="0.0.0.0", help="0.0.0.0 = reachable from other machines")
+    ap.add_argument("--dry-run", action="store_true", help="never call gh issue create and never push")
+    a = ap.parse_args()
+    CFG.update(csv=os.path.abspath(a.csv), dry_run=a.dry_run)
+    srv = None
+    for port in range(a.port, a.port + 50):
+        try:
+            srv = ThreadingHTTPServer((a.bind, port), partial(Handler, directory=UI_DIR))
+            break
+        except OSError:
+            continue
+    if srv is None:
+        raise SystemExit(f"no free port in {a.port}..{a.port + 49}")
+    host = socket.getfqdn() if a.bind == "0.0.0.0" else a.bind
+    print(f"report: {store.REPORT}\ncsv:    {CFG['csv']}\n"
+          f"open:   http://{host}:{port}/   (local: http://localhost:{port}/)"
+          + ("  (dry-run)" if a.dry_run else ""), flush=True)
     try:
         srv.serve_forever()
     except KeyboardInterrupt:
