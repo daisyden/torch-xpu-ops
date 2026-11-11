@@ -213,6 +213,23 @@ If the input already has a different `fix_pr`, the input value is kept and is
 listed in the export summary as a conflict. CLI: `python3 $T/export.py --csv
 BATCH.csv [--out PATH]`. For a JUnit XML of the verdicts: `export.py --junit out.xml`.
 
+## Patch review in test_pr_reviewer (optional)
+
+Start the server with `--patch-reviewer <test_pr_reviewer>/scripts` (or set
+`$XPU_PATCH_REVIEWER`). The file page and each bundle card then get a
+**Review patch (moved-code view)** button, which starts the reviewer on
+`--patch-reviewer-port` (default 8766) if needed. The reviewer is stopped when
+the server exits.
+
+- File button: the file's agent branch against its `base_sha`, even inside a
+  bundle (rework happens on the agent branch). Bundle button: the bundle PR, or
+  its target branch against the base before a PR exists.
+- Double-click a diff line to comment. Comments are saved per file (key = slug, or
+  bundle id) in `xpu_enable_report/_patch_comments/<key>.json`. The file page shows
+  the open count and lists them.
+- Open comments go into the rework queue as one `(patch)` item per file. Mark a
+  comment resolved in the reviewer once its rework is accepted.
+
 ## Rework queue (reviewer -> agent hand-off)
 
 The UI only collects; it never launches the agent. When the user says "process
@@ -222,6 +239,8 @@ the rework queue":
 python3 $T/rework_queue.py [--file <test_file>] [--json]
 ```
 
+- Open patch-review comments add one `(patch)` item per file, listing each
+  comment's path, line, unit and text.
 - A case is queued when it is not Confirmed and any of these holds: its verdict
   is Needs work or Rejected, it has a comment, or its file has a common prompt.
 - Each item's `instruction` is the common prompt followed by the case comment.

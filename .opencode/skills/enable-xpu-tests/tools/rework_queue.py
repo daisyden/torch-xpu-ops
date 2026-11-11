@@ -3,7 +3,9 @@
 
   rework_queue.py [--file inductor/test_fp8.py] [--json] [--no-notes]
 
-A case is queued when it is not Confirmed and any of:
+Open patch-review comments (made in test_pr_reviewer on the file's diff, see
+patch_reviewer.py) are queued as one "(patch)" item per file, with file/line/unit
+and the comment text. A case is queued when it is not Confirmed and any of:
   - its verdict is "Needs work" or "Rejected"
   - it has a per-case comment
   - its file has a non-empty common prompt (file_prompt)
@@ -21,6 +23,7 @@ import os
 import sys
 import time
 
+import patch_reviewer
 import store
 from common import REFS_DIR, slug as make_slug
 
@@ -38,6 +41,20 @@ def queue(files=None) -> list[dict]:
         prompt = (f.get("file_prompt") or "").strip()
         results = store.load_results(s)
         b = bundles.get(f.get("bundle") or "")
+        patch_cmts = patch_reviewer.open_comments(s)
+        if patch_cmts:
+            out.append({"file": f["test_file"], "slug": s, "case_id": "(patch)",
+                        "test": "patch review", "portability": "", "verdict": "Needs work",
+                        "comment": "", "file_prompt": prompt,
+                        "patch_comments": patch_cmts,
+                        "instruction": "\n".join(
+                            ([f"[common prompt] {prompt}"] if prompt else []) +
+                            [f"[patch comment {c['id']}] {c['path']} {c['side']}:{c['line']}"
+                             f"{' (' + c['unit'] + ')' if c.get('unit') else ''}: {c['text']}"
+                             for c in patch_cmts]),
+                        "agent_branch": f.get("agent_branch", ""), "last_result": None,
+                        "pr": {"bundle": b["id"], "status": b.get("status"),
+                               "number": (b.get("pr") or {}).get("number")} if b else None})
         for cid, c in store.load_cases(s).items():
             verdict = rv["verdicts"].get(cid, "")
             comment = (rv["comments"].get(cid) or "").strip()
@@ -80,6 +97,10 @@ def save_notes(items: list[dict], path: str = NOTES) -> int:
         if it["file_prompt"]:
             add(f"{it['slug']}|prompt|{it['file_prompt']}",
                 [f"- [{stamp}] common prompt for `{it['file']}`", f"  - prompt: {it['file_prompt']}"])
+        for pc in it.get("patch_comments", []):
+            add(f"{it['slug']}|patch|{pc['id']}",
+                [f"- [{stamp}] patch comment on `{it['file']}` {pc['side']}:{pc['line']} {pc.get('unit', '')}",
+                 f"  - comment: {pc['text']}"])
         if it["comment"]:
             add(f"{it['slug']}|{it['case_id']}|{it['comment']}",
                 [f"- [{stamp}] [{it['verdict'] or 'unreviewed'}] `{it['test']}` "
@@ -116,6 +137,9 @@ def main():
               f" last={it['last_result']['status'] if it['last_result'] else '-'}")
         if it["comment"]:
             print(f"      comment: {it['comment']}")
+        for pc in it.get("patch_comments", []):
+            print(f"      patch comment [{pc['id']}] {pc['path']} {pc['side']}:{pc['line']}"
+                  f"{' ' + pc['unit'] if pc.get('unit') else ''}\n          {pc['text']}")
     print(f"\n{len(items)} cases queued; {n} new entries appended to {NOTES}")
 
 

@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# $PRS is a space-separated list and is split into one argument per PR on purpose.
+# shellcheck disable=SC2086
 # Run the tool's own test suites.
 #
 #   ./selftest.sh              # matcher + UI tests (offline where possible)
@@ -10,7 +12,7 @@
 set -u
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
-cd "$HERE"
+cd "$HERE" || exit 1
 PORT="${PORT:-8765}"
 MODE="${1:-}"
 
@@ -98,6 +100,9 @@ PY
   done
   rm -rf "$FIX"
 fi
+
+step "local base..head reviews + review comments (offline)"
+python3 -W ignore dev/test_local_and_comments.py || fails=$((fails+1))
 
 # ---- live server ------------------------------------------------------- #
 if [ "$MODE" = "--live" ]; then

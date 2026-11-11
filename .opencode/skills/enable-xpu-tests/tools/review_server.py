@@ -32,6 +32,7 @@ POST /api/pr/submit         {id}                    same for a multi-file bundle
 POST /api/pr/file_link      {slug}                  find the PR the human created, fill Fix PR
 POST /api/pr/link           {id}                    same for a bundle
 POST /api/pr/file_set_number {slug, ref, confirm_head}  per-file PR number -> Fix PR
+POST /api/reviewer_start     {}                      start test_pr_reviewer if not running
 """
 import argparse
 import json
@@ -44,6 +45,7 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 
 import export
 import gitops
+import patch_reviewer
 import issues
 import pr_bundle
 import rework_queue
@@ -96,6 +98,9 @@ def data() -> dict:
         try:
             b["pending"] = pr_bundle.pending_commits(b)
             b.update(pr_bundle.links(b))
+            if patch_reviewer.enabled() and b.get("kind") != "external":
+                b["reviewer_url"] = patch_reviewer.url_for_bundle(b)
+                b["reviewer_open"] = len(patch_reviewer.open_comments(b["id"]))
             if b.get("kind") != "external" and b.get("status") == "picked":
                 b["push_state"] = pr_bundle.push_state(b["target_branch"])
             b["submit"] = [b["push"], b["gh"]]
@@ -132,6 +137,14 @@ def file_detail(s: str) -> dict:
                     "evidence": probs.get(cid, [])})
     patch = store.patch_path(s)
     pr = None
+    reviewer = None
+    if patch_reviewer.enabled():
+        bnd = store.load_bundle(f["bundle"]) if f.get("bundle") else {}
+        prn = (bnd.get("pr") or {}).get("number")
+        url = patch_reviewer.url_for(f, prn)
+        cm = patch_reviewer.comments(s)
+        reviewer = {"url": url, "comments": cm,
+                    "open": sum(1 for c in cm if c.get("status") != "resolved")}
     if f.get("commit"):
         b = pr_bundle.single_bundle(s)
         bundled = store.load_bundle(f["bundle"]) if f.get("bundle") else {}
@@ -142,7 +155,7 @@ def file_detail(s: str) -> dict:
         if ext:
             pr["external"] = [{"number": x["pr"]["number"], "url": x["pr"]["url"], "state": x["pr"].get("state", ""),
                                "title": x["title"]} for x in ext]
-    return {"file": f, "cases": out, "drafts": store.load_drafts(s), "pr": pr,
+    return {"file": f, "cases": out, "drafts": store.load_drafts(s), "pr": pr, "reviewer": reviewer,
             "patch": open(patch, encoding="utf-8").read() if os.path.exists(patch) else "",
             "history": rv["history"]}
 
@@ -184,7 +197,7 @@ def set_case_fields(p):
         upd = {field: value}
     else:
         return {"ok": False, "error": f"field {field!r} not editable"}
-    store.update_cases(p["slug"], {cid: upd for cid in p["case_ids"]})
+    store.update_cases(p["slug"], dict.fromkeys(p["case_ids"], upd))
     return {"ok": True, "updated": len(p["case_ids"])}
 
 
@@ -237,9 +250,8 @@ def _backfill(s: str, draft_id: str, number: int, url: str) -> dict:
         if old and old != str(number) and issues.citable(issues.meta(old)) != "stale":
             kept.append(cid)
             continue
-        upd[cid] = {"issue_number": str(number), "issue_url": url,
-                    "reason": (c.get("reason") or "").replace(f"issues/{token}", f"issues/{number}")
-                                                      .replace(token, str(number))}
+        reason = (c.get("reason") or "").replace(f"issues/{token}", f"issues/{number}").replace(token, str(number))
+        upd[cid] = {"issue_number": str(number), "issue_url": url, "reason": reason}
         if d.get("verdict") and not c.get("portability"):
             upd[cid]["portability"] = d["verdict"]
     store.update_cases(s, upd)
@@ -319,7 +331,7 @@ def export_csv(_p):
 
 
 PR_ROUTES = {
-    "preflight": lambda p: {"ok": True, **pr_bundle.preflight([s for s in p["files"]])},
+    "preflight": lambda p: {"ok": True, **pr_bundle.preflight(list(p["files"]))},
     "create": lambda p: pr_bundle.create(p["target"], p["title"],
                                          [store.load_file(s)["test_file"] for s in p["files"]],
                                          bool(p.get("force"))),
@@ -338,7 +350,11 @@ PR_ROUTES = {
     "link": lambda p: pr_bundle.link_pr(store.load_bundle(p["id"])),
     "file_set_number": lambda p: pr_bundle.set_file_pr(p["slug"], p["ref"], bool(p.get("confirm_head"))),
 }
-ROUTES = {"set_review": set_review, "set_file_prompt": set_file_prompt,
+def reviewer_start(_p):
+    return patch_reviewer.ensure_running()
+
+
+ROUTES = {"reviewer_start": reviewer_start, "set_review": set_review, "set_file_prompt": set_file_prompt,
           "set_case_fields": set_case_fields, "save_patch": save_patch,
           "submit_issue": submit_issue, "backfill_issue": backfill_issue,
           "match_issue": match_issue, "reject_draft": reject_draft, "export_csv": export_csv}
@@ -403,6 +419,9 @@ def main():
                     help="first port to try; the next free one is used if it is busy")
     ap.add_argument("--bind", default="0.0.0.0", help="0.0.0.0 = reachable from other machines")
     ap.add_argument("--dry-run", action="store_true", help="never call gh issue create and never push")
+    ap.add_argument("--patch-reviewer", default=os.environ.get("XPU_PATCH_REVIEWER", ""),
+                    help="test_pr_reviewer/scripts dir; enables the 'Review patch' button (started on demand)")
+    ap.add_argument("--patch-reviewer-port", type=int, default=8766)
     a = ap.parse_args()
     CFG.update(csv=os.path.abspath(a.csv), dry_run=a.dry_run)
     srv = None
@@ -415,13 +434,18 @@ def main():
     if srv is None:
         raise SystemExit(f"no free port in {a.port}..{a.port + 49}")
     host = socket.getfqdn() if a.bind == "0.0.0.0" else a.bind
+    patch_reviewer.configure(a.patch_reviewer, a.patch_reviewer_port, host)
     print(f"report: {store.REPORT}\ncsv:    {CFG['csv']}\n"
           f"open:   http://{host}:{port}/   (local: http://localhost:{port}/)"
           + ("  (dry-run)" if a.dry_run else ""), flush=True)
+    if patch_reviewer.enabled():
+        print(f"patch reviewer: {a.patch_reviewer} -> started on demand at :{a.patch_reviewer_port}", flush=True)
     try:
         srv.serve_forever()
     except KeyboardInterrupt:
         pass
+    finally:
+        patch_reviewer.stop()
 
 
 if __name__ == "__main__":

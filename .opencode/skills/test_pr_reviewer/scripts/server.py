@@ -10,12 +10,17 @@ Endpoints
     GET  /api/pr?ref=<pr>        PR metadata + changed-file list
     GET  /api/file?ref=&path=    diff rows, base/head source, refactor summary
     GET  /api/resolve?...        counterpart for one clicked line
+GET  /api/comments?key=      review comments for a review key
+POST /api/comments           {key, path, side, line, unit, text, id?, delete?}
 """
 
 from __future__ import annotations
 
 import argparse
 import json
+import os
+import time
+import uuid
 import mimetypes
 import threading
 import traceback
@@ -52,6 +57,17 @@ def _pr_lock(key: tuple[str, str]) -> threading.Lock:
 
 
 def get_pr(ref: str, refresh: bool = False) -> prdata.PullRequest:
+    if prdata.is_local_ref(ref):
+        # a local base..head comparison; branch tips move, so always resolve again
+        # unless the exact same commits were already loaded
+        pr = prdata.load_local(ref)
+        key = ("local", f"{pr.base_sha}..{pr.head_sha}")
+        with _LOCK:
+            hit = _PR_CACHE.get(key)
+            if hit is None:
+                _PR_CACHE[key] = pr
+                hit = pr
+        return hit
     repo, num = prdata.parse_pr_ref(ref, DEFAULT_REPO)
     key = (repo, str(num))
     if not refresh:
@@ -76,7 +92,7 @@ def get_match(pr: prdata.PullRequest, fd: prdata.FileDiff) -> matcher.FileMatch:
     return matcher.build_match(pr.base_text(fd), pr.head_text(fd), fd.path)
 
 
-_DIFF_CACHE: "OrderedDict[tuple[str, int, str], prdata.FileDiff]" = OrderedDict()
+_DIFF_CACHE: OrderedDict[tuple[str, int, str], prdata.FileDiff] = OrderedDict()
 DIFF_CACHE_MAX = 128
 
 
@@ -87,7 +103,7 @@ def get_file_diff(pr: prdata.PullRequest, path: str) -> prdata.FileDiff:
     numbers.  When that is detected the diff is recomputed locally from the real
     base/head blobs, so every downstream consumer can trust the positions.
     """
-    key = (pr.repo, pr.number, path)
+    key = (pr.repo, pr.number if pr.number else f"{pr.base_sha}..{pr.head_sha}", path)
     with _LOCK:
         cached = _DIFF_CACHE.get(key)
         if cached is not None:
@@ -287,13 +303,74 @@ def api_health(q: dict[str, list[str]]) -> dict:
     }
 
 
+# --------------------------------------------------------------------------- #
+# review comments
+#
+# One JSON file per review key under $REFACTOR_REVIEW_COMMENTS (default
+# ~/.cache/pytorch-refactor-review/comments).  The key is chosen by the caller:
+# a test file of the XPU enablement workflow passes its slug, so comments survive
+# rework rounds (new commits on the same branch); a plain PR review uses pr-<n>.
+# Each comment records the line *and* the enclosing unit (test method), so it can
+# be re-anchored after the code moves.
+# --------------------------------------------------------------------------- #
+
+COMMENTS_ROOT = Path(os.environ.get("REFACTOR_REVIEW_COMMENTS",
+                                    prdata.CACHE_ROOT / "comments"))
+_COMMENT_LOCK = threading.Lock()
+
+
+def _comment_file(key: str) -> Path:
+    safe = "".join(c if c.isalnum() or c in "-_." else "_" for c in key)[:120]
+    if not safe:
+        raise prdata.PRDataError("comment key required")
+    return COMMENTS_ROOT / f"{safe}.json"
+
+
+def load_comments(key: str) -> list[dict]:
+    f = _comment_file(key)
+    return json.loads(f.read_text(encoding="utf-8")) if f.exists() else []
+
+
+def api_comments(q: dict[str, list[str]]) -> dict:
+    key = q.get("key", [""])[0]
+    return {"key": key, "comments": load_comments(key)}
+
+
+def post_comments(body: dict) -> dict:
+    key = body.get("key", "")
+    with _COMMENT_LOCK:
+        items = load_comments(key)
+        if body.get("delete"):
+            items = [c for c in items if c["id"] != body.get("id")]
+        elif body.get("id"):
+            for c in items:
+                if c["id"] == body["id"]:
+                    c.update(text=body.get("text", c["text"]), status=body.get("status", c.get("status", "open")),
+                             updated=time.strftime("%Y-%m-%dT%H:%M:%S"))
+        else:
+            if not (body.get("text") or "").strip():
+                raise prdata.PRDataError("empty comment")
+            items.append({
+                "id": uuid.uuid4().hex[:10], "path": body.get("path", ""), "side": body.get("side", "head"),
+                "line": int(body.get("line") or 0), "unit": body.get("unit", ""), "code": body.get("code", ""),
+                "text": body["text"].strip(), "status": "open", "head_sha": body.get("head_sha", ""),
+                "created": time.strftime("%Y-%m-%dT%H:%M:%S"),
+            })
+        f = _comment_file(key)
+        f.parent.mkdir(parents=True, exist_ok=True)
+        prdata._atomic_write(f, json.dumps(items, indent=2, ensure_ascii=False))
+    return {"ok": True, "comments": items}
+
+
 ROUTES = {
     "/api/pr": api_pr,
     "/api/file": api_file,
     "/api/linemap": api_linemap,
     "/api/resolve": api_resolve,
     "/api/health": api_health,
+    "/api/comments": api_comments,
 }
+POST_ROUTES = {"/api/comments": post_comments}
 
 
 # --------------------------------------------------------------------------- #
@@ -327,6 +404,21 @@ class Handler(BaseHTTPRequestHandler):
             "application/json; charset=utf-8",
         )
 
+    def do_POST(self) -> None:  # noqa: N802
+        route = urlparse(self.path).path
+        if route not in POST_ROUTES:
+            self._json({"error": "unknown endpoint"}, 404)
+            return
+        try:
+            n = int(self.headers.get("Content-Length") or 0)
+            body = json.loads(self.rfile.read(n) or b"{}")
+            self._json(POST_ROUTES[route](body))
+        except prdata.PRDataError as exc:
+            self._json({"error": str(exc)}, 400)
+        except Exception as exc:  # noqa: BLE001
+            traceback.print_exc()
+            self._json({"error": f"{type(exc).__name__}: {exc}"}, 500)
+
     def do_GET(self) -> None:  # noqa: N802
         parsed = urlparse(self.path)
         route = parsed.path
@@ -359,9 +451,12 @@ def main() -> None:
     ap.add_argument("--host", default="127.0.0.1")
     ap.add_argument("--repo", default=DEFAULT_REPO, help="default repo for bare numbers")
     ap.add_argument("--no-browser", action="store_true")
+    ap.add_argument("--local-clone", help="clone for local:<base>..<head> reviews (else $REFACTOR_REVIEW_LOCAL_CLONE)")
     args = ap.parse_args()
 
     DEFAULT_REPO = args.repo
+    if args.local_clone:
+        os.environ["REFACTOR_REVIEW_LOCAL_CLONE"] = args.local_clone
 
     srv = ThreadingHTTPServer((args.host, args.port), Handler)
     url = f"http://{args.host}:{args.port}/"

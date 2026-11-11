@@ -163,6 +163,8 @@ function bundleCard(b) {
   return '<div class="card bundle" data-id="' + esc(b.id) + '"><b>' + esc(b.title) + '</b> <code>' + esc(b.target_branch) + '</code> ' + pill(b.status, 's') +
     (b.pr && b.pr.number ? ' <a target="_blank" href="' + esc(b.pr.url) + '">PR #' + b.pr.number + '</a> ' + esc(b.pr.state || '') : '') +
     '<ul class="small">' + files + '</ul>' +
+    (b.reviewer_url ? '<div class="row small"><button class="ghost b-rv" data-url="' + esc(b.reviewer_url) + '">Review bundle patch (moved-code view) &#8599;</button> ' +
+      '<span class="' + (b.reviewer_open ? 'warn' : 'muted') + '">' + (b.reviewer_open || 0) + ' open comments</span> <span class="b-rvmsg"></span></div>' : '') +
     '<details><summary>Commits on target</summary><pre>' + esc(b.log || '') + '</pre></details>' +
     '<details' + (b.status === 'picked' ? ' open' : '') + '><summary>PR description (editable)</summary><textarea class="b-desc" style="min-height:260px">' + esc(b.description || '') + '</textarea>' +
     '<button class="ghost b-save">Save description</button> <span class="b-dmsg"></span></details>' +
@@ -224,6 +226,8 @@ function wireIndex() {
     var id = card.getAttribute('data-id'), m = $('.b-msg', card);
     function act(path, body, ok) { m.textContent = 'working...'; api('/api/pr/' + path, Object.assign({ id: id }, body || {})).then(function (r) { msg(m, r, ok); if (r.ok) load(); return r; }); }
     if (!$('.b-save', card)) { var rf0 = $('.b-refresh', card); if (rf0) rf0.addEventListener('click', function () { act('refresh', {}, 'refreshed'); }); return; }
+    var brv = $('.b-rv', card);
+    if (brv) brv.addEventListener('click', function () { openReviewer(brv, brv.getAttribute('data-url'), $('.b-rvmsg', card)); });
     var bp = b0(id);
     if (bp.push_state && bp.push_state.pushed && !(bp.pr || {}).number) {
       var bpoll = setInterval(function () { if (!document.body.contains(card)) { clearInterval(bpoll); return; } api('/api/pr/link', { id: id }).then(function (x) { if (x.found) { clearInterval(bpoll); load(); } }); }, 15000);
@@ -280,6 +284,7 @@ function drawFile() {
   var pc = {}, rc = {}; cases.forEach(function (c) { pc[c.portability || ''] = (pc[c.portability || ''] || 0) + 1; rc[c.review || ''] = (rc[c.review || ''] || 0) + 1; });
   h.push('<div class="card">Status <b>' + esc(f.status) + '</b> &nbsp; branch <code>' + esc(f.agent_branch || '-') + '</code> &nbsp; commit <code>' + esc(f.commit || '-') + '</code> &nbsp; base <code>' + esc((f.base_sha || '').slice(0, 12)) + '</code>' +
     (f.bundle ? ' &nbsp; bundle <code>' + esc(f.bundle) + '</code>' : '') + '<br>Portability: ' + counts(pc, 'p', PO) + '<br>Review: ' + counts(rc, 'r', RC) + '</div>');
+  if (FILE.reviewer && FILE.reviewer.url) h.push(reviewerCard(FILE.reviewer));
   if (FILE.pr) h.push(filePrCard(FILE.pr));
   h.push('<div class="card"><b>Common prompt</b> <span class="muted small">standing instruction for every case of this file on rework; a per-case comment wins on conflict</span>' +
     '<textarea id="fprompt" style="min-height:50px">' + esc(f.file_prompt || '') + '</textarea><button id="fprompt-save">Save prompt</button> <span id="fprompt-msg"></span></div>');
@@ -317,6 +322,32 @@ function drawFile() {
   wireFile();
 }
 
+// test_pr_reviewer: 3-pane moved-code review of this file's patch, with line comments
+// that are saved per file and picked up by the rework queue.
+function reviewerCard(r) {
+  var open = (r.comments || []).filter(function (c) { return c.status !== 'resolved'; });
+  return '<div class="card" id="revcard"><b>Patch review</b> ' +
+    '<button class="ghost" id="rv-open" data-url="' + esc(r.url) + '">Review patch (moved-code view) &#8599;</button> ' +
+    '<span class="small ' + (open.length ? 'warn' : 'muted') + '">' + open.length + ' open / ' + (r.comments || []).length + ' comments</span> ' +
+    '<span id="rv-msg" class="small"></span>' +
+    '<div class="small muted">Double-click a line in the diff pane to comment. Open comments go to the rework queue for this file.</div>' +
+    (open.length ? '<details><summary class="small">open comments</summary><ul class="small">' + open.map(function (c) {
+      return '<li><code>' + esc(c.path.split('/').pop()) + ' ' + esc(c.side) + ':' + c.line + '</code> ' + (c.unit ? '<span class="muted">' + esc(c.unit) + '</span> ' : '') + esc(c.text) + '</li>';
+    }).join('') + '</ul></details>' : '') + '</div>';
+}
+
+function openReviewer(btn, url, msgEl) {
+  var tab = null;
+  btn.disabled = true; if (msgEl) msgEl.textContent = 'starting reviewer...';
+  api('/api/reviewer_start', {}).then(function (r) {
+    btn.disabled = false;
+    if (!r.ok) { if (msgEl) msgEl.innerHTML = '<span class="err">' + esc(r.error) + '</span>'; return; }
+    if (msgEl) msgEl.innerHTML = '<a target="_blank" href="' + esc(url) + '">open reviewer &#8599;</a>';
+    tab = window.open(url, '_blank');
+    if (!tab && msgEl) msgEl.insertAdjacentHTML('beforeend', ' <span class="muted">(popup blocked: use the link)</span>');
+  });
+}
+
 function filePrCard(p) {
   var b = p.bundle, pr = b.pr || {}, ps = p.push_state || {};
   if (p.external) return '<div class="card bundle"><b>Already submitted:</b> ' + p.external.map(function (x) { return '<a target="_blank" href="' + esc(x.url) + '">PR #' + x.number + '</a> ' + esc(x.state) + ' <span class="muted small">' + esc(x.title) + '</span>'; }).join(' &middot; ') +
@@ -351,6 +382,10 @@ function filePrCard(p) {
     '<details><summary class="small">Manual alternatives</summary><div class="small">push: <code>' + esc(p.push) + '</code><br>' +
     'empty PR page (paste your own text): <a target="_blank" href="' + esc(p.pr_page) + '">' + esc(p.pr_page) + '</a><br>' +
     'already opened a PR? <input type="text" id="fp-ref" size="36" value="' + esc(pr.url || '') + '"> <button class="ghost" id="fp-set">Set PR &amp; fill Fix PR</button></div></details></div>';
+}
+
+function wireReviewer() {
+  var b = $('#rv-open'); if (b) b.addEventListener('click', function () { openReviewer(b, b.getAttribute('data-url'), $('#rv-msg')); });
 }
 
 function wireFilePr(slug) {
@@ -410,6 +445,7 @@ function draftCard(d) {
 }
 
 function wireFile() {
+  wireReviewer();
   wireFilePr(FILE.slug);
   var slug = FILE.slug, byCid = {}; FILE.cases.forEach(function (c) { byCid[c.case_id] = c; });
   var rows = $$('#cases tbody tr');

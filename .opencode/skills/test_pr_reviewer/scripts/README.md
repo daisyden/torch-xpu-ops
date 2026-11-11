@@ -219,6 +219,18 @@ that every context/deleted line in the diff matches the base file byte for byte
 (and every context/added line matches the head file). Reverting the fix makes it
 fail with `88 mismatched, first at [30, 31, 32]`.
 
+## Local branches and review comments
+
+`?base=<sha>&head=<branch-or-sha>` (API ref `local:<base>..<head>`) reviews a
+local comparison: `prdata.load_local` resolves both to commits and reads the diff
+and blobs from `--local-clone` / `$REFACTOR_REVIEW_LOCAL_CLONE` with git only.
+
+Comments: double-click a diff row. `GET /api/comments?key=`, `POST /api/comments`
+with `{key, path, side, line, unit, code, text}` to add, `{key, id, status}` to
+resolve/reopen, `{key, id, delete: true}` to delete. One JSON file per key under
+`$REFACTOR_REVIEW_COMMENTS`. A comment whose line no longer has a diff row is
+re-anchored to the first row of its unit.
+
 ## How matching works
 
 Class names are **not** used as the key. A survey of 46 real refactor PRs shows
@@ -365,8 +377,9 @@ pane 3  CHANGE 20   REAL CHANGE 5
 ## Files
 
 ```
-server.py        stdlib HTTP server; /api/pr, /api/file, /api/linemap, /api/resolve
-prdata.py        gh + git fetch of PR metadata, diff, base/head blobs; caching
+server.py        stdlib HTTP server; /api/pr, /api/file, /api/linemap, /api/resolve, /api/comments
+prdata.py        gh + git fetch of PR metadata, diff, base/head blobs; caching;
+                 load_local() for local:<base>..<head>
                  (detects GitHub's truncated diffs and rebuilds them locally)
 matcher.py       AST units, content-first pairing, alignment, whole-file line map
 static/          index.html, app.css, app.js  (no build step)

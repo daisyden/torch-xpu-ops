@@ -15,6 +15,8 @@ const S = {
   path: null,
   data: null,      // /api/file payload
   resolved: null,  // /api/resolve payload
+  ckey: '',        // review-comment key (?ckey=, default pr-<n> / local-<head>)
+  comments: [],    // comments of the current key
   side: 'base',
   lineno: null,
   hideBenign: false,
@@ -1103,7 +1105,10 @@ async function loadPR(ref, refresh) {
   status('fetching PR\u2026');
   S.ref = ref;
   S.meta = await api('pr', { ref, refresh: refresh ? 1 : 0 });
-  $('prTitle').textContent = `#${S.meta.number} ${S.meta.title}`;
+  $('prTitle').textContent = S.meta.number ? `#${S.meta.number} ${S.meta.title}` : S.meta.title;
+  const qs0 = new URLSearchParams(location.search);
+  S.ckey = qs0.get('ckey') || (S.meta.number ? `pr-${S.meta.number}` : `local-${S.meta.head_sha.slice(0, 12)}`);
+  await loadComments();
   // State the base explicitly. Reviewers need to know the comparison is against
   // the commit the PR branched from, not today's main; `behind_by` says how far
   // main has moved since, which is useful context for stale PRs.
@@ -1116,7 +1121,7 @@ async function loadPR(ref, refresh) {
       `head = ${S.meta.head_sha}`;
   }
   const link = $('prLink');
-  link.href = S.meta.url; link.hidden = false;
+  link.href = S.meta.url; link.hidden = !S.meta.url;
 
   const sel = $('fileSelect');
   const files = S.meta.files.filter((f) => !f.binary);
@@ -1127,7 +1132,10 @@ async function loadPR(ref, refresh) {
   if (!first) { status('no reviewable files', true); return; }
   sel.value = first;
   await loadFile(first);
-  history.replaceState(null, '', `?pr=${S.meta.number}&file=${encodeURIComponent(first)}`);
+  const u = new URL(location.href);
+  if (S.meta.number) { u.searchParams.set('pr', S.meta.number); } else { u.searchParams.delete('pr'); }
+  u.searchParams.set('file', first);
+  history.replaceState(null, '', u);
 }
 
 async function loadFile(path) {
@@ -1144,6 +1152,7 @@ async function loadFile(path) {
     return;
   }
   renderDiff();
+  renderComments();
   $('matchbar').hidden = true;
   $('layout').classList.add('nobar');
   const pe = S.data.summary.base_parse_error || S.data.summary.head_parse_error;
@@ -1261,7 +1270,7 @@ function init() {
   });
 
   const qs = new URLSearchParams(location.search);
-  const pr = qs.get('pr');
+  const pr = qs.get('pr') || (qs.get('base') && qs.get('head') ? `local:${qs.get('base')}..${qs.get('head')}` : '');
   if (pr) {
     $('prInput').value = pr;
     loadPR(pr, false).then(() => {
@@ -1272,6 +1281,77 @@ function init() {
       }
     }).catch((e) => status(e.message, true));
   }
+}
+
+/* --------------------------------------------------------------- comments */
+/* Line comments on the diff: double-click a -/+ (or context) row to add one.
+ * Stored server-side per review key (?ckey=), so they survive reloads and the
+ * next rework round; each records the file, side, line, enclosing unit and code. */
+
+async function loadComments() {
+  try { S.comments = (await api('comments', { key: S.ckey })).comments || []; }
+  catch (e) { S.comments = []; }
+  updateCommentCount();
+}
+
+async function postComment(body) {
+  const res = await fetch('/api/comments', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(Object.assign({ key: S.ckey }, body)) });
+  const r = await res.json();
+  if (!res.ok || r.error) throw new Error(r.error || `HTTP ${res.status}`);
+  S.comments = r.comments; updateCommentCount(); renderComments();
+}
+
+function updateCommentCount() {
+  const el = $('commentCount'); if (!el) return;
+  const open = S.comments.filter((c) => c.status !== 'resolved').length;
+  el.textContent = S.comments.length ? `${open} open / ${S.comments.length} comments` : 'no comments';
+}
+
+function commentRow(c) {
+  const st = c.status === 'resolved' ? ' resolved' : '';
+  return `<tr class="cmt${st}" data-cid="${c.id}"><td colspan="3"><div class="cmtbox">` +
+    `<span class="cmtmeta">${esc(c.unit || '')} &middot; ${esc(c.side)}:${c.line} &middot; ${esc(c.created || '')}${c.status === 'resolved' ? ' &middot; resolved' : ''}</span>` +
+    `<div class="cmttxt">${esc(c.text)}</div>` +
+    `<button class="ghost cmtres">${c.status === 'resolved' ? 'reopen' : 'resolve'}</button> <button class="ghost cmtdel">delete</button></div></td></tr>`;
+}
+
+function renderComments() {
+  const body = $('diffBody'); if (!body || !S.data) return;
+  body.querySelectorAll('tr.cmt, tr.cmtedit').forEach((t) => t.remove());
+  const mine = S.comments.filter((c) => c.path === S.path);
+  mine.forEach((c) => {
+    let tr = body.querySelector(`tr[data-side="${c.side}"][data-line="${c.line}"]`) ||
+             body.querySelector(c.side === 'base' ? `tr[data-b="${c.line}"]` : `tr[data-h="${c.line}"]`);
+    if (!tr && c.unit) tr = body.querySelector(`tr[data-unit="${CSS.escape(c.unit)}"]`);   // code moved: re-anchor by unit
+    if (!tr) return;
+    tr.insertAdjacentHTML('afterend', commentRow(c));
+    const row = tr.nextElementSibling;
+    row.querySelector('.cmtres').addEventListener('click', () => postComment({ id: c.id, status: c.status === 'resolved' ? 'open' : 'resolved' }));
+    row.querySelector('.cmtdel').addEventListener('click', () => { if (confirm('Delete this comment?')) postComment({ id: c.id, delete: true }); });
+  });
+  body.querySelectorAll('tr[data-i]').forEach((tr) => {
+    if (tr.dataset.cmtwired) return; tr.dataset.cmtwired = '1';
+    tr.addEventListener('dblclick', () => openCommentEditor(tr));
+  });
+}
+
+function openCommentEditor(tr) {
+  const body = $('diffBody');
+  body.querySelectorAll('tr.cmtedit').forEach((t) => t.remove());
+  const side = tr.dataset.side, line = parseInt(side === 'base' ? (tr.dataset.b || tr.dataset.line) : (tr.dataset.h || tr.dataset.line), 10);
+  if (!line) return;
+  tr.insertAdjacentHTML('afterend', `<tr class="cmtedit"><td colspan="3"><div class="cmtbox">` +
+    `<span class="cmtmeta">comment on ${esc(S.path)} ${side}:${line}${tr.dataset.unit ? ' (' + esc(tr.dataset.unit) + ')' : ''}</span>` +
+    `<textarea rows="3" placeholder="what should change in the next rework round?"></textarea>` +
+    `<button class="cmtsave">Save comment</button> <button class="ghost cmtcancel">Cancel</button></div></td></tr>`);
+  const ed = tr.nextElementSibling, ta = ed.querySelector('textarea'); ta.focus();
+  ed.querySelector('.cmtcancel').addEventListener('click', () => ed.remove());
+  ed.querySelector('.cmtsave').addEventListener('click', () => {
+    postComment({ path: S.path, side, line, unit: tr.dataset.unit || '', text: ta.value,
+      code: (tr.querySelector('td.txt') || {}).textContent || '', head_sha: S.meta.head_sha })
+      .catch((e) => status(e.message, true));
+  });
 }
 
 init();

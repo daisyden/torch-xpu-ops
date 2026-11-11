@@ -599,3 +599,69 @@ def load_pr(ref: str, refresh: bool = False, default_repo: str = "pytorch/pytorc
         files=files,
         repo_access=access,
     )
+
+# --------------------------------------------------------------------------- #
+# local revisions (no GitHub PR): base..head in a local clone
+# --------------------------------------------------------------------------- #
+
+LOCAL_REF_RE = re.compile(r"^local:(?P<base>[^.]+)\.\.(?P<head>.+)$")
+
+
+def is_local_ref(ref: str) -> bool:
+    return bool(LOCAL_REF_RE.match((ref or "").strip()))
+
+
+def local_ref(base: str, head: str) -> str:
+    """Canonical ref string for a local comparison, usable wherever a PR ref is."""
+    return f"local:{base}..{head}"
+
+
+class LocalAccess(RepoAccess):
+    """RepoAccess over an explicit clone; never fetches, never calls the API."""
+
+    def __init__(self, clone: Path):
+        self.repo = self.head_repo = "local"
+        self.clone = clone
+        self._fetched = set()
+        self._state_lock = threading.Lock()
+
+    def _ensure_commit(self, sha: str, pr_number: int | None) -> bool:
+        return self._have_commit(sha)
+
+    def _read_via_api(self, sha: str, path: str) -> str | None:
+        return None
+
+
+def load_local(ref: str, clone: str | None = None) -> PullRequest:
+    """Build a PullRequest from `local:<base>..<head>` using git in a local clone.
+
+    The clone comes from `clone` or $REFACTOR_REVIEW_LOCAL_CLONE. Branch names are
+    resolved to commits, so the cache key (and blob cache) is per exact revision.
+    """
+    m = LOCAL_REF_RE.match(ref.strip())
+    if not m:
+        raise PRDataError(f"not a local ref: {ref!r}")
+    root = clone or os.environ.get("REFACTOR_REVIEW_LOCAL_CLONE") or os.environ.get("REFACTOR_REVIEW_CLONE")
+    if not root or not (Path(root) / ".git").exists():
+        raise PRDataError("local review needs a clone: set REFACTOR_REVIEW_LOCAL_CLONE")
+    cwd = str(root)
+    base = _run(["git", "rev-parse", "--verify", m.group("base") + "^{commit}"], cwd=cwd).strip()
+    head = _run(["git", "rev-parse", "--verify", m.group("head") + "^{commit}"], cwd=cwd).strip()
+    diff_text = _run(["git", "diff", "--no-color", "--no-ext-diff", f"{base}..{head}"], cwd=cwd)
+    subject = _run(["git", "log", "-1", "--format=%s", head], cwd=cwd).strip()
+    author = _run(["git", "log", "-1", "--format=%an", head], cwd=cwd).strip()
+    return PullRequest(
+        repo="local",
+        number=0,
+        title=f"{m.group('head')}: {subject}",
+        author=author,
+        state="local",
+        url="",
+        base_sha=base,
+        head_sha=head,
+        head_repo="local",
+        files=parse_unified_diff(diff_text),
+        repo_access=LocalAccess(Path(root)),
+        branch_tip_sha=base,
+        behind_by=0,
+    )

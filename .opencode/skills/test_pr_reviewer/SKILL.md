@@ -110,6 +110,20 @@ python3 dev/_validate_base.py 192506 189250
 It asserts the base is the merge base *and* that every context/deleted line in
 the diff matches the base file byte for byte.
 
+## Reviewing a local branch (no PR) and leaving comments
+
+```
+./server.py --local-clone ~/pytorch          # or REFACTOR_REVIEW_LOCAL_CLONE=...
+http://<host>:8765/?base=<sha>&head=<branch-or-sha>[&file=<path>][&ckey=<key>]
+```
+
+The diff is `git diff base..head` in that clone and file contents come from
+`git show`; nothing is fetched. Double-click any diff row to add a comment;
+comments can be resolved or deleted and are stored per `ckey` (default `pr-<n>`,
+or `local-<head12>`) under `$REFACTOR_REVIEW_COMMENTS`
+(default `~/.cache/pytorch-refactor-review/comments/<ckey>.json`). Each records
+path, side, line, enclosing unit and code, so it re-anchors by unit after code moves.
+
 ## How the matching works (and why not by name)
 
 Class names are **not** used as the key. A survey of 46 real PRs shows they are

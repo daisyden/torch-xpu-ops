@@ -441,3 +441,12 @@ table.fileview tr.focusrow td.no {
 .arrow { color: var(--fg-dim); }
 .mono { font-family: var(--mono); }
 .dim { color: var(--fg-dim); }
+
+/* review comments (double-click a diff row) */
+tr.cmt td, tr.cmtedit td { background:#1d2733; padding:4px 8px; }
+tr.cmt.resolved td { opacity:.55; }
+.cmtbox { border-left:3px solid #e3b341; padding:4px 8px; font-family:system-ui, sans-serif; white-space:normal; }
+.cmtmeta { font-size:11px; color:#8b98a5; display:block; }
+.cmttxt { margin:3px 0 4px; white-space:pre-wrap; color:#e6edf3; }
+tr.cmtedit textarea { width:100%; font-family:inherit; margin:3px 0; }
+.cmtcount { font-size:12px; color:#e3b341; margin-left:8px; }

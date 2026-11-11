@@ -124,6 +124,7 @@ export.py --csv CSV [--out PATH] | --junit OUT.xml [--file F ...]
 rework_queue.py [--file F ...] [--json] [--no-notes]
 migrate_legacy.py --legacy-repo DIR --csv CSV [--csv CSV ...] [--branches B ...] [--patch TEST_FILE=PATH ...] [--no-branches] [--dry-run]
 review_server.py --csv CSV [--port 8100] [--bind 0.0.0.0] [--dry-run]   (next free port if busy)
+                 [--patch-reviewer DIR] [--patch-reviewer-port 8766]   (test_pr_reviewer, started on demand)
 ```
 
 ## HTTP API (review_server.py)
@@ -149,6 +150,11 @@ review_server.py --csv CSV [--port 8100] [--bind 0.0.0.0] [--dry-run]   (next fr
 | POST | `/api/pr/submit` | `{id}` | same for a multi-file bundle |
 | POST | `/api/pr/file_link` / `link` | `{slug}` / `{id}` | find the PR the human created from the branch and fill fix_pr |
 | POST | `/api/pr/file_set_number` | `{slug, ref, confirm_head}` | per-file PR number -> fix_pr on its cases |
+| POST | `/api/reviewer_start` | `{}` | start test_pr_reviewer if not answering; `{ok, port}` |
+
+With `--patch-reviewer`, `/api/file` carries `reviewer = {url, comments, open}` and
+bundles carry `reviewer_url`, `reviewer_open`. Comments live in
+`xpu_enable_report/_patch_comments/<slug|bundle id>.json` (see `patch_reviewer.py`).
 
 Per-file PR links: `/api/data` files carry `pr_link`; `/api/file` carries
 `pr = {bundle, review_url, compare_url, pr_page, push, gh, fork_repo, body_file, in_multi, push_state}`
