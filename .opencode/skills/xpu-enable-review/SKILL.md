@@ -1,6 +1,6 @@
 ---
 name: xpu-enable-review
-description: Run and explain the enable-xpu-tests review web UI (incl. push to fork, share link, prefilled GitHub PR page) and its human-in-the-loop actions - live report over ~/xpu_enable_ws/xpu_enable_report, per-case verdicts/comments, per-file common prompts, issue draft Submit/Backfill/Reject, editable patch re-applied onto the agent branch, Export CSV (new file, input untouched), PR bundles (select test files -> cherry-pick onto a target branch -> human pushes and opens the PR -> enter PR number -> Fix PR filled on every case), and the rework queue. Use when the user asks to start/serve the review page, export the reviewed CSV, create a PR from enabled files, fill in a PR number, or process reviewer comments.
+description: Run and explain the enable-xpu-tests review web UI (incl. push to fork, share link, prefilled GitHub PR page) and its human-in-the-loop actions - live report over the active session (one session per input CSV; New session / switch in the header), per-case verdicts/comments, per-file common prompts, issue draft Submit/Backfill/Reject, editable patch re-applied onto the agent branch, Export CSV (new file, input untouched), PR bundles (select test files -> cherry-pick onto a target branch -> human pushes and opens the PR -> enter PR number -> Fix PR filled on every case), and the rework queue. Use when the user asks to start/serve the review page, export the reviewed CSV, create a PR from enabled files, fill in a PR number, or process reviewer comments.
 ---
 
 # Review UI, export, PR bundles, rework
@@ -9,13 +9,34 @@ description: Run and explain the enable-xpu-tests review web UI (incl. push to f
 from `/api/*` over the report tree, so a browser refresh shows new results.
 
 ```
-python3 $T/review_server.py --csv BATCH.csv [--port 8100] [--bind 0.0.0.0] [--dry-run]
+python3 $T/review_server.py [--session NAME] [--csv BATCH.csv] [--port 8100] [--bind 0.0.0.0] [--dry-run]
 ```
+
+`--csv` only records a CSV on a session that has none; a different CSV is refused
+(create a session for it).
+
+**Sessions** (header, every page): the picker shows the active session and switches
+it (index filters reset; the agent's CLI follows). **New session** takes a name, a
+note and a CSV (upload, stored in the session, or a server path); it starts empty
+and becomes active. Old sessions stay as they were.
 
 It prints the URL to share (`http://<host>:<port>/`). If the port is busy it takes the next
 free one. `--dry-run` never calls `gh issue create` and never pushes. Responses are
 sent `Cache-Control: no-store`, so a reload always gets the current UI.
 When testing endpoints from a shell, bypass any HTTP proxy (`curl --noproxy '*'`).
+
+## Agent jobs (index page, "Agent" card)
+
+- **Process this session** / **Process selected**: a background `opencode run` with
+  this skill set enables the session's remaining cases (all files, or the checked ones).
+- **Retest selected**: re-measures the checked files' final code, re-runs
+  gate_removed only where a verdict is contradicted, and runs `verify_evidence.py`.
+- One job at a time (`$WS/job.lock`). While it runs: the card shows the live log
+  and **Stop**; other clone-changing actions, measure.py and session switching are
+  refused. The agent cannot push, file issues or touch PRs (denied via
+  `OPENCODE_PERMISSION`); those stay on your buttons. Files appear as they finish.
+- CLI: `python3 $T/jobs.py start process|retest [--files ...] | status | log | stop`.
+  Logs: `$WS/jobs/<id>.{log,jsonl,json}`. After Stop, check the clone before the next job.
 
 ## Pages
 
@@ -46,13 +67,15 @@ When testing endpoints from a shell, bypass any HTTP proxy (`curl --noproxy '*'`
 - Checkboxes plus a target branch and title let you create a PR bundle; after
   creating, the page scrolls to the new card. In the PR column a bundle id links to
   its card.
+- The PR column is editable: the pencil opens a number/URL box. **Set** links the PR
+  and fills Fix PR (checked against the branch via `gh`); **Clear** unlinks a wrong
+  one and clears the Fix PR it set. For a file in a multi-file bundle this edits the
+  bundle's PR (all its files, after a confirm). External records are read-only.
 - A banner shows how many cases are in the rework queue.
 
 **File page**
 
 - A status card shows the branch, commit, base and bundle.
-- **Common prompt**: a standing instruction for every case of the file on
-  rework. It is also logged to `references/review_notes.md`.
 - **Failure summary**: cases grouped by their latest XPU message, at most 5 rows.
   Click a row or a portability pill to filter the cases table.
 - **Issue drafts**:
@@ -68,6 +91,9 @@ When testing endpoints from a shell, bypass any HTTP proxy (`curl --noproxy '*'`
   branch** (asks for confirmation) rebuilds the agent branch as one commit = base +
   your edited diff and regenerates the `.patch`; **Cancel** reverts. If the diff does
   not apply, nothing changes. Applying makes earlier measurements stale; re-measure.
+- **Patch review** (with `--patch-reviewer`, see below) and **Common prompt** follow
+  the patch. The common prompt is a standing instruction for every case of the file
+  on rework; it is also logged to `references/review_notes.md`.
 - **Source**: the read-only file on the agent branch.
 - **Cases table**:
   - Columns: portability, reason, issue/draft, fix PR, last run status, message,
@@ -142,6 +168,17 @@ branch is. The server checks the fork with `git ls-remote` (cached for 60 s):
 - CLI: `pr_bundle.py submit-file <test_file>` / `submit <bundle_id>` (asks y/N) push and
   print the page URL; then `file-link-pr <test_file>` / `link <bundle_id>` fills Fix PR.
 
+## Adding a file's commits to an existing PR
+
+On the file page's PR card, **Or add to an existing PR of yours** takes a PR number
+(prefilled when a recorded PR already covers some cases). **Preview** checks that the
+PR is open and from your fork, then cherry-picks the agent commits that are not yet on
+the PR (by patch-id) onto its head in a scratch worktree and shows the commits and
+diffstat. **Push to PR #N** (asks for confirmation) pushes that as a fast-forward of the
+PR branch, never forced, then records the PR as the file's PR and sets Fix PR on all its
+cases. A conflict stops at the preview: rebase the agent branch onto the PR first.
+Update the PR title/description on GitHub yourself.
+
 ## Recording PRs that already exist
 
 If a PR was created outside these tools, map it to its cases without resubmitting:
@@ -201,14 +238,18 @@ you created the PR).
 - These columns are appended: `portability`, `portability_reason`,
   `issue_number`, `issue_url`, `log`, `review_status`, `review_comment`,
   `agent_branch`, `patch`, `pr_bundle`.
-- For cases of a **picked file in a submitted/merged bundle**, these are set:
+- `fix_pr` is set to the PR URL for every case with a Fix PR.
+- For **final** cases (the file's status is Imported, or the case review is
+  Confirmed), the CSV's own columns are overwritten:
 
-| column | Portable | Known Issue / Feature gap / Not Applicable |
-|---|---|---|
-| `fix_pr` | PR URL | PR URL |
-| `reason` | `PR ready` | the portability value |
-| `detail_reason` | portability reason | portability reason |
+| column | value |
+|---|---|
+| `reason` | portability (`PR ready` for Portable with a Fix PR) |
+| `detail_reason` | portability reason |
+| `issue_number`, `issue_url` | the case's issue (cleared if the case has none) |
+| `issue_status` | that issue's current state from `gh` (`open` / `closed`; empty if no issue) |
 
+Other cases keep the input `reason` / `detail_reason` / issue columns.
 If the input already has a different `fix_pr`, the input value is kept and is
 listed in the export summary as a conflict. CLI: `python3 $T/export.py --csv
 BATCH.csv [--out PATH]`. For a JUnit XML of the verdicts: `export.py --junit out.xml`.
@@ -225,7 +266,7 @@ the server exits.
   bundle (rework happens on the agent branch). Bundle button: the bundle PR, or
   its target branch against the base before a PR exists.
 - Double-click a diff line to comment. Comments are saved per file (key = slug, or
-  bundle id) in `xpu_enable_report/_patch_comments/<key>.json`. The file page shows
+  bundle id) in `<session root>/_patch_comments/<key>.json`. The file page shows
   the open count and lists them.
 - Open comments go into the rework queue as one `(patch)` item per file. Mark a
   comment resolved in the reviewer once its rework is accepted.

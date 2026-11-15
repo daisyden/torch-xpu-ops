@@ -23,6 +23,10 @@ directory. `T=<this skill dir>/tools`.
 
 - **Input CSV is read-only.** Never write it. Verdicts live in the report tree;
   the reviewer's **Export CSV** button writes `<input>_reviewed_<ts>.csv`.
+- **One session per input CSV.** A new weekly CSV gets a new session
+  (`session.py create NAME --csv PATH`, or **New session** in the UI) with its own
+  empty report tree; never mix it into an existing session. All tools act on the
+  active session (`session.py show`), and the UI switches it for the CLI too.
 - **SKIPPED is never Portable.** Portable needs a PASSED pytest result from the
   final code (a `rework` or `initial` run at the final patch). A PASS seen only with
   the gate removed does not count when the shipped code still skips the case; even
@@ -30,6 +34,10 @@ directory. `T=<this skill dir>/tools`.
   issue id (existing or drafted) *and* a log from a run with its skips removed,
   unless it cites an issue `gh` confirms OPEN or `wontfix`.
 - **One branch per file, all on the same base.** Never stack files on one branch.
+- **UI jobs.** The reviewer can start this workflow from the UI (Agent card:
+  Process / Retest, `tools/jobs.py`). Such a run is unattended: never ask
+  questions, record decisions in reasons/drafts, keep going. Outside a job, refuse
+  to touch the clone while `jobs.py status` shows one running.
 - **Never act on GitHub autonomously** (AI_POLICY.md). Issues are filed and
   branches are pushed only from the reviewer's button clicks in the UI (or the y/N
   CLI prompt), and PRs are created by the human on GitHub's prefilled page. The
@@ -42,11 +50,26 @@ directory. `T=<this skill dir>/tools`.
 
 ```
 ~/xpu_enable_ws/              ($XPU_ENABLE_WS overrides)
-  pytorch/                    independent clone, idle = detached at viable/strict
-  env/                        venv with nightly XPU torch
-  xpu_enable_report/<slug>/   per-file data (see tools/README.md)
-  workspace.json              base_sha, nightly version, fork remote/owner
+  pytorch/                    independent clone, idle = detached at viable/strict (shared)
+  env/                        venv with nightly XPU torch (shared)
+  sessions.json               session registry + active session ($XPU_ENABLE_SESSION overrides)
+  sessions/<name>/            one session: _input/<csv>, <slug>/ per-file data, _prs/, ...
+  xpu_enable_report/          the "default" session (data from before sessions)
+  workspace.json              base_sha for new sessions, nightly version, fork remote/owner
 ```
+
+Sessions (`tools/session.py`):
+
+```
+python3 $T/session.py list | show
+python3 $T/session.py create 2026WW46_BMG --csv ~/2026WW46_BMG_x.csv [--copy] [--note ...]
+python3 $T/session.py switch <name>
+```
+
+A session fixes its input CSV, report root and `base_sha` (taken from
+`workspace.json` at creation). `--csv` is optional for every tool once the session
+has a CSV. Agent branches are never shared across sessions: `file_branch.py start`
+only reuses the branch recorded in the active session.
 
 First time (prints the commands; add `--run` to execute after the user agrees):
 
@@ -57,8 +80,8 @@ python3 $T/setup_ws.py --fork-remote <remote> --fork-owner <gh-user>   # for PR 
 python3 $T/setup_ws.py --status              # base vs nightly skew
 ```
 
-`--refresh --run` moves `base_sha` to the latest viable/strict (new files only;
-existing files keep their recorded base). Activate `~/xpu_enable_ws/env` for every
+`--refresh --run` moves `workspace.json` `base_sha` to the latest viable/strict; it
+applies to sessions created afterwards (existing files keep their recorded base). Activate `~/xpu_enable_ws/env` for every
 test run; never touch the user's own env or checkout. `measure.py` overlays the
 clone's `torch/testing/_internal` onto the venv's torch before each run (op_db and
 helper edits take effect); `measure.py --restore` undoes it.
@@ -68,24 +91,26 @@ helper edits take effect); `measure.py --restore` undoes it.
 ### 1. Select cases
 
 ```
-python3 $T/select_cases.py --csv BATCH.csv [--filter inductor] [--file test_fp8.py]
+python3 $T/session.py show                     # right session? (new CSV -> create one)
+python3 $T/select_cases.py [--filter inductor] [--file test_fp8.py]
 ```
 
-Selected = no `fix_pr`, not already in any `<slug>/cases.json`, file not in a
-submitted PR bundle. Apply a filter only if the user gives one. Before starting,
+Selected = no `fix_pr`, not already in the session's `<slug>/cases.json`, file not
+in a submitted PR bundle of this session. Apply a filter only if the user gives one. Before starting,
 skim `references/review_notes.md` "Distilled lessons" for reviewer guidance.
 
 ### 2. Per file (repeat top to bottom, no pauses)
 
 ```
-python3 $T/file_branch.py start <test_file> --csv BATCH.csv
+python3 $T/file_branch.py start <test_file>
 ```
 
 Registers the file + its selected cases, then checks out the file's agent branch
-(`agent_<slug>_NNNN` at `base_sha`; reused if it already exists). Then:
+(`agent_<slug>_NNNN` at the session's `base_sha`; reused only if this session
+recorded it). Then:
 
 1. **Precheck** every case (API catalog + wontfix lookup):
-   `python3 $T/precheck.py --file <test_file> --csv BATCH.csv`
+   `python3 $T/precheck.py --file <test_file>`
 2. **Port** the file to device-agnostic code (`xpu-port-device-agnostic`).
 3. **Measure** the current state: `python3 $T/measure.py --file <f> --run initial`
 4. **Force-enable and re-measure** every case that is not PASSED: remove its XPU
@@ -113,7 +138,7 @@ gets no branch; its verdicts are still recorded.
 ### 3. Hand off for review
 
 ```
-python3 $T/review_server.py --csv BATCH.csv        # prints http://<host>:8100/ (next free port)
+python3 $T/review_server.py [--session NAME]       # prints http://<host>:8100/ (next free port)
 ```
 
 Tell the user the URL and what is waiting (files, verdict counts, drafts to

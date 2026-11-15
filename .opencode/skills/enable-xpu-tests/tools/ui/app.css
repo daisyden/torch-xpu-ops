@@ -63,3 +63,14 @@ tr.filters select { width:100%; min-width:80px; font-size:12px; padding:2px; }
 a.ghost-link { display:inline-block; padding:5px 12px; border:1px solid var(--blue); border-radius:5px; color:var(--blue); background:#fff; }
 a.ghost-link:hover { text-decoration:none; background:#eef4ff; }
 #fp-share { font-size:12px; }
+/* index PR cell editor */
+#idx td.prc .pe { display:block; margin-top:2px; }
+#idx td.prc .pe[hidden] { display:none; }
+#idx td.prc .pe-ref { width:7em; }
+.pe-open { text-decoration:none; }
+/* sessions */
+#sess-dlg { margin:10px 22px; }
+#sess-dlg .row { margin-top:6px; gap:10px; }
+#sess-sel { max-width:260px; }
+/* agent jobs */
+#jobcard .joblog { max-height:320px; overflow:auto; white-space:pre-wrap; font-size:12px; background:#0f1419; color:#d6dde4; padding:8px; }

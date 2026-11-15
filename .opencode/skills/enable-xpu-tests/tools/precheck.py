@@ -30,6 +30,7 @@ import urllib.request
 import yaml
 
 import issues
+import session
 import store
 from common import CLONE, REFS_DIR, cuda_to_xpu, slug as make_slug
 
@@ -270,6 +271,7 @@ def run(test_file: str, csv_path: str = "", use_gh: bool = True) -> dict:
     idx = Index(open(src_path, encoding="utf-8").read())
     cat = load_catalog()
     table = load_wontfix_table()
+    csv_path = csv_path or session.csv_path()
     msgs = {r["case_id"]: r.get("xpu_message", "") for r in store.read_csv(csv_path)} if csv_path else {}
     entries, out = {}, {}
     for cid, c in cases.items():

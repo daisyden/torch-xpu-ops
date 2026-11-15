@@ -1,0 +1,221 @@
+import json, glob, os
+from datetime import datetime, timezone
+
+def parse(t):
+    if not t: return None
+    return datetime.fromisoformat(t.replace('Z','+00:00'))
+
+INTERNAL = {'guangyey','etaf','EikanWang','CuiYifeng','liangan1','newtdms',
+            'astachowiczhabana','pbielak'}  # internal reviewers
+# Reviewers with WRITE permission on pytorch/pytorch. ONLY an "Approve" from one
+# of these satisfies the internal-review GATE (internal_ok) and lets a PR advance
+# to the community-review stage. Approvals by any other internal reviewer are
+# advisory and do NOT pass the gate (the PR stays in Internal Review).
+WRITE_INTERNAL = {'etaf','guangyey','chuanqi129','EikanWang'}
+# Non-collaborators who cannot always cast a formal "Approve" review; for them an
+# approval expressed in a review body or a plain PR comment (e.g. "LGTM"/"approved"
+# /"looks good") is accepted as an internal approval.
+INFORMAL_INTERNAL = {'CuiYifeng','newtdms'}
+import re
+APPROVE_RE = re.compile(r'\b(lgtm|approve[ds]?|looks good(?: to me)?|ok to merge)\b', re.I)
+# Intel org members (authors + intel reviewers) -> excluded from "community"
+INTEL_EXTRA = {'CuiYifeng','chuanqi129','xuyun44','EikanWang','LuFinch',
+               'NayanNagabhushana-28','Niran814804102','mansiag05','xuhancn','LuFinch'}
+COMMUNITY_KNOWN = {'jansel','fffrog'}  # jasonL=jansel, fffrog
+
+LABEL_WF = {
+    'ciflow/trunk': 'trunk',
+    'ciflow/xpu': 'xpu',
+    'ciflow/h100-distributed': 'Limited CI for distributed tests on H100',
+}
+FAIL_CONC = {'FAILURE','CANCELLED','TIMED_OUT','ACTION_REQUIRED','STARTUP_FAILURE'}
+
+owned = json.load(open('/tmp/owned.json'))
+rows = owned['rows']
+
+# author set = Intel team
+authors=set()
+for fp in glob.glob('pr_cache/*.json'):
+    d=json.load(open(fp))
+    if d: authors.add(d['author']['login'])
+INTEL_ALL = authors | INTERNAL | INTEL_EXTRA
+
+# map PR -> is distributed (from any owned row referencing it)
+pr_dist={}
+pr_team={}
+intel_prs=set()   # col F: Intel-authored port PRs
+comm_only=set()   # col O: community / Google-doc refactor PRs
+for r in rows:
+    for n in r['prs']: intel_prs.add(n)
+    for n in r['comm_prs']: comm_only.add(n)
+    for n in r['prs']+r['comm_prs']:
+        pr_dist[n]=pr_dist.get(n,False) or r['distributed']
+        if r['team']: pr_team.setdefault(n,set()).add(r['team'])
+# a PR listed in col F is treated as Intel even if it also appears in col O
+comm_only-=intel_prs
+
+def hours(a,b):
+    if not a or not b: return None
+    return round((b-a).total_seconds()/3600.0,1)
+
+records=[]
+for n in owned['prs']:
+    fp=f'pr_cache/{n}.json'
+    if not os.path.exists(fp): continue
+    d=json.load(open(fp))
+    if not d: continue
+    created=parse(d['createdAt'])
+    labels={l['name'] for l in d.get('labels') or []}
+    # A PR is merged when GitHub reports state MERGED or a mergedAt timestamp;
+    # the 'Merged' label is not always present, so don't rely on it alone.
+    is_merged=(d.get('state')=='MERGED') or bool(d.get('mergedAt')) or ('Merged' in labels)
+    merged=parse(d.get('mergedAt')) or (parse(d.get('closedAt')) if is_merged else None)
+    # reviews
+    internal_t=None; community_t=None; community_by=None
+    internal_approved_by=set()   # internal reviewers who approved (formal or informal)
+    internal_reviewed_by=set()   # internal reviewers who left any review
+    internal_write_approved_by=set()  # write-permission approvers (gate-passing)
+    def _earlier(cur,t):
+        return t if (t and (cur is None or t<cur)) else cur
+    for rv in d.get('reviews') or []:
+        lg=rv['author']['login'] if rv.get('author') else None
+        t=parse(rv.get('submittedAt'))
+        if lg in INTERNAL: internal_reviewed_by.add(lg)
+        if rv['state']=='APPROVED':
+            # write-permission approval: the ONLY thing that passes the internal
+            # gate. Detected independently of INTERNAL (chuanqi129 lives in
+            # INTEL_EXTRA, not INTERNAL, but still carries write permission).
+            if lg in WRITE_INTERNAL:
+                internal_t=_earlier(internal_t,t)
+                internal_write_approved_by.add(lg)
+                internal_approved_by.add(lg)
+            elif lg in INTERNAL:
+                # advisory internal approval: recorded for display/workload but
+                # does NOT satisfy the gate (internal_t left unchanged).
+                internal_approved_by.add(lg)
+            elif lg and lg not in INTEL_ALL:  # community = any external approver
+                if community_t is None or (t and t<community_t):
+                    community_t=t; community_by=lg
+        # informal internal approval via review body text (non-collaborators):
+        # advisory only -- recorded but does not pass the write-permission gate.
+        elif lg in INFORMAL_INTERNAL and APPROVE_RE.search(rv.get('body') or ''):
+            internal_approved_by.add(lg)
+    # informal internal approval via a plain PR comment (non-collaborators):
+    # advisory only -- recorded but does not pass the gate.
+    for cm in d.get('comments') or []:
+        lg=cm['author']['login'] if cm.get('author') else None
+        if lg in INFORMAL_INTERNAL and APPROVE_RE.search(cm.get('body') or ''):
+            internal_approved_by.add(lg); internal_reviewed_by.add(lg)
+    # currently-requested internal reviewers
+    req_r={(x or {}).get('login') for x in (d.get('reviewRequests') or [])}
+    # also treat our auto-request @mention comments as a pending internal
+    # request (non-collaborators can't be added to the formal reviewer field)
+    for cm in d.get('comments') or []:
+        b=cm.get('body') or ''
+        if '<!-- xpu-auto-review-request -->' in b:
+            for r in INTERNAL:
+                if f'@{r}' in b: req_r.add(r)
+    internal_requested=sorted(r for r in req_r if r in INTERNAL)
+    # "You can merge normally" is posted by the merge bot once all required
+    # labels/workflows are green, so it is an authoritative CI-pass signal.
+    merge_ok_at=None
+    for cm in d.get('comments') or []:
+        if 'you can merge normally' in (cm.get('body') or '').lower():
+            t=parse(cm.get('createdAt'))
+            if t and (merge_ok_at is None or t<merge_ok_at): merge_ok_at=t
+    # required workflows from labels
+    req_labels=[l for l in LABEL_WF if l in labels]
+    req_wfs={LABEL_WF[l] for l in req_labels}
+    is_dist=pr_dist.get(n,False)
+    ci_pass=None; ci_state='no_required_label'
+    if req_wfs:
+        wf_runs={w:[] for w in req_wfs}
+        for c in d.get('statusCheckRollup') or []:
+            w=c.get('workflowName')
+            if not w: continue
+            # GitHub reports a workflow's name inconsistently: sometimes the short
+            # name ('xpu'), sometimes the file path ('.github/workflows/trunk.yml').
+            # Normalise to the basename sans '.yml' so label->workflow mapping is
+            # robust across both forms (e.g. ciflow/trunk matches trunk.yml).
+            norm=w.rsplit('/',1)[-1]
+            if norm.endswith('.yml'): norm=norm[:-4]
+            if w in wf_runs: wf_runs[w].append(c)
+            elif norm in wf_runs: wf_runs[norm].append(c)
+        all_ok=True; last=None; any_run=False
+        for w,runs in wf_runs.items():
+            if not runs: all_ok=False; continue
+            for c in runs:
+                any_run=True
+                conc=c.get('conclusion')
+                if conc in FAIL_CONC: all_ok=False
+                ct=parse(c.get('completedAt'))
+                if ct and (last is None or ct>last): last=ct
+        if not any_run: ci_state='not_triggered'
+        elif all_ok: ci_state='passed'; ci_pass=last
+        else: ci_state='failing'
+    elif is_dist:
+        # Distributed PRs frequently carry no ciflow/* label that maps to a
+        # required workflow, so the label gate above never triggers. For these,
+        # evaluate CI from the whole status-check rollup instead.
+        all_ok=True; last=None; any_run=False
+        for c in d.get('statusCheckRollup') or []:
+            conc=c.get('conclusion')
+            status=c.get('status')
+            if conc is None and status not in ('COMPLETED', None):
+                all_ok=False; continue        # still running -> not passed yet
+            any_run=True
+            if conc in FAIL_CONC: all_ok=False
+            ct=parse(c.get('completedAt'))
+            if ct and (last is None or ct>last): last=ct
+        if not any_run: ci_state='not_triggered'
+        elif all_ok: ci_state='passed'; ci_pass=last
+        else: ci_state='failing'
+    # A merge-bot "You can merge normally" comment authoritatively confirms CI
+    # passed even if the status-check rollup is stale/missing runs. Prefer the
+    # earliest completed check time, else fall back to the comment timestamp.
+    if merge_ok_at is not None:
+        ci_state='passed'
+        if ci_pass is None: ci_pass=merge_ok_at
+    records.append({
+        'pr':n,'title':d.get('title'),'state':d['state'],
+        'author':d['author']['login'],
+        'additions':d.get('additions'),'deletions':d.get('deletions'),
+        'changed_files':d.get('changedFiles'),
+        'team':','.join(sorted(pr_team.get(n,[]))),
+        'merged':is_merged,
+        'is_draft':bool(d.get('isDraft')),
+        'created':d['createdAt'],'closed':d.get('closedAt'),
+        'labels':sorted(l for l in labels if l.startswith('ciflow/')),
+        'req_labels':req_labels,'distributed':pr_dist.get(n,False),
+        'is_refactor':n in comm_only,   # community/refactor PR from Google doc (col O)
+        'internal_ok':internal_t is not None,
+        'internal_requested':internal_requested,
+        'internal_reviewed_by':sorted(internal_reviewed_by),
+        'internal_approved_by':sorted(internal_approved_by),
+        'internal_write_approved_by':sorted(internal_write_approved_by),
+        'community_ok':community_t is not None,'community_by':community_by,
+        'ci_state':ci_state,
+        't_internal_h':hours(created,internal_t),
+        't_community_h':hours(created,community_t),
+        't_ci_h':hours(created,ci_pass),
+        't_merge_h':hours(created,merged),
+    })
+
+json.dump(records,open('/tmp/pr_analysis.json','w'),indent=1)
+
+# summary
+tot=len(records)
+def cnt(f): return sum(1 for r in records if f(r))
+print('PRs analyzed:',tot)
+print('internal review passed:',cnt(lambda r:r['internal_ok']))
+print('community review passed:',cnt(lambda r:r['community_ok']))
+print('CI passed:',cnt(lambda r:r['ci_state']=='passed'))
+print('CI failing:',cnt(lambda r:r['ci_state']=='failing'))
+print('CI not triggered:',cnt(lambda r:r['ci_state']=='not_triggered'))
+print('no required label:',cnt(lambda r:r['ci_state']=='no_required_label'))
+print('merged:',cnt(lambda r:r['merged']))
+import statistics as st
+for k in ('t_internal_h','t_community_h','t_ci_h','t_merge_h'):
+    vals=[r[k] for r in records if r[k] is not None]
+    if vals:
+        print(f'{k}: n={len(vals)} median={st.median(vals):.1f}h mean={st.mean(vals):.1f}h max={max(vals):.1f}h')

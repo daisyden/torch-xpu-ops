@@ -31,6 +31,7 @@ import time
 import xml.etree.ElementTree as ET
 
 import gitops
+import jobs
 import store
 from common import CLONE, WS, canon_dev, cuda_to_xpu, python_bin, slug as make_slug
 
@@ -154,6 +155,7 @@ def run_pytest(test_rel: str, names: list[str], log: str, xml_base: str, timeout
 
 def measure(test_file: str, run: str, case_ids=None, force=False, do_overlay=True,
             timeout=3600) -> dict:
+    jobs.require_idle()
     s = make_slug(test_file)
     f = store.load_file(s)
     cases = store.load_cases(s)

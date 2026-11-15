@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Review server: serves tools/ui/ and a JSON API over the report tree.
 
-  review_server.py --csv NEW.csv [--port 8100] [--bind 0.0.0.0] [--dry-run]
+  review_server.py [--csv NEW.csv] [--session NAME] [--port 8100] [--bind 0.0.0.0] [--dry-run]
 
-All data is read live from $XPU_ENABLE_WS/xpu_enable_report on every request; the
+All data is read live from the active session's report root (session.py) on every request; the
 input CSV is only read (to join display columns such as xpu_message) and to build
 the exported CSV, which is written as a NEW file next to it.
 
@@ -30,13 +30,22 @@ POST /api/pr/file_save      {slug, title, text}     per-file PR title/descriptio
 POST /api/pr/file_submit    {slug, title, text}     push to fork, return the prefilled PR page URL
 POST /api/pr/submit         {id}                    same for a multi-file bundle
 POST /api/pr/file_link      {slug}                  find the PR the human created, fill Fix PR
+POST /api/pr/file_append    {slug, ref, confirm}    add agent commits to an existing PR of yours (preview, then push)
 POST /api/pr/link           {id}                    same for a bundle
 POST /api/pr/file_set_number {slug, ref, confirm_head}  per-file PR number -> Fix PR
+POST /api/pr/clear_number    {id}                    unlink a wrong PR number (clears its Fix PR)
 POST /api/reviewer_start     {}                      start test_pr_reviewer if not running
+POST /api/job_start          {kind: process|retest, files?}   start a background agent job (one at a time)
+POST /api/job_status         {id?}                   running job, recent jobs, log tail
+POST /api/job_stop           {}                      stop the running job
+POST /api/sessions           {}                      list sessions, active one
+POST /api/session_create     {name, csv_path, copy?} | {name, csv_name, csv_text}   new empty session, switched to
+POST /api/session_switch     {name}                  make another session active (UI and agent CLI follow)
 """
 import argparse
 import json
 import os
+import time
 import re
 import socket
 import urllib.parse
@@ -45,7 +54,9 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 
 import export
 import gitops
+import jobs
 import patch_reviewer
+import session
 import issues
 import pr_bundle
 import rework_queue
@@ -61,11 +72,13 @@ CFG: dict = {}
 # ---- read side -------------------------------------------------------------
 
 def _csv_index() -> dict[str, dict]:
-    path = CFG["csv"]
-    st = os.stat(path)
-    if CFG.get("_csv_mtime") != st.st_mtime:
+    path = session.csv_path()
+    if not path or not os.path.exists(path):
+        return {}
+    key = (path, os.stat(path).st_mtime)
+    if CFG.get("_csv_key") != key:
         CFG["_csv_rows"] = {str(r.get("case_id")): r for r in store.read_csv(path)}
-        CFG["_csv_mtime"] = st.st_mtime
+        CFG["_csv_key"] = key
     return CFG["_csv_rows"]
 
 
@@ -107,7 +120,8 @@ def data() -> dict:
             b["log"] = pr_bundle.log(b)
         except Exception as e:  # noqa: BLE001
             b["log"] = f"(git error: {e})"
-    return {"repo": ISSUE_REPO, "csv": CFG["csv"], "portability_order": PORTABILITY,
+    return {"repo": ISSUE_REPO, "csv": session.csv_path(), "session": session.active(),
+            "sessions": session.listing(), "job": jobs.current(), "portability_order": PORTABILITY,
             "review_choices": REVIEW_CHOICES, "files": files, "bundles": bundles,
             "rework": len(rework_queue.queue())}
 
@@ -149,13 +163,24 @@ def file_detail(s: str) -> dict:
         b = pr_bundle.single_bundle(s)
         bundled = store.load_bundle(f["bundle"]) if f.get("bundle") else {}
         pr = {"bundle": b, **pr_bundle.links(b), "push_state": pr_bundle.push_state(b["target_branch"]),
-              "in_multi": bundled.get("id") if bundled and bundled.get("kind") != "single" else ""}
+              "in_multi": bundled.get("id") if bundled and bundled.get("kind") not in ("single", "external") else ""}
         ext = [x for x in store.list_bundles() if x.get("kind") == "external"
                and any(fe["slug"] == s for fe in x.get("files", []))]
         if ext:
             pr["external"] = [{"number": x["pr"]["number"], "url": x["pr"]["url"], "state": x["pr"].get("state", ""),
-                               "title": x["title"]} for x in ext]
-    return {"file": f, "cases": out, "drafts": store.load_drafts(s), "pr": pr, "reviewer": reviewer,
+                               "title": x["title"],
+                               "cases": next((fe.get("cases") for fe in x["files"] if fe["slug"] == s), None)}
+                              for x in ext]
+            covered = {c for x in ext for fe in x["files"] if fe["slug"] == s for c in (fe.get("cases") or cases)}
+            pr["external_covers_all"] = covered >= set(cases)
+    patch_info = None
+    if f.get("commit"):
+        patch_info = {"commit": f["commit"], "branch": f["agent_branch"],
+                      "in_sync": os.path.exists(patch) and gitops.branch_exists(f["agent_branch"])
+                      and gitops.git("rev-parse", f["agent_branch"])[:12] == f["commit"][:12],
+                      "updated": time.strftime("%Y-%m-%d %H:%M", time.localtime(os.path.getmtime(patch)))
+                      if os.path.exists(patch) else ""}
+    return {"file": f, "cases": out, "drafts": store.load_drafts(s), "pr": pr, "reviewer": reviewer, "patch_info": patch_info,
             "patch": open(patch, encoding="utf-8").read() if os.path.exists(patch) else "",
             "history": rv["history"]}
 
@@ -327,7 +352,7 @@ def reject_draft(p):
 
 
 def export_csv(_p):
-    return export.export_csv(CFG["csv"])
+    return export.export_csv(session.csv_path())
 
 
 PR_ROUTES = {
@@ -341,20 +366,52 @@ PR_ROUTES = {
     "remove_file": lambda p: pr_bundle.remove(p["id"], [store.load_file(s)["test_file"] for s in p["files"]]),
     "save_description": lambda p: pr_bundle.save_description(p["id"], p["text"]),
     "set_number": lambda p: pr_bundle.set_pr(p["id"], p["ref"], bool(p.get("confirm_head"))),
+    "clear_number": lambda p: pr_bundle.clear_pr(p["id"]),
     "file_save": lambda p: pr_bundle.save_file_pr(p["slug"], p["title"], p["text"]),
     "file_regen": lambda p: pr_bundle.regenerate_file_pr(p["slug"]),
     "file_submit": lambda p: pr_bundle.submit_file(p["slug"], p.get("title", ""), p.get("text", ""),
                                                    CFG.get("dry_run", False)),
     "submit": lambda p: pr_bundle.submit_bundle(p["id"], CFG.get("dry_run", False)),
     "file_link": lambda p: pr_bundle.link_file_pr(p["slug"]),
+    "file_append": lambda p: pr_bundle.append_to_pr(p["slug"], p["ref"], bool(p.get("confirm")), CFG.get("dry_run", False)),
     "link": lambda p: pr_bundle.link_pr(store.load_bundle(p["id"])),
     "file_set_number": lambda p: pr_bundle.set_file_pr(p["slug"], p["ref"], bool(p.get("confirm_head"))),
 }
+def sessions_list(_p):
+    return {"ok": True, "active": session.active_name(), "sessions": session.listing()}
+
+
+def session_create(p):
+    """{name, csv_path} or {name, csv_name, csv_text} (an uploaded file), optional note."""
+    if p.get("csv_text") is not None:
+        return session.create(p.get("name", ""), p.get("csv_name") or "input.csv", p.get("note", ""),
+                              csv_text=p["csv_text"])
+    return session.create(p.get("name", ""), os.path.expanduser(p.get("csv_path", "")), p.get("note", ""),
+                          copy=bool(p.get("copy")))
+
+
+def session_switch(p):
+    j = jobs.current()
+    if j:
+        return {"ok": False, "error": f"a {j['kind']} job is running in session {j['session']!r}; stop it or wait"}
+    return session.switch_to(p.get("name", ""))
+
+
+def job_start(p):
+    return jobs.start(p.get("kind", ""), [x for x in (p.get("files") or []) if x] or None)
+
+
+def job_status(p):
+    return {"ok": True, "running": jobs.current(), "recent": jobs.recent(), **jobs.tail(p.get("id", ""), 300)}
+
+
 def reviewer_start(_p):
     return patch_reviewer.ensure_running()
 
 
-ROUTES = {"reviewer_start": reviewer_start, "set_review": set_review, "set_file_prompt": set_file_prompt,
+ROUTES = {"job_start": job_start, "job_status": job_status, "job_stop": lambda _p: jobs.stop(),
+          "sessions": sessions_list, "session_create": session_create, "session_switch": session_switch,
+          "reviewer_start": reviewer_start, "set_review": set_review, "set_file_prompt": set_file_prompt,
           "set_case_fields": set_case_fields, "save_patch": save_patch,
           "submit_issue": submit_issue, "backfill_issue": backfill_issue,
           "match_issue": match_issue, "reject_draft": reject_draft, "export_csv": export_csv}
@@ -408,13 +465,17 @@ class Handler(SimpleHTTPRequestHandler):
             return self._json(200, fn(payload))
         except gitops.GitError as e:
             return self._json(200, {"ok": False, "error": f"git: {e}"})
+        except jobs.Busy as e:
+            return self._json(200, {"ok": False, "error": str(e)})
         except Exception as e:  # noqa: BLE001
             return self._json(500, {"ok": False, "error": f"{type(e).__name__}: {e}"})
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--csv", required=True, help="input CSV (read-only)")
+    ap.add_argument("--csv", default="", help="input CSV (read-only); default: the active session's. "
+                    "Given for a session without a CSV, it is recorded on that session")
+    ap.add_argument("--session", default="", help="switch to this session first")
     ap.add_argument("--port", type=int, default=8100,
                     help="first port to try; the next free one is used if it is busy")
     ap.add_argument("--bind", default="0.0.0.0", help="0.0.0.0 = reachable from other machines")
@@ -423,7 +484,17 @@ def main():
                     help="test_pr_reviewer/scripts dir; enables the 'Review patch' button (started on demand)")
     ap.add_argument("--patch-reviewer-port", type=int, default=8766)
     a = ap.parse_args()
-    CFG.update(csv=os.path.abspath(a.csv), dry_run=a.dry_run)
+    if a.session:
+        r = session.switch_to(a.session)
+        if not r["ok"]:
+            raise SystemExit(r["error"])
+    cur = session.active()
+    if a.csv and not cur.get("csv"):
+        session.set_csv(cur["name"], a.csv)
+    elif a.csv and os.path.abspath(a.csv) != cur["csv"]:
+        raise SystemExit(f"--csv {a.csv} differs from session {cur['name']!r}'s CSV {cur['csv']}; "
+                         "create a new session for a new CSV (session.py create NAME --csv PATH)")
+    CFG.update(dry_run=a.dry_run)
     srv = None
     for port in range(a.port, a.port + 50):
         try:
@@ -435,7 +506,8 @@ def main():
         raise SystemExit(f"no free port in {a.port}..{a.port + 49}")
     host = socket.getfqdn() if a.bind == "0.0.0.0" else a.bind
     patch_reviewer.configure(a.patch_reviewer, a.patch_reviewer_port, host)
-    print(f"report: {store.REPORT}\ncsv:    {CFG['csv']}\n"
+    cur = session.active()
+    print(f"session: {cur['name']}\nreport: {cur['root']}\ncsv:    {cur['csv']}\n"
           f"open:   http://{host}:{port}/   (local: http://localhost:{port}/)"
           + ("  (dry-run)" if a.dry_run else ""), flush=True)
     if patch_reviewer.enabled():

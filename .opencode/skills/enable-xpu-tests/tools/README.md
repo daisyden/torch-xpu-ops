@@ -7,6 +7,8 @@ testing).
 
 | tool | purpose |
 |---|---|
+| `session.py` | sessions: one input CSV = one report root; `list/show/create/switch` |
+| `jobs.py` | background agent jobs from the UI (`opencode run`): process / retest, one at a time, GitHub writes denied |
 | `setup_ws.py` | create/refresh the workspace (clone @ viable/strict, venv + nightly XPU wheel), record fork remote/owner |
 | `select_cases.py` | input CSV minus cases already in the report tree / with fix_pr / in a submitted bundle |
 | `file_branch.py` | per-file branch lifecycle: `start`, `checkout`, `finish`, `regen-patch` |
@@ -31,13 +33,21 @@ $XPU_ENABLE_WS/
   pytorch/           clone; idle state = detached HEAD at a file's base
   env/               venv; measure.py uses env/bin/python when present
   _internal.orig/    pristine torch/testing/_internal of the venv (for --restore)
-  xpu_enable_report/
+  sessions.json      {"active": NAME, "sessions": {NAME: {root, csv, base_sha, created, note}}}
+  sessions/<NAME>/   a session's report root (+ _input/<csv> when uploaded or --copy)
+  xpu_enable_report/ report root of the "default" session (pre-session data)
 ```
 
-## Report tree
+Every tool resolves the report root, input CSV and base commit from the active
+session at call time (`store.report_root()`, `session.csv_path()`,
+`session.base_sha()`). `$XPU_ENABLE_SESSION` overrides the registry's active entry
+for one process. The clone, venv, fork settings and `references/review_notes.md`
+are shared by all sessions.
+
+## Report tree (one per session)
 
 ```
-xpu_enable_report/
+<session root>/
   <slug>/                      slug = test path without "test/" and ".py", "/" -> "_"
     file.json
     cases.json
@@ -50,6 +60,8 @@ xpu_enable_report/
     logs/<run>_<ts>.src/       snapshot of files changed vs base (gate_removed/rework)
   _prs/<id>.json, <id>.body.md
   _issues.json                 gh issue state cache
+  _patch_comments/<key>.json   test_pr_reviewer line comments (key = slug or bundle id)
+  _input/<csv>                 the session's CSV, when stored in the session
 ```
 
 `file.json`
@@ -107,7 +119,9 @@ Precheck entries instead carry `apis`, `cuda_only_apis`, `gates`, `plan`,
 
 ```
 setup_ws.py [--run] [--reference DIR] | --refresh [--run] | --status | --fork-remote R --fork-owner O [--fork-repo OWNER/NAME]
-select_cases.py --csv CSV [--filter S] [--file F ...] [--include-pr-files] [--json]
+jobs.py start process|retest [--files F ...] [--model M] | status | log [N] | stop
+session.py list | show | create NAME --csv PATH [--copy] [--note T] [--no-switch] | switch NAME
+select_cases.py [--csv CSV] [--filter S] [--file F ...] [--include-pr-files] [--json]
 file_branch.py start|finish|checkout|regen-patch <test_file> [--csv CSV] [--cases id,id]
 precheck.py --file F [--csv CSV] [--no-gh] [--json] | --update-catalog [--yes]
 measure.py --file F --run initial|gate_removed|rework [--cases id,id] [--force] [--no-overlay] [--timeout S]
@@ -120,10 +134,10 @@ pr_bundle.py create --target B --title T --files F ... [--force] | update ID | r
              | record REF --files F ... [--cases id,id]      (map an already-submitted PR)
              | submit-file TEST_FILE | submit ID              (push + print prefilled PR page; asks y/N)
              | file-link-pr TEST_FILE | link ID               (after creating the PR on GitHub: fill fix_pr)
-export.py --csv CSV [--out PATH] | --junit OUT.xml [--file F ...]
+export.py [--csv CSV] [--out PATH] | --junit OUT.xml [--file F ...]
 rework_queue.py [--file F ...] [--json] [--no-notes]
 migrate_legacy.py --legacy-repo DIR --csv CSV [--csv CSV ...] [--branches B ...] [--patch TEST_FILE=PATH ...] [--no-branches] [--dry-run]
-review_server.py --csv CSV [--port 8100] [--bind 0.0.0.0] [--dry-run]   (next free port if busy)
+review_server.py [--session NAME] [--csv CSV] [--port 8100] [--bind 0.0.0.0] [--dry-run]   (next free port if busy)
                  [--patch-reviewer DIR] [--patch-reviewer-port 8766]   (test_pr_reviewer, started on demand)
 ```
 
@@ -150,11 +164,19 @@ review_server.py --csv CSV [--port 8100] [--bind 0.0.0.0] [--dry-run]   (next fr
 | POST | `/api/pr/submit` | `{id}` | same for a multi-file bundle |
 | POST | `/api/pr/file_link` / `link` | `{slug}` / `{id}` | find the PR the human created from the branch and fill fix_pr |
 | POST | `/api/pr/file_set_number` | `{slug, ref, confirm_head}` | per-file PR number -> fix_pr on its cases |
+| POST | `/api/pr/file_append` | `{slug, ref, confirm}` | add the agent commits to an existing open PR from your fork: preview (cherry-pick in a scratch worktree), then fast-forward push; fills Fix PR |
+| POST | `/api/pr/clear_number` | `{id}` | unlink a wrong PR number; clears the Fix PR it set; bundle back to picked |
+| POST | `/api/job_start` | `{kind: process\|retest, files?}` | start a background agent job (refused if one runs or the clone is dirty) |
+| POST | `/api/job_status` | `{id?}` | running job, recent jobs, rendered log tail |
+| POST | `/api/job_stop` | `{}` | stop the running job (process group) |
+| POST | `/api/sessions` | `{}` | list sessions (+ file counts), active one |
+| POST | `/api/session_create` | `{name, note?, csv_path, copy?}` or `{name, note?, csv_name, csv_text}` | new empty session (uploaded CSV stored in `_input/`), becomes active |
+| POST | `/api/session_switch` | `{name}` | change the active session (UI and CLI) |
 | POST | `/api/reviewer_start` | `{}` | start test_pr_reviewer if not answering; `{ok, port}` |
 
 With `--patch-reviewer`, `/api/file` carries `reviewer = {url, comments, open}` and
 bundles carry `reviewer_url`, `reviewer_open`. Comments live in
-`xpu_enable_report/_patch_comments/<slug|bundle id>.json` (see `patch_reviewer.py`).
+`<session root>/_patch_comments/<slug|bundle id>.json` (see `patch_reviewer.py`).
 
 Per-file PR links: `/api/data` files carry `pr_link`; `/api/file` carries
 `pr = {bundle, review_url, compare_url, pr_page, push, gh, fork_repo, body_file, in_multi, push_state}`

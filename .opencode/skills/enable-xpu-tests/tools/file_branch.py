@@ -21,20 +21,21 @@ import sys
 
 import gitops
 import store
-from common import WORKSPACE_JSON, slug as make_slug, test_path
+import session
+from common import slug as make_slug, test_path
 from select_cases import select
 
 
 def ws_base() -> str:
-    with open(WORKSPACE_JSON) as fh:
-        return json.load(fh)["base_sha"]
+    return session.base_sha()
 
 
 def start(test_file: str, csv_path: str, case_ids=None) -> dict:
     s = make_slug(test_file)
     f = store.load_file(s)
     base = f.get("base_sha") or ws_base()
-    branch = f.get("agent_branch") or gitops.find_agent_branch(s)
+    # never adopt another session's agent_<slug>_* branch: only this session's record counts
+    branch = f.get("agent_branch")
     gitops.require_clean()
     if branch and gitops.branch_exists(branch):
         gitops.switch(branch)
@@ -43,6 +44,7 @@ def start(test_file: str, csv_path: str, case_ids=None) -> dict:
         gitops.switch(branch, create_from=base)
     f = store.init_file(test_file, source=test_path(test_file), base_sha=base,
                         agent_branch=branch, status="In progress")
+    csv_path = csv_path or session.csv_path()
     if csv_path:
         rows = store.read_csv(csv_path)
         if case_ids:
@@ -88,7 +90,7 @@ def finish(test_file: str) -> dict:
 def rebuild(test_file: str) -> dict:
     s = make_slug(test_file)
     f = store.load_file(s)
-    old = f.get("agent_branch") or gitops.find_agent_branch(s)
+    old = f.get("agent_branch")
     gitops.require_clean()
     legacy = ""
     if old and gitops.branch_exists(old):

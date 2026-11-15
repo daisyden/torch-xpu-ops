@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Single reader/writer of the report tree (the source of truth; the CSV is input only).
 
-Layout (REPORT = $XPU_ENABLE_WS/xpu_enable_report):
+Layout (REPORT = the active session's root, see session.py):
 
   <slug>/file.json      {test_file, slug, source, base_sha, agent_branch, commit,
                          patch_sha, status, file_prompt, bundle, pr_title, pr_body}
@@ -30,7 +30,8 @@ import tempfile
 import threading
 import time
 
-from common import REPORT, slug as make_slug
+from common import slug as make_slug
+import session
 
 _LOCK = threading.RLock()
 
@@ -39,6 +40,17 @@ FILE_DEFAULTS = {"test_file": "", "slug": "", "source": "", "base_sha": "",
                  "file_prompt": "", "bundle": "", "pr_title": "", "pr_body": "", "pr_body_generated": ""}
 CASE_FIELDS = ["class_name", "test_name", "portability", "reason", "issue_number",
                "issue_url", "draft_id", "fix_pr", "cuda_only", "cpu_only", "cited_existing"]
+
+
+def report_root() -> str:
+    """Report root of the active session (see session.py), resolved per call."""
+    return session.root()
+
+
+def __getattr__(name):  # store.REPORT keeps working for callers, but follows the session
+    if name == "REPORT":
+        return report_root()
+    raise AttributeError(name)
 
 
 def now() -> str:
@@ -62,11 +74,13 @@ def _write(path, data):
     os.replace(tmp, path)
 
 
-def fdir(slug: str, root: str = REPORT) -> str:
+def fdir(slug: str, root: str | None = None) -> str:
+    root = root or report_root()
     return os.path.join(root, slug)
 
 
-def list_slugs(root: str = REPORT) -> list[str]:
+def list_slugs(root: str | None = None) -> list[str]:
+    root = root or report_root()
     if not os.path.isdir(root):
         return []
     return sorted(d for d in os.listdir(root)
@@ -75,13 +89,15 @@ def list_slugs(root: str = REPORT) -> list[str]:
 
 # ---- file.json -----------------------------------------------------------
 
-def load_file(slug: str, root: str = REPORT) -> dict:
+def load_file(slug: str, root: str | None = None) -> dict:
+    root = root or report_root()
     d = dict(FILE_DEFAULTS)
     d.update(_read(os.path.join(fdir(slug, root), "file.json"), {}))
     return d
 
 
-def init_file(test_file: str, root: str = REPORT, **fields) -> dict:
+def init_file(test_file: str, root: str | None = None, **fields) -> dict:
+    root = root or report_root()
     s = make_slug(test_file)
     with _LOCK:
         d = load_file(s, root)
@@ -91,7 +107,8 @@ def init_file(test_file: str, root: str = REPORT, **fields) -> dict:
     return d
 
 
-def update_file(slug: str, root: str = REPORT, **fields) -> dict:
+def update_file(slug: str, root: str | None = None, **fields) -> dict:
+    root = root or report_root()
     with _LOCK:
         d = load_file(slug, root)
         d.update(fields)
@@ -99,18 +116,21 @@ def update_file(slug: str, root: str = REPORT, **fields) -> dict:
     return d
 
 
-def patch_path(slug: str, root: str = REPORT) -> str:
+def patch_path(slug: str, root: str | None = None) -> str:
+    root = root or report_root()
     return os.path.join(fdir(slug, root), f"{slug}.patch")
 
 
 # ---- cases.json ----------------------------------------------------------
 
-def load_cases(slug: str, root: str = REPORT) -> dict:
+def load_cases(slug: str, root: str | None = None) -> dict:
+    root = root or report_root()
     return _read(os.path.join(fdir(slug, root), "cases.json"), {})
 
 
-def update_cases(slug: str, updates: dict, root: str = REPORT) -> dict:
+def update_cases(slug: str, updates: dict, root: str | None = None) -> dict:
     """Merge {case_id: {field: value}} into cases.json (fields are merged, not replaced)."""
+    root = root or report_root()
     with _LOCK:
         cases = load_cases(slug, root)
         for cid, fields in updates.items():
@@ -119,7 +139,8 @@ def update_cases(slug: str, updates: dict, root: str = REPORT) -> dict:
     return cases
 
 
-def all_case_ids(root: str = REPORT) -> set[str]:
+def all_case_ids(root: str | None = None) -> set[str]:
+    root = root or report_root()
     out = set()
     for s in list_slugs(root):
         out.update(load_cases(s, root))
@@ -128,7 +149,8 @@ def all_case_ids(root: str = REPORT) -> set[str]:
 
 # ---- reviews.json --------------------------------------------------------
 
-def load_reviews(slug: str, root: str = REPORT) -> dict:
+def load_reviews(slug: str, root: str | None = None) -> dict:
+    root = root or report_root()
     r = _read(os.path.join(fdir(slug, root), "reviews.json"), {})
     for k, default in (("verdicts", {}), ("comments", {}), ("history", [])):
         if not isinstance(r.get(k), type(default)):
@@ -136,8 +158,9 @@ def load_reviews(slug: str, root: str = REPORT) -> dict:
     return r
 
 
-def set_reviews(slug: str, case_ids, verdict=None, comment=None, root: str = REPORT) -> int:
+def set_reviews(slug: str, case_ids, verdict=None, comment=None, root: str | None = None) -> int:
     """Set a verdict and/or comment on cases. None leaves that field untouched."""
+    root = root or report_root()
     with _LOCK:
         r = load_reviews(slug, root)
         for cid in case_ids:
@@ -156,8 +179,9 @@ def set_reviews(slug: str, case_ids, verdict=None, comment=None, root: str = REP
     return len(list(case_ids))
 
 
-def resolve_rework(slug: str, case_ids, outcome: str, root: str = REPORT) -> int:
+def resolve_rework(slug: str, case_ids, outcome: str, root: str | None = None) -> int:
     """Mark cases Confirmed and move their comment (+ the file prompt) into history."""
+    root = root or report_root()
     with _LOCK:
         r = load_reviews(slug, root)
         prompt = load_file(slug, root).get("file_prompt", "")
@@ -176,12 +200,14 @@ def resolve_rework(slug: str, case_ids, outcome: str, root: str = REPORT) -> int
 
 # ---- results.json --------------------------------------------------------
 
-def load_results(slug: str, root: str = REPORT) -> dict:
+def load_results(slug: str, root: str | None = None) -> dict:
+    root = root or report_root()
     return _read(os.path.join(fdir(slug, root), "results.json"), {})
 
 
-def add_results(slug: str, entries: dict, root: str = REPORT) -> None:
+def add_results(slug: str, entries: dict, root: str | None = None) -> None:
     """Append {case_id: entry} results (history is kept; latest is last)."""
+    root = root or report_root()
     with _LOCK:
         res = load_results(slug, root)
         for cid, e in entries.items():
@@ -202,16 +228,19 @@ def latest(results: list, runs=None, patch_sha=None):
 
 # ---- drafts.json ---------------------------------------------------------
 
-def load_drafts(slug: str, root: str = REPORT) -> list:
+def load_drafts(slug: str, root: str | None = None) -> list:
+    root = root or report_root()
     return _read(os.path.join(fdir(slug, root), "drafts.json"), [])
 
 
-def save_drafts(slug: str, drafts: list, root: str = REPORT) -> None:
+def save_drafts(slug: str, drafts: list, root: str | None = None) -> None:
+    root = root or report_root()
     with _LOCK:
         _write(os.path.join(fdir(slug, root), "drafts.json"), drafts)
 
 
-def upsert_draft(slug: str, draft: dict, root: str = REPORT) -> dict:
+def upsert_draft(slug: str, draft: dict, root: str | None = None) -> dict:
+    root = root or report_root()
     with _LOCK:
         drafts = load_drafts(slug, root)
         if not draft.get("id"):
@@ -229,38 +258,45 @@ def upsert_draft(slug: str, draft: dict, root: str = REPORT) -> dict:
 
 # ---- PR bundles + issue cache -------------------------------------------
 
-def bundles_dir(root: str = REPORT) -> str:
+def bundles_dir(root: str | None = None) -> str:
+    root = root or report_root()
     return os.path.join(root, "_prs")
 
 
-def list_bundles(root: str = REPORT) -> list[dict]:
+def list_bundles(root: str | None = None) -> list[dict]:
+    root = root or report_root()
     d = bundles_dir(root)
     if not os.path.isdir(d):
         return []
     return [_read(os.path.join(d, f), {}) for f in sorted(os.listdir(d)) if f.endswith(".json")]
 
 
-def load_bundle(bid: str, root: str = REPORT) -> dict:
+def load_bundle(bid: str, root: str | None = None) -> dict:
+    root = root or report_root()
     return _read(os.path.join(bundles_dir(root), f"{bid}.json"), {})
 
 
-def save_bundle(b: dict, root: str = REPORT) -> None:
+def save_bundle(b: dict, root: str | None = None) -> None:
+    root = root or report_root()
     with _LOCK:
         _write(os.path.join(bundles_dir(root), f"{b['id']}.json"), b)
 
 
-def delete_bundle(bid: str, root: str = REPORT) -> None:
+def delete_bundle(bid: str, root: str | None = None) -> None:
+    root = root or report_root()
     for ext in (".json", ".body.md"):
         p = os.path.join(bundles_dir(root), bid + ext)
         if os.path.exists(p):
             os.remove(p)
 
 
-def issue_cache(root: str = REPORT) -> dict:
+def issue_cache(root: str | None = None) -> dict:
+    root = root or report_root()
     return _read(os.path.join(root, "_issues.json"), {})
 
 
-def save_issue_cache(cache: dict, root: str = REPORT) -> None:
+def save_issue_cache(cache: dict, root: str | None = None) -> None:
+    root = root or report_root()
     with _LOCK:
         _write(os.path.join(root, "_issues.json"), cache)
 
@@ -280,7 +316,7 @@ def _coerce(v: str):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--root", default=REPORT)
+    ap.add_argument("--root", default=None, help="report root (default: the active session)")
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("list")
     p = sub.add_parser("show")

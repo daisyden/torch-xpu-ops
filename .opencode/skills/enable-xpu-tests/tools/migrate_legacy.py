@@ -29,8 +29,9 @@ import shutil
 import subprocess
 
 import gitops
+import session
 import store
-from common import WORKSPACE_JSON, slug as make_slug, test_path
+from common import slug as make_slug, test_path
 
 PORT_MAP = {"portable": "Portable", "pass": "Portable", "known issue": "Known Issue",
             "feature gap": "Feature gap", "not applicable": "Not Applicable", "n/a": "Not Applicable",
@@ -245,7 +246,7 @@ def main():
     legacy = os.path.abspath(os.path.expanduser(a.legacy_repo))
     rows = load_csvs([os.path.join(legacy, p) if not os.path.isabs(p) else p for p in a.csv])
     mans = load_manifests(os.path.join(legacy, "xpu_enable_report"))
-    base = json.load(open(WORKSPACE_JSON))["base_sha"]
+    base = session.base_sha()
     by_file: dict[str, list[dict]] = {}
     for r in rows.values():
         if r.get("portability"):

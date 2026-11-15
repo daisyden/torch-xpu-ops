@@ -1,0 +1,362 @@
+#!/usr/bin/env python3
+"""Assign internal reviewers to open PRs that don't have one yet.
+
+Valid internal reviewers (7):
+    guangyey, etaf, CuiYifeng, liangan1, newtdms, astachowiczhabana, pbielak
+
+Expertise preference (a *preference*, not a hard rule -- load balancing can
+override it when the domain expert is overloaded):
+    guangyey -> runtime      etaf -> inductor     CuiYifeng -> ops
+    liangan1 -> sdpa         newtdms -> distributed
+    astachowiczhabana, pbielak -> test refactor / others
+
+CuiYifeng and newtdms are NOT formal collaborators, so they cannot be added as a
+formal requested reviewer; for them the assignment is delivered as an @mention
+comment (the text is included in the output file).
+
+"Already has a reviewer" (skipped) = an internal reviewer has ALREADY REVIEWED
+the PR. A stalled reviewer *request* that nobody acted on still needs assignment.
+
+Scope: only PRs authored by an Excel assignee (recorded in a file's Intel-PR
+column of a row that has an assignee, plus known assignee logins). Pass
+--all-open to consider every open PR instead.
+
+Modes:
+    python3 assign_reviewers.py                 # DRY-RUN: print plan, write nothing
+    python3 assign_reviewers.py --apply         # write /tmp/reviewer_assignments.{json,csv}
+    python3 assign_reviewers.py --github-apply   # LIVE: request reviewers / post @mention
+                                                 # comments on GitHub (idempotent; prompts
+                                                 # for confirmation unless --yes is given)
+Options:
+    --yes, -y       skip the interactive confirmation prompt (for --github-apply)
+    --penalty N     expertise preference strength (default 2; higher = stricter
+                    domain match, lower = purer load balancing)
+    --skip-drafts   do not assign reviewers to draft PRs
+    --all-open      consider all open PRs, not just Excel-assignee PRs
+    --include-approved   also (re)assign open PRs already reviewed internally
+
+--github-apply is idempotent: a formal request is skipped when the reviewer is
+already requested; an @mention comment is skipped when a prior auto-request
+comment (tagged with a hidden marker) for that reviewer already exists.
+Collaborators get a formal reviewer request; non-collaborators (CuiYifeng,
+newtdms) get an @mention comment instead.
+"""
+import json, os, sys, csv, subprocess
+from collections import Counter, defaultdict
+
+REPO='pytorch/pytorch'
+HERE=os.path.dirname(os.path.abspath(__file__))
+CACHE=os.path.join(HERE,'pr_cache')
+# persistent ledger of everything we've already posted, so repeated refreshes
+# never create a duplicate request/comment even if the live/cache check misses.
+LEDGER=os.path.join(HERE,'.assign_applied.json')
+# hidden marker so we never post a duplicate @mention review request
+MARKER='<!-- xpu-auto-review-request -->'
+
+INTERNAL = ['guangyey','etaf','CuiYifeng','liangan1','newtdms',
+            'astachowiczhabana','pbielak']
+INFORMAL = {'CuiYifeng','liangan1','newtdms'}   # not pytorch collaborators ->
+                                                # deliver via @mention comment
+EXPERTISE = {'guangyey':'runtime','etaf':'inductor','CuiYifeng':'ops',
+             'liangan1':'sdpa','newtdms':'distributed',
+             'astachowiczhabana':'others','pbielak':'others'}
+DOMAIN_REVIEWERS = defaultdict(list)
+for _r,_d in EXPERTISE.items(): DOMAIN_REVIEWERS[_d].append(_r)
+
+# ---- domain classification from test-file paths --------------------------------
+# precedence: strongest signal first
+def path_domain(p):
+    p=p.lower()
+    if any(k in p for k in ('sdpa','attention','flash_attention','flex_attention')):
+        return 'sdpa'
+    if 'distributed/' in p or p.startswith('distributed') or '/fsdp' in p or 'test_c10d' in p:
+        return 'distributed'
+    if 'inductor' in p or 'dynamo' in p or 'torchinductor' in p or '/fx/' in p:
+        return 'inductor'
+    if any(k in p for k in ('test_cuda','test_xpu','stream','event','allocator',
+                            'test_memory','pin_memory','device','test_multiprocessing',
+                            'runtime')):
+        return 'runtime'
+    if any(k in p for k in ('test_ops','test_torch','test_binary_ufuncs',
+                            'test_unary_ufuncs','test_reductions','test_linalg',
+                            'test_matmul','test_sparse','test_tensor','test_indexing',
+                            'test_scatter','test_foreach','test_nn','test_ops_',
+                            'test_segment','test_type_promotion','test_complex')):
+        return 'ops'
+    return 'others'
+
+def pr_domain(paths, distributed):
+    if not paths:
+        return 'distributed' if distributed else 'others'
+    c=Counter(path_domain(p) for p in paths)
+    if distributed: c['distributed']+=1   # xlsx distributed flag reinforces
+    # precedence tie-break
+    order=['sdpa','distributed','inductor','runtime','ops','others']
+    best=max(c.values())
+    for d in order:
+        if c.get(d,0)==best: return d
+    return 'others'
+
+def _raw(n):
+    p=os.path.join(CACHE,f'{n}.json')
+    return json.load(open(p)) if os.path.exists(p) else {}
+
+def load_ledger():
+    try:
+        return set(tuple(x) for x in json.load(open(LEDGER)))
+    except Exception:
+        return set()
+
+def save_ledger(ledger):
+    json.dump(sorted(list(ledger)), open(LEDGER,'w'), indent=1)
+
+def already_requested(n, login):
+    """True if login is currently a requested reviewer on the PR (live check)."""
+    try:
+        out=subprocess.run(['gh','api',f'repos/{REPO}/pulls/{n}/requested_reviewers'],
+                           capture_output=True,text=True,timeout=30)
+        if out.returncode==0:
+            d=json.loads(out.stdout)
+            return any((u.get('login')==login) for u in d.get('users',[]))
+    except Exception:
+        pass
+    # fall back to cached reviewRequests
+    return any((x.get('login') or x.get('name'))==login
+               for x in _raw(n).get('reviewRequests',[]))
+
+def already_commented(n, login):
+    """True if an auto review-request comment for login already exists."""
+    for cm in _raw(n).get('comments',[]):
+        b=cm.get('body') or ''
+        if MARKER in b and f'@{login}' in b:
+            return True
+    # live re-check (cache may be stale)
+    try:
+        out=subprocess.run(['gh','api',f'repos/{REPO}/issues/{n}/comments','--paginate'],
+                           capture_output=True,text=True,timeout=30)
+        if out.returncode==0:
+            for cm in json.loads(out.stdout):
+                b=cm.get('body') or ''
+                if MARKER in b and f'@{login}' in b:
+                    return True
+    except Exception:
+        pass
+    return False
+
+def gh_request_reviewer(n, login):
+    r=subprocess.run(['gh','api','--method','POST',
+                      f'repos/{REPO}/pulls/{n}/requested_reviewers',
+                      '-f',f'reviewers[]={login}'],capture_output=True,text=True,timeout=30)
+    return r.returncode==0, (r.stderr.strip() or r.stdout.strip())
+
+def gh_post_comment(n, body):
+    r=subprocess.run(['gh','pr','comment',str(n),'--repo',REPO,'--body',body],
+                     capture_output=True,text=True,timeout=30)
+    return r.returncode==0, (r.stderr.strip() or r.stdout.strip())
+
+def main():
+    apply='--apply' in sys.argv
+    github_apply='--github-apply' in sys.argv
+    skip_drafts='--skip-drafts' in sys.argv
+    include_approved='--include-approved' in sys.argv
+    penalty=2.0
+    if '--penalty' in sys.argv:
+        penalty=float(sys.argv[sys.argv.index('--penalty')+1])
+
+    all_open='--all-open' in sys.argv
+
+    # --only 186332,189564,...  restrict assignment to these PR numbers.
+    only=None
+    if '--only' in sys.argv:
+        only=set(int(x) for x in sys.argv[sys.argv.index('--only')+1].replace(',',' ').split())
+
+    # --force <login>  force every assigned PR to this reviewer (e.g. to keep a
+    # whole ghstack with one reviewer). Combine with --only to scope it.
+    force=None
+    if '--force' in sys.argv:
+        force=sys.argv[sys.argv.index('--force')+1]
+
+    owned=json.load(open('/tmp/owned.json'))
+    rows=owned['rows']
+    recs={int(r['pr']):r for r in json.load(open('/tmp/pr_analysis.json'))}
+
+    import re
+    def _nums(v):
+        out=set()
+        for x in (v or []):
+            m=re.search(r'(\d{5,7})', str(x))
+            if m: out.add(int(m.group(1)))
+        return out
+
+    # PR -> set(file paths)
+    pr_paths=defaultdict(set)
+    for r in rows:
+        for n in _nums(r.get('prs'))|_nums(r.get('comm_prs')):
+            if r.get('path'): pr_paths[n].add(r['path'])
+
+    # GitHub logins of our Excel assignees (Assignee column name -> GitHub login).
+    # Scope is based purely on PR AUTHORSHIP: a PR is only assignable if it was
+    # authored by one of these people. We do NOT infer scope from which file row
+    # a PR is linked to (a PR can touch a file owned by a different assignee).
+    ASSIGNEE_LOGINS={
+        'Artur':'AKloniecki', 'Benedykt':'BBBela', 'Daisy':'daisyden',
+        'Erxin':'shangerxin', 'Grzegorz':'gplutop7', 'Jakub':'jkosnox',
+        'Libo':'libohao1201', 'Madhu':'madhumitha0102', 'Piotr':'pbielak',
+        'Tomek':'tszulist-hbn', 'Xiangdong':'zxd1997066',
+    }
+    ASSIGNEE_AUTHORS=set(ASSIGNEE_LOGINS.values())
+    LOGIN2NAME={v:k for k,v in ASSIGNEE_LOGINS.items()}
+
+    # existing load = pending open PRs per reviewer: requested or reviewing but
+    # NOT yet approved by them (an already-approved PR is not pending work).
+    # A PR that already has ANY internal approval is done from a review-workload
+    # standpoint, so it contributes no load. The PR author is never counted as a
+    # reviewer of their own PR.
+    load=Counter()
+    for n,rec in recs.items():
+        if rec['state']!='OPEN': continue
+        approved=set(rec.get('internal_approved_by',[]))
+        if approved: continue          # already internally approved -> no load
+        author=rec.get('author')
+        pending=(set(rec.get('internal_requested',[]))|set(rec.get('internal_reviewed_by',[])))-approved-{author}
+        for who in pending:
+            if who in EXPERTISE: load[who]+=1
+
+    # PRs needing assignment. Scope: PRs AUTHORED by an Excel assignee (unless
+    # --all-open). A PR needs (re)assignment when no internal reviewer has
+    # actually ENGAGED yet (reviewed) -- a stalled request that nobody acted on
+    # still counts as needing a reviewer.
+    # A PR needs assignment only when it has NO internal reviewer yet -- neither
+    # formally requested nor @mention-commented nor reviewed. If any internal
+    # reviewer is already assigned (requested/engaged), skip it (a stalled
+    # request is left alone; use --include-approved to reconsider).
+    todo=[]
+    for n,rec in sorted(recs.items()):
+        if only is not None and n not in only: continue
+        if rec['state']!='OPEN': continue
+        if not all_open and rec.get('author') not in ASSIGNEE_AUTHORS:
+            continue
+        if skip_drafts and rec.get('is_draft'): continue
+        # already internally approved -> no reviewer needed
+        if set(rec.get('internal_approved_by',[])) and not include_approved:
+            continue
+        # engaged internal reviewers (excluding the author reviewing their own PR)
+        assigned=(set(rec.get('internal_requested',[]))|set(rec.get('internal_reviewed_by',[])))-{rec.get('author')}
+        if assigned and not include_approved:
+            continue
+        todo.append(n)
+
+    assignments=[]
+    for n in todo:
+        rec=recs[n]
+        author=rec.get('author')
+        dom=pr_domain(pr_paths.get(n,set()), rec.get('distributed',False))
+        experts=set(DOMAIN_REVIEWERS[dom])
+        # candidate pool always excludes the PR author: GitHub rejects requesting
+        # a review from the author, and an @mention to oneself is pointless.
+        if force:
+            if force==author:
+                print(f"  ! PR {n}: --force target {force} is the PR author; skipping")
+                continue
+            pick=force
+        # newtdms is the dedicated distributed reviewer: every distributed PR
+        # goes to newtdms, and newtdms is never assigned a non-distributed PR.
+        # (If newtdms authored the distributed PR, fall back to load balancing.)
+        elif dom=='distributed' and author!='newtdms':
+            pick='newtdms'
+        else:
+            # exclude newtdms (distributed-only) and the PR author.
+            cands=[r for r in INTERNAL if r!='newtdms' and r!=author]
+            if not cands:
+                print(f"  ! PR {n}: no eligible reviewer (author={author}); skipping")
+                continue
+            # cost = current load + penalty if not a domain expert; pick min
+            def cost(r): return load[r]+(0.0 if r in experts else penalty)
+            pick=min(cands, key=lambda r:(cost(r), load[r], r not in experts, r))
+        load[pick]+=1
+        method='comment' if pick in INFORMAL else 'request'
+        comment=(f"{MARKER}\n@{pick} could you please help review this "
+                 f"test port / refactor PR? Thanks!" if method=='comment' else '')
+        assignments.append({
+            'pr':n,'url':f'https://github.com/pytorch/pytorch/pull/{n}',
+            'title':rec.get('title'),'domain':dom,
+            'assignee':pick,'method':method,'comment':comment,
+            'is_draft':rec.get('is_draft',False),
+            'author':rec.get('author'),
+            'excel_assignee':LOGIN2NAME.get(rec.get('author'),'?'),
+            'files':sorted(pr_paths.get(n,set()))[:6],
+        })
+
+    # ---- report ----
+    print(f"internal reviewer assignment  "
+          f"({'GITHUB-APPLY' if github_apply else 'APPLY' if apply else 'DRY-RUN'}, "
+          f"penalty={penalty})")
+    print(f"open PRs: {sum(1 for r in recs.values() if r['state']=='OPEN')}  "
+          f"needing assignment: {len(todo)}\n")
+    for a in assignments:
+        d=' [draft]' if a['is_draft'] else ''
+        print(f"  PR {a['pr']:<7} {a['domain']:<11} -> {a['assignee']:<18} ({a['method']})"
+              f"  excel:{a['excel_assignee']:<10}{d}  {a['title'][:42]}")
+    print("\nresulting open-PR load per reviewer (existing + new):")
+    for r in INTERNAL:
+        print(f"  {r:<18} {load[r]}  [{EXPERTISE[r]}]")
+
+    if apply:
+        json.dump(assignments, open('/tmp/reviewer_assignments.json','w'), indent=1)
+        with open('/tmp/reviewer_assignments.csv','w',newline='') as f:
+            w=csv.writer(f); w.writerow(['pr','url','domain','assignee','method','comment','is_draft','title'])
+            for a in assignments:
+                w.writerow([a['pr'],a['url'],a['domain'],a['assignee'],a['method'],
+                            a['comment'],a['is_draft'],a['title']])
+        print("\nwrote /tmp/reviewer_assignments.json and /tmp/reviewer_assignments.csv")
+    else:
+        print("\n(dry-run: no files written; re-run with --apply to save assignments)")
+
+    if github_apply:
+        print(f"\n== about to post {len(assignments)} reviewer request(s)/comment(s) "
+              f"to GitHub ({REPO}) ==")
+        assume_yes='--yes' in sys.argv or '-y' in sys.argv
+        if not assume_yes:
+            try:
+                ans=input("Proceed with LIVE GitHub updates? type 'yes' to confirm: ").strip().lower()
+            except EOFError:
+                ans=''
+            if ans!='yes':
+                print("aborted -- no GitHub changes made "
+                      "(re-run with --yes to skip this prompt).")
+                return
+        print("== posting reviewer requests to GitHub (idempotent) ==")
+        ledger=load_ledger()
+        # PRs we've already auto-assigned in any prior run: never touch again,
+        # even if load-balancing would now pick a different reviewer.
+        actioned_prs={n for (n,_who,_m) in ledger}
+        done=skipped=failed=0
+        for a in assignments:
+            n,who,method=a['pr'],a['assignee'],a['method']
+            key=(n,who,method)
+            # PR-level guard: an auto-assignment already exists for this PR
+            if n in actioned_prs and key not in ledger:
+                print(f"  PR {n}: already auto-assigned earlier -- skip"); skipped+=1; continue
+            # exact (pr,reviewer,method) already actioned -> never repeat
+            if key in ledger:
+                print(f"  PR {n}: {method} -> {who} already done (ledger) -- skip"); skipped+=1; continue
+            if method=='request':
+                if already_requested(n,who):
+                    ledger.add(key); save_ledger(ledger)
+                    print(f"  PR {n}: {who} already requested -- skip"); skipped+=1; continue
+                ok,msg=gh_request_reviewer(n,who)
+            else:  # informal @mention comment
+                if already_commented(n,who):
+                    ledger.add(key); save_ledger(ledger)
+                    print(f"  PR {n}: {who} already @mentioned -- skip"); skipped+=1; continue
+                ok,msg=gh_post_comment(n,a['comment'])
+            if ok:
+                ledger.add(key); save_ledger(ledger)
+                print(f"  PR {n}: {method} -> {who}  OK"); done+=1
+            else:
+                print(f"  PR {n}: {method} -> {who}  FAILED: {msg[:120]}"); failed+=1
+        print(f"\napplied: {done}  skipped(existing): {skipped}  failed: {failed}")
+        print(f"ledger: {LEDGER} ({len(ledger)} entries)")
+
+if __name__=='__main__':
+    main()

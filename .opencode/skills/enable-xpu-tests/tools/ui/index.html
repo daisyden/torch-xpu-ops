@@ -10,11 +10,21 @@
 <header>
   <h1><a href="#/">XPU enablement review</a> <span id="brand" class="muted"></span></h1>
   <div class="hdr-actions">
+    <label class="small">Session <select id="sess-sel" title="each session = one input CSV with its own data"></select></label>
+    <button id="sess-new" class="ghost" title="start a new session from another CSV">New session</button>
     <button id="reload" class="ghost">Reload</button>
     <button id="export">Export CSV</button>
     <span id="export-msg"></span>
   </div>
 </header>
+<div id="sess-dlg" class="card" hidden>
+  <b>New session</b> <span class="muted small">a new CSV gets its own empty report data, PR bundles and comments; the current session is kept unchanged and you can switch back any time</span>
+  <div class="row"><label>Name <input type="text" id="sn-name" size="24" placeholder="2026WW46_BMG"></label>
+    <label>Note <input type="text" id="sn-note" size="40"></label></div>
+  <div class="row"><label>CSV file <input type="file" id="sn-file" accept=".csv"></label>
+    <span class="muted small">or a path on the server:</span> <input type="text" id="sn-path" size="60" placeholder="/home/.../2026WW46_BMG_xxx.csv"></div>
+  <div class="row"><button class="green" id="sn-create">Create and switch</button> <button class="ghost" id="sn-cancel">Cancel</button> <span id="sn-msg"></span></div>
+</div>
 <main id="app">Loading...</main>
 <script src="app.js"></script>
 </body>

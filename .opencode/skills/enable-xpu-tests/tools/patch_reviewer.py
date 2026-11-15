@@ -3,7 +3,7 @@
 review_server.py starts it on demand as a child process when --patch-reviewer points
 at its `scripts/` directory (or $XPU_PATCH_REVIEWER is set). Reviews of a file use
 `local:<base>..<agent_branch>` against the workspace clone, or `?pr=<n>` once the file
-has a PR. Line comments are stored by the reviewer under COMMENTS_DIR with key
+has a PR. Line comments are stored by the reviewer under comments_dir() with key
 = file slug, and read back here so the rework queue can act on them.
 """
 import json
@@ -16,11 +16,16 @@ import time
 import urllib.parse
 from pathlib import Path
 
+import store
 from common import CLONE, WS
 
-COMMENTS_DIR = Path(WS) / "xpu_enable_report" / "_patch_comments"
+
+def comments_dir() -> Path:
+    """Per-session: <session root>/_patch_comments (the reviewer reads it per request)."""
+    return Path(store.report_root()) / "_patch_comments"
+
 _LOCK = threading.Lock()
-_STATE: dict = {"proc": None, "port": 0, "scripts": "", "host": ""}
+_STATE: dict = {"proc": None, "port": 0, "scripts": "", "host": "", "comments": ""}
 
 
 def configure(scripts: str, port: int, host: str) -> None:
@@ -44,12 +49,21 @@ def ensure_running() -> dict:
     port = _STATE["port"]
     with _LOCK:
         p = _STATE["proc"]
-        if _up(port):
+        # the reviewer's comment dir is fixed at start: restart it after a session switch
+        if p is not None and p.poll() is None and _STATE["comments"] != str(comments_dir()):
+            p.terminate()
+            p.wait(timeout=10)
+            for _ in range(20):
+                if not _up(port):
+                    break
+                time.sleep(0.25)
+        elif _up(port):
             return {"ok": True, "port": port}
         if p is None or p.poll() is not None:
             env = dict(os.environ, REFACTOR_REVIEW_LOCAL_CLONE=CLONE,
                        REFACTOR_REVIEW_CLONE=os.environ.get("REFACTOR_REVIEW_CLONE", CLONE),
-                       REFACTOR_REVIEW_COMMENTS=str(COMMENTS_DIR))
+                       REFACTOR_REVIEW_COMMENTS=str(comments_dir()))
+            _STATE["comments"] = str(comments_dir())
             log = open(Path(WS) / "patch_reviewer.log", "a")
             _STATE["proc"] = subprocess.Popen(
                 [sys.executable, "-W", "ignore", "server.py", "--host", "0.0.0.0", "--port", str(port),
@@ -103,7 +117,7 @@ def url_for_bundle(b: dict) -> str:
 
 
 def comments(slug: str) -> list[dict]:
-    path = COMMENTS_DIR / f"{slug}.json"
+    path = comments_dir() / f"{slug}.json"
     if not path.exists():
         return []
     return json.loads(path.read_text(encoding="utf-8"))

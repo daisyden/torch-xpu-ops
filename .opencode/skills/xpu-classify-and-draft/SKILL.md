@@ -26,7 +26,7 @@ gate-removed run is needed.
 ## Step A: precheck (does not decide anything)
 
 ```
-python3 $T/precheck.py --file <test_file> --csv BATCH.csv
+python3 $T/precheck.py --file <test_file>           # CSV: the active session's
 ```
 
 Per case it reports:

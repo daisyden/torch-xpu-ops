@@ -29,6 +29,9 @@ def is_clean(cwd: str = CLONE) -> bool:
 
 
 def require_clean(cwd: str = CLONE) -> None:
+    if cwd == CLONE:
+        import jobs  # a UI job owns the shared clone while it runs
+        jobs.require_idle()
     if not is_clean(cwd):
         raise GitError(f"clone is dirty; commit or stash first:\n{git('status', '--short', cwd=cwd)}")
 

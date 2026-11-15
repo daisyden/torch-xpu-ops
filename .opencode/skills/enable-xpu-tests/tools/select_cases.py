@@ -13,7 +13,8 @@ import json
 import sys
 
 import store
-from common import REPORT, slug as make_slug
+import session
+from common import slug as make_slug
 
 
 def bundled_slugs(root: str) -> set[str]:
@@ -24,8 +25,9 @@ def bundled_slugs(root: str) -> set[str]:
     return out
 
 
-def select(rows: list[dict], root: str = REPORT, filt: str = "", files=None,
+def select(rows: list[dict], root: str | None = None, filt: str = "", files=None,
            include_pr_files: bool = False) -> dict[str, list[dict]]:
+    root = root or store.report_root()
     done = store.all_case_ids(root)
     # a bundle that lists explicit cases (an external PR covering part of a file) does
     # not block the file's other cases
@@ -49,14 +51,14 @@ def select(rows: list[dict], root: str = REPORT, filt: str = "", files=None,
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--csv", required=True)
-    ap.add_argument("--root", default=REPORT)
+    ap.add_argument("--csv", default="", help="default: the active session's CSV")
+    ap.add_argument("--root", default=None, help="report root (default: the active session)")
     ap.add_argument("--filter", default="", help="substring of test_file")
     ap.add_argument("--file", action="append", help="exact test_file (repeatable)")
     ap.add_argument("--include-pr-files", action="store_true")
     ap.add_argument("--json", action="store_true")
     a = ap.parse_args()
-    sel = select(store.read_csv(a.csv), a.root, a.filter, a.file, a.include_pr_files)
+    sel = select(store.read_csv(session.require_csv(a.csv)), a.root, a.filter, a.file, a.include_pr_files)
     if a.json:
         json.dump({tf: [r["case_id"] for r in rs] for tf, rs in sel.items()}, sys.stdout, indent=2)
         print()

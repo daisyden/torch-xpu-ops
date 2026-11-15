@@ -41,7 +41,24 @@ add distilled lessons under "Distilled lessons" instead.
   the gate removed (inductor/test_cpu_repro: host gcc-13 gate kept -> Not Applicable).
 - Prefer a narrow device-generic class for the CSV cases over enabling a large
   class (allow_xpu on TestNNDeviceType would have instantiated ~2300 XPU tests).
+- Respect `hw_classification`: never instantiate a `HardwareClassification.CUDA`
+  class on XPU, and never add `@onlyCUDA` inside one (it is already CUDA-only). Move
+  device-agnostic tests out of it into an existing device-generic class first (e.g.
+  `TestTorchDeviceType` with `@onlyOn(["cuda", "xpu"])` for tests that need an
+  accelerator). Add a new `ACCELERATOR`/`GENERIC` class only when no existing class
+  fits. (test_torch.py patch review, two rounds)
 
 ## Log
 
 <!-- rework_queue.py appends entries below this line. -->
+- [2026-11-09 03:10 UTC] [Needs work] `TestCommonCUDA::test_errors_where_cuda` (branch `missing_eager`, file `test_ops.py`, case_id 331596, now: Not Applicable)
+  - comment: remove skips and measure to get the error message, get existing issue or submit known issue if test fail. otherwise if passed remove the skips.
+  - <!-- key: missing_eager|test_ops.py|331596|remove skips and measure to get the error message, get existing issue or submit known issue if test fail. otherwise if passed remove the skips. -->
+
+- [2026-11-10 02:53] common prompt for `test_torch.py`
+  - prompt: For any skipped test, please remove skips and make the test device agnostic and rework
+  - <!-- key: test_torch|prompt|For any skipped test, please remove skips and make the test device agnostic and rework -->
+
+- [2026-11-10 12:24] common prompt for `inductor/test_aot_inductor_arrayref.py`
+  - prompt: The portability field should algin with latest result, if PASSED in retest portability should be portable. And the patch should be shown if gate removed making the test pass.
+  - <!-- key: inductor_test_aot_inductor_arrayref|prompt|The portability field should algin with latest result, if PASSED in retest portability should be portable. And the patch should be shown if gate removed making the test pass. -->

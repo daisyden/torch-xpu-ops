@@ -22,7 +22,8 @@ import re
 import shlex
 import subprocess
 
-from common import CLONE, ENV_DIR, REPORT, WS, WORKSPACE_JSON, python_bin
+import session
+from common import CLONE, ENV_DIR, WS, WORKSPACE_JSON, python_bin
 
 BASE_REF = "origin/viable/strict"
 NIGHTLY = "https://download.pytorch.org/whl/nightly/xpu"
@@ -146,7 +147,7 @@ def main():
     cmds.append([pip, "install", "--pre", "--upgrade", "torch", "--index-url", NIGHTLY])
     cmds.append([pip, "install", *TEST_DEPS])
     run(cmds, a.run)
-    os.makedirs(REPORT, exist_ok=True)
+    os.makedirs(session.root(), exist_ok=True)
     if a.run:
         ws.update(base_ref=BASE_REF, base_sha=base_sha(), nightly_git_version=nightly_version())
         ws.setdefault("created", __import__("time").strftime("%Y-%m-%d"))

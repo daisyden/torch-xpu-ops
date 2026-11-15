@@ -37,7 +37,7 @@ import urllib.parse
 import gitops
 import store
 import verify_evidence
-from common import PR_REPO, WORKSPACE_JSON, parse_ref, slug as make_slug
+from common import PR_REPO, WORKSPACE_JSON, WS, parse_ref, slug as make_slug
 
 ACTIVE = {"picked", "submitted", "merged"}
 PR_BASE = "main"
@@ -204,6 +204,25 @@ def set_pr(bid: str, ref: str, confirm_head: bool = False) -> dict:
     return {"ok": True, "bundle": b, "cases_updated": n}
 
 
+def clear_pr(bid: str) -> dict:
+    """Unlink a wrongly entered PR: drop the number and the Fix PR it set; keep the bundle."""
+    b = store.load_bundle(bid)
+    if b.get("kind") == "external":
+        return {"ok": False, "error": "recorded external PR; delete the record instead"}
+    url = (b.get("pr") or {}).get("url")
+    if not url:
+        return {"ok": False, "error": "no PR number set"}
+    n = 0
+    for fe in b["files"]:
+        cases = store.load_cases(fe["slug"])
+        upd = {c: {"fix_pr": ""} for c in cases if cases[c].get("fix_pr") == url}
+        store.update_cases(fe["slug"], upd)
+        n += len(upd)
+    b["pr"], b["status"] = {}, "picked"
+    store.save_bundle(b)
+    return {"ok": True, "bundle": b, "cases_updated": n}
+
+
 def refresh(bid: str) -> dict:
     b = store.load_bundle(bid)
     if not b.get("pr", {}).get("number"):
@@ -316,7 +335,8 @@ def record_external(ref: str, files: list[str], case_ids: list[str] | None = Non
         if not ids:
             continue
         store.update_cases(s, {c: {"fix_pr": d["url"]} for c in ids})
-        store.update_file(s, bundle=f"pr_{num}")
+        if len(ids) == len(cases):   # covers the whole file: it is the file's PR
+            store.update_file(s, bundle=f"pr_{num}")
         entries.append({"slug": s, "test_file": tf, "state": "picked", "picked": {}, "conflicts": [],
                         **({"cases": ids} if only is not None or len(ids) != len(cases) else {})})
         n += len(ids)
@@ -390,7 +410,7 @@ def save_file_pr(slug: str, title: str, text: str) -> dict:
 def set_file_pr(slug: str, ref: str, confirm_head: bool = False) -> dict:
     f = store.load_file(slug)
     other = store.load_bundle(f["bundle"]) if f.get("bundle") else {}
-    if other and other.get("kind") != "single" and other.get("status") in ACTIVE:
+    if other and other.get("kind") not in ("single", "external") and other.get("status") in ACTIVE:
         return {"ok": False, "error": f"file is in PR bundle {other['id']} ({other['status']})"}
     if not f["agent_branch"]:
         return {"ok": False, "error": "file has no agent branch / commit"}
@@ -463,7 +483,7 @@ def link_pr(b: dict) -> dict:
 def submit_file(slug: str, title: str = "", text: str = "", dry_run: bool = False) -> dict:
     f = store.load_file(slug)
     other = store.load_bundle(f["bundle"]) if f.get("bundle") else {}
-    if other and other.get("kind") != "single" and other.get("status") in ACTIVE:
+    if other and other.get("kind") not in ("single", "external") and other.get("status") in ACTIVE:
         return {"ok": False, "error": f"file is already in PR {other['id']} ({other['status']})"}
     if title or text:
         save_file_pr(slug, title or f.get("pr_title", ""), text or f.get("pr_body", ""))
@@ -472,6 +492,82 @@ def submit_file(slug: str, title: str = "", text: str = "", dry_run: bool = Fals
     if r.get("ok") and not dry_run:
         store.update_file(slug, bundle=b["id"])
     return r
+
+
+def append_to_pr(slug: str, ref: str, confirm: bool = False, dry_run: bool = False) -> dict:
+    """Add this file's agent commits to an existing open PR from the user's fork.
+
+    The commits not already on the PR branch (by patch-id) are cherry-picked onto the
+    PR head in a scratch worktree, so the clone's checkout is untouched. Without
+    `confirm` this only previews (commits, diffstat). With it, the result is pushed as
+    a fast-forward of the PR branch (never forced), and the PR is recorded as the
+    file's PR with Fix PR set on all its cases."""
+    f = store.load_file(slug)
+    ws = _ws()
+    remote, owner = ws.get("fork_remote"), ws.get("fork_owner")
+    if not (remote and owner):
+        return {"ok": False, "error": "fork not configured: setup_ws.py --fork-remote R --fork-owner O"}
+    if not (f.get("agent_branch") and gitops.branch_exists(f["agent_branch"])):
+        return {"ok": False, "error": "file has no agent branch / commit"}
+    num, _ = parse_ref(ref, PR_REPO, "pull")
+    p = subprocess.run(["gh", "pr", "view", str(num), "--repo", PR_REPO, "--json",
+                        "number,url,state,headRefName,headRefOid,headRepositoryOwner,title"],
+                       capture_output=True, text=True, timeout=60)
+    if p.returncode != 0:
+        return {"ok": False, "error": f"gh pr view {num}: {(p.stderr or p.stdout).strip()}"}
+    d = json.loads(p.stdout)
+    if d["state"] != "OPEN":
+        return {"ok": False, "error": f"PR #{num} is {d['state']}"}
+    if (d.get("headRepositoryOwner") or {}).get("login") != owner:
+        return {"ok": False, "error": f"PR #{num} is not from your fork ({owner}); you can only push to your own branch"}
+    head_ref, head_oid = d["headRefName"], d["headRefOid"]
+    gitops.git("fetch", "--no-tags", remote, f"refs/heads/{head_ref}")
+    if gitops.git("rev-parse", "FETCH_HEAD") != head_oid:
+        return {"ok": False, "error": f"fork branch {head_ref} is not at the PR head {head_oid[:12]}; refresh and retry"}
+    on_pr = gitops.patch_ids(gitops.git("merge-base", head_oid, f["base_sha"]), head_oid)
+    todo = [c for c in gitops.commits(f["base_sha"], f["agent_branch"])
+            if gitops.git("patch-id", "--stable", input=gitops.git("show", c, raw=True)).split()[:1][0] not in on_pr]
+    info = {"pr": num, "url": d["url"], "title": d["title"], "head": head_ref, "head_oid": head_oid[:12],
+            "commits": [gitops.git("log", "-1", "--format=%h %s", c) for c in todo]}
+    if not todo:
+        return {"ok": True, **info, "nothing": True}
+    wt = os.path.join(WS, "_append_wt")
+    gitops.git("worktree", "remove", "--force", wt, check=False)
+    gitops.git("worktree", "add", "--detach", wt, head_oid)
+    try:
+        applied = []
+        for c in todo:
+            r = subprocess.run(["git", "cherry-pick", c], cwd=wt, capture_output=True, text=True)
+            if r.returncode != 0 and "is now empty" in (r.stdout + r.stderr):
+                gitops.git("cherry-pick", "--skip", cwd=wt, check=False)   # its changes are already on the PR
+                continue
+            if r.returncode == 0:
+                applied.append(c)
+                continue
+            if r.returncode != 0:
+                conflicts = gitops.git("diff", "--name-only", "--diff-filter=U", cwd=wt, check=False)
+                gitops.git("cherry-pick", "--abort", cwd=wt, check=False)
+                return {"ok": False, **info, "error": f"commit {c[:12]} does not apply on PR #{num} "
+                        f"(conflicts: {conflicts or r.stderr.strip()[:200]}); rebase the agent branch on the PR first"}
+        info["commits"] = [gitops.git("log", "-1", "--format=%h %s", c) for c in applied]
+        if not applied:
+            return {"ok": True, **info, "nothing": True}
+        todo = applied
+        new = gitops.head(wt)
+        info["diffstat"] = gitops.git("diff", "--stat", head_oid, new, cwd=wt)
+        info["push_cmd"] = f"git push {remote} {new[:12]}:refs/heads/{head_ref}"
+        if not confirm or dry_run:
+            return {"ok": True, **info, "preview": True, "dry_run": dry_run}
+        r = subprocess.run(["git", "push", remote, f"{new}:refs/heads/{head_ref}"], cwd=wt,
+                           capture_output=True, text=True, timeout=600)
+        if r.returncode != 0:
+            return {"ok": False, **info, "error": f"push failed: {(r.stderr or r.stdout).strip()[:300]}"}
+    finally:
+        gitops.git("worktree", "remove", "--force", wt, check=False)
+    rec = record_external(str(num), [f["test_file"]])
+    store.update_file(slug, pr_append={"pr": num, "head": head_ref, "pushed": new[:12], "at": store.now(),
+                                       "agent_commits": [c[:12] for c in todo]})
+    return {"ok": True, **info, "pushed": new[:12], "cases_updated": rec.get("cases_updated", 0)}
 
 
 def submit_bundle(bid: str, dry_run: bool = False) -> dict:

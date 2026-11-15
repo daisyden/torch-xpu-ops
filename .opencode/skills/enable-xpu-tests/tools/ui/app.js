@@ -64,6 +64,7 @@ function renderIndex() {
   var files = DATA.files || [];
   $('#brand').textContent = files.length + ' files / ' + files.reduce(function (a, f) { return a + f.n_cases; }, 0) + ' cases';
   var h = [];
+  h.push(jobCard(files.length));
   if (DATA.rework) h.push('<div class="banner">' + DATA.rework + ' case(s) in the rework queue (comments / common prompts / Needs work). Ask the agent to "process the rework queue".</div>');
   var open = (DATA.bundles || []).filter(function (b) { return b.kind !== 'external' && b.status === 'picked'; });
   if (open.length) {
@@ -104,11 +105,12 @@ function renderIndex() {
         '<a target="_blank" href="' + esc(f.pr_link) + '" title="push the agent branch to your fork first">submit PR &#8599;</a>' : (f.commit ? '<span class="muted small" title="set fork owner: setup_ws.py --fork-owner">no fork owner</span>' : ''));
     var t = tagsBySlug[f.slug];
     h.push('<tr data-slug="' + esc(f.slug) + '"' + IDX_COLS.map(function (c) { return ' data-f-' + c.col + '="' + esc((t[c.col] || []).join('\u0001')) + '"'; }).join('') + '>' +
-      '<td><input type="checkbox" class="chk" data-slug="' + esc(f.slug) + '"' + (f.commit ? '' : ' disabled title="no agent commit"') + '></td>' +
+      '<td><input type="checkbox" class="chk" data-slug="' + esc(f.slug) + '" data-file="' + esc(f.test_file) + '" data-commit="' + (f.commit ? 1 : 0) + '"></td>' +
       '<td><a href="#/file/' + encodeURIComponent(f.slug) + '">' + esc(f.test_file) + '</a>' + (f.n_comments ? ' <span class="muted small">(' + f.n_comments + ' comments)</span>' : '') + '</td>' +
       '<td class="st" title="' + esc(f.status) + '">' + esc(shortStatus(f.status)) + '</td><td>' + f.n_cases + '</td><td>' + counts(f.portability, 'p', DATA.portability_order) + '</td>' +
       '<td>' + counts(f.review, 'r', DATA.review_choices) + '</td><td class="br" title="' + esc(f.agent_branch || '') + '"><code>' + esc(f.agent_branch || '-') + '</code></td><td class="prc">' + pr +
-      prs.map(function (x) { return ' <a target="_blank" href="' + esc(x.pr.url) + '">#' + x.pr.number + '</a>'; }).join('') + '</td></tr>');
+      prs.map(function (x) { return ' <a target="_blank" href="' + esc(x.pr.url) + '">#' + x.pr.number + '</a>'; }).join('') +
+      (f.commit || b ? prEditor(f, b) : '') + '</td></tr>');
   });
   h.push('</tbody></table>');
   var rest = (DATA.bundles || []).filter(function (b) { return open.indexOf(b) < 0; });
@@ -198,6 +200,7 @@ function wireIndex() {
   $$('.qv').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); setIdxFilter(JSON.parse(a.getAttribute('data-q'))); }); });
   var fc = $('#f-clear');
   if (fc) fc.addEventListener('click', function (e) { e.preventDefault(); setIdxFilter({}); });
+  wirePrEditors();
   $$('.to-bundle').forEach(function (a) {
     a.addEventListener('click', function (e) {
       e.preventDefault();
@@ -206,10 +209,13 @@ function wireIndex() {
     });
   });
   function sel() { return $$('.chk:checked').map(function (c) { return c.getAttribute('data-slug'); }); }
+  wireJob(function () { return $$('.chk:checked').map(function (c) { return c.getAttribute('data-file'); }); });
   function upd() { $('#nsel').textContent = sel().length; }
   $$('.chk').forEach(function (c) { c.addEventListener('change', upd); });
   $('#chk-all').addEventListener('change', function (e) { $$('.chk:not(:disabled)').forEach(function (c) { if (c.closest('tr').style.display !== 'none') c.checked = e.target.checked; }); upd(); });
   $('#pr-create').addEventListener('click', function () {
+    var noc = $$('.chk:checked').filter(function (c) { return c.getAttribute('data-commit') !== '1'; }).length;
+    if (noc) { $('#pr-msg').innerHTML = '<span class="err">' + noc + ' selected file(s) have no agent commit; a PR bundle needs commits</span>'; return; }
     var files = sel(), target = $('#pr-target').value.trim(), title = $('#pr-title').value.trim(), m = $('#pr-msg');
     if (!files.length || !target || !title) { m.innerHTML = '<span class="err">select files, enter target branch and title</span>'; return; }
     function go(force) {
@@ -262,6 +268,46 @@ function wireIndex() {
   });
 }
 
+// Index PR cell editor. A file in a multi-file bundle edits the bundle's PR (all its
+// files); otherwise the file's own single-file PR. External records are read-only.
+function prEditor(f, b) {
+  if (b && b.kind === 'external') return '';
+  var multi = b && b.kind !== 'single';
+  var cur = b && b.pr && b.pr.number ? String(b.pr.number) : '';
+  return ' <a href="#" class="pe-open small" title="' + (multi ? 'edit the PR of bundle ' + esc(b.id) + ' (all its files)' : 'edit this file\'s PR number') + '">&#9998;</a>' +
+    '<span class="pe" hidden data-slug="' + esc(f.slug) + '" data-bid="' + (b ? esc(b.id) : '') + '" data-multi="' + (multi ? 1 : 0) + '">' +
+    '<input type="text" class="pe-ref" size="9" placeholder="# or URL" value="' + esc(cur) + '"> <button class="ghost pe-set">Set</button>' +
+    (cur ? ' <button class="ghost pe-clear" title="unlink this PR and clear the Fix PR it set">Clear</button>' : '') +
+    ' <span class="pe-msg small"></span></span>';
+}
+
+function wirePrEditors() {
+  $$('.pe-open').forEach(function (a) {
+    a.addEventListener('click', function (e) { e.preventDefault(); var s = a.nextElementSibling; s.hidden = !s.hidden; if (!s.hidden) $('.pe-ref', s).focus(); });
+  });
+  $$('.pe').forEach(function (s) {
+    var slug = s.getAttribute('data-slug'), bid = s.getAttribute('data-bid'), multi = s.getAttribute('data-multi') === '1', m = $('.pe-msg', s);
+    function set(confirmHead) {
+      var ref = $('.pe-ref', s).value.trim(); if (!ref) return;
+      if (!confirmHead && multi && !confirm('This sets the PR of bundle ' + bid + ' for all of its files. Continue?')) return;
+      m.textContent = 'checking PR...';
+      var r0 = multi ? api('/api/pr/set_number', { id: bid, ref: ref, confirm_head: confirmHead })
+                     : api('/api/pr/file_set_number', { slug: slug, ref: ref, confirm_head: confirmHead });
+      r0.then(function (r) {
+        if (!r.ok && r.need_confirm && confirm(r.warnings.join('\n') + '\n\nUse this PR anyway?')) return set(true);
+        msg(m, r, 'Fix PR set on ' + (r.cases_updated || 0) + ' cases'); if (r.ok) load();
+      });
+    }
+    $('.pe-set', s).addEventListener('click', function () { set(false); });
+    $('.pe-ref', s).addEventListener('keydown', function (e) { if (e.key === 'Enter') set(false); if (e.key === 'Escape') s.hidden = true; });
+    var c = $('.pe-clear', s);
+    if (c) c.addEventListener('click', function () {
+      if (!confirm('Unlink this PR' + (multi ? ' from bundle ' + bid + ' (all its files)' : '') + ' and clear the Fix PR it set?')) return;
+      api('/api/pr/clear_number', { id: bid }).then(function (r) { msg(m, r, 'cleared on ' + (r.cases_updated || 0) + ' cases'); if (r.ok) load(); });
+    });
+  });
+}
+
 // ---------------------------------------------------------------- file page
 function renderFile(slug) {
   api('/api/file?slug=' + encodeURIComponent(slug)).then(function (d) {
@@ -284,22 +330,25 @@ function drawFile() {
   var pc = {}, rc = {}; cases.forEach(function (c) { pc[c.portability || ''] = (pc[c.portability || ''] || 0) + 1; rc[c.review || ''] = (rc[c.review || ''] || 0) + 1; });
   h.push('<div class="card">Status <b>' + esc(f.status) + '</b> &nbsp; branch <code>' + esc(f.agent_branch || '-') + '</code> &nbsp; commit <code>' + esc(f.commit || '-') + '</code> &nbsp; base <code>' + esc((f.base_sha || '').slice(0, 12)) + '</code>' +
     (f.bundle ? ' &nbsp; bundle <code>' + esc(f.bundle) + '</code>' : '') + '<br>Portability: ' + counts(pc, 'p', PO) + '<br>Review: ' + counts(rc, 'r', RC) + '</div>');
-  if (FILE.reviewer && FILE.reviewer.url) h.push(reviewerCard(FILE.reviewer));
   if (FILE.pr) h.push(filePrCard(FILE.pr));
-  h.push('<div class="card"><b>Common prompt</b> <span class="muted small">standing instruction for every case of this file on rework; a per-case comment wins on conflict</span>' +
-    '<textarea id="fprompt" style="min-height:50px">' + esc(f.file_prompt || '') + '</textarea><button id="fprompt-save">Save prompt</button> <span id="fprompt-msg"></span></div>');
   h.push('<div class="card"><b>Failure summary</b> <span class="muted small">grouped by latest XPU message; click a row or a pill to filter</span><div id="groups"></div></div>');
   if (FILE.drafts.length) {
     h.push('<details id="drafts" open><summary>Issue drafts (' + FILE.drafts.length + ')</summary>');
     FILE.drafts.forEach(function (d) { h.push(draftCard(d)); });
     h.push('</details>');
   }
-  h.push('<details><summary>Patch</summary><div class="row"><input type="text" class="find" placeholder="search, Enter for next"> <span class="muted small">read-only until you click Edit</span></div>' +
+  var pi = FILE.patch_info;
+  var pstate = pi ? (pi.in_sync ? ' <span class="pill s-PASSED small">up to date</span>' : ' <span class="pill s-SKIPPED small">stale: regenerate</span>') +
+    ' <span class="muted small">commit <code>' + esc(pi.commit.slice(0, 12)) + '</code> on <code>' + esc(pi.branch) + '</code>, written ' + esc(pi.updated) + '</span>' : '';
+  h.push('<details><summary>Patch' + pstate + '</summary><div class="row"><input type="text" class="find" placeholder="search, Enter for next"> <span class="muted small">read-only until you click Edit</span></div>' +
     '<textarea id="patch" class="code" spellcheck="false" readonly>' + esc(FILE.patch) + '</textarea>' +
     '<div class="card danger-zone small"><b>Edit the patch by hand</b> (rarely needed). Saving rebuilds this file\'s agent branch as ONE commit = base + your edited diff, ' +
     'regenerates the .patch, and invalidates earlier measurements (re-measure afterwards). If the diff does not apply, nothing changes.<br>' +
     '<button class="ghost" id="patch-edit">Edit</button> <button class="orange" id="patch-save" disabled>Apply edited patch to the agent branch</button> ' +
     '<button class="ghost" id="patch-cancel" disabled>Cancel</button> <span id="patch-msg"></span></div></details>');
+  if (FILE.reviewer && FILE.reviewer.url) h.push(reviewerCard(FILE.reviewer));
+  h.push('<div class="card"><b>Common prompt</b> <span class="muted small">standing instruction for every case of this file on rework; a per-case comment wins on conflict</span>' +
+    '<textarea id="fprompt" style="min-height:50px">' + esc(f.file_prompt || '') + '</textarea><button id="fprompt-save">Save prompt</button> <span id="fprompt-msg"></span></div>');
   h.push('<details id="srcwrap"><summary>Source (agent branch, read-only)</summary><div class="row"><input type="text" class="find" placeholder="search, Enter for next"></div><textarea id="src" class="code" readonly spellcheck="false">loading on open...</textarea></details>');
   h.push('<div class="card" id="bulk"><b>Bulk edit</b> (applies to the checked rows) &nbsp; Set <select id="b-field"><option>review</option><option>comment</option><option>portability</option><option>reason</option><option>issue</option></select> to ' +
     '<select id="b-rev">' + RC.map(function (v) { return '<option value="' + esc(v) + '">' + esc(v || '(unset)') + '</option>'; }).join('') + '</select>' +
@@ -350,8 +399,8 @@ function openReviewer(btn, url, msgEl) {
 
 function filePrCard(p) {
   var b = p.bundle, pr = b.pr || {}, ps = p.push_state || {};
-  if (p.external) return '<div class="card bundle"><b>Already submitted:</b> ' + p.external.map(function (x) { return '<a target="_blank" href="' + esc(x.url) + '">PR #' + x.number + '</a> ' + esc(x.state) + ' <span class="muted small">' + esc(x.title) + '</span>'; }).join(' &middot; ') +
-    '<div class="small muted">Fix PR is set on the covered cases (see the "fix PR" link per case). No new PR needed.</div></div>';
+  if (p.external && p.external_covers_all) return '<div class="card bundle"><b>Already submitted:</b> ' + p.external.map(function (x) { return '<a target="_blank" href="' + esc(x.url) + '">PR #' + x.number + '</a> ' + esc(x.state) + ' <span class="muted small">' + esc(x.title) + '</span>'; }).join(' &middot; ') +
+    '<div class="small muted">All cases of this file are covered (Fix PR set). No new PR needed.</div></div>';
   if (p.in_multi) return '<div class="card bundle">Patch is part of PR bundle <code>' + esc(p.in_multi) + '</code>; submit it from the <a href="#/">index page</a>.</div>';
   var state = pr.number ? '<span class="pill s-PASSED">PR #' + pr.number + ' ' + esc(pr.state || '') + '</span>'
     : ps.pushed ? (ps.in_sync ? '<span class="pill s-PASSED">pushed to ' + esc(p.fork_repo) + '</span>'
@@ -371,10 +420,19 @@ function filePrCard(p) {
   } else {
     actions = '<button class="green" id="fp-submit">Push to ' + esc(p.fork_repo || 'fork') + '</button>';
   }
-  return '<div class="card bundle" id="filepr"><b>Pull request</b> ' + state + ' <code class="small">' + esc(b.target_branch) + '</code>' +
+  // PRs recorded from outside (e.g. opened by hand earlier) cover only their cases; this
+  // file's own agent branch still gets its own PR card below.
+  var ext = (p.external || []).map(function (x) {
+    return '<div class="small">Also covered by <a target="_blank" href="' + esc(x.url) + '">PR #' + x.number + '</a> ' + esc(x.state) +
+      ' <span class="muted">' + esc(x.title) + (x.cases ? ' (' + x.cases.length + ' cases; Fix PR set on them)' : '') + '</span></div>';
+  }).join('');
+  return '<div class="card bundle" id="filepr"><b>Pull request</b> ' + state + ' <code class="small">' + esc(b.target_branch) + '</code>' + ext +
     '<div class="row" style="margin-top:6px">' + actions + ' <span id="fp-msg"></span></div>' +
     (ps.pushed && !pr.number ? '<div class="small" style="margin-top:4px">Share: <input type="text" id="fp-share" readonly size="70" value="' + esc(p.review_url) + '"></div>' : '') +
     '<div class="small muted">You create the PR yourself on GitHub (title/description below are prefilled, draft preselected). Fix PR is filled on this file\'s cases once the PR exists.</div>' +
+    (pr.number ? '' : '<div class="row small" style="margin-top:6px"><b>Or add to an existing PR of yours:</b> ' +
+      '<input type="text" id="fa-ref" size="10" placeholder="# or URL" value="' + esc(((p.external || [])[0] || {}).number || '') + '"> ' +
+      '<button class="ghost" id="fa-preview">Preview</button> <span id="fa-msg"></span></div><div id="fa-out"></div>') +
     '<details' + (b.description_stale ? ' open' : '') + '><summary class="small">PR title / description' + (b.description_stale ? ' <span class="warn">(your edited text differs from current verdicts)</span>' : '') + '</summary>' +
     '<input type="text" id="fp-title" style="width:100%" value="' + esc(b.title) + '">' +
     '<textarea id="fp-body" style="min-height:220px">' + esc(b.description || '') + '</textarea>' +
@@ -421,6 +479,32 @@ function wireFilePr(slug) {
   $('#fp-regen').addEventListener('click', function () {
     if (!confirm('Discard the edited description and rebuild it from the current verdicts?')) return;
     api('/api/pr/file_regen', { slug: slug }).then(function (r) { msg($('#fp-smsg'), r, 'regenerated'); if (r.ok) renderFile(slug); });
+  });
+  var fa = $('#fa-preview');
+  if (fa) fa.addEventListener('click', function () {
+    var ref = $('#fa-ref').value.trim(); if (!ref) return;
+    var m = $('#fa-msg'), out = $('#fa-out');
+    m.textContent = 'checking PR and applying commits (scratch worktree)...'; out.innerHTML = '';
+    api('/api/pr/file_append', { slug: slug, ref: ref }).then(function (r) {
+      if (!r.ok) { msg(m, r, ''); return; }
+      if (r.nothing) { m.innerHTML = '<span class="ok">PR #' + r.pr + ' already contains this file\'s commits.</span>'; return; }
+      m.textContent = '';
+      out.innerHTML = '<div class="card small">Adds ' + r.commits.length + ' commit(s) on top of <a target="_blank" href="' + esc(r.url) + '">PR #' + r.pr + '</a> ' +
+        '<span class="muted">' + esc(r.title) + '</span>, branch <code>' + esc(r.head) + '</code> @ <code>' + esc(r.head_oid) + '</code> (fast-forward, no force push):' +
+        '<pre>' + esc(r.commits.join('\n')) + '\n\n' + esc(r.diffstat || '') + '</pre>' +
+        '<code>' + esc(r.push_cmd) + '</code><br>Afterwards Fix PR #' + r.pr + ' is set on all cases of this file. Update the PR title/description on GitHub yourself.<br>' +
+        '<button class="orange" id="fa-push">Push to PR #' + r.pr + '</button> <span id="fa-pmsg"></span></div>';
+      $('#fa-push').addEventListener('click', function () {
+        if (!confirm('Push ' + r.commits.length + ' commit(s) to ' + r.head + ' (PR #' + r.pr + ')?')) return;
+        var b = $('#fa-push'); b.disabled = true; $('#fa-pmsg').textContent = 'pushing...';
+        api('/api/pr/file_append', { slug: slug, ref: ref, confirm: true }).then(function (x) {
+          b.disabled = false;
+          if (!x.ok || x.dry_run) { msg($('#fa-pmsg'), x, 'dry-run: nothing pushed'); return; }
+          $('#fa-pmsg').innerHTML = '<span class="ok">pushed ' + esc(x.pushed) + '; Fix PR set on ' + (x.cases_updated || 0) + ' cases</span> <a target="_blank" href="' + esc(x.url) + '">open PR &#8599;</a>';
+          setTimeout(function () { renderFile(slug); }, 1500);
+        });
+      });
+    });
   });
   $('#fp-set').addEventListener('click', function () {
     var ref = $('#fp-ref').value.trim(); if (!ref) return;
@@ -586,11 +670,109 @@ function route() {
   BACK_TO_INDEX = !!LAST_FILE;
   api('/api/data').then(function (d) { DATA = d; renderIndex(); });
 }
-function load() { return api('/api/data').then(function (d) { DATA = d; if (/^#\/file\//.test(location.hash)) route(); else renderIndex(); }).catch(function (e) { $('#app').innerHTML = '<p class="err">failed to load /api/data: ' + esc(e) + '</p>'; }); }
+// Background agent jobs (one at a time): process the session's CSV, or retest selected
+// files. The agent cannot push or file issues (blocked); those stay on your buttons.
+var JOB_TIMER = null;
+function jobCard(nFiles) {
+  var j = DATA.job, s = DATA.session || {};
+  var head = j ? '<span class="pill s-SKIPPED">' + esc(j.kind) + ' running</span> since ' + esc(j.started) +
+      (j.files && j.files.length ? ' <span class="muted small">' + esc(j.files.join(', ')) + '</span>' : '') +
+      ' <button class="orange" id="job-stop">Stop</button>'
+    : '<button class="green" id="job-process" title="agent processes this session\'s CSV (cases not done yet)">Process this session</button> ' +
+      '<button class="ghost" id="job-process-sel" title="process only the checked files">Process selected</button> ' +
+      '<button class="ghost" id="job-retest" title="re-measure the final code of the checked files">Retest selected</button>';
+  return '<div class="card" id="jobcard"><b>Agent</b> ' + head + ' <span id="job-msg"></span>' +
+    (nFiles ? '' : '<div class="small">Session <b>' + esc(s.name || '') + '</b> has no test files yet (CSV <code>' + esc(DATA.csv || '(none)') +
+      '</code>). Click <b>Process this session</b>; files appear here as the agent finishes them.</div>') +
+    '<div class="small muted">Runs <code>opencode run</code> on the server with the enable-xpu-tests skill. It cannot push, file issues or touch PRs; ' +
+    'while it runs, other changes to the workspace clone are refused.</div>' +
+    '<details id="job-logwrap"' + (j ? ' open' : '') + '><summary class="small">Log' + (j ? '' : ' (last job)') + '</summary><pre id="job-log" class="joblog">loading...</pre></details></div>';
+}
+
+function wireJob(selectedFiles) {
+  if (JOB_TIMER) { clearInterval(JOB_TIMER); JOB_TIMER = null; }
+  var m = $('#job-msg');
+  function start(kind, files, what) {
+    if (!confirm('Start a background ' + kind + ' job for ' + what + ' in session "' + (DATA.session || {}).name + '"?\n\n' +
+                 'It runs unattended until done (can take hours). It cannot push or file issues.')) return;
+    m.textContent = 'starting...';
+    api('/api/job_start', { kind: kind, files: files }).then(function (r) { msg(m, r, 'started ' + (r.job ? r.job.id : '')); if (r.ok) load(); });
+  }
+  var bp = $('#job-process'), bs = $('#job-process-sel'), br = $('#job-retest'), st = $('#job-stop');
+  if (bp) bp.addEventListener('click', function () { start('process', [], 'all remaining cases'); });
+  if (bs) bs.addEventListener('click', function () { var f = selectedFiles(); if (!f.length) { m.innerHTML = '<span class="err">check some files first</span>'; return; } start('process', f, f.length + ' file(s)'); });
+  if (br) br.addEventListener('click', function () { var f = selectedFiles(); if (!f.length) { m.innerHTML = '<span class="err">check some files first</span>'; return; } start('retest', f, f.length + ' file(s): ' + f.join(', ')); });
+  if (st) st.addEventListener('click', function () {
+    if (!confirm('Stop the running job? The clone may be left on an agent branch with uncommitted edits.')) return;
+    api('/api/job_stop', {}).then(function (r) { msg(m, r, 'stopped. ' + (r.note || '')); load(); });
+  });
+  function poll() {
+    if (!$('#job-log')) { clearInterval(JOB_TIMER); JOB_TIMER = null; return; }
+    api('/api/job_status', {}).then(function (r) {
+      var el = $('#job-log'); if (!el) return;
+      var atEnd = el.scrollTop + el.clientHeight >= el.scrollHeight - 20;
+      el.textContent = r.job ? ('[' + r.job.id + ' ' + r.job.status + ']\n' + (r.text || '')) : '(no jobs yet)';
+      if (atEnd) el.scrollTop = el.scrollHeight;
+      if (!!r.running !== !!DATA.job) load();   // started or finished: refresh the index
+    });
+  }
+  poll();
+  JOB_TIMER = setInterval(poll, DATA.job ? 5000 : 30000);
+}
+
+// Sessions: the header picker shows the active session; switching or creating one
+// changes what every page (and the agent's CLI tools) read and write.
+function renderSessions() {
+  var sel = $('#sess-sel'); if (!sel || !DATA) return;
+  sel.innerHTML = (DATA.sessions || []).map(function (s) {
+    return '<option value="' + esc(s.name) + '"' + (s.active ? ' selected' : '') + ' title="' + esc(s.csv || '(no CSV)') + '">' +
+      esc(s.name) + ' (' + s.files + ' files)</option>';
+  }).join('');
+  var cur = DATA.session || {};
+  sel.title = 'CSV: ' + (cur.csv || '(none)') + '\nreport: ' + (cur.root || '') + '\nbase: ' + (cur.base_sha || '').slice(0, 12);
+}
+
+function wireSessions() {
+  $('#sess-sel').addEventListener('change', function (e) {
+    var name = e.target.value;
+    if (!confirm('Switch to session "' + name + '"? The agent CLI will use it too.')) { renderSessions(); return; }
+    api('/api/session_switch', { name: name }).then(function (r) {
+      if (!r.ok) { alert(r.error); renderSessions(); return; }
+      sessionStorage.removeItem('lastFile'); sessionStorage.removeItem('idxFilter2');
+      LAST_FILE = ''; IDX_FILTER = {};
+      location.hash = '#/'; load();
+    });
+  });
+  var dlg = $('#sess-dlg');
+  $('#sess-new').addEventListener('click', function () { dlg.hidden = !dlg.hidden; if (!dlg.hidden) $('#sn-name').focus(); });
+  $('#sn-cancel').addEventListener('click', function () { dlg.hidden = true; });
+  $('#sn-create').addEventListener('click', function () {
+    var name = $('#sn-name').value.trim(), note = $('#sn-note').value.trim(), m = $('#sn-msg');
+    var file = $('#sn-file').files[0], path = $('#sn-path').value.trim();
+    if (!name || (!file && !path)) { m.innerHTML = '<span class="err">enter a name and choose a CSV file or path</span>'; return; }
+    function done(r) {
+      if (!r.ok) { msg(m, r, ''); return; }
+      m.innerHTML = '<span class="ok">created</span>'; dlg.hidden = true;
+      sessionStorage.removeItem('lastFile'); sessionStorage.removeItem('idxFilter2'); LAST_FILE = ''; IDX_FILTER = {};
+      location.hash = '#/'; load();
+    }
+    m.textContent = 'creating...';
+    if (file) {
+      var rd = new FileReader();
+      rd.onload = function () { api('/api/session_create', { name: name, note: note, csv_name: file.name, csv_text: rd.result }).then(done); };
+      rd.readAsText(file);
+    } else {
+      api('/api/session_create', { name: name, note: note, csv_path: path }).then(done);
+    }
+  });
+}
+
+function load() { return api('/api/data').then(function (d) { DATA = d; renderSessions(); if (/^#\/file\//.test(location.hash)) route(); else renderIndex(); }).catch(function (e) { $('#app').innerHTML = '<p class="err">failed to load /api/data: ' + esc(e) + '</p>'; }); }
 window.addEventListener('hashchange', route);
 window.addEventListener('scroll', function () { if (!/^#\/file\//.test(location.hash)) sessionStorage.setItem('idxScroll', String(window.scrollY)); });
 document.addEventListener('DOMContentLoaded', function () {
   $('#reload').addEventListener('click', load);
+  wireSessions();
   $('#export').addEventListener('click', function () { var m = $('#export-msg'); m.textContent = 'exporting...'; api('/api/export_csv', {}).then(function (r) { msg(m, r, r.path + ' (' + r.pr_rows + ' PR rows' + (r.fix_pr_conflicts && r.fix_pr_conflicts.length ? ', ' + r.fix_pr_conflicts.length + ' fix_pr conflicts kept' : '') + ')'); }); });
   load();
 });
